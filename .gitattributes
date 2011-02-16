@@ -1,2 +1,5 @@
 war/WEB-INF/lib/acegi-security-1.0.5.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/aspectjrt.jar svn_mime_002dtype=application%2Foctet-stream
+war/WEB-INF/lib/aspectjweaver.jar svn_mime_002dtype=application%2Foctet-stream
+war/WEB-INF/lib/commons-collections.jar svn_mime_002dtype=application%2Foctet-stream
+war/WEB-INF/lib/commons-fileupload.jar svn_mime_002dtype=application%2Foctet-stream
