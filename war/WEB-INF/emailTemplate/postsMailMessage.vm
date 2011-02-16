@@ -1,0 +1,173 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1255">
+	<title>Authority for Research and Development</title>
+	<style type="text/css">
+		body {
+			background-color:#FFFFFF;
+			margin:0px;
+		}
+		p, li, td {
+			color:#000000;
+			font-family:arial,helvetica;
+			font-size:10pt;
+			font-weight:550;
+		}
+		.small {
+			color:#000000;
+			font-family:arial,helvetica;
+			font-size:10px;
+			font-weight:550;
+		}
+		.smallmedium {
+			color:#000000;
+			font-family:arial,helvetica;
+			font-size:11px;
+			font-weight:550;
+		}
+		.big {
+			color:#000000;
+			font-family:arial,helvetica;
+			font-size:16px;
+			font-weight:bold;
+		}
+		.medium {
+			color:#000000;
+			font-family:arial,helvetica;
+			font-size:14px;
+			text-decoration:none;
+		}
+		.orange {
+			color:#E18323;
+			font-family:arial,helvetica;
+			font-size:12px;
+			font-weight:bold;
+			text-decoration:none;
+		}
+		.blue {
+			color:#1A69A6;
+			font-family:arial,helvetica;
+			font-size:12px;
+			font-weight:bold;
+			text-decoration:none;
+		}
+		.bold{
+			font-weight:bold;
+		}
+		a:link {
+			color:#000000;
+		}
+		a:visited, a:active, a:hover {
+			color:#666666;
+		}
+</style>
+</head>
+<body>
+<table width="90%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" align="center">
+  <tr>
+    <td colspan="3" align="center" bgcolor="#ddd3b0"><img src="cid:header_post" width="700" height="76" /><br /></td>
+  </tr>
+   <tr>
+    <td height="3" bgcolor="#89877b" colspan="3"></td>
+  </tr>
+  <tr>
+    <td height="5" colspan="3" dir="$language.dir"><span class="small">${recipient.preferedLocaleDegreeFullName}, ${postsAnnouncement} </span></td>
+  </tr>
+
+  #foreach ($post in $posts)
+  <tr>
+
+    #set ($bullet = "cid:bullet")
+    #set ($attach = "<img src=\"cid:attach\"/>")
+    #set ($bulletImg = "&nbsp;<img src=\"cid:bullet\"/>&nbsp;")
+
+
+    <td valign="top"><img src="cid:corner_left" alt="" width="48" height="52"/></td>
+
+    #set ($textDirection = $post.language.dir)
+
+    <td style="text-align: ${post.language.align}; direction: ${post.language.dir};">
+    	<br/>
+    	#set ($mailtoUrl = "<a style=\"text-decoration: none\" href=\"mailto:")
+        #set ($mailtoUrl = $mailtoUrl + ${post.sender.email})
+        #set ($mailtoUrl = $mailtoUrl + "?subject=Re:")
+        #set ($mailtoUrl = $mailtoUrl + ${post.messageSubject})
+        #set ($mailtoUrl = $mailtoUrl + "&body=\">")
+
+
+        #set ($replaceWith = "<span$1>")
+		#set ($postMessage = $post.message)
+		#set ($postMessage = $postMessage.replaceAll("<p(.*?)>", $replaceWith))
+		#set ($postMessage = $postMessage.replaceAll("</p>","</span><br/>"))
+		#set ($postMessage = $postMessage.replaceAll("</p>","</span><br/>"))
+		#set ($postMessage = $postMessage.replaceAll(";;", $bulletImg))
+		#set ($postMessage = $postMessage.replaceAll("#@#", $attach))
+		#set ($postMessage = $postMessage.replaceAll("#mu#",$mailtoUrl))
+		#set ($postMessage = $postMessage.replaceAll("#mp#",${post.sender.degreeFullName}))
+		#set ($postMessage = $postMessage.replaceAll("#mue#","</a>"))
+
+		#if ($personMD5)
+       		#set ($infoPageUrlReplacement = "ardNum=$1&md5="+$personMD5+"\">")
+       		#set ($postMessage = $postMessage.replaceAll("ardNum=(.*?)\">", $infoPageUrlReplacement))
+       	#end
+
+       	#set ($cannotReadPost = !$recipient.readsUTF8Mails && $post.language.UTF8)
+       	#if ($cannotReadPost)
+       		<p>Not readable on your mail client, the information is available <a href="http://$server/iws/post.html?id=$post.id">here</a></p>
+       		<p>You will be required to login. username: civil id first 8 digits. password: the code from your salary flip</p>
+       		<br/>
+       	#else
+       	   	${postMessage}
+
+		<br/>
+
+		#if ($post.verified)
+			<span class="smallmedium">
+				$messageService.getMessage($postSuffixKey, $post.localeId)&nbsp;&nbsp;<a href="http://${server}/iws/personPost.html?id=${recipient.id}">$messageService.getMessage($editSubscriptionDetailsKey, $post.localeId)</a>
+			</span>
+			<br/>
+			<span class="small">
+				$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId): ${post.recipientPostCommonSubjectsString}
+			</span>
+		#elseif ($post.selfSent)
+			<span class="small">
+			<a style="text-decoration: none" href="http://${server}/iws/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $post.localeId)</a>
+			&nbsp;<img src="${bullet}"/>&nbsp;
+			<a style="text-decoration: none" href="http://${server}/iws/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $post.localeId)</a>
+			</span>
+		#end
+
+		#end
+     </td>
+	  #set ($align = $post.language.alignOpp)
+	  #if ($align.equals("left"))
+	  		#set ($align = "center")
+	  #end
+	  <td style="text-align: right; direction: ${post.language.dir};" valign="top">
+	  		<img src="cid:corner_${post.typeId}" width="65" height="52"/><br/>
+	  		#set($messageKey = "post.type.short."+$post.typeId)
+      		#set($postType = $postTypes.get($post.typeId))
+
+      		<span style="background-color: #faf9f7; color: ${postType.color}; font-size: 11px; padding: 5px;">$messageService.getMessage($messageKey, $post.localeId)</span>
+      </td>
+    </tr>
+    <tr>
+		<td height="2" bgcolor="#89877b" colspan="3"/>
+	</tr>
+  #end
+
+
+
+  <tr>
+    <td bgcolor="#89877b" height="3" colspan="3"></td>
+  </tr>
+
+  <tr>
+    <td height="5" align="center" bgcolor="#ddd3b0" dir="$language.dir" colspan="3"><p class="small">${allRightsReserved}</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#89877b" height="3" colspan="3"></td>
+  </tr>
+</table>
+</body>
+</html>

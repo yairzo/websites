@@ -1,0 +1,100 @@
+<html>
+	<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+        <title>A Message from the Authority for Research & Develpment for the Hebrew University in Jerusalem</title>
+        <style type="text/css">
+        	body
+			{
+				background-color:FFFFFF;
+			}
+
+			h1
+			{
+				font-size: 12pt;
+				font-family:arial, helvetica;
+				color:5B5950;
+				text-decoration:underline;
+				line-height: 28px;
+			}
+			p,li,td
+			{
+				font-size: 11pt;
+				font-family: arial, Helvetica, sans-serif;
+				color:#525148;
+				font-weight: normal;
+				list-style-type: none;
+				text-align: $language.align;
+				direction: $language.dir;
+			}
+			table
+			{
+				width: 700px;
+			}
+			div.centered
+			{
+				text-align: center;
+			}
+			a:link, a:active
+			{
+			color:2C2B27;
+			text-decoration:underline;
+			}
+			a:visited
+			{
+			color:767468;
+			text-decoration:none;
+			}
+			a:hover
+			{
+			color:767468;
+			text-decoration:underline
+			}
+		</style>
+</head>
+
+
+	<body>
+	<div align="center">
+	<table  style="border: thin dotted black;">
+		<tr>
+			<td style="background-color: #e2d9bc;" align="center">
+				<img src="cid:header_post"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table>
+			<tr>
+				<td>
+					<br/>
+						#if (${privateMessageOpening})
+							${privateMessageOpening},
+							<br/>
+							<br/>
+						#end
+
+							#if (${proposalMessage})
+								#parse("simpleProposalMailMessage.vm")
+							#elseif (${partnerMessage})
+								#parse("simplePartnerMailMessage.vm")
+							#elseif (${fundMessage})
+								#parse("simpleFundMailMessage.vm")
+							#end
+
+					${message}
+					<br/>
+			</td>
+		</tr>
+		</table>
+
+
+			</td>
+
+		</tr>
+
+	</table>
+	</div>
+	</body>
+</html>
+

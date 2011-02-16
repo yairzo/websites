@@ -1,0 +1,526 @@
+<%@ page  pageEncoding="UTF-8" %>
+        <tr>
+          <td align="right" bgcolor="#787669" height="20"><p class="white">&nbsp;&nbsp;&nbsp;טופס מרובע > עריכת פרטי בקשה למימון</p></td>
+        </tr>
+	</table>
+
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table width="700" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468" dir="rtl">
+        <tr>
+          <td valign="top" align="center"><br>
+            <form name="form" method="GET" commandName="command">
+
+
+
+              <table width="600" border="0" align="center" cellpadding="2" cellspacing="0">
+
+                <tr>
+                	<th colspan="2" >
+                		<h1>בקשה לאישור הצעת מחקר (או להפעלת תקציב) והתחייבות
+  "טופס מרובע"</h1>
+  					</th>
+  					</tr>
+  					<tr>
+  						<td colspan="2">
+  							הוראת הנהלה 21-005
+מחקרים שבמימון גורמים חיצוניים
+						</td>
+					</tr>
+
+                        <tr>
+   			                  <td colspan="2" >&nbsp;<br><img src="/listsManager/images/hr.gif" width="580" height="10"><br>&nbsp;</td>
+        		        </tr>
+
+        		        <tr>
+        		        	<th colspan="2" align="right">
+									1.	פרטי מגיש/י ההצעה /מבקש/י התקציב
+        		        	</th>
+        		        </tr>
+
+        		        <tr>
+        		        	<th align="right"  colspan="2" >
+        		        		<br>
+								<ul>
+									<li><b>	חוקר ראשי: פרופ' ישראל ירושלמי&nbsp;&nbsp;ת.ז.: 0112111 </b></li>
+									<li><b>	חוקר: פרופ' רם גיבעתי&nbsp;&nbsp;ת.ז.: 34233423 </b></li>
+								</ul>
+        		        	</th>
+        		        </tr>
+        		        <tr>
+        		        	<td width="150">
+        		        		הוסף חוקר לרשימת המגישים:
+        		        	</td>
+        		        	<td>
+        		        		<select class="green" name="researcher"/>
+        		        			<option>בחר חוקר&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+        		        		</select>
+							</td>
+						</tr>
+
+        		        <tr>
+			                  <td colspan="2" >&nbsp;<br><img src="/listsManager/images/hr.gif" width="580" height="10"><br>&nbsp;</td>
+        		        </tr>
+
+        		        <tr>
+        		        	<th colspan="2" align="right">
+        		        		2. פרטי המחקר והתחייבות
+        		        	</th>
+        		        </tr>
+        		        <tr>
+        		        	<td>&nbsp;</td>
+        		        </tr>
+
+        		        <tr>
+        		        	<td colspan="2">
+        		        		נושא המחקר (יש לצרף הצעת מחקר מפורטת, הכוללת תקציב ובהעדרה - תיאור של יעוד התקציב ומתכונת ניצולו)
+        		        	</td>
+        		        </tr>
+
+        		        <tr>
+        		        	<td>
+        		        		בעיברית:
+        		        	</td>
+        		        	<td>
+        		        		<textarea dir="rtl" cols="60" rows=4 class="green">
+        		        	</textarea>
+        		        	</td>
+        		        </tr>
+
+        		        <tr>
+        		        	<td>
+        		        		באנגלית:
+        		        	</td>
+        		        	<td>
+        		        		<textarea dir="ltr" cols="60" rows="4" class="green">
+        		        	</textarea>
+        		        	</td>
+        		        </tr>
+
+        		        <tr>
+        		        	<td>
+        		        		הגורם המממן (הוגש ל-):
+        		        	</td>
+        		        	<td>
+        		        		<select width="300" class="green"/>
+        		        			<option>בחר/י גורם מממן</option>
+        		        			<option>NIH</option>
+        		        		</select>
+        		        	</td>
+        		        </tr>
+
+        		        <tr>
+        		        	<td>
+								צרף את הצעת המחקר:
+        		        	</td>
+        		        	<td>
+        		        		<input type="text" size="23" class="green"/>&nbsp;&nbsp;<button class="grey">עיון...</button>
+        		        	</td>
+        		        </tr>
+        		        <tr>
+        		        	<td>
+        		        	&nbsp;
+        		        	</td>
+        		        </tr>
+
+        		        <tr>
+        		        	<td colspan="2">
+        		        		<table>
+        		        			<tr>
+        		        				<th width="200" style="border-style: dotted; border-width: 1px 1px 0px 0px" align="right">
+        		        					בטיחות:
+        		        				</th>
+        		        				<th width="200" style="border-style: dotted; border-width: 1px 1px 0px 0px" align="right">
+        		        					ניסויים בבני אדם:
+        		        				</th>
+        		        				<th width="200" style="border-style: dotted; border-width: 1px 1px 0px 1px" align="right">
+        		        					ניסויים בחיות מעבדה:
+        		        				</th>
+        		        			</tr>
+        		        			<tr>
+        		        				<td style="border-style: dotted; border-width: 0px 1px 1px 0px">
+        		        					<input type="radio" value=""/>המחקר אינו ניסויי
+        		        					<br>
+        		        					<input type="radio" value=""/>המחקר ניסויי, מצורף נספח
+ 																								הבטיחות  חתום על ידי
+																								מחלקה  לבטיחות ולגיהות
+																								.טופס מס 025
+										<br>
+										<br>
+										צרף אישור:&nbsp;&nbsp;<input type="text" class="green" size="6"/>
+										<br>
+										<button class="grey">עיון...</button>
+										</td>
+										<td style="border-style: dotted; border-width: 0px 1px 1px 0px">
+											<input type="radio" value=""/>המחקר אינו כרוך בניסויים באדם
+											<br>
+    			        					<input type="radio" value=""/>המחקר   כרוך   בניסויים   באדם,
+      מצורף  אישור  ועדת הלסינקי  או
+       הוועדה לאתיקה של ניסויים,  לא
+       רפואיים, באדם.
+       <br>
+       צרף אישור:&nbsp;&nbsp;<input type="text" class="green" size="6"/>
+       <br>
+       <button class="grey">עיון...</button>
+
+    			        				</td>
+    			        				<td style="border-style: dotted; border-width: 0px 1px 1px 1px">
+    			        					<input type="radio" value=""/>המחקר אינו כרוך בניסויים בחיות
+    			        					<br>
+        		        					<input type="radio" value=""/>המחקר  כרוך  בניסויים בחיות,
+       מצורף אישור  הוועדה לאתיקה
+       של טיפול וניסויים בבע"ח.
+       										<br>
+       										צרף אישור:&nbsp;&nbsp;<input type="text" class="green" size="6"/>
+											<br>
+											<button class="grey">עיון...</button>
+
+        		        				</td>
+        		        			</tr>
+        		        			</table>
+        		        			</td>
+        		        			</tr>
+
+        		        			<tr>
+        		        	<td>
+        		        	&nbsp;
+        		        	</td>
+        		        </tr>
+
+
+        		        <tr>
+        		        	<th align="right" colspan="2">
+        		        		הנני מתחייב/ת בזה,
+        		        	</th>
+        		        </tr>
+        		        <tr>
+        		        	<td colspan="2">
+        		        	<ul>
+        		        	<li>
+למלא במדויק אחר כל התנאים המפורטים בחוזה/בהסכם עם המממן ולקיים במלואן את כל ההתחייבויות הנובעות ממנו.
+							</li>
+							<li>
+למלא אחר הוראות האוניברסיטה ונהליה המתייחסים לביצוע מחקרים בתחומה, וכן לדאוג שעובדים וסטודנטים שיעסקו בפיקוחי במחקר זה ימלאו אחר האמור לעיל.
+							</li>
+							<li>
+לפעול על-פי הנחיות המחלקה לבטיחות ולגיהות בכל הקשור לנהלי העבודה ולתשתיות הבטיחות, הרלוונטיים למחקר זה.
+							</li>
+							<li>
+לעמוד בדרישות הדיווח המדעי והכספי, כפי שהן מופיעות בתנאי החוזה/ההסכם ולכסות את הגירעונות/ההוצאות הכספיות, שיגרמו לאוניברסיטה כתוצאה מאי עמידתי בדרישות המממן או במסגרת התקציבית וזאת מתקציבים אחרים העומדים או שיעמדו לרשותי.
+							</li>
+							<li>
+למלא, בפעילותי הקשורה למחקר זה ולתוצאותיו, את כל הוראות האוניברסיטה באשר לקניין רוחני והמצאות שירות תוך מניעת סתירה בין ההתחייבויות שלי כלפי האוניברסיטה, כלפי שותפי למחקר, כלפי תלמידי, כלפי גורמי מימון, כלפי בעלי עניין עסקיים וכלפי חברת "יישום".
+							</li>
+							</ul>
+
+							</td>
+						</tr>
+
+						<tr>
+							<th align="right"  colspan="2">
+								אישור החוקר\ים:
+							</th>
+						</tr>
+						<tr>
+							<th colspan="2">
+								<input type="checkbox" />&nbsp;מאושר על-ידי פרופ' ישראל ירושלמי
+							</th>
+						</tr>
+
+
+						<tr>
+		                  			                  <td colspan="2" >&nbsp;<br><img src="/listsManager/images/hr.gif" width="580" height="10"><br>&nbsp;</td>
+        		        </tr>
+
+
+
+
+        		        <tr>
+        		        	<th colspan="2">
+        		        	3.	אישור הפקולטה/ביה"ס (במקרה של מימון חיצוני באמצעות חוזה ו/או אם התקציב עולה על 50,000$)
+        		        	</th>
+        		        </tr>
+        		        <tr>
+        		        	<td>
+        		        	&nbsp;
+        		        	</td>
+        		        </tr>
+        		        <tr>
+        		        	<td colspan="2">
+        		        		<table  width="600" style="border-style: dotted; border-width: 1px">
+        		        			<tr>
+        		        				<td colspan="2">
+			        		        		חלק למילוי על-ידי החוקר/ים
+        					        	</td>
+        		        			</tr>
+			        		        <tr>
+        					        	<td colspan="2">
+        		        					<input type="radio" checked/>דרוש אישור הפקולטה/הביה"ס
+			        		        		<br>
+        					        		<input type="radio"/>לא דרוש אישור הפקולטה/הביה"ס
+        		        				</td>
+			        		        </tr>
+			        		        <tr>
+        					        	<td>
+        		        					הגורם המאשר:
+			        		        	</td>
+        					        	<td>
+        		        					<select class="green"/>
+        		        						<option>דיקן הפקולטה למדעי הטבע - פרופ' עזריאל אישורי</option>
+			        		        		</select>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<a href="">	הגורם המאשר הנדרש לא מופיע ברשימה</a>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+        				   	<td>
+        		        		&nbsp;
+        		        	</td>
+        		        </tr>
+						<tr>
+        		        	<td colspan="2">
+        		        		<table width="600" style="border-style: dotted; border-width: 1px">
+        		        			<tr>
+        		        				<td colspan="2">
+			        		        		חלק למילוי על-ידי הגורם המאשר
+			        		        	</td>
+			        		        </tr>
+				       		        <tr>
+        					        	<td colspan="2">
+			        		        		אני מאשר/ת כי מגיש/י הבקשה מוסמכים, בהתאם להוראות האוניברסיטה, להגישה וכן כי היחידה בה מועסק מגיש ההצעה, תקצה ממשאביה לתשתית עבור המחקר לרבות שטח מעבדה, תשתית בטיחות, שימוש בציוד יחידתי, שירותים משרדיים וכיו"ב.
+        					        	</td>
+        		        			</tr>
+        		        			<tr>
+        		        				<td>
+			        		        		שם הדיקן/מנהל ביה"ס או נציגו (יש לרשום שם מלא):
+    	    				        	</td>
+			        		        	<td>
+        					        		<input class="green" type="text" size="30"/>
+        					        	</td>
+        		        			</tr>
+			        		        <tr>
+        					        	<td>
+        		        					תפקיד:
+			        		        	</td>
+        					        	<td>
+        		        					<input class="green" type="text" size="30"/>
+			        		        	</td>
+        					        </tr>
+        					       	<tr>
+			        		        	<td>&nbsp;</td>
+        					        </tr>
+        		        			<tr>
+		        		        		<th align="right" colspan="2">
+        				        			<input class="green" type="radio"/>מאשר
+        				        		</th>
+        		        			</tr>
+			        		        <tr style="vertical-align: top">
+        					        	<th align="right">
+        		        					<input class="green" type="radio"/>לא מאשר
+        		        				</th>
+        		        				<td>
+		        		        		<table>
+        				        			<tr>
+        				        				<td>
+			        				        		סיבת הדחייה:
+			        		    		    	</td>
+			        		        			<td>
+				       		        				<textarea class="green" cols="30" rows="4"/></textarea>
+						       		        	</td>
+						       		        </tr>
+					       		       </table>
+					       		       </td>
+					       		      </tr>
+					       		     </table>
+
+        		        	</td>
+        		        </tr>
+
+        		        <tr>
+		                  			                  <td colspan="2" >&nbsp;<br><img src="/listsManager/images/hr.gif" width="580" height="10"><br>&nbsp;</td>
+        		        </tr>
+
+        		        <tr>
+        		        	<th colspan="2">
+        		        		4.   אישור הרשות למחקר ולפיתוח כי ההצעה נבדקה וכי אין מניעה לחתום על ההתקשרות עם הגורם המממן
+        		        	</th>
+        		        </tr>
+        		        <tr>
+        		        	<td>&nbsp;</td>
+        		        </tr>
+        		        <tr>
+        		        	<td>
+        		        		שם:
+        		        	</td>
+        		        	<td>
+        		        		<input type="text" class="green" size="30"/>
+        		        	</td>
+        		        </tr>
+        		        <tr>
+        		        	<td>
+        		        		תפקיד:
+        		        	</td>
+        		        	<td>
+        		        		<input type="text" class="green" size="30"/>
+        		        	</td>
+        		        </tr>
+						<tr>
+        		        	<td>&nbsp;</td>
+        		        </tr>
+        		        <tr>
+        		        	<th align="right" colspan="2">
+        		        		<input class="green" type="radio"/>מאשר
+        		        	</th>
+        		        </tr>
+        		        <tr style="vertical-align: top">
+        		        	<th align="right">
+        		        		<input class="green" type="radio"/>לא מאשר
+        		        	</th>
+        		        	<td>
+        		        		<table>
+        		        			<tr>
+        		        				<td>
+			        		        		סיבת הדחייה:
+			        		        	</td>
+			        		        	<td>
+				       		        		<textarea class="green" cols="30" rows="4"/></textarea>
+				       		        	</td>
+				       		        </tr>
+				       		       </table>
+        		        	</td>
+        		        </tr>
+
+        		        <tr>
+       			            <td colspan="2" >&nbsp;<br><img src="/listsManager/images/hr.gif" width="580" height="10"><br>&nbsp;</td>
+        		        </tr>
+
+        		        <tr>
+        		        	<th colspan="2">
+        		        			5.   אישור חברת "יישום" שנתוני הטופס וכללי האוניברסיטה הובאו בחשבון, בהסכם עם המממן (הוראת הנהלה 15-011)
+        		        	</th>
+        		        </tr>
+        		        <tr>
+        		        	<td>&nbsp;</td>
+        		        </tr>
+        		        <tr>
+        		        	<td>
+        		        		שם:
+        		        	</td>
+        		        	<td>
+        		        		<input type="text" class="green" size="30"/>
+        		        	</td>
+        		        </tr>
+        		        <tr>
+        		        	<td>
+        		        		תפקיד:
+        		        	</td>
+        		        	<td>
+        		        		<input type="text" class="green" size="30"/>
+        		        	</td>
+        		        </tr>
+						<tr>
+        		        	<td>&nbsp;</td>
+        		        </tr>
+        		        <tr>
+        		        	<th align="right" colspan="2">
+        		        		<input class="green" type="radio"/>מאשר
+        		        	</th>
+        		        </tr>
+        		        <tr style="vertical-align: top">
+        		        	<th align="right">
+        		        		<input class="green" type="radio"/>לא מאשר
+        		        	</th>
+        		        	<td>
+        		        		<table>
+        		        			<tr>
+        		        				<td>
+			        		        		סיבת הדחייה:
+			        		        	</td>
+			        		        	<td>
+				       		        		<textarea class="green" cols="30" rows="4"/></textarea>
+				       		        	</td>
+				       		        </tr>
+				       		       </table>
+        		        	</td>
+        		        </tr>
+        		        <tr>
+       			            <td colspan="2" >&nbsp;<br><img src="/listsManager/images/hr.gif" width="580" height="10"><br>&nbsp;</td>
+        		        </tr>
+        		        <tr>
+						<th colspan="2">
+							פעולות
+						</th>
+					</tr>
+					<tr>
+        		        	<td>&nbsp;</td>
+       		        </tr>
+					<tr>
+						<td colspan="2">
+						<select class="green" width="20">
+							<option>בחר\י פעולה</option>
+							<option>שמירה</option>
+							<option>העבר לאישור דיקן</option>
+							<option>העבר לאישור יישום</option>
+							<option>העבר לאישור הרשות למו"פ</option>
+						</select>
+						&nbsp;&nbsp;
+							<button class="grey">בצע</button>
+						</td>
+					</tr>
+					<tr>
+       			            <td colspan="2" >&nbsp;<br><img src="/listsManager/images/hr.gif" width="580" height="10"><br>&nbsp;</td>
+        		        </tr>
+        		        <tr>
+							<th colspan="2">
+								הודעות
+							</th>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<ol class="padded">
+									<li>
+										מאת: פרופ' ישראל ירושלמי&nbsp; &nbsp; אל: פרופ' רם גבעתי &nbsp; &nbsp; <br>
+										הנושא: הוספה כחוקר שותף להגשת הבקשה <br> נשלחה ב - 02/01/2007 בשעה 17:05<br>
+										אנא הסתכל בפרטי הבקשה
+
+									</li>
+									<li>
+										מאת: פרופ' ישראל ירושלמי&nbsp; &nbsp; אל: הרשות למו"פ &nbsp; &nbsp; <br>
+										הנושא: בקשת עזרה <br>  נשלחה ב - 02/01/2007 בשעה 17:07 <br>
+										אבקש לסייע לי במילוי הטופס
+									</li>
+								</ol>
+							</td>
+						</tr>
+					</table>
+            <br>
+          </td>
+        </tr>
+      </table>
+
+      </form>
+    </td>
+  </tr>
+
+</table>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

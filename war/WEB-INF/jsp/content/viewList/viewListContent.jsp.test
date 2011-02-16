@@ -1,0 +1,21 @@
+<%@ page  pageEncoding="UTF-8" %>
+
+
+  </table>
+ </td>
+</tr>
+<tr>
+	<td>
+		<form:form id="form" name="form" method="POST" action="viewList.html" commandName="command">
+						<form:hidden path="id"/>
+						<input type="hidden" name="action" value="addEntity"/>
+						<input type="hidden" name="addedEntity" value="gfgfgfg"/>
+						<input type="submit" value="send"/>
+		</form:form>
+
+
+      </td>
+ </tr>
+</table>
+</body>
+</html>

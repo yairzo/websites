@@ -1,0 +1,12 @@
+<ehcache>
+    <defaultCache
+        maxElementsInMemory="500"
+        eternal="true"
+        overflowToDisk="false"
+        memoryStoreEvictionPolicy="LFU" />
+    <cache name="personListCache"
+        maxElementsInMemory="500"
+        eternal="true"
+        overflowToDisk="false"
+        memoryStoreEvictionPolicy="LFU" />
+</ehcache>

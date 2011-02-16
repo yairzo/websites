@@ -1,0 +1,2 @@
+
+${partnerMessageOpening} <a href="http://${server}/iws/partner.htm?id=${partner.id}">${partner.name}</a> ${partnerProposalMessageOpening} <a href="http://${server}/iws/proposal.htm?id=${proposal.id}">${proposal.hebrewTitle}</a>
