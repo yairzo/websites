@@ -1,0 +1,2 @@
+mysql.port.local=localhost:5152
+mysql.port.live=localhost:3306

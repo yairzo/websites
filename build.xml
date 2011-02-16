@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+<project name="iws" basedir="." default="copy-remote">
+	<property file="build.properties.local"/>
+	<property file="build.properties"/>
+	<property environment="env"/>
+	<property name="src.dir" value="src"/>
+    <property name="web.dir" value="war"/>
+    <property name="build.dir" value="build"/>
+    <property name="name" value="iws"/>
+	<property name="tomcat.home" value="/home/mop/tomcat/"/>
+	<property name="war.filename" value="${name}.war"/>
+	<property name="webapp.lib.dir" value="${web.dir}/WEB-INF/lib"/>
+	<property name="lib.dir" value="/home/mop/lib"/>
+
+
+
+<!--   <path id="master-classpath">
+        <fileset dir="${jar.dir}">
+            <include name="*.jar"/>
+        </fileset>
+    	<fileset dir="../mop/lib">
+    	 	<include name="*.jar"/>
+    	 </fileset>
+
+        <fileset dir="${appserver.home}/common/lib">
+            <include name="servlet*.jar"/>
+        </fileset>
+        <pathelement path="${build.dir}"/>
+    </path>
+-->
+    <target name="deploy" description="Deploy application as a WAR file">
+    	 <jar destfile="${lib.dir}/iws.jar"
+    	       basedir="${build.dir}"
+    	  />
+    	<jar destfile="${webapp.lib.dir}/iws.jar"
+    		basedir="${build.dir}"
+    	/>
+    	<delete>
+    		 <fileset file="${basedir}/${name}.war"/>
+    	</delete>
+    	<war destfile="${name}.war"
+             webxml="${web.dir}/WEB-INF/web.xml">
+            <fileset dir="${web.dir}">
+                <include name="**/*.*"/>
+            </fileset>
+        </war>
+        <copy todir="${deploy.path}" preservelastmodified="true">
+            <fileset dir=".">
+                <include name="*.war"/>
+            </fileset>
+        </copy>
+    </target>
+
+	<target name="deploy.local" depends="modifyMysqlPortLocal,deploy"/>
+
+	<target name="undeploy" description="Un-Deploy application">
+	        <delete>
+	            <fileset dir="${deploy.path}/${name}">
+	                <include name="**/*.*"/>
+	            </fileset>
+	        </delete>
+	    </target>
+
+	<target name="deploy.ard-new" depends="backup.webapp.ard-new,modifyMysqlPortLive,deploy">
+		<exec executable="${basedir}/rsyncWar.sh" resolveexecutable="true"/>
+		<sshexec host="ard-new.ard.huji.ac.il"
+						trust="true"
+					    username="tomcat"
+					    password="letaa06"
+					    command="cp -R ~/tmp/${name}.war ~/tomcat/webapps/"/>
+
+	</target>
+
+	<target name="backup.webapp.ard-new">
+		<sshexec host="ard-new.ard.huji.ac.il"
+								trust="true"
+							    username="tomcat"
+							    password="letaa06"
+							    command="cp -R ~/tomcat/webapps/${name}.war ~/tomcat/webapps/${name}.war.bak"/>
+	</target>
+
+	<target name="modifyMysqlPortLive">
+		<exec executable="${basedir}/adjustContextDeploy.sh" resolveexecutable="true">
+					<arg value="${mysql.port.local}"/>
+					<arg value="${mysql.port.live}"/>
+				</exec>
+	</target>
+
+	<target name="modifyMysqlPortLocal">
+		<exec executable="${basedir}/adjustContextDeploy.sh" resolveexecutable="true">
+			<arg value="${mysql.port.live}"/>
+			<arg value="${mysql.port.local}"/>
+		</exec>
+	</target>
+
+	<target name="copy-remote" depends="" description="Copy expanded web application to remote webapp folder location">
+	  <mkdir dir="${deploy.path}/${name}" />
+	  <copy todir="${deploy.path}/${name}">
+	    <fileset dir="${web.dir}"/>
+	  </copy>
+	</target>
+</project>
