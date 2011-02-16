@@ -5,6 +5,7 @@ war/WEB-INF/lib/commons-collections.jar svn_mime_002dtype=application%2Foctet-st
 war/WEB-INF/lib/commons-fileupload.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/ehcache-1.2.4.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/jstl.jar svn_mime_002dtype=application%2Foctet-stream
+war/WEB-INF/lib/log4j-1.2.15.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/mail.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/poi-3.0.2-FINAL-20080204.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/quartz-1.6.5.jar svn_mime_002dtype=application%2Foctet-stream
