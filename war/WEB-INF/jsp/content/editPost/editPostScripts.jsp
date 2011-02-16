@@ -5,10 +5,11 @@
 <script language="Javascript">
 
 	var ckeditor;
+	var currentEditor;
 
 	function ShowCKEDITOR()
 	{
-
+		currentEditor = "ckeditor";
 		$('textarea:tinymce').tinymce().remove();
 		var config=	{
 			uiColor: '#F4EEE4',
@@ -71,6 +72,7 @@
 
 	function ShowTinyMCE()
 	{
+		currentEditor = "tinymce";
 		$('textarea.tinymce').tinymce
 		({
 
@@ -148,23 +150,20 @@
 
 	$(document).ready(function() {
 
-		$("input.rdoTypeTinymce").attr("checked",true);
+		$("input.rdoTypeTinymce").attr("cheked",true);
 		ShowTinyMCE();
-
-
-
-		$("input[@name='radios']").change(function(){
-		    if ($("input[@name='radios']:checked").val() == 'rdoTypeCKEDITOR')
-   		 	{
-	   	    ShowCKEDITOR();
-       		 }
-	   		 else if ($("input[@name='radios']:checked").val() == 'rdoTypeTinymce')
-    		{
-    		 $('textarea.tinymce').ckeditor(function(){
- 		   		this.destroy();
+		$("input.radios").click(function(){
+	   	 if ($(this).val() == 'rdoTypeCKEDITOR' && currentEditor != 'ckeditor')
+	 		{
+	   		    ShowCKEDITOR();
+   			 }
+   		 else if ($(this).val() == 'rdoTypeTinymce' && currentEditor != 'tinymce')
+  			{
+   			 $('textarea.tinymce').ckeditor(function(){
+	 	   		this.destroy();
 			 });
        		 ShowTinyMCE();
-       		}
+    	 	}
 		});
 
 		$("a.addAttachEditor").click(function(){

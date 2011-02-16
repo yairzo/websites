@@ -87,11 +87,11 @@
 						</td>
 					</tr>
 					<tr>
-						<td width="90%">
-							<input type="radio"  name="radios" class="rdoTypeTinymce" value="rdoTypeTinymce" checked="checked" >
+						<td width="90%" colspan="2">
+							<input type="radio"  name="radios" class="radios rdoTypeTinymce" value="rdoTypeTinymce" checked="checked" >
            					  <fmt:message key="${lang.localeId}.general.oldEditor"/>
             				&nbsp;
-            				<input type="radio" name="radios" class="rdoTypeCKEDITOR" value="rdoTypeCKEDITOR">
+            				<input type="radio" name="radios" class="radios rdoTypeCKEDITOR" value="rdoTypeCKEDITOR">
           					  <fmt:message key="${lang.localeId}.general.newEditor"/>
           				</td>
           			</tr>
