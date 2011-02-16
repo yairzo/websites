@@ -10,10 +10,12 @@
 	window.location = "sendMessage.html?id=${command.id}&listId=${command.listId}&cp=${cp}&cpoi=${cpoi}";
 </c:if>
 	var ckeditor;
+	var currentEditor;
 
 	function ShowCKEDITOR()
 	{
-		$('textarea:tinymce').tinymce().remove();
+		currentEditor = "ckeditor";
+		$('textarea.tinymce').tinymce().remove();
 		var config=	{
 			uiColor: '#F4EEE4',
 			contentsCss : 'assets/output_xhtml.css',
@@ -76,7 +78,7 @@
 	function ShowTinyMCE()
 	{
 
-
+		currentEditor = "tinymce";
   		$('textarea.tinymce').tinymce
 		({
 
@@ -97,23 +99,20 @@
 $().ready(function() {
 
 	$("input.rdoTypeTinymce").attr("cheked",true);
-		ShowTinyMCE();
-
-
-
-		$("input[@name='radios']").change(function(){
-		    if ($("input[@name='radios']:checked").val() == 'rdoTypeCKEDITOR')
-   		 	{
+	ShowTinyMCE();
+	$("input.radios").click(function(){
+	    if ($(this).val() == 'rdoTypeCKEDITOR' && currentEditor != 'ckeditor')
+	 	{
 	   	    ShowCKEDITOR();
-       		 }
-	   		 else if ($("input[@name='radios']:checked").val() == 'rdoTypeTinymce')
-    		{
-       		 $('textarea.tinymce').ckeditor(function(){
- 		   		this.destroy();
+   		 }
+   		 else if ($(this).val() == 'rdoTypeTinymce' && currentEditor != 'tinymce')
+  		{
+   			 $('textarea.tinymce').ckeditor(function(){
+	 	   		this.destroy();
 			 });
        		 ShowTinyMCE();
-       		 }
-		});
+    	 }
+	});
 
 $("button.send").click(function(){
 	var messageSubject = $("input#messageSubject").val();
@@ -248,10 +247,10 @@ $(".addAddFile").click(function(){
 		<tr>
 
 			<td width="90%">
-			<INPUT TYPE="radio"  NAME="radios" class="rdoTypeTinymce" VALUE="rdoTypeTinymce" CHECKED checked="checked" >
+			<INPUT TYPE="radio"  NAME="radios" class="radios rdoTypeTinymce" VALUE="rdoTypeTinymce" checked="checked" >
               <fmt:message key="${lang.localeId}.general.oldEditor"/>
             &nbsp;
-            <INPUT TYPE="radio" NAME="radios" class="rdoTypeCKEDITOR" VALUE="rdoTypeCKEDITOR">
+            <INPUT TYPE="radio" NAME="radios" class="radios rdoTypeCKEDITOR" VALUE="rdoTypeCKEDITOR">
             <fmt:message key="${lang.localeId}.general.newEditor"/>
 
 			</td>
