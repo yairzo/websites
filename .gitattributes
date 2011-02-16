@@ -13,3 +13,4 @@ war/WEB-INF/lib/spring-modules-cache.jar svn_mime_002dtype=application%2Foctet-s
 war/WEB-INF/lib/spring-portlet.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/spring.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/standard.jar svn_mime_002dtype=application%2Foctet-stream
+war/WEB-INF/lib/velocity-1.5.jar svn_mime_002dtype=application%2Foctet-stream
