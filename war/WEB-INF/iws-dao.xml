@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ehcache="http://www.springmodules.org/schema/ehcache"
+  xmlns:jee="http://www.springframework.org/schema/jee"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+     http://www.springmodules.org/schema/ehcache
+    http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd
+     http://www.springframework.org/schema/jee
+	http://www.springframework.org/schema/jee/spring-jee-2.0.xsd">
+
+
+
+
+ 	<ehcache:config configLocation="classpath:/ehcache.xml" />
+
+    <ehcache:proxy id="personDao">
+    	<bean class="huard.iws.db.JdbcPersonDao">
+    		<property name="dataSource">
+           		<ref bean="dataSource"/>
+        	</property>
+     	</bean>
+
+
+  		<ehcache:caching
+      		methodName="get*"
+      		cacheName="personCache" />
+      	<ehcache:flushing
+    		methodName="deletePerson"
+    		cacheNames="personCache"
+    		when="after"/>
+    	<ehcache:flushing
+    		methodName="updatePerson"
+    		cacheNames="personCache"
+    		when="after"/>
+	</ehcache:proxy>
+
+	<bean id="callOfProposalDao" class="huard.iws.db.JdbcCallOfProposalDao"/>
+
+
+	<bean id="organizationUnitDao" class="huard.iws.db.JdbcOrganizationUnitDao">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+
+	<bean id="configurationDao" class="huard.iws.db.JdbcConfigurationDao">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<bean id="subjectDao" class="huard.iws.db.JdbcSubjectDao">
+		<property name="dataSource" ref="dataSource"/>
+     </bean>
+
+	<bean id="postDao" class="huard.iws.db.JdbcPostDao">
+		<property name="dataSource" ref="dataSource"/>
+     </bean>
+
+	<bean id="proposalStateHistoryDao" class="huard.iws.db.JdbcProposalStateHistoryDao">
+		<property name="dataSource" ref="dataSource"/>
+     </bean>
+
+	<bean id="mailMessageDao" class="huard.iws.db.JdbcMailMessageDao">
+		<property name="dataSource" ref="dataSource"/>
+     </bean>
+
+	<bean id="personDao" class="huard.iws.db.JdbcPersonDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="mopDeskDao" class="huard.iws.db.JdbcMopDeskDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="fundDao" class="huard.iws.db.JdbcFundDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="partnerDao" class="huard.iws.db.JdbcPartnerDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="partnerListDao" class="huard.iws.db.JdbcPartnerListDao">
+    	<property name="partnerDao">
+            <ref bean="partnerDao"/>
+        </property>
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="partnerProposalDao" class="huard.iws.db.JdbcPartnerProposalDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="instituteDao" class="huard.iws.db.JdbcInstituteDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="instituteListDao" class="huard.iws.db.JdbcInstituteListDao">
+    	<property name="instituteDao">
+            <ref bean="instituteDao"/>
+        </property>
+
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+	<bean id="universeDao" class="huard.iws.db.JdbcUniverseDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+    <bean id="personProposalDao" class="huard.iws.db.JdbcPersonProposalDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="proposalListDao" class="huard.iws.db.JdbcProposalListDao">
+    	<property name="proposalDao">
+            <ref bean="proposalDao"/>
+        </property>
+
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+	<bean id="proposalDao" class="huard.iws.db.JdbcProposalDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="tableDescriptionDao" class="huard.iws.db.JdbcTableDescriptionDao">
+		<property name="dataSource" >
+			<ref bean="dataSource"/>
+		</property>
+	</bean>
+
+	 <bean id="listColumnInstructionDao" class="huard.iws.db.JdbcListColumnInstructionDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+
+    <bean id="listColumnInstructionListDao" class="huard.iws.db.JdbcListColumnInstructionListDao">
+    	<property name="listColumnInstructionDao">
+            <ref bean="listColumnInstructionDao"/>
+        </property>
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+
+    <bean id="listDao" class="huard.iws.db.JdbcListDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+
+     <bean id="listInstructionDao" class="huard.iws.db.JdbcListInstructionDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+
+    <bean id="listListDao" class="huard.iws.db.JdbcListListDao">
+    	<property name="listDao">
+            <ref bean="listDao"/>
+        </property>
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+
+    <bean id="listInstructionListDao" class="huard.iws.db.JdbcListInstructionListDao">
+    	<property name="listInstructionDao">
+            <ref bean="listInstructionDao"/>
+        </property>
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+
+    <bean id="personAttributionListDao" class="huard.iws.db.JdbcPersonAttributionListDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+        <property name="personAttributionDao">
+            <ref bean="personAttributionDao"/>
+        </property>
+     </bean>
+
+     <bean id="personAttributionDao" class="huard.iws.db.JdbcPersonAttributionDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="helperTableDao" class="huard.iws.db.JdbcHelperTableDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+     <bean id="facultyDao" class="huard.iws.db.JdbcFacultyDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+
+
+    <jee:jndi-lookup id="dataSource"
+    jndi-name="/jdbc/iws"
+    resource-ref="true" />
+
+</beans>

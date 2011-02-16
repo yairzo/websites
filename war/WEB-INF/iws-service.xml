@@ -1,0 +1,415 @@
+<beans
+      xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.springframework.org/schema/beans
+   			http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+
+      <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    	<property name="resourceLoaderPath"><value>/WEB-INF/emailTemplate</value></property>
+  	  </bean>
+
+
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+        <list>
+        <value>/WEB-INF/messages</value>
+        <value>errors</value>
+        </list>
+        </property>
+        <property name="defaultEncoding">
+        	<value>UTF-8</value>
+        </property>
+     </bean>
+
+     <bean id="listColumnInstructionService" class="huard.iws.service.ListColumnInstructionServiceImpl">
+    	<property name="listColumnInstructionDao">
+            <ref bean="listColumnInstructionDao"/>
+        </property>
+        <property name="listColumnInstructionListDao">
+            <ref bean="listColumnInstructionListDao"/>
+        </property>
+        <property name="listService">
+            <ref bean="listService"/>
+        </property>
+    </bean>
+
+    <bean id="hujiAuthorizationService" class="huard.iws.service.HujiAuthorizationServiceImpl">
+		<property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+     </bean>
+
+
+	<bean id="organizationUnitService" class="huard.iws.service.OrganizationUnitServiceImpl">
+		<property name="listInstructionService">
+            <ref bean="listInstructionService"/>
+        </property>
+		<property name="listColumnInstructionListService">
+            <ref bean="listColumnInstructionListService"/>
+        </property>
+		<property name="organizationUnitDao">
+            <ref bean="organizationUnitDao"/>
+        </property>
+        <property name="helperTableService">
+            <ref bean="helperTableService"/>
+        </property>
+    </bean>
+
+	<bean id="callOfProposalService" class="huard.iws.service.CallOfProposalServiceImpl">
+		<property name="callOfProposalDao">
+            <ref bean="callOfProposalDao"/>
+        </property>
+        <property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+    </bean>
+
+
+	<bean id="subjectService" class="huard.iws.service.SubjectServiceImpl">
+		<property name="subjectDao">
+            <ref bean="subjectDao"/>
+        </property>
+    </bean>
+
+	<bean id="postService" class="huard.iws.service.PostServiceImpl">
+		<property name="postDao">
+            <ref bean="postDao"/>
+        </property>
+        <property name="personService">
+            <ref bean="personService"/>
+        </property>
+        <property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+    </bean>
+
+    <bean id="sendPostService" class="huard.iws.service.SendPostServiceImpl">
+		<property name="postDao">
+            <ref bean="postDao"/>
+        </property>
+        <property name="mailMessageService">
+            <ref bean="mailMessageService"/>
+        </property>
+        <property name="postService">
+            <ref bean="postService"/>
+        </property>
+        <property name="personListService">
+            <ref bean="personListService"/>
+        </property>
+        <property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+        <property name="callOfProposalService">
+            <ref bean="callOfProposalService"/>
+        </property>
+    </bean>
+
+	<bean id="proposalStateHistoryService" class="huard.iws.service.ProposalStateHistoryServiceImpl">
+		<property name="proposalStateHistoryDao">
+            <ref bean="proposalStateHistoryDao"/>
+        </property>
+        <property name="proposalStateService">
+            <ref bean="proposalStateService"/>
+        </property>
+
+     </bean>
+
+	<bean id="proposalStateService" class="huard.iws.service.ProposalStateServiceImpl" scope="prototype">
+		<property name="messageService">
+			<ref bean="messageService"/>
+		</property>
+	</bean>
+
+	<bean id="personProposalStateService" class="huard.iws.service.PersonProposalStateServiceImpl">
+		<property name="messageService">
+			<ref bean="messageService"/>
+		</property>
+	</bean>
+
+
+	<bean id="messageService" class="huard.iws.service.MessageServiceImpl">
+		<property name="messageSource">
+			<ref bean="messageSource"/>
+		</property>
+		<property name="configurationService">
+			<ref bean="configurationService"/>
+		</property>
+	</bean>
+
+	<bean id="userMessageService" class="huard.iws.service.UserMessageServiceImpl">
+		<property name="messageSource">
+			<ref bean="messageSource"/>
+		</property>
+	</bean>
+
+	<bean id="mailMessageService" class="huard.iws.service.MailMessageServiceImpl">
+		<property name="messageService">
+			<ref bean="messageService"/>
+		</property>
+		<property name="fundService">
+			<ref bean="fundService"/>
+		</property>
+		<property name="mopDeskService">
+			<ref bean="mopDeskService"/>
+		</property>
+		<property name="mailMessageDao">
+			<ref bean="mailMessageDao"/>
+		</property>
+		<property name="personListService">
+			<ref bean="personListService"/>
+		</property>
+		<property name="velocityEngine">
+			<ref bean="velocityEngine"/>
+		</property>
+		<property name="configurationService">
+			<ref bean="configurationService"/>
+		</property>
+		<property name="personService">
+			<ref bean="personService"/>
+		</property>
+		<property name="postService">
+			<ref bean="postService"/>
+		</property>
+
+	</bean>
+
+	<bean id="configurationService" class="huard.iws.service.ConfigurationServiceImpl">
+		<property name="configurationDao">
+			<ref bean="configurationDao"/>
+		</property>
+	</bean>
+
+	<bean id="personProposalMessageService" class="huard.iws.service.PersonProposalMessageServiceImpl">
+		<property name="mailMessageService">
+			<ref bean="mailMessageService"/>
+		</property>
+		<property name="personProposalService">
+			<ref bean="personProposalService"/>
+		</property>
+		<property name="personService">
+			<ref bean="personService"/>
+		</property>
+		<property name="proposalService">
+			<ref bean="proposalService"/>
+		</property>
+	</bean>
+
+
+
+    <bean id="mopDeskService" class="huard.iws.service.MopDeskServiceImpl">
+    	<property name="mopDeskDao">
+    		<ref bean="mopDeskDao"/>
+    	</property>
+    	<property name="personListService">
+    		<ref bean="personListService"/>
+    	</property>
+    </bean>
+
+
+
+     <bean id="fundService" class="huard.iws.service.FundServiceImpl">
+    	<property name="fundDao">
+    		<ref bean="fundDao"/>
+    	</property>
+    	<property name="mopDeskService">
+			<ref bean="mopDeskService"/>
+		</property>
+		<property name="proposalListService">
+			<ref bean="proposalListService"/>
+		</property>
+		<property name="configurationService">
+			<ref bean="configurationService"/>
+		</property>
+    </bean>
+
+
+     <bean id="instituteService" class="huard.iws.service.InstituteServiceImpl">
+    	<property name="instituteDao">
+    		<ref bean="instituteDao"/>
+    	</property>
+    	<property name="universeService">
+    		<ref bean="universeService"/>
+    	</property>
+    </bean>
+
+
+    <bean id="partnerService" class="huard.iws.service.PartnerServiceImpl">
+    	<property name="partnerDao">
+    		<ref bean="partnerDao"/>
+    	</property>
+    </bean>
+
+    <bean id="partnerProposalService" class="huard.iws.service.PartnerProposalServiceImpl">
+    	<property name="partnerProposalDao">
+    		<ref bean="partnerProposalDao"/>
+    	</property>
+    </bean>
+
+    <bean id="partnerListService" class="huard.iws.service.PartnerListServiceImpl">
+    	<property name="partnerListDao">
+    		<ref bean="partnerListDao"/>
+    	</property>
+    </bean>
+
+    <bean id="instituteListService" class="huard.iws.service.InstituteListServiceImpl">
+    	<property name="instituteListDao">
+    		<ref bean="instituteListDao"/>
+    	</property>
+    </bean>
+
+    <bean id="proposalService" class="huard.iws.service.ProposalServiceImpl">
+    	<property name="proposalDao">
+    		<ref bean="proposalDao"/>
+    	</property>
+    </bean>
+
+    <bean id="personProposalService" class="huard.iws.service.PersonProposalServiceImpl">
+    	<property name="personProposalDao">
+    		<ref bean="personProposalDao"/>
+    	</property>
+    	<property name="personListService">
+        	<ref bean="personListService"/>
+        </property>
+        <property name="mopDeskService">
+        	<ref bean="mopDeskService"/>
+        </property>
+        <property name="configurationService">
+        	<ref bean="configurationService"/>
+        </property>
+
+    </bean>
+
+    <bean id="universeService" class="huard.iws.service.UniverseServiceImpl">
+    	<property name="universeDao">
+    		<ref bean="universeDao"/>
+    	</property>
+    </bean>
+
+	<bean id="proposalListService" class="huard.iws.service.ProposalListServiceImpl">
+    	<property name="proposalListDao">
+    		<ref bean="proposalListDao"/>
+    	</property>
+    </bean>
+
+    <bean id="tableDescriptionService" class="huard.iws.service.TableDescriptionServiceImpl">
+		<property name="tableDescriptionDao">
+			<ref bean="tableDescriptionDao"/>
+		</property>
+	</bean>
+
+	<bean id="listColumnInstructionListService" class="huard.iws.service.ListColumnInstructionListServiceImpl">
+    	<property name="listColumnInstructionListDao">
+            <ref bean="listColumnInstructionListDao"/>
+        </property>
+        <property name="listInstructionService">
+        	<ref bean="listInstructionService"/>
+        </property>
+    </bean>
+
+    <bean id="listService" class="huard.iws.service.ListServiceImpl">
+    	<property name="listDao">
+            <ref bean="listDao"/>
+        </property>
+        <property name="listColumnInstructionService">
+            <ref bean="listColumnInstructionService"/>
+        </property>
+        <property name="listInstructionService">
+            <ref bean="listInstructionService"/>
+        </property>
+    </bean>
+
+    <bean id="listInstructionService" class="huard.iws.service.ListInstructionServiceImpl">
+    	<property name="listInstructionListService">
+            <ref bean="listInstructionListService"/>
+        </property>
+    	<property name="listInstructionDao">
+            <ref bean="listInstructionDao"/>
+        </property>
+    </bean>
+
+    <bean id="listListService" class="huard.iws.service.ListListServiceImpl">
+    	<property name="listListDao">
+            <ref bean="listListDao"/>
+        </property>
+    </bean>
+
+
+    <bean id="listInstructionListService" class="huard.iws.service.ListInstructionListServiceImpl">
+    	<property name="listInstructionListDao">
+            <ref bean="listInstructionListDao"/>
+        </property>
+    </bean>
+
+    <bean id="personListService" class="huard.iws.service.PersonListServiceImpl">
+    	<property name="personDao">
+    		<ref bean="personDao"/>
+    	</property>
+    	<property name="personAttributionListService">
+    		<ref bean="personAttributionListService"/>
+    	</property>
+    </bean>
+
+     <bean id="personService" class="huard.iws.service.PersonServiceImpl">
+    	<property name="personListService">
+    		<ref bean="personListService"/>
+    	</property>
+    	<property name="personDao">
+    		<ref bean="personDao"/>
+    	</property>
+     </bean>
+
+ 	<bean id="recordProtectService" class="huard.iws.service.RecordProtectServiceImpl">
+		<property name="recordProtect">
+    		<ref bean="recordProtect"/>
+    	</property>
+	</bean>
+
+	<bean id="recordProtect" class="huard.iws.util.RecordProtectImpl"/>
+
+	<bean id="personAttributionListService" class="huard.iws.service.PersonAttributionListServiceImpl">
+    	<property name="personAttributionListDao">
+    		<ref bean="personAttributionListDao"/>
+    	</property>
+    	<property name="personAttributionDao">
+    		<ref bean="personAttributionDao"/>
+    	</property>
+    	<property name="listInstructionService">
+    		<ref bean="listInstructionService"/>
+    	</property>
+    	<property name="listColumnInstructionListService">
+    		<ref bean="listColumnInstructionListService"/>
+    	</property>
+    	<property name="helperTableService">
+    		<ref bean="helperTableService"/>
+    	</property>
+    	<property name="listService">
+    		<ref bean="listService"/>
+    	</property>
+    </bean>
+
+
+
+     <bean id="personAttributionService" class="huard.iws.service.PersonAttributionServiceImpl">
+    	<property name="personAttributionDao">
+    		<ref bean="personAttributionDao"/>
+    	</property>
+    	<property name="personDao">
+    		<ref bean="personDao"/>
+    	</property>
+    </bean>
+
+    <bean id="helperTableService" class="huard.iws.service.HelperTableServiceImpl">
+		<property name="helperTableDao">
+    		<ref bean="helperTableDao"/>
+    	</property>
+	</bean>
+
+	<bean id="facultyService" class="huard.iws.service.FacultyServiceImpl">
+		<property name="facultyDao">
+    		<ref bean="facultyDao"/>
+    	</property>
+	</bean>
+
+
+</beans>

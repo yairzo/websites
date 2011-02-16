@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- <bean id="messageSource" class="org.springframework.context.support.Resourc eBundleMessageSource">
+		<property name="basename" value="messages"/>
+	</bean> -->
+
+	<bean id="loginController" class="huard.iws.web.LoginController" parent="generalController">
+		<property name="messageService">
+            <ref bean="messageService"/>
+        </property>
+     </bean>
+
+	<bean id="viewMessageController" class="huard.iws.web.ViewMessageController" parent="generalController"/>
+
+	<bean id="deleteOrganizationUnitController" class="huard.iws.web.DeleteOrganizationUnitController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.OrganizationUnitBean</value></property>
+        <property name="formView"><value>deleteOrganizationUnit</value></property>
+        <property name="successView"><value>organizationUnits.html</value></property>
+    	<property name="organizationUnitService">
+            <ref bean="organizationUnitService"/>
+        </property>
+     </bean>
+
+	<bean id="editOrganizationUnitAttributionController" class="huard.iws.web.EditOrganizationUnitAttributionController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.OrganizationUnitAttributionBean</value></property>
+        <property name="formView"><value>editOrganizationUnitAttribution</value></property>
+        <property name="successView"><value>organizationUnitAttribution.html</value></property>
+    	<property name="listListService">
+            <ref bean="listListService"/>
+        </property>
+        <property name="organizationUnitService">
+            <ref bean="organizationUnitService"/>
+        </property>
+     </bean>
+
+
+	<bean id="editOrganizationUnitController" class="huard.iws.web.EditOrganizationUnitController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.OrganizationUnitBean</value></property>
+        <property name="formView"><value>editOrganizationUnit</value></property>
+        <property name="successView"><value>organizationUnit.html</value></property>
+    	<property name="organizationUnitService">
+            <ref bean="organizationUnitService"/>
+        </property>
+        <property name="facultyService">
+            <ref bean="facultyService"/>
+        </property>
+     </bean>
+
+	<bean id="organizationUnitListController" class="huard.iws.web.OrganizationUnitListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.OrganizationUnitListController$OrganizationUnitListControllerCommand</value></property>
+        <property name="formView"><value>organizationUnitList</value></property>
+        <property name="successView"><value>organizationUnits.html</value></property>
+    	<property name="organizationUnitService">
+            <ref bean="organizationUnitService"/>
+        </property>
+        <property name="recordProtectService">
+            <ref bean="recordProtectService"/>
+        </property>
+     </bean>
+
+	<bean id="postListController" class="huard.iws.web.PostListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.PostListController$PostListControllerCommand</value></property>
+        <property name="formView"><value>postList</value></property>
+        <property name="successView"><value>posts.html</value></property>
+    	<property name="postService">
+            <ref bean="postService"/>
+        </property>
+     </bean>
+
+	<bean id="approvePostController" class="huard.iws.web.ApprovePostController" parent="generalController">
+		<property name="postService">
+            <ref bean="postService"/>
+        </property>
+        <property name="mailMessageService">
+            <ref bean="mailMessageService"/>
+        </property>
+      </bean>
+
+      <bean id="enablePersonUserController" class="huard.iws.web.EnablePersonUserController" parent="generalController">
+		<property name="personService">
+            <ref bean="personService"/>
+        </property>
+      </bean>
+
+
+	<bean id="editPartnerController" class="huard.iws.web.EditPartnerController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.PartnerBean</value></property>
+        <property name="formView"><value>editPartner</value></property>
+        <property name="successView"><value>partner.html</value></property>
+
+    	<property name="partnerService">
+            <ref bean="partnerService"/>
+        </property>
+        <property name="instituteService">
+            <ref bean="instituteService"/>
+        </property>
+        <property name="instituteListService">
+            <ref bean="instituteListService"/>
+        </property>
+     </bean>
+
+      <bean id="editInstituteController" class="huard.iws.web.EditInstituteController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.InstituteBean</value></property>
+        <property name="formView"><value>editInstitute</value></property>
+        <property name="successView"><value>institute.html</value></property>
+
+        <property name="instituteService">
+            <ref bean="instituteService"/>
+        </property>
+        <property name="universeService">
+            <ref bean="universeService"/>
+        </property>
+      </bean>
+
+	<bean id="editPersonPostSubscriptionController" class="huard.iws.web.EditPersonPostSubscriptionController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.PersonBean</value></property>
+        <property name="formView"><value>editPersonPostSubscription</value></property>
+        <property name="successView"><value>personPost.html</value></property>
+        <property name="subjectService">
+            <ref bean="subjectService"/>
+        </property>
+      </bean>
+
+
+	<bean id="editPostController" class="huard.iws.web.EditPostController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.PostBean</value></property>
+        <property name="formView"><value>editPost</value></property>
+        <property name="successView"><value>post.html</value></property>
+
+    	<property name="postService">
+            <ref bean="postService"/>
+        </property>
+        <property name="personListService">
+            <ref bean="personListService"/>
+        </property>
+        <property name="subjectService">
+            <ref bean="subjectService"/>
+        </property>
+        <property name="sendPostService">
+            <ref bean="sendPostService"/>
+        </property>
+      </bean>
+
+	<bean id="proposalStateHistoryController" class="huard.iws.web.ProposalStateHistoryController"
+			parent="generalController">
+		<property name="proposalStateHistoryService">
+            <ref bean="proposalStateHistoryService"/>
+        </property>
+    </bean>
+	<bean id="uploadImageController" class="huard.iws.web.UploadImageController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.UploadImageBean</value></property>
+        <property name="formView"><value>uploadImage</value></property>
+	</bean>
+
+	<bean id="sendMessageController" class="huard.iws.web.SendMessageController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.MailMessageBean</value></property>
+        <property name="formView"><value>sendMessage</value></property>
+        <property name="successView"><value>close.html</value></property>
+
+    	<property name="personAttributionListService">
+            <ref bean="personAttributionListService"/>
+        </property>
+        <property name="listService">
+            <ref bean="listService"/>
+        </property>
+        <property name="mailMessageService">
+            <ref bean="mailMessageService"/>
+        </property>
+        <property name="messageService">
+            <ref bean="messageService"/>
+        </property>
+    </bean>
+
+	<bean id="applicationContextProvider" class="huard.iws.util.ApplicationContextProvider"/>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <property name="maxUploadSize" value="5000000"/>
+	    <property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+
+	<bean id="welcomeController" class="huard.iws.web.WelcomeController" parent="generalController"/>
+
+
+	<bean id="viewListController" class="huard.iws.web.ViewListController" parent="generalFormController">
+		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.ViewListController$ViewListControllerCommand</value></property>
+        <property name="formView"><value>viewList</value></property>
+        <property name="successView"><value>viewList.html</value></property>
+		<property name="listService">
+            <ref bean="listService"/>
+        </property>
+        <property name="listColumnInstructionService">
+            <ref bean="listColumnInstructionService"/>
+        </property>
+        <property name="organizationUnitService">
+            <ref bean="organizationUnitService"/>
+        </property>
+      </bean>
+
+	<bean id="editProposalController" class="huard.iws.web.EditProposalController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.EditProposalController$EditProposalControllerCommand</value></property>
+        <property name="formView"><value>editProposal</value></property>
+        <property name="successView"><value>proposals.html</value></property>
+        <property name="validator"><ref bean="editProposalValidator"/></property>
+
+    	<property name="proposalService">
+            <ref bean="proposalService"/>
+        </property>
+        <property name="proposalListService">
+            <ref bean="proposalListService"/>
+        </property>
+        <property name="personListService">
+            <ref bean="personListService"/>
+        </property>
+     	<property name="personProposalService">
+            <ref bean="personProposalService"/>
+        </property>
+        <property name="fundService">
+            <ref bean="fundService"/>
+        </property>
+        <property name="mailMessageService">
+            <ref bean="mailMessageService"/>
+        </property>
+        <property name="proposalStateHistoryService">
+            <ref bean="proposalStateHistoryService"/>
+        </property>
+        <property name="personProposalMessageService">
+        	<ref bean="personProposalMessageService"/>
+        </property>
+        <property name="proposalStateService">
+        	<ref bean="proposalStateService"/>
+        </property>
+        <property name="personProposalStateService">
+        	<ref bean="personProposalStateService"/>
+        </property>
+        <property name="universeService">
+        	<ref bean="universeService"/>
+        </property>
+        <property name="instituteListService">
+        	<ref bean="instituteListService"/>
+        </property>
+        <property name="partnerService">
+        	<ref bean="partnerService"/>
+        </property>
+        <property name="partnerListService">
+        	<ref bean="partnerListService"/>
+        </property>
+        <property name="partnerProposalService">
+        	<ref bean="partnerProposalService"/>
+        </property>
+        <property name="mopDeskService">
+	        <ref bean="mopDeskService"/>
+        </property>
+    </bean>
+
+    <bean id="proposalListController" class="huard.iws.web.ProposalListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.ProposalListController$ProposalListControllerCommand</value></property>
+        <property name="formView"><value>proposalList</value></property>
+        <property name="successView"><value>proposals.html</value></property>
+    	<property name="proposalListService">
+            <ref bean="proposalListService"/>
+        </property>
+        <property name="recordProtectService">
+            <ref bean="recordProtectService"/>
+        </property>
+        <property name="fundService">
+            <ref bean="fundService"/>
+        </property>
+        <property name="proposalStateService">
+        	<ref bean="proposalStateService"/>
+        </property>
+        <property name="proposalService">
+        	<ref bean="proposalService"/>
+        </property>
+        <property name="personListService">
+            <ref bean="personListService"/>
+        </property>
+     </bean>
+
+     <bean id="busyRecordsController" class="huard.iws.web.BusyRecordsController" parent="generalController">
+		<property name="recordProtectService">
+			<ref bean="recordProtectService"/>
+		</property>
+	 </bean>
+
+
+	<bean id="editListColumnInstructionController" class="huard.iws.web.EditListColumnInstructionController"
+			parent="generalFormController">
+    	<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.model.AListColumnInstruction</value></property>
+        <property name="formView"><value>editListColumnInstruction</value></property>
+        <property name="successView"><value>list.html</value></property>
+    	<property name="listColumnInstructionService">
+            <ref bean="listColumnInstructionService"/>
+        </property>
+    </bean>
+
+
+
+    <bean id="deleteListColumnInstructionController" class="huard.iws.web.DeleteListColumnInstructionController"
+    		parent="generalFormController">
+    	<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.model.AListColumnInstruction</value></property>
+        <property name="formView"><value>deleteListColumnInstruction</value></property>
+        <property name="successView"><value>list.html</value></property>
+    	<property name="listColumnInstructionService">
+            <ref bean="listColumnInstructionService"/>
+        </property>
+    </bean>
+
+	<bean id="editListController" class="huard.iws.web.EditListController" parent="generalFormController">
+    	<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.AListBean</value></property>
+        <property name="formView"><value>editList</value></property>
+        <property name="successView"><value>lists.html</value></property>
+    	<property name="listService">
+            <ref bean="listService"/>
+        </property>
+        <property name="listInstructionService">
+            <ref bean="listInstructionService"/>
+        </property>
+        <property name="listInstructionListService">
+            <ref bean="listInstructionListService"/>
+        </property>
+        <property name="listColumnInstructionListService">
+            <ref bean="listColumnInstructionListService"/>
+        </property>
+        <property name="listColumnInstructionService">
+            <ref bean="listColumnInstructionService"/>
+        </property>
+        <property name="listListService">
+            <ref bean="listListService"/>
+        </property>
+     </bean>
+
+
+
+
+
+    <bean id="deleteListController" class="huard.iws.web.DeleteListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.model.AList</value></property>
+        <property name="formView"><value>deleteList</value></property>
+        <property name="successView"><value>lists.html</value></property>
+        <property name="listService">
+            <ref bean="listService"/>
+        </property>
+     </bean>
+
+
+    <bean id="editListOrderController" class="huard.iws.web.EditListOrderController" parent="generalFormController">
+    	<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.EditListOrderController$EditListOrderControllerCommand</value></property>
+        <property name="formView"><value>editListOrder</value></property>
+        <property name="successView"><value>listOrder.html</value></property>
+    	<property name="listService">
+            <ref bean="listService"/>
+        </property>
+        <property name="personAttributionService">
+            <ref bean="personAttributionService"/>
+        </property>
+        <property name="personAttributionListService">
+            <ref bean="personAttributionListService"/>
+        </property>
+    </bean>
+
+	<bean id="editListInstructionController" class="huard.iws.web.EditListInstructionController"
+		parent="generalFormController">
+    	<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.model.AListInstruction</value></property>
+        <property name="formView"><value>editListInstruction</value></property>
+        <property name="successView"><value>list.html</value></property>
+    	<property name="listInstructionService">
+            <ref bean="listInstructionService"/>
+        </property>
+        <property name="validator">
+        	<bean class="huard.iws.web.validate.EditListInstructionValidator"/>
+        </property>
+        <property name="listColumnInstructionService">
+            <ref bean="listColumnInstructionService"/>
+        </property>
+        <property name="tableDescriptionService">
+            <ref bean="tableDescriptionService"/>
+        </property>
+    </bean>
+
+	<bean id="deleteListInstructionController" class="huard.iws.web.DeleteListInstructionController"
+		parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.AListInstructionBean</value></property>
+        <property name="formView"><value>deleteListInstruction</value></property>
+        <property name="successView"><value>list.html</value></property>
+        <property name="listInstructionService">
+            <ref bean="listInstructionService"/>
+        </property>
+        <property name="listService">
+            <ref bean="listService"/>
+        </property>
+    </bean>
+
+
+    <bean id="generalFormController" class="huard.iws.web.GeneralFormController" abstract="true">
+    	<property name="personService">
+            <ref bean="personService"/>
+        </property>
+        <property name="userMessageService">
+            <ref bean="userMessageService"/>
+        </property>
+        <property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+     </bean>
+
+     <bean id="generalController" class="huard.iws.web.GeneralController" abstract="true">
+    	<property name="personService">
+            <ref bean="personService"/>
+        </property>
+        <property name="userMessageService">
+            <ref bean="userMessageService"/>
+        </property>
+     </bean>
+
+
+    <bean id="listController" class="huard.iws.web.ListController" parent="generalFormController">
+    	<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.AListBean</value></property>
+        <property name="formView"><value>listList</value></property>
+        <property name="successView"><value>lists.html</value></property>
+
+    	<property name="listListService">
+            <ref bean="listListService"/>
+        </property>
+        <property name="listService">
+            <ref bean="listService"/>
+        </property>
+        <property name="recordProtectService">
+            <ref bean="recordProtectService"/>
+        </property>
+    </bean>
+
+    <bean id="personListController" class="huard.iws.web.PersonListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.PersonListController$PersonListControllerCommand</value></property>
+        <property name="formView"><value>personList</value></property>
+        <property name="successView"><value>persons.html</value></property>
+    	<property name="personListService">
+            <ref bean="personListService"/>
+        </property>
+        <property name="recordProtectService">
+            <ref bean="recordProtectService"/>
+        </property>
+     </bean>
+
+    <bean id="editPersonController" class="huard.iws.web.EditPersonController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.PersonBean</value></property>
+        <property name="formView"><value>editPerson</value></property>
+        <property name="successView"><value>persons.html</value></property>
+        <property name="listService">
+            <ref bean="listService"/>
+        </property>
+
+        <property name="personAttributionListService">
+            <ref bean="personAttributionListService"/>
+        </property>
+
+        <property name="facultyService">
+            <ref bean="facultyService"/>
+        </property>
+        <property name="validator">
+        	<bean class="huard.iws.web.validate.EditPersonValidator"/>
+        </property>
+        <property name="mailMessageService">
+        	<ref bean="mailMessageService"/>
+        </property>
+        <property name="messageService">
+        	<ref bean="messageService"/>
+        </property>
+
+     </bean>
+
+     <bean id="editProposalValidator" class="huard.iws.web.validate.EditProposalValidator">
+     	<property name="proposalService">
+            <ref bean="proposalService"/>
+        </property>
+        <property name="personListService">
+            <ref bean="personListService"/>
+        </property>
+
+      </bean>
+
+
+	<bean id="deletePersonController" class="huard.iws.web.DeletePersonController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.model.Person</value></property>
+        <property name="formView"><value>deletePerson</value></property>
+        <property name="successView"><value>persons.html</value></property>
+    </bean>
+
+	<bean id="editPersonAttributionController" class="huard.iws.web.EditPersonAttributionController"
+		parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.PersonListAttributionBean</value></property>
+        <property name="formView"><value>editPersonAttribution</value></property>
+        <property name="successView"><value>person.html</value></property>
+
+        <property name="personAttributionService">
+            <ref bean="personAttributionService"/>
+        </property>
+
+        <property name="listListService">
+            <ref bean="listListService"/>
+        </property>
+		<property name="listInstructionListService">
+            <ref bean="listInstructionListService"/>
+        </property>
+
+		<property name="listService">
+            <ref bean="listService"/>
+        </property>
+        <property name="mopDeskService">
+            <ref bean="mopDeskService"/>
+        </property>
+       <property name="validator">
+        	<bean class="huard.iws.web.validate.EditPersonAttributionValidator"/>
+        </property>
+
+    </bean>
+
+    <bean id="deletePersonAttributionController" class="huard.iws.web.DeletePersonAttributionController"
+    	parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.PersonListAttributionBean</value></property>
+        <property name="formView"><value>deletePersonAttribution</value></property>
+        <property name="successView"><value>person.html</value></property>
+        <property name="personAttributionService">
+            <ref bean="personAttributionService"/>
+        </property>
+        <property name="listService">
+            <ref bean="listService"/>
+        </property>
+     </bean>
+
+     <bean id="postReportsController" class="huard.iws.web.PostReportsController"
+    	parent="generalController">
+    	<property name="postService">
+            <ref bean="postService"/>
+        </property>
+        <property name="subjectService">
+            <ref bean="subjectService"/>
+        </property>
+       </bean>
+
+
+
+	<aop:config>
+		<aop:aspect  ref="recordProtectService">
+			<aop:before
+			      arg-names="type,id,username"
+			      method="setRecordBusy"
+			      pointcut="execution(* huard..*Service.get*(String,int,String)) and args(type,id,username)"/>
+		</aop:aspect>
+	</aop:config>
+
+
+
+    <bean id="urlFilenameViewController"
+    		class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
+
+	<bean id="personListServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="personListService"/>
+  		<property name="serviceName" value="PersonListService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.PersonListService"/>
+      	<!-- <property name="servicePort" value="9001"/>-->
+  		<property name="registry" ref="registry"/>
+	</bean>
+
+     <bean id="instituteServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="instituteService"/>
+  		<property name="serviceName" value="InstituteService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.InstituteService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+
+	<bean id="messageServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="messageService"/>
+  		<property name="serviceName" value="MessageService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.MessageService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+
+	<bean id="sendPostServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="sendPostService"/>
+  		<property name="serviceName" value="SendPostService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.SendPostService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+
+	<bean id="fundServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="fundService"/>
+  		<property name="serviceName" value="FundService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.FundService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+
+	<bean id="registry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
+		<property name="port" value="1199"/>
+	</bean>
+
+<!--	<bean id="prepareSendPostsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  		<property name="targetObject" ref="sendPostService"/>
+  		<property name="targetMethod" value="prepareSendPosts" />
+	</bean>
+
+	<bean id="sendPostsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  		<property name="targetObject" ref="sendPostService"/>
+  		<property name="targetMethod" value="sendPosts" />
+	</bean>
+
+	<bean id="cronPrepareSendPostTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+  		<property name="jobDetail" ref="prepareSendPostsJob"/>
+  		<property name="cronExpression" value="0 1 * * * ?" />
+	</bean>
+	<bean id="cronSendPostTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+  		<property name="jobDetail" ref="sendPostsJob"/>
+  		<property name="cronExpression" value="0 25 * * * ?" />
+	</bean>
+
+	 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+  		<property name="triggers">
+    		<list>
+      			<ref bean="cronPrepareSendPostTrigger"/>
+      			<ref bean="cronSendPostTrigger"/>
+    		</list>
+  		</property>
+	</bean>
+
+-->
+
+
+
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+
+	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="interceptors">
+			<list>
+				<ref local="localeChangeInterceptor"/>
+			</list>
+		</property>
+
+        <property name="mappings">
+            <props>
+                <prop key="/persons.html">personListController</prop>
+                <prop key="/person.html">editPersonController</prop>
+                <prop key="/deletePerson.html">deletePersonController</prop>
+				<prop key="/personAttribution.html">editPersonAttributionController</prop>
+				<prop key="/deletePersonAttribution.html">deletePersonAttributionController</prop>
+				<prop key="/lists.html">listController</prop>
+				<prop key="/listInstruction.html">editListInstructionController</prop>
+				<prop key="/deleteListInstruction.html">deleteListInstructionController</prop>
+				<prop key="/list.html">editListController</prop>
+				<prop key="/deleteList.html">deleteListController</prop>
+				<prop key="/listOrder.html">editListOrderController</prop>
+				<prop key="/listColumnInstruction.html">editListColumnInstructionController</prop>
+				<prop key="/deleteListColumnInstruction.html">deleteListColumnInstructionController</prop>
+				<prop key="/login.html">loginController</prop>
+				<prop key="/accessDenied.html">urlFilenameViewController</prop>
+				<prop key="/welcome.html">welcomeController</prop>
+				<prop key="/busyRecords.html">busyRecordsController</prop>
+				<prop key="/loginAcad.html">urlFilenameViewController</prop>
+				<prop key="/grantList.html">urlFilenameViewController</prop>
+				<prop key="/proposal.html">editProposalController</prop>
+				<prop key="/proposals.html">proposalListController</prop>
+				<prop key="/viewList.html">viewListController</prop>
+				<prop key="/viewListAdmin.html">viewListController</prop>
+				<prop key="/sendMessage.html">sendMessageController</prop>
+				<prop key="/uploadImage.html">uploadImageController</prop>
+				<prop key="/printProposal.html">urlFilenameViewController</prop>
+				<prop key="/proposalStateHistory.html">proposalStateHistoryController</prop>
+				<prop key="/close.html">urlFilenameViewController</prop>
+				<prop key="/post.html">editPostController</prop>
+				<prop key="/partner.html">editPartnerController</prop>
+				<prop key="/institute.html">editInstituteController</prop>
+				<prop key="/personPost.html">editPersonPostSubscriptionController</prop>
+				<prop key="/approvePost.html">approvePostController</prop>
+				<prop key="/posts.html">postListController</prop>
+				<prop key="/organizationUnits.html">organizationUnitListController</prop>
+				<prop key="/organizationUnit.html">editOrganizationUnitController</prop>
+				<prop key="/organizationUnitAttribution.html">editOrganizationUnitAttributionController</prop>
+				<prop key="/deleteOrganizationUnit.html">deleteOrganizationUnitController</prop>
+				<prop key="/enablePersonUser.html">enablePersonUserController</prop>
+				<prop key="/viewMessage.html">viewMessageController</prop>
+				<prop key="/postReports.html">postReportsController</prop>
+				<prop key="/error404.html">urlFilenameViewController</prop>
+				<prop key="/error500.html">urlFilenameViewController</prop>
+				<prop key="/close.html">urlFilenameViewController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"><value>org.springframework.web.servlet.view.JstlView</value></property>
+        <property name="prefix"><value>/WEB-INF/jsp/</value></property>
+        <property name="suffix"><value>.jsp</value></property>
+
+    </bean>
+
+</beans>
