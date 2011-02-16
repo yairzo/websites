@@ -3,3 +3,5 @@ war/WEB-INF/lib/aspectjrt.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/aspectjweaver.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/commons-collections.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/commons-fileupload.jar svn_mime_002dtype=application%2Foctet-stream
+war/WEB-INF/lib/ehcache-1.2.4.jar svn_mime_002dtype=application%2Foctet-stream
+war/WEB-INF/lib/jstl.jar svn_mime_002dtype=application%2Foctet-stream
