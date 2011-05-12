@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
@@ -24,7 +25,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 
 public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
-	//private static final Logger logger = Logger.getLogger(JdbcPersonDao.class);
+	private static final Logger logger = Logger.getLogger(JdbcPersonDao.class);
 
 	public Person getPerson(int id){
 		String query = "select * from person where id=?";
@@ -124,6 +125,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 				" academicTitle = ?, websiteUrl = ?, campusId = ?," +
 				" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ? where id = ?";
+		logger.info (query);
 		getSimpleJdbcTemplate().update(query,
 				person.getFirstNameHebrew() ,
 				person.getLastNameHebrew(),

@@ -358,9 +358,9 @@
                   <td colspan="2" align="right">
              			<table border="0" cellpadding="0" cellspacing="0">
 	                      <tr>
-       			            <td ><button class="grey" onclick="onSave();">שמור</button></td>
+       			            <td><button class="grey" onclick="onSave();">שמור</button></td>
        			            <td>&nbsp;&nbsp;</td>
-       			            <td >
+       			            <td>
        			           		<authz:authorize ifNotGranted="ROLE_EDIT_USER_DETAILS">
        			           			<button class="cancel grey">סיים</button>
        			           		</authz:authorize>

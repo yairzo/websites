@@ -109,9 +109,9 @@ public class SendPostServiceImpl implements SendPostService{
 	}
 
 	public void prepareSelfSendPosts(){
+		preparedPostPersonsMap = postDao.getPreparedPostPersonsMap();
 		List<Post> yetSentPosts = postService.getSelfSendPosts();
 		List<PersonBean> personsBeans = personListService.getPersonsList(configurationService.getConfigurationInt("postCreatorsListId"));
-
 		markSentPosts(yetSentPosts, personsBeans);
 		for (Post post: yetSentPosts){
 			if (post.isSelfSend() && ! post.isVerified() && ! post.isSelfSent()){

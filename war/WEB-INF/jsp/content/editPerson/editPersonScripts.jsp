@@ -78,14 +78,14 @@
 	function onDelete()
 	{
   	  document.form.action = "person.html?action=delete"
-   	 document.form.submit();
+   	  document.form.submit();
   	  return true;
 	}
 
 	function onSave()
 	{
-   	 document.form.action = "person.html?action=save"
-   	 document.form.submit();
+	 document.form.action = "person.html?action=save"
+	 document.form.submit();
    	 return true;
 	}
 
@@ -222,7 +222,7 @@ $(document).ready(function() {
 
 
 			$('input#email').blur(function(){
-				var value = $('input#email').attr("id"));
+				var value = $('input#email').attr("id");
 				$('input#email').attr("value", JQuery.trim(value));
 			});
 
