@@ -607,6 +607,14 @@
   		<property name="registry" ref="registry"/>
 	</bean>
 
+	<bean id="personAttributionListServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="personAttributionListService"/>
+  		<property name="serviceName" value="PersonAttributionListService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.PersonAttributionListService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+
 	<bean id="messageServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
   		<property name="service" ref="messageService"/>
   		<property name="serviceName" value="MessageService"/>

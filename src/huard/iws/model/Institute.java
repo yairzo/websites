@@ -1,8 +1,13 @@
 package huard.iws.model;
 
+import java.io.Serializable;
 
 
-public class Institute {
+
+public class Institute implements Serializable{
+
+	private static final long serialVersionUID = 121212134;
+
 	private int id;
 	private String name;
 	private String city;
