@@ -1,6 +1,7 @@
 package huard.iws.model;
 
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class AList{
@@ -18,6 +19,7 @@ public class AList{
 	private List<AList> sublists;
 	private String preface;
 	private String footer;
+	private Date lastUpdate;
 
 	private int location;
 
@@ -34,6 +36,7 @@ public class AList{
 		this.location = 0;
 		this.preface = "";
 		this.footer = "";
+		this.lastUpdate = new Date(0000, 00, 00);
 	}
 
 	public AList(AList aList){
@@ -49,6 +52,7 @@ public class AList{
 		this.location = aList.getLocation();
 		this.preface = aList.getPreface();
 		this.footer = aList.getFooter();
+		this.lastUpdate = aList.getLastUpdate();
 	}
 
 	public boolean isSortEnabled() {
@@ -152,6 +156,14 @@ public class AList{
 
 	public void setFooter(String footer) {
 		this.footer = footer;
+	}
+	
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+	
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 	public String getPreface() {
