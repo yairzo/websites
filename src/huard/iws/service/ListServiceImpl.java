@@ -29,6 +29,7 @@ public class ListServiceImpl implements ListService {
 
 	public void updateList(AList aList){
 		listDao.updateList(aList);
+		listDao.setLastUpdate( aList.getId() );
 	}
 
 	public int insertList(AList aList){
@@ -184,9 +185,6 @@ public class ListServiceImpl implements ListService {
 			ListInstructionService listInstructionService) {
 		this.listInstructionService = listInstructionService;
 	}
-
-
-
-
+	
 
 }
