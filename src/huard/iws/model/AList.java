@@ -19,7 +19,7 @@ public class AList{
 	private List<AList> sublists;
 	private String preface;
 	private String footer;
-	private Date lastUpdate;
+	private long lastUpdate;
 
 	private int location;
 
@@ -36,7 +36,7 @@ public class AList{
 		this.location = 0;
 		this.preface = "";
 		this.footer = "";
-		this.lastUpdate = new Date(0000, 00, 00);
+		this.lastUpdate = 0;
 	}
 
 	public AList(AList aList){
@@ -158,11 +158,11 @@ public class AList{
 		this.footer = footer;
 	}
 	
-	public Date getLastUpdate() {
+	public long getLastUpdate() {
 		return lastUpdate;
 	}
 	
-	public void setLastUpdate(Date lastUpdate) {
+	public void setLastUpdate(long lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
