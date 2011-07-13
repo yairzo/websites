@@ -143,7 +143,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 		return keyHolder.getKey().intValue();
 	}
 
-	public void deletePersonAttribution(int id){
+	public void deletePersonAttribution(int id ){
 		String attributionDelete = "delete from personAttribution where id = ?";
 		getSimpleJdbcTemplate().update(attributionDelete, id);
 	}
@@ -151,4 +151,5 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 	public ParameterizedRowMapper<PersonListAttribution> getRowMapper(){
 		return rowMapper;
 	}
+	
 }
