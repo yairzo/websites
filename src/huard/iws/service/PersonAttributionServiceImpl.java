@@ -1,5 +1,6 @@
 package huard.iws.service;
 
+import huard.iws.db.ListDao;
 import huard.iws.db.PersonAttributionDao;
 import huard.iws.db.PersonDao;
 import huard.iws.model.Person;
@@ -23,6 +24,7 @@ public class PersonAttributionServiceImpl implements PersonAttributionService{
 
 	public void updatePersonAttribution(PersonListAttribution personAttribution){
 		personAttributionDao.updatePersonAttribution(personAttribution);
+		listDao.setLastUpdate(personAttribution.getListId());
 	}
 
 	public void updatePersonAttributionPlaceInList(PersonListAttribution personAttribution){
@@ -33,8 +35,9 @@ public class PersonAttributionServiceImpl implements PersonAttributionService{
 		return personAttributionDao.insertPersonAttribution(personAttribution);
 	}
 
-	public void deletePersonAttribution(int id){
+	public void deletePersonAttribution(int id , int listId){
 		personAttributionDao.deletePersonAttribution(id);
+		listDao.setLastUpdate(listId);
 	}
 
 	PersonAttributionDao personAttributionDao;
@@ -49,7 +52,11 @@ public class PersonAttributionServiceImpl implements PersonAttributionService{
 		this.personDao = personDao;
 	}
 
+	private ListDao listDao;
 
+	public void setListDao(ListDao listDao) {
+		this.listDao = listDao;
+	}
 
 
 
