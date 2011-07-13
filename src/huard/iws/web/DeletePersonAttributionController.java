@@ -24,7 +24,7 @@ public class DeletePersonAttributionController extends GeneralFormController {
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
 		PersonListAttributionBean personAttributionBean = (PersonListAttributionBean) command;
-		personAttributionService.deletePersonAttribution(personAttributionBean.getId());
+		personAttributionService.deletePersonAttribution(personAttributionBean.getId(), personAttributionBean.getListId());
 		Map newModel = new HashMap();
 		newModel.put("id", personAttributionBean.getPersonId());
 		return new ModelAndView(new RedirectView(getSuccessView()), newModel);
