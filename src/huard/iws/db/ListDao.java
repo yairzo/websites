@@ -34,5 +34,7 @@ public interface ListDao {
 	public void deleteListDesign (int listId, int parentListId);
 
 	public void insertListDesign (int listId, int parentListId);
+	
+	public void setLastUpdate ( int listId );
 
 }
