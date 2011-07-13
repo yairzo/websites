@@ -46,4 +46,5 @@ public interface ListService {
 	public void insertListDesign (int listId, int parentListId);
 
 	public int copyList (int sourceListId, RequestWrapper request);
+	
 }
