@@ -16,7 +16,8 @@ public interface PersonAttributionDao {
 
 	public int insertPersonAttribution(PersonListAttribution personAttribution);
 
-	public void deletePersonAttribution(int id);
+	public void deletePersonAttribution(int id );
 
 	public ParameterizedRowMapper<PersonListAttribution> getRowMapper();
+	
 }
