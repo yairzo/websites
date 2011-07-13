@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.sql.Date;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -53,7 +52,6 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
             aList.setListTypeId(rs.getInt("listTypeId"));
             aList.setPreface(rs.getString("preface"));
             aList.setFooter(rs.getString("footer"));
-            aList.setLastUpdate(rs.getDate("lastUpdate"));
             return aList;
         }
 	};
@@ -74,7 +72,6 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
             aList.setListTypeId(rs.getInt("listTypeId"));
             aList.setPreface(rs.getString("preface"));
             aList.setFooter(rs.getString("footer"));
-            aList.setLastUpdate(rs.getDate("lastUpdate"));
             aList.setLocation(rs.getInt("listToSublist.location"));
             return aList;
         }
@@ -83,7 +80,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 	public void updateList(AList aList){
 		String query = "update list set name = ?, displayName = ?, displayNameAligned = ?"+
 			", owner = ?, sendMailToListEnabled = ?, sortEnabled = ?, isCompound = ?"+
-			", isPublic = ?, isOpen = ?, listTypeId = ?, preface = ?, footer = ?, lastUpdate = ? where id = ?";
+			", isPublic = ?, isOpen = ?, listTypeId = ?, preface = ?, footer = ? where id = ?";
 		getSimpleJdbcTemplate().update(query,
 				aList.getName(),
 				aList.getDisplayName(),
@@ -97,7 +94,6 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 				aList.getListTypeId(),
 				aList.getPreface(),
 				aList.getFooter(),
-				aList.getLastUpdate(),
 				aList.getId()
 			);
 		query = "delete from listToSublist where listId = ?";
@@ -111,7 +107,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 	public int insertList(AList aList){
 		final String listInsert = "insert list set name = ?, displayName = ?, displayNameAligned = ?, owner = ?" +
 				", sendMailToListEnabled = ?, sortEnabled = ?, isCompound = ?, isPublic = ?, isOpen = ?, listTypeId = ?" +
-				", preface = ?, footer = ?, lastUpdate = ?";
+				", preface = ?, footer = ?";
 		final String name = aList.getName();
 		final String displayName = aList.getDisplayName();
 		final boolean displayNameAligned = aList.isDisplayNameAligned();
@@ -124,7 +120,6 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 		final int listTypeId = aList.getListTypeId();
 		final String preface = aList.getPreface();
 		final String footer = aList.getFooter();
-		final Date lastUpdate = aList.getLastUpdate();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -143,7 +138,6 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 		            ps.setInt(10, listTypeId);
 		            ps.setString(11, preface);
 		            ps.setString(12, footer);
-		            ps.setDate(13, lastUpdate);
 		            return ps;
 		        }
 		    },
@@ -213,6 +207,12 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 
 	public ParameterizedRowMapper<AList> getRowMapper() {
 		return rowMapper;
+	}
+	
+	
+	public void setLastUpdate ( int listId ) {
+		String query = "update list set lastUpdate = now() where id = ?";
+		getSimpleJdbcTemplate().update(query, listId );
 	}
 
 }
