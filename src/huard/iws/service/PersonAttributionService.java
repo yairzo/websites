@@ -16,6 +16,6 @@ public interface PersonAttributionService {
 
 	public int insertPersonAttribution(PersonListAttribution personAttribution);
 
-	public void deletePersonAttribution(int id);
+	public void deletePersonAttribution(int id , int listId);
 
 }
