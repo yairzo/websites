@@ -206,6 +206,17 @@
 					</td>
 				</tr>
 
+				<tr class="form">
+					<td>
+						עדכון אחרון:
+					</td>
+					<td>
+						<c:out value="${command.lastUpdate}"/>
+					</td>
+					<td>
+						<form:errors cssClass="errors" path="lastUpdate"/>
+					</td>
+				</tr>
 
 		        <tr>
    		          <td colspan="2" align="right">
