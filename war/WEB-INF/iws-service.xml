@@ -397,6 +397,9 @@
     	<property name="personDao">
     		<ref bean="personDao"/>
     	</property>
+    	<property name="listDao">
+    		<ref bean="listDao"/>
+    	</property>
     </bean>
 
     <bean id="helperTableService" class="huard.iws.service.HelperTableServiceImpl">
