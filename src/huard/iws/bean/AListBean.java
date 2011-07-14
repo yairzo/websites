@@ -16,6 +16,7 @@ import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.SearchCreteria;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -37,6 +38,7 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 	private int listTypeId;
 	private String preface;
 	private String footer;
+	private Timestamp lastUpdate;
 
 	private int [] listEditableAttributionsTypes = new int [] {1};
 
@@ -98,6 +100,7 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 		this.sublists = aList.getSublists();
 		this.preface = aList.getPreface();
 		this.footer = aList.getFooter();
+		this.lastUpdate = new Timestamp(aList.getLastUpdate());
 		init(parentListId);
 	}
 
@@ -117,6 +120,7 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 		aList.setSublists(sublists);
 		aList.setPreface(preface);
 		aList.setFooter(footer);
+		aList.setLastUpdate(lastUpdate.getTime());
 		return aList;
 	}
 
@@ -465,6 +469,14 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 
 	public void setFooter(String footer) {
 		this.footer = footer;
+	}
+	
+	public Timestamp getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Timestamp lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 }
