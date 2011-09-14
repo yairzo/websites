@@ -20,7 +20,7 @@ import org.springframework.jdbc.support.KeyHolder;
 public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 
 	public int test;
-	
+
 	public AList getList(int id){
 		String query = "select * from list where id=?";
 		AList aList =
