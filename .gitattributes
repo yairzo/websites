@@ -7,6 +7,7 @@ src/huard/iws/service/PageBodyImageServiceImpl.java svn_mime_002dtype=text%2Fpla
 src/huard/iws/servlet/ImageViewer.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/ImageHandler.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/UploadImageController2.java svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/uploadImage.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/lib/acegi-security-1.0.5.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/aspectjrt.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/aspectjweaver.jar svn_mime_002dtype=application%2Foctet-stream
