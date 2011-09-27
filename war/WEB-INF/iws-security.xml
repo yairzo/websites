@@ -105,6 +105,7 @@
       			/organizationUnit.html=ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR
       			/deleteOrganizationUnit.html=ROLE_LISTS_ADMIN
       			/postReports.html=ROLE_POST_ADMIN
+      			/uploadImage.html=ROLE_POST_ADMIN
 	       </value>
   		</property>
 	</bean>
