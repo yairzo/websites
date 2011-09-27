@@ -88,6 +88,15 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
     <url-pattern>*.html</url-pattern>
   </servlet-mapping>
 
+ <servlet>
+	<servlet-name>ImageViewer</servlet-name>
+	<servlet-class>huard.iws.servlet.ImageViewer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ImageViewer</servlet-name>
+	<url-pattern>/imageViewer</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
 	<servlet-name>FileViewer</servlet-name>
 	<servlet-class>huard.iws.servlet.FileViewer</servlet-class>
