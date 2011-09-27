@@ -225,7 +225,11 @@
         </property>
      </bean>
 
-
+    <bean id="pageBodyImageDao" class="huard.iws.db.JdbcPageBodyImageDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
 
     <jee:jndi-lookup id="dataSource"
     jndi-name="/jdbc/iws"
