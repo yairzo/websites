@@ -413,6 +413,12 @@
     		<ref bean="facultyDao"/>
     	</property>
 	</bean>
+	
+	<bean id="pageBodyImageService" class="huard.iws.service.PageBodyImageServiceImpl">
+		<property name="pageBodyImageDao">
+    		<ref bean="pageBodyImageDao"/>
+    	</property>
+	</bean>
 
 
 </beans>
