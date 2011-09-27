@@ -564,6 +564,16 @@
         </property>
      </bean>
 
+	<bean id="uploadImageController2" class="huard.iws.web.UploadImageController2" parent="generalFormController">
+    	<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.PageBodyImageBean</value></property>
+        <property name="formView"><value>uploadImage</value></property>
+        <property name="successView"><value>uploadImage.html</value></property>
+        <property name="pageBodyImageService">
+            <ref bean="pageBodyImageService"/>
+        </property>
+      </bean>
+
      <bean id="postReportsController" class="huard.iws.web.PostReportsController"
     	parent="generalController">
     	<property name="postService">
@@ -712,7 +722,7 @@
 				<prop key="/viewList.html">viewListController</prop>
 				<prop key="/viewListAdmin.html">viewListController</prop>
 				<prop key="/sendMessage.html">sendMessageController</prop>
-				<prop key="/uploadImage.html">uploadImageController</prop>
+				<prop key="/uploadImage.html">uploadImageController2</prop>
 				<prop key="/printProposal.html">urlFilenameViewController</prop>
 				<prop key="/proposalStateHistory.html">proposalStateHistoryController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>
