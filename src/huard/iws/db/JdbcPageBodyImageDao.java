@@ -20,10 +20,14 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 
 
 	public int insertPageBodyImage( PageBodyImage pageBodyImage){
-		final String pageInsert = "insert image set name = ?, image = ?, uploaderPersonId = ?";
+		final String pageInsert = "insert image set name = ?, captionHebrew = ?, captionEnglish = ?, image = ?, uploaderPersonId = ?, approved = ?";
 		final String name = pageBodyImage.getName();
+		final String captionHebrew = pageBodyImage.getCaptionHebrew();
+		
+		final String captionEnglish = pageBodyImage.getCaptionEnglish();
 		final byte [] image = pageBodyImage.getImage();
 		final int uploaderPersonId = pageBodyImage.getUploaderPersonId();
+		final int approved = pageBodyImage.getApproved();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -31,8 +35,11 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		            PreparedStatement ps =
 		                connection.prepareStatement(pageInsert, new String[] {"id"});
 		            ps.setString(1, name);
-		            ps.setBytes(2, image);
-		            ps.setInt(3, uploaderPersonId);
+		            ps.setString(2, captionHebrew);
+		            ps.setString(3, captionEnglish);
+		            ps.setBytes(4, image);
+		            ps.setInt(5, uploaderPersonId);
+		            ps.setInt(6, approved);
 		            return ps;
 		        }
 		    },
@@ -64,13 +71,22 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
             PageBodyImage pageBodyImage = new PageBodyImage();
             pageBodyImage.setId(rs.getInt("id"));
             pageBodyImage.setName(rs.getString("name"));
+            pageBodyImage.setCaptionHebrew(rs.getString("captionHebrew"));
+            pageBodyImage.setCaptionEnglish(rs.getString("captionEnglish"));
             pageBodyImage.setImage(rs.getBytes("image"));
+            pageBodyImage.setUploaderPersonId(rs.getInt("uploaderPersonId"));
+            pageBodyImage.setApproved(rs.getInt("approved"));
             return pageBodyImage;
         }
 	};
 
 	public void deletePageBodyImage(int id){
 		String query = "delete from image where id = ?";
+		getSimpleJdbcTemplate().update(query, id);
+	}
+	
+	public void approvePageBodyImage(int id){
+		String query = "update image set approved=1 where id = ?";
 		getSimpleJdbcTemplate().update(query, id);
 	}
 
