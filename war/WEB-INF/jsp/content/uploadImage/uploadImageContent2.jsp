@@ -19,8 +19,9 @@
 		<form:form id="form" name="form" method="POST" action="uploadImage.html" commandName="command" enctype="multipart/form-data">
 
              <table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
+				<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"/>
                 <tr class="form">
-					<td width="250">
+					<td width="250">${compulsoryFieldSign}
 						שם תמונה:
 					</td>
 					<td width="300">
@@ -28,11 +29,47 @@
 					</td>
  				</tr>
 				<tr>
-					<td width="250">
-						צרף קובץ:
+					<td colspan="2">
+						<font color="red"><form:errors cssClass="errors" path="name" /></font>
+					</td>
+				</tr>
+               <tr class="form">
+					<td width="250">${compulsoryFieldSign}
+						 כותרת תמונה בעברית:
 					</td>
 					<td width="300">
-						<input class="green" type="file" name="image"  />
+					 	<input class="green" type="text" name="captionHebrew">
+					</td>
+ 				</tr>
+				<tr>
+					<td colspan="2">
+						<font color="red"><form:errors cssClass="errors" path="captionHebrew"/></font>
+					</td>
+				</tr>
+               <tr class="form">
+					<td width="250">${compulsoryFieldSign}
+						 כותרת תמונה באנגלית:
+					</td>
+					<td width="300">
+					 	<input class="green" type="text" name="captionEnglish">
+					</td>
+ 				</tr>
+				<tr>
+					<td colspan="2">
+						<font color="red"><form:errors cssClass="errors" path="captionEnglish"/></font>
+					</td>
+				</tr>
+				<tr>
+					<td width="250">${compulsoryFieldSign}
+						 צרף קובץ (רוחב 420 גובה 240 גודל עד 300K):
+					</td>
+					<td width="300">
+						<input class="green" type="file" name="image" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<font color="red"><form:errors cssClass="errors" path="image"/></font>
 					</td>
 				</tr>
 				<tr>
@@ -55,7 +92,11 @@
   								<img id="${image.id}" src="imageViewer?imageId=${image.id}&attachType=bodyImage" width="72" height="72">
   								<input type="checkbox" value="${image.id}"/>
 	  							<br/>
-  								${image.name}
+  								${image.name}<br>
+  								<c:if test="${image.approved==1}">
+								מאושר
+							   </c:if>
+  								
   							</span>
   						</td>
  				</c:forEach>
@@ -73,7 +114,10 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<a href="#" class="delete"">מחק</a>
+			<a href="#" class="delete">מחק</a>
+			&nbsp;
+			&nbsp;
+			<a href="#" class="approve">אשר</a>
 			&nbsp;
 			&nbsp;
 			<a href="#" class="cancel">סיים</a>

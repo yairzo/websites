@@ -15,6 +15,17 @@ $(document).ready(function() {
 				 }
 			);
 		});
+	 $("a.approve").click(function(){
+		 	$("input[@type=checkbox][@checked]").each(
+				function() {
+					var id = $(this).val();
+					$("#form").append("<input type=\"hidden\" name=\"action\" value=\"approve\"/>");
+					$("#form").append("<input type=\"hidden\" name=\"imageId\" value=\"" + id + "\"");
+					submission = true;
+					$('form#form').submit();
+				}
+			);
+		});
 	 
 		$('.cancel').click(function(){
 			$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"cancel\"/>');
@@ -22,6 +33,10 @@ $(document).ready(function() {
 			$('form#form').submit();
 	    });
 	 
+		<c:if test="${userMessage!=null}">
+		var userMessage = "${userMessage}";
+		$.alerts.alert(userMessage);
+	   </c:if>
 	 
 	 
 });
