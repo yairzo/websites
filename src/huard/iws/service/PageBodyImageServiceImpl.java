@@ -23,6 +23,10 @@ public class PageBodyImageServiceImpl implements PageBodyImageService{
 		pageBodyImageDao.deletePageBodyImage(id);
 	}
 
+	public void approvePageBodyImage(int id){
+		pageBodyImageDao.approvePageBodyImage(id);
+	}
+
 	public int countImages (){
 		return pageBodyImageDao.countImages ();
 	}

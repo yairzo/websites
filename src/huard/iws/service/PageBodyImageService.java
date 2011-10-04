@@ -14,6 +14,8 @@ public interface PageBodyImageService {
 
 	public void deletePageBodyImage(int id);
 
+	public void approvePageBodyImage(int id);
+
 	public int countImages();
 
 }
