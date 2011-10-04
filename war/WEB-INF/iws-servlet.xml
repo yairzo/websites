@@ -572,6 +572,13 @@
         <property name="pageBodyImageService">
             <ref bean="pageBodyImageService"/>
         </property>
+        <property name="validator">
+        	<bean class="huard.iws.web.validate.UploadImageValidator"/>
+        </property>
+        <property name="messageService">
+        	<ref bean="messageService"/>
+        </property>
+        
       </bean>
 
      <bean id="postReportsController" class="huard.iws.web.PostReportsController"
