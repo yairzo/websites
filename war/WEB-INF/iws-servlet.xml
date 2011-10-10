@@ -656,6 +656,14 @@
   		<property name="registry" ref="registry"/>
 	</bean>
 
+	<bean id="pageBodyImageServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="pageBodyImageService"/>
+  		<property name="serviceName" value="PageBodyImageService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.PageBodyImageService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+
 	<bean id="registry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
 		<property name="port" value="1199"/>
 	</bean>
