@@ -1,6 +1,10 @@
 package huard.iws.model;
 
-public class PageBodyImage {
+import java.io.Serializable;
+
+public class PageBodyImage implements Serializable{
+	public static final long serialVersionUID = 1323243434;
+
 	private int id;
 	private String name;
 	private String captionHebrew;
