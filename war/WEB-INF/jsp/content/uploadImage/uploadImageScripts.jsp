@@ -7,9 +7,9 @@ $(document).ready(function() {
 		 	$("input[@type=checkbox][@checked]").each(
 				function() {
 					var id = $(this).val();
-					$("#form").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
-					$("#form").append("<input type=\"hidden\" name=\"imageId\" value=\"" + id + "\"");
-					$("#form").ajaxSubmit( function(){
+					$("#form2").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
+					$("#form2").append("<input type=\"hidden\" name=\"imageId\" value=\"" + id + "\"");
+					$("#form2").ajaxSubmit( function(){
 						$("span#img"+id).remove();
 					});
 				 }
@@ -19,18 +19,18 @@ $(document).ready(function() {
 		 	$("input[@type=checkbox][@checked]").each(
 				function() {
 					var id = $(this).val();
-					$("#form").append("<input type=\"hidden\" name=\"action\" value=\"approve\"/>");
-					$("#form").append("<input type=\"hidden\" name=\"imageId\" value=\"" + id + "\"");
+					$("#form2").append("<input type=\"hidden\" name=\"action\" value=\"approve\"/>");
+					$("#form2").append("<input type=\"hidden\" name=\"imageId\" value=\"" + id + "\"");
 					submission = true;
-					$('form#form').submit();
+					$('form#form2').submit();
 				}
 			);
 		});
 	 
 		$('.cancel').click(function(){
-			$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"cancel\"/>');
+			$('form#form2').append('<input type=\"hidden\" name=\"action\" value=\"cancel\"/>');
 			submission = true;
-			$('form#form').submit();
+			$('form#form2').submit();
 	    });
 	 
 		<c:if test="${userMessage!=null}">

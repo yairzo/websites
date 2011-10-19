@@ -25,7 +25,7 @@
 						שם תמונה:
 					</td>
 					<td width="300">
-					 	<input class="green" type="text" name="name">
+					 	<form:input cssClass="green" path="name" />
 					</td>
  				</tr>
 				<tr>
@@ -38,7 +38,7 @@
 						 כותרת תמונה בעברית:
 					</td>
 					<td width="300">
-					 	<input class="green" type="text" name="captionHebrew">
+					 	<form:input cssClass="green" path="captionHebrew" />
 					</td>
  				</tr>
 				<tr>
@@ -51,7 +51,7 @@
 						 כותרת תמונה באנגלית:
 					</td>
 					<td width="300">
-					 	<input class="green" type="text" name="captionEnglish">
+					 	<form:input cssClass="green" path="captionEnglish" />
 					</td>
  				</tr>
 				<tr>
@@ -82,6 +82,11 @@
 				&nbsp;
 			</td>
 		</tr>
+	</table>
+	</form:form>
+	<form:form id="form2" name="form2" method="POST" action="editImage.html" commandName="command" enctype="multipart/form-data">
+            <table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
+		
 		<tr>
 			<td colspan="2" style="border: black dotted 1px;">
 			<table width="100%">
