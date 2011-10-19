@@ -31,9 +31,9 @@ public class UploadImageController2 extends GeneralFormController {
 	protected ModelAndView onSubmit(Object command, Map<String, Object> model,
 			RequestWrapper request, PersonBean userPersonBean) throws Exception {
 		PageBodyImageBean pageBodyImageBean = (PageBodyImageBean) command;
-		String action = request.getParameter("action", "");
+		//String action = request.getParameter("action", "");
 
-		if (action.equals("cancel")){
+		/*if (action.equals("cancel")){
 			return new ModelAndView( new RedirectView("welcome.html"));
 		}
 		else if (action != null && action.equals("delete")) {
@@ -43,7 +43,7 @@ public class UploadImageController2 extends GeneralFormController {
 		else if (action != null && action.equals("approve")) {
 			String id = request.getParameter("imageId", "");
 			pageBodyImageService.approvePageBodyImage(Integer.parseInt(id));
-		} else {
+		} else {*/
 			//check size and format
 			int imgwidth = pageBodyImageBean.getWidth();
 			int imgheight = pageBodyImageBean.getHeight();
@@ -66,7 +66,7 @@ public class UploadImageController2 extends GeneralFormController {
 				String userMessage = messageService.getMessage("iw_IL.uploadImage.imageNotCorrect");
 				request.getSession().setAttribute("userMessage", userMessage);
 		    }
-		}
+		//}
 		
 		return new ModelAndView(new RedirectView("uploadImage.html"));
 	}
