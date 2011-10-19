@@ -6,6 +6,7 @@ src/huard/iws/service/PageBodyImageService.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/service/PageBodyImageServiceImpl.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/servlet/ImageViewer.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/ImageHandler.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/web/EditImageController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/UploadImageController2.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/UploadImageValidator.java svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/uploadImage/uploadImageContent2.jsp svn_mime_002dtype=text%2Fplain
