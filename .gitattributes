@@ -1,3 +1,4 @@
+src/huard/iws/bean/ConferenceProposalBean.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/bean/PageBodyImageBean.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/db/JdbcPageBodyImageDao.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/db/PageBodyImageDao.java svn_mime_002dtype=text%2Fplain
