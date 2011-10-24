@@ -3,7 +3,6 @@ package huard.iws.web;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.model.Faculty;
-import huard.iws.model.Person;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
@@ -11,8 +10,6 @@ import huard.iws.service.MessageService;
 import huard.iws.service.PersonListService;
 import huard.iws.util.RequestWrapper;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
