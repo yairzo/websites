@@ -4,6 +4,7 @@ src/huard/iws/db/ConferenceProposalDao.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/db/JdbcConferenceProposalDao.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/db/JdbcPageBodyImageDao.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/db/PageBodyImageDao.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/model/ConferenceProposal.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/model/PageBodyImage.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/service/PageBodyImageService.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/service/PageBodyImageServiceImpl.java svn_mime_002dtype=text%2Fplain
