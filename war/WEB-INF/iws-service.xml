@@ -420,5 +420,10 @@
     	</property>
 	</bean>
 
+	<bean id="conferenceProposalService" class="huard.iws.service.ConferenceProposalServiceImpl">
+		<property name="conferenceProposalDao">
+    		<ref bean="conferenceProposalDao"/>
+    	</property>
+	</bean>
 
 </beans>
