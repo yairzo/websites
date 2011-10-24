@@ -231,6 +231,12 @@
         </property>
      </bean>
 
+    <bean id="conferenceProposalDao" class="huard.iws.db.JdbcConferenceProposalDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
     <jee:jndi-lookup id="dataSource"
     jndi-name="/jdbc/iws"
     resource-ref="true" />
