@@ -19,6 +19,10 @@ public class PageBodyImageServiceImpl implements PageBodyImageService{
 		return pageBodyImageDao.getPageBodyImages( page);
 	}
 
+	public List<PageBodyImage> getApprovedPageBodyImages(){
+		return pageBodyImageDao.getApprovedPageBodyImages();
+	}
+
 	public void deletePageBodyImage(int id){
 		pageBodyImageDao.deletePageBodyImage(id);
 	}

@@ -65,6 +65,15 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		System.out.println("After loading images !!!!!");
 			return pageBodyImages;
 	}
+	
+	public List<PageBodyImage> getApprovedPageBodyImages(){
+		String query = "select * from image where approved=1 order by creationTime desc";
+		System.out.println("Before loading images !!!!!");
+		List<PageBodyImage> pageBodyImages =
+			getSimpleJdbcTemplate().query(query, rowMapper);
+		System.out.println("After loading images !!!!!");
+			return pageBodyImages;
+	}
 
 	ParameterizedRowMapper<PageBodyImage> rowMapper = new ParameterizedRowMapper<PageBodyImage>(){
 		public PageBodyImage mapRow(ResultSet rs, int rowNum) throws SQLException{

@@ -12,6 +12,8 @@ public interface PageBodyImageService {
 
 	public List<PageBodyImage> getPageBodyImages( int page);
 
+	public List<PageBodyImage> getApprovedPageBodyImages();
+
 	public void deletePageBodyImage(int id);
 
 	public void approvePageBodyImage(int id);

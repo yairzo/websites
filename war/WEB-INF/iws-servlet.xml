@@ -602,7 +602,7 @@
       </bean>
 
 
-	<bean id="editImageController" class="huard.iws.web.EditImageController" parent="generalFormController">
+	<bean id="imageActionsController" class="huard.iws.web.ImageActionsController" parent="generalFormController">
     	<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.PageBodyImageBean</value></property>
         <property name="formView"><value>editImage</value></property>
@@ -770,7 +770,7 @@
 				<prop key="/viewListAdmin.html">viewListController</prop>
 				<prop key="/sendMessage.html">sendMessageController</prop>
 				<prop key="/uploadImage.html">uploadImageController2</prop>
-				<prop key="/editImage.html">editImageController</prop>
+				<prop key="/editImage.html">imageActionsController</prop>
 				<prop key="/printProposal.html">urlFilenameViewController</prop>
 				<prop key="/proposalStateHistory.html">proposalStateHistoryController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>

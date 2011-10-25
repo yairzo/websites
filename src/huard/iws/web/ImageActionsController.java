@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class EditImageController extends GeneralFormController {
+public class ImageActionsController extends GeneralFormController {
 
 	protected ModelAndView onSubmit(Object command, Map<String, Object> model,
 			RequestWrapper request, PersonBean userPersonBean) throws Exception {
@@ -21,12 +21,12 @@ public class EditImageController extends GeneralFormController {
 			return new ModelAndView( new RedirectView("welcome.html"));
 		}
 		else if (action != null && action.equals("delete")) {
-			String id = request.getParameter("imageId", "");
-			pageBodyImageService.deletePageBodyImage(Integer.parseInt(id));
+			int id = request.getIntParameter("imageId",0);
+			pageBodyImageService.deletePageBodyImage(id);
 		}
 		else if (action != null && action.equals("approve")) {
-			String id = request.getParameter("imageId", "");
-			pageBodyImageService.approvePageBodyImage(Integer.parseInt(id));
+			int id = request.getIntParameter("imageId",0);
+			pageBodyImageService.approvePageBodyImage(id);
 		} 
 		
 		return new ModelAndView(new RedirectView("uploadImage.html"));

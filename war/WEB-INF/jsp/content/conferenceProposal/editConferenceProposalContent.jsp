@@ -83,7 +83,7 @@
 						 נושא הכנס:
 					</td>
 					<td width="300">
-						<form:input cssClass="green" path="description" />
+						<form:input cssClass="green autosaveclass" path="description" />
 					</td>
 				</tr>
 	            <tr id="deanApproval">
@@ -94,7 +94,7 @@
         		   					בחירת הגורם המאשר:
         		   				</th>
 							    <td>
-      		        				<form:select id="deanSelect"  path="approverId" cssClass="green">
+      		        				<form:select id="deanSelect"  path="approverId" cssClass="green autosaveclass">
       		        					<form:option value="0">בחר/י גורם מאשר</form:option>
       		        					<c:forEach items="${deans}" var="deanPerson">
       		        						<form:option htmlEscape="true" value="${deanPerson.id}" ><c:out escapeXml="false" value="${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/></form:option>
