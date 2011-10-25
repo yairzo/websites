@@ -21,7 +21,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class UploadImageController2 extends GeneralFormController {
+public class UploadImageController extends GeneralFormController {
 
 	protected ModelAndView onSubmit(Object command, Map<String, Object> model,
 			RequestWrapper request, PersonBean userPersonBean) throws Exception {
