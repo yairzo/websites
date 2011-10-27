@@ -23,16 +23,17 @@ public class UploadImageValidator implements Validator {
 			ValidationUtils.rejectIfEmpty(errors, "image", "iw_IL.required.image");
 			//check image format
 			PageBodyImageBean pageBodyImageBean = (PageBodyImageBean) command;
-			int imgwidth = pageBodyImageBean.getWidth();
-			int imgheight = pageBodyImageBean.getHeight();
-			int imgsize =pageBodyImageBean.getImage().length;
-			String extention = "";
-			byte [] img =  pageBodyImageBean.getImage();
-			if(img[0]==-1 && img[1]==-40 )
-				extention="jpg";
-			if(imgheight != 240 || imgwidth != 420 || imgsize > 300000 || !extention.equals("jpg"))
-				errors.rejectValue( "image", "iw_IL.uploadImage.imageNotCorrect");
-			
+			if(pageBodyImageBean.getImage().length>0){
+				int imgwidth = pageBodyImageBean.getWidth();
+				int imgheight = pageBodyImageBean.getHeight();
+				int imgsize =pageBodyImageBean.getImage().length;
+				String extention = "";
+				byte [] img =  pageBodyImageBean.getImage();
+				if(img[0]==-1 && img[1]==-40 )
+					extention="jpg";
+				if(imgheight != 240 || imgwidth != 420 || imgsize > 300000 || !extention.equals("jpg"))
+					errors.rejectValue( "image", "iw_IL.uploadImage.imageNotCorrect");
+			}
 	
 	}
 
