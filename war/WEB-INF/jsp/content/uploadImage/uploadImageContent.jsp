@@ -84,24 +84,28 @@
 		</tr>
 	</table>
 	</form:form>
-	<form:form id="form2" name="form2" method="POST" action="editImage.html" commandName="command" enctype="multipart/form-data">
+
             <table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
-		
+
 		<tr>
 			<td colspan="2" style="border: black dotted 1px;">
 			<table width="100%">
 				<tr>
 				<c:forEach items="${images}" var="image" varStatus="varStatus">
+  						<c:choose>
+  						<c:when test="${image.approved==1}">
+  							<c:set var="borderStyle" value="border: 2px solid green;"/>
+  						</c:when>
+  						<c:otherwise>
+  							<c:set var="borderStyle" value="border: 2px solid grey;"/>
+  						</c:otherwise>
+  						</c:choose>
   						<td>
   							<span id="img${image.id}">
-  								<img id="${image.id}" src="imageViewer?imageId=${image.id}&attachType=bodyImage" width="72" height="72">
+  								<img id="${image.id}" style="${borderStyle}" src="imageViewer?imageId=${image.id}&attachType=bodyImage" width="72" height="72">
   								<input type="checkbox" value="${image.id}"/>
 	  							<br/>
-  								${image.name}<br>
-  								<c:if test="${image.approved==1}">
-								מאושר
-							   </c:if>
-  								
+  								${image.name}<br/>
   							</span>
   						</td>
  				</c:forEach>
@@ -134,14 +138,14 @@
 		</td>
 	</tr>
 
-	
+
     </table>
-</form:form>
+
     </td>
   </tr>
 
 </table>
-
+<form id="editImage" name="editImage" method="POST" action="editImage.html"/>
 
 </body>
 </html>

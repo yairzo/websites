@@ -7,9 +7,9 @@ $(document).ready(function() {
 		 	$("input[@type=checkbox][@checked]").each(
 				function() {
 					var id = $(this).val();
-					$("#form2").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
-					$("#form2").append("<input type=\"hidden\" name=\"imageId\" value=\"" + id + "\"");
-					$("#form2").ajaxSubmit( function(){
+					$("form#editImage").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
+					$("form#editImage").append("<input type=\"hidden\" name=\"imageId\" value=\""+id+"\"/>");
+					$("form#editImage").ajaxSubmit( function(){
 						$("span#img"+id).remove();
 					});
 				 }
@@ -19,26 +19,22 @@ $(document).ready(function() {
 		 	$("input[@type=checkbox][@checked]").each(
 				function() {
 					var id = $(this).val();
-					$("#form2").append("<input type=\"hidden\" name=\"action\" value=\"approve\"/>");
-					$("#form2").append("<input type=\"hidden\" name=\"imageId\" value=\"" + id + "\"");
-					submission = true;
-					$('form#form2').submit();
+					$("form#editImage").append("<input type=\"hidden\" name=\"action\" value=\"approve\"/>");
+					$("form#editImage").append("<input type=\"hidden\" name=\"imageId\" value=\""+id+"\"/>");
+					$('form#editImage').submit();
 				}
 			);
 		});
-	 
-		$('.cancel').click(function(){
-			$('form#form2').append('<input type=\"hidden\" name=\"action\" value=\"cancel\"/>');
-			submission = true;
-			$('form#form2').submit();
-	    });
-	 
-		<c:if test="${userMessage!=null}">
+
+	$('.cancel').click(function(){
+		$('form#editImage').append('<input type=\"hidden\" name=\"action\" value=\"cancel\"/>');
+		$('form#editImage').submit();
+	});
+
+	<c:if test="${userMessage!=null}">
 		var userMessage = "${userMessage}";
 		$.alerts.alert(userMessage);
-	   </c:if>
-	 
-	 
+	</c:if>
 });
-	
+
 </script>

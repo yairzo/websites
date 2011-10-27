@@ -1,7 +1,6 @@
 package huard.iws.model;
 
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 public class AList{
@@ -157,11 +156,11 @@ public class AList{
 	public void setFooter(String footer) {
 		this.footer = footer;
 	}
-	
+
 	public long getLastUpdate() {
 		return lastUpdate;
 	}
-	
+
 	public void setLastUpdate(long lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}

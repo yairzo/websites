@@ -22,13 +22,14 @@ public class ImageActionsController extends GeneralFormController {
 		}
 		else if (action != null && action.equals("delete")) {
 			int id = request.getIntParameter("imageId",0);
+			System.out.println("id: " + id);
 			pageBodyImageService.deletePageBodyImage(id);
 		}
 		else if (action != null && action.equals("approve")) {
 			int id = request.getIntParameter("imageId",0);
 			pageBodyImageService.approvePageBodyImage(id);
-		} 
-		
+		}
+
 		return new ModelAndView(new RedirectView("uploadImage.html"));
 	}
 

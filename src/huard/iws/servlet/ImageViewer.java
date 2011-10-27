@@ -2,13 +2,10 @@ package huard.iws.servlet;
 
 
 import huard.iws.service.PageBodyImageService;
-//import huard.iws.service.RegistrationService;
 import huard.iws.util.ApplicationContextProvider;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +22,6 @@ public class ImageViewer extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		logger.info("Starting to view image");
-
 
 		Object obj = ApplicationContextProvider.getContext().getBean("pageBodyImageService");
 		PageBodyImageService pageBodyImageService = (PageBodyImageService)obj;

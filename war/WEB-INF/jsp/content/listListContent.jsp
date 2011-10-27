@@ -98,7 +98,7 @@ $("#searchPhrase").focus();
                   </td>
                 </tr>
                 <tr>
-                  <td width="201" align="center" valign="center"><form:input id="searchPhrase" cssClass="green" path="searchCreteria.searchPhrase"/>
+                  <td width="201" align="center" valign="center"><form:input id="searchPhrase" htmlEscape="true" cssClass="green" path="searchCreteria.searchPhrase"/>
 
                   </td>
 
