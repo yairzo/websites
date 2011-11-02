@@ -23,7 +23,7 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		final String pageInsert = "insert image set name = ?, captionHebrew = ?, captionEnglish = ?, image = ?, uploaderPersonId = ?, approved = ?";
 		final String name = pageBodyImage.getName();
 		final String captionHebrew = pageBodyImage.getCaptionHebrew();
-		
+
 		final String captionEnglish = pageBodyImage.getCaptionEnglish();
 		final byte [] image = pageBodyImage.getImage();
 		final int uploaderPersonId = pageBodyImage.getUploaderPersonId();
@@ -59,13 +59,13 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 	public List<PageBodyImage> getPageBodyImages(int page){
 		String query = "select * from image order by creationTime desc limit "
 			+ page * NUM_IMAGES_PER_PAGE + "," + NUM_IMAGES_PER_PAGE;
-		System.out.println("Before loading images !!!!!");
+		//System.out.println("Before loading images !!!!!");
 		List<PageBodyImage> pageBodyImages =
 			getSimpleJdbcTemplate().query(query, rowMapper);
-		System.out.println("After loading images !!!!!");
+		//System.out.println("After loading images !!!!!");
 			return pageBodyImages;
 	}
-	
+
 	public List<PageBodyImage> getApprovedPageBodyImages(){
 		String query = "select * from image where approved=1 order by creationTime desc";
 		System.out.println("Before loading images !!!!!");
@@ -93,7 +93,7 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		String query = "delete from image where id = ?";
 		getSimpleJdbcTemplate().update(query, id);
 	}
-	
+
 	public void approvePageBodyImage(int id){
 		String query = "update image set approved=1 where id = ?";
 		getSimpleJdbcTemplate().update(query, id);

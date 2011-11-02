@@ -12,17 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 public class ImageViewer extends HttpServlet{
+	private static final long serialVersionUID = -1;
 	private int DEFAULT_IMG_ID = 1;
-	private static final Logger logger = Logger.getLogger(ImageViewer.class);
+	//private static final Logger logger = Logger.getLogger(ImageViewer.class);
 
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		logger.info("Starting to view image");
-
+		//logger.info("Starting to view image");
 		Object obj = ApplicationContextProvider.getContext().getBean("pageBodyImageService");
 		PageBodyImageService pageBodyImageService = (PageBodyImageService)obj;
 
@@ -32,15 +30,15 @@ public class ImageViewer extends HttpServlet{
 			aId = Integer.parseInt(id);
 		}
 
-		String attachType;
-		if ((attachType = request.getParameter("attachType")) == null) return;
+		String attachType  = request.getParameter("attachType");
+		if (attachType == null) return;
 
 		try{
 
 			if (aId != 0) {
 
 				byte [] file = null;
-				logger.info("Starting to load image: " + aId);
+				//logger.info("Starting to load image: " + aId);
 				file = pageBodyImageService.getPageBodyImage(aId).getImage();
 				if (file ==null || file.length == 0)
 					file = pageBodyImageService.getPageBodyImage(DEFAULT_IMG_ID).getImage();

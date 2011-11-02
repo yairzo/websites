@@ -2,10 +2,10 @@ package huard.iws.web;
 
 import huard.iws.bean.PageBodyImageBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.util.RequestWrapper;
 import huard.iws.model.PageBodyImage;
 import huard.iws.service.MessageService;
 import huard.iws.service.PageBodyImageService;
+import huard.iws.util.RequestWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,7 +30,7 @@ public class UploadImageController extends GeneralFormController {
 		pageBodyImageBean.setUploaderPersonId(uploaderId);
 		pageBodyImageService.insertPageBodyImage(pageBodyImageBean.toPageBodyImage());
 
-		
+
 		return new ModelAndView(new RedirectView("uploadImage.html"));
 	}
 
@@ -39,24 +38,24 @@ public class UploadImageController extends GeneralFormController {
 			HttpServletResponse response, PersonBean userPersonBean,
 			Map<String, Object> model) throws Exception {
 
-		
-		  int page = 0; 
-		  String aPage; 
-		  if ( request.getParameter("page","") != null && !request.getParameter("page","").equals("")){ 
+
+		  int page = 0;
+		  String aPage;
+		  if ( request.getParameter("page","") != null && !request.getParameter("page","").equals("")){
 			  aPage = request.getParameter("page","");
-			  page = Integer.parseInt(aPage); 
-		  } 
+			  page = Integer.parseInt(aPage);
+		  }
 		  model.put("page", page);
 		  model.put("previousPage", Math.max(0, page -1));
 		  model.put("nextPage", Math.min(pageBodyImageService.countImages(),  page + 1));
 
 		  List<PageBodyImage> pageBodyImages =	  pageBodyImageService.getPageBodyImages(page);
-		  
-		  List<PageBodyImageBean> pageBodyImagesBeans = new  ArrayList<PageBodyImageBean>(); 
-		  for (PageBodyImage pageBodyImage: pageBodyImages){ 
-			  pageBodyImagesBeans.add( new	PageBodyImageBean(pageBodyImage)); 
+
+		  List<PageBodyImageBean> pageBodyImagesBeans = new  ArrayList<PageBodyImageBean>();
+		  for (PageBodyImage pageBodyImage: pageBodyImages){
+			  pageBodyImagesBeans.add( new	PageBodyImageBean(pageBodyImage));
 		  }
-		  
+
 		  model.put("images", pageBodyImagesBeans);
 
 		return new ModelAndView(this.getFormView(), model);

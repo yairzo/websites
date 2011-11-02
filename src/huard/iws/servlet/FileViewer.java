@@ -47,7 +47,6 @@ public class FileViewer extends HttpServlet {
 
 		if (proposalId > 0){
 
-
 			String attachType  = requestWrapper.getParameter("attachType","");
 
 			if (attachType.isEmpty())
