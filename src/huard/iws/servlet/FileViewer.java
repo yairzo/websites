@@ -6,10 +6,12 @@ import huard.iws.model.Person;
 import huard.iws.model.Post;
 import huard.iws.model.Proposal;
 import huard.iws.model.ProposalAttachment;
+import huard.iws.model.ConferenceProposal;
 import huard.iws.service.PersonProposalService;
 import huard.iws.service.PersonService;
 import huard.iws.service.PostService;
 import huard.iws.service.ProposalService;
+import huard.iws.service.ConferenceProposalService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.RequestWrapper;
 
@@ -39,11 +41,12 @@ public class FileViewer extends HttpServlet {
 		byte [] file = null;
 		String contentType = requestWrapper.getParameter("contentType", "");
 		int attachmentId = requestWrapper.getIntParameter("attachmentId", 0);
-		if (contentType.isEmpty() || attachmentId <= 0)
+		if (contentType.isEmpty() || attachmentId <= 0 )
 			return;
-
+		
 		int proposalId = requestWrapper.getIntParameter("proposalId", 0);
 		int postId = requestWrapper.getIntParameter("postId", 0);
+		int conferenceProposalId = requestWrapper.getIntParameter("conferenceProposalId", 0);
 
 		if (proposalId > 0){
 
@@ -96,6 +99,26 @@ public class FileViewer extends HttpServlet {
 			Attachment attachment = postBean.getAttachmentsMap().get(attachmentId);
 			file = attachment.getFile();
 		}
+		
+		else if (conferenceProposalId > 0){
+			String attachFile  = requestWrapper.getParameter("attachFile","");
+
+			if (attachFile.isEmpty())
+				return;
+
+
+			Object bean = ApplicationContextProvider.getContext().getBean("conferenceProposalService");
+			ConferenceProposalService conferenceProposalService = (ConferenceProposalService)bean;
+
+			ConferenceProposal conferenceProposal = conferenceProposalService.getConferenceProposal(conferenceProposalId);
+
+			if (attachFile.equals("guestsAttach")) file = conferenceProposal.getGuestsAttach();
+			else if (attachFile.equals("programAttach")) file = conferenceProposal.getProgramAttach();
+			else if (attachFile.equals("financialAttach")) file = conferenceProposal.getFinancialAttach();
+			else return;
+
+		}
+
 
 		try{
 

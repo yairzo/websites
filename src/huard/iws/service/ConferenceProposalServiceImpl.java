@@ -17,20 +17,24 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 		return conferenceProposalDao.getConferenceProposal(id);
 	}
 
-	public ConferenceProposal getPrevVersionConferenceProposal(int confId, int verId){
-		return conferenceProposalDao.getPrevVersionConferenceProposal(confId,verId);
+	public ConferenceProposal getVersionConferenceProposal(int confId, int verId){
+		return conferenceProposalDao.getVersionConferenceProposal(confId,verId);
 	}
-	
+
+	public int getPreviousVersion(int confId, int verId){
+		return conferenceProposalDao.getPreviousVersion(confId, verId);
+	}
+
+	public int getNextVersion(int confId, int verId){
+		return conferenceProposalDao.getNextVersion(confId, verId);
+	}
+
 	public int getFirstVersion(int confId){
 		return conferenceProposalDao.getFirstVersion(confId);
 	}
 
 	public int getLastVersion(int confId){
 		return conferenceProposalDao.getLastVersion(confId);
-	}
-
-	public ConferenceProposal getNextVersionConferenceProposal(int confId, int verId){
-		return conferenceProposalDao.getNextVersionConferenceProposal(confId,verId);
 	}
 
 	public void updateConferenceProposal (ConferenceProposal conferenceProposal){

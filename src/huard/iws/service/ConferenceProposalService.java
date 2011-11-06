@@ -9,13 +9,15 @@ public interface ConferenceProposalService {
 
 	public ConferenceProposal getConferenceProposal( int id);
 	
-	public ConferenceProposal getPrevVersionConferenceProposal(int confId, int verId);
+	public ConferenceProposal getVersionConferenceProposal(int confId, int verId);
 	
+	public int getPreviousVersion(int confId, int verId);
+
+	public int getNextVersion(int confId, int verId);
+
 	public int getFirstVersion(int confId);
 
 	public int getLastVersion(int confId);
-
-	public ConferenceProposal getNextVersionConferenceProposal(int confId, int verId);
 
 	public int insertConferenceProposal (ConferenceProposal conferenceProposal);
 
