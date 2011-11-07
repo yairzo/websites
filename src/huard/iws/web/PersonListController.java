@@ -95,11 +95,11 @@ public class PersonListController extends GeneralFormController {
 				listView = new ListView();
 				listView.setOrderBy("lastNameHebrew,firstNameHebrew");
 			}
+			//add how many rows
+			listView.setRowsInPage(3);
 			personListService.prepareListView(listView, searchCreteria);
 
 			aCommand.setSearchCreteria(searchCreteria);
-			//add how many rows
-			listView.setRowsInPage(3);
 			aCommand.setListView(listView);
 
 			request.getSession().setAttribute("searchCreteria", null);

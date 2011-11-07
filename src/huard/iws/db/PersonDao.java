@@ -30,6 +30,8 @@ public interface PersonDao {
 
 	public List<Person> getPersons(ListView lv, SearchCreteria search);
 
+	public int countPersons(ListView lv, SearchCreteria search);
+	
 	public List<Person> getPersons(ListView lv);
 
 	public List<Person> getPersons();

@@ -36,7 +36,8 @@ public class PersonListServiceImpl implements PersonListService{
 		//ListPaginator lp = new ListPaginator(getPersons(lv, search), PERSONS_IN_PAGE);
 		//lv.setLastPage(lp.getNumOfPages());
 		//lv.setNearPages(lp.getNearPages(lv.getPage()));
-		lv.setLastPage(lv.getNumOfPages(personDao.countPerson()));
+		System.out.println("personDao.countPersons(lv,search)"+personDao.countPersons(lv,search));
+		lv.setLastPage(lv.getNumOfPages(personDao.countPersons(lv,search)));
 		lv.setNearPages(lv.getScroll());
 	}
 
