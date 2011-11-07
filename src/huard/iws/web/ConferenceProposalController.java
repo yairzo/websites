@@ -82,7 +82,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		model.put("faculty", faculty.getNameHebrew());
 
 		// if new proposal Create a new proposal and write it to db
-		if (request.getParameter("action", "").equals("open")){
+		if (request.getParameter("action", "").equals("new")){
 			ConferenceProposal conferenceProposal= new ConferenceProposal();
 			conferenceProposal.setPersonId(userPersonBean.getId());
 			int conferenceProposalId = conferenceProposalService.insertConferenceProposal(conferenceProposal);

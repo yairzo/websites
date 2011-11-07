@@ -1,5 +1,6 @@
 package huard.iws.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListView {
@@ -9,6 +10,7 @@ public class ListView {
 	private int page;
 	private int lastPage;
 	private List<NearPage> nearPages;
+	private int rowsInPage;
 
 
 	public void setNearPages(List<NearPage> nearPages) {
@@ -21,6 +23,7 @@ public class ListView {
 		this.orderBy = "";
 		this.page = 1;
 		this.lastPage = 1;
+		this.rowsInPage=7;
 	}
 
 
@@ -40,6 +43,7 @@ public class ListView {
 		this.lastPage = lastPage;
 	}
 
+	
 	public List<NearPage> getNearPages() {
 		/*List<NearPage>  nearPages = new ArrayList<NearPage>();
 		int lowEndNearPage = page - 2 > 1 ? page - 2 : 1;
@@ -49,7 +53,7 @@ public class ListView {
 		}*/
 		return nearPages;
 	}
-
+	
 	public String getOrderBy() {
 		return orderBy;
 	}
@@ -69,7 +73,30 @@ public class ListView {
 		this.id = id;
 	}
 
+	public int getRowsInPage() {
+		return rowsInPage;
+	}
+	public void setRowsInPage(int rowsInPage) {
+		this.rowsInPage = rowsInPage;
+	}
 
+	public int getNumOfPages(int countRows){
+		if (countRows==0) return 1;
+		if (countRows%getRowsInPage() == 0) return countRows/getRowsInPage();
+		else return (countRows/getRowsInPage())+1;
+	}
+
+	public List<NearPage> getScroll() {
+		int first = Math.max(page-2, 1);
+		int last = Math.min(page+2, getLastPage());
+		List<NearPage> nearPages = new ArrayList<NearPage>();
+		if (first != 1) nearPages.add(new NearPage("...",Math.max(1, page-4)));
+		for (int i=first ; i<=last ; i++){
+			nearPages.add(new NearPage(""+i, i));
+		}
+		if (last != getLastPage()) nearPages.add(new NearPage("...", Math.min(getLastPage(), page+4)));
+		return nearPages;
+	}
 
 
 }

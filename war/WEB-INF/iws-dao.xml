@@ -16,7 +16,7 @@
 
  	<ehcache:config configLocation="classpath:/ehcache.xml" />
 
-    <ehcache:proxy id="personDao">
+    <!--<ehcache:proxy id="personDao">
     	<bean class="huard.iws.db.JdbcPersonDao">
     		<property name="dataSource">
            		<ref bean="dataSource"/>
@@ -35,7 +35,7 @@
     		methodName="updatePerson"
     		cacheNames="personCache"
     		when="after"/>
-	</ehcache:proxy>
+	</ehcache:proxy>-->
 
 	<bean id="callOfProposalDao" class="huard.iws.db.JdbcCallOfProposalDao"/>
 

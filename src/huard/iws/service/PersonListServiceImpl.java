@@ -21,8 +21,9 @@ public class PersonListServiceImpl implements PersonListService{
 	private final int PERSONS_IN_PAGE=7;
 
 	public List<Person> getPersonsPage(ListView lv, SearchCreteria search) {
-		ListPaginator lp = new ListPaginator(getPersons(lv, search), PERSONS_IN_PAGE);
-		List l = lp.getPage(lv.getPage());
+		//ListPaginator lp = new ListPaginator(getPersons(lv, search), PERSONS_IN_PAGE);
+		//List l = lp.getPage(lv.getPage());
+		List l = getPersons(lv, search);
 		List<Person> personsPage = new ArrayList<Person>();
 		for (Object o : l){
 			Person person = (Person) o;
@@ -32,9 +33,11 @@ public class PersonListServiceImpl implements PersonListService{
 	}
 
 	public void prepareListView(ListView lv, SearchCreteria search){
-		ListPaginator lp = new ListPaginator(getPersons(lv, search), PERSONS_IN_PAGE);
-		lv.setLastPage(lp.getNumOfPages());
-		lv.setNearPages(lp.getNearPages(lv.getPage()));
+		//ListPaginator lp = new ListPaginator(getPersons(lv, search), PERSONS_IN_PAGE);
+		//lv.setLastPage(lp.getNumOfPages());
+		//lv.setNearPages(lp.getNearPages(lv.getPage()));
+		lv.setLastPage(lv.getNumOfPages(personDao.countPerson()));
+		lv.setNearPages(lv.getScroll());
 	}
 
 

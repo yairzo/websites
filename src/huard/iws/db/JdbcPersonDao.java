@@ -278,11 +278,14 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		}
 		if (searchPhraseValid [0])
 			query +=  " (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
+				+ " or concat(lastNameHebrew, ' ', firstNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
+				+ " or concat(firstNameHebrew, ' ', lastNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
 				+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
 				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
 				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";
 
 		query += " group by civilId order by "+lv.getOrderBy();
+		query += " limit "+ lv.getPage() * lv.getRowsInPage() + "," + lv.getRowsInPage();
 
 		System.out.println(query);
 
@@ -401,6 +404,13 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 			}
 		});
 		return usersLastLogins;
+	}
+
+	
+	public int countPerson(){
+		String query = "select count(*) from person";
+		return getSimpleJdbcTemplate().queryForInt(query);
+		
 	}
 
 }

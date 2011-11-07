@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 
-public class PersonListController extends GeneralFormController {
+public class ConferenceProposalListController extends GeneralFormController {
 
 	//private static final Logger logger = Logger.getLogger(PersonListController.class);
 
@@ -28,25 +28,25 @@ public class PersonListController extends GeneralFormController {
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
-		PersonListControllerCommand aCommand = (PersonListControllerCommand)command;
+		ConferenceProposalSearchController searchCommand = (ConferenceProposalSearchController)command;
 
 		Map newModel = new HashMap();
 		String action = request.getParameter("action", "");
 
-		request.getSession().setAttribute("personsSearchCreteria", aCommand.getSearchCreteria());
-	
+		request.getSession().setAttribute("searchCreteria", searchCommand.getSearchCreteria());
+
 		if (action.equals("search"))
-			aCommand.getListView().setPage(1);
+			searchCommand.getListView().setPage(1);
 
-		request.getSession().setAttribute("personsListView", aCommand.getListView());
+		request.getSession().setAttribute("conferenceProposalsListView", searchCommand.getListView());
 
-		if (action.equals("edit") && aCommand.getPersonId()>0){
-			newModel.put("id",aCommand.getPersonId());
-			return new ModelAndView( new RedirectView("person.html"),newModel);
+		if (action.equals("edit") && searchCommand.getConferenceProposalId()>0){
+			newModel.put("id",searchCommand.getConferenceProposalId());
+			return new ModelAndView( new RedirectView("conferenceProposal.html"),newModel);
 		}
-		if (action.equals("delete") && aCommand.getPersonId()>0){
-			newModel.put("id",aCommand.getPersonId());
-			return new ModelAndView( new RedirectView("deletePerson.html"), newModel);
+		if (action.equals("delete") && searchCommand.getConferenceProposalId()>0){
+			newModel.put("id",searchCommand.getConferenceProposalId());
+			return new ModelAndView( new RedirectView("deleteConferenceProposal.html"), newModel);
 		}
 
 		return new ModelAndView(new RedirectView(getSuccessView()), newModel);
@@ -57,8 +57,9 @@ public class PersonListController extends GeneralFormController {
 	{
 		recordProtectService.freeRecordsByUsername(userPersonBean.getUsername());
 
-		PersonListControllerCommand command = (PersonListControllerCommand) model.get("command");
-		List<Person> persons = personListService.getPersonsPage(command.getListView(), command.getSearchCreteria());
+		ConferenceProposalSearchController searchCommand = (ConferenceProposalSearchController) model.get("command");
+
+		List<Person> persons = personListService.getPersonsPage(searchCommand.getListView(), searchCommand.getSearchCreteria());
 		List<PersonBean> personBeans = new ArrayList<PersonBean>();
 
 		for (Person person: persons){
@@ -74,12 +75,12 @@ public class PersonListController extends GeneralFormController {
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
-		PersonListControllerCommand aCommand = new PersonListControllerCommand();
+		ConferenceProposalSearchController searchCommand = new ConferenceProposalSearchController();
 		if (!isFormSubmission(request.getRequest())){
 			SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("personsSearchCreteria");
 			request.getSession().setAttribute("personsSearchCreteria", null);
 			ListView listView = (ListView) request.getSession().getAttribute("personsListView");
-			
+
 			if (searchCreteria == null){
 				searchCreteria = new SearchCreteria();
 				searchCreteria.setSearchField("lastNameHebrew");
@@ -95,30 +96,29 @@ public class PersonListController extends GeneralFormController {
 				listView = new ListView();
 				listView.setOrderBy("lastNameHebrew,firstNameHebrew");
 			}
+
 			personListService.prepareListView(listView, searchCreteria);
 
-			aCommand.setSearchCreteria(searchCreteria);
-			//add how many rows
-			listView.setRowsInPage(3);
-			aCommand.setListView(listView);
+			searchCommand.setSearchCreteria(searchCreteria);
+			searchCommand.setListView(listView);
 
 			request.getSession().setAttribute("searchCreteria", null);
 			request.getSession().setAttribute("listView", null);
 		}
-		return aCommand;
+		return searchCommand;
 	}
 
-	public class PersonListControllerCommand{
+	public class ConferenceProposalSearchController{
 		SearchCreteria searchCreteria = new SearchCreteria();
 		ListView listView = new ListView();
-		int personId=0;
+		int conferenceProposalId=0;
 
 
-		public int getPersonId() {
-			return personId;
+		public int getConferenceProposalId() {
+			return conferenceProposalId;
 		}
-		public void setPersonId(int personId) {
-			this.personId = personId;
+		public void setConferenceProposalId(int conferenceProposalId) {
+			this.conferenceProposalId = conferenceProposalId;
 		}
 		public SearchCreteria getSearchCreteria() {
 			return searchCreteria;

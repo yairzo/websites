@@ -53,5 +53,7 @@ public interface PersonDao {
 	public List<Person> getUsers (String role, boolean enabled, String additionalCondition);
 
 	public Map<Integer, Timestamp> getPersonsLastLogins();
+	
+	public int countPerson();
 
 }
