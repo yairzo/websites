@@ -23,7 +23,8 @@ import org.springframework.web.servlet.view.RedirectView;
 public class PersonListController extends GeneralFormController {
 
 	//private static final Logger logger = Logger.getLogger(PersonListController.class);
-
+    private final int ROWS_IN_PAGE=3;
+    
 	@SuppressWarnings("unchecked")
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
@@ -96,7 +97,7 @@ public class PersonListController extends GeneralFormController {
 				listView.setOrderBy("lastNameHebrew,firstNameHebrew");
 			}
 			//add how many rows
-			listView.setRowsInPage(3);
+			listView.setRowsInPage(ROWS_IN_PAGE);
 			personListService.prepareListView(listView, searchCreteria);
 
 			aCommand.setSearchCreteria(searchCreteria);

@@ -261,28 +261,10 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	}
 
 	public List<Person> getPersons(ListView lv, SearchCreteria search) {
-		boolean [] searchPhraseValid = validateSearch(search);
-		// seaching by a search field
 
 		String query = "select * from person";
-		if (searchPhraseValid [1])
-			query += " inner join personPrivilege on person.id = personPrivilege.personId";
-
-		if (searchPhraseValid [0] || searchPhraseValid [1])
-			query += " where";
-
-		if (searchPhraseValid [1]){
-			query += " privilege = '" + search.getRoleFilter() + "'";
-			if (searchPhraseValid [0])
-				query += " and";
-		}
-		if (searchPhraseValid [0])
-			query +=  " (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
-				+ " or concat(lastNameHebrew, ' ', firstNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
-				+ " or concat(firstNameHebrew, ' ', lastNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
-				+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
-				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
-				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";
+		//get where clause by search critieria
+		query += getPersonsWhereClause(search);
 
 		query += " group by civilId order by "+lv.getOrderBy();
 		query += " limit "+ (lv.getPage()-1) * lv.getRowsInPage() + "," + lv.getRowsInPage();
@@ -296,30 +278,11 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
     }
 	
 	public int countPersons(ListView lv, SearchCreteria search) {
-		boolean [] searchPhraseValid = validateSearch(search);
-		// seaching by a search field
 
 		String query = "select count(*) from person";
-		if (searchPhraseValid [1])
-			query += " inner join personPrivilege on person.id = personPrivilege.personId";
+		//get where clause by search critieria
+		query += getPersonsWhereClause(search);
 
-		if (searchPhraseValid [0] || searchPhraseValid [1])
-			query += " where";
-
-		if (searchPhraseValid [1]){
-			query += " privilege = '" + search.getRoleFilter() + "'";
-			if (searchPhraseValid [0])
-				query += " and";
-		}
-		if (searchPhraseValid [0])
-			query +=  " (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
-				+ " or concat(lastNameHebrew, ' ', firstNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
-				+ " or concat(firstNameHebrew, ' ', lastNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
-				+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
-				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
-				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";
-
-		//query += " group by civilId order by "+lv.getOrderBy();
 
 		System.out.println(query);
 
@@ -327,6 +290,32 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 
     }
 
+	public String getPersonsWhereClause(SearchCreteria search){
+		boolean [] searchPhraseValid = validateSearch(search);
+		String whereClause="";
+		// seaching by a search field
+		if (searchPhraseValid [1])
+			whereClause += " inner join personPrivilege on person.id = personPrivilege.personId";
+
+		if (searchPhraseValid [0] || searchPhraseValid [1])
+			whereClause += " where";
+
+		if (searchPhraseValid [1]){
+			whereClause += " privilege = '" + search.getRoleFilter() + "'";
+			if (searchPhraseValid [0])
+				whereClause += " and";
+		}
+		if (searchPhraseValid [0])
+			whereClause +=  " (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
+				+ " or concat(lastNameHebrew, ' ', firstNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
+				+ " or concat(firstNameHebrew, ' ', lastNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
+				+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
+				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
+				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";
+		return whereClause;
+	}
+	
+	
 	private boolean [] validateSearch (SearchCreteria search){
 		boolean [] searchPhraseValid = new boolean [2];
 		searchPhraseValid [0] = search != null && ! search.getSearchPhrase().isEmpty();
