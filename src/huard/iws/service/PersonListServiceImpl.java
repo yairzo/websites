@@ -4,7 +4,6 @@ import huard.iws.bean.PersonBean;
 import huard.iws.db.PersonDao;
 import huard.iws.model.Person;
 import huard.iws.model.PersonListAttribution;
-import huard.iws.util.ListPaginator;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
 
@@ -18,7 +17,7 @@ import java.util.Set;
 
 public class PersonListServiceImpl implements PersonListService{
 	//private static final Logger logger = Logger.getLogger(PersonListService.class);
-	private final int PERSONS_IN_PAGE=7;
+	//private final int PERSONS_IN_PAGE=7;
 
 	public List<Person> getPersonsPage(ListView lv, SearchCreteria search) {
 		//ListPaginator lp = new ListPaginator(getPersons(lv, search), PERSONS_IN_PAGE);

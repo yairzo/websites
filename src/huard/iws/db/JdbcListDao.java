@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
@@ -18,8 +19,8 @@ import org.springframework.jdbc.support.KeyHolder;
 
 
 public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
+	protected static final Logger logger = Logger.getLogger(JdbcListDao.class);
 
-	public int test;
 
 	public AList getList(int id){
 		String query = "select * from list where id=?";
@@ -214,8 +215,8 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 	public ParameterizedRowMapper<AList> getRowMapper() {
 		return rowMapper;
 	}
-	
-	
+
+
 	public void setLastUpdate ( int listId ) {
 		String query = "update list set lastUpdate = now() where id = ?";
 		getSimpleJdbcTemplate().update(query, listId );

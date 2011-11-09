@@ -22,8 +22,6 @@
            		<ref bean="dataSource"/>
         	</property>
      	</bean>
-
-
   		<ehcache:caching
       		methodName="get*"
       		cacheName="personCache" />
