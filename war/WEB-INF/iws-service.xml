@@ -425,5 +425,10 @@
     		<ref bean="conferenceProposalDao"/>
     	</property>
 	</bean>
-
+	
+	<bean id="conferenceProposalListService" class="huard.iws.service.ConferenceProposalListServiceImpl">
+		<property name="conferenceProposalDao">
+    		<ref bean="conferenceProposalDao"/>
+    	</property>
+	</bean>
 </beans>

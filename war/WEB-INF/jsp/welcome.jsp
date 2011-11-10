@@ -66,6 +66,13 @@
 							</th>
 						</tr>
 						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_RESEARCHER">
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="conferenceProposals.html"> הצעות למימון כנסים</a>
+							</th>
+						</tr>
+						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_LISTS_MOP">
 						<tr>
 							<th  align="right">

@@ -42,11 +42,7 @@ $(document).ready(function() {
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 
-    $.get('selectBoxFiller',{type:'person'},function(data){
- 		var persons = data.split(",,");
- 		resetAutocomplete(persons);
- 		$("#searchPhrase").focus();
- 	});
+
 
 });
 
@@ -110,20 +106,13 @@ $(document).ready(function() {
 				  	<table>
   						<tr>
 				  			<td>
-				  				<c:choose>
-					  				<c:when test="${conferenceProposal.busyRecord}">
-						  		&nbsp;
-				  	  				</c:when>
-				  	  				<c:otherwise>
-			  					<form:radiobutton path="personId" value="${conferenceProposal.id}"/>
-  					  				</c:otherwise>
-				  				</c:choose>
-				  		</td>
+			  					<form:radiobutton path="conferenceProposalId" value="${conferenceProposal.id}"/>
+ 				  		</td>
   						<td>
-  							<c:out value="${conferenceProposal.firstNameHebrew}"/>
+  							<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>
   						</td>
   						<td>
-  							<c:out value="${conferenceProposal.lastNameHebrew}"/>
+  							<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
   						</td>
  						<td>
   							<c:out value="${conferenceProposal.subject}"/>

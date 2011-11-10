@@ -579,6 +579,17 @@
         </property>
       </bean>
 
+	<bean id="conferenceProposalListController" class="huard.iws.web.ConferenceProposalListController" parent="generalFormController">
+    	<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.ConferenceProposalListController$ConferenceProposalListCommand</value></property>
+        <property name="formView"><value>conferenceProposalsList</value></property>
+        <property name="successView"><value>conferenceProposals.html</value></property>
+        <property name="conferenceProposalListService">
+            <ref bean="conferenceProposalListService"/>
+        </property>
+     </bean>
+
+
 	<bean id="uploadImageController" class="huard.iws.web.UploadImageController" parent="generalFormController">
     	<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.PageBodyImageBean</value></property>
@@ -761,6 +772,7 @@
 				<prop key="/proposal.html">editProposalController</prop>
 				<prop key="/proposals.html">proposalListController</prop>
 				<prop key="/editConferenceProposal.html">conferenceProposalController</prop>
+				<prop key="/conferenceProposals.html">conferenceProposalListController</prop>
 				<prop key="/viewList.html">viewListController</prop>
 				<prop key="/viewListAdmin.html">viewListController</prop>
 				<prop key="/sendMessage.html">sendMessageController</prop>

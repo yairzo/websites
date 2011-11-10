@@ -106,6 +106,7 @@
       			/deleteOrganizationUnit.html=ROLE_LISTS_ADMIN
       			/postReports.html=ROLE_POST_ADMIN
       			/uploadImage.html=ROLE_POST_ADMIN
+      			/conferenceProposals.htmk=ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_RESEARCHER
 	       </value>
   		</property>
 	</bean>
