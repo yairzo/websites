@@ -49,13 +49,13 @@ public class ConferenceProposalController extends GeneralFormController{
 			while (fileNames.hasNext()) {
 				String filename = (String) fileNames.next();
 				MultipartFile file = multipartRequest.getFile(filename);
-				if (filename.equals("guestsAttach") && conferenceProposalBean.getGuestsAttach().length>0){
+				if (filename.equals("guestsAttach") && conferenceProposalBean.getFinancialAttach()!=null && conferenceProposalBean.getGuestsAttach().length>0){
 					conferenceProposalBean.setGuestsAttachContentType(file.getContentType());
 				}
-				else if (filename.equals("programAttach") && conferenceProposalBean.getProgramAttach().length>0){
+				else if (filename.equals("programAttach") && conferenceProposalBean.getFinancialAttach()!=null && conferenceProposalBean.getProgramAttach().length>0){
 					conferenceProposalBean.setProgramAttachContentType(file.getContentType());
 				}
-				else if (filename.equals("financialAttach") && conferenceProposalBean.getFinancialAttach().length>0){
+				else if (filename.equals("financialAttach") && conferenceProposalBean.getFinancialAttach()!=null && conferenceProposalBean.getFinancialAttach().length>0){
 					conferenceProposalBean.setFinancialAttachContentType(file.getContentType());
 				}
 			}

@@ -1,6 +1,10 @@
 package huard.iws.db;
 
+
 import huard.iws.model.ConferenceProposal;
+import huard.iws.bean.PersonBean;
+import huard.iws.util.ListView;
+import huard.iws.util.SearchCreteria;
 
 import java.util.List;
 
@@ -27,5 +31,9 @@ public interface ConferenceProposalDao {
 	public List<ConferenceProposal> getConferenceProposals();
 	
 	public List<ConferenceProposal> getConferenceProposalsByPerson( int personId);
-
+	
+	public List<ConferenceProposal> getConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean);
+	
+	public int countConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean);
+	
 }

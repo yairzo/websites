@@ -1,8 +1,11 @@
 package huard.iws.db;
 
 import huard.iws.model.ConferenceProposal;
+import huard.iws.bean.PersonBean;
+import huard.iws.util.ListView;
+import huard.iws.util.SQLUtils;
+import huard.iws.util.SearchCreteria;
 
-import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -325,6 +328,66 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		return conferenceProposals;
     }
 
+	public List<ConferenceProposal> getConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean) {
+
+		String query = "select * from conferenceProposal";
+		//get where clause by search critieria
+		query += getConferenceProposalsWhereClause(search,userPersonBean);
+
+		query += " limit "+ (lv.getPage()-1) * lv.getRowsInPage() + "," + lv.getRowsInPage();
+
+		System.out.println(query);
+
+		List<ConferenceProposal> conferenceProposals =
+			getSimpleJdbcTemplate().query(query, rowMapper);
+		//applyPersonSubjectIds(persons);
+		return conferenceProposals;
+    }
+	
+	public int countConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean) {
+
+		String query = "select count(*) from conferenceProposal";
+		//get where clause by search critieria
+		query += getConferenceProposalsWhereClause(search,userPersonBean);
+
+
+		System.out.println(query);
+
+		return getSimpleJdbcTemplate().queryForInt(query);
+
+    }
+
+	public String getConferenceProposalsWhereClause(SearchCreteria search, PersonBean userPersonBean){
+		String whereClause="";
+		// seaching by a search field
+
+		if ((search != null && ! search.getSearchPhrase().isEmpty()) || userPersonBean.isAuthorized("CONFERENCE","APPROVER") || userPersonBean.isAuthorized("RESEARCHER") )
+			whereClause += " where";
+
+		if (userPersonBean.isAuthorized("RESEARCHER")){
+			whereClause += " personId = " + userPersonBean.getId() ;
+			if (search != null && ! search.getSearchPhrase().isEmpty())
+				whereClause += " and";
+		}
+		else if (userPersonBean.isAuthorized("CONFERENCE","APPROVER")){
+			whereClause += " approverId = " + userPersonBean.getId() ;
+			if (search != null && ! search.getSearchPhrase().isEmpty())
+				whereClause += " and";
+		}
+		
+		/*if (search != null && ! search.getSearchPhrase().isEmpty())
+			whereClause +=  " (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
+				+ " or concat(lastNameHebrew, ' ', firstNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
+				+ " or concat(firstNameHebrew, ' ', lastNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
+				+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
+				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
+				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";
+		*/
+		
+		return whereClause;
+	}
+	
+	
 
 
 }

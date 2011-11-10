@@ -1,13 +1,19 @@
 package huard.iws.bean;
 
 import java.sql.Timestamp;
+import java.util.List;
+
 import huard.iws.model.ConferenceProposal;
+//import huard.iws.model.PersonProposal;
+import huard.iws.service.PersonService;
+import huard.iws.util.ApplicationContextProvider;
 
 
 public class ConferenceProposalBean {
 
 	private int id;
 	private int personId;
+	private PersonBean researcher;
 	private int approverId;
 	private String approverEvaluation;
 	private String description;
@@ -133,6 +139,13 @@ public class ConferenceProposalBean {
 		this.id = id;
 	}
 
+	public PersonBean getResearcher() {
+		PersonService personService =
+				(PersonService) ApplicationContextProvider.getContext().getBean("personService");
+		PersonBean researcher = new PersonBean(personService.getPerson(this.personId));
+		return researcher;
+	}
+
 	public int getPersonId() {
 		return personId;
 	}
@@ -140,7 +153,6 @@ public class ConferenceProposalBean {
 	public void setPersonId(int personId) {
 		this.personId = personId;
 	}
-
 	public int getApproverId() {
 		return approverId;
 	}
