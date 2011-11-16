@@ -120,8 +120,10 @@ select.green
 textarea.green
 {
 	border: 1px solid #767468;
+	font-size: 11pt;
 	background-color:#F4EEE4;
 }
+
 
 .white
 {

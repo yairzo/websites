@@ -35,5 +35,12 @@ public interface ConferenceProposalDao {
 	public List<ConferenceProposal> getConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean);
 	
 	public int countConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean);
+
+	public void gradeHigher(ConferenceProposal conferenceProposal);
 	
+	public void gradeLower(ConferenceProposal conferenceProposal);
+	
+	public int getMaxGrade(int approverId);
+
+
 }

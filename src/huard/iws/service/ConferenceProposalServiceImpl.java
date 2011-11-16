@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import huard.iws.bean.PersonBean;
 import huard.iws.db.ConferenceProposalDao;
 import huard.iws.model.ConferenceProposal;
 
@@ -81,6 +82,11 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 		}
 		return conferenceProposalsMap;
 	}
+	
+	public int getMaxGrade(int approverId){
+		return conferenceProposalDao.getMaxGrade(approverId);
+	}
+
 
 	private ConferenceProposalDao conferenceProposalDao;
 

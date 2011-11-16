@@ -31,6 +31,15 @@ public class ConferenceProposalListServiceImpl implements ConferenceProposalList
 		return conferenceProposalDao.getConferenceProposals(lv, search,userPersonBean);
 	}
 
+	public void gradeHigher(ConferenceProposal conferenceProposal){
+		conferenceProposalDao.gradeHigher(conferenceProposal);
+	}
+
+	public void gradeLower(ConferenceProposal conferenceProposal){
+		conferenceProposalDao.gradeLower(conferenceProposal);
+	}
+	
+
 
 	private ConferenceProposalDao conferenceProposalDao;
 

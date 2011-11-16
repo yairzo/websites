@@ -7,6 +7,7 @@ import huard.iws.bean.PartnerBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.PostBean;
 import huard.iws.bean.ProposalBean;
+import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.constant.Constants;
 import huard.iws.db.MailMessageDao;
 import huard.iws.model.Attachment;
@@ -102,6 +103,30 @@ public class MailMessageServiceImpl implements MailMessageService{
 		           velocityEngine, "simpleMailMessage.vm", model);
 		messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, subject, body, getCommonResources());
 	}
+	
+	public void createSimpleConferenceMail(PersonBean recipient, ConferenceProposalBean conferenceProposal,
+			String messageKey){
+		createSimpleConferenceMail(recipient, new PersonBean(), conferenceProposal, messageKey);
+	}
+
+	public void createSimpleConferenceMail(PersonBean recipient, PersonBean sender, ConferenceProposalBean conferenceProposal,
+			String messageKey){
+		String subject = messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".subject");
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
+		model.put("recipient", recipient.getDegreeFullNameHebrew());
+		model.put("conferenceProposal", conferenceProposal);
+		model.put("server", getServer());
+		model.put("proposalMessageOpening", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage.proposalMessageOpening"));
+		model.put("conferenceMessage", true);
+		String [] messageParams = new String []{sender.getDegreeFullNameHebrew()};
+		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
+		String body = VelocityEngineUtils.mergeTemplateIntoString(
+		           velocityEngine, "simpleMailMessage.vm", model);
+		System.out.println(body);
+		messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, subject, body, getCommonResources());
+	}
+
 
 	public void createSimplePartnerMail(PersonBean recipient, ProposalBean proposal,
 			PartnerBean partner, String messageKey){

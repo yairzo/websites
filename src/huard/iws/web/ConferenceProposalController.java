@@ -2,10 +2,12 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.ConferenceProposalBean;
+import huard.iws.model.Person;
 import huard.iws.model.Faculty;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
+import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
 import huard.iws.service.PersonListService;
 import huard.iws.util.RequestWrapper;
@@ -60,11 +62,23 @@ public class ConferenceProposalController extends GeneralFormController{
 				}
 			}
 		}		
+		conferenceProposalBean.setGrade(attachmentsConferenceProposalBean.getGrade());
 		
+		//assigned new approver
+		if(attachmentsConferenceProposalBean.getApproverId()!=conferenceProposalBean.getApproverId()){
+			//assign grade
+			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId())+1);
+			//send mail to approver
+			PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
+			if (updatedApprover.isValidEmail()) 
+				mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
+		}
 		
 		//update
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
 		
+		
+			
 		//return to same page
 		model.put("id", conferenceProposalBean.getId())	;			
 		return new ModelAndView(new RedirectView("editConferenceProposal.html"),model);
@@ -153,5 +167,10 @@ public class ConferenceProposalController extends GeneralFormController{
 		this.messageService = messageService;
 	}
 
+	private MailMessageService mailMessageService;
+
+	public void setMailMessageService(MailMessageService mailMessageService) {
+		this.mailMessageService = mailMessageService;
+	}	
 	
 }

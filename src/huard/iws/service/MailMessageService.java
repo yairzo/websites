@@ -6,6 +6,7 @@ import huard.iws.bean.PartnerBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.PostBean;
 import huard.iws.bean.ProposalBean;
+import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.model.Fund;
 import huard.iws.model.MailMessage;
 
@@ -21,6 +22,12 @@ public interface MailMessageService {
 			String messageKey);
 
 	public void createSimpleProposalMail(PersonBean recipient, PersonBean sender, ProposalBean proposal,
+			String messageKey);
+
+	public void createSimpleConferenceMail(PersonBean recipient, ConferenceProposalBean conferenceProposalBean,
+			String messageKey);
+
+	public void createSimpleConferenceMail(PersonBean recipient, PersonBean sender, ConferenceProposalBean conferenceProposalBean,
 			String messageKey);
 
 	public void createSimplePartnerMail(PersonBean recipient, ProposalBean proposal,

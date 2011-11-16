@@ -16,6 +16,7 @@ public class ConferenceProposalBean {
 	private PersonBean researcher;
 	private int approverId;
 	private String approverEvaluation;
+	private int grade;
 	private String description;
 	private int versionId;
 	/* private String degreeHebrew;
@@ -54,6 +55,7 @@ public class ConferenceProposalBean {
 		this.personId = 0;
 		this.approverId = 0;
 		this.approverEvaluation="";
+		this.grade=0;
 		this.description = "";
 		this.versionId = 0;
 		/*this.initiatingBody = 0;
@@ -82,6 +84,7 @@ public class ConferenceProposalBean {
 		this.personId = conferenceProposal.getPersonId();
 		this.approverId = conferenceProposal.getApproverId();
 		this.approverEvaluation = conferenceProposal.getApproverEvaluation();
+		this.grade= conferenceProposal.getGrade();
 		this.description = conferenceProposal.getDescription();
 		this.versionId = conferenceProposal.getVersionId();
 		this.subject = conferenceProposal.getSubject();
@@ -110,6 +113,7 @@ public class ConferenceProposalBean {
 		conferenceProposal.setPersonId(personId);
 		conferenceProposal.setApproverId(approverId);
 		conferenceProposal.setApproverEvaluation(approverEvaluation);
+		conferenceProposal.setGrade(grade);
 		conferenceProposal.setDescription(description);
 		conferenceProposal.setVersionId(versionId);
 		conferenceProposal.setSubject(subject);
@@ -166,6 +170,13 @@ public class ConferenceProposalBean {
 	}
 	public void setApproverEvaluation(String approverEvaluation) {
 		this.approverEvaluation = approverEvaluation;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 
 	public String getDescription() {

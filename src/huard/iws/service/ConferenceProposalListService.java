@@ -13,4 +13,9 @@ public interface ConferenceProposalListService {
 
 	public void prepareListView(ListView lv, SearchCreteria search, PersonBean userPersonBean);
 
+	public void gradeHigher(ConferenceProposal conferenceProposal);
+
+	public void gradeLower(ConferenceProposal conferenceProposal);
+	
+
 }

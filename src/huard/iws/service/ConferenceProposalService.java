@@ -3,6 +3,7 @@ package huard.iws.service;
 import java.util.List;
 import java.util.Map;
 
+import huard.iws.bean.PersonBean;
 import huard.iws.model.ConferenceProposal;
 
 public interface ConferenceProposalService {
@@ -32,5 +33,9 @@ public interface ConferenceProposalService {
 	public Map<Integer, ConferenceProposal> getConferenceProposalsMap();
 
 	public Map<Integer, ConferenceProposal> getConferenceProposalsByPersonMap(int personId);
+	
+	public int getMaxGrade(int approverId);
+
+
 
 }

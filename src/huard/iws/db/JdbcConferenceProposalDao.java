@@ -3,7 +3,6 @@ package huard.iws.db;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.bean.PersonBean;
 import huard.iws.util.ListView;
-import huard.iws.util.SQLUtils;
 import huard.iws.util.SearchCreteria;
 
 import java.sql.Connection;
@@ -73,6 +72,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setPersonId(rs.getInt("personId"));
 			conferenceProposal.setApproverId(rs.getInt("approverId"));
 			conferenceProposal.setApproverEvaluation(rs.getString("approverEvaluation"));
+			conferenceProposal.setGrade(rs.getInt("grade"));
 			conferenceProposal.setDescription(rs.getString("description"));
 			conferenceProposal.setSubject(rs.getString("subject"));
 			conferenceProposal.setFromDate(rs.getTimestamp("fromDate"));
@@ -102,6 +102,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setPersonId(rs.getInt("personId"));
 			conferenceProposal.setApproverId(rs.getInt("approverId"));
 			conferenceProposal.setApproverEvaluation(rs.getString("approverEvaluation"));
+			conferenceProposal.setGrade(rs.getInt("grade"));
 			conferenceProposal.setDescription(rs.getString("description"));
 			conferenceProposal.setSubject(rs.getString("subject"));
 			conferenceProposal.setFromDate(rs.getTimestamp("fromDate"));
@@ -161,6 +162,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				" personId = ?" +
 				", approverId = ?" +
 				", approverEvaluation = ?" +				
+				", grade = ?" +				
 				", description = ?" + 
 				", subject = ?" + 
 				", fromDate = ?" + 
@@ -184,6 +186,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getPersonId(),
 				conferenceProposal.getApproverId(),
 				conferenceProposal.getApproverEvaluation(),
+				conferenceProposal.getGrade(),
 				conferenceProposal.getDescription(),
 				conferenceProposal.getSubject(),
 				conferenceProposal.getFromDate(),
@@ -210,6 +213,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", personId = ?" + 
 				", approverId = ?" + 
 				", approverEvaluation = ?" +
+				", grade = ?" +
 				", description = ?"+
 				", subject = ?" + 
 				", fromDate = ?" + 
@@ -229,34 +233,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", financeAttach = ?" + 
 				", financeAttachContentType = ?" + 
 				";";
-		/*final int proposalId = conferenceProposal.getId();
-		final int personId = conferenceProposal.getPersonId();
-		final int approverId = conferenceProposal.getApproverId();
-		final String approverEvaluation = conferenceProposal.getApproverEvaluation();
-		final String description = conferenceProposal.getDescription();
-		final String subject = conferenceProposal.getSubject();
-		final Timestamp fromDate = conferenceProposal.getFromDate();
-		final Timestamp toDate = conferenceProposal.getToDate();
-		final String location = conferenceProposal.getLocation();
-		final String locationDetail = conferenceProposal.getLocationDetail();
-		final int foreignLecturers = conferenceProposal.getForeignLecturers();
-		final int localLecturers = conferenceProposal.getLocalLecturers();
-		final int audienceLecturers = conferenceProposal.getAudienceLecturers();
-		final int foreignGuests = conferenceProposal.getForeignGuests();
-		final int localGuests = conferenceProposal.getLocalGuests();
-		final int audienceGuests = conferenceProposal.getAudienceGuests();
-		final byte [] guestsAttach = conferenceProposal.getGuestsAttach();
-		final String guestsAttachContentType = conferenceProposal.getGuestsAttachContentType();
-		final byte [] programAttach = conferenceProposal.getProgramAttach();
-		final String programAttachContentType = conferenceProposal.getProgramAttachContentType();
-		final byte [] financialAttach = conferenceProposal.getFinancialAttach();
-		final String financialAttachContentType = conferenceProposal.getFinancialAttachContentType();
-		*/
+
 		
 		getSimpleJdbcTemplate().update(proposalVersionInsert,conferenceProposal.getId(),
 				conferenceProposal.getPersonId(),
 				conferenceProposal.getApproverId(),
 				conferenceProposal.getApproverEvaluation(),
+				conferenceProposal.getGrade(),
 				conferenceProposal.getDescription(),
 				conferenceProposal.getSubject(),
 				conferenceProposal.getFromDate(),
@@ -274,38 +257,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getProgramAttach(),
 				conferenceProposal.getProgramAttachContentType(),
 				conferenceProposal.getFinancialAttach(),
-				conferenceProposal.getFinancialAttachContentType()
-				
-				/*new PreparedStatementCreator() {
-		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-		            PreparedStatement ps =
-		                connection.prepareStatement(proposalVersionInsert, new String[] {"id"});
-		            ps.setInt(1, proposalId);
-		            ps.setInt(2, personId);
-		            ps.setInt(3, approverId);
-		            ps.setString(4, approverEvaluation);
-		            ps.setString(5, description);
-		            ps.setString(6, subject);
-		            ps.setTimestamp(7, fromDate);
-		            ps.setTimestamp(8, toDate);
-		            ps.setString(9, location);
-		            ps.setString(10, locationDetail);
-		            ps.setInt(11, foreignLecturers);
-		            ps.setInt(12, localLecturers);
-		            ps.setInt(13, audienceLecturers);
-		            ps.setInt(14, foreignGuests);
-		            ps.setInt(15, localGuests);
-		            ps.setInt(16, audienceGuests);
-		            ps.setBytes(17, guestsAttach);
-		            ps.setString(18, guestsAttachContentType);
-		            ps.setBytes(19, programAttach);
-		            ps.setString(20, programAttachContentType);
-		            ps.setBytes(21, financialAttach);
-		            ps.setString(22, financialAttachContentType);
-
-		            return ps;
-		        }
-		    }*/);
+				conferenceProposal.getFinancialAttachContentType());
 	}
 
 
@@ -383,11 +335,33 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
 				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";
 		*/
-		
+		if (userPersonBean.isAuthorized("CONFERENCE","APPROVER")){
+			whereClause += " order by grade";
+		}		
 		return whereClause;
 	}
 	
 	
-
+	public void gradeHigher(ConferenceProposal conferenceProposal){
+		String query = "update conferenceProposal set grade=grade - 1 where approverId=? and grade=?;";
+		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()+1);
+		System.out.println(query);
+		query = "update conferenceProposal set grade= grade + 1 where id=?;";
+		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
+		System.out.println(query);
+	}
+	public void gradeLower(ConferenceProposal conferenceProposal){
+		String query = "update conferenceProposal set grade=grade + 1 where approverId=? and grade=?;";
+		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()-1);
+		System.out.println(query);
+		query = "update conferenceProposal set grade= grade - 1 where id=?;";
+		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
+		System.out.println(query);
+	}
+	public int getMaxGrade(int approverId){
+		String query = "select max(grade) from conferenceProposal where approverId=? ;";
+		System.out.println(query);
+		return getSimpleJdbcTemplate().queryForInt(query,approverId);
+	}
 
 }

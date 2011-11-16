@@ -80,6 +80,8 @@
 								#parse("simplePartnerMailMessage.vm")
 							#elseif (${fundMessage})
 								#parse("simpleFundMailMessage.vm")
+							#elseif (${conferenceMessage})
+								#parse("simpleConferenceMailMessage.vm")
 							#end
 
 					${message}

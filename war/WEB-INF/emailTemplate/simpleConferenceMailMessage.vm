@@ -1,0 +1,2 @@
+
+${proposalMessageOpening} <a href="http://${server}/iws/editConferenceProposal.html?id=${conferenceProposal.id}">${conferenceProposal.subject}</a>

@@ -577,7 +577,10 @@
         <property name="messageService">
         	<ref bean="messageService"/>
         </property>
-      </bean>
+        <property name="mailMessageService">
+        	<ref bean="mailMessageService"/>
+        </property>
+       </bean>
 
 	<bean id="conferenceProposalListController" class="huard.iws.web.ConferenceProposalListController" parent="generalFormController">
     	<property name="commandName"><value>command</value></property>
@@ -588,7 +591,18 @@
             <ref bean="conferenceProposalListService"/>
         </property>
      </bean>
-
+	<bean id="conferenceProposalGradeController" class="huard.iws.web.ConferenceProposalGradeController" parent="generalFormController">
+    	<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.ConferenceProposalGradeController$ConferenceProposalGradeCommand</value></property>
+        <property name="formView"><value>conferenceProposalsGrade</value></property>
+        <property name="successView"><value>conferenceProposalsGrade.html</value></property>
+        <property name="conferenceProposalListService">
+            <ref bean="conferenceProposalListService"/>
+        </property>
+        <property name="conferenceProposalService">
+            <ref bean="conferenceProposalService"/>
+        </property>
+     </bean>
 
 	<bean id="uploadImageController" class="huard.iws.web.UploadImageController" parent="generalFormController">
     	<property name="commandName"><value>command</value></property>
@@ -773,6 +787,7 @@
 				<prop key="/proposals.html">proposalListController</prop>
 				<prop key="/editConferenceProposal.html">conferenceProposalController</prop>
 				<prop key="/conferenceProposals.html">conferenceProposalListController</prop>
+				<prop key="/conferenceProposalsGrade.html">conferenceProposalGradeController</prop>
 				<prop key="/viewList.html">viewListController</prop>
 				<prop key="/viewListAdmin.html">viewListController</prop>
 				<prop key="/sendMessage.html">sendMessageController</prop>

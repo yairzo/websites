@@ -8,6 +8,7 @@ public class ConferenceProposal {
 	private int personId;
 	private int approverId;
 	private String approverEvaluation;
+	private int grade;
 	private String description;
 	private int versionId;
 	/*private String degreeHebrew;
@@ -46,6 +47,7 @@ public class ConferenceProposal {
 		this.personId = 0;
 		this.approverId = 0;
 		this.approverEvaluation="";
+		this.grade =0;
 		this.description = "";
 		this.versionId = 0;
 		/*this.initiatingBody = 0;
@@ -95,6 +97,13 @@ public class ConferenceProposal {
 	}
 	public void setApproverEvaluation(String approverEvaluation) {
 		this.approverEvaluation = approverEvaluation;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 
 	public String getDescription() {
