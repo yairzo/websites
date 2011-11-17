@@ -17,5 +17,6 @@ public interface ConferenceProposalListService {
 
 	public void gradeLower(ConferenceProposal conferenceProposal);
 	
+	public List<ConferenceProposal> getConferenceProposals();
 
 }
