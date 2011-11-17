@@ -106,6 +106,14 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 	<url-pattern>/fileViewer</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+	<servlet-name>ConferenceProposalCsv</servlet-name>
+	<servlet-class>huard.iws.servlet.ConferenceProposalCsv</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ConferenceProposalCsv</servlet-name>
+	<url-pattern>/conferenceProposalCsv</url-pattern>
+  </servlet-mapping>
 
   <servlet>
 	<servlet-name>SelectBoxFiller</servlet-name>
