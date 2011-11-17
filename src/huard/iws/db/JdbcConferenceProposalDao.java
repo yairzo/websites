@@ -272,7 +272,14 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			getSimpleJdbcTemplate().query(query, rowMapper);
 		return conferenceProposals;
     }
-
+	
+	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate) {
+		String query = "select * from conferenceProposal where fromDate> ? order by id";
+		List<ConferenceProposal> conferenceProposals =
+			getSimpleJdbcTemplate().query(query, rowMapper,fromDate);
+		return conferenceProposals;
+    }
+	
 	public List<ConferenceProposal> getConferenceProposalsByPerson( int personId) {
 		String query = "select * from conferenceProposal where personId = ?";
 		List<ConferenceProposal> conferenceProposals =

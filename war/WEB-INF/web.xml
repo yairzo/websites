@@ -107,12 +107,12 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
   </servlet-mapping>
 
   <servlet>
-	<servlet-name>ConferenceProposalCsv</servlet-name>
-	<servlet-class>huard.iws.servlet.ConferenceProposalCsv</servlet-class>
+	<servlet-name>ConferenceProposalsCsv</servlet-name>
+	<servlet-class>huard.iws.servlet.ConferenceProposalsCsv</servlet-class>
   </servlet>
   <servlet-mapping>
-	<servlet-name>ConferenceProposalCsv</servlet-name>
-	<url-pattern>/conferenceProposalCsv</url-pattern>
+	<servlet-name>ConferenceProposalsCsv</servlet-name>
+	<url-pattern>/conferenceProposalsCsv</url-pattern>
   </servlet-mapping>
 
   <servlet>

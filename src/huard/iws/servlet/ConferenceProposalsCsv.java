@@ -4,6 +4,7 @@ import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.util.ApplicationContextProvider;
+import huard.iws.util.RequestWrapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +14,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.io.*;
 public class ConferenceProposalsCsv extends HttpServlet {
 	private static final long serialVersionUID = -1;
 
@@ -23,15 +24,18 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			throws ServletException, IOException {
 		ServletOutputStream out = null;
 		try {
-			//response.setContentType("application/octet-stream");
-			response.setContentType("text/csv");
-			response.setHeader("Content-Disposition","attachment;filename=proposals.csv");
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.setContentType ("application/octet-stream");
+			response.setHeader("Content-disposition","attachment; filename=proposals.csv");
+			
+			RequestWrapper requestWrapper = new RequestWrapper(request);
+			String fromDate = requestWrapper.getParameter("fromDate", "");
 
-			StringBuffer cpb = generateCsvFileBuffer();
+			StringBuffer cpb = generateCsvFileBuffer(fromDate);
 
 			String cps = cpb.toString();
 			byte[] file = cps.getBytes();
-			int length = cps.length();
+			int length = file.length;
 			response.setContentLength(length);
 			out = response.getOutputStream();
 			out.write(file);
@@ -54,15 +58,21 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		doGet(req, res);
 	}
 
-	private static StringBuffer generateCsvFileBuffer() {
+	private static StringBuffer generateCsvFileBuffer(String fromDate) {
 		StringBuffer b = new StringBuffer();
 
 		// get data
-		Object bean = ApplicationContextProvider.getContext().getBean("ConferenceProposalListService");
+		Object bean = ApplicationContextProvider.getContext().getBean("conferenceProposalListService");
 		ConferenceProposalListService conferenceProposalListService = (ConferenceProposalListService) bean;
-		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposals();
+		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsByDate(fromDate);
 		for (ConferenceProposal conferenceProposal : conferenceProposals) {
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
+			b.append("Subject");
+			b.append(',');
+			b.append("Description");
+			b.append(',');
+			b.append("Location");
+			b.append('\n');
 			b.append(conferenceProposalBean.getSubject());
 			b.append(',');
 			b.append(conferenceProposalBean.getDescription());

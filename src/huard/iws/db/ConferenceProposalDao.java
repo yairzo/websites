@@ -42,5 +42,7 @@ public interface ConferenceProposalDao {
 	
 	public int getMaxGrade(int approverId);
 
+	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate);
+	
 
 }
