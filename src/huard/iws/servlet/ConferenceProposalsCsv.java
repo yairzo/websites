@@ -60,6 +60,12 @@ public class ConferenceProposalsCsv extends HttpServlet {
 
 	private static StringBuffer generateCsvFileBuffer(String fromDate) {
 		StringBuffer b = new StringBuffer();
+		b.append("Subject");
+		b.append(',');
+		b.append("Description");
+		b.append(',');
+		b.append("Location");
+		b.append('\n');
 
 		// get data
 		Object bean = ApplicationContextProvider.getContext().getBean("conferenceProposalListService");
@@ -67,12 +73,6 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsByDate(fromDate);
 		for (ConferenceProposal conferenceProposal : conferenceProposals) {
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
-			b.append("Subject");
-			b.append(',');
-			b.append("Description");
-			b.append(',');
-			b.append("Location");
-			b.append('\n');
 			b.append(conferenceProposalBean.getSubject());
 			b.append(',');
 			b.append(conferenceProposalBean.getDescription());

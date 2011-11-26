@@ -2,6 +2,7 @@ package huard.iws.db;
 
 
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.FinancialSupport;
 import huard.iws.bean.PersonBean;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
@@ -44,5 +45,5 @@ public interface ConferenceProposalDao {
 
 	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate);
 	
-
+	public void updateFromAdmitanceFee(FinancialSupport financialSupport);
 }

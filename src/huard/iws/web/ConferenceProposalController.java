@@ -2,17 +2,20 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.ConferenceProposalBean;
-import huard.iws.model.Person;
 import huard.iws.model.Faculty;
+import huard.iws.model.InitiatingBody;
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.FinancialSupport;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
+import huard.iws.service.InitiatingBodyService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
 import huard.iws.service.PersonListService;
 import huard.iws.util.RequestWrapper;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -35,6 +38,17 @@ public class ConferenceProposalController extends GeneralFormController{
 
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
 		
+		
+		//if added financialsupport or committee
+		if(request.getParameter("action","").equals("fromAdmitanceFeeSave")){
+			FinancialSupport financialSupport = new FinancialSupport();
+			financialSupport.setType(3);
+			financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
+			financialSupport.setName(request.getParameter("fromAdmitanceFee_name", ""));
+			financialSupport.setSum(request.getParameter("fromAdmitanceFee_sum", ""));
+			conferenceProposalService.updateFromAdmitanceFee(financialSupport);
+		}
+		else{//edit
 		//if not added attachment don't override prev attachment
 		ConferenceProposalBean attachmentsConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		if(conferenceProposalBean.getGuestsAttach().length==0)
@@ -77,7 +91,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		//update
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
 		
-		
+		}
 			
 		//return to same page
 		model.put("id", conferenceProposalBean.getId())	;			
@@ -94,6 +108,8 @@ public class ConferenceProposalController extends GeneralFormController{
 		//get faculty name by user facultyId
 		Faculty faculty = facultyService.getFaculty(userPersonBean.getFacultyId());
 		model.put("faculty", faculty.getNameHebrew());
+		List<InitiatingBody> initiatingBodies = initiatingBodyService.getInitiatingBodies();
+		model.put("initiatingBodies", initiatingBodies);
 
 		// if new proposal Create a new proposal and write it to db
 		if (request.getParameter("action", "").equals("new")){
@@ -113,7 +129,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
 		ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean();
-		if ( ! isFormSubmission(request.getRequest())){
+		if ( ! isFormSubmission(request.getRequest())&& !request.getParameter("action","").equals("new")){
 			int id = request.getIntParameter("id", 0);
 			int version = request.getIntParameter("version",0);
 			if(version==0)
@@ -159,6 +175,12 @@ public class ConferenceProposalController extends GeneralFormController{
 
 	public void setFacultyService(FacultyService facultyService) {
 		this.facultyService = facultyService;
+	}
+	
+	private InitiatingBodyService initiatingBodyService;
+
+	public void setInitiatingBodyService(InitiatingBodyService initiatingBodyService) {
+		this.initiatingBodyService = initiatingBodyService;
 	}
 	
 	private MessageService messageService;

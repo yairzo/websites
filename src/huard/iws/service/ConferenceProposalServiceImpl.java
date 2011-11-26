@@ -7,6 +7,7 @@ import java.util.Map;
 import huard.iws.bean.PersonBean;
 import huard.iws.db.ConferenceProposalDao;
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.FinancialSupport;
 
 public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 	
@@ -87,6 +88,9 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 		return conferenceProposalDao.getMaxGrade(approverId);
 	}
 
+	public void updateFromAdmitanceFee(FinancialSupport financialSupport){
+		conferenceProposalDao.updateFromAdmitanceFee(financialSupport);
+	}
 
 	private ConferenceProposalDao conferenceProposalDao;
 

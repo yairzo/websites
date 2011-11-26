@@ -73,6 +73,13 @@
 							</th>
 						</tr>
 						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="conferenceProposalsGrade.html">דירוג הצעות למימון כנסים </a>
+							</th>
+						</tr>
+						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_LISTS_MOP">
 						<tr>
 							<th  align="right">

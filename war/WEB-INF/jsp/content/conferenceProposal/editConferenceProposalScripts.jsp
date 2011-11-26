@@ -22,6 +22,27 @@ $(document).ready(function() {
 			return false;
     }, {delay: 2000});	
 	
+	
+
+	if($('#company').attr('checked'))
+		$('#organizingCompanyPart').show();
+	else
+		$('#organizingCompanyPart').hide();
+	
+	$('#company').click(function(){	
+		if($('#company').attr('checked'))
+			$('#organizingCompanyPart').show();
+		else
+			$('#organizingCompanyPart').hide();
+	});
+	
+	
+	
+	$("button.fromAdmitanceFeeSave").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromAdmitanceFeeSave\"/>");
+    	$("#form").submit();
+    	return true;
+    });
 });
 
 

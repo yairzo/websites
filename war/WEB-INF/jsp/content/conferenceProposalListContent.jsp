@@ -105,7 +105,7 @@ $(document).ready(function() {
   				<td align="right">
 				  	<table>
   						<tr>
-				  			<td>
+				  		<td>
 			  					<form:radiobutton path="conferenceProposalId" value="${conferenceProposal.id}"/>
  				  		</td>
   						<td>
@@ -117,9 +117,6 @@ $(document).ready(function() {
  						<td>
   							<c:out value="${conferenceProposal.subject}"/>
   						</td>
- 						<td>
-  							<c:out value="${conferenceProposal.location}"/>
-  						</td>
   					</tr>
   				</table>
   			</td>
@@ -129,7 +126,7 @@ $(document).ready(function() {
 
 	    <tr>
 		<td>
-			<button class="grey" onclick="window.location='conferenceProposal.html?action=new'; return false;">הוסף</button>
+			<button class="grey" onclick="window.location='editConferenceProposal.html?action=new'; return false;">הוסף</button>
 
 			<button id="buttonEdit" class="grey" />ערוך</button>
 			<button id="buttonDelete" class="grey" />מחק</button>

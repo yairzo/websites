@@ -25,7 +25,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class ConferenceProposalGradeController extends GeneralFormController {
 
 	//private static final Logger logger = Logger.getLogger(PersonListController.class);
-    private final int ROWS_IN_PAGE=5;
+    private final int ROWS_IN_PAGE=100;
 
 	@SuppressWarnings("unchecked")
 	protected ModelAndView onSubmit(Object command,

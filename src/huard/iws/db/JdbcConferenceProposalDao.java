@@ -1,6 +1,9 @@
 package huard.iws.db;
 
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.Committee;
+import huard.iws.model.FinancialSupport;
+import huard.iws.model.ProposalAttachment;
 import huard.iws.bean.PersonBean;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
@@ -23,9 +26,84 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		String conferenceSelect = "select * from conferenceProposal where id=?";
 		ConferenceProposal conferenceProposal =
 			getSimpleJdbcTemplate().queryForObject(conferenceSelect, rowMapper,	id);
+		conferenceProposal.setFromAssosiate(getSupportFromAssosiate(id));
+		conferenceProposal.setFromExternal(getSupportFromExternal(id));
+		conferenceProposal.setFromAdmitanceFee(getSupportFromAdmitanceFee(id));
+		conferenceProposal.setScientificCommittees(getScientificCommittees(id));
+		conferenceProposal.setOperationalCommittees(getScientificCommittees(id));
 		return conferenceProposal;
 	}
 	
+	public List<FinancialSupport> getSupportFromAssosiate(int conferenceProposalId){
+		String query = "select * from financialSupport where conferenceProposalId=? and type=1";
+		List<FinancialSupport> supportFromAssosiate =
+			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
+		return supportFromAssosiate;
+	}	
+
+	public List<FinancialSupport> getSupportFromExternal(int conferenceProposalId){
+		String query = "select * from financialSupport where conferenceProposalId=? and type=2";
+		List<FinancialSupport> supportFromExternal =
+			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
+		return supportFromExternal;
+	}
+	
+	public List<FinancialSupport> getSupportFromAdmitanceFee(int conferenceProposalId){
+		String query = "select * from financialSupport where conferenceProposalId=? and type=3";
+		List<FinancialSupport> supportFromAdmitanceFee =
+			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
+		return supportFromAdmitanceFee;
+	}
+	
+	public List<Committee> getScientificCommittees(int conferenceProposalId){
+		String query = "select * from committee where conferenceProposalId=? and type=0";
+		List<Committee> scientificCommittees =
+			getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
+		return scientificCommittees;
+	}	
+	
+	public List<Committee> getOperationalCommittees(int conferenceProposalId){
+		String query = "select * from committee where conferenceProposalId=? and type=1";
+		List<Committee> operationalCommittees =
+			getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
+		return operationalCommittees;
+	}	
+	
+	ParameterizedRowMapper<Committee> committeeRowMapper	= new ParameterizedRowMapper<Committee>(){
+		public Committee mapRow(ResultSet rs, int rowNum) throws SQLException{
+			Committee committee = new Committee();
+			committee.setId(rs.getInt("id"));
+			committee.setConferenceProposalId(rs.getInt("conferenceProposalId"));
+			committee.setName(rs.getString("name"));
+			committee.setInstitute(rs.getString("institute"));
+			committee.setInstituteRole(rs.getString("instituteRole"));
+			committee.setCommitteeRole(rs.getString("committeeRole"));
+			return committee;
+		}
+    };
+	ParameterizedRowMapper<FinancialSupport> financialSupportRowMapper	= new ParameterizedRowMapper<FinancialSupport>(){
+		public FinancialSupport mapRow(ResultSet rs, int rowNum) throws SQLException{
+			FinancialSupport support = new FinancialSupport();
+			support.setId(rs.getInt("id"));
+			support.setConferenceProposalId(rs.getInt("conferenceProposalId"));
+			support.setName(rs.getString("name"));
+			support.setSum(rs.getString("sum"));
+			support.setCurrency(rs.getString("currency"));
+			return support;
+		}
+    };	
+    
+	public void updateFromAdmitanceFee(FinancialSupport financialSupport){
+		String query = "insert financialSupport set conferenceProposalId = ?, name = ?, sum = ?, type = ?, currency = ?";
+		getSimpleJdbcTemplate().update(query,
+				financialSupport.getConferenceProposalId(),
+				financialSupport.getName(),
+				financialSupport.getSum(),
+				financialSupport.getType(),
+				financialSupport.getCurrency()
+		);
+	}    
+    
 	public ConferenceProposal getVersionConferenceProposal(int confId, int verId){
 		String conferenceSelect = "select  * from conferenceProposalVersion where conferenceProposalId = ? and id = ? ";
 		ConferenceProposal conferenceProposal =
@@ -91,7 +169,37 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setProgramAttachContentType(rs.getString("programAttachContentType"));
 			conferenceProposal.setFinancialAttach(rs.getBytes("financeAttach"));
 			conferenceProposal.setFinancialAttachContentType(rs.getString("financeAttachContentType"));
-			
+			conferenceProposal.setInitiatingBody(rs.getInt("initiatingBody"));
+			conferenceProposal.setInitiatingBodyRole(rs.getInt("initiatingBodyRole"));
+		    java.sql.Timestamp ts1 = java.sql.Timestamp.valueOf(rs.getString("openDate"));
+		    long tsTime1 = ts1.getTime();
+			conferenceProposal.setOpenDate(tsTime1);
+			if (rs.getString("submissionDate")!=null){
+				java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(rs.getString("submissionDate"));
+				long tsTime2 = ts2.getTime();
+				conferenceProposal.setSubmissionDate(tsTime2);
+			}
+			conferenceProposal.setTotalCost(rs.getBigDecimal("totalCost"));
+			conferenceProposal.setTotalCostCurrency(rs.getInt("totalCostCurrency"));
+			conferenceProposal.setSupportSum(rs.getBigDecimal("supportSum"));
+			conferenceProposal.setSupportCurrency(rs.getInt("supportCurrency"));
+			conferenceProposal.setAuditorium(rs.getBoolean("auditorium"));
+			conferenceProposal.setSeminarRoom(rs.getBoolean("seminarRoom"));
+			conferenceProposal.setParticipants(rs.getInt("participants"));
+			conferenceProposal.setPrefferedCampus(rs.getInt("prefferedCampus"));
+			conferenceProposal.setOrganizingCompany(rs.getBoolean("organizingCompany"));
+			conferenceProposal.setOrganizingCompanyName(rs.getString("organizingCompanyName"));
+			conferenceProposal.setOrganizingCompanyPhone(rs.getString("organizingCompanyPhone"));
+			conferenceProposal.setOrganizingCompanyFax(rs.getString("organizingCompanyFax"));
+			conferenceProposal.setOrganizingCompanyEmail(rs.getString("organizingCompanyEmail"));
+			conferenceProposal.setSubmitted(rs.getBoolean("submitted"));
+			conferenceProposal.setRemarks(rs.getString("remarks"));
+			conferenceProposal.setContactPerson(rs.getString("contactPerson"));
+			conferenceProposal.setContactPersonRole(rs.getString("contactPersonRole"));
+			conferenceProposal.setContactPersonPhone(rs.getString("contactPersonPhone"));
+			conferenceProposal.setContactPersonFax(rs.getString("contactPersonFax"));
+			conferenceProposal.setContactPersonEmail(rs.getString("contactPersonEmail"));
+		
             return conferenceProposal;
         }
 	};
@@ -122,13 +230,42 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setProgramAttachContentType(rs.getString("programAttachContentType"));
 			conferenceProposal.setFinancialAttach(rs.getBytes("financeAttach"));
 			conferenceProposal.setFinancialAttachContentType(rs.getString("financeAttachContentType"));
-			
+			conferenceProposal.setInitiatingBody(rs.getInt("initiatingBody"));
+			conferenceProposal.setInitiatingBodyRole(rs.getInt("initiatingBodyRole"));
+		    java.sql.Timestamp ts1 = java.sql.Timestamp.valueOf(rs.getString("openDate"));
+		    long tsTime1 = ts1.getTime();
+			conferenceProposal.setOpenDate(tsTime1);
+			if (rs.getString("submissionDate")!=null){
+				java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(rs.getString("submissionDate"));
+				long tsTime2 = ts2.getTime();
+				conferenceProposal.setSubmissionDate(tsTime2);
+			}
+			conferenceProposal.setTotalCost(rs.getBigDecimal("totalCost"));
+			conferenceProposal.setTotalCostCurrency(rs.getInt("totalCostCurrency"));
+			conferenceProposal.setSupportSum(rs.getBigDecimal("supportSum"));
+			conferenceProposal.setSupportCurrency(rs.getInt("supportCurrency"));
+			conferenceProposal.setAuditorium(rs.getBoolean("auditorium"));
+			conferenceProposal.setSeminarRoom(rs.getBoolean("seminarRoom"));
+			conferenceProposal.setParticipants(rs.getInt("participants"));
+			conferenceProposal.setPrefferedCampus(rs.getInt("prefferedCampus"));
+			conferenceProposal.setOrganizingCompany(rs.getBoolean("organizingCompany"));
+			conferenceProposal.setOrganizingCompanyName(rs.getString("organizingCompanyName"));
+			conferenceProposal.setOrganizingCompanyPhone(rs.getString("organizingCompanyPhone"));
+			conferenceProposal.setOrganizingCompanyFax(rs.getString("organizingCompanyFax"));
+			conferenceProposal.setOrganizingCompanyEmail(rs.getString("organizingCompanyEmail"));
+			conferenceProposal.setSubmitted(rs.getBoolean("submitted"));
+			conferenceProposal.setRemarks(rs.getString("remarks"));
+			conferenceProposal.setContactPerson(rs.getString("contactPerson"));
+			conferenceProposal.setContactPersonRole(rs.getString("contactPersonRole"));
+			conferenceProposal.setContactPersonPhone(rs.getString("contactPersonPhone"));
+			conferenceProposal.setContactPersonFax(rs.getString("contactPersonFax"));
+			conferenceProposal.setContactPersonEmail(rs.getString("contactPersonEmail"));			
             return conferenceProposal;
         }
 	};
 
 	public int insertConferenceProposal(ConferenceProposal conferenceProposal){
-		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0;";
+		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now()";
 		final int personId = conferenceProposal.getPersonId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -181,6 +318,30 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", programAttachContentType = ?" + 
 				", financeAttach = ?" + 
 				", financeAttachContentType = ?" + 
+				", initiatingBody =  ?" + 
+				", initiatingBodyRole = ?" + 
+				//", openDate=  ?" + 
+				", submissionDate= ?" + 
+				", totalCost= ?" + 
+				", totalCostCurrency= ?" + 
+				", supportSum= ?" + 
+				", supportCurrency= ?" + 
+				", auditorium= ?" + 
+				", seminarRoom= ?" + 
+				", participants= ?" + 
+				", prefferedCampus= ?" + 
+				", organizingCompany= ?" + 
+				", organizingCompanyName= ?" + 
+				", organizingCompanyPhone= ?" + 
+				", organizingCompanyFax= ?" + 
+				", organizingCompanyEmail= ?" + 
+				", submitted= ?" + 
+				", remarks= ?" + 
+				", contactPerson= ?" + 
+				", contactPersonRole= ?" + 
+				", contactPersonPhone= ?" + 
+				", contactPersonFax= ?" + 
+				", contactPersonEmail= ?" + 
 				" where id = ?;";
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposal.getPersonId(),
@@ -205,6 +366,30 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getProgramAttachContentType(),
 				conferenceProposal.getFinancialAttach(),
 				conferenceProposal.getFinancialAttachContentType(),
+				conferenceProposal.getInitiatingBody(),
+				conferenceProposal.getInitiatingBodyRole(),
+				//new java.sql.Timestamp(conferenceProposal.getOpenDate()),
+				new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
+				conferenceProposal.getTotalCost(),
+				conferenceProposal.getTotalCostCurrency(),
+				conferenceProposal.getSupportSum(),
+				conferenceProposal.getSupportCurrency(),
+				conferenceProposal.getAuditorium(),
+				conferenceProposal.getSeminarRoom(),
+				conferenceProposal.getParticipants(),
+				conferenceProposal.getPrefferedCampus(),
+				conferenceProposal.getOrganizingCompany(),
+				conferenceProposal.getOrganizingCompanyName(),
+				conferenceProposal.getOrganizingCompanyPhone(),
+				conferenceProposal.getOrganizingCompanyFax(),
+				conferenceProposal.getOrganizingCompanyEmail(),
+				conferenceProposal.getSubmitted(),
+				conferenceProposal.getRemarks(),
+				conferenceProposal.getContactPerson(),
+				conferenceProposal.getContactPersonRole(),
+				conferenceProposal.getContactPersonPhone(),
+				conferenceProposal.getContactPersonFax(),
+				conferenceProposal.getContactPersonEmail(),				
 				conferenceProposal.getId());
 		
 		//insert to version table
@@ -232,6 +417,30 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", programAttachContentType = ?" + 
 				", financeAttach = ?" + 
 				", financeAttachContentType = ?" + 
+				", initiatingBody =  ?" + 
+				", initiatingBodyRole = ?" + 
+				", openDate=  ?" + 
+				", submissionDate= ?" + 
+				", totalCost= ?" + 
+				", totalCostCurrency= ?" + 
+				", supportSum= ?" + 
+				", supportCurrency= ?" + 
+				", auditorium= ?" + 
+				", seminarRoom= ?" + 
+				", participants= ?" + 
+				", prefferedCampus= ?" + 
+				", organizingCompany= ?" + 
+				", organizingCompanyName= ?" + 
+				", organizingCompanyPhone= ?" + 
+				", organizingCompanyFax= ?" + 
+				", organizingCompanyEmail= ?" + 
+				", submitted= ?" + 
+				", remarks= ?" + 
+				", contactPerson= ?" + 
+				", contactPersonRole= ?" + 
+				", contactPersonPhone= ?" + 
+				", contactPersonFax= ?" + 
+				", contactPersonEmail= ?" + 
 				";";
 
 		
@@ -257,7 +466,32 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getProgramAttach(),
 				conferenceProposal.getProgramAttachContentType(),
 				conferenceProposal.getFinancialAttach(),
-				conferenceProposal.getFinancialAttachContentType());
+				conferenceProposal.getFinancialAttachContentType(),
+				conferenceProposal.getInitiatingBody(),
+				conferenceProposal.getInitiatingBodyRole(),
+				new java.sql.Timestamp(conferenceProposal.getOpenDate()),
+				new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
+				conferenceProposal.getTotalCost(),
+				conferenceProposal.getTotalCostCurrency(),
+				conferenceProposal.getSupportSum(),
+				conferenceProposal.getSupportCurrency(),
+				conferenceProposal.getAuditorium(),
+				conferenceProposal.getSeminarRoom(),
+				conferenceProposal.getParticipants(),
+				conferenceProposal.getPrefferedCampus(),
+				conferenceProposal.getOrganizingCompany(),
+				conferenceProposal.getOrganizingCompanyName(),
+				conferenceProposal.getOrganizingCompanyPhone(),
+				conferenceProposal.getOrganizingCompanyFax(),
+				conferenceProposal.getOrganizingCompanyEmail(),
+				conferenceProposal.getSubmitted(),
+				conferenceProposal.getRemarks(),
+				conferenceProposal.getContactPerson(),
+				conferenceProposal.getContactPersonRole(),
+				conferenceProposal.getContactPersonPhone(),
+				conferenceProposal.getContactPersonFax(),
+				conferenceProposal.getContactPersonEmail());				
+
 	}
 
 
