@@ -277,7 +277,8 @@
 					ids = ids +id;
 				}
 			});
-			$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"');
+			
+			$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
 			$('form#form').submit();
 		});
 		$('button.sendme').click(function(){
@@ -292,7 +293,7 @@
 					ids = ids +id;
 				}
 			});
-			$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"');
+			$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
 			$('form#form').submit();
 		});
 

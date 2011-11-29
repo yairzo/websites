@@ -42,6 +42,7 @@ public class EditPostController extends GeneralFormController {
 		PostBean postBean = (PostBean)command;
 
 		String subjectsIdsString = request.getParameter("subjectsIdsString","");
+		
 		List<Integer> subjectsIds = BaseUtils.getIntegerList(subjectsIdsString, ",");
 		if (postBean.getSubjectsIds() != null)
 			postBean.getSubjectsIds().clear();
