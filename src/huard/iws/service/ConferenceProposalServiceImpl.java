@@ -8,6 +8,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.db.ConferenceProposalDao;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.FinancialSupport;
+import huard.iws.model.Committee;
 
 public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 	
@@ -88,10 +89,14 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 		return conferenceProposalDao.getMaxGrade(approverId);
 	}
 
-	public void updateFromAdmitanceFee(FinancialSupport financialSupport){
-		conferenceProposalDao.updateFromAdmitanceFee(financialSupport);
+	public void insertFinancialSupport(FinancialSupport financialSupport){
+		conferenceProposalDao.insertFinancialSupport(financialSupport);
 	}
 
+	public void insertCommittee(Committee committee){
+		conferenceProposalDao.insertCommittee(committee);
+	}
+	
 	private ConferenceProposalDao conferenceProposalDao;
 
 	public ConferenceProposalDao getConferenceProposalDao() {

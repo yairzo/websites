@@ -30,7 +30,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		conferenceProposal.setFromExternal(getSupportFromExternal(id));
 		conferenceProposal.setFromAdmitanceFee(getSupportFromAdmitanceFee(id));
 		conferenceProposal.setScientificCommittees(getScientificCommittees(id));
-		conferenceProposal.setOperationalCommittees(getScientificCommittees(id));
+		conferenceProposal.setOperationalCommittees(getOperationalCommittees(id));
 		return conferenceProposal;
 	}
 	
@@ -56,14 +56,14 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	}
 	
 	public List<Committee> getScientificCommittees(int conferenceProposalId){
-		String query = "select * from committee where conferenceProposalId=? and type=0";
+		String query = "select * from committee where conferenceProposalId=? and type=1";
 		List<Committee> scientificCommittees =
 			getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
 		return scientificCommittees;
 	}	
 	
 	public List<Committee> getOperationalCommittees(int conferenceProposalId){
-		String query = "select * from committee where conferenceProposalId=? and type=1";
+		String query = "select * from committee where conferenceProposalId=? and type=2";
 		List<Committee> operationalCommittees =
 			getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
 		return operationalCommittees;
@@ -93,7 +93,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		}
     };	
     
-	public void updateFromAdmitanceFee(FinancialSupport financialSupport){
+	public void insertFinancialSupport(FinancialSupport financialSupport){
 		String query = "insert financialSupport set conferenceProposalId = ?, name = ?, sum = ?, type = ?, currency = ?";
 		getSimpleJdbcTemplate().update(query,
 				financialSupport.getConferenceProposalId(),
@@ -103,7 +103,17 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				financialSupport.getCurrency()
 		);
 	}    
-    
+	public void insertCommittee(Committee committee){
+		String query = "insert committee set conferenceProposalId = ?, name = ?, institute = ?, instituteRole = ?, committeeRole = ?, type=?";
+		getSimpleJdbcTemplate().update(query,
+				committee.getConferenceProposalId(),
+				committee.getName(),
+				committee.getInstitute(),
+				committee.getInstituteRole(),
+				committee.getCommitteeRole(),
+				committee.getType()
+		);
+	}        
 	public ConferenceProposal getVersionConferenceProposal(int confId, int verId){
 		String conferenceSelect = "select  * from conferenceProposalVersion where conferenceProposalId = ? and id = ? ";
 		ConferenceProposal conferenceProposal =
@@ -279,7 +289,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		    },
 		    keyHolder);
 		final int key=keyHolder.getKey().intValue();
-		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0;";
+		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now();";
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {

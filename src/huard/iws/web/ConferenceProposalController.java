@@ -6,6 +6,7 @@ import huard.iws.model.Faculty;
 import huard.iws.model.InitiatingBody;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.FinancialSupport;
+import huard.iws.model.Committee;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
 import huard.iws.service.InitiatingBodyService;
@@ -38,17 +39,55 @@ public class ConferenceProposalController extends GeneralFormController{
 
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
 		
-		
 		//if added financialsupport or committee
-		if(request.getParameter("action","").equals("fromAdmitanceFeeSave")){
+		if(request.getParameter("action","").equals("fromAssosiateSave")){
+			FinancialSupport financialSupport = new FinancialSupport();
+			financialSupport.setType(1);
+			financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
+			financialSupport.setName(request.getParameter("fromAssosiate_name", ""));
+			financialSupport.setSum(request.getParameter("fromAssosiate_sum", ""));
+			financialSupport.setCurrency(request.getParameter("fromAssosiate_currency", ""));
+			conferenceProposalService.insertFinancialSupport(financialSupport);
+		}
+		else if(request.getParameter("action","").equals("fromExternalSave")){
+			FinancialSupport financialSupport = new FinancialSupport();
+			financialSupport.setType(2);
+			financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
+			financialSupport.setName(request.getParameter("fromExternal_name", ""));
+			financialSupport.setSum(request.getParameter("fromExternal_sum", ""));
+			financialSupport.setCurrency(request.getParameter("fromExternal_currency", ""));
+			conferenceProposalService.insertFinancialSupport(financialSupport);
+		}
+		else if(request.getParameter("action","").equals("fromAdmitanceFeeSave")){
 			FinancialSupport financialSupport = new FinancialSupport();
 			financialSupport.setType(3);
 			financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
 			financialSupport.setName(request.getParameter("fromAdmitanceFee_name", ""));
 			financialSupport.setSum(request.getParameter("fromAdmitanceFee_sum", ""));
-			conferenceProposalService.updateFromAdmitanceFee(financialSupport);
+			financialSupport.setCurrency(request.getParameter("fromAdmitanceFee_currency", ""));
+			conferenceProposalService.insertFinancialSupport(financialSupport);
 		}
-		else{//edit
+		else if(request.getParameter("action","").equals("scientificCommitteeSave")){
+			Committee committee = new Committee();
+			committee.setType(1);
+			committee.setConferenceProposalId(conferenceProposalBean.getId());
+			committee.setName(request.getParameter("scientificCommittee_name", ""));
+			committee.setInstitute(request.getParameter("scientificCommittee_institute", ""));
+			committee.setInstituteRole(request.getParameter("scientificCommittee_instituteRole", ""));
+			committee.setCommitteeRole(request.getParameter("scientificCommittee_committeeRole",""));
+			conferenceProposalService.insertCommittee(committee);
+		}
+		else if(request.getParameter("action","").equals("operationalCommitteeSave")){
+			Committee committee = new Committee();
+			committee.setType(2);
+			committee.setConferenceProposalId(conferenceProposalBean.getId());
+			committee.setName(request.getParameter("operationalCommittee_name", ""));
+			committee.setInstitute(request.getParameter("operationalCommittee_institute", ""));
+			committee.setInstituteRole(request.getParameter("operationalCommittee_instituteRole", ""));
+			committee.setCommitteeRole(request.getParameter("operationalCommittee_committeeRole",""));
+			conferenceProposalService.insertCommittee(committee);
+		}
+
 		//if not added attachment don't override prev attachment
 		ConferenceProposalBean attachmentsConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		if(conferenceProposalBean.getGuestsAttach().length==0)
@@ -91,7 +130,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		//update
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
 		
-		}
+
 			
 		//return to same page
 		model.put("id", conferenceProposalBean.getId())	;			

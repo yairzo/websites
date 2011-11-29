@@ -5,6 +5,7 @@ import java.util.Map;
 
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.FinancialSupport;
+import huard.iws.model.Committee;
 
 public interface ConferenceProposalService {
 
@@ -36,6 +37,8 @@ public interface ConferenceProposalService {
 	
 	public int getMaxGrade(int approverId);
 
-	public void updateFromAdmitanceFee(FinancialSupport financialSupport);
+	public void insertFinancialSupport(FinancialSupport financialSupport);
+
+	public void insertCommittee(Committee committee);
 
 }

@@ -25,21 +25,45 @@ $(document).ready(function() {
 	
 
 	if($('#company').attr('checked'))
-		$('#organizingCompanyPart').show();
+		$('.organizingCompanyPart').show();
 	else
-		$('#organizingCompanyPart').hide();
+		$('.organizingCompanyPart').hide();
 	
 	$('#company').click(function(){	
 		if($('#company').attr('checked'))
-			$('#organizingCompanyPart').show();
+			$('.organizingCompanyPart').show();
 		else
-			$('#organizingCompanyPart').hide();
+			$('.organizingCompanyPart').hide();
 	});
 	
 	
 	
 	$("button.fromAdmitanceFeeSave").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromAdmitanceFeeSave\"/>");
+    	$("#form").submit();
+    	return true;
+    });
+	
+	$("button.fromExternalSave").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromExternalSave\"/>");
+    	$("#form").submit();
+    	return true;
+    });
+	
+	$("button.fromAssosiateSave").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromAssosiateSave\"/>");
+    	$("#form").submit();
+    	return true;
+    });
+	
+	$("button.scientificCommitteeSave").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"scientificCommitteeSave\"/>");
+    	$("#form").submit();
+    	return true;
+    });
+
+	$("button.operationalCommitteeSave").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"operationalCommitteeSave\"/>");
     	$("#form").submit();
     	return true;
     });

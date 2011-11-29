@@ -28,51 +28,51 @@
                   </td>
                 </tr>
                 <tr class="form">
-					<td width="250">
+					<td  width="250">
 						מספר בקשה:
 					</td>
-					<td width="300">${command.id}
+					<td  width="250">${command.id}
 					</td>
 				</tr>
                 <tr class="form">
-					<td width="250">
+					<td  width="250">
 						 שם חוקר:
 					</td>
-					<td width="300">
+					<td  width="250">
 						${userPersonBean.degreeHebrew } ${userPersonBean.firstNameHebrew } ${userPersonBean.lastNameHebrew }
 					</td>
-					<td width="250">
+					<td  width="250">
 						 מחלקה:
 					</td>
-					<td width="300">
+					<td  width="250">
 						${userPersonBean.department } 
 					</td>
 				</tr>
 				<tr class="form">
-					<td width="250">
+					<td  width="250">
 						 פקולטה:
 					</td>
-					<td width="300">
+					<td  width="250">
 						${faculty } 
 					</td>
-					<td width="250">
+					<td  width="250">
 						 טלפון:
 					</td>
-					<td width="300">
+					<td  width="250">
 						${userPersonBean.phone } 
 					</td>
 				</tr>
 				<tr class="form">
-					<td width="250">
+					<td  width="250">
 						 פקס:
 					</td>
-					<td width="300">
+					<td  width="250">
 						${userPersonBean.fax } 
 					</td>
-					<td width="250">
+					<td  width="250">
 						 כתובת מייל:
 					</td>
-					<td width="300">
+					<td  width="250">
 						${userPersonBean.email } 
 					</td>
 				
@@ -103,6 +103,9 @@
        		        	</form:select>
 					</td>
 				</tr>
+				<tr>
+		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
+        		 </tr>
 				<tr class="form">
 					<td>
 						 נושא הכנס:
@@ -120,10 +123,10 @@
 					</td>
 				</tr>
 				<tr class="form">
-					<td width="250">
+					<td  width="250">
 						 מיקום בארץ:
 					</td>
-					<td width="300">
+					<td  width="250">
        				<form:select path="location" cssClass="green">
       					<form:option value="0">בחר/י מיקום</form:option>
       					<form:option value="1">איניברסיטה</form:option>
@@ -131,10 +134,10 @@
       					<form:option value="3">בארץ</form:option>
        		        	</form:select>
  					</td>
-					<td width="250">
+					<td  width="250">
 						 פירוט מיקום:
 					</td>
-					<td width="300">
+					<td  width="250">
 						<form:input cssClass="green" path="locationDetail"/>
 					</td>
 				</tr>
@@ -156,8 +159,8 @@
 					</tr>-->
 				<tr class="form">
 					<td>מספר משתתפים:</td>
-					<td colspan=3>
-				       <table width="400" border="1" cellpadding="2" cellspacing="0">
+					<td colspan="3">
+				       <table border="1" cellpadding="2" cellspacing="0">
 				       <tr>
 				       <th></th>
 				       <th> מרצים </th> 
@@ -204,7 +207,7 @@
 				<tr class="form">
 				       <td>צרף קובץ קשימת מוזמנים:
 				       </td>
-						<td colspan=3>
+						<td colspan="3">
 						<input class="green" type="file" name="guestsAttach"/> &nbsp; <button class="grey" onclick="">שמור</button>
 						<c:if test="${fn:length(command.guestsAttach)>0}">
 							<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&contentType=${command.guestsAttachContentType}&attachmentId=1"
@@ -215,7 +218,7 @@
 				<tr class="form">
 				       <td>צרף קובץ תוכנית הכנס:
 				       </td>
-						<td colspan=3>
+						<td colspan="3">
 						<input class="green" type="file" name="programAttach"/> &nbsp; <button class="grey" onclick="">שמור</button>
 						<c:if test="${fn:length(command.programAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&contentType=${command.programAttachContentType}&attachmentId=1"
@@ -226,7 +229,7 @@
 				<tr class="form">
 				       <td>צרף קובץ תוכנית תקציבית:
 				       </td>
-						<td colspan=3>
+						<td colspan="3">
 						<input class="green" type="file" name="financialAttach"/> &nbsp; <button class="grey" onclick="">שמור</button>
 						<c:if test="${fn:length(command.financialAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&contentType=${command.financialAttachContentType}&attachmentId=1"
@@ -258,6 +261,9 @@
        		        	</form:select>
 					</td>
 				</tr>
+				<tr>
+		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
+        		 </tr>
 	            <tr class="form">
 		       		<td colspan="2">
 	   					הכנסות צפויות:
@@ -265,8 +271,8 @@
 				</tr>
 				<tr>
 					<td> משותפים לארגון:</td>
-					<td colspan=3>
-					<table width="400" border="1" cellpadding="1" cellspacing="0">
+					<td colspan="3">
+					<table border="1" cellpadding="1" cellspacing="0">
 				    <tr>
 				    <th> שם </th> 
 				    <th> סכום </th>
@@ -281,17 +287,37 @@
 						<c:out value="${fromAssosiate.sum}"></c:out>
 					</td>
 					<td>
-						<c:out value="${fromAssosiate.currency}"></c:out>
+						<c:if test="${fromAssosiate.currency==1}">שקל</c:if>
+						<c:if test="${fromAssosiate.currency==2}">דולר</c:if>
 					</td>
 					</tr>
 					</c:forEach>
+					<tr>
+					<td>
+						<input type="text" class="green" name="fromAssosiate_name"/>
+					</td>
+					<td>
+						<input type="text" class="green" name="fromAssosiate_sum"/>
+					</td>
+					<td>
+        				<select name="fromAssosiate_currency" cssClass="green">
+      					<option value="0">בחר/י מטבע</option>
+      					<option value="1">שקל</option>
+      					<option value="2">דולר</option>
+       		        	</select>
+					</td>
+					</tr>					
 					</table>
 					</td>
 				</tr>
 				<tr>
+				<td></td>
+				<td><button class="grey fromAssosiateSave" onclick="">הוסף</button></td>
+				</tr>	
+				<tr>
 					<td>ממממן חיצוני:</td>
-					<td colspan=3>
-					<table width="400" border="1" cellpadding="1" cellspacing="0">
+					<td colspan="3">
+					<table border="1" cellpadding="1" cellspacing="0">
 				    <tr>
 				    <th> שם </th> 
 				    <th> סכום </th>
@@ -306,17 +332,37 @@
 						<c:out value="${fromExternal.sum}"></c:out>
 					</td>
 					<td>
-						<c:out value="${fromExternal.currency}"></c:out>
+						<c:if test="${fromExternal.currency==1}">שקל</c:if>
+						<c:if test="${fromExternal.currency==2}">דולר</c:if>
 					</td>
 					</tr>
 					</c:forEach>
+					<tr>
+					<td>
+						<input type="text" class="green" name="fromExternal_name"/>
+					</td>
+					<td>
+						<input type="text" class="green" name="fromExternal_sum"/>
+					</td>
+					<td>
+        				<select name="fromExternal_currency" cssClass="green">
+      					<option value="0">בחר/י מטבע</option>
+      					<option value="1">שקל</option>
+      					<option value="2">דולר</option>
+       		        	</select>
+					</td>
+					</tr>					
 					</table>
 					</td>
-				</tr>			
+				</tr>
+				<tr>
+				<td></td>
+				<td><button class="grey fromExternalSave" onclick="">הוסף</button></td>
+				</tr>				
 				<tr>
 					<td>מדמי הרשמה:</td>
-					<td colspan=3>
-					<table width="400" border="1" cellpadding="1" cellspacing="0">
+					<td colspan="3">
+					<table border="1" cellpadding="1" cellspacing="0">
 				    <tr>
 				    <th> שם </th> 
 				    <th> סכום </th>
@@ -331,7 +377,8 @@
 						<c:out value="${fromAdmitanceFee.sum}"></c:out>
 					</td>
 					<td>
-						<c:out value="${fromAdmitanceFee.currency}"></c:out>
+						<c:if test="${fromAdmitanceFee.currency==1}">שקל</c:if>
+						<c:if test="${fromAdmitanceFee.currency==2}">דולר</c:if>
 					</td>
 					</tr>
 					</c:forEach>
@@ -343,7 +390,11 @@
 						<input type="text" class="green" name="fromAdmitanceFee_sum"/>
 					</td>
 					<td>
-						<input type="text" class="green" name="fromAdmitanceFee_currency"/>
+        				<select name="fromAdmitanceFee_currency" cssClass="green">
+      					<option value="0">בחר/י מטבע</option>
+      					<option value="1">שקל</option>
+      					<option value="2">דולר</option>
+       		        	</select>
 					</td>
 					</tr>					
 					</table>
@@ -353,6 +404,9 @@
 				<td></td>
 				<td><button class="grey fromAdmitanceFeeSave" onclick="">הוסף</button></td>
 				</tr>
+				<tr>
+		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
+        		 </tr>
 	            <tr class="form">
 		       		<td colspan="2">
 	   					ועדה מארגנת:
@@ -360,8 +414,8 @@
 				</tr>
 				<tr>
 					<td> ועדה מדעית:</td>
-					<td colspan=3>
-					<table width="400" border="1" cellpadding="1" cellspacing="0">
+					<td colspan="3">
+					<table border="1" cellpadding="1" cellspacing="0">
 				    <tr>
 				    <th> שם </th> 
 				    <th> מוסד </th>
@@ -384,38 +438,77 @@
 					</td>					
 					</tr>
 					</c:forEach>
+					<tr>
+					<td>
+						<input type="text" class="green" name="scientificCommittee_name"/>
+					</td>
+					<td>
+						<input type="text" class="green" name="scientificCommittee_institute"/>
+					</td>
+					<td>
+						<input type="text" class="green" name="scientificCommittee_instituteRole"/>
+					</td>
+					<td>
+						<input type="text" class="green" name="scientificCommittee_committeeRole"/>
+					</td>
+					</tr>		
 					</table>
 					</td>
 				</tr>
 				<tr>
+				<td></td>
+				<td><button class="grey scientificCommitteeSave" onclick="">הוסף</button></td>
+				</tr>
+				<tr>
 					<td>ועדה מבצעת:</td>
-					<td colspan=3>
-					<table width="400" border="1" cellpadding="1" cellspacing="0">
+					<td colspan="3">
+					<table border="1" cellpadding="1" cellspacing="0">
 				    <tr>
 				    <th> שם </th> 
 				    <th> מוסד </th>
 				    <th> תפקיד במוסד </th>
 				    <th> תפקיד בועדה </th>
 					</tr>
-           			<c:forEach items="${command.scientificCommittees}" var="committee">
+           			<c:forEach items="${command.operationalCommittees}" var="opcommittee">
 					<tr>
 					<td>
-						<c:out value="${committee.name}"></c:out>
+						<c:out value="${opcommittee.name}"></c:out>
 					</td>
 					<td>
-						<c:out value="${committee.institute}"></c:out>
+						<c:out value="${opcommittee.institute}"></c:out>
 					</td>
 					<td>
-						<c:out value="${committee.instituteRole}"></c:out>
+						<c:out value="${opcommittee.instituteRole}"></c:out>
 					</td>
 					<td>
-						<c:out value="${committee.committeeRole}"></c:out>
+						<c:out value="${opcommittee.committeeRole}"></c:out>
 					</td>					
 					</tr>
 					</c:forEach>
+					<tr>
+					<td>
+						<input type="text" class="green" name="operationalCommittee_name"/>
+					</td>
+					<td>
+						<input type="text" class="green" name="operationalCommittee_institute"/>
+					</td>
+					<td>
+						<input type="text" class="green" name="operationalCommittee_instituteRole"/>
+					</td>
+					<td>
+						<input type="text" class="green" name="operationalCommittee_committeeRole"/>
+					</td>
+					</tr>						
 					</table>
 					</td>
 				</tr>			
+				<tr>
+				<td></td>
+				<td><button class="grey operationalCommitteeSave" onclick="">הוסף</button></td>
+				</tr>
+				<tr>
+		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
+        		 </tr>
 				<tr class="form">
 		       		<td colspan="2">
 	   					סוג הסיוע המבוקש:
@@ -447,11 +540,19 @@
 		       		<td>
 						חדר סמנירים<form:checkbox cssClass="green" path="seminarRoom"/>
 					</td>
+				</tr>
+				<tr>
 		       		<td>
-	   					מספר אנשים:<form:input cssClass="green" path="participants" />
+	   					מספר אנשים:
 	   				</td>
+	   				<td>
+	   					<form:input cssClass="green" path="participants" />
+	   				</td>
+	   				
 				    <td>
         				קמפוס מועדף:
+        			</td>
+        			<td>
         				<form:select path="prefferedCampus" cssClass="green">
       					<form:option value="0">בחר/י קמפוס</form:option>
       					<form:option value="1">גבעת רם</form:option>
@@ -461,29 +562,46 @@
        		        	</form:select>
  					</td>
 				</tr>	
-				
+				<tr>
+		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
+        		 </tr>
 	            <tr class="form">
 		       		<td colspan="2">
 	   					ארגון הכנס:
 	   				</td>
 				</tr>
 	            <tr class="form">
-		       		<td>
+		       		<td colspan="2" width="300">
 		       		    ארגון ע"י חברה מסחרית<form:checkbox cssClass="green" id="company" path="organizingCompany"/>
 					</td>
 				</tr>
-	            <tr id="organizingCompanyPart" class="form">
+				
+	            <tr class="form organizingCompanyPart">
 		       		<td>
-	   					שם החברה:<form:input cssClass="green" path="organizingCompanyName" />
+	   					שם החברה:
 					</td>
 		       		<td>
-	   					מספר טלפון:<form:input cssClass="green" path="organizingCompanyPhone" />
+	   					<form:input cssClass="green" path="organizingCompanyName" />
 					</td>
 		       		<td>
-	   					פקס:<form:input cssClass="green" path="organizingCompanyFax" />
+	   					מספר טלפון:
+					</td>
+		       		<td>
+	   					<form:input cssClass="green" path="organizingCompanyPhone" />
+					</td>
+				</tr>
+				<tr class="form organizingCompanyPart">
+		       		<td>
+	   					פקס:
+	   				</td>
+		       		<td>
+	   					<form:input cssClass="green" path="organizingCompanyFax" />
 	   				</td>
 				    <td>
-	   					כתובת אימייל:<form:input cssClass="green" path="organizingCompanyEmail" />
+	   					כתובת אימייל:
+					</td>
+				    <td>
+	   					<form:input cssClass="green" path="organizingCompanyEmail" />
 					</td>
 				</tr>					
 					
@@ -494,23 +612,40 @@
 				</tr>
 	            <tr class="form">
 		       		<td>
-	   					שם איש קשר:<form:input cssClass="green" path="contactPerson" />
+	   					שם איש קשר:
 					</td>
 		       		<td>
-	   					תפקיד:<form:input cssClass="green" path="contactPersonRole" />
+	   					<form:input cssClass="green" path="contactPerson" />
 					</td>
 		       		<td>
-	   					טלפון:<form:input cssClass="green" path="contactPersonPhone" />
+	   					תפקיד:
+					</td>
+		       		<td>
+	   					<form:input cssClass="green" path="contactPersonRole" />
+					</td>
+				</tr>
+				<tr>
+		       		<td>
+	   					טלפון:
+	   				</td>
+		       		<td>
+	   					<form:input cssClass="green" path="contactPersonPhone" />
 	   				</td>
 				    <td>
-	   					כתובת אימייל:<form:input cssClass="green" path="contactPersonEmail" />
+	   					כתובת אימייל:
+					</td>
+				    <td>
+	   					<form:input cssClass="green" path="contactPersonEmail" />
 					</td>
 				</tr>				
+				<tr>
+		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
+        		 </tr>
 				<tr class="form">
-					<td width="250">
+					<td  width="250">
 						 הערות לפני הגשה:
 					</td>
-					<td colspan=3 width="300">
+					<td colspan="3"  >
 						<form:textarea cssClass="green" path="remarks" cols="60" rows="3"/>
 					</td>
 				</tr>																
@@ -518,7 +653,7 @@
 		       		<td>
 	   					בחירת הגורם המאשר:
 	   				</td>
-				    <td colspan=3>
+				    <td colspan="3">
         				<form:select id="deanSelect"  path="approverId" cssClass="green">
       					<form:option value="0">בחר/י גורם מאשר</form:option>
        					<c:forEach items="${deans}" var="deanPerson">
@@ -531,13 +666,13 @@
 		       		<td>
 	   					חוות דעת הגורם המאשר:
 	   				</td>
-				    <td colspan=3>
+				    <td colspan="3">
 						<form:textarea cssClass="green" path="approverEvaluation" cols="60" rows="3"/>
 					</td>
 				</tr>
 				
 				<tr class="form">
-					<td width="700" colspan="2" align="center">
+					<td width="700" colspan="4" align="center">
 						<input class="green" type="submit" name="submit" value="שמור"/>
  					</td>
 				</tr>
@@ -548,9 +683,10 @@
 		</tr>
 
 		<tr>
-			<td width="700" colspan="2" align="center">
+			<td width="700" colspan="4" align="center">
+
 				<a href="editConferenceProposal.html?id=${command.id}&version=${previousVersion}">צפה בגרסה קודמת</a>
-				&nbsp;&nbsp;
+			&nbsp;&nbsp;
 				<a href="editConferenceProposal.html?id=${command.id}&version=${nextVersion}">צפה בגרסה הבאה</a>
 			</td>
 		</tr>

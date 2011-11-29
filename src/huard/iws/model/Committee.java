@@ -7,6 +7,8 @@ public class Committee {
 	private String institute;
 	private String instituteRole;
 	private String committeeRole;
+	private int type;
+
 
 	public String getName() {
 		return name;
@@ -44,6 +46,11 @@ public class Committee {
 	public void setCommitteeRole(String committeeRole) {
 		this.committeeRole = committeeRole;
 	}
-
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
 
 }

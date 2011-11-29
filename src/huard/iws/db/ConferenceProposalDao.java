@@ -1,6 +1,7 @@
 package huard.iws.db;
 
 
+import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.FinancialSupport;
 import huard.iws.bean.PersonBean;
@@ -45,5 +46,7 @@ public interface ConferenceProposalDao {
 
 	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate);
 	
-	public void updateFromAdmitanceFee(FinancialSupport financialSupport);
+	public void insertFinancialSupport(FinancialSupport financialSupport);
+	
+	public void insertCommittee(Committee committee);
 }
