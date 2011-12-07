@@ -4,20 +4,17 @@
 <head>
 	<title>הרשות למחקר ופיתוח - מערכת אינטרנט משולבת</title>
 	<link href="style/style.css" rel="stylesheet" type="text/css">
-	<link href="style/jquery.autocomplete.css" rel="stylesheet" type="text/css">
-	<link href="style/jquery.datePicker.css" rel="stylesheet" type="text/css">
 	<link href="style/jquery.alerts.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="js/jquery-1.2.6.js"></script>
+	<link href="style/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.regexp.js"></script>
 	<script type="text/javascript" src="js/jquery.form.js"></script>
 	<script type="text/javascript" src="js/jquery.field.js"></script>
 	<script type="text/javascript" src="js/jquery.bgiframe.js"></script>
 	<script type="text/javascript" src="js/jquery.dimensions.js"></script>
-	<script type="text/javascript" src="js/jquery.autocomplete.js"></script>
 	<script type="text/javascript" src="js/jquery.alerts.js"></script>
-	<script type="text/javascript" src="js/jquery.ui.draggable.js"></script>
 	<script type="text/javascript" src="js/date.js"></script>
-	<script type="text/javascript" src="js/jquery.datePicker-2.1.2.js"></script>
 
 	<script>
 

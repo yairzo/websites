@@ -8,7 +8,10 @@ $.alerts.alert(userMessage);
 
 
 $(document).ready(function() {
-	
+
+	$("#startConfDate").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy' });	
+	$("#endConfDate").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy' });	
+
 	$('.autosaveclass').autoSave(function(){
 		if ("${command.versionId}"==0){
 			$.alerts.alert("...saving");

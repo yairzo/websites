@@ -574,9 +574,6 @@
         <property name="facultyService">
             <ref bean="facultyService"/>
         </property>
-        <property name="initiatingBodyService">
-            <ref bean="initiatingBodyService"/>
-        </property>
         <property name="messageService">
         	<ref bean="messageService"/>
         </property>

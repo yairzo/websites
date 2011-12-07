@@ -82,12 +82,7 @@
 						 הגוף היוזם:
 					</td>
 					<td>
-						<form:select cssClass="green" path="initiatingBody">
-						<form:option value="0">בחר\י גוף</form:option>
-							<c:forEach items="${initiatingBodies}" var="initiatingBody">
-								<form:option value="${initiatingBody.id}"><c:out value="${initiatingBody.nameHebrew}"/></form:option>
-							</c:forEach>
-						</form:select>
+						<form:input cssClass="green" path="initiatingBody"/>
 					</td>
 					<td>
 						 תפקיד בגוף היוזם:
@@ -141,22 +136,20 @@
 						<form:input cssClass="green" path="locationDetail"/>
 					</td>
 				</tr>
-					<!-- <tr>
-						<td>
-							תאריך התחלה:
-						</td>
-						<td>
-							<form:input cssClass="green" path="fromDate" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							תאריך סיום:
-						</td>
-						<td>
-							<form:input cssClass="green" path="toDate" />
-						</td>
-					</tr>-->
+				<tr>
+					<td width="250">
+						תאריך התחלה:
+					</td>
+					<td width="250">
+						<input type="text" class="green" name="startConfDate" id="startConfDate" value="${startConfDate}"/>
+					</td>
+					<td width="250">
+						תאריך סיום:
+					</td>
+					<td width="250">
+						<input type="text" class="green" name="endConfDate" id="endConfDate" value="${endConfDate}"/>
+					</td>
+				</tr>
 				<tr class="form">
 					<td>מספר משתתפים:</td>
 					<td colspan="3">

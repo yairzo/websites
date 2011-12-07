@@ -38,7 +38,7 @@ public class ConferenceProposal {
 	private byte [] financialAttach;
 	private String  financialAttachContentType;
 
-	private int initiatingBody;
+	private String initiatingBody;
 	private int initiatingBodyRole;
 	private long openDate;
 	private long submissionDate;
@@ -95,7 +95,7 @@ public class ConferenceProposal {
 		this.programAttachContentType = "";
 		this.financialAttach = new byte[0];
 		this.financialAttachContentType = "";
-		this.initiatingBody = 0;
+		this.initiatingBody = "";
 		this.initiatingBodyRole = 0;
 		this.openDate = 0;
 		this.submissionDate = 0;
@@ -283,10 +283,10 @@ public class ConferenceProposal {
 		this.financialAttachContentType = financialAttachContentType;
 	}
 
-	public int getInitiatingBody() {
+	public String getInitiatingBody() {
 		return initiatingBody;
 	}
-	public void setInitiatingBody(int initiatingBody) {
+	public void setInitiatingBody(String initiatingBody) {
 		this.initiatingBody = initiatingBody;
 	}
 

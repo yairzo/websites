@@ -42,7 +42,7 @@ public class ConferenceProposalBean {
 	private byte[] financialAttach;
 	private String financialAttachContentType;
 
-	private int initiatingBody;
+	private String initiatingBody;
 	private int initiatingBodyRole;
 	private long openDate;
 	private long submissionDate;
@@ -99,7 +99,7 @@ public class ConferenceProposalBean {
 		this.programAttachContentType = "";
 		this.financialAttach = new byte[0];
 		this.financialAttachContentType = "";
-		this.initiatingBody = 0;
+		this.initiatingBody = "";
 		this.initiatingBodyRole = 0;
 		this.openDate = now.getTime();
 		this.submissionDate = now.getTime();
@@ -141,7 +141,7 @@ public class ConferenceProposalBean {
 		this.versionId = conferenceProposal.getVersionId();
 		this.subject = conferenceProposal.getSubject();
 		this.fromDate = conferenceProposal.getFromDate();
-		this.toDate = conferenceProposal.getFromDate();
+		this.toDate = conferenceProposal.getToDate();
 		this.location = conferenceProposal.getLocation();
 		this.locationDetail = conferenceProposal.getLocationDetail();
 		this.foreignLecturers = conferenceProposal.getForeignLecturers();
@@ -447,11 +447,11 @@ public class ConferenceProposalBean {
 		this.financialAttachContentType = financialAttachContentType;
 	}
 
-	public int getInitiatingBody() {
+	public String getInitiatingBody() {
 		return initiatingBody;
 	}
 
-	public void setInitiatingBody(int initiatingBody) {
+	public void setInitiatingBody(String initiatingBody) {
 		this.initiatingBody = initiatingBody;
 	}
 

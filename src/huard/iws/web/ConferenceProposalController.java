@@ -2,6 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.bean.PersonBean;
+import huard.iws.bean.PostBean;
 import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Faculty;
@@ -9,12 +10,14 @@ import huard.iws.model.FinancialSupport;
 import huard.iws.model.InitiatingBody;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
-import huard.iws.service.InitiatingBodyService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
 import huard.iws.service.PersonListService;
 import huard.iws.util.RequestWrapper;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +40,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 	throws Exception{
 
+		logger.info("111111111111111111"+request.getParameter("startConfDate", ""));
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
 		
 		//if added financialsupport or committee
@@ -128,9 +132,17 @@ public class ConferenceProposalController extends GeneralFormController{
 		}
 		
 		//update
+		if(!request.getParameter("startConfDate", "").equals("")){
+			DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+			Date fromDate = (Date)formatter.parse(request.getParameter("startConfDate", "")); 
+			conferenceProposalBean.setFromDate(fromDate.getTime());
+		}
+		if(!request.getParameter("endConfDate", "").equals("")){
+			DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+			Date toDate = (Date)formatter.parse(request.getParameter("endConfDate", "")); 
+			conferenceProposalBean.setToDate(toDate.getTime());
+		}
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
-		
-
 			
 		//return to same page
 		model.put("id", conferenceProposalBean.getId())	;			
@@ -147,12 +159,9 @@ public class ConferenceProposalController extends GeneralFormController{
 		//get faculty name by user facultyId
 		Faculty faculty = facultyService.getFaculty(userPersonBean.getFacultyId());
 		model.put("faculty", faculty.getNameHebrew());
-		List<InitiatingBody> initiatingBodies = initiatingBodyService.getInitiatingBodies();
-		model.put("initiatingBodies", initiatingBodies);
 
 		// if new proposal Create a new proposal and write it to db
 		if (request.getParameter("action", "").equals("new")){
-			logger.info("I'm here");
 			ConferenceProposal conferenceProposal= new ConferenceProposal();
 			conferenceProposal.setPersonId(userPersonBean.getId());
 			int conferenceProposalId = conferenceProposalService.insertConferenceProposal(conferenceProposal);
@@ -161,6 +170,13 @@ public class ConferenceProposalController extends GeneralFormController{
 			return new ModelAndView ( new RedirectView("editConferenceProposal.html"), model);
 		}
 		else{//show edit
+			ConferenceProposalBean conferenceProposal = (ConferenceProposalBean) model.get("command");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			Date fromDate = new Date(conferenceProposal.getFromDate());
+			model.put("startConfDate", formatter.format(fromDate));
+			Date toDate = new Date(conferenceProposal.getToDate());
+			model.put("endConfDate", formatter.format(toDate));
+			
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		
@@ -225,12 +241,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		this.facultyService = facultyService;
 	}
 	
-	private InitiatingBodyService initiatingBodyService;
 
-	public void setInitiatingBodyService(InitiatingBodyService initiatingBodyService) {
-		this.initiatingBodyService = initiatingBodyService;
-	}
-	
 	private MessageService messageService;
 
 	public void setMessageService(MessageService messageService) {

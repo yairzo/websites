@@ -189,7 +189,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setProgramAttachContentType(rs.getString("programAttachContentType"));
 			conferenceProposal.setFinancialAttach(rs.getBytes("financeAttach"));
 			conferenceProposal.setFinancialAttachContentType(rs.getString("financeAttachContentType"));
-			conferenceProposal.setInitiatingBody(rs.getInt("initiatingBody"));
+			conferenceProposal.setInitiatingBody(rs.getString("initiatingBody"));
 			conferenceProposal.setInitiatingBodyRole(rs.getInt("initiatingBodyRole"));
 			long openDate = 0;
 			Timestamp aOpenDate = rs.getTimestamp("openDate");
@@ -260,7 +260,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setProgramAttachContentType(rs.getString("programAttachContentType"));
 			conferenceProposal.setFinancialAttach(rs.getBytes("financeAttach"));
 			conferenceProposal.setFinancialAttachContentType(rs.getString("financeAttachContentType"));
-			conferenceProposal.setInitiatingBody(rs.getInt("initiatingBody"));
+			conferenceProposal.setInitiatingBody(rs.getString("initiatingBody"));
 			conferenceProposal.setInitiatingBodyRole(rs.getInt("initiatingBodyRole"));
 			long openDate = 0;
 			Timestamp aOpenDate = rs.getTimestamp("openDate");
@@ -334,8 +334,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", grade = ?" +				
 				", description = ?" + 
 				", subject = ?" + 
-				", fromDate = now()" + 
-				", toDate = now()" + 
+				", fromDate = ?" + 
+				", toDate = ?" + 
 				", location = ?" + 
 				", locationDetails = ?" + 
 				", foreignLecturers = ?" + 
@@ -382,8 +382,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getGrade(),
 				conferenceProposal.getDescription(),
 				conferenceProposal.getSubject(),
-				//conferenceProposal.getFromDate(),
-				//conferenceProposal.getToDate(),
+				new java.sql.Timestamp(conferenceProposal.getFromDate()),
+				new java.sql.Timestamp(conferenceProposal.getToDate()),
 				conferenceProposal.getLocation(),
 				conferenceProposal.getLocationDetail(),
 				conferenceProposal.getForeignLecturers(),
@@ -433,8 +433,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", grade = ?" +
 				", description = ?"+
 				", subject = ?" + 
-				", fromDate = now()" + 
-				", toDate = now()" + 
+				", fromDate = ?" + 
+				", toDate = ?" + 
 				", location = ?" + 
 				", locationDetails = ?" +
 				", foreignLecturers = ?" + 
@@ -483,8 +483,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getGrade(),
 				conferenceProposal.getDescription(),
 				conferenceProposal.getSubject(),
-				//conferenceProposal.getFromDate(),
-				//conferenceProposal.getToDate(),
+				new java.sql.Timestamp(conferenceProposal.getFromDate()),
+				new java.sql.Timestamp(conferenceProposal.getToDate()),
 				conferenceProposal.getLocation(),
 				conferenceProposal.getLocationDetail(),
 				conferenceProposal.getForeignLecturers(),
@@ -523,7 +523,6 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getContactPersonPhone(),
 				conferenceProposal.getContactPersonFax(),
 				conferenceProposal.getContactPersonEmail());				
-
 	}
 
 

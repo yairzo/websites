@@ -414,12 +414,7 @@
     	</property>
 	</bean>
 
-	<bean id="initiatingBodyService" class="huard.iws.service.InitiatingBodyServiceImpl">
-		<property name="initiatingBodyDao">
-    		<ref bean="initiatingBodyDao"/>
-    	</property>
-	</bean>
-	
+
 	<bean id="pageBodyImageService" class="huard.iws.service.PageBodyImageServiceImpl">
 		<property name="pageBodyImageDao">
     		<ref bean="pageBodyImageDao"/>
