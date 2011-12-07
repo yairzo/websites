@@ -1,10 +1,9 @@
 package huard.iws.db;
 
-import huard.iws.model.ConferenceProposal;
-import huard.iws.model.Committee;
-import huard.iws.model.FinancialSupport;
-import huard.iws.model.ProposalAttachment;
 import huard.iws.bean.PersonBean;
+import huard.iws.model.Committee;
+import huard.iws.model.ConferenceProposal;
+import huard.iws.model.FinancialSupport;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
 
@@ -12,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -23,9 +23,11 @@ import org.springframework.jdbc.support.KeyHolder;
 public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements ConferenceProposalDao {
 
 	public ConferenceProposal getConferenceProposal(int id){
-		String conferenceSelect = "select * from conferenceProposal where id=?";
+		String query = "select * from conferenceProposal where id=?";
+		logger.info(query);
 		ConferenceProposal conferenceProposal =
-			getSimpleJdbcTemplate().queryForObject(conferenceSelect, rowMapper,	id);
+			getSimpleJdbcTemplate().queryForObject(query, rowMapper,	id);
+		logger.info("conference proposal id: " + conferenceProposal.getId());
 		conferenceProposal.setFromAssosiate(getSupportFromAssosiate(id));
 		conferenceProposal.setFromExternal(getSupportFromExternal(id));
 		conferenceProposal.setFromAdmitanceFee(getSupportFromAdmitanceFee(id));
@@ -163,8 +165,16 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setGrade(rs.getInt("grade"));
 			conferenceProposal.setDescription(rs.getString("description"));
 			conferenceProposal.setSubject(rs.getString("subject"));
-			conferenceProposal.setFromDate(rs.getTimestamp("fromDate"));
-			conferenceProposal.setToDate(rs.getTimestamp("toDate"));
+			long fromDate = 0;
+			Timestamp aFromDate = rs.getTimestamp("fromDate");
+			if (aFromDate != null)
+				fromDate = aFromDate.getTime();
+			conferenceProposal.setFromDate(fromDate);
+			long toDate = 0;
+			Timestamp aToDate = rs.getTimestamp("toDate");
+			if (aToDate != null)
+				toDate = aToDate.getTime();
+			conferenceProposal.setToDate(toDate);
 			conferenceProposal.setLocation(rs.getString("location"));
 			conferenceProposal.setLocationDetail(rs.getString("locationDetails"));
 			conferenceProposal.setAudienceGuests(rs.getInt("audienceGuests"));
@@ -181,17 +191,19 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setFinancialAttachContentType(rs.getString("financeAttachContentType"));
 			conferenceProposal.setInitiatingBody(rs.getInt("initiatingBody"));
 			conferenceProposal.setInitiatingBodyRole(rs.getInt("initiatingBodyRole"));
-		    java.sql.Timestamp ts1 = java.sql.Timestamp.valueOf(rs.getString("openDate"));
-		    long tsTime1 = ts1.getTime();
-			conferenceProposal.setOpenDate(tsTime1);
-			if (rs.getString("submissionDate")!=null){
-				java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(rs.getString("submissionDate"));
-				long tsTime2 = ts2.getTime();
-				conferenceProposal.setSubmissionDate(tsTime2);
-			}
-			conferenceProposal.setTotalCost(rs.getBigDecimal("totalCost"));
+			long openDate = 0;
+			Timestamp aOpenDate = rs.getTimestamp("openDate");
+			if (aOpenDate != null)
+				openDate = aOpenDate.getTime();
+			conferenceProposal.setOpenDate(openDate);
+			long submissionDate = 0;
+			Timestamp aSubmissionDate = rs.getTimestamp("submissionDate");
+			if (aSubmissionDate != null)
+				submissionDate = aSubmissionDate.getTime();
+			conferenceProposal.setSubmissionDate(submissionDate);
+			conferenceProposal.setTotalCost(rs.getDouble("totalCost"));
 			conferenceProposal.setTotalCostCurrency(rs.getInt("totalCostCurrency"));
-			conferenceProposal.setSupportSum(rs.getBigDecimal("supportSum"));
+			conferenceProposal.setSupportSum(rs.getDouble("supportSum"));
 			conferenceProposal.setSupportCurrency(rs.getInt("supportCurrency"));
 			conferenceProposal.setAuditorium(rs.getBoolean("auditorium"));
 			conferenceProposal.setSeminarRoom(rs.getBoolean("seminarRoom"));
@@ -223,8 +235,16 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setGrade(rs.getInt("grade"));
 			conferenceProposal.setDescription(rs.getString("description"));
 			conferenceProposal.setSubject(rs.getString("subject"));
-			conferenceProposal.setFromDate(rs.getTimestamp("fromDate"));
-			conferenceProposal.setToDate(rs.getTimestamp("toDate"));
+			long fromDate = 0;
+			Timestamp aFromDate = rs.getTimestamp("fromDate");
+			if (aFromDate != null)
+				fromDate = aFromDate.getTime();
+			conferenceProposal.setFromDate(fromDate);
+			long toDate = 0;
+			Timestamp aToDate = rs.getTimestamp("toDate");
+			if (aToDate != null)
+				toDate = aToDate.getTime();
+			conferenceProposal.setToDate(toDate);
 			conferenceProposal.setLocation(rs.getString("location"));
 			conferenceProposal.setVersionId(rs.getInt("id"));
 			conferenceProposal.setLocationDetail(rs.getString("locationDetails"));
@@ -242,17 +262,19 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setFinancialAttachContentType(rs.getString("financeAttachContentType"));
 			conferenceProposal.setInitiatingBody(rs.getInt("initiatingBody"));
 			conferenceProposal.setInitiatingBodyRole(rs.getInt("initiatingBodyRole"));
-		    java.sql.Timestamp ts1 = java.sql.Timestamp.valueOf(rs.getString("openDate"));
-		    long tsTime1 = ts1.getTime();
-			conferenceProposal.setOpenDate(tsTime1);
-			if (rs.getString("submissionDate")!=null){
-				java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(rs.getString("submissionDate"));
-				long tsTime2 = ts2.getTime();
-				conferenceProposal.setSubmissionDate(tsTime2);
-			}
-			conferenceProposal.setTotalCost(rs.getBigDecimal("totalCost"));
+			long openDate = 0;
+			Timestamp aOpenDate = rs.getTimestamp("openDate");
+			if (aOpenDate != null)
+				openDate = aOpenDate.getTime();
+			conferenceProposal.setOpenDate(openDate);
+			long submissionDate = 0;
+			Timestamp aSubmissionDate = rs.getTimestamp("submissionDate");
+			if (aSubmissionDate != null)
+				submissionDate = aSubmissionDate.getTime();
+			conferenceProposal.setSubmissionDate(submissionDate);
+			conferenceProposal.setTotalCost(rs.getDouble("totalCost"));
 			conferenceProposal.setTotalCostCurrency(rs.getInt("totalCostCurrency"));
-			conferenceProposal.setSupportSum(rs.getBigDecimal("supportSum"));
+			conferenceProposal.setSupportSum(rs.getDouble("supportSum"));
 			conferenceProposal.setSupportCurrency(rs.getInt("supportCurrency"));
 			conferenceProposal.setAuditorium(rs.getBoolean("auditorium"));
 			conferenceProposal.setSeminarRoom(rs.getBoolean("seminarRoom"));
@@ -275,7 +297,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	};
 
 	public int insertConferenceProposal(ConferenceProposal conferenceProposal){
-		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now()";
+		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now()";
 		final int personId = conferenceProposal.getPersonId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -289,7 +311,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		    },
 		    keyHolder);
 		final int key=keyHolder.getKey().intValue();
-		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now();";
+		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now();";
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -312,8 +334,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", grade = ?" +				
 				", description = ?" + 
 				", subject = ?" + 
-				", fromDate = ?" + 
-				", toDate = ?" + 
+				", fromDate = now()" + 
+				", toDate = now()" + 
 				", location = ?" + 
 				", locationDetails = ?" + 
 				", foreignLecturers = ?" + 
@@ -331,7 +353,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", initiatingBody =  ?" + 
 				", initiatingBodyRole = ?" + 
 				//", openDate=  ?" + 
-				", submissionDate= ?" + 
+				", submissionDate= now()" + 
 				", totalCost= ?" + 
 				", totalCostCurrency= ?" + 
 				", supportSum= ?" + 
@@ -360,8 +382,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getGrade(),
 				conferenceProposal.getDescription(),
 				conferenceProposal.getSubject(),
-				conferenceProposal.getFromDate(),
-				conferenceProposal.getToDate(),
+				//conferenceProposal.getFromDate(),
+				//conferenceProposal.getToDate(),
 				conferenceProposal.getLocation(),
 				conferenceProposal.getLocationDetail(),
 				conferenceProposal.getForeignLecturers(),
@@ -379,7 +401,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getInitiatingBody(),
 				conferenceProposal.getInitiatingBodyRole(),
 				//new java.sql.Timestamp(conferenceProposal.getOpenDate()),
-				new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
+				//new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
 				conferenceProposal.getTotalCost(),
 				conferenceProposal.getTotalCostCurrency(),
 				conferenceProposal.getSupportSum(),
@@ -411,8 +433,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", grade = ?" +
 				", description = ?"+
 				", subject = ?" + 
-				", fromDate = ?" + 
-				", toDate = ?" + 
+				", fromDate = now()" + 
+				", toDate = now()" + 
 				", location = ?" + 
 				", locationDetails = ?" +
 				", foreignLecturers = ?" + 
@@ -429,8 +451,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", financeAttachContentType = ?" + 
 				", initiatingBody =  ?" + 
 				", initiatingBodyRole = ?" + 
-				", openDate=  ?" + 
-				", submissionDate= ?" + 
+				", openDate=  now()" + 
+				", submissionDate= now()" + 
 				", totalCost= ?" + 
 				", totalCostCurrency= ?" + 
 				", supportSum= ?" + 
@@ -461,8 +483,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getGrade(),
 				conferenceProposal.getDescription(),
 				conferenceProposal.getSubject(),
-				conferenceProposal.getFromDate(),
-				conferenceProposal.getToDate(),
+				//conferenceProposal.getFromDate(),
+				//conferenceProposal.getToDate(),
 				conferenceProposal.getLocation(),
 				conferenceProposal.getLocationDetail(),
 				conferenceProposal.getForeignLecturers(),
@@ -479,8 +501,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getFinancialAttachContentType(),
 				conferenceProposal.getInitiatingBody(),
 				conferenceProposal.getInitiatingBodyRole(),
-				new java.sql.Timestamp(conferenceProposal.getOpenDate()),
-				new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
+				//new java.sql.Timestamp(conferenceProposal.getOpenDate()),
+				//new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
 				conferenceProposal.getTotalCost(),
 				conferenceProposal.getTotalCostCurrency(),
 				conferenceProposal.getSupportSum(),

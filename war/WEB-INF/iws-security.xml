@@ -106,7 +106,9 @@
       			/deleteOrganizationUnit.html=ROLE_LISTS_ADMIN
       			/postReports.html=ROLE_POST_ADMIN
       			/uploadImage.html=ROLE_POST_ADMIN
-      			/conferenceProposals.htmk=ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_RESEARCHER
+      			/conferenceProposals.html=ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_EQF_RESEARCHER
+      			/editConferenceProposal.html=ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_EQF_RESEARCHER
+      			/conferenceProposalGrade.html=ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER
 	       </value>
   		</property>
 	</bean>

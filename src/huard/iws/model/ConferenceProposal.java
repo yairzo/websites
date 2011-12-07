@@ -1,9 +1,7 @@
 package huard.iws.model;
 
-import java.sql.Timestamp;
-import java.util.List;
 import java.util.ArrayList;
-import java.math.BigDecimal;
+import java.util.List;
 
 public class ConferenceProposal {
 
@@ -23,8 +21,8 @@ public class ConferenceProposal {
 	private String fax;
 	private String email;*/
 	private String subject;
-	private Timestamp fromDate;
-	private Timestamp toDate;
+	private long fromDate;
+	private long toDate;
 	private String location;
 	private String locationDetail;
 	private int foreignLecturers;
@@ -44,9 +42,9 @@ public class ConferenceProposal {
 	private int initiatingBodyRole;
 	private long openDate;
 	private long submissionDate;
-	private BigDecimal totalCost;
+	private double totalCost;
 	private int totalCostCurrency;
-	private BigDecimal supportSum;
+	private double supportSum;
 	private int supportCurrency;
 	private boolean auditorium;
 	private boolean seminarRoom;
@@ -73,7 +71,6 @@ public class ConferenceProposal {
 	
 
 	public ConferenceProposal(){
-		Timestamp now = new Timestamp(System.currentTimeMillis());
 		this.id = 0;
 		this.personId = 0;
 		this.approverId = 0;
@@ -82,8 +79,8 @@ public class ConferenceProposal {
 		this.description = "";
 		this.versionId = 0;
 		this.subject = "";
-		this.fromDate = now;
-		this.toDate = now;
+		this.fromDate = 0;
+		this.toDate = 0;
 		this.location = "";
 		this.locationDetail = "";
 		this.foreignLecturers = 0;
@@ -100,11 +97,11 @@ public class ConferenceProposal {
 		this.financialAttachContentType = "";
 		this.initiatingBody = 0;
 		this.initiatingBodyRole = 0;
-		this.openDate= now.getTime();
-		this.submissionDate=now.getTime();
-		this.totalCost=new BigDecimal("0.0");
-		this.totalCostCurrency=0;
-		this.supportSum=new BigDecimal("0.0");
+		this.openDate = 0;
+		this.submissionDate = 0;
+		this.totalCost = 0;
+		this.totalCostCurrency = 0;
+		this.supportSum = 0;
 		this.supportCurrency=0;
 		this.auditorium=false;
 		this.seminarRoom=false;
@@ -185,19 +182,7 @@ public class ConferenceProposal {
 		this.subject = subject;
 	}
 	
-	public Timestamp getFromDate() {
-		return fromDate;
-	}
-	public void setFromDate(Timestamp fromDate) {
-		this.fromDate = fromDate;
-	}
-
-	public Timestamp getToDate() {
-		return toDate;
-	}
-	public void setToDate(Timestamp toDate) {
-		this.toDate = toDate;
-	}
+	
 
 	public String getLocation() {
 		return location;
@@ -326,12 +311,7 @@ public class ConferenceProposal {
 		this.submissionDate = submissionDate;
 	}
 	
-	public BigDecimal getTotalCost() {
-		return totalCost;
-	}
-	public void setTotalCost(BigDecimal totalCost) {
-		this.totalCost = totalCost;
-	}
+	
 
 	public int getTotalCostCurrency() {
 		return totalCostCurrency;
@@ -340,12 +320,7 @@ public class ConferenceProposal {
 		this.totalCostCurrency = totalCostCurrency;
 	}
 
-	public BigDecimal getSupportSum() {
-		return supportSum;
-	}
-	public void setSupportSum(BigDecimal supportSum) {
-		this.supportSum = supportSum;
-	}
+	
 
 	public int getSupportCurrency() {
 		return supportCurrency;
@@ -394,6 +369,38 @@ public class ConferenceProposal {
 	}
 	public void setOrganizingCompanyName(String organizingCompanyName) {
 		this.organizingCompanyName = organizingCompanyName;
+	}
+
+	public long getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(long fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public long getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(long toDate) {
+		this.toDate = toDate;
+	}
+
+	public double getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(double totalCost) {
+		this.totalCost = totalCost;
+	}
+
+	public double getSupportSum() {
+		return supportSum;
+	}
+
+	public void setSupportSum(double supportSum) {
+		this.supportSum = supportSum;
 	}
 
 	public String getOrganizingCompanyPhone() {

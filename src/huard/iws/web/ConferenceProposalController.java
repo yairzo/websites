@@ -1,12 +1,12 @@
 package huard.iws.web;
 
-import huard.iws.bean.PersonBean;
 import huard.iws.bean.ConferenceProposalBean;
-import huard.iws.model.Faculty;
-import huard.iws.model.InitiatingBody;
-import huard.iws.model.ConferenceProposal;
-import huard.iws.model.FinancialSupport;
+import huard.iws.bean.PersonBean;
 import huard.iws.model.Committee;
+import huard.iws.model.ConferenceProposal;
+import huard.iws.model.Faculty;
+import huard.iws.model.FinancialSupport;
+import huard.iws.model.InitiatingBody;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
 import huard.iws.service.InitiatingBodyService;
@@ -152,9 +152,11 @@ public class ConferenceProposalController extends GeneralFormController{
 
 		// if new proposal Create a new proposal and write it to db
 		if (request.getParameter("action", "").equals("new")){
+			logger.info("I'm here");
 			ConferenceProposal conferenceProposal= new ConferenceProposal();
 			conferenceProposal.setPersonId(userPersonBean.getId());
 			int conferenceProposalId = conferenceProposalService.insertConferenceProposal(conferenceProposal);
+			logger.info("conferenceProposalId " + conferenceProposalId);
 			model.put("id",conferenceProposalId);
 			return new ModelAndView ( new RedirectView("editConferenceProposal.html"), model);
 		}
@@ -168,22 +170,29 @@ public class ConferenceProposalController extends GeneralFormController{
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
 		ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean();
-		if ( ! isFormSubmission(request.getRequest())&& !request.getParameter("action","").equals("new")){
-			int id = request.getIntParameter("id", 0);
-			int version = request.getIntParameter("version",0);
-			if(version==0)
-				conferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(id));
-			else{
-				if (version == conferenceProposalService.getFirstVersion(id)){
-					String userMessage = messageService.getMessage("iw_IL.conferenceProposal.firstVersion");
-					request.getSession().setAttribute("userMessage", userMessage);
-				}
-				if (version == conferenceProposalService.getLastVersion(id)){
-					String userMessage = messageService.getMessage("iw_IL.conferenceProposal.lastVersion");
-					request.getSession().setAttribute("userMessage", userMessage);
-				}
-				conferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getVersionConferenceProposal(id,version));
+		logger.info("action : " + request.getParameter("action",""));
+		
+		
+		if ( isFormSubmission(request.getRequest()) || request.getParameter("action","").equals("new"))
+			return conferenceProposalBean;
+		
+		int id = request.getIntParameter("id", 0);
+		logger.info("id: " + id);
+		int version = request.getIntParameter("version",0);
+		if(version==0){
+			conferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(id));
+		}
+		else{
+			if (version == conferenceProposalService.getFirstVersion(id)){
+				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.firstVersion");
+				request.getSession().setAttribute("userMessage", userMessage);
 			}
+			if (version == conferenceProposalService.getLastVersion(id)){
+				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.lastVersion");
+				request.getSession().setAttribute("userMessage", userMessage);
+			}
+			conferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getVersionConferenceProposal(id,version));
+			
 		}
 		return conferenceProposalBean;
 	}

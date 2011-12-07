@@ -23,9 +23,9 @@ public class WelcomeController extends GeneralController{
 			model.put("id", userPersonBean.getId());
 			return new ModelAndView (new RedirectView("person.html"), model);
 		}
-		else if (userPersonBean.isAuthorized("EQF", "RESEARCHER")){
+		/*else if (userPersonBean.isAuthorized("EQF", "RESEARCHER")){
 			return new ModelAndView (new RedirectView("proposals.html"));
-		}
+		}*/
 		else{
 			return new ModelAndView("welcome",model);
 		}
