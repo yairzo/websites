@@ -127,6 +127,24 @@ public class MailMessageServiceImpl implements MailMessageService{
 		messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, subject, body, getCommonResources());
 	}
 
+	public void createSimpleConferenceGradeMail(PersonBean recipient, String messageKey){
+		createSimpleConferenceGradeMail(recipient, new PersonBean(), messageKey);
+	}
+
+	public void createSimpleConferenceGradeMail(PersonBean recipient, PersonBean sender, String messageKey){
+		String subject = messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".subject");
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
+		model.put("recipient", recipient.getDegreeFullNameHebrew());
+		model.put("server", getServer());
+		model.put("proposalMessageOpening", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage.proposalMessageOpening"));
+		String [] messageParams = new String []{sender.getDegreeFullNameHebrew()};
+		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
+		String body = VelocityEngineUtils.mergeTemplateIntoString(
+		           velocityEngine, "simpleMailMessage.vm", model);
+		System.out.println(body);
+		messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, subject, body, getCommonResources());
+	}
 
 	public void createSimplePartnerMail(PersonBean recipient, ProposalBean proposal,
 			PartnerBean partner, String messageKey){

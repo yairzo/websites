@@ -62,7 +62,8 @@ public class ConferenceProposal {
 	private String contactPersonPhone;
 	private String contactPersonFax;
 	private String contactPersonEmail;
-	
+	private String adminRemarks;
+	private long deadline;
 	private List<Committee> scientificCommittees;
 	private List<Committee> operationalCommittees;
 	private List<FinancialSupport> fromAssosiate;
@@ -124,6 +125,8 @@ public class ConferenceProposal {
 		this.fromAssosiate = new ArrayList<FinancialSupport>();
 		this.fromExternal = new ArrayList<FinancialSupport>();
 		this.fromAdmitanceFee = new ArrayList<FinancialSupport>();
+		this.adminRemarks="";
+		this.deadline=0;
 	}
 	
 	public int getId() {
@@ -472,7 +475,21 @@ public class ConferenceProposal {
 	public void setContactPersonEmail(String contactPersonEmail){
 		this.contactPersonEmail = contactPersonEmail;
 	}
-	
+
+	public String getAdminRemarks(){
+		return adminRemarks;
+	}
+	public void setAdminRemarks(String adminRemarks){
+		this.adminRemarks = adminRemarks;
+	}	
+
+	public long getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(long deadline) {
+		this.deadline = deadline;
+	}
+
 	public List<Committee> getScientificCommittees() {
 		return scientificCommittees;
 	}

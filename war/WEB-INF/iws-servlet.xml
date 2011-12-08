@@ -590,7 +590,14 @@
         <property name="conferenceProposalListService">
             <ref bean="conferenceProposalListService"/>
         </property>
+        <property name="personListService">
+            <ref bean="personListService"/>
+        </property>
+         <property name="mailMessageService">
+        	<ref bean="mailMessageService"/>
+        </property>
      </bean>
+     
 	<bean id="conferenceProposalGradeController" class="huard.iws.web.ConferenceProposalGradeController" parent="generalFormController">
     	<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.ConferenceProposalGradeController$ConferenceProposalGradeCommand</value></property>

@@ -66,7 +66,8 @@ public class ConferenceProposalBean {
 	private String contactPersonPhone;
 	private String contactPersonFax;
 	private String contactPersonEmail;
-
+	private String adminRemarks;
+	private long deadline;
 	private List<Committee> scientificCommittees;
 	private List<Committee> operationalCommittees;
 	private List<FinancialSupport> fromAssosiate;
@@ -123,6 +124,8 @@ public class ConferenceProposalBean {
 		this.contactPersonPhone = "";
 		this.contactPersonFax = "";
 		this.contactPersonEmail = "";
+		this.adminRemarks ="";
+		this.deadline=0;
 		this.scientificCommittees = new ArrayList<Committee>();
 		this.operationalCommittees = new ArrayList<Committee>();
 		this.fromAssosiate = new ArrayList<FinancialSupport>();
@@ -187,6 +190,8 @@ public class ConferenceProposalBean {
 		this.contactPersonPhone = conferenceProposal.getContactPersonPhone();
 		this.contactPersonFax = conferenceProposal.getContactPersonFax();
 		this.contactPersonEmail = conferenceProposal.getContactPersonEmail();
+		this.adminRemarks = conferenceProposal.getAdminRemarks();
+		this.deadline = conferenceProposal.getDeadline();
 		this.scientificCommittees = conferenceProposal
 				.getScientificCommittees();
 		this.operationalCommittees = conferenceProposal
@@ -253,6 +258,8 @@ public class ConferenceProposalBean {
 		conferenceProposal.setContactPersonPhone(contactPersonPhone);
 		conferenceProposal.setContactPersonFax(contactPersonFax);
 		conferenceProposal.setContactPersonEmail(contactPersonEmail);
+		conferenceProposal.setAdminRemarks(adminRemarks);
+		conferenceProposal.setDeadline(deadline);
 		conferenceProposal.setScientificCommittees(scientificCommittees);
 		conferenceProposal.setOperationalCommittees(operationalCommittees);
 		conferenceProposal.setFromAssosiate(fromAssosiate);
@@ -332,8 +339,6 @@ public class ConferenceProposalBean {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-
-	
 
 	public String getLocation() {
 		return location;
@@ -479,8 +484,6 @@ public class ConferenceProposalBean {
 		this.submissionDate = submissionDate;
 	}
 
-	
-
 	public int getTotalCostCurrency() {
 		return totalCostCurrency;
 	}
@@ -488,8 +491,6 @@ public class ConferenceProposalBean {
 	public void setTotalCostCurrency(int totalCostCurrency) {
 		this.totalCostCurrency = totalCostCurrency;
 	}
-
-	
 
 	public long getFromDate() {
 		return fromDate;
@@ -657,6 +658,21 @@ public class ConferenceProposalBean {
 
 	public void setContactPersonEmail(String contactPersonEmail) {
 		this.contactPersonEmail = contactPersonEmail;
+	}
+	
+	public String getAdminRemarks(){
+		return adminRemarks;
+	}
+	
+	public void setAdminRemarks(String adminRemarks){
+		this.adminRemarks = adminRemarks;
+	}	
+	
+	public long getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(long deadline) {
+		this.deadline = deadline;
 	}
 
 	public List<Committee> getScientificCommittees() {

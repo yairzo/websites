@@ -39,13 +39,13 @@
 						 שם חוקר:
 					</td>
 					<td  width="250">
-						${userPersonBean.degreeHebrew } ${userPersonBean.firstNameHebrew } ${userPersonBean.lastNameHebrew }
+						${command.researcher.degreeHebrew } ${command.researcher.firstNameHebrew } ${command.researcher.lastNameHebrew }
 					</td>
 					<td  width="250">
 						 מחלקה:
 					</td>
 					<td  width="250">
-						${userPersonBean.department } 
+						${command.researcher.department } 
 					</td>
 				</tr>
 				<tr class="form">
@@ -59,7 +59,7 @@
 						 טלפון:
 					</td>
 					<td  width="250">
-						${userPersonBean.phone } 
+						${command.researcher.phone } 
 					</td>
 				</tr>
 				<tr class="form">
@@ -67,13 +67,13 @@
 						 פקס:
 					</td>
 					<td  width="250">
-						${userPersonBean.fax } 
+						${command.researcher.fax } 
 					</td>
 					<td  width="250">
 						 כתובת מייל:
 					</td>
 					<td  width="250">
-						${userPersonBean.email } 
+						${command.researcher.email } 
 					</td>
 				
 				</tr>
@@ -106,15 +106,7 @@
 						 נושא הכנס:
 					</td>
 					<td colspan="3">
-						<form:textarea cssClass="green autosaveclass" path="subject" cols="60" rows="1"/>
-					</td>
-				</tr>
-				<tr class="form">
-					<td> 
-						 פרטי הכנס:
-					</td>
-					<td colspan="3">
-						<form:textarea cssClass="green" path="description" cols="60" rows="3"/>
+						<form:textarea cssClass="green autosaveclass" path="subject" cols="60" rows="3"/>
 					</td>
 				</tr>
 				<tr class="form">
@@ -124,10 +116,9 @@
 					<td  width="250">
        				<form:select path="location" cssClass="green">
       					<form:option value="0">בחר/י מיקום</form:option>
-      					<form:option value="1">איניברסיטה</form:option>
-      					<form:option value="2">ירושלים</form:option>
-      					<form:option value="3">בארץ</form:option>
-       		        	</form:select>
+      					<form:option value="1">אוניברסיטה</form:option>
+      					<form:option value="2">מחוץ לאוניברסיטה</form:option>
+        		    </form:select>
  					</td>
 					<td  width="250">
 						 פירוט מיקום:
@@ -198,7 +189,7 @@
 
 
 				<tr class="form">
-				       <td>צרף קובץ קשימת מוזמנים:
+				       <td>רשימת מוזמנים:
 				       </td>
 						<td colspan="3">
 						<input class="green" type="file" name="guestsAttach"/> &nbsp; <button class="grey" onclick="">שמור</button>
@@ -209,7 +200,7 @@
 						</td>
 				</tr>
 				<tr class="form">
-				       <td>צרף קובץ תוכנית הכנס:
+				       <td>תוכנית הכנס:
 				       </td>
 						<td colspan="3">
 						<input class="green" type="file" name="programAttach"/> &nbsp; <button class="grey" onclick="">שמור</button>
@@ -220,7 +211,7 @@
 						</td>
 				</tr>
 				<tr class="form">
-				       <td>צרף קובץ תוכנית תקציבית:
+				       <td>תוכנית תקציבית:
 				       </td>
 						<td colspan="3">
 						<input class="green" type="file" name="financialAttach"/> &nbsp; <button class="grey" onclick="">שמור</button>
@@ -229,6 +220,17 @@
 							target="_blank">תוכנית תקציבית</a></td>
 						</c:if>
 						</td>
+				</tr>
+				<tr>
+					<td colspan="4"> 
+						 התוכן העיוני של הכנס וחשיבותו לתחום:
+					</td>
+				</tr>
+				<tr class="form">
+					<td></td>
+					<td colspan="3">
+						<form:textarea cssClass="green" path="description" cols="60" rows="4"/>
+					</td>
 				</tr>
 				
 	            <tr class="form">
@@ -661,6 +663,12 @@
 	   				</td>
 				    <td colspan="3">
 						<form:textarea cssClass="green" path="approverEvaluation" cols="60" rows="3"/>
+					</td>
+				</tr>
+				<tr class="form">
+					<td>הערות הרשות למו"פ:</td>
+					<td colspan="3">
+						<form:textarea cssClass="green" path="adminRemarks" cols="60" rows="4"/>
 					</td>
 				</tr>
 				

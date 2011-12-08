@@ -23,6 +23,11 @@ $(document).ready(function() {
     	return true;
     });
 
+    $("#buttonStartGrading").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"startGrading\"/>");
+    	$("#form").submit();
+    	return true;
+    });
     $("#buttonSearch").click(function(){
     	$("input#listViewPage").remove();
 		$("input#orderBy").remove();
@@ -132,6 +137,20 @@ $(document).ready(function() {
 			<button id="buttonDelete" class="grey" />מחק</button>
 		</td>
 		</tr>
+		
+	    <tr>
+		<td>
+  			<select name="approver" class="green">
+      			<option value="0">בחר/י גורם מאשר</option>
+       			<c:forEach items="${deans}" var="deanPerson">
+	        		<option htmlEscape="true" value="${deanPerson.id}" ><c:out escapeXml="false" value="${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/></option>
+       			</c:forEach>
+       		</select>
+       		
+			<button id="buttonStartGrading" class="grey" />שליחה לדירוג</button>
+		</td>
+		</tr>
+		
 		<tr>
                 <td align="center"><br>
 					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>

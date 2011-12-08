@@ -30,6 +30,10 @@ public interface MailMessageService {
 	public void createSimpleConferenceMail(PersonBean recipient, PersonBean sender, ConferenceProposalBean conferenceProposalBean,
 			String messageKey);
 
+	public void createSimpleConferenceGradeMail(PersonBean recipient, String messageKey);
+
+	public void createSimpleConferenceGradeMail(PersonBean recipient, PersonBean sender, String messageKey);
+
 	public void createSimplePartnerMail(PersonBean recipient, ProposalBean proposal,
 			PartnerBean partner, String messageKey);
 

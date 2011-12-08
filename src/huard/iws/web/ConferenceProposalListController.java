@@ -5,6 +5,8 @@ import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.constant.Constants;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.service.ConferenceProposalListService;
+import huard.iws.service.MailMessageService;
+import huard.iws.service.PersonListService;
 import huard.iws.service.RecordProtectService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
@@ -47,6 +49,12 @@ public class ConferenceProposalListController extends GeneralFormController {
 			newModel.put("id",searchCommand.getConferenceProposalId());
 			return new ModelAndView( new RedirectView("deleteConferenceProposal.html"), newModel);
 		}
+		if (action.equals("startGrading")){
+			//send mail to approver to start grading
+			PersonBean updatedApprover = new PersonBean(personService.getPerson(request.getIntParameter("approver", 0)));
+			if (updatedApprover.isValidEmail()) 
+				mailMessageService.createSimpleConferenceGradeMail(updatedApprover, userPersonBean,"startGrading");
+		}
 
 		return new ModelAndView(new RedirectView(getSuccessView()), newModel);
 	}
@@ -67,6 +75,9 @@ public class ConferenceProposalListController extends GeneralFormController {
 			conferenceProposalBeans.add(conferenceProposalBean);
 		}
 		model.put("conferenceProposals", conferenceProposalBeans);
+		
+		// a list of possible proposal approvers
+		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
 
 		return new ModelAndView (this.getFormView(), model);
 	}
@@ -141,6 +152,19 @@ public class ConferenceProposalListController extends GeneralFormController {
 	public void setConferenceProposalListService(ConferenceProposalListService conferenceProposalListService) {
 		this.conferenceProposalListService = conferenceProposalListService;
 	}
+
+	private MailMessageService mailMessageService;
+
+	public void setMailMessageService(MailMessageService mailMessageService) {
+		this.mailMessageService = mailMessageService;
+	}	
+
+	private PersonListService personListService;
+
+	public void setPersonListService(PersonListService personListService) {
+		this.personListService = personListService;
+	}
+	
 
 	/*private RecordProtectService recordProtectService;
 

@@ -221,7 +221,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setContactPersonPhone(rs.getString("contactPersonPhone"));
 			conferenceProposal.setContactPersonFax(rs.getString("contactPersonFax"));
 			conferenceProposal.setContactPersonEmail(rs.getString("contactPersonEmail"));
-		
+			conferenceProposal.setAdminRemarks(rs.getString("adminRemarks"));
+			long deadline = 0;
+			Timestamp adeadline = rs.getTimestamp("deadline");
+			if (adeadline != null)
+				deadline = adeadline.getTime();
+			conferenceProposal.setDeadline(deadline);
             return conferenceProposal;
         }
 	};
@@ -292,12 +297,18 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setContactPersonPhone(rs.getString("contactPersonPhone"));
 			conferenceProposal.setContactPersonFax(rs.getString("contactPersonFax"));
 			conferenceProposal.setContactPersonEmail(rs.getString("contactPersonEmail"));			
+			conferenceProposal.setAdminRemarks(rs.getString("adminRemarks"));
+			long deadline = 0;
+			Timestamp adeadline = rs.getTimestamp("deadline");
+			if (adeadline != null)
+				deadline = adeadline.getTime();
+			conferenceProposal.setDeadline(deadline);
             return conferenceProposal;
         }
 	};
 
 	public int insertConferenceProposal(ConferenceProposal conferenceProposal){
-		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now()";
+		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now(),deadline=now();";
 		final int personId = conferenceProposal.getPersonId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -311,7 +322,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		    },
 		    keyHolder);
 		final int key=keyHolder.getKey().intValue();
-		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now();";
+		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now(),deadline=now();";
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -374,6 +385,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", contactPersonPhone= ?" + 
 				", contactPersonFax= ?" + 
 				", contactPersonEmail= ?" + 
+				", adminRemarks= ?" + 
+				", deadline= ?" + 
 				" where id = ?;";
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposal.getPersonId(),
@@ -422,6 +435,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getContactPersonPhone(),
 				conferenceProposal.getContactPersonFax(),
 				conferenceProposal.getContactPersonEmail(),				
+				conferenceProposal.getAdminRemarks(),	
+				new java.sql.Timestamp(conferenceProposal.getDeadline()),
 				conferenceProposal.getId());
 		
 		//insert to version table
@@ -473,6 +488,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", contactPersonPhone= ?" + 
 				", contactPersonFax= ?" + 
 				", contactPersonEmail= ?" + 
+				", adminRemarks= ?" + 
+				", deadline= ?" + 
 				";";
 
 		
@@ -522,7 +539,9 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getContactPersonRole(),
 				conferenceProposal.getContactPersonPhone(),
 				conferenceProposal.getContactPersonFax(),
-				conferenceProposal.getContactPersonEmail());				
+				conferenceProposal.getContactPersonEmail(),				
+				conferenceProposal.getAdminRemarks(),
+				new java.sql.Timestamp(conferenceProposal.getDeadline()));
 	}
 
 

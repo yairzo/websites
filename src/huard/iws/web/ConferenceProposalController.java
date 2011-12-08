@@ -40,7 +40,6 @@ public class ConferenceProposalController extends GeneralFormController{
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 	throws Exception{
 
-		logger.info("111111111111111111"+request.getParameter("startConfDate", ""));
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
 		
 		//if added financialsupport or committee
@@ -126,9 +125,9 @@ public class ConferenceProposalController extends GeneralFormController{
 			//assign grade
 			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId())+1);
 			//send mail to approver
-			PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
-			if (updatedApprover.isValidEmail()) 
-				mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
+			//PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
+			//if (updatedApprover.isValidEmail()) 
+			//	mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
 		}
 		
 		//update
@@ -154,7 +153,7 @@ public class ConferenceProposalController extends GeneralFormController{
 
 		model.put("previousVersion", conferenceProposalService.getPreviousVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
 		model.put("nextVersion", conferenceProposalService.getNextVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
-		// let's add the model a list of possible proposal approvers
+		// a list of possible proposal approvers
 		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
 		//get faculty name by user facultyId
 		Faculty faculty = facultyService.getFaculty(userPersonBean.getFacultyId());
