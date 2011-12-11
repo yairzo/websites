@@ -644,6 +644,11 @@
 						<form:textarea cssClass="green" path="remarks" cols="60" rows="3"/>
 					</td>
 				</tr>																
+				<tr class="form">
+					<td width="700" colspan="4" align="center">
+				   		<button class="grey submitForGrading" onclick="">הגשה לדירוג</button>
+ 					</td>
+				</tr>
 	            <tr id="deanApproval" class="form">
 		       		<td>
 	   					בחירת הגורם המאשר:

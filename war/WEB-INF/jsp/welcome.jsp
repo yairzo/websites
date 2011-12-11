@@ -156,7 +156,7 @@
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
 						<tr>
 							<th align="right">
-								<a style="text-decoration: none" href="conferenceProposalsGrades.html">דירוג בקשות למימון כנסים</a>
+								<a style="text-decoration: none" href="conferenceProposalsGrade.html">דירוג בקשות למימון כנסים</a>
 							</th>
 						</tr>
 						</authz:authorize>

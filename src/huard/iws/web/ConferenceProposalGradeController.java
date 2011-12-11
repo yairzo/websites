@@ -61,6 +61,9 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			newModel.put("id",gradeCommand.getConferenceProposalId());
 			return new ModelAndView( new RedirectView("editConferenceProposal.html"),newModel);
 		}
+		if (action.equals("stopGrading")){
+			//send mail to admins 
+		}
 
 		return new ModelAndView(new RedirectView(getSuccessView()), newModel);
 	}
@@ -71,8 +74,13 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		//recordProtectService.freeRecordsByUsername(userPersonBean.getUsername());
 
 		ConferenceProposalGradeCommand gradeCommand = (ConferenceProposalGradeCommand) model.get("command");
+		
+		SearchCreteria searchCreteria = new SearchCreteria();
+		searchCreteria.setSearchField("date(deadline)");
+		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+		searchCreteria.setSearchPhrase(deadline);
 
-		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(gradeCommand.getListView(), gradeCommand.getSearchCreteria(),userPersonBean);
+		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(gradeCommand.getListView(),searchCreteria,userPersonBean);
 		List<ConferenceProposalBean> conferenceProposalBeans = new ArrayList<ConferenceProposalBean>();
 		for (ConferenceProposal conferenceProposal: conferenceProposals){
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);

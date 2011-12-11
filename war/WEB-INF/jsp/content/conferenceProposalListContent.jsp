@@ -138,6 +138,7 @@ $(document).ready(function() {
 		</td>
 		</tr>
 		
+		<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
 	    <tr>
 		<td>
   			<select name="approver" class="green">
@@ -150,6 +151,7 @@ $(document).ready(function() {
 			<button id="buttonStartGrading" class="grey" />שליחה לדירוג</button>
 		</td>
 		</tr>
+		</authz:authorize>
 		
 		<tr>
                 <td align="center"><br>

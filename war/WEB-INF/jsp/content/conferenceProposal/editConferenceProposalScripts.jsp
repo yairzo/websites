@@ -70,6 +70,12 @@ $(document).ready(function() {
     	$("#form").submit();
     	return true;
     });
+	
+	$("button.submitForGrading").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
+    	$("#form").submit();
+    	return true;
+    });
 });
 
 

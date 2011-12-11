@@ -12,6 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -308,8 +311,9 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	};
 
 	public int insertConferenceProposal(ConferenceProposal conferenceProposal){
-		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now(),deadline=now();";
+		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now(),deadline=?;";
 		final int personId = conferenceProposal.getPersonId();
+		final long deadline = conferenceProposal.getDeadline();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -317,12 +321,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		            PreparedStatement ps =
 		                connection.prepareStatement(proposalInsert, new String[] {"id"});
 		            ps.setInt(1, personId);
+		            ps.setTimestamp(2, new java.sql.Timestamp(deadline));
 		            return ps;
 		        }
 		    },
 		    keyHolder);
 		final int key=keyHolder.getKey().intValue();
-		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now(),deadline=now();";
+		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now(),deadline=?;";
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -330,6 +335,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		                connection.prepareStatement(proposalVersionInsert, new String[] {"id"});
 		            ps.setInt(1, key);
 		            ps.setInt(2, personId);
+		            ps.setTimestamp(3, new java.sql.Timestamp(deadline));
 		            return ps;
 		        }
 		    });
@@ -618,14 +624,15 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				whereClause += " and";
 		}
 		
-		/*if (search != null && ! search.getSearchPhrase().isEmpty())
-			whereClause +=  " (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
+		if (search != null && ! search.getSearchPhrase().isEmpty())
+			whereClause += " " +search.getSearchField() + "='" + search.getSearchPhrase()+"'";
+			/*whereClause +=  " (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
 				+ " or concat(lastNameHebrew, ' ', firstNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
 				+ " or concat(firstNameHebrew, ' ', lastNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
 				+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
 				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
-				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";
-		*/
+				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";*/
+		
 		if (userPersonBean.isAuthorized("CONFERENCE","APPROVER")){
 			whereClause += " order by grade";
 		}		

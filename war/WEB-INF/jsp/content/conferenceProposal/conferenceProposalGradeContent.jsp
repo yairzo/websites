@@ -2,11 +2,6 @@
 
 <script language="Javascript">
 
-	function resetAutocomplete(persons){
-		$("#searchPhrase").unautocomplete();
-		$("#searchPhrase").autocomplete(persons, {align: 'right', dir: 'rtl', scroll: 'true', scrollHeight: 90});
-	}
-
 
 $(document).ready(function() {
 
@@ -36,22 +31,12 @@ $(document).ready(function() {
     });
 	
 
-     $("#buttonSearch").click(function(){
-    	$("input#listViewPage").remove();
-		$("input#orderBy").remove();
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-		$("#form").submit();
+     $("#buttonStopGrading").click(function(){
+ 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"stopGrading\"/>");
+    	$("#form").submit();
     	return true;
     });
 
-    $("#buttonCleanSearch").click(function(){
-    	$("input#searchPhrase").val('');
-   		$("input#listViewPage").remove();
-		$("input#orderBy").remove();
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-		$("#form").submit();
-    	return true;
-    });
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 
@@ -85,30 +70,13 @@ $(document).ready(function() {
             <form:form id="form" name="form" method="POST" commandName="command" action="conferenceProposalsGrade.html">
             	<input type="hidden" id="listViewPage" name="listView.page" value="${command.listView.page}"/>
             	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
-            	<input type="hidden" name="searchCreteria.roleFilter" value="${command.searchCreteria.roleFilter}"/>
 
               <table width="400" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
                   <td colspan="2" align="center"><h1>רשימת ההצעות</h1>
                   </td>
                 </tr>
-                <tr>
-                  <td width="201" align="center" valign="center">
-                  <form:input cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
-                  </td>
-
-                  <td width="173" align="right">
-
-                     <button id="buttonSearch" class="grey" onclick="">חפש</button>
-					<button id="buttonCleanSearch" class="grey" onclick="">נקה חיפוש</button>
-
-                  </td>
-                </tr>
-
-                <tr>
-                  <td colspan="2"><img src="image/hr.gif" width="380" height="10"></td>
-                </tr>
-              </table>
+               </table>
 
 				<table width="700" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
               <thead>
@@ -162,6 +130,15 @@ $(document).ready(function() {
   	  	</tr>
   	  	</tbody>
 	   </c:forEach>
+	   
+	   	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+	    <tr>
+		<td>
+			<button id="buttonStopGrading" class="grey" />תהליך הדירוג הסתיים</button>
+		</td>
+		</tr>
+		</authz:authorize>
+		
 		<tr>
                 <td align="center"><br>
 					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>

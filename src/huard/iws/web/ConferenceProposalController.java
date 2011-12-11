@@ -119,17 +119,20 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}		
 		conferenceProposalBean.setGrade(attachmentsConferenceProposalBean.getGrade());
-		
+		conferenceProposalBean.setDeadline(attachmentsConferenceProposalBean.getDeadline());
 		//assigned new approver
-		if(attachmentsConferenceProposalBean.getApproverId()!=conferenceProposalBean.getApproverId()){
+		/*if(attachmentsConferenceProposalBean.getApproverId()!=conferenceProposalBean.getApproverId()){
 			//assign grade
 			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId())+1);
 			//send mail to approver
-			//PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
-			//if (updatedApprover.isValidEmail()) 
-			//	mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
+			PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
+			if (updatedApprover.isValidEmail()) 
+				mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
+		}*/
+		if(request.getParameter("action","").equals("submitForGrading") && conferenceProposalBean.getApproverId()>0){
+			//assign grade
+			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId())+1);
 		}
-		
 		//update
 		if(!request.getParameter("startConfDate", "").equals("")){
 			DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
@@ -163,6 +166,10 @@ public class ConferenceProposalController extends GeneralFormController{
 		if (request.getParameter("action", "").equals("new")){
 			ConferenceProposal conferenceProposal= new ConferenceProposal();
 			conferenceProposal.setPersonId(userPersonBean.getId());
+			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+			DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+			Date deadlineD = (Date)formatter.parse(deadline); 
+			conferenceProposal.setDeadline(deadlineD.getTime());
 			int conferenceProposalId = conferenceProposalService.insertConferenceProposal(conferenceProposal);
 			logger.info("conferenceProposalId " + conferenceProposalId);
 			model.put("id",conferenceProposalId);
