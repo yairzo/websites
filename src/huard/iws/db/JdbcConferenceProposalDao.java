@@ -564,7 +564,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
     }
 	
 	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate) {
-		String query = "select * from conferenceProposal where fromDate> ? order by id";
+		String query = "select * from conferenceProposal where deadline= ? order by id";
 		List<ConferenceProposal> conferenceProposals =
 			getSimpleJdbcTemplate().query(query, rowMapper,fromDate);
 		return conferenceProposals;

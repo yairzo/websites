@@ -130,8 +130,13 @@ public class ConferenceProposalController extends GeneralFormController{
 				mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
 		}*/
 		if(request.getParameter("action","").equals("submitForGrading") && conferenceProposalBean.getApproverId()>0){
-			//assign grade
+			conferenceProposalBean.setSubmitted(true);
+			//assign default grade
 			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId())+1);
+		}
+		if(request.getParameter("action","").equals("unsubmitForGrading")){
+			conferenceProposalBean.setSubmitted(false);
+			conferenceProposalBean.setGrade(0);
 		}
 		//update
 		if(!request.getParameter("startConfDate", "").equals("")){

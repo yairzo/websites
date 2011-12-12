@@ -29,9 +29,9 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			response.setHeader("Content-disposition","attachment; filename=proposals.csv");
 			
 			RequestWrapper requestWrapper = new RequestWrapper(request);
-			String fromDate = requestWrapper.getParameter("fromDate", "");
+			String deadline = requestWrapper.getParameter("deadline", "");
 
-			StringBuffer cpb = generateCsvFileBuffer(fromDate);
+			StringBuffer cpb = generateCsvFileBuffer(deadline);
 
 			String cps = cpb.toString();
 			byte[] file = cps.getBytes();
@@ -58,7 +58,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		doGet(req, res);
 	}
 
-	private static StringBuffer generateCsvFileBuffer(String fromDate) {
+	private static StringBuffer generateCsvFileBuffer(String deadline) {
 		StringBuffer b = new StringBuffer();
 		b.append("Subject");
 		b.append(',');
@@ -70,7 +70,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		// get data
 		Object bean = ApplicationContextProvider.getContext().getBean("conferenceProposalListService");
 		ConferenceProposalListService conferenceProposalListService = (ConferenceProposalListService) bean;
-		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsByDate(fromDate);
+		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsByDate(deadline);
 		for (ConferenceProposal conferenceProposal : conferenceProposals) {
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
 			b.append(conferenceProposalBean.getSubject());

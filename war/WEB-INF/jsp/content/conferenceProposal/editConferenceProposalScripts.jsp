@@ -76,6 +76,11 @@ $(document).ready(function() {
     	$("#form").submit();
     	return true;
     });
+	$("button.unsubmitForGrading").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"unsubmitForGrading\"/>");
+    	$("#form").submit();
+    	return true;
+    });
 });
 
 

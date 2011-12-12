@@ -283,7 +283,13 @@ public class ConferenceProposalBean {
 				personService.getPerson(this.personId));
 		return researcher;
 	}
-
+	public PersonBean getApprover() {
+		PersonService personService = (PersonService) ApplicationContextProvider
+				.getContext().getBean("personService");
+		PersonBean approver = new PersonBean(
+				personService.getPerson(this.approverId));
+		return approver;
+	}
 	public int getPersonId() {
 		return personId;
 	}
