@@ -81,6 +81,12 @@ $(document).ready(function() {
     	$("#form").submit();
     	return true;
     });
+	
+	$("#dialog").dialog({ autoOpen: false });
+	$(".helpclass").mouseover(function() {
+		$("#dialog").dialog("open");
+	});
+
 });
 
 

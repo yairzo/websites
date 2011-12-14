@@ -34,6 +34,8 @@ public interface MailMessageService {
 
 	public void createSimpleConferenceGradeMail(PersonBean recipient, PersonBean sender, String messageKey);
 
+	public void createDeanGradeFinishedGradingMail(PersonBean dean,  String messageKey);
+	
 	public void createSimplePartnerMail(PersonBean recipient, ProposalBean proposal,
 			PartnerBean partner, String messageKey);
 

@@ -94,7 +94,10 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">
 					<td>
-						<form:input cssClass="green" path="initiatingBody"/>
+						<form:input cssClass="green helpclass" path="initiatingBody"/>
+	<div id="dialog" title="Basic dialog">
+	<p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">
@@ -980,7 +983,7 @@
 				</authz:authorize>
 				
 				<tr class="form">
-					<c:if test="${!roleResearcher || !command.submitted}">			
+					<c:if test="${(!roleResearcher && command.submitted) || !command.submitted}">			
 					<td width="300" colspan="2" align="center">
 						<input class="green" type="submit" name="submit" value="שמירה"/>
  					</td>
@@ -995,6 +998,7 @@
 			</td>
 		</tr>
 
+		<c:if test="${!command.submitted}">			
 		<tr>
 			<td width="700" colspan="4" align="center">
 
@@ -1003,6 +1007,7 @@
 				<a href="editConferenceProposal.html?id=${command.id}&version=${nextVersion}">צפה בגרסה הבאה</a>
 			</td>
 		</tr>
+		</c:if>
 
 
 

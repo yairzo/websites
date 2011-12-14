@@ -137,13 +137,35 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
 		model.put("recipient", recipient.getDegreeFullNameHebrew());
 		model.put("server", getServer());
-		model.put("proposalMessageOpening", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage.proposalMessageOpening"));
 		String [] messageParams = new String []{sender.getDegreeFullNameHebrew()};
 		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);
 		System.out.println(body);
 		messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, subject, body, getCommonResources());
+	}
+
+	
+	public void createDeanGradeFinishedGradingMail(PersonBean dean, String messageKey){
+		//subject
+		String subject = messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".subject");
+		//to
+		List<Person> recipientPersons = new ArrayList<Person>();
+		for (PersonBean personBean : personListService.getPersonsList(configurationService.getConfigurationInt("conferenceProposalAdminListId"))){
+			recipientPersons.add(personBean.toPerson());
+		}
+		String [] to = BaseUtils.toEmailsArray(recipientPersons);
+		//body
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("deanName", dean.getDegreeFullName());
+		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
+		model.put("server", getServer());
+		String [] messageParams = new String []{dean.getDegreeFullNameHebrew()};
+		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
+		String body = VelocityEngineUtils.mergeTemplateIntoString(
+		           velocityEngine, "simpleMailMessage.vm", model);
+		System.out.println(body);
+		messageService.sendMail(to, EQF_MAIL_ADDRESS, null,null,subject, body, getCommonResources());
 	}
 
 	public void createSimplePartnerMail(PersonBean recipient, ProposalBean proposal,

@@ -1,11 +1,13 @@
 package huard.iws.web;
 
+import huard.iws.bean.MailMessageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.constant.Constants;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
+import huard.iws.service.MailMessageService;
 import huard.iws.service.RecordProtectService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
@@ -62,7 +64,15 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			return new ModelAndView( new RedirectView("editConferenceProposal.html"),newModel);
 		}
 		if (action.equals("stopGrading")){
-			//send mail to admins 
+			//send mail to admins list
+			mailMessageService.createDeanGradeFinishedGradingMail(userPersonBean,"finishedGrading");
+
+			/*MailMessageBean mailMessageBean = new MailMessageBean();
+			mailMessageBean.setListId(configurationService.getConfigurationInt("conferenceProposalAdminListId"));
+			mailMessageBean.setMessage("dean has finished grading for upcoming deadline");
+			mailMessageBean.setMessageSubject("Grading conference proposals");
+			mailMessageBean.setSenderPersonId(userPersonBean.getId());
+			mailMessageService.sendMailMessage(mailMessageBean);*/
 		}
 
 		return new ModelAndView(new RedirectView(getSuccessView()), newModel);
@@ -166,7 +176,12 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 	public void setConferenceProposalService(ConferenceProposalService conferenceProposalService) {
 		this.conferenceProposalService = conferenceProposalService;
 	}
-	
+
+	private MailMessageService mailMessageService;
+
+	public void setMailMessageService(MailMessageService mailMessageService) {
+		this.mailMessageService = mailMessageService;
+	}	
 	/*private RecordProtectService recordProtectService;
 
 	public void setRecordProtectService(RecordProtectService recordProtectService) {

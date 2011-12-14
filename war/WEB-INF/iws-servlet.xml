@@ -609,6 +609,9 @@
         <property name="conferenceProposalService">
             <ref bean="conferenceProposalService"/>
         </property>
+        <property name="mailMessageService">
+        	<ref bean="mailMessageService"/>
+        </property>     
      </bean>
 
 	<bean id="uploadImageController" class="huard.iws.web.UploadImageController" parent="generalFormController">
