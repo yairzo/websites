@@ -161,6 +161,8 @@ public class ConferenceProposalController extends GeneralFormController{
 
 		model.put("previousVersion", conferenceProposalService.getPreviousVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
 		model.put("nextVersion", conferenceProposalService.getNextVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
+		model.put("firstVersion", request.getSession().getAttribute("firstVersion"));
+		model.put("lastVersion", request.getSession().getAttribute("lastVersion"));
 		// a list of possible proposal approvers
 		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
 		//get faculty name by user facultyId
@@ -206,17 +208,22 @@ public class ConferenceProposalController extends GeneralFormController{
 		int id = request.getIntParameter("id", 0);
 		logger.info("id: " + id);
 		int version = request.getIntParameter("version",0);
+		request.getSession().setAttribute("firstVersion", false);
+		request.getSession().setAttribute("lastVersion", false);
 		if(version==0){
 			conferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(id));
+			request.getSession().setAttribute("lastVersion", true);
 		}
 		else{
 			if (version == conferenceProposalService.getFirstVersion(id)){
-				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.firstVersion");
-				request.getSession().setAttribute("userMessage", userMessage);
+				//String userMessage = messageService.getMessage("iw_IL.conferenceProposal.firstVersion");
+				//request.getSession().setAttribute("userMessage", userMessage);
+				request.getSession().setAttribute("firstVersion", true);
 			}
 			if (version == conferenceProposalService.getLastVersion(id)){
-				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.lastVersion");
-				request.getSession().setAttribute("userMessage", userMessage);
+				//String userMessage = messageService.getMessage("iw_IL.conferenceProposal.lastVersion");
+				//request.getSession().setAttribute("userMessage", userMessage);
+				request.getSession().setAttribute("lastVersion", true);
 			}
 			conferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getVersionConferenceProposal(id,version));
 			

@@ -34,6 +34,10 @@
  			</authz:authorize>
  			
             <table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
+ 
+ 	<div id="genericDialog" title="עזרה" style="display:none" dir="rtl">
+	<p>text put here</p>
+	</div>
                 <tr>
                   <td colspan="4" align="center"><h1>בקשה למימון לכנס</h1>
                   </td>
@@ -94,10 +98,7 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">
 					<td>
-						<form:input cssClass="green helpclass" path="initiatingBody"/>
-	<div id="dialog" title="Basic dialog">
-	<p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-</div>
+						<form:input cssClass="green" path="initiatingBody" id="dialogInitiatingBody" />
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">
@@ -111,7 +112,7 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">
 					<td>
-       				<form:select path="initiatingBodyRole" cssClass="green">
+       				<form:select path="initiatingBodyRole" cssClass="green" id="dialogInitiatingBodyRole">
       					<form:option value="0">בחר/י תפקיד</form:option>
       					<form:option value="1">מנהל גוף</form:option>
       					<form:option value="2">עובד בגוף</form:option>
@@ -1000,12 +1001,15 @@
 
 		<c:if test="${!command.submitted}">			
 		<tr>
-			<td width="700" colspan="4" align="center">
-
+		<td width="700" colspan="4" align="center">
+		<c:if test="${!firstVersion}">			
 				<a href="editConferenceProposal.html?id=${command.id}&version=${previousVersion}">צפה בגרסה קודמת</a>
+		</c:if>
 			&nbsp;&nbsp;
+		<c:if test="${!lastVersion}">			
 				<a href="editConferenceProposal.html?id=${command.id}&version=${nextVersion}">צפה בגרסה הבאה</a>
-			</td>
+		</c:if>
+		</td>
 		</tr>
 		</c:if>
 

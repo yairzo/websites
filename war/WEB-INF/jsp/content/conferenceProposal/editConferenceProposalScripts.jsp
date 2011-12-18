@@ -1,10 +1,7 @@
+<%@ page  pageEncoding="UTF-8" %>
 <script type="text/javascript" src="js/jquery.autosave.js"></script>
 <script language="Javascript">
 
-<c:if test="${userMessage!=null}">
-var userMessage = "${userMessage}";
-$.alerts.alert(userMessage);
-</c:if>
 
 
 $(document).ready(function() {
@@ -82,11 +79,39 @@ $(document).ready(function() {
     	return true;
     });
 	
-	$("#dialog").dialog({ autoOpen: false });
-	$(".helpclass").mouseover(function() {
-		$("#dialog").dialog("open");
-	});
+	
+	
+    $("#genericDialog").dialog({
+           autoOpen: false,
+           show: 'fade',
+           hide: 'fade',
+           modal: false,
+           width: 200,
+           buttons: {
+               "Close": function() {
+                   $(this).dialog("close");
+               }
+           }
+     });
+    $(".ui-dialog-titlebar").hide();
+    
+     $("#dialogInitiatingBody").mouseover(function(e) {
+    	 	openHelp("#dialogInitiatingBody","הגוף היוזם את הכנס");
+      });
+     
+     $("#dialogInitiatingBodyRole").mouseover(function(e) {
+    	 openHelp("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
+   }); 
+    function openHelp(name,mytext){
+        linkOffset = $(name).position();
+        linkWidth = $(name).width();
+        linkHeight = $(name).height();
+        scrolltop = $(window).scrollTop();
+        $("#genericDialog").dialog("option", "position", [(linkOffset.left - 200/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
+        $("#genericDialog").text(mytext).dialog("open");
+    } 
 
+ 
 });
 
 

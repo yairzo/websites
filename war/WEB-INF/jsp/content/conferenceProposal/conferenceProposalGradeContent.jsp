@@ -8,24 +8,32 @@ $(document).ready(function() {
 
 	$("button.buttonEdit").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"edit\"/>");
-    	$("#form").submit();
+		var confId= this.id;
+		$("#form").append("<input type=\"hidden\" name=\"conferenceProposalId\" value=\""+confId +"\"/>");
+   		$("#form").submit();
     	return true;
     });
 	
 	$("button.buttonSave").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"save\"/>");
+		var confId= this.id;
+		$("#form").append("<input type=\"hidden\" name=\"conferenceProposalId\" value=\""+confId +"\"/>");
     	$("#form").submit();
     	return true;
     });
 	
 	$("button.buttonUp").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"moveup\"/>");
-    	$("#form").submit();
+		var confId= this.id;
+		$("#form").append("<input type=\"hidden\" name=\"conferenceProposalId\" value=\""+confId +"\"/>");
+   		$("#form").submit();
     	return true;
     });
 	
 	$("button.buttonDown").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"movedown\"/>");
+		var confId= this.id;
+		$("#form").append("<input type=\"hidden\" name=\"conferenceProposalId\" value=\""+confId +"\"/>");
     	$("#form").submit();
     	return true;
     });
@@ -102,9 +110,6 @@ $(document).ready(function() {
   				<td align="right">
 				  	<table>
   						<tr>
-				  		<td  width="20">
-			  				<form:radiobutton path="conferenceProposalId" value="${conferenceProposal.id}"/>
- 				  		</td>
   						<td width="60">
   							<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
   							
@@ -119,10 +124,10 @@ $(document).ready(function() {
   							<textarea class="green" name="approverEvaluation${conferenceProposal.id}" rows="2" cols="40">${conferenceProposal.approverEvaluation}</textarea>
   						</td>
 				  		<td>
-							<button class="grey buttonUp" />העלה</button>
-							<button class="grey buttonDown" />הורד</button>
-							<button class="grey buttonSave" />שמור</button>
-							<button class="grey buttonEdit" />ערוך</button>
+							<button class="grey buttonUp" id="${conferenceProposal.id}"/>העלה</button>
+							<button class="grey buttonDown" id="${conferenceProposal.id}"/>הורד</button>
+							<button class="grey buttonSave" id="${conferenceProposal.id}"/>שמור</button>
+							<button class="grey buttonEdit" id="${conferenceProposal.id}"/>ערוך</button>
  				  		</td>
    					</tr>
   				</table>
