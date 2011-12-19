@@ -38,11 +38,11 @@ public interface ConferenceProposalDao {
 	
 	public int countConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean);
 
-	public void gradeHigher(ConferenceProposal conferenceProposal);
+	public void gradeHigher(ConferenceProposal conferenceProposal, String deadline);
 	
-	public void gradeLower(ConferenceProposal conferenceProposal);
+	public void gradeLower(ConferenceProposal conferenceProposal, String deadline);
 	
-	public int getMaxGrade(int approverId);
+	public int getMaxGrade(int approverId, String deadline);
 
 	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate);
 	

@@ -35,7 +35,7 @@ public interface ConferenceProposalService {
 
 	public Map<Integer, ConferenceProposal> getConferenceProposalsByPersonMap(int personId);
 	
-	public int getMaxGrade(int approverId);
+	public int getMaxGrade(int approverId, String deadline);
 
 	public void insertFinancialSupport(FinancialSupport financialSupport);
 

@@ -31,7 +31,6 @@ war/WEB-INF/jsp/content/conferenceProposal/conferenceProposalGradeContent.jsp sv
 war/WEB-INF/jsp/content/conferenceProposal/conferenceProposalListContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/conferenceProposal/editConferenceProposalContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/conferenceProposal/editConferenceProposalScripts.jsp svn_mime_002dtype=text%2Fplain
-war/WEB-INF/jsp/content/conferenceProposalListContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/uploadImage/uploadImageContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/uploadImage/uploadImageScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/editConferenceProposal.jsp svn_mime_002dtype=text%2Fplain

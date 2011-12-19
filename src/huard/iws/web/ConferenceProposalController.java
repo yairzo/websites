@@ -132,7 +132,8 @@ public class ConferenceProposalController extends GeneralFormController{
 		if(request.getParameter("action","").equals("submitForGrading") && conferenceProposalBean.getApproverId()>0){
 			conferenceProposalBean.setSubmitted(true);
 			//assign default grade
-			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId())+1);
+			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), deadline)+1);
 		}
 		if(request.getParameter("action","").equals("unsubmitForGrading")){
 			conferenceProposalBean.setSubmitted(false);

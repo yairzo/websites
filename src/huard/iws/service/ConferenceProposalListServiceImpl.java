@@ -34,12 +34,12 @@ public class ConferenceProposalListServiceImpl implements ConferenceProposalList
 		return conferenceProposalDao.getConferenceProposalsByDate(fromDate);
 	}
 
-	public void gradeHigher(ConferenceProposal conferenceProposal){
-		conferenceProposalDao.gradeHigher(conferenceProposal);
+	public void gradeHigher(ConferenceProposal conferenceProposal, String deadline){
+		conferenceProposalDao.gradeHigher(conferenceProposal, deadline);
 	}
 
-	public void gradeLower(ConferenceProposal conferenceProposal){
-		conferenceProposalDao.gradeLower(conferenceProposal);
+	public void gradeLower(ConferenceProposal conferenceProposal, String deadline){
+		conferenceProposalDao.gradeLower(conferenceProposal, deadline);
 	}
 	
 

@@ -41,15 +41,16 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		
 		Map newModel = new HashMap();
 		String action = request.getParameter("action", "");
+		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
 		if (action.equals("movedown") && gradeCommand.getConferenceProposalId()>0 ){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
-			if(cp.getGrade()<conferenceProposalService.getMaxGrade(cp.getApproverId()))
-				conferenceProposalListService.gradeHigher(cp);
+			if(cp.getGrade()<conferenceProposalService.getMaxGrade(cp.getApproverId(),deadline))
+				conferenceProposalListService.gradeHigher(cp,deadline);
 		}
 		if (action.equals("moveup") && gradeCommand.getConferenceProposalId()>0 ){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
 			if( cp.getGrade()>1)
-				conferenceProposalListService.gradeLower(cp);
+				conferenceProposalListService.gradeLower(cp,deadline);
 		}
 		if (action.equals("save") && gradeCommand.getConferenceProposalId()>0){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
@@ -66,13 +67,6 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		if (action.equals("stopGrading")){
 			//send mail to admins list
 			mailMessageService.createDeanGradeFinishedGradingMail(userPersonBean,"finishedGrading");
-
-			/*MailMessageBean mailMessageBean = new MailMessageBean();
-			mailMessageBean.setListId(configurationService.getConfigurationInt("conferenceProposalAdminListId"));
-			mailMessageBean.setMessage("dean has finished grading for upcoming deadline");
-			mailMessageBean.setMessageSubject("Grading conference proposals");
-			mailMessageBean.setSenderPersonId(userPersonBean.getId());
-			mailMessageService.sendMailMessage(mailMessageBean);*/
 		}
 
 		return new ModelAndView(new RedirectView(getSuccessView()), newModel);
@@ -85,12 +79,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 
 		ConferenceProposalGradeCommand gradeCommand = (ConferenceProposalGradeCommand) model.get("command");
 		
-		SearchCreteria searchCreteria = new SearchCreteria();
-		searchCreteria.setSearchField("date(deadline)");
-		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
-		searchCreteria.setSearchPhrase(deadline);
-
-		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(gradeCommand.getListView(),searchCreteria,userPersonBean);
+		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(gradeCommand.getListView(),gradeCommand.getSearchCreteria(),userPersonBean);
 		List<ConferenceProposalBean> conferenceProposalBeans = new ArrayList<ConferenceProposalBean>();
 		for (ConferenceProposal conferenceProposal: conferenceProposals){
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
@@ -106,6 +95,8 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
 		ConferenceProposalGradeCommand gradeCommand = new ConferenceProposalGradeCommand();
+		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+		String whereClause = " submitted=1 and date(deadline)='"+deadline +"'";
 		if (!isFormSubmission(request.getRequest())){
 			SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("conferenceProposalsSearchCreteria");
 			request.getSession().setAttribute("conferenceProposalsSearchCreteria", null);
@@ -113,12 +104,12 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 
 			if (searchCreteria == null){
 				searchCreteria = new SearchCreteria();
-				searchCreteria.setSearchField("lastNameHebrew");
 				int roleFilterId = request.getIntParameter("rf", 0);
 				String roleFilter = Constants.getUsersRoles().get(roleFilterId);
 				if (roleFilter == null)
 					roleFilter = "";
-				searchCreteria.setRoleFilter(roleFilter);
+				searchCreteria.setRoleFilter(roleFilter);				
+				searchCreteria.setWhereClause(whereClause);
 				listView = null;
 			}
 
@@ -135,6 +126,9 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 
 			request.getSession().setAttribute("searchCreteria", null);
 			request.getSession().setAttribute("listView", null);
+		}
+		else{
+			gradeCommand.getSearchCreteria().setWhereClause(whereClause);
 		}
 		return gradeCommand;
 	}

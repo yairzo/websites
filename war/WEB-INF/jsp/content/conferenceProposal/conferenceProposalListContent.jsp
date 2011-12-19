@@ -38,6 +38,7 @@ $(document).ready(function() {
 
     $("#buttonCleanSearch").click(function(){
     	$("input#searchPhrase").val('');
+       	$("#searchByApprover").val('0');
    		$("input#listViewPage").remove();
 		$("input#orderBy").remove();
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
@@ -79,21 +80,35 @@ $(document).ready(function() {
             	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
             	<input type="hidden" name="searchCreteria.roleFilter" value="${command.searchCreteria.roleFilter}"/>
 
-              <table width="400" border="0" align="center" cellpadding="3" dir="rtl">
+              <table width="700" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
                   <td colspan="2" align="center"><h1>רשימת ההצעות</h1>
                   </td>
                 </tr>
                 <tr>
-                  <td width="201" align="center" valign="center">
-                  <form:input cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
+ 				  <authz:authorize ifNotGranted="ROLE_EQF_RESEARCHER">
+                  <td width="300" align="center" valign="center">
+                  חוקר:<form:input cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
                   </td>
-
-                  <td width="173" align="right">
-
-                     <button id="buttonSearch" class="grey" onclick="">חפש</button>
-					<button id="buttonCleanSearch" class="grey" onclick="">נקה חיפוש</button>
-
+  				  </authz:authorize>
+  				  <authz:authorize ifNotGranted="ROLE_CONFERENCE_APPROVER">
+				  <td width="100" >
+  					<select name="searchByApprover" id="searchByApprover" class="green"> 
+      				<option value="0">חפש/י מאשר</option>
+       				<c:forEach items="${deans}" var="deanPerson">
+       				<c:if test="${deanPerson.id==searchByApprover}">
+	        			<option htmlEscape="true" value="${deanPerson.id}" selected><c:out escapeXml="false" value="${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/></option>
+	        		</c:if>
+	        		<c:if test="${deanPerson.id!=searchByApprover}">
+	        			<option htmlEscape="true" value="${deanPerson.id}" ><c:out escapeXml="false" value="${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/></option>
+	        		</c:if>
+       				</c:forEach>
+       				</select>
+				  </td>
+  				  </authz:authorize>
+                  <td width="200" align="right">
+                    <button style="width:100" id="buttonSearch" class="grey" onclick="">חפש</button>
+					<button style="width:100" id="buttonCleanSearch" class="grey" onclick="">נקה חיפוש</button>
                   </td>
                 </tr>
 
@@ -102,27 +117,48 @@ $(document).ready(function() {
                 </tr>
               </table>
 
-				<table width="400" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
-
+			<table width="900" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+              <thead>
+  				<tr>
+  				<td align="right">
+				  	<table>
+ 						<tr>
+ 						<td width="20"></td>
+				  		<td width="100">שם החוקר/ת</td>
+				  		<td width="300">נושא הכנס</td>
+				  		<td width="100">האם הוגש</td>
+				  		<td width="100">דיקן</td>
+				  		<td></td>
+				  		</tr>
+  					</table>
+  				</td>
+  	  			</tr>
+  	  		</thead>
               <c:forEach items="${conferenceProposals}" var="conferenceProposal">
              <tbody>
   				<tr>
   				<td align="right">
 				  	<table>
   						<tr>
-				  		<td>
+				  		<td width="20">
 			  					<form:radiobutton path="conferenceProposalId" value="${conferenceProposal.id}"/>
  				  		</td>
-  						<td>
-  							<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>
+ 						<td width="100">
+  							<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
   						</td>
-  						<td>
-  							<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
-  						</td>
- 						<td>
+						<td width="300">
   							<c:out value="${conferenceProposal.subject}"/>
   						</td>
-  					</tr>
+  						<td width="100">
+  						<c:if test="${conferenceProposal.submitted}">הוגש</c:if>
+  						<c:if test="${!conferenceProposal.submitted}">לא הוגש</c:if>
+  						</td>
+ 						<td width="100">
+ 						<c:if test="${conferenceProposal.approverId!=0}">
+  							<c:out value="${conferenceProposal.approver.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.approver.lastNameHebrew}"/>
+  						</c:if>
+  						</td>
+  						</tr>
   				</table>
   			</td>
   	  	</tr>

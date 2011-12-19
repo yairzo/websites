@@ -85,8 +85,8 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 		return conferenceProposalsMap;
 	}
 	
-	public int getMaxGrade(int approverId){
-		return conferenceProposalDao.getMaxGrade(approverId);
+	public int getMaxGrade(int approverId, String deadline){
+		return conferenceProposalDao.getMaxGrade(approverId, deadline);
 	}
 
 	public void insertFinancialSupport(FinancialSupport financialSupport){

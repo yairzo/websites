@@ -86,17 +86,16 @@ $(document).ready(function() {
                 </tr>
                </table>
 
-				<table width="700" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+				<table width="900" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
               <thead>
   				<tr>
   				<td align="right">
 				  	<table>
  						<tr>
-				  		<td  width="20"></td>
-				  		<td width="60">שם החוקר/ת</td>
-				  		<td width="60">נושא הכנס</td>
-				  		<td width="20">דירוג</td>
-				  		<td width="60">חוות דעת</td>
+				  		<td width="100">שם החוקר/ת</td>
+				  		<td width="300">נושא הכנס</td>
+				  		<td width="50">דירוג</td>
+				  		<td width="300">חוות דעת</td>
 				  		<td></td>
 				  		</tr>
   					</table>
@@ -110,24 +109,24 @@ $(document).ready(function() {
   				<td align="right">
 				  	<table>
   						<tr>
-  						<td width="60">
+  						<td width="100">
   							<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
   							
   						</td>
- 						<td width="60">
+ 						<td width="300">
   							<c:out value="${conferenceProposal.subject}"/>
   						</td>
-						<td width="20">
+						<td width="50">
   							<c:out value="${conferenceProposal.grade}"/>
   						</td>
- 						<td width="60">
+ 						<td width="300">
   							<textarea class="green" name="approverEvaluation${conferenceProposal.id}" rows="2" cols="40">${conferenceProposal.approverEvaluation}</textarea>
   						</td>
-				  		<td>
-							<button class="grey buttonUp" id="${conferenceProposal.id}"/>העלה</button>
-							<button class="grey buttonDown" id="${conferenceProposal.id}"/>הורד</button>
-							<button class="grey buttonSave" id="${conferenceProposal.id}"/>שמור</button>
-							<button class="grey buttonEdit" id="${conferenceProposal.id}"/>ערוך</button>
+				  		<td width="50">
+							<button style="width:50" class="grey buttonUp" id="${conferenceProposal.id}"/>העלה</button>
+							<button style="width:50" class="grey buttonDown" id="${conferenceProposal.id}"/>הורד</button>
+							<button style="width:50" class="grey buttonSave" id="${conferenceProposal.id}"/>שמור</button>
+							<button style="width:50" class="grey buttonEdit" id="${conferenceProposal.id}"/>ערוך</button>
  				  		</td>
    					</tr>
   				</table>

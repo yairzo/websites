@@ -949,6 +949,13 @@
 					</td>
 					</c:if>
 				</tr>
+				<c:if test="${roleResearcher && !command.submitted}">			
+				<tr class="form">
+					<td width="300" colspan="2" align="center">
+						<input class="green" type="submit" name="submit" value="שמירה"/>
+ 					</td>
+				</tr>
+				</c:if>
 				<c:if test="${!roleApprover && !command.submitted}">			
 				<tr class="form">
 					<td width="500" colspan="2" align="center">
@@ -982,13 +989,15 @@
 					</td>
 				</tr>
 				</authz:authorize>
-				
+				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
 				<tr class="form">
-					<c:if test="${(!roleResearcher && command.submitted) || !command.submitted}">			
 					<td width="300" colspan="2" align="center">
 						<input class="green" type="submit" name="submit" value="שמירה"/>
  					</td>
-					</c:if>
+				</tr>
+				</authz:authorize>
+				
+				<tr class="form">
 					<td width="300" colspan="2" align="center">
 						<a href="welcome.html">חזרה לתפריט</a>
  					</td>

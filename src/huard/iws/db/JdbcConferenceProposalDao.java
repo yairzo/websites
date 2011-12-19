@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import huard.iws.util.SQLUtils;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements ConferenceProposalDao {
+	
 
 	public ConferenceProposal getConferenceProposal(int id){
 		String query = "select * from conferenceProposal where id=?";
@@ -607,32 +609,39 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
     }
 
 	public String getConferenceProposalsWhereClause(SearchCreteria search, PersonBean userPersonBean){
+		
 		String whereClause="";
-		// seaching by a search field
 
-		if ((search != null && ! search.getSearchPhrase().isEmpty()) || userPersonBean.isAuthorized("CONFERENCE","APPROVER") || userPersonBean.isAuthorized("RESEARCHER") )
+		if ((search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty())) || userPersonBean.isAuthorized("CONFERENCE","APPROVER") || userPersonBean.isAuthorized("RESEARCHER") )
 			whereClause += " where";
 
 		if (userPersonBean.isAuthorized("RESEARCHER")){
 			whereClause += " personId = " + userPersonBean.getId() ;
-			if (search != null && ! search.getSearchPhrase().isEmpty())
+			if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty()))
 				whereClause += " and";
 		}
 		else if (userPersonBean.isAuthorized("CONFERENCE","APPROVER")){
 			whereClause += " approverId = " + userPersonBean.getId() ;
-			if (search != null && ! search.getSearchPhrase().isEmpty())
+			if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty()))
 				whereClause += " and";
 		}
 		
-		if (search != null && ! search.getSearchPhrase().isEmpty())
-			whereClause += " " +search.getSearchField() + "='" + search.getSearchPhrase()+"'";
-			/*whereClause +=  " (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
+		if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty())){
+			if (!search.getWhereClause().isEmpty()){// where clause
+				whereClause+= search.getWhereClause();
+				if(!search.getSearchPhrase().isEmpty())
+					whereClause += " and";
+			}
+			if(!search.getSearchPhrase().isEmpty()){ //search phrase
+				whereClause +=  " personId in (select id from person where (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
 				+ " or concat(lastNameHebrew, ' ', firstNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
 				+ " or concat(firstNameHebrew, ' ', lastNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
 				+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
 				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
-				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";*/
-		
+				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "')) ";
+			}
+		}
+		//order by
 		if (userPersonBean.isAuthorized("CONFERENCE","APPROVER")){
 			whereClause += " order by grade";
 		}		
@@ -640,24 +649,24 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	}
 	
 	
-	public void gradeHigher(ConferenceProposal conferenceProposal){
-		String query = "update conferenceProposal set grade=grade - 1 where approverId=? and grade=?;";
+	public void gradeHigher(ConferenceProposal conferenceProposal, String deadline){
+		String query = "update conferenceProposal set grade=grade - 1 where approverId=? and grade=? and date(deadline)='"+deadline +"';";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()+1);
 		System.out.println(query);
 		query = "update conferenceProposal set grade= grade + 1 where id=?;";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
 		System.out.println(query);
 	}
-	public void gradeLower(ConferenceProposal conferenceProposal){
-		String query = "update conferenceProposal set grade=grade + 1 where approverId=? and grade=?;";
+	public void gradeLower(ConferenceProposal conferenceProposal, String deadline){
+		String query = "update conferenceProposal set grade=grade + 1 where approverId=? and grade=? and date(deadline)='"+deadline +"';";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()-1);
 		System.out.println(query);
 		query = "update conferenceProposal set grade= grade - 1 where id=?;";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
 		System.out.println(query);
 	}
-	public int getMaxGrade(int approverId){
-		String query = "select max(grade) from conferenceProposal where approverId=? ;";
+	public int getMaxGrade(int approverId, String deadline){
+		String query = "select max(grade) from conferenceProposal where approverId=? and date(deadline)='"+deadline +"';";
 		System.out.println(query);
 		return getSimpleJdbcTemplate().queryForInt(query,approverId);
 	}

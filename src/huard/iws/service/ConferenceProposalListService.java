@@ -13,9 +13,9 @@ public interface ConferenceProposalListService {
 
 	public void prepareListView(ListView lv, SearchCreteria search, PersonBean userPersonBean);
 
-	public void gradeHigher(ConferenceProposal conferenceProposal);
+	public void gradeHigher(ConferenceProposal conferenceProposal, String deadline);
 
-	public void gradeLower(ConferenceProposal conferenceProposal);
+	public void gradeLower(ConferenceProposal conferenceProposal, String deadline);
 	
 	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate);
 

@@ -4,6 +4,7 @@ public class SearchCreteria {
 	private String searchPhrase;
 	private String searchField;
 	private String roleFilter;
+	private String whereClause;
 
 
 	public String getRoleFilter() {
@@ -18,6 +19,7 @@ public class SearchCreteria {
 		searchField = "";
 		searchPhrase = "";
 		roleFilter = "";
+		whereClause = "";
 	}
 
 	public String getSearchField() {
@@ -32,7 +34,12 @@ public class SearchCreteria {
 	public void setSearchPhrase(String searchPhrase) {
 		this.searchPhrase = searchPhrase;
 	}
-
+	public String getWhereClause() {
+		return whereClause;
+	}
+	public void setWhereClause(String whereClause) {
+		this.whereClause = whereClause;
+	}
 	public boolean isValid(){
 		return (! "".equals(searchField) && ! "".equals(searchPhrase));
 	}

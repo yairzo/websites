@@ -26,7 +26,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class ConferenceProposalListController extends GeneralFormController {
 
 	//private static final Logger logger = Logger.getLogger(PersonListController.class);
-    private final int ROWS_IN_PAGE=5;
+    private final int ROWS_IN_PAGE=2;
 
 	@SuppressWarnings("unchecked")
 	protected ModelAndView onSubmit(Object command,
@@ -75,7 +75,8 @@ public class ConferenceProposalListController extends GeneralFormController {
 			conferenceProposalBeans.add(conferenceProposalBean);
 		}
 		model.put("conferenceProposals", conferenceProposalBeans);
-		
+		//save the searchByApprover param for paging
+		model.put("searchByApprover", request.getSession().getAttribute("searchByApprover"));
 		// a list of possible proposal approvers
 		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
 
@@ -93,7 +94,6 @@ public class ConferenceProposalListController extends GeneralFormController {
 
 			if (searchCreteria == null){
 				searchCreteria = new SearchCreteria();
-				searchCreteria.setSearchField("lastNameHebrew");
 				int roleFilterId = request.getIntParameter("rf", 0);
 				String roleFilter = Constants.getUsersRoles().get(roleFilterId);
 				if (roleFilter == null)
@@ -115,6 +115,16 @@ public class ConferenceProposalListController extends GeneralFormController {
 
 			request.getSession().setAttribute("searchCreteria", null);
 			request.getSession().setAttribute("listView", null);
+		}
+		if (isFormSubmission(request.getRequest())){
+			String whereClause = "";
+			SearchCreteria searchCreteria = new SearchCreteria();
+			if(request.getIntParameter("searchByApprover", 0)>0){
+				whereClause = " approverId=" + request.getIntParameter("searchByApprover", 0);
+				searchCreteria.setWhereClause(whereClause);
+				searchCommand.setSearchCreteria(searchCreteria);
+			}
+			request.getSession().setAttribute("searchByApprover", request.getIntParameter("searchByApprover", 0));
 		}
 		return searchCommand;
 	}
