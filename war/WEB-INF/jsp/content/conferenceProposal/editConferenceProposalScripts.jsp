@@ -50,6 +50,7 @@ $(document).ready(function() {
     	return true;
     });
 	
+
 	$("button.fromAssosiateSave").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromAssosiateSave\"/>");
     	$("#form").submit();
@@ -68,18 +69,54 @@ $(document).ready(function() {
     	return true;
     });
 	
-	$("button.submitForGrading").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
+	$("button.deleteFinancialSupport").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteFinancialSupport\"/>");
+		var financialSupportId= this.id;
+		$("#form").append("<input type=\"hidden\" name=\"financialSupportId\" value=\""+financialSupportId +"\"/>");
+    	$("#form").submit();
+    	return true;
+    });	
+	
+	$("button.deleteCommittee").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteCommittee\"/>");
+		var committeeId= this.id;
+		$("#form").append("<input type=\"hidden\" name=\"committeeId\" value=\""+committeeId +"\"/>");
     	$("#form").submit();
     	return true;
     });
+	
+	$("button.submitForGrading").click(function(){
+		var errors='';
+		if($("#deanSelect").val()=='0')
+			errors = '<font color="red">יש לבחור מאשר לפני הגשה<font color="red"><br>';
+		if($(".subject").val()=='')
+			errors = '<font color="red">יש למלא שדה נושא הכנס<font color="red"><br>';
+		if (errors!=''){
+			$("#errorDiv").html(errors);
+			return false;
+		}
+		else{
+			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
+    		$("#form").submit();
+    		return true;
+		}
+    });
+	
 	$("button.unsubmitForGrading").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"unsubmitForGrading\"/>");
     	$("#form").submit();
     	return true;
     });
 	
-	
+	$("button.submitFaculty").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitFaculty\"/>");
+    	$("#form").submit();
+    	return true;
+    });	
+	$("button.submit").click(function(){
+    	$("#form").submit();
+    	return true;
+    });	
 	
     $("#genericDialog").dialog({
            autoOpen: false,
@@ -95,11 +132,11 @@ $(document).ready(function() {
      });
     $(".ui-dialog-titlebar").hide();
     
-     $("#dialogInitiatingBody").mouseover(function(e) {
-    	 	openHelp("#dialogInitiatingBody","הגוף היוזם את הכנס");
+     $("#dialogInitiatingBody").click(function(e) {
+    	 	openHelp("#dialogInitiatingBody","הגוף שיוזם את הכנס");
       });
      
-     $("#dialogInitiatingBodyRole").mouseover(function(e) {
+     $("#dialogInitiatingBodyRole").click(function(e) {
     	 openHelp("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
    }); 
     function openHelp(name,mytext){

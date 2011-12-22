@@ -24,6 +24,7 @@ src/huard/iws/web/ConferenceProposalGradeController.java svn_mime_002dtype=text%
 src/huard/iws/web/ConferenceProposalListController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ImageActionsController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/UploadImageController.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/web/validate/EditConferenceProposalValidator.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/UploadImageValidator.java svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/conferenceProposalsGrade.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/conferenceProposalsList.jsp svn_mime_002dtype=text%2Fplain

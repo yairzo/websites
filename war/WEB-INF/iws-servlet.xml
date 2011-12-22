@@ -580,6 +580,7 @@
         <property name="mailMessageService">
         	<ref bean="mailMessageService"/>
         </property>
+      
        </bean>
 
 	<bean id="conferenceProposalListController" class="huard.iws.web.ConferenceProposalListController" parent="generalFormController">

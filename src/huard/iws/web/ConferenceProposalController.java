@@ -90,15 +90,21 @@ public class ConferenceProposalController extends GeneralFormController{
 			committee.setCommitteeRole(request.getParameter("operationalCommittee_committeeRole",""));
 			conferenceProposalService.insertCommittee(committee);
 		}
+		else if(request.getParameter("action","").equals("deleteFinancialSupport")){
+			conferenceProposalService.deleteFinancialSupport(request.getIntParameter("financialSupportId", 0));
+		}
+		else if(request.getParameter("action","").equals("deleteCommittee")){
+			conferenceProposalService.deleteCommittee(request.getIntParameter("committeeId", 0));
+		}
 
 		//if not added attachment don't override prev attachment
-		ConferenceProposalBean attachmentsConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
+		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		if(conferenceProposalBean.getGuestsAttach().length==0)
-			conferenceProposalBean.setGuestsAttach(attachmentsConferenceProposalBean.getGuestsAttach());
+			conferenceProposalBean.setGuestsAttach(origConferenceProposalBean.getGuestsAttach());
 		if(conferenceProposalBean.getProgramAttach().length==0)
-			conferenceProposalBean.setProgramAttach(attachmentsConferenceProposalBean.getProgramAttach());
+			conferenceProposalBean.setProgramAttach(origConferenceProposalBean.getProgramAttach());
 		if(conferenceProposalBean.getFinancialAttach().length==0)
-			conferenceProposalBean.setFinancialAttach(attachmentsConferenceProposalBean.getFinancialAttach());
+			conferenceProposalBean.setFinancialAttach(origConferenceProposalBean.getFinancialAttach());
 
 		// this part saves the content type of the attachments
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
@@ -118,8 +124,8 @@ public class ConferenceProposalController extends GeneralFormController{
 				}
 			}
 		}		
-		conferenceProposalBean.setGrade(attachmentsConferenceProposalBean.getGrade());
-		conferenceProposalBean.setDeadline(attachmentsConferenceProposalBean.getDeadline());
+		conferenceProposalBean.setGrade(origConferenceProposalBean.getGrade());
+		conferenceProposalBean.setDeadline(origConferenceProposalBean.getDeadline());
 		//assigned new approver
 		/*if(attachmentsConferenceProposalBean.getApproverId()!=conferenceProposalBean.getApproverId()){
 			//assign grade
@@ -129,16 +135,25 @@ public class ConferenceProposalController extends GeneralFormController{
 			if (updatedApprover.isValidEmail()) 
 				mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
 		}*/
-		if(request.getParameter("action","").equals("submitForGrading") && conferenceProposalBean.getApproverId()>0){
+		if(request.getParameter("action","").equals("submitForGrading")){// && conferenceProposalBean.getApproverId()>0){
 			conferenceProposalBean.setSubmitted(true);
 			//assign default grade
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
 			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), deadline)+1);
 		}
+		/*if(conferenceProposalBean.getSubmitted() && conferenceProposalBean.getApproverId()>0){
+			//assign default grade
+			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), deadline)+1);
+		}*/
 		if(request.getParameter("action","").equals("unsubmitForGrading")){
 			conferenceProposalBean.setSubmitted(false);
 			conferenceProposalBean.setGrade(0);
 		}
+		/*if(!conferenceProposalBean.getSubmitted()){
+			conferenceProposalBean.setSubmitted(false);
+			conferenceProposalBean.setGrade(0);
+		}*/		
 		//update
 		if(!request.getParameter("startConfDate", "").equals("")){
 			DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
@@ -150,7 +165,18 @@ public class ConferenceProposalController extends GeneralFormController{
 			Date toDate = (Date)formatter.parse(request.getParameter("endConfDate", "")); 
 			conferenceProposalBean.setToDate(toDate.getTime());
 		}
-		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
+		if(request.getParameter("action","").equals("submitFaculty")){
+			//update only relevant fields
+			origConferenceProposalBean.setAdminRemarks(conferenceProposalBean.getAdminRemarks());
+			origConferenceProposalBean.setApproverEvaluation(conferenceProposalBean.getApproverEvaluation());
+			if(!request.getParameter("cancelSubmission", "").equals("")){
+				origConferenceProposalBean.setSubmitted(false);
+				origConferenceProposalBean.setGrade(0);
+			}
+			conferenceProposalService.updateConferenceProposal(origConferenceProposalBean.toConferenceProposal());
+		}
+		else
+			conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
 			
 		//return to same page
 		model.put("id", conferenceProposalBean.getId())	;			

@@ -35,9 +35,10 @@
  			
             <table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
  
- 	<div id="genericDialog" title="עזרה" style="display:none" dir="rtl">
-	<p>text put here</p>
-	</div>
+ 				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl">
+				<p>text put here</p>
+				</div>
+				
                 <tr>
                   <td colspan="4" align="center"><h1>בקשה למימון לכנס</h1>
                   </td>
@@ -143,7 +144,7 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">
 					<td colspan="3">
-						<form:textarea cssClass="green autosaveclass" path="subject" cols="60" rows="3"/>
+						<form:textarea cssClass="green autosaveclass subject" path="subject" cols="60" rows="3"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">
@@ -418,6 +419,7 @@
 				    <th> שם </th> 
 				    <th> סכום </th>
 				    <th> מטבע </th>
+				    <th></th>
 					</tr>
            			<c:forEach items="${command.fromAssosiate}" var="fromAssosiate">
 					<tr>
@@ -431,6 +433,11 @@
 						<c:if test="${fromAssosiate.currency==1}">שקל</c:if>
 						<c:if test="${fromAssosiate.currency==2}">דולר</c:if>
 					</td>
+					<c:if test="${!roleApprover && !command.submitted}">					
+					<td>
+						<button class="grey deleteFinancialSupport" id="${fromAssosiate.id}">מחק</button>						
+					</td>
+					</c:if>
 					</tr>
 					</c:forEach>
 					<c:if test="${!roleApprover && !command.submitted}">
@@ -443,22 +450,18 @@
 					</td>
 					<td>
         				<select name="fromAssosiate_currency" cssClass="green">
-      					<option value="0">בחר/י מטבע</option>
+      					<option value="0">מטבע</option>
       					<option value="1">שקל</option>
       					<option value="2">דולר</option>
        		        	</select>
 					</td>
+					<td><button class="grey fromAssosiateSave" onclick="">הוסף</button></td>
 					</tr>
 					</c:if>
 					</table>
 					</td>
 				</tr>
-				<c:if test="${!roleApprover && !command.submitted}">
-				<tr>
-				<td></td>
-				<td><button class="grey fromAssosiateSave" onclick="">הוסף</button></td>
-				</tr>	
-				</c:if>
+
 				<tr>
 					<td>ממממן חיצוני:</td>
 					<td colspan="3">
@@ -480,6 +483,11 @@
 						<c:if test="${fromExternal.currency==1}">שקל</c:if>
 						<c:if test="${fromExternal.currency==2}">דולר</c:if>
 					</td>
+					<c:if test="${!roleApprover && !command.submitted}">					
+					<td>
+						<button class="grey deleteFinancialSupport" id="${fromExternal.id}">מחק</button>						
+					</td>
+					</c:if>
 					</tr>
 					</c:forEach>
 					<c:if test="${!roleApprover && !command.submitted}">
@@ -492,22 +500,18 @@
 					</td>
 					<td>
         				<select name="fromExternal_currency" cssClass="green">
-      					<option value="0">בחר/י מטבע</option>
+      					<option value="0">מטבע</option>
       					<option value="1">שקל</option>
       					<option value="2">דולר</option>
        		        	</select>
 					</td>
+					<td><button class="grey fromExternalSave" onclick="">הוסף</button></td>
 					</tr>					
 					</c:if>
 					</table>
 					</td>
 				</tr>
-				<c:if test="${!roleApprover && !command.submitted}">
-				<tr>
-				<td></td>
-				<td><button class="grey fromExternalSave" onclick="">הוסף</button></td>
-				</tr>				
-				</c:if>
+
 				<tr>
 					<td>מדמי הרשמה:</td>
 					<td colspan="3">
@@ -529,6 +533,11 @@
 						<c:if test="${fromAdmitanceFee.currency==1}">שקל</c:if>
 						<c:if test="${fromAdmitanceFee.currency==2}">דולר</c:if>
 					</td>
+					<c:if test="${!roleApprover && !command.submitted}">					
+					<td>
+						<button class="grey deleteFinancialSupport" id="${fromAdmitanceFee.id}">מחק</button>						
+					</td>
+					</c:if>
 					</tr>
 					</c:forEach>
 					<c:if test="${!roleApprover && !command.submitted}">
@@ -541,22 +550,18 @@
 					</td>
 					<td>
         				<select name="fromAdmitanceFee_currency" cssClass="green">
-      					<option value="0">בחר/י מטבע</option>
+      					<option value="0">מטבע</option>
       					<option value="1">שקל</option>
       					<option value="2">דולר</option>
        		        	</select>
 					</td>
+					<td><button class="grey fromAdmitanceFeeSave" onclick="">הוסף</button></td>
 					</tr>					
 					</c:if>
 					</table>
 					</td>
 				</tr>
-				<c:if test="${!roleApprover && !command.submitted}">
-				<tr>
-				<td></td>
-				<td><button class="grey fromAdmitanceFeeSave" onclick="">הוסף</button></td>
-				</tr>
-				</c:if>
+
 				<tr>
 		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
         		 </tr>
@@ -574,6 +579,7 @@
 				    <th> מוסד </th>
 				    <th> תפקיד במוסד </th>
 				    <th> תפקיד בועדה </th>
+				    <th></th>
 					</tr>
            			<c:forEach items="${command.scientificCommittees}" var="committee">
 					<tr>
@@ -589,6 +595,11 @@
 					<td>
 						<c:out value="${committee.committeeRole}"></c:out>
 					</td>					
+					<c:if test="${!roleApprover && !command.submitted}">					
+					<td>
+						<button class="grey deleteCommittee" id="${committee.id}">מחק</button>						
+					</td>
+					</c:if>
 					</tr>
 					</c:forEach>
 					<c:if test="${!roleApprover && !command.submitted}">
@@ -605,17 +616,13 @@
 					<td>
 						<input type="text" class="green" name="scientificCommittee_committeeRole"/>
 					</td>
+					<td><button class="grey scientificCommitteeSave" onclick="">הוסף</button></td>
 					</tr>		
 					</c:if>
 					</table>
 					</td>
 				</tr>
-				<c:if test="${!roleApprover && !command.submitted}">
-				<tr>
-				<td></td>
-				<td><button class="grey scientificCommitteeSave" onclick="">הוסף</button></td>
-				</tr>
-				</c:if>
+
 				<tr>
 					<td>ועדה מבצעת:</td>
 					<td colspan="3">
@@ -640,6 +647,11 @@
 					<td>
 						<c:out value="${opcommittee.committeeRole}"></c:out>
 					</td>					
+					<c:if test="${!roleApprover && !command.submitted}">					
+					<td>
+						<button class="grey deleteCommittee" id="${opcommittee.id}">מחק</button>						
+					</td>
+					</c:if>
 					</tr>
 					</c:forEach>
 					<c:if test="${!roleApprover && !command.submitted}">
@@ -656,17 +668,13 @@
 					<td>
 						<input type="text" class="green" name="operationalCommittee_committeeRole"/>
 					</td>
+					<td><button class="grey operationalCommitteeSave" onclick="">הוסף</button></td>
 					</tr>						
 					</c:if>
 					</table>
 					</td>
 				</tr>
-				<c:if test="${!roleApprover && !command.submitted}">			
-				<tr>
-				<td></td>
-				<td><button class="grey operationalCommitteeSave" onclick="">הוסף</button></td>
-				</tr>
-				</c:if>
+
 				<tr>
 		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
         		 </tr>
@@ -949,24 +957,30 @@
 					</td>
 					</c:if>
 				</tr>
-				<c:if test="${roleResearcher && !command.submitted}">			
-				<tr class="form">
-					<td width="300" colspan="2" align="center">
-						<input class="green" type="submit" name="submit" value="שמירה"/>
- 					</td>
-				</tr>
-				</c:if>
 				<c:if test="${!roleApprover && !command.submitted}">			
 				<tr class="form">
-					<td width="500" colspan="2" align="center">
+					<td></td>
+					<td width="250">
+				   		<button class="grey submit" onclick="">שמירה </button>
+					</td>
+					<td colspan="2">
 				   		<button class="grey submitForGrading" onclick="">הגשה לדירוג</button>
  					</td>
 				</tr>
+				<tr>
+				<td colspan="4"><div id="errorDiv" title="שגיאה" dir="rtl"><p></p></div>
+				</td>
+				</tr>
 				</c:if>
+				<tr>
+		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
+        		 </tr>
+				
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">			
 				<tr class="form">
-					<td width="500" colspan="2" align="center">
-				   		<button class="grey unsubmitForGrading" onclick="">ביטול הגשה</button>
+					<td></td>
+					<td colspan="3">
+				   		<input type="checkbox" class="green" name="cancelSubmission"/>ביטול הגשה
  					</td>
 				</tr>
 				</authz:authorize>
@@ -992,7 +1006,7 @@
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
 				<tr class="form">
 					<td width="300" colspan="2" align="center">
-						<input class="green" type="submit" name="submit" value="שמירה"/>
+				   		<button class="grey submitFaculty" onclick="">שמירה</button>
  					</td>
 				</tr>
 				</authz:authorize>

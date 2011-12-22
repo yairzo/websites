@@ -120,7 +120,18 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				committee.getCommitteeRole(),
 				committee.getType()
 		);
-	}        
+	} 
+
+	public void deleteFinancialSupport(int financialSupportId){
+		String query = "delete from financialSupport where id = ?;";
+		getSimpleJdbcTemplate().update(query, financialSupportId);
+	}
+
+	public void deleteCommittee(int committeeId){
+		String query = "delete from committee where id = ?;";
+		getSimpleJdbcTemplate().update(query, committeeId);
+	}
+
 	public ConferenceProposal getVersionConferenceProposal(int confId, int verId){
 		String conferenceSelect = "select  * from conferenceProposalVersion where conferenceProposalId = ? and id = ? ";
 		ConferenceProposal conferenceProposal =
