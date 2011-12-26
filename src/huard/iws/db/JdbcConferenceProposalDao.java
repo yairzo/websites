@@ -681,5 +681,10 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		System.out.println(query);
 		return getSimpleJdbcTemplate().queryForInt(query,approverId);
 	}
+	public void rearangeGrades(int grade, int approverId, String deadline){
+		String query = "update conferenceProposal set grade=grade-1 where grade>? and approverId=? and date(deadline)='"+deadline +"';";
+		System.out.println(query);
+		getSimpleJdbcTemplate().update(query,grade,approverId);
+	}
 
 }

@@ -44,6 +44,8 @@ public interface ConferenceProposalDao {
 	
 	public int getMaxGrade(int approverId, String deadline);
 
+	public void rearangeGrades(int grade, int approverId, String deadline);
+
 	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate);
 	
 	public void insertFinancialSupport(FinancialSupport financialSupport);

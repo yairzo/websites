@@ -37,6 +37,8 @@ public interface ConferenceProposalService {
 	
 	public int getMaxGrade(int approverId, String deadline);
 
+	public void rearangeGrades(int grade, int approverId, String deadline);
+	
 	public void insertFinancialSupport(FinancialSupport financialSupport);
 
 	public void insertCommittee(Committee committee);

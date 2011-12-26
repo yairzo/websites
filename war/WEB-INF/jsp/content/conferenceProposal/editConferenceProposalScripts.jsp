@@ -24,7 +24,7 @@ $(document).ready(function() {
 	
 	
 
-	if($('#company').attr('checked'))
+	if($('#company').attr('checked') || $('#companyViewOnly').attr('checked'))
 		$('.organizingCompanyPart').show();
 	else
 		$('.organizingCompanyPart').hide();
@@ -96,7 +96,7 @@ $(document).ready(function() {
 			errors = errors+'<font color="red">יש להכניס ערך מספרי לשדה סכום<font color="red"><br>';
 		if(!numberRegex.test($("#supportSum").val()))
 			errors = errors+'<font color="red"> יש להכניס ערך מספרי לשדה סכום הסיוע המבוקש<font color="red"><br>';
-		var countRegex=/^[0-9]$/;
+		var countRegex=/^\d+$/;
 		if(!countRegex.test($("#participants").val()))
 			errors = errors+'<font color="red"> יש להכניס ערך מספרי לשדה משתתפים<font color="red"><br>';
 		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -152,11 +152,11 @@ $(document).ready(function() {
      });
     $(".ui-dialog-titlebar").hide();
     
-     $("#dialogInitiatingBody").click(function(e) {
+     $("#dialogInitiatingBody").hover(function(e) {
     	 	openHelp("#dialogInitiatingBody","הגוף שיוזם את הכנס");
       });
      
-     $("#dialogInitiatingBodyRole").click(function(e) {
+     $("#dialogInitiatingBodyRole").hover(function(e) {
     	 openHelp("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
    }); 
     function openHelp(name,mytext){

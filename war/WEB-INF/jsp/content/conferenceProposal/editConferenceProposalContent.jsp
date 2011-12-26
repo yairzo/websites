@@ -148,7 +148,7 @@
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">
-					<td>
+					<td colspan="3">
 						${command.subject}
 					</td>
 					</c:if>
@@ -796,7 +796,7 @@
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">			
 		       		<td colspan="2" width="300">
-		       		    ארגון ע"י חברה מסחרית<input type="checkbox" disabled="disabled" value="" <c:if test="${command.organizingCompany}" > checked </c:if> />
+		       		    ארגון ע"י חברה מסחרית<input type="checkbox" disabled="disabled" id="companyViewOnly" value="" <c:if test="${command.organizingCompany}">checked</c:if> />
 					</td>
 					</c:if>
 				</tr>

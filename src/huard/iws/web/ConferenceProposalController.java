@@ -141,17 +141,16 @@ public class ConferenceProposalController extends GeneralFormController{
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
 			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), deadline)+1);
 		}
+		/*if(request.getParameter("action","").equals("unsubmitForGrading")){
+		conferenceProposalBean.setSubmitted(false);
+		conferenceProposalBean.setGrade(0);
+		}*/
 		/*if(conferenceProposalBean.getSubmitted() && conferenceProposalBean.getApproverId()>0){
 			//assign default grade
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
 			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), deadline)+1);
-		}*/
-		if(request.getParameter("action","").equals("unsubmitForGrading")){
-			conferenceProposalBean.setSubmitted(false);
-			conferenceProposalBean.setGrade(0);
 		}
-		/*if(!conferenceProposalBean.getSubmitted()){
-			conferenceProposalBean.setSubmitted(false);
+		if(!conferenceProposalBean.getSubmitted()){
 			conferenceProposalBean.setGrade(0);
 		}*/		
 		//update
@@ -171,6 +170,8 @@ public class ConferenceProposalController extends GeneralFormController{
 			origConferenceProposalBean.setApproverEvaluation(conferenceProposalBean.getApproverEvaluation());
 			if(!request.getParameter("cancelSubmission", "").equals("")){
 				origConferenceProposalBean.setSubmitted(false);
+				String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+				conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), deadline);
 				origConferenceProposalBean.setGrade(0);
 			}
 			conferenceProposalService.updateConferenceProposal(origConferenceProposalBean.toConferenceProposal());
