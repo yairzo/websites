@@ -89,8 +89,28 @@ $(document).ready(function() {
 		var errors='';
 		if($("#deanSelect").val()=='0')
 			errors = '<font color="red">יש לבחור מאשר לפני הגשה<font color="red"><br>';
-		if($(".subject").val()=='')
-			errors = '<font color="red">יש למלא שדה נושא הכנס<font color="red"><br>';
+		if($("#subject").val()=='')
+			errors = errors+'<font color="red">יש למלא שדה נושא הכנס<font color="red"><br>';
+		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
+		if(!numberRegex.test($("#totalCost").val()))
+			errors = errors+'<font color="red">יש להכניס ערך מספרי לשדה סכום<font color="red"><br>';
+		if(!numberRegex.test($("#supportSum").val()))
+			errors = errors+'<font color="red"> יש להכניס ערך מספרי לשדה סכום הסיוע המבוקש<font color="red"><br>';
+		var countRegex=/^[0-9]$/;
+		if(!countRegex.test($("#participants").val()))
+			errors = errors+'<font color="red"> יש להכניס ערך מספרי לשדה משתתפים<font color="red"><br>';
+		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+		if($("#organizingCompanyEmail").val()!='' && !emailRegex.test($("#organizingCompanyEmail").val()))
+			errors = errors+'<font color="red">יש להזין כתובת אימייל תקנית<font color="red"><br>';
+		if($("#contactPersonEmail").val()!='' && !emailRegex.test($("#contactPersonEmail").val()))
+			errors = errors+'<font color="red">יש להזין כתובת אימייל תקנית<font color="red"><br>';
+		var phoneRegex = /^[\d]{2,3}-[\d]{7}$/;		
+		if($("#organizingCompanyPhone").val()!='' && !phoneRegex.test($("#organizingCompanyPhone").val()))
+			errors = errors+'<font color="red">יש להזין מספר טלפון חברה מארגנת תקני<font color="red"><br>';
+		if($("#organizingCompanyFax").val()!='' && !phoneRegex.test($("#organizingCompanyFax").val()))
+			errors = errors+'<font color="red">יש להזין פקס חברה מארגנת תקני<font color="red"><br>';
+		if($("#contactPersonPhone").val()!='' && !phoneRegex.test($("#contactPersonPhone").val()))
+			errors = errors+'<font color="red">יש להזין מספר טלפון איש קשר תקני<font color="red"><br>';
 		if (errors!=''){
 			$("#errorDiv").html(errors);
 			return false;

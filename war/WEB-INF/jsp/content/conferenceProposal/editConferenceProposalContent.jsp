@@ -144,7 +144,7 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">
 					<td colspan="3">
-						<form:textarea cssClass="green autosaveclass subject" path="subject" cols="60" rows="3"/>
+						<form:textarea cssClass="green autosaveclass" path="subject" id="subject" cols="60" rows="3"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">
@@ -374,7 +374,7 @@
 	   				</td>
 					<c:if test="${!roleApprover && !command.submitted}">
 				    <td>
-						<form:input cssClass="green" path="totalCost" />
+						<form:input cssClass="green" path="totalCost"  id="totalCost"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">
@@ -546,7 +546,7 @@
 						<input type="text" class="green" name="fromAdmitanceFee_name"/>
 					</td>
 					<td>
-						<input type="text" class="green" name="fromAdmitanceFee_sum"/>
+						<input type="text" class="green" name="fromAdmitanceFee_sum" />
 					</td>
 					<td>
         				<select name="fromAdmitanceFee_currency" cssClass="green">
@@ -689,7 +689,7 @@
 	   				</td>
 					<c:if test="${!roleApprover && !command.submitted}">			
 				    <td>
-						<form:input cssClass="green" path="supportSum" />
+						<form:input cssClass="green" path="supportSum" id="supportSum"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">			
@@ -747,7 +747,7 @@
 	   				</td>
 					<c:if test="${!roleApprover && !command.submitted}">			
 	   				<td>
-	   					<form:input cssClass="green" path="participants" />
+	   					<form:input cssClass="green" path="participants" id="participants"/>
 	   				</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">			
@@ -820,7 +820,7 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">			
 		       		<td>
-	   					<form:input cssClass="green" path="organizingCompanyPhone" />
+	   					<form:input cssClass="green" path="organizingCompanyPhone" id="organizingCompanyPhone"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">			
@@ -835,7 +835,7 @@
 	   				</td>
 					<c:if test="${!roleApprover && !command.submitted}">			
 		       		<td>
-	   					<form:input cssClass="green" path="organizingCompanyFax" />
+	   					<form:input cssClass="green" path="organizingCompanyFax" id="organizingCompanyFax"/>
 	   				</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">			
@@ -848,7 +848,7 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">			
 				    <td>
-	   					<form:input cssClass="green" path="organizingCompanyEmail" />
+	   					<form:input cssClass="green" path="organizingCompanyEmail" id="organizingCompanyEmail"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">			
@@ -897,7 +897,7 @@
 	   				</td>
 					<c:if test="${!roleApprover && !command.submitted}">			
 		       		<td>
-	   					<form:input cssClass="green" path="contactPersonPhone" />
+	   					<form:input cssClass="green" path="contactPersonPhone" id="contactPersonPhone"/>
 	   				</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">			
@@ -910,7 +910,7 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">			
 				    <td>
-	   					<form:input cssClass="green" path="contactPersonEmail" />
+	   					<form:input cssClass="green" path="contactPersonEmail" id="contactPersonEmail"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">			
