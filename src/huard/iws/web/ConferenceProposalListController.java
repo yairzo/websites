@@ -46,8 +46,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			return new ModelAndView( new RedirectView("editConferenceProposal.html"),newModel);
 		}
 		if (action.equals("delete") && searchCommand.getConferenceProposalId()>0){
-			newModel.put("id",searchCommand.getConferenceProposalId());
-			return new ModelAndView( new RedirectView("deleteConferenceProposal.html"), newModel);
+			System.out.println("11111111 delete " + searchCommand.getConferenceProposalId());
 		}
 		if (action.equals("startGrading")){
 			//send mail to approver to start grading

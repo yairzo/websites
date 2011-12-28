@@ -18,9 +18,12 @@ $(document).ready(function() {
     });
 
     $("#buttonDelete").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
-    	$("#form").submit();
-    	return true;
+		var answer= confirm('<fmt:message key="iw_IL.eqfSystem.editProposal.deleteProposal.confirm"/>');
+ 	 	if (answer){
+        	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
+     	   	$("#form").submit();
+     	   	return true;
+   	 	}
     });
 
     $("#buttonStartGrading").click(function(){
