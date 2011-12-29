@@ -41,16 +41,16 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		
 		Map newModel = new HashMap();
 		String action = request.getParameter("action", "");
-		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+		String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 		if (action.equals("movedown") && gradeCommand.getConferenceProposalId()>0 ){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
-			if(cp.getGrade()<conferenceProposalService.getMaxGrade(cp.getApproverId(),deadline))
-				conferenceProposalListService.gradeHigher(cp,deadline);
+			if(cp.getGrade()<conferenceProposalService.getMaxGrade(cp.getApproverId(),prevdeadline))
+				conferenceProposalListService.gradeHigher(cp,prevdeadline);
 		}
 		if (action.equals("moveup") && gradeCommand.getConferenceProposalId()>0 ){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
 			if( cp.getGrade()>1)
-				conferenceProposalListService.gradeLower(cp,deadline);
+				conferenceProposalListService.gradeLower(cp,prevdeadline);
 		}
 		if (action.equals("save") && gradeCommand.getConferenceProposalId()>0){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
@@ -95,8 +95,8 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
 		ConferenceProposalGradeCommand gradeCommand = new ConferenceProposalGradeCommand();
-		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
-		String whereClause = " submitted=1 and date(deadline)='"+deadline +"'";
+		String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+		String whereClause = " submitted=1 and date(deadline)>'"+previousDeadline +"'";
 		if (!isFormSubmission(request.getRequest())){
 			SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("conferenceProposalsSearchCreteria");
 			request.getSession().setAttribute("conferenceProposalsSearchCreteria", null);

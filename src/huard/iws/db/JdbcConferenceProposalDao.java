@@ -136,6 +136,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		String conferenceSelect = "select  * from conferenceProposalVersion where conferenceProposalId = ? and id = ? ";
 		ConferenceProposal conferenceProposal =
 		getSimpleJdbcTemplate().queryForObject(conferenceSelect, versionRowMapper,	confId ,verId );
+		logger.info("conference proposal id: " + conferenceProposal.getId());
+		conferenceProposal.setFromAssosiate(getSupportFromAssosiate(confId));
+		conferenceProposal.setFromExternal(getSupportFromExternal(confId));
+		conferenceProposal.setFromAdmitanceFee(getSupportFromAdmitanceFee(confId));
+		conferenceProposal.setScientificCommittees(getScientificCommittees(confId));
+		conferenceProposal.setOperationalCommittees(getOperationalCommittees(confId));
 		return conferenceProposal;
 	}
 
@@ -216,6 +222,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			Timestamp aSubmissionDate = rs.getTimestamp("submissionDate");
 			if (aSubmissionDate != null)
 				submissionDate = aSubmissionDate.getTime();
+System.out.println("111111111111111 aSubmissionDate:" + aSubmissionDate);
+System.out.println("111111111111111 submissionDate:" + submissionDate);
 			conferenceProposal.setSubmissionDate(submissionDate);
 			conferenceProposal.setTotalCost(rs.getDouble("totalCost"));
 			conferenceProposal.setTotalCostCurrency(rs.getInt("totalCostCurrency"));
@@ -324,7 +332,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	};
 
 	public int insertConferenceProposal(ConferenceProposal conferenceProposal){
-		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now(),deadline=?;";
+		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?;";
 		final int personId = conferenceProposal.getPersonId();
 		final long deadline = conferenceProposal.getDeadline();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -340,7 +348,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		    },
 		    keyHolder);
 		final int key=keyHolder.getKey().intValue();
-		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate=now(),deadline=?;";
+		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?;";
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -383,7 +391,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", initiatingBody =  ?" + 
 				", initiatingBodyRole = ?" + 
 				//", openDate=  ?" + 
-				", submissionDate= now()" + 
+				", submissionDate= ?" + 
 				", totalCost= ?" + 
 				", totalCostCurrency= ?" + 
 				", supportSum= ?" + 
@@ -433,7 +441,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getInitiatingBody(),
 				conferenceProposal.getInitiatingBodyRole(),
 				//new java.sql.Timestamp(conferenceProposal.getOpenDate()),
-				//new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
+				new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
 				conferenceProposal.getTotalCost(),
 				conferenceProposal.getTotalCostCurrency(),
 				conferenceProposal.getSupportSum(),
@@ -485,8 +493,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", financeAttachContentType = ?" + 
 				", initiatingBody =  ?" + 
 				", initiatingBodyRole = ?" + 
-				", openDate=  now()" + 
-				", submissionDate= now()" + 
+				", openDate=  ?" + 
+				", submissionDate= ?" + 
 				", totalCost= ?" + 
 				", totalCostCurrency= ?" + 
 				", supportSum= ?" + 
@@ -537,8 +545,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getFinancialAttachContentType(),
 				conferenceProposal.getInitiatingBody(),
 				conferenceProposal.getInitiatingBodyRole(),
-				//new java.sql.Timestamp(conferenceProposal.getOpenDate()),
-				//new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
+				new java.sql.Timestamp(conferenceProposal.getOpenDate()),
+				new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
 				conferenceProposal.getTotalCost(),
 				conferenceProposal.getTotalCostCurrency(),
 				conferenceProposal.getSupportSum(),
@@ -576,8 +584,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		return conferenceProposals;
     }
 	
-	public List<ConferenceProposal> getConferenceProposalsByDate(String deadline) {
-		String query = "select * from conferenceProposal where deadline= '" + deadline +"' order by id";
+	public List<ConferenceProposal> getConferenceProposalsByDate(String prevdeadline) {
+		String query = "select * from conferenceProposal where date(deadline)> '" + prevdeadline +"' order by id";
 		List<ConferenceProposal> conferenceProposals =
 			getSimpleJdbcTemplate().query(query, rowMapper);
 		return conferenceProposals;
@@ -660,29 +668,29 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	}
 	
 	
-	public void gradeHigher(ConferenceProposal conferenceProposal, String deadline){
-		String query = "update conferenceProposal set grade=grade - 1 where approverId=? and grade=? and date(deadline)='"+deadline +"';";
+	public void gradeHigher(ConferenceProposal conferenceProposal, String prevdeadline){
+		String query = "update conferenceProposal set grade=grade - 1 where approverId=? and grade=? and date(deadline)>'"+prevdeadline +"';";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()+1);
 		System.out.println(query);
 		query = "update conferenceProposal set grade= grade + 1 where id=?;";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
 		System.out.println(query);
 	}
-	public void gradeLower(ConferenceProposal conferenceProposal, String deadline){
-		String query = "update conferenceProposal set grade=grade + 1 where approverId=? and grade=? and date(deadline)='"+deadline +"';";
+	public void gradeLower(ConferenceProposal conferenceProposal, String prevdeadline){
+		String query = "update conferenceProposal set grade=grade + 1 where approverId=? and grade=? and date(deadline)>'"+prevdeadline +"';";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()-1);
 		System.out.println(query);
 		query = "update conferenceProposal set grade= grade - 1 where id=?;";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
 		System.out.println(query);
 	}
-	public int getMaxGrade(int approverId, String deadline){
-		String query = "select max(grade) from conferenceProposal where approverId=? and date(deadline)='"+deadline +"';";
+	public int getMaxGrade(int approverId, String prevdeadline){
+		String query = "select max(grade) from conferenceProposal where approverId=? and date(deadline)>'"+prevdeadline +"';";
 		System.out.println(query);
 		return getSimpleJdbcTemplate().queryForInt(query,approverId);
 	}
-	public void rearangeGrades(int grade, int approverId, String deadline){
-		String query = "update conferenceProposal set grade=grade-1 where grade>? and approverId=? and date(deadline)='"+deadline +"';";
+	public void rearangeGrades(int grade, int approverId, String prevdeadline){
+		String query = "update conferenceProposal set grade=grade-1 where grade>? and approverId=? and date(deadline)>'"+prevdeadline +"';";
 		System.out.println(query);
 		getSimpleJdbcTemplate().update(query,grade,approverId);
 	}

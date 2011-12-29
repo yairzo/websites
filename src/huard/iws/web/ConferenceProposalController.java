@@ -124,22 +124,36 @@ public class ConferenceProposalController extends GeneralFormController{
 				}
 			}
 		}		
+		
+		//set fields that don't appear in the page
 		conferenceProposalBean.setGrade(origConferenceProposalBean.getGrade());
 		conferenceProposalBean.setDeadline(origConferenceProposalBean.getDeadline());
-		//assigned new approver
-		/*if(attachmentsConferenceProposalBean.getApproverId()!=conferenceProposalBean.getApproverId()){
-			//assign grade
-			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId())+1);
-			//send mail to approver
-			PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
-			if (updatedApprover.isValidEmail()) 
-				mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
-		}*/
+		conferenceProposalBean.setSubmissionDate(origConferenceProposalBean.getSubmissionDate());
+		conferenceProposalBean.setOpenDate(origConferenceProposalBean.getOpenDate());
+		//update dates according to calendar input
+		if(!request.getParameter("startConfDate", "").equals("")){
+			DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+			Date fromDate = (Date)formatter.parse(request.getParameter("startConfDate", "")); 
+			conferenceProposalBean.setFromDate(fromDate.getTime());
+		}
+		else{
+			conferenceProposalBean.setFromDate(origConferenceProposalBean.getFromDate());
+		}
+		if(!request.getParameter("endConfDate", "").equals("")){
+			DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+			Date toDate = (Date)formatter.parse(request.getParameter("endConfDate", "")); 
+			conferenceProposalBean.setToDate(toDate.getTime());
+		}
+		else{
+			conferenceProposalBean.setToDate(origConferenceProposalBean.getToDate());
+		}
+		
 		if(request.getParameter("action","").equals("submitForGrading")){// && conferenceProposalBean.getApproverId()>0){
 			conferenceProposalBean.setSubmitted(true);
+			conferenceProposalBean.setSubmissionDate(System.currentTimeMillis());
 			//assign default grade
-			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
-			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), deadline)+1);
+			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
 		}
 		/*if(request.getParameter("action","").equals("unsubmitForGrading")){
 		conferenceProposalBean.setSubmitted(false);
@@ -147,38 +161,32 @@ public class ConferenceProposalController extends GeneralFormController{
 		}*/
 		/*if(conferenceProposalBean.getSubmitted() && conferenceProposalBean.getApproverId()>0){
 			//assign default grade
-			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
-			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), deadline)+1);
+			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
 		}
 		if(!conferenceProposalBean.getSubmitted()){
 			conferenceProposalBean.setGrade(0);
 		}*/		
-		//update
-		if(!request.getParameter("startConfDate", "").equals("")){
-			DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
-			Date fromDate = (Date)formatter.parse(request.getParameter("startConfDate", "")); 
-			conferenceProposalBean.setFromDate(fromDate.getTime());
-		}
-		if(!request.getParameter("endConfDate", "").equals("")){
-			DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
-			Date toDate = (Date)formatter.parse(request.getParameter("endConfDate", "")); 
-			conferenceProposalBean.setToDate(toDate.getTime());
-		}
 		if(request.getParameter("action","").equals("submitFaculty")){
 			//update only relevant fields
 			origConferenceProposalBean.setAdminRemarks(conferenceProposalBean.getAdminRemarks());
 			origConferenceProposalBean.setApproverEvaluation(conferenceProposalBean.getApproverEvaluation());
 			if(!request.getParameter("cancelSubmission", "").equals("")){
 				origConferenceProposalBean.setSubmitted(false);
-				String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
-				conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), deadline);
+				origConferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
 				origConferenceProposalBean.setGrade(0);
 			}
 			conferenceProposalService.updateConferenceProposal(origConferenceProposalBean.toConferenceProposal());
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
+			request.getSession().setAttribute("userMessage", userMessage);
 		}
-		else
+		else{
 			conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
-			
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
+			request.getSession().setAttribute("userMessage", userMessage);
+		}	
 		//return to same page
 		model.put("id", conferenceProposalBean.getId())	;			
 		return new ModelAndView(new RedirectView("editConferenceProposal.html"),model);
@@ -244,13 +252,9 @@ public class ConferenceProposalController extends GeneralFormController{
 		}
 		else{
 			if (version == conferenceProposalService.getFirstVersion(id)){
-				//String userMessage = messageService.getMessage("iw_IL.conferenceProposal.firstVersion");
-				//request.getSession().setAttribute("userMessage", userMessage);
 				request.getSession().setAttribute("firstVersion", true);
 			}
 			if (version == conferenceProposalService.getLastVersion(id)){
-				//String userMessage = messageService.getMessage("iw_IL.conferenceProposal.lastVersion");
-				//request.getSession().setAttribute("userMessage", userMessage);
 				request.getSession().setAttribute("lastVersion", true);
 			}
 			conferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getVersionConferenceProposal(id,version));

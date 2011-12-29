@@ -99,7 +99,7 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">
 					<td>
-						<form:input cssClass="green" path="initiatingBody" id="dialogInitiatingBody" />
+						<form:input cssClass="green" path="initiatingBody" /><img source="" id="dialogInitiatingBody"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">
@@ -113,7 +113,7 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">
 					<td>
-       				<form:select path="initiatingBodyRole" cssClass="green" id="dialogInitiatingBodyRole">
+       				<form:select path="initiatingBodyRole" cssClass="green" >
       					<form:option value="0">בחר/י תפקיד</form:option>
       					<form:option value="1">מנהל גוף</form:option>
       					<form:option value="2">עובד בגוף</form:option>
@@ -121,6 +121,7 @@
       					<form:option value="4">חבר בגוף</form:option>
       					<form:option value="5">חבר ניהולי</form:option>
        		        	</form:select>
+       		        	<img source="" id="dialogInitiatingBodyRole"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">
@@ -153,6 +154,11 @@
 					</td>
 					</c:if>
 				</tr>
+				<tr>
+				<td colspan="4"><div id="errorsubject" title="שגיאה" dir="rtl"><p></p></div>
+				</td>
+				</tr>
+				
 				<tr class="form">
 					<td  width="250">
 						 מיקום בארץ:
@@ -162,7 +168,8 @@
        				<form:select path="location" cssClass="green">
       					<form:option value="0">בחר/י מיקום</form:option>
       					<form:option value="1">אוניברסיטה</form:option>
-      					<form:option value="2">מחוץ לאוניברסיטה</form:option>
+      					<form:option value="2">ירושלים</form:option>
+      					<form:option value="3">מקום אחר, פרט:</form:option>
         		    </form:select>
  					</td>
 					</c:if>
@@ -403,6 +410,11 @@
 					</td>
 					</c:if>
 				</tr>
+				<tr>
+				<td colspan="4"><div id="errortotalcost" dir="rtl"><p></p></div>
+				</td>
+				</tr>
+				
 				<tr>
 		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
         		 </tr>
@@ -718,7 +730,10 @@
 					</td>
 					</c:if>
 				</tr>
-
+				<tr>
+				<td colspan="4"><div id="errorsupportsum" dir="rtl"><p></p></div>
+				</td>
+				</tr>
 	            <tr class="form">
 					<c:if test="${!roleApprover && !command.submitted}">			
 		       		<td>
@@ -781,6 +796,10 @@
 					</c:if>
 				</tr>	
 				<tr>
+				<td colspan="4"><div id="errorparticipants" dir="rtl"><p></p></div>
+				</td>
+				</tr>
+				<tr>
 		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
         		 </tr>
 	            <tr class="form">
@@ -829,6 +848,10 @@
 	   				</td>
 					</c:if>
 				</tr>
+				<tr>
+				<td colspan="4"><div id="errororganizingCompanyPhone" dir="rtl"><p></p></div>
+				</td>
+				</tr>
 				<tr class="form organizingCompanyPart">
 		       		<td>
 	   					פקס:
@@ -856,8 +879,15 @@
 	   					${command.organizingCompanyEmail}
 	   				</td>
 					</c:if>
+				</tr>
+				<tr>
+				<td colspan="4"><div id="errororganizingCompanyFax" dir="rtl"><p></p></div>
+				</td>
 				</tr>					
-					
+				<tr>
+				<td colspan="4"><div id="errororganizingCompanyEmail" dir="rtl"><p></p></div>
+				</td>
+				</tr>			
 	            <tr class="form">
 		       		<td colspan="2">
 	   					איש קשר:
@@ -918,7 +948,15 @@
 	   					${command.contactPersonEmail}
 	   				</td>
 					</c:if>
-				</tr>				
+				</tr>
+				<tr>
+				<td colspan="4"><div id="errorcontactPersonPhone" dir="rtl"><p></p></div>
+				</td>
+				</tr>	
+				<tr>
+				<td colspan="4"><div id="errorcontactPersonEmail" dir="rtl"><p></p></div>
+				</td>
+				</tr>			
 				<tr>
 		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
         		 </tr>
@@ -957,19 +995,20 @@
 					</td>
 					</c:if>
 				</tr>
+				<tr>
+				<td colspan="4"><div id="errordeanselect" dir="rtl"><p></p></div>
+				</td>
+				</tr>
+				
 				<c:if test="${!roleApprover && !command.submitted}">			
 				<tr class="form">
 					<td></td>
 					<td width="250">
-				   		<button class="grey submit" onclick="">שמירה </button>
+				   		<button style="width:80" class="grey submit" onclick="">שמירה </button>
 					</td>
 					<td colspan="2">
-				   		<button class="grey submitForGrading" onclick="">הגשה לדירוג</button>
+				   		<button style="width:80" class="grey submitForGrading" onclick="">הגשה</button>
  					</td>
-				</tr>
-				<tr>
-				<td colspan="4"><div id="errorDiv" title="שגיאה" dir="rtl"><p></p></div>
-				</td>
 				</tr>
 				</c:if>
 				<tr>
@@ -977,12 +1016,14 @@
         		 </tr>
 				
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">			
+				<c:if test="${command.submitted}">			
 				<tr class="form">
 					<td></td>
 					<td colspan="3">
 				   		<input type="checkbox" class="green" name="cancelSubmission"/>ביטול הגשה
  					</td>
 				</tr>
+				</c:if>
 				</authz:authorize>
 				
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">

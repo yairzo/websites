@@ -86,35 +86,83 @@ $(document).ready(function() {
     });
 	
 	$("button.submitForGrading").click(function(){
-		var errors='';
-		if($("#deanSelect").val()=='0')
-			errors = '<font color="red">יש לבחור מאשר לפני הגשה<font color="red"><br>';
-		if($("#subject").val()=='')
-			errors = errors+'<font color="red">יש למלא שדה נושא הכנס<font color="red"><br>';
-		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
-		if(!numberRegex.test($("#totalCost").val()))
-			errors = errors+'<font color="red">יש להכניס ערך מספרי לשדה סכום<font color="red"><br>';
-		if(!numberRegex.test($("#supportSum").val()))
-			errors = errors+'<font color="red"> יש להכניס ערך מספרי לשדה סכום הסיוע המבוקש<font color="red"><br>';
-		var countRegex=/^\d+$/;
-		if(!countRegex.test($("#participants").val()))
-			errors = errors+'<font color="red"> יש להכניס ערך מספרי לשדה משתתפים<font color="red"><br>';
-		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-		if($("#organizingCompanyEmail").val()!='' && !emailRegex.test($("#organizingCompanyEmail").val()))
-			errors = errors+'<font color="red">יש להזין כתובת אימייל תקנית<font color="red"><br>';
-		if($("#contactPersonEmail").val()!='' && !emailRegex.test($("#contactPersonEmail").val()))
-			errors = errors+'<font color="red">יש להזין כתובת אימייל תקנית<font color="red"><br>';
-		var phoneRegex = /^[\d]{2,3}-[\d]{7}$/;		
-		if($("#organizingCompanyPhone").val()!='' && !phoneRegex.test($("#organizingCompanyPhone").val()))
-			errors = errors+'<font color="red">יש להזין מספר טלפון חברה מארגנת תקני<font color="red"><br>';
-		if($("#organizingCompanyFax").val()!='' && !phoneRegex.test($("#organizingCompanyFax").val()))
-			errors = errors+'<font color="red">יש להזין פקס חברה מארגנת תקני<font color="red"><br>';
-		if($("#contactPersonPhone").val()!='' && !phoneRegex.test($("#contactPersonPhone").val()))
-			errors = errors+'<font color="red">יש להזין מספר טלפון איש קשר תקני<font color="red"><br>';
-		if (errors!=''){
-			$("#errorDiv").html(errors);
-			return false;
+		var errors=false;
+		if($("#deanSelect").val()=='0'){
+			errors = true;
+			$("#errordeanselect").html('<font color="red">יש לבחור מאשר לפני הגשה<font color="red"><br>');
 		}
+		else{
+			$("#errordeanselect").html('');
+		}
+		if($("#subject").val()==''){
+			errors = true;
+			$("#errorsubject").html('<font color="red">יש למלא שדה נושא הכנס<font color="red"><br>');
+		}
+		else{
+			$("#errorsubject").html('');
+		}
+		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
+		var countRegex=/^\d+$/;
+		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+		var phoneRegex = /^[\d]{2,3}-[\d]{7}$/;		
+		if(!numberRegex.test($("#totalCost").val())){
+			errors = true;
+			$("#errortotalcost").html('<font color="red">יש להכניס ערך מספרי לשדה סכום<font color="red"><br>');
+		}
+		else{
+			$("#errortotalcost").html('');
+		}
+		if(!numberRegex.test($("#supportSum").val())){
+			errors = true;
+			$("#errorsupportsum").html('<font color="red">יש להכניס ערך מספרי לשדה סכום הסיוע המבוקש<font color="red"><br>');
+		}
+		else{
+			$("#errorsupportsum").html('');
+		}
+		if(!countRegex.test($("#participants").val())){
+			errors = true;
+			$("#errorparticipants").html('<font color="red">יש להכניס ערך מספרי לשדה משתתפים<font color="red"><br>');
+		}
+		else{
+			$("#errorparticipants").html('');
+		}
+		if($("#organizingCompanyEmail").val()!='' && !emailRegex.test($("#organizingCompanyEmail").val())){
+			errors = true;
+			$("#errororganizingCompanyEmail").html('<font color="red">יש להזין כתובת אימייל חברה מארגנת תקנית<font color="red"><br>');
+		}
+		else{
+			$("#errororganizingCompanyEmail").html('');
+		}
+		if($("#contactPersonEmail").val()!='' && !emailRegex.test($("#contactPersonEmail").val())){
+			errors = true;
+			$("#errorcontactPersonEmail").html('<font color="red">יש להזין כתובת אימייל איש קשר תקנית<font color="red"><br>');
+		}
+		else{
+			$("#errorcontactPersonEmail").html('');
+		}
+		if($("#organizingCompanyPhone").val()!='' && !phoneRegex.test($("#organizingCompanyPhone").val())){
+			errors = true;
+			$("#errororganizingCompanyPhone").html('<font color="red">יש להזין מספר טלפון חברה מארגנת תקני<font color="red"><br>');
+		}
+		else{
+			$("#errororganizingCompanyPhone").html('');
+		}
+		if($("#organizingCompanyFax").val()!='' && !phoneRegex.test($("#organizingCompanyFax").val())){
+			errors = true;
+			$("#errororganizingCompanyFax").html('<font color="red">יש להזין פקס חברה מארגנת תקני<font color="red"><br>');
+		}
+		else{
+			$("#errororganizingCompanyFax").html('');
+		}
+		if($("#contactPersonPhone").val()!='' && !phoneRegex.test($("#contactPersonPhone").val())){
+			errors = true;
+			$("#errorcontactPersonPhone").html('<font color="red">יש להזין מספר טלפון איש קשר תקני<font color="red"><br>');
+		}
+		else{
+			$("#errorcontactPersonPhone").html('');
+		}
+		if (errors)
+			return false;
 		else{
 			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
     		$("#form").submit();
@@ -133,9 +181,11 @@ $(document).ready(function() {
     	$("#form").submit();
     	return true;
     });	
+	
 	$("button.submit").click(function(){
-    	$("#form").submit();
+		$("#form").submit();
     	return true;
+    	
     });	
 	
     $("#genericDialog").dialog({
@@ -152,11 +202,11 @@ $(document).ready(function() {
      });
     $(".ui-dialog-titlebar").hide();
     
-     $("#dialogInitiatingBody").hover(function(e) {
+     $("#dialogInitiatingBody").click(function(e) {
     	 	openHelp("#dialogInitiatingBody","הגוף שיוזם את הכנס");
       });
      
-     $("#dialogInitiatingBodyRole").hover(function(e) {
+     $("#dialogInitiatingBodyRole").click(function(e) {
     	 openHelp("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
    }); 
     function openHelp(name,mytext){
@@ -168,7 +218,10 @@ $(document).ready(function() {
         $("#genericDialog").text(mytext).dialog("open");
     } 
 
- 
+	<c:if test="${userMessage!=null}">
+	var userMessage = "${userMessage}";
+	$.alerts.alert(userMessage);
+    </c:if> 
 });
 
 

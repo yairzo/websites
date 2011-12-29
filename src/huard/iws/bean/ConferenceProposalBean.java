@@ -102,8 +102,8 @@ public class ConferenceProposalBean {
 		this.financialAttachContentType = "";
 		this.initiatingBody = "";
 		this.initiatingBodyRole = 0;
-		this.openDate = now.getTime();
-		this.submissionDate = now.getTime();
+		this.openDate = 0;
+		this.submissionDate = 0;
 		this.totalCost = 0;
 		this.totalCostCurrency = 0;
 		this.supportSum = 0;

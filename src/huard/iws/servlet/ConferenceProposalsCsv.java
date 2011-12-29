@@ -29,8 +29,8 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			response.setHeader("Content-disposition","attachment; filename=proposals.csv");
 			
 			RequestWrapper requestWrapper = new RequestWrapper(request);
-			String deadline = requestWrapper.getParameter("deadline", "");
-			StringBuffer cpb = generateCsvFileBuffer(deadline);
+			String prevdeadline = requestWrapper.getParameter("prevdeadline", "");
+			StringBuffer cpb = generateCsvFileBuffer(prevdeadline);
 
 			String cps = cpb.toString();
 			byte[] file = cps.getBytes();
@@ -57,7 +57,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		doGet(req, res);
 	}
 
-	private static StringBuffer generateCsvFileBuffer(String deadline) {
+	private static StringBuffer generateCsvFileBuffer(String prevdeadline) {
 		StringBuffer b = new StringBuffer();
 		b.append("id");
 		b.append(',');
@@ -105,7 +105,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append(',');
 		b.append("auditorium");
 		b.append(',');
-		b.append("seminar room");
+		b.append("seminar rodeadlineom");
 		b.append(',');
 		b.append("no. participants");
 		b.append(',');
@@ -125,7 +125,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append(',');
 		b.append("contact person phone");
 		b.append(',');
-		b.append("contact person fax");
+		b.append("contact person fdeadlineax");
 		b.append(',');
 		b.append("contact person email");
 		b.append(',');
@@ -147,7 +147,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		// get data
 		Object bean = ApplicationContextProvider.getContext().getBean("conferenceProposalListService");
 		ConferenceProposalListService conferenceProposalListService = (ConferenceProposalListService) bean;
-		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsByDate(deadline);
+		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsByDate(prevdeadline);
 		for (ConferenceProposal conferenceProposal : conferenceProposals) {
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
 			b.append(conferenceProposalBean.getId());
