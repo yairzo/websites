@@ -172,7 +172,14 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(',');
 			b.append(conferenceProposalBean.getToDate());
 			b.append(',');
-			b.append(conferenceProposalBean.getLocation());
+			String location="";
+			if(conferenceProposalBean.getLocation().equals("1"))
+				location = "אוניברסיטה";
+			else if(conferenceProposalBean.getLocation().equals("2"))
+				location = "ירושלים";
+			else
+				location = "אחר";
+			b.append(location);
 			b.append(',');
 			if(conferenceProposalBean.getLocationDetail().equals(""))
 				b.append(" ");
@@ -196,15 +203,26 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			else
 				b.append(conferenceProposalBean.getInitiatingBody());
 			b.append(',');
-			b.append(conferenceProposalBean.getInitiatingBodyRole());
+			String initiatingBodyRole="";
+			if(conferenceProposalBean.getInitiatingBodyRole()==1)
+				initiatingBodyRole = "מנהל גוף";
+			else if(conferenceProposalBean.getInitiatingBodyRole()==2)
+				initiatingBodyRole = "עובד בגוף";
+			else if(conferenceProposalBean.getInitiatingBodyRole()==3)
+				initiatingBodyRole = "ראש הגוף";
+			else if(conferenceProposalBean.getInitiatingBodyRole()==4)
+				initiatingBodyRole = "חבר בגוף";
+			else if(conferenceProposalBean.getInitiatingBodyRole()==5)
+				initiatingBodyRole = "חבר ניהולי";
+			b.append(initiatingBodyRole);
 			b.append(',');
 			b.append(conferenceProposalBean.getTotalCost());
 			b.append(',');
-			b.append(conferenceProposalBean.getTotalCostCurrency());
+			b.append(conferenceProposalBean.getTotalCostCurrency()==1?"שקל":"דולר");
 			b.append(',');
 			b.append(conferenceProposalBean.getSupportSum());
 			b.append(',');
-			b.append(conferenceProposalBean.getSupportCurrency());
+			b.append(conferenceProposalBean.getSupportCurrency()==1?"שקל":"דולר");
 			b.append(',');
 			b.append(conferenceProposalBean.getAuditorium());
 			b.append(',');
@@ -212,7 +230,16 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(',');
 			b.append(conferenceProposalBean.getParticipants());
 			b.append(',');
-			b.append(conferenceProposalBean.getPrefferedCampus());
+			String prefferedCampus="";
+			if(conferenceProposalBean.getPrefferedCampus()==1)
+				prefferedCampus = "גבעת רם";
+			else if(conferenceProposalBean.getPrefferedCampus()==2)
+				prefferedCampus = "הר הצופים";
+			else if(conferenceProposalBean.getPrefferedCampus()==3)
+				prefferedCampus = "עין כרם";
+			else if(conferenceProposalBean.getPrefferedCampus()==4)
+				prefferedCampus = "רחובות";
+			b.append(prefferedCampus);
 			b.append(',');
 			if(conferenceProposalBean.getOrganizingCompanyName().equals(""))
 				b.append(" ");

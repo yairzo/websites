@@ -74,8 +74,10 @@ public class ConferenceProposalListController extends GeneralFormController {
 			conferenceProposalBeans.add(conferenceProposalBean);
 		}
 		model.put("conferenceProposals", conferenceProposalBeans);
-		//save the searchByApprover param for paging
+		//save the search params for paging
 		model.put("searchByApprover", request.getSession().getAttribute("searchByApprover"));
+		model.put("searchBySubmitted", request.getSession().getAttribute("searchBySubmitted"));
+		model.put("searchByDeadline", request.getSession().getAttribute("searchByDeadline"));
 		// a list of possible proposal approvers
 		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
 
@@ -90,9 +92,18 @@ public class ConferenceProposalListController extends GeneralFormController {
 			SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("conferenceProposalsSearchCreteria");
 			request.getSession().setAttribute("conferenceProposalsSearchCreteria", null);
 			ListView listView = (ListView) request.getSession().getAttribute("conferenceProposalsListView");
-
 			if (searchCreteria == null){
+				//deafult view
 				searchCreteria = new SearchCreteria();
+				String whereClause ="";
+				String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				if(userPersonBean.getPrivileges().contains("ROLE_EQF_RESEARCHER")){
+					whereClause = " date(deadline)>'"+previousDeadline +"'";
+					request.getSession().setAttribute("searchBySubmitted", 2);
+				}
+				else
+					whereClause = " submitted=1 and date(deadline)>'"+previousDeadline +"'";
+				searchCreteria.setWhereClause(whereClause);
 				int roleFilterId = request.getIntParameter("rf", 0);
 				String roleFilter = Constants.getUsersRoles().get(roleFilterId);
 				if (roleFilter == null)
@@ -100,7 +111,6 @@ public class ConferenceProposalListController extends GeneralFormController {
 				searchCreteria.setRoleFilter(roleFilter);
 				listView = null;
 			}
-
 			if (listView == null){
 				listView = new ListView();
 				listView.setOrderBy("lastNameHebrew,firstNameHebrew");
@@ -119,11 +129,29 @@ public class ConferenceProposalListController extends GeneralFormController {
 			String whereClause = "";
 			SearchCreteria searchCreteria = new SearchCreteria();
 			if(request.getIntParameter("searchByApprover", 0)>0){
-				whereClause = " approverId=" + request.getIntParameter("searchByApprover", 0);
-				searchCreteria.setWhereClause(whereClause);
-				searchCommand.setSearchCreteria(searchCreteria);
+				whereClause += " approverId=" + request.getIntParameter("searchByApprover", 0);
 			}
+			if(request.getIntParameter("searchBySubmitted", 0)==0){
+					if(!whereClause.equals(""))
+						whereClause+=" and";
+					whereClause += " submitted=1";
+			}
+			else if(request.getIntParameter("searchBySubmitted", 0)==1){
+					if(!whereClause.equals(""))
+						whereClause+=" and";
+					whereClause += " submitted=0";
+			}
+			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+			if(request.getIntParameter("searchByDeadline", 0)==0){
+					if(!whereClause.equals(""))
+						whereClause+=" and";
+					whereClause += " date(deadline)>'"+previousDeadline +"'";
+			}	
+			searchCreteria.setWhereClause(whereClause);
+			searchCommand.setSearchCreteria(searchCreteria);
 			request.getSession().setAttribute("searchByApprover", request.getIntParameter("searchByApprover", 0));
+			request.getSession().setAttribute("searchBySubmitted", request.getIntParameter("searchBySubmitted", 0));
+			request.getSession().setAttribute("searchByDeadline", request.getIntParameter("searchByDeadline", 0));
 		}
 		return searchCommand;
 	}

@@ -183,6 +183,7 @@ $(document).ready(function() {
     });	
 	
 	$("button.submit").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"saved\"/>");
 		$("#form").submit();
     	return true;
     	

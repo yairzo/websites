@@ -177,7 +177,8 @@
 					<td>
 						<c:choose>
 							<c:when test="${command.location == 1}">אוניברסיטה</c:when>
-							<c:when test="${command.location == 2}">מחוץ לאוניברסיטה</c:when>
+							<c:when test="${command.location == 2}">ירושלים</c:when>
+							<c:when test="${command.location == 3}">אחר</c:when>
 						</c:choose>
 					</td>
 					</c:if>

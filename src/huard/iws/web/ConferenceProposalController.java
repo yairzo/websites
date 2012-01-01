@@ -184,8 +184,10 @@ public class ConferenceProposalController extends GeneralFormController{
 		}
 		else{
 			conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
-			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
-			request.getSession().setAttribute("userMessage", userMessage);
+			if(request.getParameter("showMessage", "").equals("saved")){
+				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
+				request.getSession().setAttribute("userMessage", userMessage);
+			}
 		}	
 		//return to same page
 		model.put("id", conferenceProposalBean.getId())	;			

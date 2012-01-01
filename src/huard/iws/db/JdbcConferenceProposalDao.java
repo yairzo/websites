@@ -222,8 +222,6 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			Timestamp aSubmissionDate = rs.getTimestamp("submissionDate");
 			if (aSubmissionDate != null)
 				submissionDate = aSubmissionDate.getTime();
-System.out.println("111111111111111 aSubmissionDate:" + aSubmissionDate);
-System.out.println("111111111111111 submissionDate:" + submissionDate);
 			conferenceProposal.setSubmissionDate(submissionDate);
 			conferenceProposal.setTotalCost(rs.getDouble("totalCost"));
 			conferenceProposal.setTotalCostCurrency(rs.getInt("totalCostCurrency"));

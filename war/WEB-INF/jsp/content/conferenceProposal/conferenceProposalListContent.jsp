@@ -42,6 +42,8 @@ $(document).ready(function() {
     $("#buttonCleanSearch").click(function(){
     	$("input#searchPhrase").val('');
        	$("#searchByApprover").val('0');
+       	$("#searchBySubmitted").val('0');
+       	$("#searchByDeadline").val('0');
    		$("input#listViewPage").remove();
 		$("input#orderBy").remove();
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
@@ -109,7 +111,20 @@ $(document).ready(function() {
        				</select>
 				  </td>
   				  </authz:authorize>
-                  <td width="200" align="right">
+ 				  <td width="100" >
+  					<select name="searchBySubmitted" id="searchBySubmitted" class="green"> 
+      				<option value="0" <c:if test="${searchBySubmitted==0}"> selected</c:if>>הוגש</option>
+      				<option value="1" <c:if test="${searchBySubmitted==1}"> selected</c:if>>לא הוגש</option>
+      				<option value="2" <c:if test="${searchBySubmitted==2}"> selected</c:if>>הוגש/לא הוגש</option>
+       				</select>
+				  </td>
+				  <td width="100" >
+  					<select name="searchByDeadline" id="searchByDeadline" class="green"> 
+      				<option value="0">הצעות לועדה הנוכחית</option>
+      				<option value="1">כולל הצעות ישנות</option>
+       				</select>
+				  </td>
+   				  <td width="200" align="right">
                     <button style="width:100" id="buttonSearch" class="grey" onclick="">חפש</button>
 					<button style="width:100" id="buttonCleanSearch" class="grey" onclick="">נקה חיפוש</button>
                   </td>
