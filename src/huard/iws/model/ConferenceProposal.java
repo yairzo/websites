@@ -69,7 +69,7 @@ public class ConferenceProposal {
 	private List<FinancialSupport> fromAssosiate;
 	private List<FinancialSupport> fromExternal;
 	private List<FinancialSupport> fromAdmitanceFee;
-	
+	private boolean deleted;
 
 	public ConferenceProposal(){
 		this.id = 0;
@@ -127,6 +127,7 @@ public class ConferenceProposal {
 		this.fromAdmitanceFee = new ArrayList<FinancialSupport>();
 		this.adminRemarks="";
 		this.deadline=0;
+		this.deleted=false;
 	}
 	
 	public int getId() {
@@ -530,4 +531,12 @@ public class ConferenceProposal {
 		this.fromAdmitanceFee = fromAdmitanceFee;
 	}
 
+	public boolean getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	
 }

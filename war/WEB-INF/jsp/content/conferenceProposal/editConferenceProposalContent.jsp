@@ -99,7 +99,7 @@
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">
 					<td>
-						<form:input cssClass="green" path="initiatingBody" /><img source="" id="dialogInitiatingBody"/>
+						<form:input cssClass="green" path="initiatingBody" /><img src="image/icon-docs-info.gif" id="dialogInitiatingBody"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">
@@ -121,7 +121,7 @@
       					<form:option value="4">חבר בגוף</form:option>
       					<form:option value="5">חבר ניהולי</form:option>
        		        	</form:select>
-       		        	<img source="" id="dialogInitiatingBodyRole"/>
+       		        	<img src="image/icon-docs-info.gif" id="dialogInitiatingBodyRole"/>
 					</td>
 					</c:if>
 					<c:if test="${roleApprover || command.submitted}">

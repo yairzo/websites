@@ -5,6 +5,7 @@ import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.constant.Constants;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.service.ConferenceProposalListService;
+import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.PersonListService;
 import huard.iws.service.RecordProtectService;
@@ -45,9 +46,21 @@ public class ConferenceProposalListController extends GeneralFormController {
 			newModel.put("id",searchCommand.getConferenceProposalId());
 			return new ModelAndView( new RedirectView("editConferenceProposal.html"),newModel);
 		}
+		
 		if (action.equals("delete") && searchCommand.getConferenceProposalId()>0){
-			System.out.println("11111111 delete " + searchCommand.getConferenceProposalId());
+			ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(searchCommand.getConferenceProposalId()));
+			origConferenceProposalBean.setDeleted(true);
+			if(origConferenceProposalBean.getSubmitted()){
+				//if was already submitted need to rearrange grades
+				origConferenceProposalBean.setSubmitted(false);
+				origConferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
+				origConferenceProposalBean.setGrade(0);
+			}
+			conferenceProposalService.updateConferenceProposal(origConferenceProposalBean.toConferenceProposal());
 		}
+		
 		if (action.equals("startGrading")){
 			//send mail to approver to start grading
 			PersonBean updatedApprover = new PersonBean(personService.getPerson(request.getIntParameter("approver", 0)));
@@ -202,7 +215,12 @@ public class ConferenceProposalListController extends GeneralFormController {
 		this.personListService = personListService;
 	}
 	
+	private ConferenceProposalService conferenceProposalService;
 
+	public void setConferenceProposalService(ConferenceProposalService conferenceProposalService) {
+		this.conferenceProposalService = conferenceProposalService;
+	}
+	
 	/*private RecordProtectService recordProtectService;
 
 	public void setRecordProtectService(RecordProtectService recordProtectService) {

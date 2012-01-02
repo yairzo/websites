@@ -73,6 +73,7 @@ public class ConferenceProposalBean {
 	private List<FinancialSupport> fromAssosiate;
 	private List<FinancialSupport> fromExternal;
 	private List<FinancialSupport> fromAdmitanceFee;
+	private boolean deleted;
 
 	public ConferenceProposalBean() {
 		Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -131,7 +132,7 @@ public class ConferenceProposalBean {
 		this.fromAssosiate = new ArrayList<FinancialSupport>();
 		this.fromExternal = new ArrayList<FinancialSupport>();
 		this.fromAdmitanceFee = new ArrayList<FinancialSupport>();
-
+		this.deleted =false;
 	}
 
 	public ConferenceProposalBean(ConferenceProposal conferenceProposal) {
@@ -199,7 +200,7 @@ public class ConferenceProposalBean {
 		this.fromAssosiate = conferenceProposal.getFromAssosiate();
 		this.fromExternal = conferenceProposal.getFromExternal();
 		this.fromAdmitanceFee = conferenceProposal.getFromAdmitanceFee();
-
+		this.deleted = conferenceProposal.getDeleted();
 		// System.out.println("beannnnnnnnnnnnnnnn:" + this.getSubject() +
 		// this.getApproverEvaluation() + this.getApproverId() +
 		// this.getDescription() + this.getLocation() + this.getLocationDetail()
@@ -265,6 +266,7 @@ public class ConferenceProposalBean {
 		conferenceProposal.setFromAssosiate(fromAssosiate);
 		conferenceProposal.setFromExternal(fromExternal);
 		conferenceProposal.setFromAdmitanceFee(fromAdmitanceFee);
+		conferenceProposal.setDeleted(deleted);
 		return conferenceProposal;
 	}
 
@@ -719,5 +721,12 @@ public class ConferenceProposalBean {
 
 	public void setFromAdmitanceFee(List<FinancialSupport> fromAdmitanceFee) {
 		this.fromAdmitanceFee = fromAdmitanceFee;
+	}
+	
+	public boolean getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 }

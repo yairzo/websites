@@ -148,23 +148,31 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposalBean.setToDate(origConferenceProposalBean.getToDate());
 		}
 		
-		if(request.getParameter("action","").equals("submitForGrading")){// && conferenceProposalBean.getApproverId()>0){
+		if(request.getParameter("action","").equals("submitForGrading")){
 			conferenceProposalBean.setSubmitted(true);
 			conferenceProposalBean.setSubmissionDate(System.currentTimeMillis());
 			//assign default grade
 			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
 		}
+		//unsubmit button
 		/*if(request.getParameter("action","").equals("unsubmitForGrading")){
-		conferenceProposalBean.setSubmitted(false);
-		conferenceProposalBean.setGrade(0);
+			conferenceProposalBean.setSubmitted(false);
+			conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
+			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+			conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
+			conferenceProposalBean.setGrade(0);
 		}*/
-		/*if(conferenceProposalBean.getSubmitted() && conferenceProposalBean.getApproverId()>0){
+		//submitted checkbox
+		/*if(conferenceProposalBean.getSubmitted()){
 			//assign default grade
 			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
 		}
 		if(!conferenceProposalBean.getSubmitted()){
+			conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
+			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+			conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
 			conferenceProposalBean.setGrade(0);
 		}*/		
 		if(request.getParameter("action","").equals("submitFaculty")){
@@ -227,7 +235,6 @@ public class ConferenceProposalController extends GeneralFormController{
 			model.put("startConfDate", formatter.format(fromDate));
 			Date toDate = new Date(conferenceProposal.getToDate());
 			model.put("endConfDate", formatter.format(toDate));
-			
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		
