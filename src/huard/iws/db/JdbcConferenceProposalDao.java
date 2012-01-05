@@ -15,6 +15,7 @@ import huard.iws.util.SQLUtils;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -181,6 +182,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		public ConferenceProposal mapRow(ResultSet rs, int rowNum) throws SQLException{
 			ConferenceProposal conferenceProposal = new ConferenceProposal();
 			conferenceProposal.setId(rs.getInt("id"));
+			conferenceProposal.setInternalId(rs.getInt("internalId"));
 			conferenceProposal.setPersonId(rs.getInt("personId"));
 			conferenceProposal.setApproverId(rs.getInt("approverId"));
 			conferenceProposal.setApproverEvaluation(rs.getString("approverEvaluation"));
@@ -250,6 +252,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				deadline = adeadline.getTime();
 			conferenceProposal.setDeadline(deadline);
 			conferenceProposal.setDeleted(rs.getBoolean("deleted"));
+			conferenceProposal.setDeadlineRemarks(rs.getString("deadlineRemarks"));
             return conferenceProposal;
         }
 	};
@@ -257,6 +260,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		public ConferenceProposal mapRow(ResultSet rs, int rowNum) throws SQLException{
 			ConferenceProposal conferenceProposal = new ConferenceProposal();
 			conferenceProposal.setId(rs.getInt("conferenceProposalId"));
+			conferenceProposal.setInternalId(rs.getInt("internalId"));
 			conferenceProposal.setPersonId(rs.getInt("personId"));
 			conferenceProposal.setApproverId(rs.getInt("approverId"));
 			conferenceProposal.setApproverEvaluation(rs.getString("approverEvaluation"));
@@ -326,12 +330,26 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			if (adeadline != null)
 				deadline = adeadline.getTime();
 			conferenceProposal.setDeadline(deadline);
+			conferenceProposal.setDeadlineRemarks(rs.getString("deadlineRemarks"));
             return conferenceProposal;
         }
 	};
 
 	public int insertConferenceProposal(ConferenceProposal conferenceProposal){
-		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?;";
+		String query = "select max(internalId) from conferenceProposal;";
+		int maxInternal= getSimpleJdbcTemplate().queryForInt(query);
+		System.out.println(maxInternal);
+		Calendar now = Calendar.getInstance();
+		int internalYear=now.get(Calendar.YEAR) * 10000;
+		System.out.println(internalYear);
+		final int internalId;
+		if(maxInternal>internalYear)
+			internalId=maxInternal +1;
+		else
+			internalId=internalYear+1;
+		System.out.println(internalId);
+		
+		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?;";
 		final int personId = conferenceProposal.getPersonId();
 		final long deadline = conferenceProposal.getDeadline();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -342,12 +360,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		                connection.prepareStatement(proposalInsert, new String[] {"id"});
 		            ps.setInt(1, personId);
 		            ps.setTimestamp(2, new java.sql.Timestamp(deadline));
+		            ps.setInt(3, internalId);
 		            return ps;
 		        }
 		    },
 		    keyHolder);
 		final int key=keyHolder.getKey().intValue();
-		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?;";
+		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?;";
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -356,6 +375,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		            ps.setInt(1, key);
 		            ps.setInt(2, personId);
 		            ps.setTimestamp(3, new java.sql.Timestamp(deadline));
+		            ps.setInt(4, internalId);
 		            return ps;
 		        }
 		    });
@@ -366,6 +386,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	public void updateConferenceProposal(ConferenceProposal conferenceProposal){
 		String query = "update conferenceProposal set " +
 				" personId = ?" +
+				", internalId = ?" +
 				", approverId = ?" +
 				", approverEvaluation = ?" +				
 				", grade = ?" +				
@@ -414,9 +435,11 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", adminRemarks= ?" + 
 				", deadline= ?" + 
 				", deleted= ?" + 
+				", deadlineRemarks= ?" + 
 				" where id = ?;";
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposal.getPersonId(),
+				conferenceProposal.getInternalId(),
 				conferenceProposal.getApproverId(),
 				conferenceProposal.getApproverEvaluation(),
 				conferenceProposal.getGrade(),
@@ -465,12 +488,14 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getAdminRemarks(),	
 				new java.sql.Timestamp(conferenceProposal.getDeadline()),
 				conferenceProposal.getDeleted(),
+				conferenceProposal.getDeadlineRemarks(),	
 				conferenceProposal.getId());
 		
 		//insert to version table
 		 String proposalVersionInsert = "insert conferenceProposalVersion set "+
 				" conferenceProposalId = ?" +
 				", personId = ?" + 
+				", internalId = ?" +
 				", approverId = ?" + 
 				", approverEvaluation = ?" +
 				", grade = ?" +
@@ -518,11 +543,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", contactPersonEmail= ?" + 
 				", adminRemarks= ?" + 
 				", deadline= ?" + 
+				", deadlineRemarks= ?" + 
 				";";
 
 		
 		getSimpleJdbcTemplate().update(proposalVersionInsert,conferenceProposal.getId(),
 				conferenceProposal.getPersonId(),
+				conferenceProposal.getInternalId(),
 				conferenceProposal.getApproverId(),
 				conferenceProposal.getApproverEvaluation(),
 				conferenceProposal.getGrade(),
@@ -569,7 +596,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getContactPersonFax(),
 				conferenceProposal.getContactPersonEmail(),				
 				conferenceProposal.getAdminRemarks(),
-				new java.sql.Timestamp(conferenceProposal.getDeadline()));
+				new java.sql.Timestamp(conferenceProposal.getDeadline()),
+				conferenceProposal.getDeadlineRemarks());
 	}
 
 
@@ -698,6 +726,11 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		String query = "update conferenceProposal set grade=grade-1 where deleted=0 and grade>? and approverId=? and date(deadline)>'"+prevdeadline +"';";
 		System.out.println(query);
 		getSimpleJdbcTemplate().update(query,grade,approverId);
+	}
+	public void updateDeadlineRemarks(int approverId, String prevdeadline, String deadlineRemarks){
+		String query = "update conferenceProposal set deadlineRemarks =? where deleted=0 and approverId=? and submitted=1 and date(deadline)>'"+prevdeadline +"';";
+		System.out.println(query);
+		getSimpleJdbcTemplate().update(query,deadlineRemarks,approverId);
 	}
 
 }

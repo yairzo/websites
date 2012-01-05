@@ -40,11 +40,67 @@ $(document).ready(function() {
 	
 
      $("#buttonStopGrading").click(function(){
- 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"stopGrading\"/>");
-    	$("#form").submit();
-    	return true;
-    });
-
+   		var errors="";
+ 		if($("#deadlineRemarks").val()==''){
+ 			errors = "לא נרשמה הערה כללית לועדה. ";
+ 		}
+ 		var evaluation=false;
+        <c:forEach items="${conferenceProposals}" var="conferenceProposal">
+        <c:if test="${fn:length(conferenceProposal.approverEvaluation)>0}">
+         evaluation=true;	
+        </c:if>
+        </c:forEach>
+		if(evaluation)
+	        errors += " לא נרשמה חוות דעת לכל ההצעות. ";
+        if(errors!=''){
+        	errors += "האם ברצונך לסיים את תהליך ההגשה? "
+        	$.alerts.confirm(errors, "סיום הגשה",
+        		function(confirm){
+         	 	if (confirm==1){
+      	 	 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"stopGrading\"/>");
+          	   		$("#form").submit();
+          	   		return true;
+         	 	}
+         	 	else{
+     				return false;
+         	 	}
+         	 });
+ 		}  
+        return false;
+ 	});
+     
+     $("#buttonSaveDeadlineRemarks").click(function(){
+	  		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"saveDeadlineRemarks\"/>");
+  	   		$("#form").submit();
+  	   		return true;
+ 	 });
+     
+     $("#sssssssbuttonsssss").click(function(){
+  		var errors="";
+ 		if($("#deadlineRemarks").val()==''){
+ 			errors = " .לא רשמת הערה כללית לועדה";
+ 		}
+ 		var evaluation=false;
+        <c:forEach items="${conferenceProposals}" var="conferenceProposal">
+        <c:if test="${fn:length(conferenceProposal.approverEvaluation)>0}">
+         evaluation=true;	
+        </c:if>
+        </c:forEach>
+		if(evaluation)
+	         errors += " לא נרשמה חוות דעת לכל ההצעות. ";
+        if(errors!=''){
+        	errors += "האם ברצונך לסיים את תהליך ההגשה? "
+  			var answer= confirm(errors);
+  	 		if (answer){
+  	 	 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"stopGrading\"/>");
+      	   		$("#form").submit();
+      	   		return true;
+    	 		}
+  	 		else{
+  				return false;
+  	 		}
+ 		}
+      });
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 
@@ -136,6 +192,14 @@ $(document).ready(function() {
 	   </c:forEach>
 	   
 	   	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+		<tr><td>הערה כללית לועדה:</td>
+		</tr>
+	    <tr>
+		<td>
+  			<textarea class="green" name="deadlineRemarks" id="deadlineRemarks" rows="2" cols="80">${deadlineRemarks}</textarea>
+			<button style="width:100" id="buttonSaveDeadlineRemarks" class="grey" />שמור הערה</button>
+		</td>
+		</tr>
 	    <tr>
 		<td>
 			<button id="buttonStopGrading" class="grey" />תהליך הדירוג הסתיים</button>

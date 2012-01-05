@@ -2,7 +2,10 @@ package huard.iws.servlet;
 
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.FinancialSupport;
+import huard.iws.model.Committee;
 import huard.iws.service.ConferenceProposalListService;
+import huard.iws.service.ConferenceProposalService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.RequestWrapper;
 
@@ -309,6 +312,78 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(',');
 			b.append(conferenceProposalBean.getDeadline());
 			b.append('\n');
+			bean = ApplicationContextProvider.getContext().getBean("conferenceProposalService");
+			ConferenceProposalService conferenceProposalService = (ConferenceProposalService) bean;
+			ConferenceProposalBean cp = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
+			List<FinancialSupport> fromAssosiates = cp.getFromAssosiate();
+			for(FinancialSupport financialSupport: fromAssosiates){
+				b.append(conferenceProposalBean.getId());
+				b.append(',');
+				b.append(financialSupport.getName());
+				b.append(',');
+				b.append(financialSupport.getSum());
+				b.append(',');
+				b.append(financialSupport.getCurrency().equals("1")?"שקל":"דולר");
+				b.append(',');
+				b.append("שותפים");
+				b.append('\n');
+			}
+			List<FinancialSupport> fromExternals = cp.getFromExternal();
+			for(FinancialSupport financialSupport: fromExternals){
+				b.append(conferenceProposalBean.getId());
+				b.append(',');
+				b.append(financialSupport.getName());
+				b.append(',');
+				b.append(financialSupport.getSum());
+				b.append(',');
+				b.append(financialSupport.getCurrency().equals("1")?"שקל":"דולר");
+				b.append(',');
+				b.append("גוף חיצוני");
+				b.append('\n');
+			}
+			List<FinancialSupport> fromAdmitanceFee = cp.getFromAdmitanceFee();
+			for(FinancialSupport financialSupport: fromAdmitanceFee){
+				b.append(conferenceProposalBean.getId());
+				b.append(',');
+				b.append(financialSupport.getName());
+				b.append(',');
+				b.append(financialSupport.getSum());
+				b.append(',');
+				b.append(financialSupport.getCurrency());
+				b.append(',');
+				b.append("דמי רישום");
+				b.append('\n');
+			}
+			List<Committee> ScientificCommittees = cp.getScientificCommittees();
+			for (Committee committee: ScientificCommittees){
+				b.append(conferenceProposalBean.getId());
+				b.append(',');
+				b.append(committee.getName());
+				b.append(',');
+				b.append(committee.getInstitute());
+				b.append(',');
+				b.append(committee.getInstituteRole());
+				b.append(',');
+				b.append(committee.getCommitteeRole());
+				b.append(',');
+				b.append("ועדה מדעית");
+				b.append('\n');
+			}
+			List<Committee> OperationalCommittees = cp.getOperationalCommittees();
+			for (Committee committee: OperationalCommittees){
+				b.append(conferenceProposalBean.getId());
+				b.append(',');
+				b.append(committee.getName());
+				b.append(',');
+				b.append(committee.getInstitute());
+				b.append(',');
+				b.append(committee.getInstituteRole());
+				b.append(',');
+				b.append(committee.getCommitteeRole());
+				b.append(',');
+				b.append("ועדה מבצעת");
+				b.append('\n');
+			}
 		}
 		return b;
 	}

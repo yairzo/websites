@@ -13,6 +13,7 @@ import java.util.List;
 public class ConferenceProposalBean {
 
 	private int id;
+	private int internalId;
 	private int personId;
 	private int approverId;
 	private String approverEvaluation;
@@ -74,10 +75,12 @@ public class ConferenceProposalBean {
 	private List<FinancialSupport> fromExternal;
 	private List<FinancialSupport> fromAdmitanceFee;
 	private boolean deleted;
+	private String deadlineRemarks;
 
 	public ConferenceProposalBean() {
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		this.id = 0;
+		this.internalId = 0;
 		this.personId = 0;
 		this.approverId = 0;
 		this.approverEvaluation = "";
@@ -133,10 +136,12 @@ public class ConferenceProposalBean {
 		this.fromExternal = new ArrayList<FinancialSupport>();
 		this.fromAdmitanceFee = new ArrayList<FinancialSupport>();
 		this.deleted =false;
+		this.deadlineRemarks="";
 	}
 
 	public ConferenceProposalBean(ConferenceProposal conferenceProposal) {
 		this.id = conferenceProposal.getId();
+		this.internalId = conferenceProposal.getInternalId();
 		this.personId = conferenceProposal.getPersonId();
 		this.approverId = conferenceProposal.getApproverId();
 		this.approverEvaluation = conferenceProposal.getApproverEvaluation();
@@ -201,6 +206,7 @@ public class ConferenceProposalBean {
 		this.fromExternal = conferenceProposal.getFromExternal();
 		this.fromAdmitanceFee = conferenceProposal.getFromAdmitanceFee();
 		this.deleted = conferenceProposal.getDeleted();
+		this.deadlineRemarks = conferenceProposal.getDeadlineRemarks();
 		// System.out.println("beannnnnnnnnnnnnnnn:" + this.getSubject() +
 		// this.getApproverEvaluation() + this.getApproverId() +
 		// this.getDescription() + this.getLocation() + this.getLocationDetail()
@@ -210,6 +216,7 @@ public class ConferenceProposalBean {
 	public ConferenceProposal toConferenceProposal() {
 		ConferenceProposal conferenceProposal = new ConferenceProposal();
 		conferenceProposal.setId(id);
+		conferenceProposal.setInternalId(internalId);
 		conferenceProposal.setPersonId(personId);
 		conferenceProposal.setApproverId(approverId);
 		conferenceProposal.setApproverEvaluation(approverEvaluation);
@@ -267,6 +274,7 @@ public class ConferenceProposalBean {
 		conferenceProposal.setFromExternal(fromExternal);
 		conferenceProposal.setFromAdmitanceFee(fromAdmitanceFee);
 		conferenceProposal.setDeleted(deleted);
+		conferenceProposal.setDeadlineRemarks(deadlineRemarks);
 		return conferenceProposal;
 	}
 
@@ -278,6 +286,13 @@ public class ConferenceProposalBean {
 		this.id = id;
 	}
 
+	public int getInternalId() {
+		return internalId;
+	}
+	public void setInternalId(int internalId) {
+		this.internalId = internalId;
+	}
+	
 	public PersonBean getResearcher() {
 		PersonService personService = (PersonService) ApplicationContextProvider
 				.getContext().getBean("personService");
@@ -729,4 +744,11 @@ public class ConferenceProposalBean {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+	
+	public String getDeadlineRemarks(){
+		return deadlineRemarks;
+	}
+	public void setDeadlineRemarks(String deadlineRemarks){
+		this.deadlineRemarks = deadlineRemarks;
+	}	
 }

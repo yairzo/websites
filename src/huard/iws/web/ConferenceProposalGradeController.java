@@ -68,6 +68,10 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			//send mail to admins list
 			mailMessageService.createDeanGradeFinishedGradingMail(userPersonBean,"finishedGrading");
 		}
+		if (action.equals("saveDeadlineRemarks")){
+			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+			conferenceProposalService.updateDeadlineRemarks(userPersonBean.getId(),previousDeadline,request.getParameter("deadlineRemarks", ""));
+		}		
 
 		return new ModelAndView(new RedirectView(getSuccessView()), newModel);
 	}
@@ -81,12 +85,15 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(gradeCommand.getListView(),gradeCommand.getSearchCreteria(),userPersonBean);
 		List<ConferenceProposalBean> conferenceProposalBeans = new ArrayList<ConferenceProposalBean>();
+		String deadlineRemarks="";
 		for (ConferenceProposal conferenceProposal: conferenceProposals){
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
 			//personBean.setBusyRecord(recordProtectService.isRecordBusy("person",personBean.getId(), userPersonBean.getUsername()));
 			conferenceProposalBeans.add(conferenceProposalBean);
+			deadlineRemarks = conferenceProposalBean.getDeadlineRemarks();
 		}
 		model.put("conferenceProposals", conferenceProposalBeans);
+		model.put("deadlineRemarks", deadlineRemarks);
 
 		return new ModelAndView (this.getFormView(), model);
 	}

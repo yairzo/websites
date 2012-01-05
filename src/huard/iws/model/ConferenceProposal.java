@@ -6,6 +6,7 @@ import java.util.List;
 public class ConferenceProposal {
 
 	private int id;
+	private int internalId;
 	private int personId;
 	private int approverId;
 	private String approverEvaluation;
@@ -70,9 +71,11 @@ public class ConferenceProposal {
 	private List<FinancialSupport> fromExternal;
 	private List<FinancialSupport> fromAdmitanceFee;
 	private boolean deleted;
+	private String deadlineRemarks;
 
 	public ConferenceProposal(){
 		this.id = 0;
+		this.internalId=0;
 		this.personId = 0;
 		this.approverId = 0;
 		this.approverEvaluation="";
@@ -128,6 +131,7 @@ public class ConferenceProposal {
 		this.adminRemarks="";
 		this.deadline=0;
 		this.deleted=false;
+		this.deadlineRemarks="";
 	}
 	
 	public int getId() {
@@ -136,7 +140,14 @@ public class ConferenceProposal {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
+	public int getInternalId() {
+		return internalId;
+	}
+	public void setInternalId(int internalId) {
+		this.internalId = internalId;
+	}
+
 	public int getPersonId() {
 		return personId;
 	}
@@ -538,5 +549,11 @@ public class ConferenceProposal {
 		this.deleted = deleted;
 	}
 	
+	public String getDeadlineRemarks(){
+		return deadlineRemarks;
+	}
+	public void setDeadlineRemarks(String deadlineRemarks){
+		this.deadlineRemarks = deadlineRemarks;
+	}	
 	
 }

@@ -55,4 +55,7 @@ public interface ConferenceProposalDao {
 	public void deleteFinancialSupport(int financialSupportId);
 	
 	public void deleteCommittee(int committeeId);
+	
+	public void updateDeadlineRemarks(int approverId, String prevdeadline, String deadlineRemarks);
+
 }

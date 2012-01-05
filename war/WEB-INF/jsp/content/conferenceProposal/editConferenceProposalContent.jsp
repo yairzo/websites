@@ -20,6 +20,7 @@
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" action="editConferenceProposal.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
+ 			<form:hidden path="internalId"/>
  			<form:hidden path="versionId"/>
  			<form:hidden path="personId"/>
  			
@@ -48,6 +49,11 @@
 						מספר בקשה:
 					</td>
 					<td  width="250">${command.id}
+					</td>
+					<td  width="250">
+						מספר פנימי:
+					</td>
+					<td  width="250">${command.internalId}
 					</td>
 				</tr>
                 <tr class="form">

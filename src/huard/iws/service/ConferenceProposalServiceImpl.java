@@ -108,6 +108,11 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 		conferenceProposalDao.deleteCommittee(committeeId);
 	}
 
+	public void updateDeadlineRemarks(int approverId, String prevdeadline, String deadlineRemarks){
+		conferenceProposalDao.updateDeadlineRemarks(approverId, prevdeadline, deadlineRemarks);
+	}
+	
+	
 	private ConferenceProposalDao conferenceProposalDao;
 
 	public ConferenceProposalDao getConferenceProposalDao() {
