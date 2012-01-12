@@ -41,7 +41,7 @@ public class FileViewer extends HttpServlet {
 		byte [] file = null;
 		String contentType = requestWrapper.getParameter("contentType", "");
 		int attachmentId = requestWrapper.getIntParameter("attachmentId", 0);
-		if (contentType.isEmpty() || attachmentId <= 0 )
+		if (attachmentId <= 0 )
 			return;
 		
 		int proposalId = requestWrapper.getIntParameter("proposalId", 0);
@@ -112,9 +112,18 @@ public class FileViewer extends HttpServlet {
 
 			ConferenceProposal conferenceProposal = conferenceProposalService.getConferenceProposal(conferenceProposalId);
 
-			if (attachFile.equals("guestsAttach")) file = conferenceProposal.getGuestsAttach();
-			else if (attachFile.equals("programAttach")) file = conferenceProposal.getProgramAttach();
-			else if (attachFile.equals("financialAttach")) file = conferenceProposal.getFinancialAttach();
+			if (attachFile.equals("guestsAttach")){
+				file = conferenceProposal.getGuestsAttach();
+				contentType=conferenceProposal.getGuestsAttachContentType();
+			}
+			else if (attachFile.equals("programAttach")){
+				file = conferenceProposal.getProgramAttach();
+				contentType=conferenceProposal.getProgramAttachContentType();
+			}
+			else if (attachFile.equals("financialAttach")){
+				file = conferenceProposal.getFinancialAttach();
+				contentType=conferenceProposal.getFinancialAttachContentType();
+			}
 			else return;
 
 		}

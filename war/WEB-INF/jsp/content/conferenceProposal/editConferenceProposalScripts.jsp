@@ -11,7 +11,6 @@ $(document).ready(function() {
 
 	$('.autosaveclass').autoSave(function(){
 		if ("${command.versionId}"==0){
-			$.alerts.alert("...saving");
 		   var options = {
 	       	 	url:       'editConferenceProposal.html' ,        
 	       	 	type:      'POST'
@@ -22,7 +21,43 @@ $(document).ready(function() {
 			return false;
     }, {delay: 2000});	
 	
-	
+	$('#guestsAttach').change(function(){
+		if ("${command.versionId}"==0){
+		   var options = {
+	       	 	url:       'editConferenceProposal.html' ,        
+	       	 	type:      'POST'
+	     	};
+		    $('#form').ajaxSubmit(options);
+		    $('#guestsAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&attachmentId=1' target='_blank'>רשימת מוזמנים</a><img src='image/icon_somefile.gif'/>");
+		}
+		else 
+			return false;
+	});	
+	$('#programAttach').change(function(){
+		
+		if ("${command.versionId}"==0){
+		   var options = {
+	       	 	url:       'editConferenceProposal.html' ,        
+	       	 	type:      'POST'
+	     	};
+		    $('#form').ajaxSubmit(options);
+		   	$('#programAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&attachmentId=1' target='_blank'>תוכנית הכנס</a><img src='image/icon_somefile.gif'/>");
+		}
+		else 
+			return false;
+	});		
+	$('#financialAttach').change(function(){
+		if ("${command.versionId}"==0){
+		   var options = {
+	       	 	url:       'editConferenceProposal.html' ,        
+	       	 	type:      'POST'
+	     	};
+		    $('#form').ajaxSubmit(options);
+		    $('#financialAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&attachmentId=1' target='_blank'>תוכנית תקציבית</a><img src='image/icon_somefile.gif'/>");
+		}
+		else 
+			return false;
+	});		
 
 	if($('#company').attr('checked') || $('#companyViewOnly').attr('checked'))
 		$('.organizingCompanyPart').show();
@@ -195,19 +230,14 @@ $(document).ready(function() {
            hide: 'fade',
            modal: false,
            width: 200,
-           buttons: {
-               "Close": function() {
-                   $(this).dialog("close");
-               }
-           }
      });
     $(".ui-dialog-titlebar").hide();
     
-     $("#dialogInitiatingBody").click(function(e) {
+     $("#dialogInitiatingBody").mouseover(function(e) {
     	 	openHelp("#dialogInitiatingBody","הגוף שיוזם את הכנס");
       });
      
-     $("#dialogInitiatingBodyRole").click(function(e) {
+     $("#dialogInitiatingBodyRole").mouseover(function(e) {
     	 openHelp("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
    }); 
     function openHelp(name,mytext){
@@ -218,7 +248,13 @@ $(document).ready(function() {
         $("#genericDialog").dialog("option", "position", [(linkOffset.left - 200/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
         $("#genericDialog").text(mytext).dialog("open");
     } 
-
+    $("#genericDialog").click(function(e){
+    	$("#genericDialog").dialog("close");
+    });
+    $("#form").click(function(e){
+    	$("#genericDialog").dialog("close");
+    });    
+    
 	<c:if test="${userMessage!=null}">
 	var userMessage = "${userMessage}";
 	$.alerts.alert(userMessage);

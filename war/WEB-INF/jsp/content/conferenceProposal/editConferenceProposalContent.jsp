@@ -167,7 +167,7 @@
 				
 				<tr class="form">
 					<td  width="250">
-						 מיקום בארץ:
+						 מיקום:
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">
 					<td  width="250">
@@ -324,12 +324,14 @@
 				       </td>
 						<td colspan="3">
 						<c:if test="${!roleApprover && !command.submitted}">
-						<input class="green" type="file" name="guestsAttach"/> &nbsp; <button class="grey" onclick="">שמור</button>
+						<input class="green" type="file" name="guestsAttach" id="guestsAttach"/>
 						</c:if>
+						<span id="guestsAttachDiv">
 						<c:if test="${fn:length(command.guestsAttach)>0}">
 							<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&contentType=${command.guestsAttachContentType}&attachmentId=1"
-								target="_blank">רשימת מוזמנים</a></td>
+								target="_blank">רשימת מוזמנים</a><img src="image/icon_somefile.gif"/>
 						</c:if>
+						</span>
 						</td>
 				</tr>
 				<tr class="form">
@@ -337,12 +339,14 @@
 				       </td>
 						<td colspan="3">
 						<c:if test="${!roleApprover && !command.submitted}">
-						<input class="green" type="file" name="programAttach"/> &nbsp; <button class="grey" onclick="">שמור</button>
+						<input class="green" type="file" name="programAttach" id="programAttach"/>  
 						</c:if>
+						<span id="programAttachDiv">
 						<c:if test="${fn:length(command.programAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&contentType=${command.programAttachContentType}&attachmentId=1"
-							target="_blank">תוכנית הכנס</a></td>
+							target="_blank">תוכנית הכנס</a><img src="image/icon_somefile.gif"/>
 						</c:if>
+						</span>
 						</td>
 				</tr>
 				<tr class="form">
@@ -350,12 +354,14 @@
 				       </td>
 						<td colspan="3">
 						<c:if test="${!roleApprover && !command.submitted}">
-						<input class="green" type="file" name="financialAttach"/> &nbsp; <button class="grey" onclick="">שמור</button>
+						<input class="green" type="file" name="financialAttach" id="financialAttach"/> 
 						</c:if>
+						<span id="financialAttachDiv">
 						<c:if test="${fn:length(command.financialAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&contentType=${command.financialAttachContentType}&attachmentId=1"
-							target="_blank">תוכנית תקציבית</a></td>
+							target="_blank">תוכנית תקציבית</a><img src="image/icon_somefile.gif"/>
 						</c:if>
+						</span>
 						</td>
 				</tr>
 				<tr>
@@ -562,7 +568,7 @@
 					<c:if test="${!roleApprover && !command.submitted}">
 					<tr>
 					<td>
-						<input type="text" class="green" name="fromAdmitanceFee_name"/>
+						<input type="text" class="green" name="fromAdmitanceFee_name" value="משתתפים"/>
 					</td>
 					<td>
 						<input type="text" class="green" name="fromAdmitanceFee_sum" />
@@ -969,7 +975,7 @@
         		 </tr>
 				<tr class="form">
 					<td  width="250">
-						 הערות לפני הגשה:
+						 הערות לועדה:
 					</td>
 					<c:if test="${!roleApprover && !command.submitted}">			
 					<td colspan="3"  >

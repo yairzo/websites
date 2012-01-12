@@ -97,14 +97,6 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposalService.deleteCommittee(request.getIntParameter("committeeId", 0));
 		}
 
-		//if not added attachment don't override prev attachment
-		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
-		if(conferenceProposalBean.getGuestsAttach().length==0)
-			conferenceProposalBean.setGuestsAttach(origConferenceProposalBean.getGuestsAttach());
-		if(conferenceProposalBean.getProgramAttach().length==0)
-			conferenceProposalBean.setProgramAttach(origConferenceProposalBean.getProgramAttach());
-		if(conferenceProposalBean.getFinancialAttach().length==0)
-			conferenceProposalBean.setFinancialAttach(origConferenceProposalBean.getFinancialAttach());
 
 		// this part saves the content type of the attachments
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
@@ -113,10 +105,10 @@ public class ConferenceProposalController extends GeneralFormController{
 			while (fileNames.hasNext()) {
 				String filename = (String) fileNames.next();
 				MultipartFile file = multipartRequest.getFile(filename);
-				if (filename.equals("guestsAttach") && conferenceProposalBean.getFinancialAttach()!=null && conferenceProposalBean.getGuestsAttach().length>0){
+				if (filename.equals("guestsAttach") && conferenceProposalBean.getGuestsAttach()!=null && conferenceProposalBean.getGuestsAttach().length>0){
 					conferenceProposalBean.setGuestsAttachContentType(file.getContentType());
 				}
-				else if (filename.equals("programAttach") && conferenceProposalBean.getFinancialAttach()!=null && conferenceProposalBean.getProgramAttach().length>0){
+				else if (filename.equals("programAttach") && conferenceProposalBean.getProgramAttach()!=null && conferenceProposalBean.getProgramAttach().length>0){
 					conferenceProposalBean.setProgramAttachContentType(file.getContentType());
 				}
 				else if (filename.equals("financialAttach") && conferenceProposalBean.getFinancialAttach()!=null && conferenceProposalBean.getFinancialAttach().length>0){
@@ -124,7 +116,20 @@ public class ConferenceProposalController extends GeneralFormController{
 				}
 			}
 		}		
-		
+		//if not added attachment don't override prev attachment
+		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
+		if(conferenceProposalBean.getGuestsAttach().length==0){
+			conferenceProposalBean.setGuestsAttach(origConferenceProposalBean.getGuestsAttach());
+			conferenceProposalBean.setGuestsAttachContentType(origConferenceProposalBean.getGuestsAttachContentType());
+		}
+		if(conferenceProposalBean.getProgramAttach().length==0){
+			conferenceProposalBean.setProgramAttach(origConferenceProposalBean.getProgramAttach());
+			conferenceProposalBean.setProgramAttachContentType(origConferenceProposalBean.getProgramAttachContentType());
+		}
+		if(conferenceProposalBean.getFinancialAttach().length==0){
+			conferenceProposalBean.setFinancialAttach(origConferenceProposalBean.getFinancialAttach());
+			conferenceProposalBean.setFinancialAttachContentType(origConferenceProposalBean.getFinancialAttachContentType());
+		}		
 		//set fields that don't appear in the page
 		conferenceProposalBean.setGrade(origConferenceProposalBean.getGrade());
 		conferenceProposalBean.setDeadline(origConferenceProposalBean.getDeadline());
@@ -202,7 +207,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}	
 		//return to same page
-		model.put("id", conferenceProposalBean.getId())	;			
+		model.put("id", conferenceProposalBean.getId())	;
 		return new ModelAndView(new RedirectView("editConferenceProposal.html"),model);
 	}
 	
