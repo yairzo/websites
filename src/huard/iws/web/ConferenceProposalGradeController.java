@@ -65,6 +65,8 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			return new ModelAndView( new RedirectView("editConferenceProposal.html"),newModel);
 		}*/
 		if (action.equals("stopGrading")){
+			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+			conferenceProposalListService.updateLastGradingByApproverDeadline(userPersonBean.getId(),deadline);
 			//send mail to admins list
 			mailMessageService.createDeanGradeFinishedGradingMail(userPersonBean,"finishedGrading");
 		}

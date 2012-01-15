@@ -4,6 +4,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.constant.Constants;
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.MailMessageService;
@@ -13,7 +14,10 @@ import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.SearchCreteria;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +66,15 @@ public class ConferenceProposalListController extends GeneralFormController {
 		}
 		
 		if (action.equals("startGrading")){
+			ConferenceProposalGrading conferenceProposalGrading = new ConferenceProposalGrading();
+			conferenceProposalGrading.setApproverId(request.getIntParameter("approver", 0));
+			conferenceProposalGrading.setAdminId(userPersonBean.getId());
+			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+			DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+			Date deadlineD = (Date)formatter.parse(deadline); 
+			conferenceProposalGrading.setDeadline(deadlineD.getTime());
+			conferenceProposalGrading.setFinishedGradingDate(1000);
+			conferenceProposalListService.insertGradingInfo(conferenceProposalGrading);
 			//send mail to approver to start grading
 			PersonBean updatedApprover = new PersonBean(personService.getPerson(request.getIntParameter("approver", 0)));
 			if (updatedApprover.isValidEmail()) 
@@ -93,7 +106,10 @@ public class ConferenceProposalListController extends GeneralFormController {
 		model.put("searchByDeadline", request.getSession().getAttribute("searchByDeadline"));
 		// a list of possible proposal approvers
 		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
-
+		
+		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+		List<ConferenceProposalGrading> conferenceProposalGradings = conferenceProposalListService.getAllGradingsByCurrentDeadline(deadline);
+		model.put("conferenceProposalGradings", conferenceProposalGradings);
 		return new ModelAndView (this.getFormView(), model);
 	}
 

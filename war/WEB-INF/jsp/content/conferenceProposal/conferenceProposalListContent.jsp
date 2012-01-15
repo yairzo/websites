@@ -83,7 +83,7 @@ $(document).ready(function() {
   </tr>
   <tr>
     <td>
-      <table width="700" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
+      <table width="900" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
         <tr>
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" commandName="command" action="conferenceProposals.html">
@@ -91,14 +91,14 @@ $(document).ready(function() {
             	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
             	<input type="hidden" name="searchCreteria.roleFilter" value="${command.searchCreteria.roleFilter}"/>
 
-              <table width="700" border="0" align="center" cellpadding="3" dir="rtl">
+              <table width="900" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
-                  <td colspan="2" align="center"><h1>רשימת ההצעות</h1>
+                  <td colspan="5" align="center"><h1>רשימת ההצעות</h1>
                   </td>
                 </tr>
                 <tr>
  				  <authz:authorize ifNotGranted="ROLE_EQF_RESEARCHER">
-                  <td width="300" align="center" valign="center">
+                  <td width="250">
                   חוקר:<form:input cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
                   </td>
   				  </authz:authorize>
@@ -130,16 +130,15 @@ $(document).ready(function() {
       				<option value="1">כולל הצעות ישנות</option>
        				</select>
 				  </td>
-   				  <td width="200" align="right">
-                    <button style="width:100" id="buttonSearch" class="grey" onclick="">חפש</button>
-					<button style="width:100" id="buttonCleanSearch" class="grey" onclick="">נקה חיפוש</button>
+  				  <td width="300">
+                    <button style="width:70" id="buttonSearch" class="grey" onclick="">חפש</button>&nbsp;<button style="width:100" id="buttonCleanSearch" class="grey" onclick="">נקה חיפוש</button>
                   </td>
+				</tr>
+               <tr>
+                  <td colspan="5"><img src="image/hr.gif" width="900" height="10"></td>
                 </tr>
 
-                <tr>
-                  <td colspan="2"><img src="image/hr.gif" width="380" height="10"></td>
-                </tr>
-              </table>
+               </table>
 
 			<table width="900" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
               <thead>
@@ -147,20 +146,20 @@ $(document).ready(function() {
   				<td align="right">
 				  	<table>
  						<tr>
- 						<td width="20"></td>
-				  		<td width="100">שם החוקר/ת</td>
-				  		<td width="300">נושא הכנס</td>
-				  		<td width="100">האם הוגש</td>
-				  		<td width="100">דיקן</td>
-				  		<td></td>
+ 						<th width="20"></th>
+				  		<th width="100">שם החוקר/ת</th>
+				  		<th width="300">נושא הכנס</th>
+				  		<th width="100">האם הוגש</th>
+				  		<th width="100">דיקן</th>
+				  		<th></th>
 				  		</tr>
   					</table>
   				</td>
   	  			</tr>
   	  		</thead>
-              <c:forEach items="${conferenceProposals}" var="conferenceProposal">
+              <c:forEach items="${conferenceProposals}" var="conferenceProposal" varStatus="varStatus">
              <tbody>
-  				<tr>
+  				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
   				<td align="right">
 				  	<table>
   						<tr>
@@ -177,7 +176,7 @@ $(document).ready(function() {
   						<c:if test="${conferenceProposal.submitted}">הוגש</c:if>
   						<c:if test="${!conferenceProposal.submitted}">לא הוגש</c:if>
   						</td>
- 						<td width="100">
+ 						<td width="300">
  						<c:if test="${conferenceProposal.approverId!=0}">
   							<c:out value="${conferenceProposal.approver.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.approver.lastNameHebrew}"/>
   						</c:if>
@@ -199,8 +198,45 @@ $(document).ready(function() {
 		</tr>
 		
 		<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
-	    <tr>
+        <tr>
+            <td colspan="5"><img src="image/hr.gif" width="900" height="10"></td>
+        </tr>
+        <tr>
+          <td colspan="3"><h1>סטטוס דירוגים</h1></td>
+        </tr>
+ 		<tr>
 		<td>
+		<table>
+             <thead>
+  				<tr>
+		  			<th align="right">שם הדיקן</th>
+			  		<th align="right">נשלח לדיקן</th>
+			  		<th align="right">דירוג הסתיים</th>
+  	  			</tr>
+  	  		</thead>
+             <c:forEach items="${conferenceProposalGradings}" var="conferenceProposalGrading" varStatus="varStatus">
+			<c:choose>
+			<c:when test="${varStatus.index % 2 == 1}">
+				<c:set var="rowBgBrightness" value="Bright"/>
+			</c:when>
+			<c:otherwise>
+				<c:set var="rowBgBrightness" value="Dark"/>
+			</c:otherwise>
+			</c:choose>
+             <tbody>
+  				<tr>
+		  			<td>${conferenceProposalGrading.approver.degreeFullNameHebrew}</td>
+			  		<td>${conferenceProposalGrading.formattedSentForGradingDate}</td>
+			  		<td>${conferenceProposalGrading.formattedFinishedGradingDate}</td>
+  	  			</tr>
+  	  		 </tbody>
+  	  		 </c:forEach>
+		</table>
+		</td>
+		</tr>
+		<tr></tr>
+	    <tr>
+			<td>
   			<select name="approver" class="green">
       			<option value="0">בחר/י גורם מאשר</option>
        			<c:forEach items="${deans}" var="deanPerson">
@@ -208,8 +244,8 @@ $(document).ready(function() {
        			</c:forEach>
        		</select>
        		
-			<button id="buttonStartGrading" class="grey" />שליחה לדירוג</button>
-		</td>
+			<button id="buttonStartGrading" class="grey" />שלח לדירוג</button>
+			</td>
 		</tr>
 		</authz:authorize>
 		

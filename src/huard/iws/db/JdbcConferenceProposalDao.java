@@ -3,6 +3,7 @@ package huard.iws.db;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.FinancialSupport;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
@@ -132,7 +133,53 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		String query = "delete from committee where id = ?;";
 		getSimpleJdbcTemplate().update(query, committeeId);
 	}
-
+	
+	public void insertGradingInfo(ConferenceProposalGrading conferenceProposalGrading){
+		String query = "insert conferenceProposalGrading set approverId = ?, adminId = ?, deadline = ?, sentForGradingDate = now(), finishedGradingDate = ?";
+		getSimpleJdbcTemplate().update(query,
+				conferenceProposalGrading.getApproverId(),
+				conferenceProposalGrading.getAdminId(),
+				new java.sql.Timestamp(conferenceProposalGrading.getDeadline()),
+				new java.sql.Timestamp(conferenceProposalGrading.getFinishedGradingDate())
+		);
+	} 
+	public void updateLastGradingByApproverDeadline(int approverId,String deadline){
+		String query = "select max(id) from conferenceProposalGrading where approverId = ? and date(deadline) =?;";
+		int id = getSimpleJdbcTemplate().queryForInt(query,approverId, deadline);
+		query = "update conferenceProposalGrading set finishedGradingDate=now() where id=?;";
+		getSimpleJdbcTemplate().update(query, id);
+	}
+	
+	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline){
+		String query = "select  * from  conferenceProposalGrading where date(deadline) =?;";
+		return getSimpleJdbcTemplate().query(query, gradingRowMapper,	deadline );
+	}
+	
+	ParameterizedRowMapper<ConferenceProposalGrading> gradingRowMapper	= new ParameterizedRowMapper<ConferenceProposalGrading>(){
+		public ConferenceProposalGrading mapRow(ResultSet rs, int rowNum) throws SQLException{
+			ConferenceProposalGrading conferenceProposalGrading = new ConferenceProposalGrading();
+			conferenceProposalGrading.setId(rs.getInt("id"));
+			conferenceProposalGrading.setApproverId(rs.getInt("approverId"));
+			conferenceProposalGrading.setAdminId(rs.getInt("adminId"));
+			long deadline = 0;
+			Timestamp adeadline = rs.getTimestamp("deadline");
+			if (adeadline != null)
+				deadline = adeadline.getTime();
+			conferenceProposalGrading.setDeadline(deadline);
+			long sentForGradingDate = 0;
+			Timestamp aSentForGradingDate = rs.getTimestamp("sentForGradingDate");
+			if (aSentForGradingDate != null)
+				sentForGradingDate = aSentForGradingDate.getTime();
+			conferenceProposalGrading.setSentForGradingDate(sentForGradingDate);
+			long finishedGradingDate = 0;
+			Timestamp aFinishedGradingDate = rs.getTimestamp("finishedGradingDate");
+			if (aFinishedGradingDate != null)
+				finishedGradingDate = aFinishedGradingDate.getTime();
+			conferenceProposalGrading.setFinishedGradingDate(finishedGradingDate);
+			return conferenceProposalGrading;
+		}
+    };	
+    
 	public ConferenceProposal getVersionConferenceProposal(int confId, int verId){
 		String conferenceSelect = "select  * from conferenceProposalVersion where conferenceProposalId = ? and id = ? ";
 		ConferenceProposal conferenceProposal =

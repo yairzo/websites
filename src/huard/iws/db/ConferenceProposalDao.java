@@ -3,6 +3,7 @@ package huard.iws.db;
 
 import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.FinancialSupport;
 import huard.iws.bean.PersonBean;
 import huard.iws.util.ListView;
@@ -57,5 +58,11 @@ public interface ConferenceProposalDao {
 	public void deleteCommittee(int committeeId);
 	
 	public void updateDeadlineRemarks(int approverId, String prevdeadline, String deadlineRemarks);
+	
+	public void insertGradingInfo(ConferenceProposalGrading conferenceProposalGrading);
+
+	public void updateLastGradingByApproverDeadline(int approverId,String deadline);
+	
+	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline);
 
 }

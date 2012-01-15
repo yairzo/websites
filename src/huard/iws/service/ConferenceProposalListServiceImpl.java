@@ -2,7 +2,9 @@ package huard.iws.service;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.db.ConferenceProposalDao;
+import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
 
@@ -42,7 +44,17 @@ public class ConferenceProposalListServiceImpl implements ConferenceProposalList
 		conferenceProposalDao.gradeLower(conferenceProposal, deadline);
 	}
 	
+	public void insertGradingInfo(ConferenceProposalGrading conferenceProposalGrading){
+		conferenceProposalDao.insertGradingInfo(conferenceProposalGrading);
+	}
+	
+	public void updateLastGradingByApproverDeadline(int approverId,String deadline){
+		conferenceProposalDao.updateLastGradingByApproverDeadline(approverId,deadline);
+	}
 
+	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline){
+		return conferenceProposalDao.getAllGradingsByCurrentDeadline(deadline);
+	}
 
 	private ConferenceProposalDao conferenceProposalDao;
 
