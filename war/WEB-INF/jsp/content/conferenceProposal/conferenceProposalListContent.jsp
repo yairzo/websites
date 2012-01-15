@@ -134,11 +134,7 @@ $(document).ready(function() {
                     <button style="width:70" id="buttonSearch" class="grey" onclick="">חפש</button>&nbsp;<button style="width:100" id="buttonCleanSearch" class="grey" onclick="">נקה חיפוש</button>
                   </td>
 				</tr>
-               <tr>
-                  <td colspan="5"><img src="image/hr.gif" width="900" height="10"></td>
-                </tr>
-
-               </table>
+                </table>
 
 			<table width="900" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
               <thead>
@@ -197,21 +193,25 @@ $(document).ready(function() {
 		</td>
 		</tr>
 		
+		
+				<tr>
+                <td align="center"><br>
+					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
+                </td>
+                </tr>
+
+
 		<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
-        <tr>
-            <td colspan="5"><img src="image/hr.gif" width="900" height="10"></td>
-        </tr>
-        <tr>
-          <td colspan="3"><h1>סטטוס דירוגים</h1></td>
+        <tr height="20">&nbsp;
         </tr>
  		<tr>
 		<td>
-		<table>
+		<table border=1  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
              <thead>
   				<tr>
-		  			<th align="right">שם הדיקן</th>
-			  		<th align="right">נשלח לדיקן</th>
-			  		<th align="right">דירוג הסתיים</th>
+		  			<th align="right" width="150">נשלח לדיקן</th>
+			  		<th align="right" width="100">בתאריך</th>
+			  		<th align="right" width="100">דירוג הסתיים</th>
   	  			</tr>
   	  		</thead>
              <c:forEach items="${conferenceProposalGradings}" var="conferenceProposalGrading" varStatus="varStatus">
@@ -248,14 +248,12 @@ $(document).ready(function() {
 			</td>
 		</tr>
 		</authz:authorize>
-		
-		<tr>
-                <td align="center"><br>
-					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
-                </td>
-                </tr>
+
 
                   </table>
+                  
+                  
+                  
                 </td>
               </tr>
 			  <tbody>
