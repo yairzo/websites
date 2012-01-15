@@ -253,6 +253,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setDeadline(deadline);
 			conferenceProposal.setDeleted(rs.getBoolean("deleted"));
 			conferenceProposal.setDeadlineRemarks(rs.getString("deadlineRemarks"));
+			conferenceProposal.setIsInsideDeadline(rs.getBoolean("isInsideDeadline"));
             return conferenceProposal;
         }
 	};
@@ -331,6 +332,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				deadline = adeadline.getTime();
 			conferenceProposal.setDeadline(deadline);
 			conferenceProposal.setDeadlineRemarks(rs.getString("deadlineRemarks"));
+			conferenceProposal.setIsInsideDeadline(rs.getBoolean("isInsideDeadline"));
             return conferenceProposal;
         }
 	};
@@ -436,6 +438,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", deadline= ?" + 
 				", deleted= ?" + 
 				", deadlineRemarks= ?" + 
+				", isInsideDeadline= ?" + 
 				" where id = ?;";
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposal.getPersonId(),
@@ -488,7 +491,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getAdminRemarks(),	
 				new java.sql.Timestamp(conferenceProposal.getDeadline()),
 				conferenceProposal.getDeleted(),
-				conferenceProposal.getDeadlineRemarks(),	
+				conferenceProposal.getDeadlineRemarks(),
+				conferenceProposal.getIsInsideDeadline(),
 				conferenceProposal.getId());
 		
 		//insert to version table
@@ -544,6 +548,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", adminRemarks= ?" + 
 				", deadline= ?" + 
 				", deadlineRemarks= ?" + 
+				", isInsideDeadline= ?" + 
 				";";
 
 		
@@ -597,7 +602,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getContactPersonEmail(),				
 				conferenceProposal.getAdminRemarks(),
 				new java.sql.Timestamp(conferenceProposal.getDeadline()),
-				conferenceProposal.getDeadlineRemarks());
+				conferenceProposal.getDeadlineRemarks(),
+				conferenceProposal.getIsInsideDeadline());
 	}
 
 
@@ -728,7 +734,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		getSimpleJdbcTemplate().update(query,grade,approverId);
 	}
 	public void updateDeadlineRemarks(int approverId, String prevdeadline, String deadlineRemarks){
-		String query = "update conferenceProposal set deadlineRemarks =? where deleted=0 and approverId=? and submitted=1 and date(deadline)>'"+prevdeadline +"';";
+		String query = "update conferenceProposal set deadlineRemarks =? where deleted=0 and approverId=? and submitted=1 and date(deadline)>'"+prevdeadline +"' and isInsideDeadline=1;";
 		System.out.println(query);
 		getSimpleJdbcTemplate().update(query,deadlineRemarks,approverId);
 	}

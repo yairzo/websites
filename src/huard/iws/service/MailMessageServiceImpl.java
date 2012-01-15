@@ -113,13 +113,12 @@ public class MailMessageServiceImpl implements MailMessageService{
 			String messageKey){
 		String subject = messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".subject");
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
 		model.put("recipient", recipient.getDegreeFullNameHebrew());
 		model.put("conferenceProposal", conferenceProposal);
 		model.put("server", getServer());
 		model.put("proposalMessageOpening", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage.proposalMessageOpening"));
 		model.put("conferenceMessage", true);
-		String [] messageParams = new String []{sender.getDegreeFullNameHebrew()};
+		String [] messageParams = new String []{sender.getDegreeFullNameHebrew(),Integer.toString(conferenceProposal.getId()),conferenceProposal.getSubject()};
 		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);

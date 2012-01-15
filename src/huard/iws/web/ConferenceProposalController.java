@@ -156,13 +156,17 @@ public class ConferenceProposalController extends GeneralFormController{
 		if(request.getParameter("action","").equals("submitForGrading")){
 			conferenceProposalBean.setSubmitted(true);
 			conferenceProposalBean.setSubmissionDate(System.currentTimeMillis());
-			//assign default grade
-			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
-			//send mail to approver
-			PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
-			if (updatedApprover.isValidEmail()) 
-				mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
+			if (System.currentTimeMillis()> conferenceProposalBean.getDeadline())// submitted after deadline
+				conferenceProposalBean.setIsInsideDeadline(false);
+			else{
+				//assign default grade
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
+				//send mail to approver
+				PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
+				if (updatedApprover.isValidEmail()) 
+					mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
+			}
 		}
 		//unsubmit button
 		/*if(request.getParameter("action","").equals("unsubmitForGrading")){
@@ -194,6 +198,17 @@ public class ConferenceProposalController extends GeneralFormController{
 				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 				conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
 				origConferenceProposalBean.setGrade(0);
+			}
+			if(conferenceProposalBean.getIsInsideDeadline() && !origConferenceProposalBean.getIsInsideDeadline()){
+				origConferenceProposalBean.setIsInsideDeadline(true);
+				//if changed IsInsideDeadline to enter current grading
+				//assign default grade
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				origConferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(origConferenceProposalBean.getApproverId(), prevdeadline)+1);
+				//send mail to approver
+				PersonBean updatedApprover = new PersonBean(personService.getPerson(origConferenceProposalBean.getApproverId()));
+				if (updatedApprover.isValidEmail()) 
+					mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, origConferenceProposalBean, "updatedApprover");
 			}
 			conferenceProposalService.updateConferenceProposal(origConferenceProposalBean.toConferenceProposal());
 			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
@@ -244,6 +259,8 @@ public class ConferenceProposalController extends GeneralFormController{
 			model.put("startConfDate", formatter.format(fromDate));
 			Date toDate = new Date(conferenceProposal.getToDate());
 			model.put("endConfDate", formatter.format(toDate));
+			model.put("deadlineDate", formatter.format(conferenceProposal.getDeadline()));
+			//model.put("prevDeadlineDate", formatter.format(toDate));
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		

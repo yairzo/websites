@@ -1,10 +1,8 @@
 <%@ page  pageEncoding="UTF-8" %>
-
 <script language="Javascript">
 
 
 $(document).ready(function() {
-
 
 	$("button.buttonEdit").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"edit\"/>");
@@ -14,14 +12,15 @@ $(document).ready(function() {
     	return true;
     });
 	
-	$("button.buttonSave").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"save\"/>");
-		var confId= this.id;
-		$("#form").append("<input type=\"hidden\" name=\"conferenceProposalId\" value=\""+confId +"\"/>");
-    	$("#form").submit();
-    	return true;
-    });
+	$('.saveclass').blur(function(){
+		   var options = {
+	       	 	url:       'conferenceProposalsGrade.html?action=save&conferenceProposalId='+ this.id,        
+	       	 	type:      'POST'
+	     	};
+		    $('#form').ajaxSubmit(options);
+    });	
 	
+
 	$("button.buttonUp").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"moveup\"/>");
 		var confId= this.id;
@@ -69,38 +68,15 @@ $(document).ready(function() {
         return false;
  	});
      
-     $("#buttonSaveDeadlineRemarks").click(function(){
-	  		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"saveDeadlineRemarks\"/>");
-  	   		$("#form").submit();
-  	   		return true;
+     $("#deadlineRemarks").blur(function(){
+		   var options = {
+		       	 	url:       'conferenceProposalsGrade.html?action=saveDeadlineRemarks',        
+		       	 	type:      'POST'
+		     	};
+			 $('#form').ajaxSubmit(options);
  	 });
      
-     $("#sssssssbuttonsssss").click(function(){
-  		var errors="";
- 		if($("#deadlineRemarks").val()==''){
- 			errors = " .לא רשמת הערה כללית לועדה";
- 		}
- 		var evaluation=false;
-        <c:forEach items="${conferenceProposals}" var="conferenceProposal">
-        <c:if test="${fn:length(conferenceProposal.approverEvaluation)>0}">
-         evaluation=true;	
-        </c:if>
-        </c:forEach>
-		if(evaluation)
-	         errors += " לא נרשמה חוות דעת לכל ההצעות. ";
-        if(errors!=''){
-        	errors += "האם ברצונך לסיים את תהליך ההגשה? "
-  			var answer= confirm(errors);
-  	 		if (answer){
-  	 	 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"stopGrading\"/>");
-      	   		$("#form").submit();
-      	   		return true;
-    	 		}
-  	 		else{
-  				return false;
-  	 		}
- 		}
-      });
+
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 
@@ -166,23 +142,20 @@ $(document).ready(function() {
 				  	<table>
   						<tr>
   						<td width="100">
-  							<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
-  							
-  						</td>
+  							<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/></a>
+   						</td>
  						<td width="300">
-  							<c:out value="${conferenceProposal.subject}"/>
+  							<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out value="${conferenceProposal.subject}"/></a>
   						</td>
 						<td width="50">
   							<c:out value="${conferenceProposal.grade}"/>
   						</td>
  						<td width="300">
-  							<textarea class="green" name="approverEvaluation${conferenceProposal.id}" rows="2" cols="40">${conferenceProposal.approverEvaluation}</textarea>
+  							<textarea class="green saveclass" name="approverEvaluation${conferenceProposal.id}" id="${conferenceProposal.id}" rows="2" cols="40">${conferenceProposal.approverEvaluation}</textarea>
   						</td>
 				  		<td width="50">
 							<button style="width:50" class="grey buttonUp" id="${conferenceProposal.id}"/>העלה</button>
 							<button style="width:50" class="grey buttonDown" id="${conferenceProposal.id}"/>הורד</button>
-							<button style="width:50" class="grey buttonSave" id="${conferenceProposal.id}"/>שמור</button>
-							<button style="width:50" class="grey buttonEdit" id="${conferenceProposal.id}"/>ערוך</button>
  				  		</td>
    					</tr>
   				</table>
@@ -197,7 +170,6 @@ $(document).ready(function() {
 	    <tr>
 		<td>
   			<textarea class="green" name="deadlineRemarks" id="deadlineRemarks" rows="2" cols="80">${deadlineRemarks}</textarea>
-			<button style="width:100" id="buttonSaveDeadlineRemarks" class="grey" />שמור הערה</button>
 		</td>
 		</tr>
 	    <tr>

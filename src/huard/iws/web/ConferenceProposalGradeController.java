@@ -59,11 +59,11 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			cp.setApproverEvaluation(evaulationFieldValue);
 			conferenceProposalService.updateConferenceProposal(cp);
 		}		
-		if (action.equals("edit") && gradeCommand.getConferenceProposalId()>0){
+		/*if (action.equals("edit") && gradeCommand.getConferenceProposalId()>0){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
 			newModel.put("id",gradeCommand.getConferenceProposalId());
 			return new ModelAndView( new RedirectView("editConferenceProposal.html"),newModel);
-		}
+		}*/
 		if (action.equals("stopGrading")){
 			//send mail to admins list
 			mailMessageService.createDeanGradeFinishedGradingMail(userPersonBean,"finishedGrading");
@@ -103,7 +103,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 
 		ConferenceProposalGradeCommand gradeCommand = new ConferenceProposalGradeCommand();
 		String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-		String whereClause = " submitted=1 and date(deadline)>'"+previousDeadline +"'";
+		String whereClause = " submitted=1 and date(deadline)>'"+previousDeadline +"' and isInsideDeadline=1";
 		if (!isFormSubmission(request.getRequest())){
 			SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("conferenceProposalsSearchCreteria");
 			request.getSession().setAttribute("conferenceProposalsSearchCreteria", null);

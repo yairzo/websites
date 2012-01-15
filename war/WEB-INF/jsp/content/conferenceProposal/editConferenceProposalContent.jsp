@@ -44,6 +44,14 @@
                   <td colspan="4" align="center"><h1>בקשה למימון לכנס</h1>
                   </td>
                 </tr>
+				<c:if test="${!command.isInsideDeadline}">			
+                <tr class="form">
+					<td colspan="4">
+						<font color="red">הצעה זו הוגשה אחרי תאריך היעד להגשות לקראת כינוס הועדה הקרובה</font>
+					</td>
+				</tr>
+				</c:if>
+                
                 <tr class="form">
 					<td  width="250">
 						מספר בקשה:
@@ -1032,9 +1040,14 @@
 				<c:if test="${command.submitted}">			
 				<tr class="form">
 					<td></td>
-					<td colspan="3">
+					<td>
 				   		<input type="checkbox" class="green" name="cancelSubmission"/>ביטול הגשה
  					</td>
+					<c:if test="${!command.isInsideDeadline}">			
+					<td colspan=2>
+				   		<input type="checkbox" class="green" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
+				   	</td>
+					</c:if>
 				</tr>
 				</c:if>
 				</authz:authorize>
@@ -1042,7 +1055,7 @@
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
 	            <tr class="form">
 		       		<td>
-	   					חוות דעת הגורם המאשר:
+	   					חוות דעת הדיקן המאשר:
 	   				</td>
 				    <td colspan="3">
 						<form:textarea cssClass="green" path="approverEvaluation" cols="60" rows="3"/>

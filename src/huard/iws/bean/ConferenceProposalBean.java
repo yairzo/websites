@@ -76,6 +76,8 @@ public class ConferenceProposalBean {
 	private List<FinancialSupport> fromAdmitanceFee;
 	private boolean deleted;
 	private String deadlineRemarks;
+	private boolean isInsideDeadline;
+
 
 	public ConferenceProposalBean() {
 		Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -137,6 +139,7 @@ public class ConferenceProposalBean {
 		this.fromAdmitanceFee = new ArrayList<FinancialSupport>();
 		this.deleted =false;
 		this.deadlineRemarks="";
+		this.isInsideDeadline =true;
 	}
 
 	public ConferenceProposalBean(ConferenceProposal conferenceProposal) {
@@ -207,6 +210,8 @@ public class ConferenceProposalBean {
 		this.fromAdmitanceFee = conferenceProposal.getFromAdmitanceFee();
 		this.deleted = conferenceProposal.getDeleted();
 		this.deadlineRemarks = conferenceProposal.getDeadlineRemarks();
+		this.isInsideDeadline =conferenceProposal.getIsInsideDeadline();
+
 		// System.out.println("beannnnnnnnnnnnnnnn:" + this.getSubject() +
 		// this.getApproverEvaluation() + this.getApproverId() +
 		// this.getDescription() + this.getLocation() + this.getLocationDetail()
@@ -275,6 +280,7 @@ public class ConferenceProposalBean {
 		conferenceProposal.setFromAdmitanceFee(fromAdmitanceFee);
 		conferenceProposal.setDeleted(deleted);
 		conferenceProposal.setDeadlineRemarks(deadlineRemarks);
+		conferenceProposal.setIsInsideDeadline(isInsideDeadline);
 		return conferenceProposal;
 	}
 
@@ -751,4 +757,12 @@ public class ConferenceProposalBean {
 	public void setDeadlineRemarks(String deadlineRemarks){
 		this.deadlineRemarks = deadlineRemarks;
 	}	
+	
+	public boolean getIsInsideDeadline() {
+		return isInsideDeadline;
+	}
+	public void setIsInsideDeadline(boolean isInsideDeadline) {
+		this.isInsideDeadline = isInsideDeadline;
+	}
+
 }

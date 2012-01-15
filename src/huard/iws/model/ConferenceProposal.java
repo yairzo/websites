@@ -72,6 +72,7 @@ public class ConferenceProposal {
 	private List<FinancialSupport> fromAdmitanceFee;
 	private boolean deleted;
 	private String deadlineRemarks;
+	private boolean isInsideDeadline;
 
 	public ConferenceProposal(){
 		this.id = 0;
@@ -132,6 +133,7 @@ public class ConferenceProposal {
 		this.deadline=0;
 		this.deleted=false;
 		this.deadlineRemarks="";
+		this.isInsideDeadline = true;
 	}
 	
 	public int getId() {
@@ -555,5 +557,13 @@ public class ConferenceProposal {
 	public void setDeadlineRemarks(String deadlineRemarks){
 		this.deadlineRemarks = deadlineRemarks;
 	}	
+	
+	public boolean getIsInsideDeadline() {
+		return isInsideDeadline;
+	}
+	public void setIsInsideDeadline(boolean isInsideDeadline) {
+		this.isInsideDeadline = isInsideDeadline;
+	}
+
 	
 }
