@@ -1009,7 +1009,9 @@
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 				    <td colspan="3">
+					<c:if test="${command.approverId>0}">			
 				    ${command.approver.degreeFullNameHebrew}
+					</c:if>
 					</td>
 					</c:if>
 				</tr>
