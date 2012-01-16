@@ -73,6 +73,7 @@ public class ConferenceProposal {
 	private boolean deleted;
 	private String deadlineRemarks;
 	private boolean isInsideDeadline;
+	private String committeeRemarks;
 
 	public ConferenceProposal(){
 		this.id = 0;
@@ -134,6 +135,7 @@ public class ConferenceProposal {
 		this.deleted=false;
 		this.deadlineRemarks="";
 		this.isInsideDeadline = true;
+		this.committeeRemarks = "";
 	}
 	
 	public int getId() {
@@ -565,5 +567,11 @@ public class ConferenceProposal {
 		this.isInsideDeadline = isInsideDeadline;
 	}
 
+	public String getCommitteeRemarks(){
+		return committeeRemarks;
+	}
+	public void setCommitteeRemarks(String committeeRemarks){
+		this.committeeRemarks = committeeRemarks;
+	}	
 	
 }

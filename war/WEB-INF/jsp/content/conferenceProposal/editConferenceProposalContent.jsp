@@ -24,14 +24,11 @@
  			<form:hidden path="versionId"/>
  			<form:hidden path="personId"/>
  			
-			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
- 				<c:set var="roleApprover" value="true"/>
+			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
+ 				<c:set var="readOnly" value="true"/>
  			</authz:authorize>
-			<authz:authorize ifNotGranted="ROLE_CONFERENCE_APPROVER">
- 				<c:set var="roleApprover" value="false"/>
- 			</authz:authorize>
-			<authz:authorize ifAnyGranted="ROLE_EQF_RESEARCHER">
- 				<c:set var="roleResearcher" value="true"/>
+			<authz:authorize ifNotGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
+ 				<c:set var="readOnly" value="false"/>
  			</authz:authorize>
  			
             <table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
@@ -111,12 +108,12 @@
 					<td>
 						 הגוף היוזם:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<td>
 						<form:input cssClass="green" path="initiatingBody" /><img src="image/icon-docs-info.gif" id="dialogInitiatingBody"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">
+					<c:if test="${readOnly || command.submitted}">
 					<td>
 						${command.initiatingBody}
 					</td>
@@ -125,7 +122,7 @@
 					<td>
 						 תפקיד בגוף היוזם:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<td>
        				<form:select path="initiatingBodyRole" cssClass="green" >
       					<form:option value="0">בחר/י תפקיד</form:option>
@@ -138,7 +135,7 @@
        		        	<img src="image/icon-docs-info.gif" id="dialogInitiatingBodyRole"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">
+					<c:if test="${readOnly || command.submitted}">
 					<td>
 						<c:choose>
 							<c:when test="${command.initiatingBodyRole == 1}">מנהל גוף</c:when>
@@ -157,12 +154,12 @@
 					<td>
 						 נושא הכנס:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<td colspan="3">
 						<form:textarea cssClass="green autosaveclass" path="subject" id="subject" cols="60" rows="3"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">
+					<c:if test="${readOnly || command.submitted}">
 					<td colspan="3">
 						${command.subject}
 					</td>
@@ -177,7 +174,7 @@
 					<td  width="250">
 						 מיקום:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<td  width="250">
        				<form:select path="location" cssClass="green">
       					<form:option value="0">בחר/י מיקום</form:option>
@@ -187,7 +184,7 @@
         		    </form:select>
  					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">
+					<c:if test="${readOnly || command.submitted}">
 					<td>
 						<c:choose>
 							<c:when test="${command.location == 1}">אוניברסיטה</c:when>
@@ -199,12 +196,12 @@
 					<td  width="250">
 						 פירוט מיקום:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<td  width="250">
 						<form:input cssClass="green" path="locationDetail"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">
+					<c:if test="${readOnly || command.submitted}">
 					<td>
 						${command.locationDetail}
 					</td>
@@ -214,12 +211,12 @@
 					<td width="250">
 						תאריך התחלה:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<td width="250">
 						<input type="text" class="green" name="startConfDate" id="startConfDate" value="${startConfDate}"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">
+					<c:if test="${readOnly || command.submitted}">
 					<td>
 						${startConfDate}
 					</td>
@@ -227,12 +224,12 @@
 					<td width="250">
 						תאריך סיום:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<td width="250">
 						<input type="text" class="green" name="endConfDate" id="endConfDate" value="${endConfDate}"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">
+					<c:if test="${readOnly || command.submitted}">
 					<td>
 						${endConfDate}
 					</td>
@@ -251,22 +248,22 @@
 						<td>
 							מחו""ל:
 						</td>
-						<c:if test="${!roleApprover && !command.submitted}">
+						<c:if test="${!readOnly && !command.submitted}">
 						<td>
 							<form:input cssClass="green" path="foreignLecturers" />
 						</td>
 						</c:if>
-						<c:if test="${roleApprover || command.submitted}">
+						<c:if test="${readOnly || command.submitted}">
 						<td>
 							${command.foreignLecturers}
 						</td>
 						</c:if>
-						<c:if test="${!roleApprover && !command.submitted}">
+						<c:if test="${!readOnly && !command.submitted}">
 						<td>
 							<form:input cssClass="green" path="foreignGuests" />
 						</td>
 						</c:if>
-						<c:if test="${roleApprover || command.submitted}">
+						<c:if test="${readOnly || command.submitted}">
 						<td>
 							${command.foreignGuests}
 						</td>
@@ -276,22 +273,22 @@
 						<td>
 							מהארץ:
 						</td>
-						<c:if test="${!roleApprover && !command.submitted}">
+						<c:if test="${!readOnly && !command.submitted}">
 						<td>
 							<form:input cssClass="green" path="localLecturers" />
 						</td>
 						</c:if>
-						<c:if test="${roleApprover || command.submitted}">
+						<c:if test="${readOnly || command.submitted}">
 						<td>
 							${command.localLecturers}
 						</td>
 						</c:if>
-						<c:if test="${!roleApprover && !command.submitted}">
+						<c:if test="${!readOnly && !command.submitted}">
 						<td>
 							<form:input cssClass="green" path="localGuests" />
 						</td>
 						</c:if>
-						<c:if test="${roleApprover || command.submitted}">
+						<c:if test="${readOnly || command.submitted}">
 						<td>
 							${command.localGuests}
 						</td>
@@ -301,22 +298,22 @@
 						<td>
 							קהל נוסף:
 						</td>
-						<c:if test="${!roleApprover && !command.submitted}">
+						<c:if test="${!readOnly && !command.submitted}">
 						<td>
 							<form:input cssClass="green" path="audienceLecturers" />
 						</td>
 						</c:if>
-						<c:if test="${roleApprover || command.submitted}">
+						<c:if test="${readOnly || command.submitted}">
 						<td>
 							${command.audienceLecturers}
 						</td>
 						</c:if>
-						<c:if test="${!roleApprover && !command.submitted}">
+						<c:if test="${!readOnly && !command.submitted}">
 						<td>
 							<form:input cssClass="green" path="audienceGuests" />
 						</td>
 						</c:if>
-						<c:if test="${roleApprover || command.submitted}">
+						<c:if test="${readOnly || command.submitted}">
 						<td>
 							${command.audienceGuests}
 						</td>
@@ -331,7 +328,7 @@
 				       <td>רשימת מוזמנים:
 				       </td>
 						<td colspan="3">
-						<c:if test="${!roleApprover && !command.submitted}">
+						<c:if test="${!readOnly && !command.submitted}">
 						<input class="green" type="file" name="guestsAttach" id="guestsAttach"/>
 						</c:if>
 						<span id="guestsAttachDiv">
@@ -346,7 +343,7 @@
 				       <td>תוכנית הכנס:
 				       </td>
 						<td colspan="3">
-						<c:if test="${!roleApprover && !command.submitted}">
+						<c:if test="${!readOnly && !command.submitted}">
 						<input class="green" type="file" name="programAttach" id="programAttach"/>  
 						</c:if>
 						<span id="programAttachDiv">
@@ -361,7 +358,7 @@
 				       <td>תוכנית תקציבית:
 				       </td>
 						<td colspan="3">
-						<c:if test="${!roleApprover && !command.submitted}">
+						<c:if test="${!readOnly && !command.submitted}">
 						<input class="green" type="file" name="financialAttach" id="financialAttach"/> 
 						</c:if>
 						<span id="financialAttachDiv">
@@ -379,12 +376,12 @@
 				</tr>
 				<tr class="form">
 					<td></td>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<td colspan="3">
 						<form:textarea cssClass="green" path="description" cols="60" rows="4"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">
+					<c:if test="${readOnly || command.submitted}">
 					<td colspan="3">
 						${command.description}
 					</td>
@@ -400,12 +397,12 @@
 		       		<td>
 	   					סכום:
 	   				</td>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 				    <td>
 						<form:input cssClass="green" path="totalCost"  id="totalCost"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">
+					<c:if test="${readOnly || command.submitted}">
 					<td>
 						${command.totalCost}
 					</td>
@@ -413,7 +410,7 @@
 		       		<td>
 	   					מטבע:
 	   				</td>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 				    <td>
         				<form:select path="totalCostCurrency" cssClass="green">
       					<form:option value="0">בחר/י מטבע</form:option>
@@ -422,7 +419,7 @@
        		        	</form:select>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">
+					<c:if test="${readOnly || command.submitted}">
 					<td>
 						<c:choose>
 							<c:when test="${command.totalCostCurrency == 1}">שקל</c:when>
@@ -466,14 +463,14 @@
 						<c:if test="${fromAssosiate.currency==1}">שקל</c:if>
 						<c:if test="${fromAssosiate.currency==2}">דולר</c:if>
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">					
+					<c:if test="${!readOnly && !command.submitted}">					
 					<td>
 						<button class="grey deleteFinancialSupport" id="${fromAssosiate.id}">מחק</button>						
 					</td>
 					</c:if>
 					</tr>
 					</c:forEach>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<tr>
 					<td>
 						<input type="text" class="green" name="fromAssosiate_name"/>
@@ -516,14 +513,14 @@
 						<c:if test="${fromExternal.currency==1}">שקל</c:if>
 						<c:if test="${fromExternal.currency==2}">דולר</c:if>
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">					
+					<c:if test="${!readOnly && !command.submitted}">					
 					<td>
 						<button class="grey deleteFinancialSupport" id="${fromExternal.id}">מחק</button>						
 					</td>
 					</c:if>
 					</tr>
 					</c:forEach>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<tr>
 					<td>
 						<input type="text" class="green" name="fromExternal_name"/>
@@ -566,14 +563,14 @@
 						<c:if test="${fromAdmitanceFee.currency==1}">שקל</c:if>
 						<c:if test="${fromAdmitanceFee.currency==2}">דולר</c:if>
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">					
+					<c:if test="${!readOnly && !command.submitted}">					
 					<td>
 						<button class="grey deleteFinancialSupport" id="${fromAdmitanceFee.id}">מחק</button>						
 					</td>
 					</c:if>
 					</tr>
 					</c:forEach>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<tr>
 					<td>
 						<input type="text" class="green" name="fromAdmitanceFee_name" value="משתתפים"/>
@@ -628,14 +625,14 @@
 					<td>
 						<c:out value="${committee.committeeRole}"></c:out>
 					</td>					
-					<c:if test="${!roleApprover && !command.submitted}">					
+					<c:if test="${!readOnly && !command.submitted}">					
 					<td>
 						<button class="grey deleteCommittee" id="${committee.id}">מחק</button>						
 					</td>
 					</c:if>
 					</tr>
 					</c:forEach>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<tr>
 					<td>
 						<input type="text" class="green" name="scientificCommittee_name"/>
@@ -680,14 +677,14 @@
 					<td>
 						<c:out value="${opcommittee.committeeRole}"></c:out>
 					</td>					
-					<c:if test="${!roleApprover && !command.submitted}">					
+					<c:if test="${!readOnly && !command.submitted}">					
 					<td>
 						<button class="grey deleteCommittee" id="${opcommittee.id}">מחק</button>						
 					</td>
 					</c:if>
 					</tr>
 					</c:forEach>
-					<c:if test="${!roleApprover && !command.submitted}">
+					<c:if test="${!readOnly && !command.submitted}">
 					<tr>
 					<td>
 						<input type="text" class="green" name="operationalCommittee_name"/>
@@ -720,12 +717,12 @@
 		       		<td>
 	   					סכום הסיוע המבוקש:
 	   				</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 				    <td>
 						<form:input cssClass="green" path="supportSum" id="supportSum"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 					<td>
 						${command.supportSum}
 					</td>
@@ -733,7 +730,7 @@
 		       		<td>
 	   					מטבע:
 	   				</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 				    <td>
         				<form:select path="supportCurrency" cssClass="green">
       					<form:option value="0">בחר/י מטבע</form:option>
@@ -742,7 +739,7 @@
        		        	</form:select>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 					<td>
 						<c:choose>
 							<c:when test="${command.supportCurrency == 1}">שקל</c:when>
@@ -756,22 +753,22 @@
 				</td>
 				</tr>
 	            <tr class="form">
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 		       		<td>
 		       		    אולם<form:checkbox cssClass="green" path="auditorium"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 		       		<td>
 							אולם<input type="checkbox" disabled="disabled" value="" <c:if test="${command.auditorium}" > checked </c:if> />
 					</td>
 					</c:if>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 		       		<td>
 						חדר סמנירים<form:checkbox cssClass="green" path="seminarRoom"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 		       		<td>
 						חדר סמנירים<input type="checkbox" disabled="disabled" value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
 					</td>
@@ -781,12 +778,12 @@
 		       		<td>
 	   					מספר אנשים:
 	   				</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 	   				<td>
 	   					<form:input cssClass="green" path="participants" id="participants"/>
 	   				</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td>
 	   					${command.participants}
 	   				</td>
@@ -794,7 +791,7 @@
 				    <td>
         				קמפוס מועדף:
         			</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
         			<td>
         				<form:select path="prefferedCampus" cssClass="green">
       					<form:option value="0">בחר/י קמפוס</form:option>
@@ -805,7 +802,7 @@
        		        	</form:select>
  					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td>
 						<c:choose>
 							<c:when test="${command.prefferedCampus == 1}">גבעת רם</c:when>
@@ -829,12 +826,12 @@
 	   				</td>
 				</tr>
 	            <tr class="form">
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 		       		<td colspan="2" width="300">
 		       		    ארגון ע"י חברה מסחרית<form:checkbox cssClass="green" id="company" path="organizingCompany"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 		       		<td colspan="2" width="300">
 		       		    ארגון ע"י חברה מסחרית<input type="checkbox" disabled="disabled" id="companyViewOnly" value="" <c:if test="${command.organizingCompany}">checked</c:if> />
 					</td>
@@ -845,12 +842,12 @@
 		       		<td>
 	   					שם החברה:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 		       		<td>
 	   					<form:input cssClass="green" path="organizingCompanyName" />
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td>
 	   					${command.organizingCompanyName}
 	   				</td>
@@ -858,12 +855,12 @@
 		       		<td>
 	   					מספר טלפון:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 		       		<td>
 	   					<form:input cssClass="green" path="organizingCompanyPhone" id="organizingCompanyPhone"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td>
 	   					${command.organizingCompanyPhone}
 	   				</td>
@@ -877,12 +874,12 @@
 		       		<td>
 	   					פקס:
 	   				</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 		       		<td>
 	   					<form:input cssClass="green" path="organizingCompanyFax" id="organizingCompanyFax"/>
 	   				</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td>
 	   					${command.organizingCompanyFax}
 	   				</td>
@@ -890,12 +887,12 @@
 				    <td>
 	   					כתובת אימייל:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 				    <td>
 	   					<form:input cssClass="green" path="organizingCompanyEmail" id="organizingCompanyEmail"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td>
 	   					${command.organizingCompanyEmail}
 	   				</td>
@@ -918,12 +915,12 @@
 		       		<td>
 	   					שם איש קשר:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 		       		<td>
 	   					<form:input cssClass="green" path="contactPerson" />
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td>
 	   					${command.contactPerson}
 	   				</td>
@@ -931,12 +928,12 @@
 		       		<td>
 	   					תפקיד:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 		       		<td>
 	   					<form:input cssClass="green" path="contactPersonRole" />
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td>
 	   					${command.contactPersonRole}
 	   				</td>
@@ -946,12 +943,12 @@
 		       		<td>
 	   					טלפון:
 	   				</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 		       		<td>
 	   					<form:input cssClass="green" path="contactPersonPhone" id="contactPersonPhone"/>
 	   				</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td>
 	   					${command.contactPersonPhone}
 	   				</td>
@@ -959,12 +956,12 @@
 				    <td>
 	   					כתובת אימייל:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 				    <td>
 	   					<form:input cssClass="green" path="contactPersonEmail" id="contactPersonEmail"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td>
 	   					${command.contactPersonEmail}
 	   				</td>
@@ -985,12 +982,12 @@
 					<td  width="250">
 						 הערות לועדה:
 					</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 					<td colspan="3"  >
 						<form:textarea cssClass="green" path="remarks" cols="60" rows="3"/>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 	   				<td colspan="3">
 	   					${command.remarks}
 	   				</td>
@@ -1000,7 +997,7 @@
 		       		<td>
 	   				הגורם המאשר:
 	   				</td>
-					<c:if test="${!roleApprover && !command.submitted}">			
+					<c:if test="${!readOnly && !command.submitted}">			
 				    <td colspan="3">
         				<form:select id="deanSelect"  path="approverId" cssClass="green">
       					<form:option value="0">בחר/י גורם מאשר</form:option>
@@ -1010,7 +1007,7 @@
        		        	</form:select>
 					</td>
 					</c:if>
-					<c:if test="${roleApprover || command.submitted}">			
+					<c:if test="${readOnly || command.submitted}">			
 				    <td colspan="3">
 				    ${command.approver.degreeFullNameHebrew}
 					</td>
@@ -1021,7 +1018,7 @@
 				</td>
 				</tr>
 				
-				<c:if test="${!roleApprover && !command.submitted}">			
+				<c:if test="${!readOnly && !command.submitted}">			
 				<tr class="form">
 					<td></td>
 					<td width="250">
@@ -1070,7 +1067,21 @@
 					</td>
 				</tr>
 				</authz:authorize>
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
+				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
+				<tr class="form">
+					<td>הערות הועדה:</td>
+	   				<td colspan="3">
+	   					${command.committeeRemarks}
+	   				</td>
+				</tr>
+				<tr class="form">
+					<td>הוסף הערה:</td>
+					<td colspan="3">
+						<textarea class="green" name="newCommitteeRemarks" cols="60" rows="2"></textarea>
+					</td>
+				</tr>
+				</authz:authorize>
+				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
 				<tr class="form">
 					<td width="300" colspan="2" align="center">
 				   		<button class="grey submitFaculty" onclick="">שמירה</button>

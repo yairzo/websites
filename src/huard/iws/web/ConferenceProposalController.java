@@ -192,6 +192,13 @@ public class ConferenceProposalController extends GeneralFormController{
 			//update only relevant fields
 			origConferenceProposalBean.setAdminRemarks(conferenceProposalBean.getAdminRemarks());
 			origConferenceProposalBean.setApproverEvaluation(conferenceProposalBean.getApproverEvaluation());
+			//committeRemarks
+			String committeeRemarks=request.getParameter("newCommitteeRemarks","");
+			if(!committeeRemarks.equals("")){
+				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+				committeeRemarks = "<br>" + committeeRemarks + "-" + userPersonBean.getDegreeFullName() + "," + formatter.format(new Date());
+			}
+			origConferenceProposalBean.setCommitteeRemarks(origConferenceProposalBean.getCommitteeRemarks() + committeeRemarks);
 			if(!request.getParameter("cancelSubmission", "").equals("")){
 				origConferenceProposalBean.setSubmitted(false);
 				origConferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01

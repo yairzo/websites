@@ -77,6 +77,7 @@ public class ConferenceProposalBean {
 	private boolean deleted;
 	private String deadlineRemarks;
 	private boolean isInsideDeadline;
+	private String committeeRemarks;
 
 
 	public ConferenceProposalBean() {
@@ -140,6 +141,7 @@ public class ConferenceProposalBean {
 		this.deleted =false;
 		this.deadlineRemarks="";
 		this.isInsideDeadline =true;
+		this.committeeRemarks ="";
 	}
 
 	public ConferenceProposalBean(ConferenceProposal conferenceProposal) {
@@ -211,6 +213,7 @@ public class ConferenceProposalBean {
 		this.deleted = conferenceProposal.getDeleted();
 		this.deadlineRemarks = conferenceProposal.getDeadlineRemarks();
 		this.isInsideDeadline =conferenceProposal.getIsInsideDeadline();
+		this.committeeRemarks = conferenceProposal.getCommitteeRemarks();
 
 		// System.out.println("beannnnnnnnnnnnnnnn:" + this.getSubject() +
 		// this.getApproverEvaluation() + this.getApproverId() +
@@ -281,6 +284,7 @@ public class ConferenceProposalBean {
 		conferenceProposal.setDeleted(deleted);
 		conferenceProposal.setDeadlineRemarks(deadlineRemarks);
 		conferenceProposal.setIsInsideDeadline(isInsideDeadline);
+		conferenceProposal.setCommitteeRemarks(committeeRemarks);
 		return conferenceProposal;
 	}
 
@@ -764,5 +768,12 @@ public class ConferenceProposalBean {
 	public void setIsInsideDeadline(boolean isInsideDeadline) {
 		this.isInsideDeadline = isInsideDeadline;
 	}
+
+	public String getCommitteeRemarks(){
+		return committeeRemarks;
+	}
+	public void setCommitteeRemarks(String committeeRemarks){
+		this.committeeRemarks = committeeRemarks;
+	}	
 
 }

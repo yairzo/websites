@@ -125,14 +125,14 @@
 							</th>
 						</tr>
 						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_EQF_RESEARCHER,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
+						<authz:authorize ifAnyGranted="ROLE_EQF_RESEARCHER">
 						<tr>
 							<th align="right">
 								<a style="text-decoration: none" href="editConferenceProposal.html?action=new">הגשת בקשה למימון כנס</a>
 							</th>
 						</tr>
 						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_EQF_RESEARCHER,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
+						<authz:authorize ifAnyGranted="ROLE_EQF_RESEARCHER,ROLE_CONFERENCE_COMMITTEE,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
 						<tr>
 							<th align="right">
 								<a style="text-decoration: none" href="conferenceProposals.html">צפייה בבקשות למימון כנסים</a>

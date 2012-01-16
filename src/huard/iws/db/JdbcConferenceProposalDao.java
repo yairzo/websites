@@ -301,6 +301,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setDeleted(rs.getBoolean("deleted"));
 			conferenceProposal.setDeadlineRemarks(rs.getString("deadlineRemarks"));
 			conferenceProposal.setIsInsideDeadline(rs.getBoolean("isInsideDeadline"));
+			conferenceProposal.setCommitteeRemarks(rs.getString("committeeRemarks"));
             return conferenceProposal;
         }
 	};
@@ -380,6 +381,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setDeadline(deadline);
 			conferenceProposal.setDeadlineRemarks(rs.getString("deadlineRemarks"));
 			conferenceProposal.setIsInsideDeadline(rs.getBoolean("isInsideDeadline"));
+			conferenceProposal.setCommitteeRemarks(rs.getString("committeeRemarks"));
             return conferenceProposal;
         }
 	};
@@ -486,6 +488,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", deleted= ?" + 
 				", deadlineRemarks= ?" + 
 				", isInsideDeadline= ?" + 
+				", committeeRemarks= ?" +
 				" where id = ?;";
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposal.getPersonId(),
@@ -540,6 +543,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getDeleted(),
 				conferenceProposal.getDeadlineRemarks(),
 				conferenceProposal.getIsInsideDeadline(),
+				conferenceProposal.getCommitteeRemarks(),
 				conferenceProposal.getId());
 		
 		//insert to version table
@@ -596,6 +600,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", deadline= ?" + 
 				", deadlineRemarks= ?" + 
 				", isInsideDeadline= ?" + 
+				", committeeRemarks= ?" +
 				";";
 
 		
@@ -650,7 +655,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getAdminRemarks(),
 				new java.sql.Timestamp(conferenceProposal.getDeadline()),
 				conferenceProposal.getDeadlineRemarks(),
-				conferenceProposal.getIsInsideDeadline());
+				conferenceProposal.getIsInsideDeadline(),
+				conferenceProposal.getCommitteeRemarks());
 	}
 
 
