@@ -6,8 +6,61 @@
 
 $(document).ready(function() {
 
-	$("#startConfDate").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy' });	
-	$("#endConfDate").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy' });	
+	$("#startConfDate").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy', onSelect: function(){
+    	var str1 = $("#startConfDate").val();
+        var dt1  = str1.substring(0,2); 
+        var mon1 = str1.substring(3,5); 
+        var yr1  = str1.substring(6,10);  
+        temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
+        var cfd = Date.parse(temp1);
+        var date1 = new Date(cfd); 
+        if(new Date()>date1)
+        	$.alerts.alert("בחרת תאריך שעבר כבר");
+    }
+	});	
+	
+	$("#endConfDate").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy',onSelect: function(){
+    	var str1 = $("#startConfDate").val();
+        var str2 = $("#endConfDate").val();
+        var dt1  = str1.substring(0,2); 
+        var mon1 = str1.substring(3,5); 
+        var yr1  = str1.substring(6,10);  
+        var dt2  = str2.substring(0,2); 
+        var mon2 = str2.substring(3,5); 
+        var yr2  = str2.substring(6,10); 
+        temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
+        temp2 = mon2 +"/"+ dt2 +"/"+ yr2;
+        var cfd = Date.parse(temp1);
+        var ctd2 = Date.parse(temp2);
+        var date1 = new Date(cfd); 
+        var date2 = new Date(ctd2);
+
+      if(date1 > date2)  
+    	   $.alerts.alert("תאריך סיום לפני תאריך התחלה");
+    } });	
+	
+	$(function() {
+        $.datepicker.regional['he'] = {
+            closeText: 'סגור',
+            prevText: '&#x3c;הקודם',
+            nextText: 'הבא&#x3e;',
+            currentText: 'היום',
+            monthNames: ['ינואר','פברואר','מרץ','אפריל','מאי','יוני',
+            'יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'],
+            monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+            dayNames: ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'],
+            dayNamesShort: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
+            dayNamesMin: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
+            weekHeader: 'Wk',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 0,
+            isRTL: true,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['he']);
+ 
+    });
 
 	$('.autosaveclass').autoSave(function(){
 		if ("${command.versionId}"==0){
