@@ -799,6 +799,7 @@
 				<prop key="/grantList.html">urlFilenameViewController</prop>
 				<prop key="/proposal.html">editProposalController</prop>
 				<prop key="/proposals.html">proposalListController</prop>
+				<prop key="/conferenceProposalAffirmation.html">urlFilenameViewController</prop>
 				<prop key="/editConferenceProposal.html">conferenceProposalController</prop>
 				<prop key="/conferenceProposals.html">conferenceProposalListController</prop>
 				<prop key="/conferenceProposalsGrade.html">conferenceProposalGradeController</prop>

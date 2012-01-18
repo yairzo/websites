@@ -187,7 +187,7 @@ $(document).ready(function() {
 	    <tr>
 		<td>
  			<authz:authorize ifAnyGranted="ROLE_EQF_RESEARCHER">
-			<button class="grey" onclick="window.location='editConferenceProposal.html?action=new'; return false;">הוסף</button>
+			<button class="grey" onclick="window.location='conferenceProposalAffirmation.html'; return false;">הוסף</button>
 			</authz:authorize>
 			<button id="buttonEdit" class="grey" />ערוך</button>
 			<button id="buttonDelete" class="grey" />מחק</button>
