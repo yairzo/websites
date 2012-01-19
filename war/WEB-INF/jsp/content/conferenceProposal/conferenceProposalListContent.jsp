@@ -94,7 +94,7 @@ $(document).ready(function() {
                   </td>
                 </tr>
                 <tr>
- 				  <authz:authorize ifNotGranted="ROLE_EQF_RESEARCHER">
+ 				  <authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
                   <td width="250">
                   חוקר:<form:input cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
                   </td>
@@ -183,7 +183,7 @@ $(document).ready(function() {
 
 	    <tr>
 		<td>
- 			<authz:authorize ifAnyGranted="ROLE_EQF_RESEARCHER">
+ 			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 			<button class="grey" onclick="window.location='conferenceProposalAffirmation.html'; return false;">הוסף</button>
 			</authz:authorize>
 			<button id="buttonEdit" class="grey" />ערוך</button>

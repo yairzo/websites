@@ -124,7 +124,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 				searchCreteria = new SearchCreteria();
 				String whereClause ="";
 				String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-				if(userPersonBean.getPrivileges().contains("ROLE_EQF_RESEARCHER")){
+				if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER")){
 					whereClause = " date(deadline)>'"+previousDeadline +"'";
 					request.getSession().setAttribute("searchBySubmitted", 2);
 				}
