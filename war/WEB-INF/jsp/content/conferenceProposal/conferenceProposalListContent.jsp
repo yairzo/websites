@@ -58,9 +58,6 @@ $(document).ready(function() {
     });
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
-
-
-
 });
 
 

@@ -6,18 +6,15 @@ import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.FinancialSupport;
 import huard.iws.util.ListView;
+import huard.iws.util.SQLUtils;
 import huard.iws.util.SearchCreteria;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import huard.iws.util.SQLUtils;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -33,7 +30,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		String query = "select * from conferenceProposal where id=? and deleted=0";
 		logger.info(query);
 		ConferenceProposal conferenceProposal =
-			getSimpleJdbcTemplate().queryForObject(query, rowMapper,	id);
+			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 		logger.info("conference proposal id: " + conferenceProposal.getId());
 		conferenceProposal.setFromAssosiate(getSupportFromAssosiate(id));
 		conferenceProposal.setFromExternal(getSupportFromExternal(id));

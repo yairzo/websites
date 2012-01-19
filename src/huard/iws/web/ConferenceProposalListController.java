@@ -1,7 +1,7 @@
 package huard.iws.web;
 
-import huard.iws.bean.PersonBean;
 import huard.iws.bean.ConferenceProposalBean;
+import huard.iws.bean.PersonBean;
 import huard.iws.constant.Constants;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
@@ -9,7 +9,6 @@ import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.PersonListService;
-import huard.iws.service.RecordProtectService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.SearchCreteria;
@@ -33,7 +32,6 @@ public class ConferenceProposalListController extends GeneralFormController {
 	//private static final Logger logger = Logger.getLogger(PersonListController.class);
     private final int ROWS_IN_PAGE=5;
 
-	@SuppressWarnings("unchecked")
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
@@ -43,7 +41,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 		request.getSession().setAttribute("conferenceProposalsListView", searchCommand.getListView());
 		
 		
-		Map newModel = new HashMap();
+		Map<String, Object> newModel = new HashMap<String, Object>();
 		String action = request.getParameter("action", "");
 
 		if (action.equals("edit") && searchCommand.getConferenceProposalId()>0){

@@ -39,7 +39,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		request.getSession().setAttribute("conferenceProposalsListView", gradeCommand.getListView());
 		
 		
-		Map newModel = new HashMap();
+		
 		String action = request.getParameter("action", "");
 		String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 		if (action.equals("movedown") && gradeCommand.getConferenceProposalId()>0 ){
@@ -75,7 +75,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			conferenceProposalService.updateDeadlineRemarks(userPersonBean.getId(),previousDeadline,request.getParameter("deadlineRemarks", ""));
 		}		
 
-		return new ModelAndView(new RedirectView(getSuccessView()), newModel);
+		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
 
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,

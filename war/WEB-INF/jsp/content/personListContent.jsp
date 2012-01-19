@@ -32,12 +32,14 @@ $(document).ready(function() {
     });
 
     $("#buttonCleanSearch").click(function(){
-    	$("input#searchPhrase").val('');
-   		$("input#listViewPage").remove();
-		$("input#orderBy").remove();
+    	cleanSearch();
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
 		$("#form").submit();
     	return true;
+    });
+    
+    $("#searchPhrase").click(function(){
+    	cleanSearch()
     });
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
@@ -49,6 +51,13 @@ $(document).ready(function() {
  	});
 
 });
+
+
+function cleanSearch(){
+	$("input#searchPhrase").val('');
+	$("input#listViewPage").remove();
+	$("input#orderBy").remove();
+}
 
 
 

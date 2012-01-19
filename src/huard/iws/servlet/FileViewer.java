@@ -28,6 +28,7 @@ import javax.servlet.http.HttpSession;
 public class FileViewer extends HttpServlet {
 
 	private static final long serialVersionUID = -1;
+	private final String DEFAULT_FILENAME = "attachment";
 	//private static final Logger logger = Logger.getLogger(FileViewer.class);
 
 
@@ -47,6 +48,8 @@ public class FileViewer extends HttpServlet {
 		int proposalId = requestWrapper.getIntParameter("proposalId", 0);
 		int postId = requestWrapper.getIntParameter("postId", 0);
 		int conferenceProposalId = requestWrapper.getIntParameter("conferenceProposalId", 0);
+		
+		String filename = DEFAULT_FILENAME;
 
 		if (proposalId > 0){
 
@@ -115,14 +118,17 @@ public class FileViewer extends HttpServlet {
 			if (attachFile.equals("guestsAttach")){
 				file = conferenceProposal.getGuestsAttach();
 				contentType=conferenceProposal.getGuestsAttachContentType();
+				filename = "Guests List";
 			}
 			else if (attachFile.equals("programAttach")){
 				file = conferenceProposal.getProgramAttach();
 				contentType=conferenceProposal.getProgramAttachContentType();
+				filename = " Conference Program";
 			}
 			else if (attachFile.equals("financialAttach")){
 				file = conferenceProposal.getFinancialAttach();
 				contentType=conferenceProposal.getFinancialAttachContentType();
+				filename = "Financial Program";
 			}
 			else return;
 
@@ -134,6 +140,7 @@ public class FileViewer extends HttpServlet {
 		if (file !=null && file.length > 0){
 			response.setContentType(contentType);
 			response.setStatus(HttpServletResponse.SC_OK);
+			response.setHeader( "Content-Disposition", "attachment; filename=\"" + filename + "\"" );
 			ServletOutputStream out = response.getOutputStream();
 			out.write(file);
 			out.flush();

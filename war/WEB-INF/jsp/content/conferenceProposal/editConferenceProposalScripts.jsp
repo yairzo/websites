@@ -6,6 +6,22 @@
 
 $(document).ready(function() {
 
+	
+	$("button.guestsAttach").click(function(event){
+		event.preventDefault();
+        $('input#guestsAttach').click();
+	});
+	
+	$("button.programAttach").click(function(event){
+		event.preventDefault();
+        $('input#programAttach').click();
+	});
+	$("button.financialAttach").click(function(event){
+		event.preventDefault();
+        $('input#financialAttach').click();
+	});
+	
+	
 	$("#startConfDate").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy', onSelect: function(){
     	var str1 = $("#startConfDate").val();
         var dt1  = str1.substring(0,2); 

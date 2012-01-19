@@ -497,15 +497,12 @@ public class EditProposalController extends GeneralFormController {
 		// in case it's an exisitng proposal was asked, check authorization
 
 		if (proposalId > 0) {
-
 			boolean authorized = (	userPersonBean.isAuthorized("EQF", "ADMIN")
 													|| userPersonBean.isAuthorized("EQF", "MOP")
 													|| userPersonBean.isAuthorized("EQF", "YISSUM")
 													|| userPersonBean.isAuthorized("EQF", "DEAN")
 													|| userPersonBean.isAuthorized("EQF", "RESEARCHER"))
 												&& command.getProposalBean().getPersonProposalBean() !=null;
-
-
 			if (! authorized ) {
 				return new ModelAndView(new RedirectView("accessDenied.html"));
 			}

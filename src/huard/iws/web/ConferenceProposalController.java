@@ -2,12 +2,10 @@ package huard.iws.web;
 
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.bean.PostBean;
 import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Faculty;
 import huard.iws.model.FinancialSupport;
-import huard.iws.model.InitiatingBody;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
 import huard.iws.service.MailMessageService;
@@ -18,8 +16,8 @@ import huard.iws.util.RequestWrapper;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -229,8 +227,9 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}	
 		//return to same page
-		model.put("id", conferenceProposalBean.getId())	;
-		return new ModelAndView(new RedirectView("editConferenceProposal.html"),model);
+		Map<String, Object> newModel = new HashMap<String, Object>();
+		newModel.put("id", conferenceProposalBean.getId())	;
+		return new ModelAndView(new RedirectView("editConferenceProposal.html"), newModel);
 	}
 	
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,

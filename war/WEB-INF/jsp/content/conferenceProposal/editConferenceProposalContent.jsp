@@ -329,12 +329,14 @@
 				       </td>
 						<td colspan="3">
 						<c:if test="${!readOnly && !command.submitted}">
-						<input class="green" type="file" name="guestsAttach" id="guestsAttach"/>
+						<input style="width: 0px; height: 0px;" class="green" type="file" name="guestsAttach" id="guestsAttach"/>
+						<button class="green guestsAttach">עיון ...</button>
+						
 						</c:if>
 						<span id="guestsAttachDiv">
 						<c:if test="${fn:length(command.guestsAttach)>0}">
 							<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&contentType=${command.guestsAttachContentType}&attachmentId=1"
-								target="_blank">רשימת מוזמנים</a><img src="image/icon_somefile.gif"/>
+								target="_blank"><img src="image/icon_somefile.gif"/>&nbsp;רשימת מוזמנים</a>
 						</c:if>
 						</span>
 						</td>
@@ -344,12 +346,13 @@
 				       </td>
 						<td colspan="3">
 						<c:if test="${!readOnly && !command.submitted}">
-						<input class="green" type="file" name="programAttach" id="programAttach"/>  
+						<input style="width: 0px; height: 0px;" class="green" type="file" name="programAttach" id="programAttach"/>
+						<button class="green programAttach">עיון ...</button>  
 						</c:if>
 						<span id="programAttachDiv">
 						<c:if test="${fn:length(command.programAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&contentType=${command.programAttachContentType}&attachmentId=1"
-							target="_blank">תוכנית הכנס</a><img src="image/icon_somefile.gif"/>
+							target="_blank"><img src="image/icon_somefile.gif"/>&nbsp;תוכנית הכנס</a>
 						</c:if>
 						</span>
 						</td>
@@ -359,12 +362,13 @@
 				       </td>
 						<td colspan="3">
 						<c:if test="${!readOnly && !command.submitted}">
-						<input class="green" type="file" name="financialAttach" id="financialAttach"/> 
+						<input style="width: 0px; height: 0px;" class="green" type="file" name="financialAttach" id="financialAttach"/>
+						<button class="green financialAttach">עיון ...</button> 
 						</c:if>
 						<span id="financialAttachDiv">
 						<c:if test="${fn:length(command.financialAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&contentType=${command.financialAttachContentType}&attachmentId=1"
-							target="_blank">תוכנית תקציבית</a><img src="image/icon_somefile.gif"/>
+							target="_blank"><img src="image/icon_somefile.gif"/>&nbsp;תוכנית תקציבית</a>
 						</c:if>
 						</span>
 						</td>

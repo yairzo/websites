@@ -1,9 +1,6 @@
 package huard.iws.web.validate;
 
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import huard.iws.bean.ConferenceProposalBean;
 
 import org.springframework.validation.Errors;
@@ -46,7 +43,4 @@ public class EditConferenceProposalValidator implements Validator {
 			errors.rejectValue("contactPersonPhone", "iw_IL.invalid.phone");
 		}
 	}
-
-
-
 }

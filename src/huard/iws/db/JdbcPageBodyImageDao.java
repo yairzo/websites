@@ -68,10 +68,10 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 
 	public List<PageBodyImage> getApprovedPageBodyImages(){
 		String query = "select * from image where approved=1 order by creationTime desc";
-		System.out.println("Before loading images !!!!!");
+		//System.out.println("Before loading images !!!!!");
 		List<PageBodyImage> pageBodyImages =
 			getSimpleJdbcTemplate().query(query, rowMapper);
-		System.out.println("After loading images !!!!!");
+		//System.out.println("After loading images !!!!!");
 			return pageBodyImages;
 	}
 
