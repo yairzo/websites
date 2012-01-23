@@ -23,6 +23,16 @@ h2
 	line-height: 20px;
 }
 
+h3
+{
+	font-size: 11pt;
+	font-family:arial, helvetica, sans-serif;
+	color:#525148;
+	background-color:#f1ecd2;
+	text-decoration:none;
+	line-height: 20px;
+}
+
 tr.form
 {
 	height: 40px
@@ -43,6 +53,7 @@ th
 	color:#525148;
 	font-weight: bold;
 }
+
 
 .medium170
 {

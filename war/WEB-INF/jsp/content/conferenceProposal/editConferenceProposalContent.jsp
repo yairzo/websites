@@ -50,54 +50,52 @@
 				</c:if>
                 
                 <tr class="form">
-					<td nowrap>
-						מספר בקשה:
+					<!--  <td nowrap>
+						<font>מספר בקשה:</font>
 					${command.id}
-					</td>
+					</td>-->
 					<td>
-						מספר פנימי:
+						<font>מספר פנימי:</font>
 					${command.internalId}
 					</td>
 					<td></td>
 					<td></td>
 				</tr>
-				<tr>
-		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
-        		</tr>
+
                 <tr class="form">
-					<th colspan="4" align="right">פרטי המבקש</th>
+					<td colspan="4" align="right"><h3>פרטי המבקש</h3></td>
 				</tr>
                 <tr class="form">
 					<td>
-						 שם חוקר:
+						 <font>שם חוקר:</font>
 						${command.researcher.degreeHebrew } ${command.researcher.firstNameHebrew } ${command.researcher.lastNameHebrew }
 					</td>
 					<td>
-						 מחלקה:
+						 <font>מחלקה:</font>
 					${command.researcher.department } 
 					</td>
 				</tr>
 				<tr class="form">
 					<td>
-						 פקולטה:
+						 <font>פקולטה:</font>
 						${faculty } 
 					</td>
 					<td>
-						 טלפון:
+						 <font>טלפון:</font>
 						${command.researcher.phone } 
 					</td>
 					<td>
-						 פקס:
+						 <font>פקס:</font>
 						${command.researcher.fax } 
 					</td>
 					<td nowrap>
-						 דואר אלקטרוני:
+						 <font>דואר אלקטרוני:</font>
 						${command.researcher.email } 
 					</td>
 				</tr>
 				<tr class="form">
 					<td>
-						 הגוף היוזם:
+						<font> הגוף היוזם:</font>
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input cssClass="green" path="initiatingBody" /><img src="image/icon-docs-info.gif" id="dialogInitiatingBody"/>
 					</c:if>
@@ -107,7 +105,7 @@
 					</td>
 					
 					<td>
-						 תפקיד בגוף היוזם:
+						 <font>תפקיד בגוף היוזם:</font>
 					<c:if test="${!readOnly && !command.submitted}">
        					<form:select path="initiatingBodyRole" cssClass="green" >
       						<form:option value="0">בחר/י תפקיד</form:option>
@@ -130,21 +128,19 @@
 					</c:if>
 					</td>
 				</tr>
-			 	<tr>
-		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
-        		 </tr>
+				<tr><td>&nbsp;</td></tr>
                 <tr class="form">
-					<th colspan="4" align="right">פרטים על הכנס</th>
+					<td colspan="4" align="right"><h3>פרטים על הכנס</h3></td>
 				</tr>
 				<tr class="form">
 					<td colspan="4" align="right">
-						 נושא הכנס (באנגלית):
+						 <font>נושא הכנס (באנגלית):</font>
 					</td>
 				</tr>
 				<tr class="form">
 					<c:if test="${!readOnly && !command.submitted}">
 					<td colspan="4">
-						<form:textarea cssClass="green autosaveclass" path="subject" id="subject" cols="120" rows="2"/>
+						<form:textarea cssClass="green autosaveclass" path="subject" id="subject" cols="122" rows="2"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
@@ -160,7 +156,7 @@
 
 				<tr class="form">
 					<td nowrap>
-						תחילת הכנס:
+						<font>תחילת הכנס:</font>
 					<c:if test="${!readOnly && !command.submitted}">
 						<input type="text" class="green" name="startConfDate" id="startConfDate" value="${startConfDate}"/>
 					</c:if>
@@ -169,7 +165,7 @@
 					</c:if>
 					</td>
 					<td nowrap>
-						סיום הכנס:
+					<font>	סיום הכנס:</font>
 					<c:if test="${!readOnly && !command.submitted}">
 						<input type="text" class="green" name="endConfDate" id="endConfDate" value="${endConfDate}"/>
 					</c:if>
@@ -178,7 +174,7 @@
 					</c:if>
 					</td>
 					<td nowrap>
-						 מיקום:
+						<font> מיקום:</font>
 					<c:if test="${!readOnly && !command.submitted}">
       					<form:select path="location" cssClass="green">
       						<form:option value="0">בחר/י מיקום</form:option>
@@ -196,7 +192,7 @@
 					</c:if>
 					</td>
 					<td nowrap>
-						 פירוט מיקום:
+						<font> פירוט מיקום:
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input cssClass="green" path="locationDetail"/>
 					</c:if>
@@ -299,7 +295,7 @@
 				<td colspan="2">
 				<table>
 					<tr class="form">
-				       <td>רשימת מוזמנים:
+				       <td><font>רשימת מוזמנים:</font>
 				       </td>
 						<td colspan="3">
 						<c:if test="${!readOnly && !command.submitted}">
@@ -316,7 +312,7 @@
 						</td>
 					</tr>
 					<tr class="form">
-				       <td>תוכנית הכנס:
+				       <td><font>תוכנית הכנס:</font>
 				       </td>
 						<td colspan="3">
 						<c:if test="${!readOnly && !command.submitted}">
@@ -332,7 +328,7 @@
 						</td>
 					</tr>
 					<tr class="form">
-				       <td>תוכנית תקציבית:
+				       <td><font>תוכנית תקציבית:</font>
 				       </td>
 						<td colspan="3">
 						<c:if test="${!readOnly && !command.submitted}">
@@ -355,13 +351,13 @@
 				
 				<tr class="form">
 					<td colspan="4"> 
-						 יש לפרט את התוכן העיוני של הכנס וחשיבותו לתחום:
+						<font> יש לפרט את התוכן העיוני של הכנס וחשיבותו לתחום:</font>
 					</td>
 				</tr>
 				<tr class="form">
 					<c:if test="${!readOnly && !command.submitted}">
 					<td colspan="4">
-						<form:textarea cssClass="green" path="description" cols="120" rows="4"/>
+						<form:textarea cssClass="green" path="description" cols="122" rows="4"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
@@ -370,16 +366,13 @@
 					</td>
 					</c:if>
 				</tr>
-				<tr>
-		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
-        		 </tr>
-				
+				<tr><td>&nbsp;</td></tr>
 	            <tr class="form">
-		       		<th colspan="4" align="right">תקציב הכנס</td>
+		       		<td colspan="4" align="right"><h3>תקציב הכנס</h3></td>
 				</tr>
 	            <tr class="form">
 		       		<td colspan="4">
-	   					סה"כ התקציב לארגון הכנס:
+	   					<font>סה"כ התקציב לארגון הכנס:</font>
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input cssClass="green" path="totalCost"  id="totalCost"/>
 					</c:if>
@@ -387,7 +380,7 @@
 						${command.totalCost}
 					</c:if>
 
-	   					מטבע:
+	   					<font>מטבע:</font>
 					<c:if test="${!readOnly && !command.submitted}">
         				<form:select path="totalCostCurrency" cssClass="green">
       					<form:option value="0">בחר/י מטבע</form:option>
@@ -410,7 +403,7 @@
 				
 	            <tr class="form">
 		       		<td>
-	   					הכנסות צפויות:
+	   					<font>הכנסות צפויות:</font>
 	   				</td>
 				</tr>
 
@@ -444,6 +437,8 @@
 						<tr>
 						<td>
 							<input type="text" class="green autosaveclass" name="financialSupport_name_${financialSupport.id}" value="${financialSupport.name}"/>
+	
+
 						</td>
 						<td>
 							<input type="text" class="green autosaveclass" name="financialSupport_sum_${financialSupport.id}" value="${financialSupport.sum}"/>
@@ -460,6 +455,8 @@
 						</td>
 						</tr>
 						</c:forEach>
+	
+
 						<tr>
 						<td>
 							<input type="text" class="green fromAssosiateSave" name="fromAssosiate_name"/>
@@ -563,6 +560,8 @@
 						<c:out value="${fromAdmitanceFee.sum}"></c:out>
 						</td>
 						<td>
+		
+
 						<c:if test="${fromAdmitanceFee.currency==1}">שקל</c:if>
 						<c:if test="${fromAdmitanceFee.currency==2}">דולר</c:if>
 						</td>
@@ -585,6 +584,8 @@
       						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
        		        		</select>
 						</td>
+		
+
 						<td>
 							<img src="image/icon_delete.gif" class="deleteFinancialSupport" id="${financialSupport.id}"/>
 						</td>
@@ -609,14 +610,13 @@
 					</table>
 					</td>
 				</tr>
-
-				<tr>
-		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
-        		 </tr>
+				<tr><td>&nbsp;</td></tr>
 	            <tr class="form">
-		       		<th colspan="4" align="right">ועדה מארגנת</th>
+		       		<td colspan="4" align="right"><h3>ועדה מארגנת</h3></td>
 				</tr>
 				<tr class="form">
+		
+
 					<td colspan="4">ועדה מדעית:
 					<table border="1" cellpadding="1" cellspacing="0">
 				    <tr>
@@ -748,27 +748,22 @@
 					</table>
 					</td>
 				</tr>
-
-				<tr>
-		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
-        		 </tr>
+				<tr><td>&nbsp;</td></tr>
 				<tr class="form">
-		       		<th colspan="4" align="right">
+		       		<td colspan="4" align="right"><h3>
 	   					סוג הסיוע המבוקש
-	   				</th>
+	   				</h3></td>
 				</tr>
 	            <tr class="form">
-		       		<td nowrap>
-	   					סכום הסיוע המבוקש:
+		       		<td colspan="4">
+	   					<font>סכום הסיוע המבוקש:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
 						<form:input cssClass="green" path="supportSum" id="supportSum"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						${command.supportSum}
 					</c:if>
-					</td>
-		       		<td>
-	   					מטבע:
+	   					<font>מטבע:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select path="supportCurrency" cssClass="green">
       					<form:option value="0">בחר/י מטבע</form:option>
@@ -791,26 +786,26 @@
 	            <tr class="form">
 		       		<td colspan="4">
 					<c:if test="${!readOnly && !command.submitted}">			
-		       		    אולם<form:checkbox cssClass="green" path="auditorium"/>
+		       		   <font> אולם</font><form:checkbox cssClass="green" path="auditorium"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
-						אולם<input type="checkbox" disabled="disabled" value="" <c:if test="${command.auditorium}" > checked </c:if> />
+						<font>אולם</font><input type="checkbox" disabled="disabled" value="" <c:if test="${command.auditorium}" > checked </c:if> />
 					</c:if>
 					<c:if test="${!readOnly && !command.submitted}">			
-						חדר סמנירים<form:checkbox cssClass="green" path="seminarRoom"/>
+						<font>חדר סמנירים</font><form:checkbox cssClass="green" path="seminarRoom"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
-						חדר סמנירים<input type="checkbox" disabled="disabled" value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
+						<font>חדר סמנירים</font><input type="checkbox" disabled="disabled" value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
 					</c:if>
-	   					ל:
+	   					<font>ל:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="participants" id="participants"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 	   					${command.participants}
 					</c:if>
-	   				 אנשים,
-        				בקמפוס מועדף:
+	   				<font> אנשים,
+        				בקמפוס מועדף:</font>
  					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select path="prefferedCampus" cssClass="green">
       					<form:option value="0">בחר/י קמפוס</form:option>
@@ -834,30 +829,28 @@
 				<td colspan="4"><div id="errorparticipants" dir="rtl"><p></p></div>
 				</td>
 				</tr>
-				<tr>
-		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
-        		 </tr>
+				<tr><td>&nbsp;</td></tr>
 	            <tr class="form">
-		       		<th colspan="4" align="right">
-	   					ארגון הכנס
-	   				</th>
+		       		<td colspan="4" align="right">
+	   					<h3>ארגון הכנס</h3>
+	   				</td>
 				</tr>
 	            <tr class="form">
 					<c:if test="${!readOnly && !command.submitted}">			
 		       		<td colspan="2">
-		       		    ארגון ע"י חברה מסחרית<form:checkbox cssClass="green" id="company" path="organizingCompany"/>
+		       		   <font> ארגון ע"י חברה מסחרית</font><form:checkbox cssClass="green" id="company" path="organizingCompany"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 		       		<td colspan="2">
-		       		    ארגון ע"י חברה מסחרית<input type="checkbox" disabled="disabled" id="companyViewOnly" value="" <c:if test="${command.organizingCompany}">checked</c:if> />
+		       		   <font> ארגון ע"י חברה מסחרית</font><input type="checkbox" disabled="disabled" id="companyViewOnly" value="" <c:if test="${command.organizingCompany}">checked</c:if> />
 					</td>
 					</c:if>
 				</tr>
 				
 	             <tr class="form organizingCompanyPart">
 		       		<td>
-	   					שם החברה:&nbsp;&nbsp;&nbsp;
+	   					<font>שם החברה:&nbsp;&nbsp;&nbsp;&nbsp;</font>
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="organizingCompanyName" />
 					</c:if>
@@ -866,7 +859,7 @@
 					</c:if>
 					</td>
 		       		<td>
-	   				טלפון:&nbsp;
+	   				<font>טלפון:</font>&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="organizingCompanyPhone" id="organizingCompanyPhone"/>
 					</c:if>
@@ -875,7 +868,7 @@
 					</c:if>
 					</td>
 		       		<td>
-	   					פקס:&nbsp;
+	   				<font>	פקס:<font>&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="organizingCompanyFax" id="organizingCompanyFax"/>
 					</c:if>
@@ -884,7 +877,7 @@
 					</c:if>
 	   				</td>
 				    <td>
-	   					כתובת אימייל:
+	   					<font>כתובת אימייל:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="organizingCompanyEmail" id="organizingCompanyEmail"/>
 					</c:if>
@@ -902,7 +895,7 @@
 				</tr>
 	            <tr class="form">
 		       		<td>
-	   					שם איש קשר:
+	   					<font>שם איש קשר:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="contactPerson" />
 					</c:if>
@@ -911,7 +904,7 @@
 					</c:if>
 					</td>
 		       		<td>
-	   					תפקיד:
+	   					<font>תפקיד:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="contactPersonRole" />
 					</c:if>
@@ -920,7 +913,7 @@
 					</c:if>
 					</td>
 		       		<td nowrap>
-	   					טלפון:
+	   					<font>טלפון:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="contactPersonPhone" id="contactPersonPhone"/>
 					</c:if>
@@ -929,7 +922,7 @@
 					</c:if>
 					</td>
 				    <td>
-	   					כתובת אימייל:
+	   					<font>כתובת אימייל:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="contactPersonEmail" id="contactPersonEmail"/>
 					</c:if>
@@ -945,17 +938,17 @@
 				</td>
 				</tr>			
 				<tr>
-		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
+		             <td colspan="4"><h3>הגשה</h3></td>
         		 </tr>
 				<tr class="form">
 					<td>
-						 הערות לועדה:
+						<font> הערות לועדה:</font>
 					</td>
 				</tr>
 				<tr>
 					<c:if test="${!readOnly && !command.submitted}">			
 					<td colspan="4" >
-						<form:textarea cssClass="green" path="remarks" cols="120" rows="3"/>
+						<form:textarea cssClass="green" path="remarks" cols="122" rows="3"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
@@ -965,8 +958,8 @@
 					</c:if>
 				</tr>																
 	            <tr id="deanApproval" class="form">
-		       		<td>
-	   				הגורם המאשר:
+		       		<td colspan="4">
+	   				<font>הגורם המאשר:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select id="deanSelect"  path="approverId" cssClass="green">
       					<form:option value="0">בחר/י גורם מאשר</form:option>
@@ -995,20 +988,20 @@
  					</td>
 				</tr>
 				</c:if>
+				<tr><td>&nbsp;</td></tr>
 				<tr>
-		             <td colspan="4"><img src="image/hr.gif" width="100%" height="10"></td>
+		             <td colspan="4"><h3>&nbsp;</h3></td>
         		 </tr>
 				
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">			
 				<c:if test="${command.submitted}">			
 				<tr class="form">
-					<td></td>
 					<td>
-				   		<input type="checkbox" class="green" name="cancelSubmission"/>ביטול הגשה
+				   		<input type="checkbox" class="green" name="cancelSubmission"/><font>ביטול הגשה</font>
  					</td>
 					<c:if test="${!command.isInsideDeadline}">			
-					<td colspan=2>
-				   		<input type="checkbox" class="green" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
+					<td colspan=3>
+				   		<input type="checkbox" class="green" name="isInsideDeadline"/><font>צרפ/י להגשות לקראת הועדה הקרובה</font>
 				   	</td>
 					</c:if>
 				</tr>
@@ -1018,28 +1011,28 @@
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
 	            <tr class="form">
 		       		<td>
-	   					חוות דעת הדיקן המאשר:
+	   					<font>חוות דעת הדיקן המאשר:</font>
 	   				</td>
 				</tr>
 				<tr>
 				    <td colspan="4">
-						<form:textarea cssClass="green" path="approverEvaluation" cols="120" rows="3"/>
+						<form:textarea cssClass="green" path="approverEvaluation" cols="122" rows="3"/>
 					</td>
 				</tr>
 				</authz:authorize>
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
 				<tr class="form">
-					<td>הערות הרשות למו"פ:</td>
+					<td><font>הערות הרשות למו"פ:</font></td>
 				</tr>
 				<tr>
 					<td colspan="4">
-						<form:textarea cssClass="green" path="adminRemarks" cols="120" rows="3"/>
+						<form:textarea cssClass="green" path="adminRemarks" cols="122" rows="3"/>
 					</td>
 				</tr>
 				</authz:authorize>
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
 				<tr class="form">
-					<td>הערות הועדה:</td>
+					<td><font>הערות הועדה:</font></td>
 				</tr>
 				<tr>
 	   				<td colspan="4">
@@ -1047,11 +1040,11 @@
 	   				</td>
 				</tr>
 				<tr>
-					<td>הוסף הערה:</td>
+					<td><font>הוסף הערה:</font></td>
 				</tr>
 				<tr>
 					<td colspan="4">
-						<textarea class="green" name="newCommitteeRemarks" cols="120" rows="1"></textarea>
+						<textarea class="green" name="newCommitteeRemarks" cols="122" rows="1"></textarea>
 					</td>
 				</tr>
 				</authz:authorize>

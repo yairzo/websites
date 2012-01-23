@@ -287,6 +287,30 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposal.setDeadline(deadlineD.getTime());
 			int conferenceProposalId = conferenceProposalService.insertConferenceProposal(conferenceProposal);
 			logger.info("conferenceProposalId " + conferenceProposalId);
+			//adding 1 extra row in each table
+			for( int i=1; i<4;i++){
+				FinancialSupport financialSupport  = new FinancialSupport();
+				financialSupport.setConferenceProposalId(conferenceProposalId);
+				if (i==3)
+					financialSupport.setName("משתתפים");
+				else
+					financialSupport.setName("");
+				financialSupport.setSum("");
+				financialSupport.setCurrency("");
+				financialSupport.setType(i);
+				conferenceProposalService.insertFinancialSupport(financialSupport);
+			}
+			for( int i=1; i<3;i++){
+				Committee committee  = new Committee();
+				committee.setConferenceProposalId(conferenceProposalId);
+				committee.setName("");
+				committee.setCommitteeRole("");
+				committee.setInstitute("");
+				committee.setInstituteRole("");
+				committee.setType(i);
+				conferenceProposalService.insertCommittee(committee);
+			}
+			
 			model.put("id",conferenceProposalId);
 			return new ModelAndView ( new RedirectView("editConferenceProposal.html"), model);
 		}
