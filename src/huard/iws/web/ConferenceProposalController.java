@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +40,7 @@ public class ConferenceProposalController extends GeneralFormController{
 	throws Exception{
 
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
+		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		
 		//if added financialsupport or committee
 		if(request.getParameter("action","").equals("fromAssosiateSave")){
@@ -94,7 +96,38 @@ public class ConferenceProposalController extends GeneralFormController{
 		else if(request.getParameter("action","").equals("deleteCommittee")){
 			conferenceProposalService.deleteCommittee(request.getIntParameter("committeeId", 0));
 		}
-
+		
+		//go over committees and update
+		List<Committee> committees = origConferenceProposalBean.getScientificCommittees();
+		committees.addAll(origConferenceProposalBean.getOperationalCommittees());
+		for(Committee committee: committees){
+			String committeeName="committee_name_" + committee.getId();
+			if(!request.getParameter(committeeName, "").equals("")){
+				committee.setName(request.getParameter(committeeName, ""));
+				String committeRole = "committee_committeeRole_"  + committee.getId();
+				committee.setCommitteeRole(request.getParameter(committeRole, ""));
+				String institute = "committee_institute_"  + committee.getId();
+				committee.setInstitute(request.getParameter(institute, ""));
+				String instituteRole = "committee_instituteRole_"  + committee.getId();
+				committee.setInstituteRole(request.getParameter(instituteRole, ""));
+				conferenceProposalService.updateCommittee(committee);
+			}
+		}
+		List<FinancialSupport> financialSupports = origConferenceProposalBean.getFromAdmitanceFee();
+		financialSupports.addAll(origConferenceProposalBean.getFromAssosiate());
+		financialSupports.addAll(origConferenceProposalBean.getFromExternal());
+		for(FinancialSupport financialSupport: financialSupports){
+			String financialSupportName="financialSupport_name_" + financialSupport.getId();
+			if(!request.getParameter(financialSupportName, "").equals("")){
+				financialSupport.setName(request.getParameter(financialSupportName, ""));
+				String financialSupportSum = "financialSupport_sum_"  + financialSupport.getId();
+				financialSupport.setSum(request.getParameter(financialSupportSum, ""));
+				String financialSupportCurrency = "financialSupport_currency_"  + financialSupport.getId();
+				financialSupport.setCurrency(request.getParameter(financialSupportCurrency, ""));
+				conferenceProposalService.updateFinancialSupport(financialSupport);
+			}
+		}
+		
 
 		// this part saves the content type of the attachments
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
@@ -115,7 +148,6 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}		
 		//if not added attachment don't override prev attachment
-		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		if(conferenceProposalBean.getGuestsAttach().length==0){
 			conferenceProposalBean.setGuestsAttach(origConferenceProposalBean.getGuestsAttach());
 			conferenceProposalBean.setGuestsAttachContentType(origConferenceProposalBean.getGuestsAttachContentType());

@@ -142,38 +142,39 @@ $(document).ready(function() {
 	
 	
 	
-	$("button.fromAdmitanceFeeSave").click(function(){
+	$(".fromAdmitanceFeeSave").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromAdmitanceFeeSave\"/>");
     	$("#form").submit();
     	return true;
     });
 	
-	$("button.fromExternalSave").click(function(){
+	$(".fromExternalSave").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromExternalSave\"/>");
     	$("#form").submit();
     	return true;
     });
 	
 
-	$("button.fromAssosiateSave").click(function(){
+	$(".fromAssosiateSave").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromAssosiateSave\"/>");
     	$("#form").submit();
     	return true;
     });
 	
-	$("button.scientificCommitteeSave").click(function(){
+	$(".scientificCommitteeSave").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"scientificCommitteeSave\"/>");
     	$("#form").submit();
     	return true;
     });
-
-	$("button.operationalCommitteeSave").click(function(){
+	
+	
+	$(".operationalCommitteeSave").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"operationalCommitteeSave\"/>");
     	$("#form").submit();
     	return true;
     });
 	
-	$("button.deleteFinancialSupport").click(function(){
+	$(".deleteFinancialSupport").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteFinancialSupport\"/>");
 		var financialSupportId= this.id;
 		$("#form").append("<input type=\"hidden\" name=\"financialSupportId\" value=\""+financialSupportId +"\"/>");
@@ -181,12 +182,20 @@ $(document).ready(function() {
     	return true;
     });	
 	
-	$("button.deleteCommittee").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteCommittee\"/>");
-		var committeeId= this.id;
-		$("#form").append("<input type=\"hidden\" name=\"committeeId\" value=\""+committeeId +"\"/>");
-    	$("#form").submit();
-    	return true;
+	$(".deleteCommittee").click(function(){
+        var committeeId= this.id;
+   		$.alerts.confirm('<fmt:message key="iw_IL.conferenceProposal.deleteCommittee.confirm"/>', "מחיקת ועדה",
+    	function(confirm){
+    	   if (confirm==1){
+    	   		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteCommittee\"/>");
+    	        $("#form").append("<input type=\"hidden\" name=\"committeeId\" value=\""+committeeId +"\"/>");
+    	        $("#form").submit();
+    	        return true;
+    	   }
+    	   else{
+    	   		return false;
+    	   }
+    	});
     });
 	
 	$("button.submitForGrading").click(function(){

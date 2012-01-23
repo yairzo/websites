@@ -144,7 +144,7 @@
 				<tr class="form">
 					<c:if test="${!readOnly && !command.submitted}">
 					<td colspan="4">
-						<form:textarea cssClass="green autosaveclass" path="subject" id="subject" cols="100" rows="2"/>
+						<form:textarea cssClass="green autosaveclass" path="subject" id="subject" cols="120" rows="2"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
@@ -361,7 +361,7 @@
 				<tr class="form">
 					<c:if test="${!readOnly && !command.submitted}">
 					<td colspan="4">
-						<form:textarea cssClass="green" path="description" cols="100" rows="4"/>
+						<form:textarea cssClass="green" path="description" cols="120" rows="4"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
@@ -378,7 +378,7 @@
 		       		<th colspan="4" align="right">תקציב הכנס</td>
 				</tr>
 	            <tr class="form">
-		       		<td colspan="2">
+		       		<td colspan="4">
 	   					סה"כ התקציב לארגון הכנס:
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input cssClass="green" path="totalCost"  id="totalCost"/>
@@ -386,8 +386,7 @@
 					<c:if test="${readOnly || command.submitted}">
 						${command.totalCost}
 					</c:if>
-	   				</td>
-		       		<td>
+
 	   					מטבע:
 					<c:if test="${!readOnly && !command.submitted}">
         				<form:select path="totalCostCurrency" cssClass="green">
@@ -414,9 +413,9 @@
 	   					הכנסות צפויות:
 	   				</td>
 				</tr>
+
 				<tr class="form">
-					<td> משותפים לארגון:</td>
-					<td colspan="3">
+					<td colspan="4">משותפים לארגון:
 					<table border="1" cellpadding="1" cellspacing="0">
 				    <tr>
 				    <th> שם </th> 
@@ -424,142 +423,188 @@
 				    <th> מטבע </th>
 				    <th></th>
 					</tr>
-           			<c:forEach items="${command.fromAssosiate}" var="fromAssosiate">
-					<tr>
-					<td>
-						<c:out value="${fromAssosiate.name}"></c:out>
-					</td>
-					<td>
-						<c:out value="${fromAssosiate.sum}"></c:out>
-					</td>
-					<td>
-						<c:if test="${fromAssosiate.currency==1}">שקל</c:if>
-						<c:if test="${fromAssosiate.currency==2}">דולר</c:if>
-					</td>
-					<c:if test="${!readOnly && !command.submitted}">					
-					<td>
-						<button class="grey deleteFinancialSupport" id="${fromAssosiate.id}">מחק</button>						
-					</td>
+					<c:if test="${readOnly || command.submitted}">
+           				<c:forEach items="${command.fromAssosiate}" var="fromAssosiate">
+						<tr>
+						<td>
+							<c:out value="${fromAssosiate.name}"></c:out>
+						</td>
+						<td>
+							<c:out value="${fromAssosiate.sum}"></c:out>
+						</td>
+						<td>
+							<c:if test="${fromAssosiate.currency==1}">שקל</c:if>
+							<c:if test="${fromAssosiate.currency==2}">דולר</c:if>
+						</td>
+						</tr>
+						</c:forEach>
 					</c:if>
-					</tr>
-					</c:forEach>
 					<c:if test="${!readOnly && !command.submitted}">
-					<tr>
-					<td>
-						<input type="text" class="green" name="fromAssosiate_name"/>
-					</td>
-					<td>
-						<input type="text" class="green" name="fromAssosiate_sum"/>
-					</td>
-					<td>
-        				<select name="fromAssosiate_currency" class="green">
-      					<option value="0">מטבע</option>
-      					<option value="1">שקל</option>
-      					<option value="2">דולר</option>
-       		        	</select>
-					</td>
-					<td><button class="grey fromAssosiateSave" onclick="">הוסף</button></td>
-					</tr>
+           				<c:forEach items="${command.fromAssosiate}" var="financialSupport">
+						<tr>
+						<td>
+							<input type="text" class="green autosaveclass" name="financialSupport_name_${financialSupport.id}" value="${financialSupport.name}"/>
+						</td>
+						<td>
+							<input type="text" class="green autosaveclass" name="financialSupport_sum_${financialSupport.id}" value="${financialSupport.sum}"/>
+						</td>
+						<td>
+       					   <select class="green autosaveclass" name="financialSupport_currency_${financialSupport.id}">
+      						<option value="0">מטבע</option>
+      						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
+      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
+       		        		</select>
+						</td>
+						<td>
+							<img src="image/icon_delete.gif" class="deleteFinancialSupport" id="${financialSupport.id}"/>
+						</td>
+						</tr>
+						</c:forEach>
+						<tr>
+						<td>
+							<input type="text" class="green fromAssosiateSave" name="fromAssosiate_name"/>
+						</td>
+						<td>
+							<input type="text" class="green fromAssosiateSave" name="fromAssosiate_sum"/>
+						</td> 
+						<td>
+        					<select class="green fromAssosiateSave" name="fromAssosiate_currency" >
+      						<option value="0">מטבע</option>
+      						<option value="1">שקל</option>
+      						<option value="2">דולר</option>
+       		        		</select>
+						</td>
+						</tr>
 					</c:if>
 					</table>
 					</td>
 				</tr>
 
 				<tr class="form">
-					<td> ממממן חיצוני:</td>
-					<td colspan="3">
+					<td colspan="4">ממממן חיצוני:
 					<table border="1" cellpadding="1" cellspacing="0">
 				    <tr>
 				    <th> שם </th> 
 				    <th> סכום </th>
 				    <th> מטבע </th>
 					</tr>
+					<c:if test="${readOnly || command.submitted}">
            			<c:forEach items="${command.fromExternal}" var="fromExternal">
-					<tr>
-					<td>
+						<tr>
+						<td>
 						<c:out value="${fromExternal.name}"></c:out>
-					</td>
-					<td>
+						</td>
+						<td>
 						<c:out value="${fromExternal.sum}"></c:out>
-					</td>
-					<td>
+						</td>
+						<td>
 						<c:if test="${fromExternal.currency==1}">שקל</c:if>
 						<c:if test="${fromExternal.currency==2}">דולר</c:if>
-					</td>
-					<c:if test="${!readOnly && !command.submitted}">					
-					<td>
-						<button class="grey deleteFinancialSupport" id="${fromExternal.id}">מחק</button>						
-					</td>
-					</c:if>
-					</tr>
+						</td>
+						</tr>
 					</c:forEach>
+					</c:if>
 					<c:if test="${!readOnly && !command.submitted}">
-					<tr>
-					<td>
-						<input type="text" class="green" name="fromExternal_name"/>
-					</td>
-					<td>
-						<input type="text" class="green" name="fromExternal_sum"/>
-					</td>
-					<td>
-        				<select name="fromExternal_currency" class="green">
-      					<option value="0">מטבע</option>
-      					<option value="1">שקל</option>
-      					<option value="2">דולר</option>
-       		        	</select>
-					</td>
-					<td><button class="grey fromExternalSave" onclick="">הוסף</button></td>
-					</tr>					
+          				<c:forEach items="${command.fromExternal}" var="financialSupport">
+						<tr>
+						<td>
+							<input type="text" class="green autosaveclass" name="financialSupport_name_${financialSupport.id}" value="${financialSupport.name}"/>
+						</td>
+						<td>
+							<input type="text" class="green autosaveclass" name="financialSupport_sum_${financialSupport.id}" value="${financialSupport.sum}"/>
+						</td>
+						<td>
+       					   <select class="green autosaveclass" name="financialSupport_currency_${financialSupport.id}">
+      						<option value="0">מטבע</option>
+      						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
+      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
+       		        		</select>
+						</td>
+						<td>
+							<img src="image/icon_delete.gif" class="deleteFinancialSupport" id="${financialSupport.id}"/>
+						</td>
+						</tr>
+						</c:forEach>
+						<tr>
+						<td>
+							<input type="text" class="green fromExternalSave" name="fromExternal_name"/>
+						</td>
+						<td>
+							<input type="text" class="green fromExternalSave" name="fromExternal_sum"/>
+						</td>
+						<td>
+        					<select class="green fromExternalSave" name="fromExternal_currency" >
+      						<option value="0">מטבע</option>
+       						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
+      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
+       		        		</select>
+						</td>
+						</tr>					
 					</c:if>
 					</table>
 					</td>
 				</tr>
 
 				<tr class="form">
-					<td>מדמי הרשמה:</td>
-					<td colspan="3">
+					<td colspan="4">מדמי הרשמה:
 					<table border="1" cellpadding="1" cellspacing="0">
 				    <tr>
 				    <th> שם </th> 
 				    <th> סכום </th>
 				    <th> מטבע </th>
 					</tr>
-           			<c:forEach items="${command.fromAdmitanceFee}" var="fromAdmitanceFee">
-					<tr>
-					<td>
+ 					<c:if test="${readOnly || command.submitted}">
+           				<c:forEach items="${command.fromAdmitanceFee}" var="fromAdmitanceFee">
+						<tr>
+						<td>
 						<c:out value="${fromAdmitanceFee.name}"></c:out>
-					</td>
-					<td>
+						</td>
+						<td>
 						<c:out value="${fromAdmitanceFee.sum}"></c:out>
-					</td>
-					<td>
+						</td>
+						<td>
 						<c:if test="${fromAdmitanceFee.currency==1}">שקל</c:if>
 						<c:if test="${fromAdmitanceFee.currency==2}">דולר</c:if>
-					</td>
-					<c:if test="${!readOnly && !command.submitted}">					
-					<td>
-						<button class="grey deleteFinancialSupport" id="${fromAdmitanceFee.id}">מחק</button>						
-					</td>
+						</td>
+						</tr>
+						</c:forEach>
 					</c:if>
-					</tr>
-					</c:forEach>
 					<c:if test="${!readOnly && !command.submitted}">
-					<tr>
-					<td>
-						<input type="text" class="green" name="fromAdmitanceFee_name" value="משתתפים"/>
-					</td>
-					<td>
-						<input type="text" class="green" name="fromAdmitanceFee_sum" />
-					</td>
-					<td>
-        				<select name="fromAdmitanceFee_currency" class="green">
-      					<option value="0">מטבע</option>
-      					<option value="1">שקל</option>
-      					<option value="2">דולר</option>
-       		        	</select>
-					</td>
-					<td><button class="grey fromAdmitanceFeeSave" onclick="">הוסף</button></td>
-					</tr>					
+           				<c:forEach items="${command.fromAdmitanceFee}" var="financialSupport">
+						<tr>
+						<td>
+							<input type="text" class="green autosaveclass" name="financialSupport_name_${financialSupport.id}" value="${financialSupport.name}"/>
+						</td>
+						<td>
+							<input type="text" class="green autosaveclass" name="financialSupport_sum_${financialSupport.id}" value="${financialSupport.sum}"/>
+						</td>
+						<td>
+       					   <select class="green autosaveclass" name="financialSupport_currency_${financialSupport.id}">
+      						<option value="0">מטבע</option>
+      						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
+      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
+       		        		</select>
+						</td>
+						<td>
+							<img src="image/icon_delete.gif" class="deleteFinancialSupport" id="${financialSupport.id}"/>
+						</td>
+						</tr>
+						</c:forEach>
+						<tr>
+						<td>
+							<input type="text" class="green fromAdmitanceFeeSave" name="fromAdmitanceFee_name" value="משתתפים"/>
+						</td>
+						<td>
+							<input type="text" class="green fromAdmitanceFeeSave" name="fromAdmitanceFee_sum" />
+						</td>
+						<td>
+        					<select name="fromAdmitanceFee_currency" class="green fromAdmitanceFeeSave">
+      						<option value="0">מטבע</option>
+       						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
+      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
+       		        		</select>
+						</td>
+						</tr>					
 					</c:if>
 					</table>
 					</td>
@@ -581,43 +626,58 @@
 				    <th> תפקיד בועדה </th>
 				    <th></th>
 					</tr>
-           			<c:forEach items="${command.scientificCommittees}" var="committee">
-					<tr>
-					<td>
-						<c:out value="${committee.name}"></c:out>
-					</td>
-					<td>
-						<c:out value="${committee.institute}"></c:out>
-					</td>
-					<td>
-						<c:out value="${committee.instituteRole}"></c:out>
-					</td>
-					<td>
-						<c:out value="${committee.committeeRole}"></c:out>
-					</td>					
-					<c:if test="${!readOnly && !command.submitted}">					
-					<td>
-						<button class="grey deleteCommittee" id="${committee.id}">מחק</button>						
-					</td>
+ 					<c:if test="${readOnly || command.submitted}">
+           				<c:forEach items="${command.scientificCommittees}" var="committee">
+						<tr>
+						<td>
+							<c:out value="${committee.name}"></c:out>
+						</td>
+						<td>
+							<c:out value="${committee.institute}"></c:out>
+						</td>
+						<td>
+							<c:out value="${committee.instituteRole}"></c:out>
+						</td>
+						<td>
+							<c:out value="${committee.committeeRole}"></c:out>
+						</td>					
+						</tr>
+						</c:forEach>
 					</c:if>
-					</tr>
-					</c:forEach>
-					<c:if test="${!readOnly && !command.submitted}">
-					<tr>
-					<td>
-						<input type="text" class="green" name="scientificCommittee_name"/>
-					</td>
-					<td>
-						<input type="text" class="green" name="scientificCommittee_institute"/>
-					</td>
-					<td>
-						<input type="text" class="green" name="scientificCommittee_instituteRole"/>
-					</td>
-					<td>
-						<input type="text" class="green" name="scientificCommittee_committeeRole"/>
-					</td>
-					<td><button class="grey scientificCommitteeSave" onclick="">הוסף</button></td>
-					</tr>		
+ 					<c:if test="${!readOnly && !command.submitted}">					
+           				<c:forEach items="${command.scientificCommittees}" var="committee">
+						<tr>
+						<td>
+							<input type="text" class="green autosaveclass" name="committee_name_${committee.id}" value="${committee.name}"/>
+						</td>
+						<td>
+							<input type="text" class="green autosaveclass" name="committee_institute_${committee.id}" value="${committee.institute}"/>
+						</td>
+						<td>
+							<input type="text" class="green autosaveclass" name="committee_instituteRole_${committee.id}" value="${committee.instituteRole}"/>
+						</td>
+						<td>
+							<input type="text" class="green autosaveclass" name="committee_committeeRole_${committee.id}" value="${committee.committeeRole}"/>
+						</td>					
+						<td>
+							<img src="image/icon_delete.gif" class="deleteCommittee" id="${committee.id}"/>
+						</td>
+						</tr>
+						</c:forEach>
+						<tr>
+						<td>
+							<input type="text" class="green scientificCommitteeSave" name="scientificCommittee_name"/>
+						</td>
+						<td>
+							<input type="text" class="green scientificCommitteeSave" name="scientificCommittee_institute"/>
+						</td>
+						<td>
+							<input type="text" class="green scientificCommitteeSave" name="scientificCommittee_instituteRole"/>
+						</td>
+						<td>
+							<input type="text" class="green scientificCommitteeSave" name="scientificCommittee_committeeRole"/>
+						</td>
+						</tr>		
 					</c:if>
 					</table>
 					</td>
@@ -632,43 +692,58 @@
 				    <th> תפקיד במוסד </th>
 				    <th> תפקיד בועדה </th>
 					</tr>
-           			<c:forEach items="${command.operationalCommittees}" var="opcommittee">
-					<tr>
-					<td>
-						<c:out value="${opcommittee.name}"></c:out>
-					</td>
-					<td>
-						<c:out value="${opcommittee.institute}"></c:out>
-					</td>
-					<td>
-						<c:out value="${opcommittee.instituteRole}"></c:out>
-					</td>
-					<td>
-						<c:out value="${opcommittee.committeeRole}"></c:out>
-					</td>					
-					<c:if test="${!readOnly && !command.submitted}">					
-					<td>
-						<button class="grey deleteCommittee" id="${opcommittee.id}">מחק</button>						
-					</td>
+ 					<c:if test="${readOnly || command.submitted}">
+           				<c:forEach items="${command.operationalCommittees}" var="committee">
+						<tr>
+						<td>
+							<c:out value="${committee.name}"></c:out>
+						</td>
+						<td>
+							<c:out value="${committee.institute}"></c:out>
+						</td>
+						<td>
+							<c:out value="${committee.instituteRole}"></c:out>
+						</td>
+						<td>
+							<c:out value="${committee.committeeRole}"></c:out>
+						</td>					
+						</tr>
+						</c:forEach>
 					</c:if>
-					</tr>
-					</c:forEach>
 					<c:if test="${!readOnly && !command.submitted}">
-					<tr>
-					<td>
-						<input type="text" class="green" name="operationalCommittee_name"/>
-					</td>
-					<td>
-						<input type="text" class="green" name="operationalCommittee_institute"/>
-					</td>
-					<td>
-						<input type="text" class="green" name="operationalCommittee_instituteRole"/>
-					</td>
-					<td>
-						<input type="text" class="green" name="operationalCommittee_committeeRole"/>
-					</td>
-					<td><button class="grey operationalCommitteeSave" onclick="">הוסף</button></td>
-					</tr>						
+           				<c:forEach items="${command.operationalCommittees}" var="committee">
+						<tr>
+						<td>
+							<input type="text" class="green autosaveclass" name="committee_name_${committee.id}" value="${committee.name}"/>
+						</td>
+						<td>
+							<input type="text" class="green autosaveclass" name="committee_institute_${committee.id}" value="${committee.institute}"/>
+						</td>
+						<td>
+							<input type="text" class="green autosaveclass" name="committee_instituteRole_${committee.id}" value="${committee.instituteRole}"/>
+						</td>
+						<td>
+							<input type="text" class="green autosaveclass" name="committee_committeeRole_${committee.id}" value="${committee.committeeRole}"/>
+						</td>					
+						<td>
+							<img src="image/icon_delete.gif" class="deleteCommittee" id="${committee.id}"/>
+						</td>
+						</tr>
+						</c:forEach>
+						<tr>
+						<td>
+							<input type="text" class="green operationalCommitteeSave" name="operationalCommittee_name"/>
+						</td>
+						<td>
+							<input type="text" class="green operationalCommitteeSave" name="operationalCommittee_institute"/>
+						</td>
+						<td>
+							<input type="text" class="green operationalCommitteeSave" name="operationalCommittee_instituteRole"/>
+						</td>
+						<td>
+							<input type="text" class="green operationalCommitteeSave" name="operationalCommittee_committeeRole"/>
+						</td>
+						</tr>						
 					</c:if>
 					</table>
 					</td>
@@ -714,33 +789,28 @@
 				</td>
 				</tr>
 	            <tr class="form">
-		       		<td>
+		       		<td colspan="4">
 					<c:if test="${!readOnly && !command.submitted}">			
 		       		    אולם<form:checkbox cssClass="green" path="auditorium"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						אולם<input type="checkbox" disabled="disabled" value="" <c:if test="${command.auditorium}" > checked </c:if> />
 					</c:if>
-					</td>
-					<td>
 					<c:if test="${!readOnly && !command.submitted}">			
 						חדר סמנירים<form:checkbox cssClass="green" path="seminarRoom"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						חדר סמנירים<input type="checkbox" disabled="disabled" value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
 					</c:if>
-					</td>
-		       		<td nowrap>
-	   					למספר אנשים:
+	   					ל:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="participants" id="participants"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 	   					${command.participants}
 					</c:if>
-	   				</td>
-				    <td>
-        				קמפוס מועדף:
+	   				 אנשים,
+        				בקמפוס מועדף:
  					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select path="prefferedCampus" cssClass="green">
       					<form:option value="0">בחר/י קמפוס</form:option>
@@ -787,7 +857,7 @@
 				
 	             <tr class="form organizingCompanyPart">
 		       		<td>
-	   					שם החברה:
+	   					שם החברה:&nbsp;&nbsp;&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="organizingCompanyName" />
 					</c:if>
@@ -796,7 +866,7 @@
 					</c:if>
 					</td>
 		       		<td>
-	   				טלפון:
+	   				טלפון:&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="organizingCompanyPhone" id="organizingCompanyPhone"/>
 					</c:if>
@@ -805,7 +875,7 @@
 					</c:if>
 					</td>
 		       		<td>
-	   					פקס:
+	   					פקס:&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="organizingCompanyFax" id="organizingCompanyFax"/>
 					</c:if>
@@ -849,7 +919,7 @@
 	   					${command.contactPersonRole}
 					</c:if>
 					</td>
-		       		<td>
+		       		<td nowrap>
 	   					טלפון:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green" path="contactPersonPhone" id="contactPersonPhone"/>
@@ -885,7 +955,7 @@
 				<tr>
 					<c:if test="${!readOnly && !command.submitted}">			
 					<td colspan="4" >
-						<form:textarea cssClass="green" path="remarks" cols="100" rows="3"/>
+						<form:textarea cssClass="green" path="remarks" cols="120" rows="3"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
@@ -953,7 +1023,7 @@
 				</tr>
 				<tr>
 				    <td colspan="4">
-						<form:textarea cssClass="green" path="approverEvaluation" cols="100" rows="3"/>
+						<form:textarea cssClass="green" path="approverEvaluation" cols="120" rows="3"/>
 					</td>
 				</tr>
 				</authz:authorize>
@@ -963,7 +1033,7 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<form:textarea cssClass="green" path="adminRemarks" cols="100" rows="3"/>
+						<form:textarea cssClass="green" path="adminRemarks" cols="120" rows="3"/>
 					</td>
 				</tr>
 				</authz:authorize>
@@ -981,7 +1051,7 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<textarea class="green" name="newCommitteeRemarks" cols="100" rows="1"></textarea>
+						<textarea class="green" name="newCommitteeRemarks" cols="120" rows="1"></textarea>
 					</td>
 				</tr>
 				</authz:authorize>

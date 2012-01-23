@@ -108,7 +108,16 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				financialSupport.getType(),
 				financialSupport.getCurrency()
 		);
-	}    
+	}   
+	public void updateFinancialSupport(FinancialSupport financialSupport){
+		String query = "update financialSupport set name = ?, sum = ?, currency = ? where id =?";
+		getSimpleJdbcTemplate().update(query,
+				financialSupport.getName(),
+				financialSupport.getSum(),
+				financialSupport.getCurrency(),
+				financialSupport.getId()
+		);
+	}   
 	public void insertCommittee(Committee committee){
 		String query = "insert committee set conferenceProposalId = ?, name = ?, institute = ?, instituteRole = ?, committeeRole = ?, type=?";
 		getSimpleJdbcTemplate().update(query,
@@ -126,6 +135,16 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		getSimpleJdbcTemplate().update(query, financialSupportId);
 	}
 
+	public void updateCommittee(Committee committee){
+		String query = "update committee set name = ?, institute = ?, instituteRole = ?, committeeRole = ? where id=?";
+		getSimpleJdbcTemplate().update(query,
+				committee.getName(),
+				committee.getInstitute(),
+				committee.getInstituteRole(),
+				committee.getCommitteeRole(),
+				committee.getId()
+		);
+	} 	
 	public void deleteCommittee(int committeeId){
 		String query = "delete from committee where id = ?;";
 		getSimpleJdbcTemplate().update(query, committeeId);

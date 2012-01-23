@@ -41,7 +41,11 @@ public interface ConferenceProposalService {
 	
 	public void insertFinancialSupport(FinancialSupport financialSupport);
 
+	public void updateFinancialSupport(FinancialSupport financialSupport);
+
 	public void insertCommittee(Committee committee);
+
+	public void updateCommittee(Committee committee);
 
 	public void deleteFinancialSupport(int financialSupportId);
 

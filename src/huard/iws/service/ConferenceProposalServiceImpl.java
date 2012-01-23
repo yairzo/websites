@@ -96,8 +96,16 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 		conferenceProposalDao.insertFinancialSupport(financialSupport);
 	}
 
+	public void updateFinancialSupport(FinancialSupport financialSupport){
+		conferenceProposalDao.updateFinancialSupport(financialSupport);
+	}
+
 	public void insertCommittee(Committee committee){
 		conferenceProposalDao.insertCommittee(committee);
+	}
+	
+	public void updateCommittee(Committee committee){
+		conferenceProposalDao.updateCommittee(committee);
 	}
 	
 	public void deleteFinancialSupport(int financialSupportId){
