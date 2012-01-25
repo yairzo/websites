@@ -31,7 +31,7 @@ $(document).ready(function() {
         var cfd = Date.parse(temp1);
         var date1 = new Date(cfd); 
         if(new Date()>date1)
-        	$.alerts.alert("בחרת תאריך שעבר כבר");
+     	  popup("#startConfDate","תאריך זה כבר עבר");
     }
 	});	
 	
@@ -52,7 +52,7 @@ $(document).ready(function() {
         var date2 = new Date(ctd2);
 
       if(date1 > date2)  
-    	   $.alerts.alert("תאריך סיום לפני תאריך התחלה");
+    	  popup("#endConfDate","תאריך סיום לפני תאריך התחלה");
     } });	
 	
 	$(function() {
@@ -175,12 +175,20 @@ $(document).ready(function() {
     });
 	
 	$(".deleteFinancialSupport").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteFinancialSupport\"/>");
 		var financialSupportId= this.id;
-		$("#form").append("<input type=\"hidden\" name=\"financialSupportId\" value=\""+financialSupportId +"\"/>");
-    	$("#form").submit();
-    	return true;
-    });	
+   		$.alerts.confirm('<fmt:message key="iw_IL.conferenceProposal.deleteFinancialSupport.confirm"/>', "מחיקת הכנסה",
+    	function(confirm){
+    	   if (confirm==1){
+				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteFinancialSupport\"/>");
+				$("#form").append("<input type=\"hidden\" name=\"financialSupportId\" value=\""+financialSupportId +"\"/>");
+    			$("#form").submit();
+    			return true;
+    	   }
+    	   else{
+    	   		return false;
+    	   }
+    	});    
+   	});	
 	
 	$(".deleteCommittee").click(function(){
         var committeeId= this.id;
@@ -302,22 +310,59 @@ $(document).ready(function() {
     	
     });	
 	
-    $("#genericDialog").dialog({
+    
+    
+
+        $('a.btn-ok, #dialog-overlay, #dialog-box').click(function () {    
+            $('#dialog-overlay, #dialog-box').hide();      
+            return false;
+        });
+        $("#form").click(function(e){
+        	$("#dialog-box").hide();
+        });    
+        $(window).resize(function () {
+            if (!$('#dialog-box').is(':hidden')) $("#test").click();      
+        });
+         
+    	function popup(name,message){
+            if(name==''){ 
+                var maskHeight = $(document).height(); 
+                var maskWidth = $(window).width();
+           		var dialogTop =  (maskHeight/3) - ($('#dialog-box').height()); 
+            	var dialogLeft = (maskWidth/2) - ($('#dialog-box').width()/2);
+            	//$('#dialog-overlay').css({height:maskHeight, width:maskWidth}).show();
+            	$('#dialog-box').css({position:'fixed',top:'50%',left:dialogLeft}).show();
+            }
+            else{
+            	linkOffset = $(name).position();
+            	linkWidth = $(name).width();
+            	linkHeight = $(name).height();
+            	//scrolltop = $(window).scrollTop();
+            	$('#dialog-box').css({top:linkOffset.top + linkHeight , left:(linkOffset.left - 328/2) + linkWidth/2}).show();
+            }
+            $('#dialog-message').html(message);
+    	}         
+               
+   
+    
+     $("#genericDialog").dialog({
            autoOpen: false,
            show: 'fade',
            hide: 'fade',
            modal: false,
            width: 200,
      });
-    $(".ui-dialog-titlebar").hide();
+    
+   $(".ui-dialog-titlebar").hide();
     
      $("#dialogInitiatingBody").mouseover(function(e) {
-    	 	openHelp("#dialogInitiatingBody","הגוף שיוזם את הכנס");
+    	 	popup("#dialogInitiatingBody","הגוף שיוזם את הכנס");
       });
      
      $("#dialogInitiatingBodyRole").mouseover(function(e) {
-    	 openHelp("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
+    	 popup("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
    }); 
+     
     function openHelp(name,mytext){
         linkOffset = $(name).position();
         linkWidth = $(name).width();
@@ -326,16 +371,13 @@ $(document).ready(function() {
         $("#genericDialog").dialog("option", "position", [(linkOffset.left - 200/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
         $("#genericDialog").text(mytext).dialog("open");
     } 
-    $("#genericDialog").click(function(e){
-    	$("#genericDialog").dialog("close");
-    });
-    $("#form").click(function(e){
+    $("#form,#genericDialog").click(function(e){
     	$("#genericDialog").dialog("close");
     });    
     
 	<c:if test="${userMessage!=null}">
 	var userMessage = "${userMessage}";
-	$.alerts.alert(userMessage);
+	popup('',userMessage);
     </c:if> 
 });
 

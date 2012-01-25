@@ -33,7 +33,15 @@
  			
             <table border="0" align="center" cellpadding="2" cellspacing="0">
 
- 				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl">
+				<div id="dialog-overlay"></div> 				
+				<div id="dialog-box">
+    				<div class="dialog-content">
+        				<div id="dialog-message"></div>
+        				<a href="#" class="button">סגור</a>
+    				</div>
+				</div>
+				
+				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl">
 				<p>text put here</p>
 				</div>
 				
