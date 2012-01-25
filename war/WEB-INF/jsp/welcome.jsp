@@ -127,10 +127,10 @@
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
 						<tr>
-						<th align="right">
+						<!--  <th align="right">
 								<a style="text-decoration: none" href="editConferenceProposal.html?action=new">הגשת בקשה למימון כנס</a>
 							</th>
-						</tr>
+						</tr>-->
 						<tr>
 							<th align="right">
 								<a style="text-decoration: none" href="conferenceProposalAffirmation.html">הגשת בקשה למימון כנס</a>
