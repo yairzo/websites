@@ -174,7 +174,7 @@ $(document).ready(function() {
     	return true;
     });
 	
-	$(".deleteFinancialSupport").click(function(){
+	$(".222deleteFinancialSupport").click(function(){
 		var financialSupportId= this.id;
    		$.alerts.confirm('<fmt:message key="iw_IL.conferenceProposal.deleteFinancialSupport.confirm"/>', "מחיקת הכנסה",
     	function(confirm){
@@ -190,21 +190,45 @@ $(document).ready(function() {
     	});    
    	});	
 	
-	$(".deleteCommittee").click(function(){
-        var committeeId= this.id;
-   		$.alerts.confirm('<fmt:message key="iw_IL.conferenceProposal.deleteCommittee.confirm"/>', "מחיקת ועדה",
-    	function(confirm){
-    	   if (confirm==1){
+	$(".deleteFinancialSupport").click(function(e){
+		e.preventDefault();
+		var financialSupportId= this.id;
+    	$("#genericDialog").dialog('option', 'buttons', {
+            "לא" : function() {
+                $(this).dialog("close");
+                return false;
+               },
+            "כן" : function() {
+                $(this).dialog("close");
+				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteFinancialSupport\"/>");
+				$("#form").append("<input type=\"hidden\" name=\"financialSupportId\" value=\""+financialSupportId +"\"/>");
+    			$("#form").submit();
+    			return true;
+               }
+            });
+    	openHelp(this,"האם הנך מאשר את מחיקת שורת ההכנסה?");
+        return false;
+   	});	
+	
+	$(".deleteCommittee").click(function(e){
+		e.preventDefault();
+		var committeeId= this.id;
+    	$("#genericDialog").dialog('option', 'buttons', {
+            "לא" : function() {
+                $(this).dialog("close");
+                return false;
+               },
+            "כן" : function() {
+                $(this).dialog("close");
     	   		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteCommittee\"/>");
     	        $("#form").append("<input type=\"hidden\" name=\"committeeId\" value=\""+committeeId +"\"/>");
     	        $("#form").submit();
     	        return true;
-    	   }
-    	   else{
-    	   		return false;
-    	   }
-    	});
-    });
+            }
+        });
+		openHelp(this,"האם הנך מאשר את מחיקת הועדה?");
+    	return false;
+	});	
 	
 	$("button.submitForGrading").click(function(){
 		var errors=false;
@@ -349,7 +373,7 @@ $(document).ready(function() {
            autoOpen: false,
            show: 'fade',
            hide: 'fade',
-           modal: false,
+           modal: true,
            width: 200,
      });
     
