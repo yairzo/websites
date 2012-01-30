@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceProposalBean {
+	
+	private final int MAX_NUM_SCIENTIFIC_COMMITTEE = 10;
 
 	private int id;
 	private int internalId;
@@ -134,6 +136,11 @@ public class ConferenceProposalBean {
 		this.adminRemarks ="";
 		this.deadline=0;
 		this.scientificCommittees = new ArrayList<Committee>();
+		for (int i=0; i< MAX_NUM_SCIENTIFIC_COMMITTEE; i++){
+			Committee committee = new Committee();
+			committee.setType(1);
+			scientificCommittees.add(committee);
+		}
 		this.operationalCommittees = new ArrayList<Committee>();
 		this.fromAssosiate = new ArrayList<FinancialSupport>();
 		this.fromExternal = new ArrayList<FinancialSupport>();
@@ -205,6 +212,12 @@ public class ConferenceProposalBean {
 		this.deadline = conferenceProposal.getDeadline();
 		this.scientificCommittees = conferenceProposal
 				.getScientificCommittees();
+		for (int i = scientificCommittees.size(); i<MAX_NUM_SCIENTIFIC_COMMITTEE; i++){
+			Committee committee = new Committee();
+			committee.setConferenceProposalId(conferenceProposal.getId());
+			committee.setType(1);			
+			scientificCommittees.add(committee);
+		}
 		this.operationalCommittees = conferenceProposal
 				.getOperationalCommittees();
 		this.fromAssosiate = conferenceProposal.getFromAssosiate();

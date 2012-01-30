@@ -713,54 +713,29 @@
 						</c:forEach>
 					</c:if>
  					<c:if test="${!readOnly && !command.submitted}">					
-           				<c:forEach items="${command.scientificCommittees}" var="committee">
-						<tr>
+           				<c:forEach items="${command.scientificCommittees}" var="committee" varStatus="varStatus">
+           				<form:hidden path="scientificCommittees[${varStatus.index}].conferenceProposalId"/>
+           				<form:hidden path="scientificCommittees[${varStatus.index}].type"/>
+						<tr style="display: none;" class="scientificCommittee">
 						<td>
-							<input type="text" class="green medium170 autosaveclass" name="committee_name_${committee.id}" value="${committee.name}"/>
+							<form:input cssClass="green" path="scientificCommittees[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<input type="text" class="green medium170 autosaveclass" name="committee_institute_${committee.id}" value="${committee.institute}"/>
+							<form:input cssClass="green" path="scientificCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td>
-							<input type="text" class="green medium170 autosaveclass" name="committee_instituteRole_${committee.id}" value="${committee.instituteRole}"/>
+							<form:input cssClass="green" path="scientificCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td>
-							<input type="text" class="green medium170 autosaveclass" name="committee_committeeRole_${committee.id}" value="${committee.committeeRole}"/>
+							<form:input cssClass="green" path="scientificCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
-							<img src="image/icon_delete.gif" class="deleteCommittee" id="${committee.id}"/>
+							<c:set var="committee" value="${command.scientificCommittees[varStatus.index]}"/>
+							<img src="image/icon_delete.gif" class="deleteCommittee"/>							
 						</td>
 						</tr>
 						</c:forEach>
-						<tr>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_name_${fn:length(command.scientificCommittees)+1}"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_institute_${fn:length(command.scientificCommittees)+1}"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_instituteRole_${fn:length(command.scientificCommittees)+1}"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_committeeRole_${fn:length(command.scientificCommittees)+1}"/>
-						</td>
-						</tr>		
-						<tr>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_name_${fn:length(command.scientificCommittees)+2}"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_institute_${fn:length(command.scientificCommittees)+2}"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_instituteRole_${fn:length(command.scientificCommittees)+2}"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_committeeRole_${fn:length(command.scientificCommittees)+2}"/>
-						</td>
-						</tr>		
-						<tr><td><a href="#" class="scientificCommitteeSave">הוסף שורות</a></td></tr>
+						<tr><td><a href="#" class="scientificCommitteeSave" onclick="hideExtraScientificCommittee();">הוסף שורות</a></td></tr>
 					</c:if>
 					</table>
 					</td>

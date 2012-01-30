@@ -55,6 +55,8 @@ public interface ConferenceProposalDao {
 	
 	public void insertCommittee(Committee committee);
 	
+	public void insertCommittees(ConferenceProposal conferenceProposal);
+	
 	public void updateCommittee(Committee committee);
 	
 	public void deleteFinancialSupport(int financialSupportId);

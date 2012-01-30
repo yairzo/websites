@@ -23,15 +23,14 @@ import org.springframework.web.servlet.view.RedirectView;
 public class PersonListController extends GeneralFormController {
 
 	//private static final Logger logger = Logger.getLogger(PersonListController.class);
-    private final int ROWS_IN_PAGE=3;
+    private final int ROWS_IN_PAGE=10;
     
-	@SuppressWarnings("unchecked")
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
 		PersonListControllerCommand aCommand = (PersonListControllerCommand)command;
 
-		Map newModel = new HashMap();
+		Map<String, Object> newModel = new HashMap<String, Object>();
 		String action = request.getParameter("action", "");
 
 		request.getSession().setAttribute("personsSearchCreteria", aCommand.getSearchCreteria());
@@ -65,9 +64,19 @@ public class PersonListController extends GeneralFormController {
 		for (Person person: persons){
 			PersonBean personBean = new PersonBean(person);
 			personBean.setBusyRecord(recordProtectService.isRecordBusy("person",personBean.getId(), userPersonBean.getUsername()));
-			personBeans.add(personBean);
+			if (! personBean.getDegreeFullName().trim().isEmpty())
+				personBeans.add(personBean);
 		}
+		
+		if (personBeans.size() == 1){
+			Map<String, Object> newModel = new HashMap<String, Object>();
+			newModel.put("id", personBeans.get(0).getId());
+			return new ModelAndView(new RedirectView("person.html"), newModel);
+		}
+		
 		model.put("persons", personBeans);
+		
+		
 
 		return new ModelAndView ("personList", model);
 	}

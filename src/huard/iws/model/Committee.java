@@ -8,8 +8,22 @@ public class Committee {
 	private String instituteRole;
 	private String committeeRole;
 	private int type;
+	
+	public Committee(){
+		this.id = 0;
+		this.conferenceProposalId = 0;
+		this.name = "";
+		this.institute = "";
+		this.instituteRole = "";
+		this.committeeRole = "";
+		this.type = 0;
+	}
 
-
+	public boolean isEmpty(){
+		return name.isEmpty() && institute.isEmpty()
+				&& instituteRole.isEmpty() && committeeRole.isEmpty();
+	}
+	
 	public String getName() {
 		return name;
 	}

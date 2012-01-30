@@ -1,12 +1,40 @@
 <%@ page  pageEncoding="UTF-8" %>
 
-<script language="Javascript">
-
-	function resetAutocomplete(persons){
-		$("#searchPhrase").unautocomplete();
-		$("#searchPhrase").autocomplete(persons, {align: 'right', dir: 'rtl', scroll: 'true', scrollHeight: 90});
+<style>
+	.ui-autocomplete {
+		max-height: 200px;
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+		/* add padding to account for vertical scrollbar */
+		padding-right: 20px;
+		direction: rtl;
+	}
+	
+	.ui-autocomplete li {
+		list-style-type: none;
 	}
 
+
+</style>
+
+<script>
+
+function resetAutocomplete(persons){
+	$("#searchPhrase").autocomplete( 
+			{source: persons,
+			 minLength: 2,
+			 highlight: true,
+			 select: function(event, ui) {
+				 $("input#listViewPage").remove();
+				$("input#orderBy").remove();
+				$("#searchPhrase").val(ui.item.label);
+				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+				$("#form").submit();				 
+			 }
+		    }
+	);
+}
 
 $(document).ready(function() {
 
@@ -46,9 +74,15 @@ $(document).ready(function() {
 
     $.get('selectBoxFiller',{type:'person'},function(data){
  		var persons = data.split(",,");
- 		resetAutocomplete(persons);
+ 		resetAutocomplete(persons)
  		$("#searchPhrase").focus();
  	});
+    
+    
+    
+    
+    
+    
 
 });
 
@@ -79,7 +113,7 @@ function cleanSearch(){
   </tr>
   <tr>
     <td>
-      <table width="700" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
+      <table width="70%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
         <tr>
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" commandName="command" action="persons.html">
@@ -87,57 +121,43 @@ function cleanSearch(){
             	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
             	<input type="hidden" name="searchCreteria.roleFilter" value="${command.searchCreteria.roleFilter}"/>
 
-              <table width="400" border="0" align="center" cellpadding="3" dir="rtl">
+              <table style="width: 100%;" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
                   <td colspan="2" align="center"><h1>רשימת אנשים</h1>
                   </td>
                 </tr>
                 <tr>
-                  <td width="201" align="center" valign="center">
-                  <form:input cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
-                  </td>
-
-                  <td width="173" align="right">
-
-                     <button id="buttonSearch" class="grey" onclick="">חפש</button>
-					<button id="buttonCleanSearch" class="grey" onclick="">נקה חיפוש</button>
-
-                  </td>
+                  <td align="center" valign="center">
+                  חיפוש: <form:input cssClass="green" size="60" id="searchPhrase" path="searchCreteria.searchPhrase"/>
+                  </td>                  
                 </tr>
 
                 <tr>
-                  <td colspan="2"><img src="image/hr.gif" width="380" height="10"></td>
+                  <td colspan="2" style="text-align: center;"><img src="image/hrWide.gif" width="600" height="10"></td>
                 </tr>
               </table>
 
-				<table width="400" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+				<table width="70%" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
 
               <c:forEach items="${persons}" var="person" varStatus="varStatus">
              <tbody>
   				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
   				<td align="right">
 				  	<table>
-  						<tr>
-				  			<td>
-				  				<c:choose>
-					  				<c:when test="${person.busyRecord}">
-						  		&nbsp;
-				  	  				</c:when>
-				  	  				<c:otherwise>
-			  					<form:radiobutton path="personId" value="${person.id}"/>
-  					  				</c:otherwise>
-				  				</c:choose>
-				  		</td>
-  						<td>
-  							<c:out value="${person.firstNameHebrew}"/>
-  						</td>
-  						<td>
-  							<c:out value="${person.lastNameHebrew}"/>
-  						</td>
-  						<td>
+  						<tr>				  			
+  						
+  						<td style="direction: rtl;">
+  							<a href="person.html?id=${person.id}">  							
+  							
+  							<c:out value="${person.firstNameHebrew}"/> &nbsp;
+  						
+  							<c:out value="${person.lastNameHebrew}"/> &nbsp;
+  						
   							<c:out value="${person.email}"/>
-  						</td>
-  					</tr>
+  							
+  							</a>
+  						
+  						</tr>
   				</table>
   			</td>
   	  	</tr>

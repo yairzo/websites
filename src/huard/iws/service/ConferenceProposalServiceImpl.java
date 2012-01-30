@@ -1,14 +1,13 @@
 package huard.iws.service;
 
+import huard.iws.db.ConferenceProposalDao;
+import huard.iws.model.Committee;
+import huard.iws.model.ConferenceProposal;
+import huard.iws.model.FinancialSupport;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import huard.iws.bean.PersonBean;
-import huard.iws.db.ConferenceProposalDao;
-import huard.iws.model.ConferenceProposal;
-import huard.iws.model.FinancialSupport;
-import huard.iws.model.Committee;
 
 public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 	
@@ -103,6 +102,10 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 	public void insertCommittee(Committee committee){
 		conferenceProposalDao.insertCommittee(committee);
 	}
+	
+	/*public void insertCommittees(ConferenceProposal conferenceProposal){
+		conferenceProposalDao.insertCommittees(conferenceProposal);
+	}*/
 	
 	public void updateCommittee(Committee committee){
 		conferenceProposalDao.updateCommittee(committee);

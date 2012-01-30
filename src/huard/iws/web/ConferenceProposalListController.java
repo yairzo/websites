@@ -89,6 +89,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 
 		ConferenceProposalListCommand searchCommand = (ConferenceProposalListCommand) model.get("command");
 
+		logger.info(searchCommand.getSearchCreteria().getSearchPhrase());
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(searchCommand.getListView(), searchCommand.getSearchCreteria(),userPersonBean);
 		List<ConferenceProposalBean> conferenceProposalBeans = new ArrayList<ConferenceProposalBean>();
 
@@ -176,6 +177,8 @@ public class ConferenceProposalListController extends GeneralFormController {
 			}	
 			searchCreteria.setWhereClause(whereClause);
 			searchCommand.setSearchCreteria(searchCreteria);
+			
+			logger.info("Approver: " + request.getIntParameter("searchByApprover", 0));
 			request.getSession().setAttribute("searchByApprover", request.getIntParameter("searchByApprover", 0));
 			request.getSession().setAttribute("searchBySubmitted", request.getIntParameter("searchBySubmitted", 0));
 			request.getSession().setAttribute("searchByDeadline", request.getIntParameter("searchByDeadline", 0));

@@ -104,27 +104,7 @@ public class ConferenceProposalController extends GeneralFormController{
 				}
 			}
 		}
-		else if(request.getParameter("action","").equals("scientificCommitteeSave")){
-			if(!request.getParameter("scientificCommittee_name", "").equals("")){
-				Committee committee = new Committee();
-				committee.setType(1);
-				committee.setConferenceProposalId(conferenceProposalBean.getId());
-				committee.setName(request.getParameter("scientificCommittee_name", ""));
-				committee.setInstitute(request.getParameter("scientificCommittee_institute", ""));
-				committee.setInstituteRole(request.getParameter("scientificCommittee_instituteRole", ""));
-				committee.setCommitteeRole(request.getParameter("scientificCommittee_committeeRole",""));
-				conferenceProposalService.insertCommittee(committee);
-				if(!request.getParameter("scientificCommittee_name2", "").equals("")){
-					committee.setType(1);
-					committee.setConferenceProposalId(conferenceProposalBean.getId());
-					committee.setName(request.getParameter("scientificCommittee_name2",""));
-					committee.setInstitute(request.getParameter("scientificCommittee_institute2", ""));
-					committee.setInstituteRole(request.getParameter("scientificCommittee_instituteRole2", ""));
-					committee.setCommitteeRole(request.getParameter("scientificCommittee_committeeRole2",""));
-					conferenceProposalService.insertCommittee(committee);
-				}
-			}
-		}
+		
 		else if(request.getParameter("action","").equals("operationalCommitteeSave")){
 			if(!request.getParameter("operationalCommittee_name", "").equals("")){
 				Committee committee = new Committee();
@@ -152,22 +132,9 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposalService.deleteCommittee(request.getIntParameter("committeeId", 0));
 		}
 		
-		//go over committees and update
-		List<Committee> committees = origConferenceProposalBean.getScientificCommittees();
-		committees.addAll(origConferenceProposalBean.getOperationalCommittees());
-		for(Committee committee: committees){
-			String committeeName="committee_name_" + committee.getId();
-			if(!request.getParameter(committeeName, "").equals("")){
-				committee.setName(request.getParameter(committeeName, ""));
-				String committeRole = "committee_committeeRole_"  + committee.getId();
-				committee.setCommitteeRole(request.getParameter(committeRole, ""));
-				String institute = "committee_institute_"  + committee.getId();
-				committee.setInstitute(request.getParameter(institute, ""));
-				String instituteRole = "committee_instituteRole_"  + committee.getId();
-				committee.setInstituteRole(request.getParameter(instituteRole, ""));
-				conferenceProposalService.updateCommittee(committee);
-			}
-		}
+		
+		
+		
 		List<FinancialSupport> financialSupports = origConferenceProposalBean.getFromAdmitanceFee();
 		financialSupports.addAll(origConferenceProposalBean.getFromAssosiate());
 		financialSupports.addAll(origConferenceProposalBean.getFromExternal());
@@ -314,6 +281,9 @@ public class ConferenceProposalController extends GeneralFormController{
 		}
 		else{//show edit
 			ConferenceProposalBean conferenceProposal = (ConferenceProposalBean) model.get("command");
+			
+			logger.info("Conference proposal scientific committee: " + conferenceProposal.getScientificCommittees().size());
+			
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date fromDate = new Date(conferenceProposal.getFromDate());
 			model.put("startConfDate", formatter.format(fromDate));
@@ -360,6 +330,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getVersionConferenceProposal(id,version));
 			
 		}
+		
 		return conferenceProposalBean;
 	}
 

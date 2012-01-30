@@ -362,7 +362,7 @@
        			            <td>&nbsp;&nbsp;</td>
        			            <td>
        			           		<authz:authorize ifNotGranted="ROLE_EDIT_USER_DETAILS">
-       			           			<button class="cancel grey">סיים</button>
+       			           			<button onclick="window.location='/iws/persons.html';return false;" class="grey">סיים</button>
        			           		</authz:authorize>
        			           	</td>
 	                      </tr>

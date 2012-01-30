@@ -36,10 +36,6 @@ public class EditPersonController extends GeneralFormController {
 
 		String action = request.getParameter("action", "");
 
-		if (action.equals("cancel")){
-			String callerPage = request.getParameter("cp", "persons.html");
-			return new ModelAndView( new RedirectView(callerPage));
-		}
 		PersonBean personBean = (PersonBean) command;
 		Map<String, Object> newModel = new HashMap<String, Object>();
 

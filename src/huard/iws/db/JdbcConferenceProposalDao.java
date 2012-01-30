@@ -84,6 +84,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			committee.setInstitute(rs.getString("institute"));
 			committee.setInstituteRole(rs.getString("instituteRole"));
 			committee.setCommitteeRole(rs.getString("committeeRole"));
+			committee.setType(rs.getInt("type"));
 			return committee;
 		}
     };
@@ -119,7 +120,15 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		);
 	}   
 	public void insertCommittee(Committee committee){
+		if (committee.isEmpty())
+			return;
 		String query = "insert committee set conferenceProposalId = ?, name = ?, institute = ?, instituteRole = ?, committeeRole = ?, type=?";
+		logger.info(query + " " + committee.getConferenceProposalId()+" "+
+				committee.getName()+" "+
+				committee.getInstitute()+" "+
+				committee.getInstituteRole()+" "+
+				committee.getCommitteeRole()+" "+
+				committee.getType());
 		getSimpleJdbcTemplate().update(query,
 				committee.getConferenceProposalId(),
 				committee.getName(),
@@ -128,7 +137,16 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				committee.getCommitteeRole(),
 				committee.getType()
 		);
-	} 
+	}
+	
+	public void insertCommittees(ConferenceProposal conferenceProposal){
+		String query = "delete from committee where conferenceProposalId = ?";
+		getSimpleJdbcTemplate().update(query,
+				conferenceProposal.getId());
+		for (Committee committee: conferenceProposal.getScientificCommittees()){
+			insertCommittee(committee);
+		}
+	}
 
 	public void deleteFinancialSupport(int financialSupportId){
 		String query = "delete from financialSupport where id = ?;";
@@ -152,6 +170,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public void insertGradingInfo(ConferenceProposalGrading conferenceProposalGrading){
 		String query = "insert conferenceProposalGrading set approverId = ?, adminId = ?, deadline = ?, sentForGradingDate = now(), finishedGradingDate = ?";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposalGrading.getApproverId(),
 				conferenceProposalGrading.getAdminId(),
@@ -167,7 +186,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	}
 	
 	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline){
-		String query = "select  * from  conferenceProposalGrading where date(deadline) =?;";
+		String query = "select  * from  conferenceProposalGrading where date(deadline) =? order by deadline desc, sentForGradingDate";
+		logger.info(query + " " + deadline);
 		return getSimpleJdbcTemplate().query(query, gradingRowMapper,	deadline );
 	}
 	
@@ -561,6 +581,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getIsInsideDeadline(),
 				conferenceProposal.getCommitteeRemarks(),
 				conferenceProposal.getId());
+		
+		insertCommittees(conferenceProposal);		
 		
 		//insert to version table
 		 String proposalVersionInsert = "insert conferenceProposalVersion set "+

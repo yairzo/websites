@@ -5,6 +5,8 @@
 
 
 $(document).ready(function() {
+	
+	hideExtraScientificCommittee();
 
 	
 	$("button.guestsAttach").click(function(event){
@@ -220,7 +222,8 @@ $(document).ready(function() {
 	$(".deleteCommittee").click(function(e){
 		e.preventDefault();
 		var committeeId= this.id;
-	   	$("#genericDialog").dialog({ modal: true });
+		var deleteButton = $(this);
+		$("#genericDialog").dialog({ modal: true });
     	$("#genericDialog").dialog('option', 'buttons', {
             "לא" : function() {
                 $(this).dialog("close");
@@ -228,9 +231,9 @@ $(document).ready(function() {
                },
             "כן" : function() {
                 $(this).dialog("close");
-    	   		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteCommittee\"/>");
-    	        $("#form").append("<input type=\"hidden\" name=\"committeeId\" value=\""+committeeId +"\"/>");
-    	        $("#form").submit();
+    	   		deleteButton.parents('tr.scientificCommittee').remove();
+    	   		$("#form").ajaxForm();
+    	   		$("#form").ajaxSubmit();
     	        return true;
             }
         });
@@ -392,8 +395,31 @@ $(document).ready(function() {
 	$("#genericDialog").dialog({ modal: false });
 	openHelp("",userMessage);
     </c:if> 
+
+    
    
 });
+
+
+function hideExtraScientificCommittee(){
+	var emptyRowsCounter = 0;
+	$('tr.scientificCommittee').each(function(){
+		var row = $(this);
+		var allInputsEmpty = true;
+		row.find('input').each(function(){
+			if ($(this).val()!=""){
+				row.show();
+				allInputsEmpty = false;
+			}
+		});
+		if (allInputsEmpty){
+			if (emptyRowsCounter ==0)
+				row.show();
+			emptyRowsCounter = emptyRowsCounter +1;
+		}
+	})
+}
+
 
 
 </script>

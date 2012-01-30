@@ -96,12 +96,6 @@ $(document).ready(function() {
 			return submission;
 		});
 
-	$('.cancel').click(function(){
-		$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"cancel\"/>');
-		submission = true;
-		$('form#form').submit();
-    });
-
 	$.alerts.okButton = 'אישור';
 	$.alerts.cancelButton = 'ביטול';
 
