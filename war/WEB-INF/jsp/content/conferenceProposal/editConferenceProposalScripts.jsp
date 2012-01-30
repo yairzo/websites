@@ -342,7 +342,8 @@ $(document).ready(function() {
            autoOpen: false,
            show: 'fade',
            hide: 'fade',
-           width: 200
+           width: 200,
+           open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
      });
     
    $(".ui-dialog-titlebar").hide();

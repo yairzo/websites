@@ -52,18 +52,20 @@ $(document).ready(function() {
 		if(evaluation)
 	        errors += " לא נרשמה חוות דעת לכל ההצעות. ";
         if(errors!=''){
-        	errors += "האם ברצונך לסיים את תהליך ההגשה? "
-        	$.alerts.confirm(errors, "סיום הגשה",
-        		function(confirm){
-         	 	if (confirm==1){
+        	errors += "האם ברצונך לסיים את תהליך ההגשה? ";
+    	   	$("#genericDialog").dialog({ modal: true });
+        	$("#genericDialog").dialog('option', 'buttons', {
+                "לא" : function() {
+                    $(this).dialog("close");
+                },
+                "כן" : function() {
+                    $(this).dialog("close");
       	 	 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"stopGrading\"/>");
           	   		$("#form").submit();
           	   		return true;
-         	 	}
-         	 	else{
-     				return false;
-         	 	}
-         	 });
+               }
+            });
+    		openHelp(this,errors);		
  		}  
         return false;
  	});
@@ -76,6 +78,40 @@ $(document).ready(function() {
 			 $('#form').ajaxSubmit(options);
  	 });
      
+     $("#genericDialog").dialog({
+         autoOpen: false,
+         show: 'fade',
+         hide: 'fade',
+         width: 300,
+         open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
+   	 });
+     $(".ui-dialog-titlebar").hide();
+     
+     var fieldname=""; 
+     function openHelp(name,mytext){
+  	    fieldname=name;
+     	if(fieldname=="")
+  	    	$("#genericDialog").dialog("option", "position", "center");
+  	    else
+     	 	$('#genericDialog').dialog({position: { my: 'top', at: 'top', of: $(fieldname)} });
+  	    $("#genericDialog").text(mytext).dialog("open");
+      } 
+      
+      $("#form,#genericDialog").click(function(e){
+      	$("#genericDialog").dialog("close");
+      });    
+      
+      $(window).scroll(function() {
+      	if (fieldname=="") 
+      		$("#genericDialog").dialog("option", "position", "center");
+       }); 
+      
+  	<c:if test="${userMessage!=null}">
+	var userMessage = "${userMessage}";
+   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+	$("#genericDialog").dialog({ modal: false });
+	openHelp("",userMessage);
+    </c:if> 
 
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
@@ -104,86 +140,83 @@ $(document).ready(function() {
   </tr>
   <tr>
     <td>
-      <table width="700" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
+      <table width="900" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
         <tr>
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" commandName="command" action="conferenceProposalsGrade.html">
             	<input type="hidden" id="listViewPage" name="listView.page" value="${command.listView.page}"/>
             	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
 
-              <table width="400" border="0" align="center" cellpadding="3" dir="rtl">
+              <table width="900" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
-                  <td colspan="2" align="center"><h1>רשימת ההצעות</h1>
+                  <td colspan="2" align="center"><h1>רשימת ההצעות לדירוג</h1>
                   </td>
                 </tr>
                </table>
+               
+				<div id="genericDialog" title="כנסים" style="display:none" dir="rtl"></div>
 
-				<table width="900" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+				<table width="900" border="0"  cellspacing=0 cellpadding=2  rules="groups" dir="rtl">
               <thead>
   				<tr>
-  				<td align="right">
-				  	<table>
- 						<tr>
-				  		<td width="100">שם החוקר/ת</td>
-				  		<td width="300">נושא הכנס</td>
+				  		<td width="150">שם החוקר/ת</td>
+				  		<td width="350">נושא הכנס</td>
 				  		<td width="50">דירוג</td>
 				  		<td width="300">חוות דעת</td>
-				  		<td></td>
-				  		</tr>
-  					</table>
-  				</td>
+				  		<td width="30"></td>
   	  			</tr>
   	  		</thead>
 
-              <c:forEach items="${conferenceProposals}" var="conferenceProposal">
+             <c:forEach items="${conferenceProposals}" var="conferenceProposal" varStatus="varStatus">
              <tbody>
-  				<tr>
-  				<td align="right">
-				  	<table>
-  						<tr>
-  						<td width="100">
+  				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
+  						<td width="150">
   							<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/></a>
    						</td>
- 						<td width="300">
+ 						<td width="350">
   							<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out value="${conferenceProposal.subject}"/></a>
   						</td>
-						<td width="50">
+						<td width="50" align="center">
   							<c:out value="${conferenceProposal.grade}"/>
   						</td>
  						<td width="300">
-  							<textarea class="green saveclass" name="approverEvaluation${conferenceProposal.id}" id="${conferenceProposal.id}" rows="2" cols="40">${conferenceProposal.approverEvaluation}</textarea>
+  							<textarea class="green saveclass" name="approverEvaluation${conferenceProposal.id}" id="${conferenceProposal.id}" rows="1" cols="40">${conferenceProposal.approverEvaluation}</textarea>
   						</td>
-				  		<td width="80">
+				  		<td width="30">
 				  		<button class="grey buttonUp" id="${conferenceProposal.id}"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
 				  		<button class="grey buttonDown" id="${conferenceProposal.id}"><span class="ui-icon ui-icon-arrowthick-1-s"></span></button>
  				  		</td>
-   					</tr>
-  				</table>
-  			</td>
-  	  	</tr>
-  	  	</tbody>
-	   </c:forEach>
+   	  			</tr>
+  	  		</tbody>
+	   		</c:forEach>
 	   
 	   	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
-		<tr><td>הערה כללית לועדה:</td>
-		</tr>
-	    <tr>
-		<td>
-  			<textarea class="green" name="deadlineRemarks" id="deadlineRemarks" rows="2" cols="80">${deadlineRemarks}</textarea>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+		<td colspan="5">
+		<table>
+			<tr>
+			<td>הערה כללית לועדה:</td>
+			<td align="center">
+  			<textarea class="green" name="deadlineRemarks" id="deadlineRemarks" rows="3" cols="80">${deadlineRemarks}</textarea>
+			</td>
+			</tr>
+		</table>
 		</td>
 		</tr>
+		
+		<tr><td>&nbsp;</td></tr>
 	    <tr>
-		<td>
-			<button id="buttonStopGrading" class="grey" />תהליך הדירוג הסתיים</button>
+		<td colspan="5" align="center">
+			<button id="buttonStopGrading" class="grey" />סיום הדירוג</button>
 		</td>
 		</tr>
 		</authz:authorize>
-		
-		<tr>
-                <td align="center"><br>
+				<!--  <tr>
+                <td colspan="5" align="center"><br>
 					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
                 </td>
-                </tr>
+                </tr>-->
 
                   </table>
                 </td>

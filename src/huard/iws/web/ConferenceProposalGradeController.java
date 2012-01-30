@@ -8,6 +8,7 @@ import huard.iws.model.ConferenceProposal;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.MailMessageService;
+import huard.iws.service.MessageService;
 import huard.iws.service.RecordProtectService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
@@ -69,6 +70,9 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			conferenceProposalListService.updateLastGradingByApproverDeadline(userPersonBean.getId(),deadline);
 			//send mail to admins list
 			mailMessageService.createDeanGradeFinishedGradingMail(userPersonBean,"finishedGrading");
+			//return success message
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.finishedGradingSuccess");
+			request.getSession().setAttribute("userMessage", userMessage);
 		}
 		if (action.equals("saveDeadlineRemarks")){
 			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
@@ -185,6 +189,13 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 	public void setMailMessageService(MailMessageService mailMessageService) {
 		this.mailMessageService = mailMessageService;
 	}	
+	
+	private MessageService messageService;
+
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
+	}
+
 	/*private RecordProtectService recordProtectService;
 
 	public void setRecordProtectService(RecordProtectService recordProtectService) {

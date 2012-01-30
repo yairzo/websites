@@ -113,6 +113,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 			String messageKey){
 		String subject = messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".subject");
 		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("align", "right");
 		model.put("recipient", recipient.getDegreeFullNameHebrew());
 		model.put("conferenceProposal", conferenceProposal);
 		model.put("server", getServer());
@@ -134,6 +135,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String subject = messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".subject");
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
+		model.put("align", "right");
 		model.put("recipient", recipient.getDegreeFullNameHebrew());
 		model.put("server", getServer());
 		String [] messageParams = new String []{sender.getDegreeFullNameHebrew()};
@@ -156,6 +158,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String [] to = BaseUtils.toEmailsArray(recipientPersons);
 		//body
 		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("align", "right");
 		model.put("deanName", dean.getDegreeFullName());
 		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
 		model.put("server", getServer());

@@ -438,12 +438,11 @@
 
 				<tr class="form">
 					<td colspan="4">משותפים לארגון:
-					<table style="border: 1px black dotted" cellpadding="1" cellspacing="0">
+					<table width="500" style="border: 1px black dotted" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: thin black dotted"> שם </th> 
-				    <th style="border: thin black dotted"> סכום </th>
-				    <th style="border: thin black dotted"> מטבע </th>
-				    <th></th>
+				    <th width="150" style="border: thin black dotted"> שם </th> 
+				    <th width="150" style="border: thin black dotted"> סכום </th>
+				    <th width="150" style="border: thin black dotted"> מטבע </th>
 					</tr>
 					<c:if test="${readOnly || command.submitted}">
            				<c:forEach items="${command.fromAssosiate}" var="fromAssosiate">
@@ -512,21 +511,19 @@
        		        		</select>
 						</td>
 						</tr>					
+						<tr><td><a href="#" class="fromAssosiateSave">הוסף שורות</a></td></tr>
 						</c:if>
 					</table>
 					</td>
 				</tr>
-				<c:if test="${!readOnly && !command.submitted}">
-				<tr><td><a href="#" class="fromAssosiateSave">הוסף שורות</a></td></tr>
-				</c:if>
 
 				<tr class="form">
 					<td colspan="4">ממממן חיצוני:
-					<table style="border: 1px black dotted" cellpadding="1" cellspacing="0">
+					<table width="500" style="border: 1px black dotted" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: 1px black dotted"> שם </th> 
-				    <th style="border: 1px black dotted"> סכום </th>
-				    <th style="border: 1px black dotted"> מטבע </th>
+				    <th width="150" style="border: 1px black dotted"> שם </th> 
+				    <th width="150" style="border: 1px black dotted"> סכום </th>
+				    <th width="150" style="border: 1px black dotted"> מטבע </th>
 					</tr>
 					<c:if test="${readOnly || command.submitted}">
            			<c:forEach items="${command.fromExternal}" var="fromExternal">
@@ -595,20 +592,18 @@
        		        		</select>
 						</td>
 						</tr>					
+						<tr><td><a href="#" class="fromExternalSave">הוסף שורות</a></td></tr>
 					</c:if>
 					</table>
 					</td>
 				</tr>
-				<c:if test="${!readOnly && !command.submitted}">
-				<tr><td><a href="#" class="fromExternalSave">הוסף שורות</a></td></tr>
-				</c:if>
 				<tr class="form">
 					<td colspan="4">מדמי הרשמה:
-					<table style="border: 1px black dotted" cellpadding="1" cellspacing="0">
+					<table width="500" style="border: 1px black dotted" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: 1px black dotted"> שם </th> 
-				    <th style="border: 1px black dotted"> סכום </th>
-				    <th style="border: 1px black dotted"> מטבע </th>
+				    <th width="150" style="border: 1px black dotted"> שם </th> 
+				    <th width="150" style="border: 1px black dotted"> סכום </th>
+				    <th width="150" style="border: 1px black dotted"> מטבע </th>
 					</tr>
  					<c:if test="${readOnly || command.submitted}">
            				<c:forEach items="${command.fromAdmitanceFee}" var="fromAdmitanceFee">
@@ -679,13 +674,11 @@
        		        		</select>
 						</td>
 						</tr>					
+						<tr><td><a href="#" class="fromAdmitanceFeeSave">הוסף שורות</a></td></tr>
 					</c:if>
 					</table>
 					</td>
 				</tr>
-				<c:if test="${!readOnly && !command.submitted}">
-					<tr><td><a href="#" class="fromAdmitanceFeeSave">הוסף שורות</a></td></tr>
-				</c:if>				
 				<tr><td>&nbsp;</td></tr>
 	            <tr class="form">
 		       		<td colspan="4" align="right"><h3>ועדה מארגנת</h3></td>
@@ -694,13 +687,12 @@
 		
 
 					<td colspan="4">ועדה מדעית:
-					<table style="border: 1px black dotted" cellpadding="1" cellspacing="0">
+ 					<table width="600" style="border: 1px black dotted" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: 1px black dotted"> שם </th> 
-				    <th style="border: 1px black dotted"> מוסד </th>
-				    <th style="border: 1px black dotted"> תפקיד במוסד </th>
-				    <th style="border: 1px black dotted"> תפקיד בועדה </th>
-				    <th></th>
+				    <th width="150" style="border: 1px black dotted"> שם </th> 
+				    <th width="150" style="border: 1px black dotted"> מוסד </th>
+				    <th width="150" style="border: 1px black dotted"> תפקיד במוסד </th>
+				    <th width="150" style="border: 1px black dotted"> תפקיד בועדה </th>
 					</tr>
  					<c:if test="${readOnly || command.submitted}">
            				<c:forEach items="${command.scientificCommittees}" var="committee">
@@ -724,16 +716,16 @@
            				<c:forEach items="${command.scientificCommittees}" var="committee">
 						<tr>
 						<td>
-							<input type="text" class="green autosaveclass" name="committee_name_${committee.id}" value="${committee.name}"/>
+							<input type="text" class="green medium170 autosaveclass" name="committee_name_${committee.id}" value="${committee.name}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="committee_institute_${committee.id}" value="${committee.institute}"/>
+							<input type="text" class="green medium170 autosaveclass" name="committee_institute_${committee.id}" value="${committee.institute}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="committee_instituteRole_${committee.id}" value="${committee.instituteRole}"/>
+							<input type="text" class="green medium170 autosaveclass" name="committee_instituteRole_${committee.id}" value="${committee.instituteRole}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="committee_committeeRole_${committee.id}" value="${committee.committeeRole}"/>
+							<input type="text" class="green medium170 autosaveclass" name="committee_committeeRole_${committee.id}" value="${committee.committeeRole}"/>
 						</td>					
 						<td>
 							<img src="image/icon_delete.gif" class="deleteCommittee" id="${committee.id}"/>
@@ -742,47 +734,45 @@
 						</c:forEach>
 						<tr>
 						<td>
-							<input type="text" class="green autosaveclass" name="scientificCommittee_name_${fn:length(command.scientificCommittees)+1}"/>
+							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_name_${fn:length(command.scientificCommittees)+1}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="scientificCommittee_institute_${fn:length(command.scientificCommittees)+1}"/>
+							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_institute_${fn:length(command.scientificCommittees)+1}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="scientificCommittee_instituteRole_${fn:length(command.scientificCommittees)+1}"/>
+							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_instituteRole_${fn:length(command.scientificCommittees)+1}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="scientificCommittee_committeeRole_${fn:length(command.scientificCommittees)+1}"/>
+							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_committeeRole_${fn:length(command.scientificCommittees)+1}"/>
 						</td>
 						</tr>		
 						<tr>
 						<td>
-							<input type="text" class="green autosaveclass" name="scientificCommittee_name_${fn:length(command.scientificCommittees)+2}"/>
+							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_name_${fn:length(command.scientificCommittees)+2}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="scientificCommittee_institute_${fn:length(command.scientificCommittees)+2}"/>
+							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_institute_${fn:length(command.scientificCommittees)+2}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="scientificCommittee_instituteRole_${fn:length(command.scientificCommittees)+2}"/>
+							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_instituteRole_${fn:length(command.scientificCommittees)+2}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="scientificCommittee_committeeRole_${fn:length(command.scientificCommittees)+2}"/>
+							<input type="text" class="green medium170 autosaveclass" name="scientificCommittee_committeeRole_${fn:length(command.scientificCommittees)+2}"/>
 						</td>
 						</tr>		
+						<tr><td><a href="#" class="scientificCommitteeSave">הוסף שורות</a></td></tr>
 					</c:if>
 					</table>
 					</td>
 				</tr>
-				<c:if test="${!readOnly && !command.submitted}">
-					<tr><td><a href="#" class="scientificCommitteeSave">שורות נוספות</a></td></tr>
-				</c:if>
 				<tr class="form">
 					<td colspan="4">ועדה מבצעת:
-					<table style="border: 1px black dotted" cellpadding="1" cellspacing="0">
+					<table width="600" style="border: 1px black dotted" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: 1px black dotted"> שם </th> 
-				    <th style="border: 1px black dotted"> מוסד </th>
-				    <th style="border: 1px black dotted"> תפקיד במוסד </th>
-				    <th style="border: 1px black dotted"> תפקיד בועדה </th>
+				    <th width="150" style="border: 1px black dotted"> שם </th> 
+				    <th width="150" style="border: 1px black dotted"> מוסד </th>
+				    <th width="150" style="border: 1px black dotted"> תפקיד במוסד </th>
+				    <th width="150" style="border: 1px black dotted"> תפקיד בועדה </th>
 					</tr>
  					<c:if test="${readOnly || command.submitted}">
            				<c:forEach items="${command.operationalCommittees}" var="committee">
@@ -806,16 +796,16 @@
            				<c:forEach items="${command.operationalCommittees}" var="committee">
 						<tr>
 						<td>
-							<input type="text" class="green autosaveclass" name="committee_name_${committee.id}" value="${committee.name}"/>
+							<input type="text" class="green medium170 autosaveclass" name="committee_name_${committee.id}" value="${committee.name}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="committee_institute_${committee.id}" value="${committee.institute}"/>
+							<input type="text" class="green medium170 autosaveclass" name="committee_institute_${committee.id}" value="${committee.institute}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="committee_instituteRole_${committee.id}" value="${committee.instituteRole}"/>
+							<input type="text" class="green medium170 autosaveclass" name="committee_instituteRole_${committee.id}" value="${committee.instituteRole}"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="committee_committeeRole_${committee.id}" value="${committee.committeeRole}"/>
+							<input type="text" class="green medium170 autosaveclass" name="committee_committeeRole_${committee.id}" value="${committee.committeeRole}"/>
 						</td>					
 						<td>
 							<img src="image/icon_delete.gif" class="deleteCommittee" id="${committee.id}"/>
@@ -824,39 +814,37 @@
 						</c:forEach>
 						<tr>
 						<td>
-							<input type="text" class="green autosaveclass" name="operationalCommittee_name"/>
+							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_name"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="operationalCommittee_institute"/>
+							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_institute"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="operationalCommittee_instituteRole"/>
+							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_instituteRole"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="operationalCommittee_committeeRole"/>
+							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_committeeRole"/>
 						</td>
 						</tr>						
 						<tr>
 						<td>
-							<input type="text" class="green autosaveclass" name="operationalCommittee_name2"/>
+							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_name2"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="operationalCommittee_institute2"/>
+							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_institute2"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="operationalCommittee_instituteRole2"/>
+							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_instituteRole2"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="operationalCommittee_committeeRole2"/>
+							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_committeeRole2"/>
 						</td>
 						</tr>						
+						<tr><td coslapn="4"><a href="#" class="operationalCommitteeSave">הוסף שורות</a></td></tr>
 					</c:if>
 					</table>
 					</td>
 				</tr>
-				<c:if test="${!readOnly && !command.submitted}">
-					<tr><td><a href="#" class="operationalCommitteeSave">שורות נוספות</a></td></tr>
-				</c:if>				
 				<tr><td>&nbsp;</td></tr>
 				<tr class="form">
 		       		<td colspan="4" align="right"><h3>
