@@ -718,16 +718,16 @@
            				<form:hidden path="scientificCommittees[${varStatus.index}].type"/>
 						<tr style="display: none;" class="scientificCommittee">
 						<td>
-							<form:input cssClass="green" path="scientificCommittees[${varStatus.index}].name"/>
+							<form:input cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input cssClass="green" path="scientificCommittees[${varStatus.index}].institute"/>
+							<form:input cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td>
-							<form:input cssClass="green" path="scientificCommittees[${varStatus.index}].instituteRole"/>
+							<form:input cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td>
-							<form:input cssClass="green" path="scientificCommittees[${varStatus.index}].committeeRole"/>
+							<form:input cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.scientificCommittees[varStatus.index]}"/>
@@ -773,16 +773,16 @@
            				<form:hidden path="operationalCommittees[${varStatus.index}].type"/>
 						<tr style="display: none;" class="operationalCommittee">
 						<td>
-							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].name"/>
+							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].institute"/>
+							<form:input cssClass="green autosaveclass"  path="operationalCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td>
-							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].instituteRole"/>
+							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td>
-							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].committeeRole"/>
+							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
 							<c:set var="ocommittee" value="${command.operationalCommittees[varStatus.index]}"/>
