@@ -405,16 +405,16 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	public int insertConferenceProposal(ConferenceProposal conferenceProposal){
 		String query = "select max(internalId) from conferenceProposal;";
 		int maxInternal= getSimpleJdbcTemplate().queryForInt(query);
-		System.out.println(maxInternal);
+		//System.out.println(maxInternal);
 		Calendar now = Calendar.getInstance();
 		int internalYear=now.get(Calendar.YEAR) * 10000;
-		System.out.println(internalYear);
+		//System.out.println(internalYear);
 		final int internalId;
 		if(maxInternal>internalYear)
 			internalId=maxInternal +1;
 		else
 			internalId=internalYear+1;
-		System.out.println(internalId);
+		//System.out.println(internalId);
 		
 		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?;";
 		final int personId = conferenceProposal.getPersonId();

@@ -1,10 +1,52 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 <%@ include file="/WEB-INF/jsp/include/header.jsp" %>
+<script language="Javascript">
+$(document).ready(function() {
+	
+  $("#genericDialog").dialog({
+        autoOpen: false,
+        show: 'fade',
+        hide: 'fade',
+        modal: true,
+        width: 400,
+  });
+ 
+  $(".ui-dialog-titlebar").hide();
+ 
+  function openHelp(name,mytext){
+     linkOffset = $(name).position();
+     linkWidth = $(name).width();
+     linkHeight = $(name).height();
+     scrolltop = $(window).scrollTop();
+     $("#genericDialog").dialog("option", "position", [(linkOffset.left - 400/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
+     $("#genericDialog").text(mytext).dialog("open");
+  } 
+
+  $(".confirmLink").click(function(e){
+	e.preventDefault();
+	var targetUrl = $(this).attr("href");
+   	$("#genericDialog").dialog('option', 'buttons', {
+            "בטל" : function() {
+                $(this).dialog("close");
+             },
+            "המשך" : function() {
+            	window.location.href = targetUrl;
+             }
+    });
+	openHelp(this,"אני מצהיר בזאת שהנני חוקר/ת במסלול הרגיל ובשירות פעיל.");
+   	return false;
+   });	
+});
+</script>
 <tr>
 	<td align="right" bgcolor="#787669" height="20">
 	<table width="100%" border="0" dir="rtl">
-	<tr>
+
+	<div id="genericDialog" title="" style="display:none" dir="rtl">
+		<p>text put here</p>
+	</div>
+
 	<td>
 		<authz:authorize ifAnyGranted="ROLE_POST_READER">
 		<p class="white">מערכת דיוור ישיר הרשות למו"פ > כניסה</p>
@@ -127,15 +169,15 @@
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
 						<tr>
-						<!--  <th align="right">
-								<a style="text-decoration: none" href="editConferenceProposal.html?action=new">הגשת בקשה למימון כנס</a>
+						  <th align="right">
+								<a style="text-decoration: none" href="editConferenceProposal.html?action=new" class="confirmLink">הגשת בקשה למימון כנס</a>
 							</th>
-						</tr>-->
-						<tr>
+						</tr>
+						<!--<tr>
 							<th align="right">
 								<a style="text-decoration: none" href="conferenceProposalAffirmation.html">הגשת בקשה למימון כנס</a>
 							</th>
-						</tr>
+						</tr>-->
 						</authz:authorize>
 
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">

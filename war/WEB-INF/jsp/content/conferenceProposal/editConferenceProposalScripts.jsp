@@ -30,8 +30,11 @@ $(document).ready(function() {
         temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
         var cfd = Date.parse(temp1);
         var date1 = new Date(cfd); 
-        if(new Date()>date1)
-     	  popup("#startConfDate","תאריך זה כבר עבר");
+        if(new Date()>date1){
+      	  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+    	  $("#genericDialog").dialog({ modal: false });
+     	  openHelp("#startConfDate","תאריך זה כבר עבר");
+        }
     }
 	});	
 	
@@ -51,8 +54,11 @@ $(document).ready(function() {
         var date1 = new Date(cfd); 
         var date2 = new Date(ctd2);
 
-      if(date1 > date2)  
-    	  popup("#endConfDate","תאריך סיום לפני תאריך התחלה");
+      if(date1 > date2) {
+      	  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+    	  $("#genericDialog").dialog({ modal: false });
+    	  openHelp("#endConfDate","תאריך סיום לפני תאריך התחלה");
+      } 
     } });	
 	
 	$(function() {
@@ -193,6 +199,7 @@ $(document).ready(function() {
 	$(".deleteFinancialSupport").click(function(e){
 		e.preventDefault();
 		var financialSupportId= this.id;
+	   	$("#genericDialog").dialog({ modal: true });
     	$("#genericDialog").dialog('option', 'buttons', {
             "לא" : function() {
                 $(this).dialog("close");
@@ -213,6 +220,7 @@ $(document).ready(function() {
 	$(".deleteCommittee").click(function(e){
 		e.preventDefault();
 		var committeeId= this.id;
+	   	$("#genericDialog").dialog({ modal: true });
     	$("#genericDialog").dialog('option', 'buttons', {
             "לא" : function() {
                 $(this).dialog("close");
@@ -321,11 +329,6 @@ $(document).ready(function() {
     	return true;
     });
 	
-	$("button.submitFaculty").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitFaculty\"/>");
-    	$("#form").submit();
-    	return true;
-    });	
 	
 	$("button.submit").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"saved\"/>");
@@ -335,74 +338,60 @@ $(document).ready(function() {
     });	
 	
     
-    
-
-        $('a.btn-ok, #dialog-overlay, #dialog-box').click(function () {    
-            $('#dialog-overlay, #dialog-box').hide();      
-            return false;
-        });
-        $("#form").click(function(e){
-        	$("#dialog-box").hide();
-        });    
-        $(window).resize(function () {
-            if (!$('#dialog-box').is(':hidden')) $("#test").click();      
-        });
-         
-    	function popup(name,message){
-            if(name==''){ 
-                var maskHeight = $(document).height(); 
-                var maskWidth = $(window).width();
-           		var dialogTop =  (maskHeight/3) - ($('#dialog-box').height()); 
-            	var dialogLeft = (maskWidth/2) - ($('#dialog-box').width()/2);
-            	//$('#dialog-overlay').css({height:maskHeight, width:maskWidth}).show();
-            	$('#dialog-box').css({position:'fixed',top:'50%',left:dialogLeft}).show();
-            }
-            else{
-            	linkOffset = $(name).position();
-            	linkWidth = $(name).width();
-            	linkHeight = $(name).height();
-            	//scrolltop = $(window).scrollTop();
-            	$('#dialog-box').css({top:linkOffset.top + linkHeight , left:(linkOffset.left - 328/2) + linkWidth/2}).show();
-            }
-            $('#dialog-message').html(message);
-    	}         
-               
-   
-    
      $("#genericDialog").dialog({
            autoOpen: false,
            show: 'fade',
            hide: 'fade',
-           modal: true,
-           width: 200,
+           width: 200
      });
     
    $(".ui-dialog-titlebar").hide();
-    
-     $("#dialogInitiatingBody").mouseover(function(e) {
-    	 	popup("#dialogInitiatingBody","הגוף שיוזם את הכנס");
-      });
+   $("#dialogInitiatingBody").click(function(e) {
+   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+	$("#genericDialog").dialog({ modal: false });
+    openHelp("#dialogInitiatingBody","הגוף שיוזם את הכנס");
+    return false;
+   });
      
-     $("#dialogInitiatingBodyRole").mouseover(function(e) {
-    	 popup("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
+   $("#dialogInitiatingBodyRole").click(function(e) {
+	  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+	  $("#genericDialog").dialog({ modal: false });
+	  openHelp("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
+	  return false;
    }); 
-     
-    function openHelp(name,mytext){
-        linkOffset = $(name).position();
-        linkWidth = $(name).width();
-        linkHeight = $(name).height();
-        scrolltop = $(window).scrollTop();
-        $("#genericDialog").dialog("option", "position", [(linkOffset.left - 200/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
-        $("#genericDialog").text(mytext).dialog("open");
+   
+   var fieldname=""; 
+   function openHelp(name,mytext){
+       	//linkOffset = $(name).position();
+       	//linkWidth = $(name).width();
+       	//linkHeight = $(name).height();
+      	//scrolltop = $(window).scrollTop();
+   	 	//$("#genericDialog").dialog("option", "position", [(linkOffset.left - 200/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
+	    fieldname=name;
+   	 	if(fieldname=="")
+	    	$("#genericDialog").dialog("option", "position", "center");
+	    else
+   	 		$('#genericDialog').dialog({position: { my: 'top', at: 'top', of: $(name)} });
+   	 	
+	    $("#genericDialog").text(mytext).dialog("open");
     } 
+    
     $("#form,#genericDialog").click(function(e){
     	$("#genericDialog").dialog("close");
     });    
     
+    $(window).scroll(function() {
+    	if (fieldname=="") 
+    		$("#genericDialog").dialog("option", "position", "center");
+    });   
+    
 	<c:if test="${userMessage!=null}">
 	var userMessage = "${userMessage}";
-	popup('',userMessage);
+   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+	$("#genericDialog").dialog({ modal: false });
+	openHelp("",userMessage);
     </c:if> 
+   
 });
 
 

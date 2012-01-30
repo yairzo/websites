@@ -62,7 +62,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 
 	private static StringBuffer generateCsvFileBuffer(String prevdeadline) {
 		StringBuffer b = new StringBuffer();
-		b.append("id");
+		/*b.append("id");
 		b.append(',');
 		b.append("open date");
 		b.append(',');
@@ -145,7 +145,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append("admin remarks");
 		b.append(',');
 		b.append("deadline");
-		b.append('\n');
+		b.append('\n');*/
 
 		// get data
 		Object bean = ApplicationContextProvider.getContext().getBean("conferenceProposalListService");
@@ -155,13 +155,18 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
 			b.append(conferenceProposalBean.getId());
 			b.append(',');
+			b.append(conferenceProposalBean.getInternalId());
+			b.append(',');
 			b.append(conferenceProposalBean.getOpenDate());
 			b.append(',');
-			b.append(conferenceProposalBean.getSubject().trim());
+			String subject = " ";
+			if (!conferenceProposalBean.getSubject().equals(""));
+			subject = conferenceProposalBean.getSubject().replace(",", " ").trim();
+			b.append(subject);
 			b.append(',');
 			String desc = " ";
 			if (!conferenceProposalBean.getDescription().equals(""));
-				conferenceProposalBean.getDescription().replace(",", " ").trim();
+				desc = conferenceProposalBean.getDescription().replace(",", " ").trim();
 			b.append(desc);
 			b.append(',');
 			b.append(conferenceProposalBean.getResearcher().getDegreeFullNameHebrew());
@@ -305,12 +310,24 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(',');
 			b.append(conferenceProposalBean.getGrade());
 			b.append(',');
-			if(conferenceProposalBean.getAdminRemarks().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getAdminRemarks());
+			String adminRemarks = " ";
+			if (!conferenceProposalBean.getAdminRemarks().equals(""));
+				adminRemarks = conferenceProposalBean.getAdminRemarks().replace(",", " ").trim();
+			b.append(adminRemarks);
 			b.append(',');
 			b.append(conferenceProposalBean.getDeadline());
+			b.append(',');
+			String deadlineRemarks = " ";
+			if (!conferenceProposalBean.getDeadlineRemarks().equals(""));
+				deadlineRemarks = conferenceProposalBean.getDeadlineRemarks().replace(",", " ").trim();
+			b.append(deadlineRemarks);
+			b.append(',');
+			b.append(conferenceProposalBean.getIsInsideDeadline());
+			b.append(',');
+			String committeeRemarks = " ";
+			if (!conferenceProposalBean.getCommitteeRemarks().equals(""));
+				committeeRemarks = conferenceProposalBean.getCommitteeRemarks().replace(",", " ").trim();
+			b.append(committeeRemarks);
 			b.append('\n');
 			bean = ApplicationContextProvider.getContext().getBean("conferenceProposalService");
 			ConferenceProposalService conferenceProposalService = (ConferenceProposalService) bean;

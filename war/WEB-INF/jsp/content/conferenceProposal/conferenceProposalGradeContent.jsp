@@ -21,7 +21,7 @@ $(document).ready(function() {
     });	
 	
 
-	$("button.buttonUp").click(function(){
+	$(".buttonUp").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"moveup\"/>");
 		var confId= this.id;
 		$("#form").append("<input type=\"hidden\" name=\"conferenceProposalId\" value=\""+confId +"\"/>");
@@ -29,7 +29,7 @@ $(document).ready(function() {
     	return true;
     });
 	
-	$("button.buttonDown").click(function(){
+	$(".buttonDown").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"movedown\"/>");
 		var confId= this.id;
 		$("#form").append("<input type=\"hidden\" name=\"conferenceProposalId\" value=\""+confId +"\"/>");
@@ -153,9 +153,9 @@ $(document).ready(function() {
  						<td width="300">
   							<textarea class="green saveclass" name="approverEvaluation${conferenceProposal.id}" id="${conferenceProposal.id}" rows="2" cols="40">${conferenceProposal.approverEvaluation}</textarea>
   						</td>
-				  		<td width="50">
-							<button style="width:50" class="grey buttonUp" id="${conferenceProposal.id}"/>העלה</button>
-							<button style="width:50" class="grey buttonDown" id="${conferenceProposal.id}"/>הורד</button>
+				  		<td width="80">
+				  		<button class="grey buttonUp" id="${conferenceProposal.id}"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
+				  		<button class="grey buttonDown" id="${conferenceProposal.id}"><span class="ui-icon ui-icon-arrowthick-1-s"></span></button>
  				  		</td>
    					</tr>
   				</table>

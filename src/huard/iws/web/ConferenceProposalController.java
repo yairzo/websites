@@ -44,51 +44,106 @@ public class ConferenceProposalController extends GeneralFormController{
 		
 		//if added financialsupport or committee
 		if(request.getParameter("action","").equals("fromAssosiateSave")){
-			FinancialSupport financialSupport = new FinancialSupport();
-			financialSupport.setType(1);
-			financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
-			financialSupport.setName(request.getParameter("fromAssosiate_name", ""));
-			financialSupport.setSum(request.getParameter("fromAssosiate_sum", ""));
-			financialSupport.setCurrency(request.getParameter("fromAssosiate_currency", ""));
-			conferenceProposalService.insertFinancialSupport(financialSupport);
+			
+			if(!request.getParameter("fromAssosiate_name", "").equals("")){
+				FinancialSupport financialSupport = new FinancialSupport();
+				financialSupport.setType(1);
+				financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
+				financialSupport.setName(request.getParameter("fromAssosiate_name", ""));
+				financialSupport.setSum(request.getParameter("fromAssosiate_sum", ""));
+				financialSupport.setCurrency(request.getParameter("fromAssosiate_currency", ""));
+				conferenceProposalService.insertFinancialSupport(financialSupport);
+				if (!request.getParameter("fromAssosiate_name2", "").equals("")){
+					financialSupport = new FinancialSupport();
+					financialSupport.setType(1);
+					financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
+					financialSupport.setName(request.getParameter("fromAssosiate_name2", ""));
+					financialSupport.setSum(request.getParameter("fromAssosiate_sum2", ""));
+					financialSupport.setCurrency(request.getParameter("fromAssosiate_currency2", ""));
+					conferenceProposalService.insertFinancialSupport(financialSupport);
+				}
+			}
 		}
 		else if(request.getParameter("action","").equals("fromExternalSave")){
-			FinancialSupport financialSupport = new FinancialSupport();
-			financialSupport.setType(2);
-			financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
-			financialSupport.setName(request.getParameter("fromExternal_name", ""));
-			financialSupport.setSum(request.getParameter("fromExternal_sum", ""));
-			financialSupport.setCurrency(request.getParameter("fromExternal_currency", ""));
-			conferenceProposalService.insertFinancialSupport(financialSupport);
+			if(!request.getParameter("fromExternal_name", "").equals("")){
+				FinancialSupport financialSupport = new FinancialSupport();
+				financialSupport.setType(2);
+				financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
+				financialSupport.setName(request.getParameter("fromExternal_name", ""));
+				financialSupport.setSum(request.getParameter("fromExternal_sum", ""));
+				financialSupport.setCurrency(request.getParameter("fromExternal_currency", ""));
+				conferenceProposalService.insertFinancialSupport(financialSupport);
+				if (!request.getParameter("fromExternal_name2", "").equals("")){
+					financialSupport = new FinancialSupport();
+					financialSupport.setType(2);
+					financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
+					financialSupport.setName(request.getParameter("fromExternal_name2", ""));
+					financialSupport.setSum(request.getParameter("fromExternal_sum2", ""));
+					financialSupport.setCurrency(request.getParameter("fromExternal_currency2", ""));
+					conferenceProposalService.insertFinancialSupport(financialSupport);
+				}
+			}
 		}
 		else if(request.getParameter("action","").equals("fromAdmitanceFeeSave")){
-			FinancialSupport financialSupport = new FinancialSupport();
-			financialSupport.setType(3);
-			financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
-			financialSupport.setName(request.getParameter("fromAdmitanceFee_name", ""));
-			financialSupport.setSum(request.getParameter("fromAdmitanceFee_sum", ""));
-			financialSupport.setCurrency(request.getParameter("fromAdmitanceFee_currency", ""));
-			conferenceProposalService.insertFinancialSupport(financialSupport);
+			if(!request.getParameter("fromAdmitanceFee_name", "").equals("")){
+				FinancialSupport financialSupport = new FinancialSupport();
+				financialSupport.setType(3);
+				financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
+				financialSupport.setName(request.getParameter("fromAdmitanceFee_name", ""));
+				financialSupport.setSum(request.getParameter("fromAdmitanceFee_sum", ""));
+				financialSupport.setCurrency(request.getParameter("fromAdmitanceFee_currency", ""));
+				conferenceProposalService.insertFinancialSupport(financialSupport);
+				if(!request.getParameter("fromAdmitanceFee_name2", "").equals("")){
+					financialSupport = new FinancialSupport();
+					financialSupport.setType(3);
+					financialSupport.setConferenceProposalId(conferenceProposalBean.getId());
+					financialSupport.setName(request.getParameter("fromAdmitanceFee_name2", ""));
+					financialSupport.setSum(request.getParameter("fromAdmitanceFee_sum2", ""));
+					financialSupport.setCurrency(request.getParameter("fromAdmitanceFee_currency2", ""));
+					conferenceProposalService.insertFinancialSupport(financialSupport);
+				}
+			}
 		}
 		else if(request.getParameter("action","").equals("scientificCommitteeSave")){
-			Committee committee = new Committee();
-			committee.setType(1);
-			committee.setConferenceProposalId(conferenceProposalBean.getId());
-			committee.setName(request.getParameter("scientificCommittee_name", ""));
-			committee.setInstitute(request.getParameter("scientificCommittee_institute", ""));
-			committee.setInstituteRole(request.getParameter("scientificCommittee_instituteRole", ""));
-			committee.setCommitteeRole(request.getParameter("scientificCommittee_committeeRole",""));
-			conferenceProposalService.insertCommittee(committee);
+			if(!request.getParameter("scientificCommittee_name", "").equals("")){
+				Committee committee = new Committee();
+				committee.setType(1);
+				committee.setConferenceProposalId(conferenceProposalBean.getId());
+				committee.setName(request.getParameter("scientificCommittee_name", ""));
+				committee.setInstitute(request.getParameter("scientificCommittee_institute", ""));
+				committee.setInstituteRole(request.getParameter("scientificCommittee_instituteRole", ""));
+				committee.setCommitteeRole(request.getParameter("scientificCommittee_committeeRole",""));
+				conferenceProposalService.insertCommittee(committee);
+				if(!request.getParameter("scientificCommittee_name2", "").equals("")){
+					committee.setType(1);
+					committee.setConferenceProposalId(conferenceProposalBean.getId());
+					committee.setName(request.getParameter("scientificCommittee_name2",""));
+					committee.setInstitute(request.getParameter("scientificCommittee_institute2", ""));
+					committee.setInstituteRole(request.getParameter("scientificCommittee_instituteRole2", ""));
+					committee.setCommitteeRole(request.getParameter("scientificCommittee_committeeRole2",""));
+					conferenceProposalService.insertCommittee(committee);
+				}
+			}
 		}
 		else if(request.getParameter("action","").equals("operationalCommitteeSave")){
-			Committee committee = new Committee();
-			committee.setType(2);
-			committee.setConferenceProposalId(conferenceProposalBean.getId());
-			committee.setName(request.getParameter("operationalCommittee_name", ""));
-			committee.setInstitute(request.getParameter("operationalCommittee_institute", ""));
-			committee.setInstituteRole(request.getParameter("operationalCommittee_instituteRole", ""));
-			committee.setCommitteeRole(request.getParameter("operationalCommittee_committeeRole",""));
-			conferenceProposalService.insertCommittee(committee);
+			if(!request.getParameter("operationalCommittee_name", "").equals("")){
+				Committee committee = new Committee();
+				committee.setType(2);
+				committee.setConferenceProposalId(conferenceProposalBean.getId());
+				committee.setName(request.getParameter("operationalCommittee_name", ""));
+				committee.setInstitute(request.getParameter("operationalCommittee_institute", ""));
+				committee.setInstituteRole(request.getParameter("operationalCommittee_instituteRole", ""));
+				committee.setCommitteeRole(request.getParameter("operationalCommittee_committeeRole",""));
+				conferenceProposalService.insertCommittee(committee);
+				if(!request.getParameter("operationalCommittee_name2", "").equals("")){
+					committee.setConferenceProposalId(conferenceProposalBean.getId());
+					committee.setName(request.getParameter("operationalCommittee_name2", ""));
+					committee.setInstitute(request.getParameter("operationalCommittee_institute2", ""));
+					committee.setInstituteRole(request.getParameter("operationalCommittee_instituteRole2", ""));
+					committee.setCommitteeRole(request.getParameter("operationalCommittee_committeeRole2",""));
+					conferenceProposalService.insertCommittee(committee);
+				}
+			}
 		}
 		else if(request.getParameter("action","").equals("deleteFinancialSupport")){
 			conferenceProposalService.deleteFinancialSupport(request.getIntParameter("financialSupportId", 0));
@@ -167,7 +222,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		conferenceProposalBean.setOpenDate(origConferenceProposalBean.getOpenDate());
 		//update dates according to calendar input
 		if(!request.getParameter("startConfDate", "").equals("")){
-			DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date fromDate = (Date)formatter.parse(request.getParameter("startConfDate", "")); 
 			conferenceProposalBean.setFromDate(fromDate.getTime());
 		}
@@ -175,7 +230,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposalBean.setFromDate(origConferenceProposalBean.getFromDate());
 		}
 		if(!request.getParameter("endConfDate", "").equals("")){
-			DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date toDate = (Date)formatter.parse(request.getParameter("endConfDate", "")); 
 			conferenceProposalBean.setToDate(toDate.getTime());
 		}
@@ -192,71 +247,39 @@ public class ConferenceProposalController extends GeneralFormController{
 				//assign default grade
 				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 				conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
-				//send mail to approver
-				PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
-				if (updatedApprover.isValidEmail()) 
-					mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
 			}
+			//send mail to approver
+			PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
+			if (updatedApprover.isValidEmail()) 
+				mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
 		}
-		//unsubmit button
-		/*if(request.getParameter("action","").equals("unsubmitForGrading")){
-			conferenceProposalBean.setSubmitted(false);
-			conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
-			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-			conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
-			conferenceProposalBean.setGrade(0);
-		}*/
-		//submitted checkbox
-		/*if(conferenceProposalBean.getSubmitted()){
-			//assign default grade
-			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-			conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
-		}
-		if(!conferenceProposalBean.getSubmitted()){
-			conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
-			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-			conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
-			conferenceProposalBean.setGrade(0);
-		}*/		
-		if(request.getParameter("action","").equals("submitFaculty")){
-			//update only relevant fields
-			origConferenceProposalBean.setAdminRemarks(conferenceProposalBean.getAdminRemarks());
-			origConferenceProposalBean.setApproverEvaluation(conferenceProposalBean.getApproverEvaluation());
-			//committeRemarks
-			String committeeRemarks=request.getParameter("newCommitteeRemarks","");
-			if(!committeeRemarks.equals("")){
+		
+		//committeRemarks
+		String committeeRemarks=request.getParameter("newCommitteeRemarks","");
+		if(!committeeRemarks.equals("")){
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 				committeeRemarks = "<br>" + committeeRemarks + "-" + userPersonBean.getDegreeFullName() + "," + formatter.format(new Date());
-			}
-			origConferenceProposalBean.setCommitteeRemarks(origConferenceProposalBean.getCommitteeRemarks() + committeeRemarks);
-			if(!request.getParameter("cancelSubmission", "").equals("")){
-				origConferenceProposalBean.setSubmitted(false);
-				origConferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
+		}
+		conferenceProposalBean.setCommitteeRemarks(origConferenceProposalBean.getCommitteeRemarks() + committeeRemarks);
+		if(!request.getParameter("cancelSubmission", "").equals("")){
+				conferenceProposalBean.setSubmitted(false);
+				conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
 				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 				conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
-				origConferenceProposalBean.setGrade(0);
-			}
-			if(conferenceProposalBean.getIsInsideDeadline() && !origConferenceProposalBean.getIsInsideDeadline()){
-				origConferenceProposalBean.setIsInsideDeadline(true);
-				//if changed IsInsideDeadline to enter current grading
+				conferenceProposalBean.setGrade(0);
+		}
+		//if changed IsInsideDeadline to enter current grading
+		if(conferenceProposalBean.getIsInsideDeadline() && !origConferenceProposalBean.getIsInsideDeadline()){
+				conferenceProposalBean.setIsInsideDeadline(true);
 				//assign default grade
 				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-				origConferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(origConferenceProposalBean.getApproverId(), prevdeadline)+1);
-				//send mail to approver
-				PersonBean updatedApprover = new PersonBean(personService.getPerson(origConferenceProposalBean.getApproverId()));
-				if (updatedApprover.isValidEmail()) 
-					mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, origConferenceProposalBean, "updatedApprover");
-			}
-			conferenceProposalService.updateConferenceProposal(origConferenceProposalBean.toConferenceProposal());
+				conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
+		}
+		
+		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
+		if(request.getParameter("showMessage", "").equals("saved")){
 			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
 			request.getSession().setAttribute("userMessage", userMessage);
-		}
-		else{
-			conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
-			if(request.getParameter("showMessage", "").equals("saved")){
-				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
-				request.getSession().setAttribute("userMessage", userMessage);
-			}
 		}	
 		//return to same page
 		Map<String, Object> newModel = new HashMap<String, Object>();
@@ -276,7 +299,6 @@ public class ConferenceProposalController extends GeneralFormController{
 		//get faculty name by user facultyId
 		Faculty faculty = facultyService.getFaculty(userPersonBean.getFacultyId());
 		model.put("faculty", faculty.getNameHebrew());
-
 		// if new proposal Create a new proposal and write it to db
 		if (request.getParameter("action", "").equals("new")){
 			ConferenceProposal conferenceProposal= new ConferenceProposal();
@@ -287,30 +309,6 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposal.setDeadline(deadlineD.getTime());
 			int conferenceProposalId = conferenceProposalService.insertConferenceProposal(conferenceProposal);
 			logger.info("conferenceProposalId " + conferenceProposalId);
-			//adding 1 extra row in each table
-			for( int i=1; i<4;i++){
-				FinancialSupport financialSupport  = new FinancialSupport();
-				financialSupport.setConferenceProposalId(conferenceProposalId);
-				if (i==3)
-					financialSupport.setName("משתתפים");
-				else
-					financialSupport.setName("");
-				financialSupport.setSum("");
-				financialSupport.setCurrency("");
-				financialSupport.setType(i);
-				conferenceProposalService.insertFinancialSupport(financialSupport);
-			}
-			for( int i=1; i<3;i++){
-				Committee committee  = new Committee();
-				committee.setConferenceProposalId(conferenceProposalId);
-				committee.setName("");
-				committee.setCommitteeRole("");
-				committee.setInstitute("");
-				committee.setInstituteRole("");
-				committee.setType(i);
-				conferenceProposalService.insertCommittee(committee);
-			}
-			
 			model.put("id",conferenceProposalId);
 			return new ModelAndView ( new RedirectView("editConferenceProposal.html"), model);
 		}
@@ -323,6 +321,11 @@ public class ConferenceProposalController extends GeneralFormController{
 			model.put("endConfDate", formatter.format(toDate));
 			model.put("deadlineDate", formatter.format(conferenceProposal.getDeadline()));
 			//model.put("prevDeadlineDate", formatter.format(toDate));
+			String internalIdString="";
+			if(conferenceProposal.getInternalId()>0 && Integer.toString(conferenceProposal.getInternalId()).length()>4){
+				internalIdString = Integer.toString(conferenceProposal.getInternalId()).substring(0,4) + "/" + Integer.toString(conferenceProposal.getInternalId()).substring(4);
+			}
+			model.put("internalIdString", internalIdString);
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		
