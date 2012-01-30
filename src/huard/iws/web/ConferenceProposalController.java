@@ -105,7 +105,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}
 		
-		else if(request.getParameter("action","").equals("operationalCommitteeSave")){
+		/*else if(request.getParameter("action","").equals("operationalCommitteeSave")){
 			if(!request.getParameter("operationalCommittee_name", "").equals("")){
 				Committee committee = new Committee();
 				committee.setType(2);
@@ -124,7 +124,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					conferenceProposalService.insertCommittee(committee);
 				}
 			}
-		}
+		}*/
 		else if(request.getParameter("action","").equals("deleteFinancialSupport")){
 			conferenceProposalService.deleteFinancialSupport(request.getIntParameter("financialSupportId", 0));
 		}

@@ -767,55 +767,30 @@
 						</tr>
 						</c:forEach>
 					</c:if>
-					<c:if test="${!readOnly && !command.submitted}">
-           				<c:forEach items="${command.operationalCommittees}" var="committee">
-						<tr>
+ 					<c:if test="${!readOnly && !command.submitted}">					
+           				<c:forEach items="${command.operationalCommittees}" var="ocommittee" varStatus="varStatus">
+           				<form:hidden path="operationalCommittees[${varStatus.index}].conferenceProposalId"/>
+           				<form:hidden path="operationalCommittees[${varStatus.index}].type"/>
+						<tr style="display: none;" class="operationalCommittee">
 						<td>
-							<input type="text" class="green medium170 autosaveclass" name="committee_name_${committee.id}" value="${committee.name}"/>
+							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<input type="text" class="green medium170 autosaveclass" name="committee_institute_${committee.id}" value="${committee.institute}"/>
+							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td>
-							<input type="text" class="green medium170 autosaveclass" name="committee_instituteRole_${committee.id}" value="${committee.instituteRole}"/>
+							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td>
-							<input type="text" class="green medium170 autosaveclass" name="committee_committeeRole_${committee.id}" value="${committee.committeeRole}"/>
+							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
-							<img src="image/icon_delete.gif" class="deleteCommittee" id="${committee.id}"/>
+							<c:set var="ocommittee" value="${command.operationalCommittees[varStatus.index]}"/>
+							<img src="image/icon_delete.gif" class="deleteCommittee"/>							
 						</td>
 						</tr>
 						</c:forEach>
-						<tr>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_name"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_institute"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_instituteRole"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_committeeRole"/>
-						</td>
-						</tr>						
-						<tr>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_name2"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_institute2"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_instituteRole2"/>
-						</td>
-						<td>
-							<input type="text" class="green medium170 autosaveclass" name="operationalCommittee_committeeRole2"/>
-						</td>
-						</tr>						
-						<tr><td coslapn="4"><a href="#" class="operationalCommitteeSave">הוסף שורות</a></td></tr>
+						<tr><td><a href="#" class="operationalCommitteeSave" onclick="hideExtraOperationalCommittee();">הוסף שורות</a></td></tr>
 					</c:if>
 					</table>
 					</td>

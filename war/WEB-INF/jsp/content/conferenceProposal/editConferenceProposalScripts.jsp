@@ -7,7 +7,7 @@
 $(document).ready(function() {
 	
 	hideExtraScientificCommittee();
-
+	hideExtraOperationalCommittee();
 	
 	$("button.guestsAttach").click(function(event){
 		event.preventDefault();
@@ -420,6 +420,23 @@ function hideExtraScientificCommittee(){
 	})
 }
 
-
+function hideExtraOperationalCommittee(){
+	var emptyRowsCounter = 0;
+	$('tr.operationalCommittee').each(function(){
+		var row = $(this);
+		var allInputsEmpty = true;
+		row.find('input').each(function(){
+			if ($(this).val()!=""){
+				row.show();
+				allInputsEmpty = false;
+			}
+		});
+		if (allInputsEmpty){
+			if (emptyRowsCounter ==0)
+				row.show();
+			emptyRowsCounter = emptyRowsCounter +1;
+		}
+	})
+}
 
 </script>

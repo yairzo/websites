@@ -146,6 +146,9 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		for (Committee committee: conferenceProposal.getScientificCommittees()){
 			insertCommittee(committee);
 		}
+		for (Committee committee: conferenceProposal.getOperationalCommittees()){
+			insertCommittee(committee);
+		}
 	}
 
 	public void deleteFinancialSupport(int financialSupportId){
