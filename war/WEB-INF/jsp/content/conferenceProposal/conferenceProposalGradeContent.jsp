@@ -1,7 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
-<script language="Javascript">
-
-
+<script>
 $(document).ready(function() {
 
 	$("button.buttonEdit").click(function(){

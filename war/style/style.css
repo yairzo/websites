@@ -326,3 +326,7 @@ td.viewList{
 	border: 1px black dotted;
 	padding: 10px 30px;
 }
+.dialogText{
+	font-size: 14pt;
+	font-weight: 550;
+}

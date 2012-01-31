@@ -1,139 +1,5 @@
 <%@ page  pageEncoding="UTF-8" %>
 
-<style>
-	.ui-autocomplete {
-		max-height: 200px;
-		overflow-y: auto;
-		/* prevent horizontal scrollbar */
-		overflow-x: hidden;
-		/* add padding to account for vertical scrollbar */
-		padding-right: 20px;
-		direction: rtl;
-	}
-	
-	.ui-autocomplete li {
-		list-style-type: none;
-	}
-
-
-</style>
-<script>
-
-	function resetAutocomplete(persons){		
-		$("#searchPhrase").autocomplete( 
-				{source: persons,
-				 minLength: 2,
-				 highlight: true,
-				 select: function(event, ui) {
-					 
-					$("input#listViewPage").remove();
-					$("input#orderBy").remove();
-					$("#searchPhrase").val(ui.item.value);
-					event.preventDefault();					
-					$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-					$("#form").submit();				 
-				 }
-			    }
-		);
-	}
-	
-	function cleanSearch(){
-		$("input#searchPhrase").val('');
-		$("input#listViewPage").remove();
-		$("input#orderBy").remove();
-	}
-
-$(document).ready(function() {
-
-
-	$("#buttonEdit").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"edit\"/>");
-    	$("#form").submit();
-    	return true;
-    });
-
-    $("#buttonDelete").click(function(){
-    	$.alerts.confirm('<fmt:message key="iw_IL.eqfSystem.editProposal.deleteProposal.confirm"/>', "מחיקת הצעה",
-        function(confirm){
-         	 	if (confirm==1){
-         	      	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
-             	   	$("#form").submit();
-             	   	return true;
-         	 	}
-         	 	else{
-     				return false;
-         	 	}
-        });
-    	return false;
-    });
-
-    $("#buttonSearch").click(function(){
-    	$("input#listViewPage").remove();
-		$("input#orderBy").remove();
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-		$("#form").submit();
-    	return true;
-    });
-
-    $("#buttonCleanSearch").click(function(){
-    	$("input#searchPhrase").val('');
-       	$("#searchByApprover").val('0');
-       	$("#searchBySubmitted").val('0');
-       	$("#searchByDeadline").val('0');
-   		$("input#listViewPage").remove();
-		$("input#orderBy").remove();
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-		$("#form").submit();
-    	return true;
-    });
-    $("#searchPhrase").click(function(){
-    	cleanSearch();
-    });
-    
-    $.get('selectBoxFiller',{type:'person'},function(data){
-		var persons = data.split(",,");
-		resetAutocomplete(persons)
-		$("#searchPhrase").focus();
-	});
-    
-    $("#searchByApprover").change(function(){
-    	$("#searchPhrase").empty();
-    	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-		$("#form").submit();
-    });
-    
-    $('.searchBySubmitted').click(function(){
-    	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-		$("#form").submit();
-    });
-    $('.searchByDeadline').click(function(){
-    	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-		$("#form").submit();
-    });
-    $('#buttonStartGrading').click(function(event){
-    	
-    	$( "#dialog:ui-dialog" ).dialog( "destroy" );
-    	$( "#dialog-confirm" ).dialog({
-			resizable: false,
-			height:250,
-			modal: true,
-			buttons: {
-				"שלח": function() {
-					$("#form").append("<input type=\"hidden\" name=\"action\" value=\"startGrading\"/>");
-			    	$("#form").submit();
-				},
-				"בטל": function() {
-					$( this ).dialog( "close" );
-				}
-			}
-		});
-    	event.preventDefault();
-    	return false;
-    });
-
- <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
-});
-</script>
           <td align="right" bgcolor="#787669" height="20">
           		<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>
           	        <c:set var="pageName" value="רשימת ההצעות לכנסים"/>
@@ -152,7 +18,7 @@ $(document).ready(function() {
         <input type="hidden" id="listViewPage" name="listView.page" value="${command.listView.page}"/>
         <input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
         <input type="hidden" name="searchCreteria.roleFilter" value="${command.searchCreteria.roleFilter}"/>
-    	<table border="0" align="center" style="width: 80%; direction: rtl;">
+    	<table border="0" align="center" style="width: 80%; direction: rtl;" cellspacing="10">
     		<tr>
     			<td class="container" style="width: 35%;">
     				<span style="text-align: center;"><h2> סינון הבקשות </h2></span>
@@ -246,10 +112,10 @@ $(document).ready(function() {
     	</table>
     	<table align="center" style="width: 80%; direction: rtl;">
   	  		<tr>
-  	  			<td style="width: 35%;" >
+  	  			<td style="width: 35%;">
   	  				&nbsp;
   	  			</td>
-                <td style="width: 65%;" align="center"><br>
+                <td style="width: 65%;" align="center">
 					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
                 </td>
             </tr>
@@ -257,7 +123,7 @@ $(document).ready(function() {
   	  	<br/>
   	  	<br/>
     	
-    	<table align="center" class="container" style="width: 80%; direction: rtl;">
+    	<table align="center" class="container" style="width: 80%; direction: rtl;" cellspacing="10">
     		<tr>
     			<td>
     				<span style="text-align: center;"><h2>ניהול הדירוג</h2></span>
@@ -323,8 +189,8 @@ $(document).ready(function() {
     </td>
   </tr>
 </table>
-<div id="dialog-confirm" title="">
-	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>את/ה עומד/ת לשלוח בקשה לדירוג במייל לדיקן. האם את/ה מאשר/ת ?</p>
+<div id="dialog-confirm" title="" style="display: none;">
+	<p><span class="dialogText">את/ה עומד/ת לשלוח בקשה לדירוג במייל לדיקן. האם את/ה מאשר/ת ?</span></p>
 </div>
 </body>
 </html>
