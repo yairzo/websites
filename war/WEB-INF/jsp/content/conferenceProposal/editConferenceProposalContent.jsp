@@ -684,8 +684,6 @@
 		       		<td colspan="4" align="right"><h3>ועדה מארגנת</h3></td>
 				</tr>
 				<tr class="form">
-		
-
 					<td colspan="4">ועדה מדעית:
  					<table width="600" style="border: 1px black dotted" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
@@ -694,7 +692,8 @@
 				    <th width="150" style="border: 1px black dotted"> תפקיד במוסד </th>
 				    <th width="150" style="border: 1px black dotted"> תפקיד בועדה </th>
 					</tr>
- 					<c:if test="${readOnly || command.submitted}">
+ 					<c:choose>
+ 					<c:when test="${readOnly || command.submitted}">
            				<c:forEach items="${command.scientificCommittees}" var="committee">
 						<tr>
 						<td style="border: thin black dotted">
@@ -711,12 +710,12 @@
 						</td>					
 						</tr>
 						</c:forEach>
-					</c:if>
- 					<c:if test="${!readOnly && !command.submitted}">					
+					</c:when>
+ 					<c:otherwise>					
            				<c:forEach items="${command.scientificCommittees}" var="committee" varStatus="varStatus">
            				<form:hidden path="scientificCommittees[${varStatus.index}].conferenceProposalId"/>
            				<form:hidden path="scientificCommittees[${varStatus.index}].type"/>
-						<tr style="display: none;" class="scientificCommittee">
+						<tr style="display: none;" class="scientificCommittee committee">
 						<td>
 							<form:input cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].name"/>
 						</td>
@@ -735,21 +734,23 @@
 						</td>
 						</tr>
 						</c:forEach>
-						<tr><td><a href="#" class="scientificCommitteeSave" onclick="hideExtraScientificCommittee();">הוסף שורות</a></td></tr>
-					</c:if>
+						<tr><td><a href="#" class="scientificCommitteeSave" onclick="hideExtraCommittee("scientificCommittee");">הוסף שורות</a></td></tr>
+					</c:otherwise>
+					</c:choose>
 					</table>
 					</td>
 				</tr>
 				<tr class="form">
-					<td colspan="4">ועדה מבצעת:
-					<table width="600" style="border: 1px black dotted" cellpadding="1" cellspacing="0" align="center">
+					<td colspan="4">ועדה מארגנת:
+ 					<table width="600" style="border: 1px black dotted" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
 				    <th width="150" style="border: 1px black dotted"> שם </th> 
 				    <th width="150" style="border: 1px black dotted"> מוסד </th>
 				    <th width="150" style="border: 1px black dotted"> תפקיד במוסד </th>
 				    <th width="150" style="border: 1px black dotted"> תפקיד בועדה </th>
 					</tr>
- 					<c:if test="${readOnly || command.submitted}">
+ 					<c:choose>
+ 					<c:when test="${readOnly || command.submitted}">
            				<c:forEach items="${command.operationalCommittees}" var="committee">
 						<tr>
 						<td style="border: thin black dotted">
@@ -766,35 +767,39 @@
 						</td>					
 						</tr>
 						</c:forEach>
-					</c:if>
- 					<c:if test="${!readOnly && !command.submitted}">					
-           				<c:forEach items="${command.operationalCommittees}" var="ocommittee" varStatus="varStatus">
+
+					</c:when>
+ 					<c:otherwise>					
+           				<c:forEach items="${command.operationalCommittees}" var="committee" varStatus="varStatus">
            				<form:hidden path="operationalCommittees[${varStatus.index}].conferenceProposalId"/>
            				<form:hidden path="operationalCommittees[${varStatus.index}].type"/>
-						<tr style="display: none;" class="operationalCommittee">
+						<tr style="display: none;" class="operationalCommittee committee">
+
 						<td>
-							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].name"/>
+							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass"  path="operationalCommittees[${varStatus.index}].institute"/>
+							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].instituteRole"/>
+							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].committeeRole"/>
+							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
-							<c:set var="ocommittee" value="${command.operationalCommittees[varStatus.index]}"/>
+							<c:set var="committee" value="${command.operationalCommittees[varStatus.index]}"/>
 							<img src="image/icon_delete.gif" class="deleteCommittee"/>							
 						</td>
 						</tr>
 						</c:forEach>
-						<tr><td><a href="#" class="operationalCommitteeSave" onclick="hideExtraOperationalCommittee();">הוסף שורות</a></td></tr>
-					</c:if>
+						<tr><td><a href="#" class="operationalCommitteeSave" onclick="hideExtraCommittee("operationalCommittee");">הוסף שורות</a></td></tr>
+					</c:otherwise>
+					</c:choose>
 					</table>
 					</td>
 				</tr>
+				
 				<tr><td>&nbsp;</td></tr>
 				<tr class="form">
 		       		<td colspan="4" align="right"><h3>

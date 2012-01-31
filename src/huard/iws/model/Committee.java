@@ -9,6 +9,9 @@ public class Committee {
 	private String committeeRole;
 	private int type;
 	
+	public static int TYPE_SCIENTIFIC = 1;
+	public static int TYPE_OPERATIONAL = 2;
+	
 	public Committee(){
 		this.id = 0;
 		this.conferenceProposalId = 0;

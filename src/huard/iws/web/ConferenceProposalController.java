@@ -2,7 +2,6 @@ package huard.iws.web;
 
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Faculty;
 import huard.iws.model.FinancialSupport;
@@ -18,8 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -105,35 +104,12 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}
 		
-		/*else if(request.getParameter("action","").equals("operationalCommitteeSave")){
-			if(!request.getParameter("operationalCommittee_name", "").equals("")){
-				Committee committee = new Committee();
-				committee.setType(2);
-				committee.setConferenceProposalId(conferenceProposalBean.getId());
-				committee.setName(request.getParameter("operationalCommittee_name", ""));
-				committee.setInstitute(request.getParameter("operationalCommittee_institute", ""));
-				committee.setInstituteRole(request.getParameter("operationalCommittee_instituteRole", ""));
-				committee.setCommitteeRole(request.getParameter("operationalCommittee_committeeRole",""));
-				conferenceProposalService.insertCommittee(committee);
-				if(!request.getParameter("operationalCommittee_name2", "").equals("")){
-					committee.setConferenceProposalId(conferenceProposalBean.getId());
-					committee.setName(request.getParameter("operationalCommittee_name2", ""));
-					committee.setInstitute(request.getParameter("operationalCommittee_institute2", ""));
-					committee.setInstituteRole(request.getParameter("operationalCommittee_instituteRole2", ""));
-					committee.setCommitteeRole(request.getParameter("operationalCommittee_committeeRole2",""));
-					conferenceProposalService.insertCommittee(committee);
-				}
-			}
-		}*/
 		else if(request.getParameter("action","").equals("deleteFinancialSupport")){
 			conferenceProposalService.deleteFinancialSupport(request.getIntParameter("financialSupportId", 0));
 		}
 		else if(request.getParameter("action","").equals("deleteCommittee")){
 			conferenceProposalService.deleteCommittee(request.getIntParameter("committeeId", 0));
-		}
-		
-		
-		
+		}		
 		
 		List<FinancialSupport> financialSupports = origConferenceProposalBean.getFromAdmitanceFee();
 		financialSupports.addAll(origConferenceProposalBean.getFromAssosiate());
@@ -150,7 +126,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}
 		
-
+		
 		// this part saves the content type of the attachments
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();

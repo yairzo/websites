@@ -6,14 +6,13 @@ import huard.iws.model.FinancialSupport;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceProposalBean {
 	
-	private final int MAX_NUM_SCIENTIFIC_COMMITTEE = 10;
-	private final int MAX_NUM_OPERATIONAL_COMMITTEE =10;
+	private final int MAX_NUM_COMMITTEE = 10;
+	
 
 	private int id;
 	private int internalId;
@@ -84,7 +83,6 @@ public class ConferenceProposalBean {
 
 
 	public ConferenceProposalBean() {
-		Timestamp now = new Timestamp(System.currentTimeMillis());
 		this.id = 0;
 		this.internalId = 0;
 		this.personId = 0;
@@ -137,15 +135,15 @@ public class ConferenceProposalBean {
 		this.adminRemarks ="";
 		this.deadline=0;
 		this.scientificCommittees = new ArrayList<Committee>();
-		for (int i=0; i< MAX_NUM_SCIENTIFIC_COMMITTEE; i++){
+		for (int i=0; i< MAX_NUM_COMMITTEE; i++){
 			Committee committee = new Committee();
-			committee.setType(1);
+			committee.setType(Committee.TYPE_SCIENTIFIC);
 			scientificCommittees.add(committee);
 		}
 		this.operationalCommittees = new ArrayList<Committee>();
-		for (int i=0; i< MAX_NUM_OPERATIONAL_COMMITTEE; i++){
+		for (int i=0; i< MAX_NUM_COMMITTEE; i++){
 			Committee committee = new Committee();
-			committee.setType(2);
+			committee.setType(Committee.TYPE_OPERATIONAL);
 			operationalCommittees.add(committee);
 		}
 		this.fromAssosiate = new ArrayList<FinancialSupport>();
@@ -218,18 +216,18 @@ public class ConferenceProposalBean {
 		this.deadline = conferenceProposal.getDeadline();
 		this.scientificCommittees = conferenceProposal
 				.getScientificCommittees();
-		for (int i = scientificCommittees.size(); i<MAX_NUM_SCIENTIFIC_COMMITTEE; i++){
+		for (int i = scientificCommittees.size(); i<MAX_NUM_COMMITTEE; i++){
 			Committee committee = new Committee();
 			committee.setConferenceProposalId(conferenceProposal.getId());
-			committee.setType(1);			
+			committee.setType(Committee.TYPE_SCIENTIFIC);			
 			scientificCommittees.add(committee);
 		}
 		this.operationalCommittees = conferenceProposal
 				.getOperationalCommittees();
-		for (int i = operationalCommittees.size(); i<MAX_NUM_OPERATIONAL_COMMITTEE; i++){
+		for (int i = operationalCommittees.size(); i<MAX_NUM_COMMITTEE; i++){
 			Committee committee = new Committee();
 			committee.setConferenceProposalId(conferenceProposal.getId());
-			committee.setType(2);			
+			committee.setType(Committee.TYPE_OPERATIONAL);			
 			operationalCommittees.add(committee);
 		}
 		this.fromAssosiate = conferenceProposal.getFromAssosiate();

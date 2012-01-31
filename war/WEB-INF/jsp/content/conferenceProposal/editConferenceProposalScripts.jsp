@@ -6,7 +6,8 @@
 
 $(document).ready(function() {
 	
-	hideExtraScientificCommittee();
+	hideExtraCommittee("scientificCommittee");
+	hideExtraCommittee("operationalCommittee");
 	hideExtraOperationalCommittee();
 	
 	$("button.guestsAttach").click(function(event){
@@ -231,7 +232,7 @@ $(document).ready(function() {
                },
             "כן" : function() {
                 $(this).dialog("close");
-    	   		deleteButton.parents('tr.scientificCommittee').remove();
+    	   		deleteButton.parents('tr.committee').remove();
     	   		$("#form").ajaxForm();
     	   		$("#form").ajaxSubmit();
     	        return true;
@@ -401,9 +402,9 @@ $(document).ready(function() {
 });
 
 
-function hideExtraScientificCommittee(){
+function hideExtraCommittee(trCssClass){
 	var emptyRowsCounter = 0;
-	$('tr.scientificCommittee').each(function(){
+	$('tr.'+trCssClass).each(function(){
 		var row = $(this);
 		var allInputsEmpty = true;
 		row.find('input').each(function(){
@@ -417,7 +418,7 @@ function hideExtraScientificCommittee(){
 				row.show();
 			emptyRowsCounter = emptyRowsCounter +1;
 		}
-	})
+	});
 }
 
 function hideExtraOperationalCommittee(){
