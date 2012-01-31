@@ -10,6 +10,7 @@ import huard.iws.service.FacultyService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
 import huard.iws.service.PersonListService;
+import huard.iws.util.DateUtils;
 import huard.iws.util.RequestWrapper;
 
 import java.text.DateFormat;
@@ -247,13 +248,13 @@ public class ConferenceProposalController extends GeneralFormController{
 			ConferenceProposal conferenceProposal= new ConferenceProposal();
 			conferenceProposal.setPersonId(userPersonBean.getId());
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
-			DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-			Date deadlineD = (Date)formatter.parse(deadline); 
-			conferenceProposal.setDeadline(deadlineD.getTime());
+			logger.info("Deadline on new proposal: " + deadline);
+			conferenceProposal.setDeadline(DateUtils.parseDate(deadline, "yyyy-MM-dd"));
 			int conferenceProposalId = conferenceProposalService.insertConferenceProposal(conferenceProposal);
 			logger.info("conferenceProposalId " + conferenceProposalId);
-			model.put("id",conferenceProposalId);
-			return new ModelAndView ( new RedirectView("editConferenceProposal.html"), model);
+			Map<String, Object> newModel = new HashMap<String, Object>();
+			newModel.put("id",conferenceProposalId);
+			return new ModelAndView ( new RedirectView("editConferenceProposal.html"), newModel);
 		}
 		else{//show edit
 			ConferenceProposalBean conferenceProposal = (ConferenceProposalBean) model.get("command");

@@ -5,6 +5,7 @@ import huard.iws.service.MessageService;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -117,6 +118,18 @@ public class DateUtils {
 		SimpleDateFormat sdf = new SimpleDateFormat(format, dfs);
 		Date sendTime = new Date(timeMillis);
 		return sdf.format(sendTime);
+	}
+	
+	public static long parseDate(String date, String format){
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		long aDate = 0;
+		try{
+			aDate = sdf.parse(date).getTime();
+		}
+		catch(ParseException e){
+		  e.printStackTrace();	
+		}
+		return aDate;		
 	}
 
 }

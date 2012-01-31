@@ -23,6 +23,7 @@
  			<form:hidden path="internalId"/>
  			<form:hidden path="versionId"/>
  			<form:hidden path="personId"/>
+ 			<form:hidden path="deadline"/>
  			
 			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
  				<c:set var="readOnly" value="true"/>

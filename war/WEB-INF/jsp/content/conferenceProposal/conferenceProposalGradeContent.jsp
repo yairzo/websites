@@ -1,4 +1,4 @@
-<%@ page  pageEncoding="UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 <script language="Javascript">
 
 
@@ -126,113 +126,143 @@ $(document).ready(function() {
 
 
 
-          <td align="right" bgcolor="#787669" height="20">
-          		<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>
-          	        <c:set var="pageName" value="רשימת ההצעות לכנסים"/>
-       	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
+<td align="right" bgcolor="#787669" height="20"><c:set
+		var="applicationName" value="מערכת אינטרנט הרשות למו\"פ" /> <c:set
+		var="pageName" value="רשימת ההצעות לכנסים" /> <%@ include
+		file="/WEB-INF/jsp/include/locationMenu.jsp"%>
 
-          </td>
+</td>
 
-        </tr>
+</tr>
 
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <table width="900" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
-        <tr>
-          <td valign="top" align="center"><br>
-            <form:form id="form" name="form" method="POST" commandName="command" action="conferenceProposalsGrade.html">
-            	<input type="hidden" id="listViewPage" name="listView.page" value="${command.listView.page}"/>
-            	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
-
-              <table width="900" border="0" align="center" cellpadding="3" dir="rtl">
-                <tr>
-                  <td colspan="2" align="center"><h1>רשימת ההצעות לדירוג</h1>
-                  </td>
-                </tr>
-               </table>
-               
-				<div id="genericDialog" title="כנסים" style="display:none" dir="rtl"></div>
-
-				<table width="900" border="0"  cellspacing=0 cellpadding=2  rules="groups" dir="rtl">
-              <thead>
-  				<tr>
-				  		<td width="150">שם החוקר/ת</td>
-				  		<td width="350">נושא הכנס</td>
-				  		<td width="50">דירוג</td>
-				  		<td width="300">חוות דעת</td>
-				  		<td width="30"></td>
-  	  			</tr>
-  	  		</thead>
-
-             <c:forEach items="${conferenceProposals}" var="conferenceProposal" varStatus="varStatus">
-             <tbody>
-  				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
-  						<td width="150">
-  							<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/></a>
-   						</td>
- 						<td width="350">
-  							<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out value="${conferenceProposal.subject}"/></a>
-  						</td>
-						<td width="50" align="center">
-  							<c:out value="${conferenceProposal.grade}"/>
-  						</td>
- 						<td width="300">
-  							<textarea class="green saveclass" name="approverEvaluation${conferenceProposal.id}" id="${conferenceProposal.id}" rows="1" cols="40">${conferenceProposal.approverEvaluation}</textarea>
-  						</td>
-				  		<td width="30">
-				  		<button class="grey buttonUp" id="${conferenceProposal.id}"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
-				  		<button class="grey buttonDown" id="${conferenceProposal.id}"><span class="ui-icon ui-icon-arrowthick-1-s"></span></button>
- 				  		</td>
-   	  			</tr>
-  	  		</tbody>
-	   		</c:forEach>
-	   
-	   	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
-		<tr><td>&nbsp;</td></tr>
-		<tr>
-		<td colspan="5">
-		<table>
+</table>
+</td>
+</tr>
+<tr>
+	<td>
+		<table width="900" border="1" align="center" cellpadding="0"
+			cellspacing="0" bordercolor="#767468">
 			<tr>
-			<td>הערה כללית לועדה:</td>
-			<td align="center">
-  			<textarea class="green" name="deadlineRemarks" id="deadlineRemarks" rows="3" cols="80">${deadlineRemarks}</textarea>
-			</td>
+				<td valign="top" align="center"><br /> <form:form id="form"
+						name="form" method="POST" commandName="command"
+						action="conferenceProposalsGrade.html">
+						<input type="hidden" id="listViewPage" name="listView.page"
+							value="${command.listView.page}" />
+						<input type="hidden" id="listViewOrderBy" name="listView.orderBy"
+							value="${command.listView.orderBy}" />
+
+						<c:choose>
+							<c:when test="${fn:length(conferenceProposals) > 0}">
+								<table width="900" border="0" align="center" cellpadding="3"
+									dir="rtl">
+									<tr>
+										<td colspan="2" align="center"><h1>רשימת ההצעות
+												לדירוג</h1></td>
+									</tr>
+								</table>
+
+								<div id="genericDialog" title="כנסים" style="display: none"
+									dir="rtl"></div>
+
+								<table width="900" border="0" cellspacing=0 cellpadding=2
+									rules="groups" dir="rtl">
+									<thead>
+										<tr>
+											<td width="150">שם החוקר/ת</td>
+											<td width="350">נושא הכנס</td>
+											<td width="50">דירוג</td>
+											<td width="300">חוות דעת</td>
+											<td width="30"></td>
+										</tr>
+									</thead>
+
+									<tbody>
+										<c:forEach items="${conferenceProposals}"
+											var="conferenceProposal" varStatus="varStatus">
+
+											<tr
+												class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
+												<td width="150"><a
+													href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out
+															value="${conferenceProposal.researcher.firstNameHebrew}" />&nbsp;<c:out
+															value="${conferenceProposal.researcher.lastNameHebrew}" />
+												</a></td>
+												<td width="350"><a
+													href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out
+															value="${conferenceProposal.subject}" />
+												</a></td>
+												<td width="50" align="center"><c:out
+														value="${conferenceProposal.grade}" /></td>
+												<td width="300"><textarea class="green saveclass"
+														name="approverEvaluation${conferenceProposal.id}"
+														id="${conferenceProposal.id}" rows="1" cols="40">${conferenceProposal.approverEvaluation}</textarea>
+												</td>
+												<td width="30">
+													<button class="grey buttonUp" id="${conferenceProposal.id}">
+														<span class="ui-icon ui-icon-arrowthick-1-n"></span>
+													</button>
+													<button class="grey buttonDown"
+														id="${conferenceProposal.id}">
+														<span class="ui-icon ui-icon-arrowthick-1-s"></span>
+													</button></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+				</td>
 			</tr>
+			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="5">
+						<table>
+							<tr>
+								<td>הערה כללית לועדה:</td>
+								<td align="center"><textarea class="green"
+										name="deadlineRemarks" id="deadlineRemarks" rows="3" cols="80">${deadlineRemarks}</textarea>
+								</td>
+							</tr>
+						</table></td>
+				</tr>
+
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="5" align="center">
+						<button id="buttonStopGrading" class="grey" />סיום הדירוג
+						</button></td>
+				</tr>
+			</authz:authorize>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td>
+						<table width="900" border="0" align="center" cellpadding="3"
+							dir="rtl">
+							<tr>
+								<td colspan="2" align="center"><h2>לא נמצאו בקשות
+										לדירוג</h2></td>
+							</tr>
+						</table></td>
+				</tr>
+			</c:otherwise>
+			</c:choose>
+
 		</table>
-		</td>
-		</tr>
-		
-		<tr><td>&nbsp;</td></tr>
-	    <tr>
-		<td colspan="5" align="center">
-			<button id="buttonStopGrading" class="grey" />סיום הדירוג</button>
-		</td>
-		</tr>
-		</authz:authorize>
-				<!--  <tr>
-                <td colspan="5" align="center"><br>
-					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
-                </td>
-                </tr>-->
+	</td>
+</tr>
+</table>
 
-                  </table>
-                </td>
-              </tr>
-			  <tbody>
-
-
-            </table>
-
-            <br>
-          </td>
-        </tr>
-      </table>
-      </form:form>
-    </td>
-  </tr>
+<br>
+</td>
+</tr>
+</table>
+</form:form>
+</td>
+</tr>
 </table>
 </body>
 </html>

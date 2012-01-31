@@ -9,6 +9,7 @@ import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.PersonListService;
+import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.SearchCreteria;
@@ -68,9 +69,9 @@ public class ConferenceProposalListController extends GeneralFormController {
 			conferenceProposalGrading.setApproverId(request.getIntParameter("approver", 0));
 			conferenceProposalGrading.setAdminId(userPersonBean.getId());
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
-			DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-			Date deadlineD = (Date)formatter.parse(deadline); 
-			conferenceProposalGrading.setDeadline(deadlineD.getTime());
+			logger.info("deadline : " + deadline);
+			conferenceProposalGrading.setDeadline(DateUtils.parseDate(deadline, "yyyy-MM-dd"));
+			
 			conferenceProposalGrading.setFinishedGradingDate(1000);
 			conferenceProposalListService.insertGradingInfo(conferenceProposalGrading);
 			//send mail to approver to start grading
