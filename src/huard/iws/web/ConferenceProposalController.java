@@ -43,7 +43,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		
 		//if added financialsupport or committee
-		if(request.getParameter("action","").equals("fromAssosiateSave")){
+		/*if(request.getParameter("action","").equals("fromAssosiateSave")){
 			
 			if(!request.getParameter("fromAssosiate_name", "").equals("")){
 				FinancialSupport financialSupport = new FinancialSupport();
@@ -110,9 +110,9 @@ public class ConferenceProposalController extends GeneralFormController{
 		}
 		else if(request.getParameter("action","").equals("deleteCommittee")){
 			conferenceProposalService.deleteCommittee(request.getIntParameter("committeeId", 0));
-		}		
+		}*/		
 		
-		List<FinancialSupport> financialSupports = origConferenceProposalBean.getFromAdmitanceFee();
+		/*List<FinancialSupport> financialSupports = origConferenceProposalBean.getFromAdmitanceFee();
 		financialSupports.addAll(origConferenceProposalBean.getFromAssosiate());
 		financialSupports.addAll(origConferenceProposalBean.getFromExternal());
 		for(FinancialSupport financialSupport: financialSupports){
@@ -125,7 +125,7 @@ public class ConferenceProposalController extends GeneralFormController{
 				financialSupport.setCurrency(request.getParameter(financialSupportCurrency, ""));
 				conferenceProposalService.updateFinancialSupport(financialSupport);
 			}
-		}
+		}*/
 		
 		
 		// this part saves the content type of the attachments

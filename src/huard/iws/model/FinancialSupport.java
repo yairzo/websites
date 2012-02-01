@@ -8,6 +8,23 @@ public class FinancialSupport {
 	private String currency;
 	private int type;
 
+	public static int TYPE_ASSOSIATE = 1;
+	public static int TYPE_EXTERNAL = 2;
+	public static int TYPE_ADMITANCEFEE = 3;
+
+	public FinancialSupport(){
+		this.id = 0;
+		this.conferenceProposalId = 0;
+		this.name = "";
+		this.sum = "";
+		this.currency = "";
+		this.type = 0;
+	}
+	
+	public boolean isEmpty(){
+		return name.isEmpty() && sum.isEmpty();
+	}
+	
 	public String getName() {
 		return name;
 	}

@@ -101,6 +101,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
     };	
     
 	public void insertFinancialSupport(FinancialSupport financialSupport){
+		if (financialSupport.isEmpty())
+			return;
 		String query = "insert financialSupport set conferenceProposalId = ?, name = ?, sum = ?, type = ?, currency = ?";
 		getSimpleJdbcTemplate().update(query,
 				financialSupport.getConferenceProposalId(),
@@ -148,6 +150,21 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		}
 		for (Committee committee: conferenceProposal.getOperationalCommittees()){
 			insertCommittee(committee);
+		}
+	}
+
+	public void insertFinancialSupports(ConferenceProposal conferenceProposal){
+		String query = "delete from financialSupport where conferenceProposalId = ?";
+		getSimpleJdbcTemplate().update(query,
+				conferenceProposal.getId());
+		for (FinancialSupport financialSupport: conferenceProposal.getFromAssosiate()){
+			insertFinancialSupport(financialSupport);
+		}
+		for (FinancialSupport financialSupport: conferenceProposal.getFromExternal()){
+			insertFinancialSupport(financialSupport);
+		}
+		for (FinancialSupport financialSupport: conferenceProposal.getFromAdmitanceFee()){
+			insertFinancialSupport(financialSupport);
 		}
 	}
 
@@ -586,6 +603,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getId());
 		
 		insertCommittees(conferenceProposal);		
+		insertFinancialSupports(conferenceProposal);	
 		
 		//insert to version table
 		 String proposalVersionInsert = "insert conferenceProposalVersion set "+

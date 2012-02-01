@@ -12,6 +12,7 @@ import java.util.List;
 public class ConferenceProposalBean {
 	
 	private final int MAX_NUM_COMMITTEE = 10;
+	private final int MAX_NUM_FINANCIAL_SUPPORT = 10;
 	
 
 	private int id;
@@ -147,8 +148,23 @@ public class ConferenceProposalBean {
 			operationalCommittees.add(committee);
 		}
 		this.fromAssosiate = new ArrayList<FinancialSupport>();
+		for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++){
+			FinancialSupport financialSupport = new FinancialSupport();
+			financialSupport.setType(FinancialSupport.TYPE_ASSOSIATE);
+			fromAssosiate.add(financialSupport);
+		}
 		this.fromExternal = new ArrayList<FinancialSupport>();
+		for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++){
+			FinancialSupport financialSupport = new FinancialSupport();
+			financialSupport.setType(FinancialSupport.TYPE_EXTERNAL);
+			fromExternal.add(financialSupport);
+		}
 		this.fromAdmitanceFee = new ArrayList<FinancialSupport>();
+		for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++){
+			FinancialSupport financialSupport = new FinancialSupport();
+			financialSupport.setType(FinancialSupport.TYPE_ADMITANCEFEE);
+			fromAdmitanceFee.add(financialSupport);
+		}
 		this.deleted =false;
 		this.deadlineRemarks="";
 		this.isInsideDeadline =true;
@@ -231,8 +247,28 @@ public class ConferenceProposalBean {
 			operationalCommittees.add(committee);
 		}
 		this.fromAssosiate = conferenceProposal.getFromAssosiate();
+		for (int i=fromAssosiate.size(); i< MAX_NUM_FINANCIAL_SUPPORT; i++){
+			FinancialSupport financialSupport = new FinancialSupport();
+			financialSupport.setConferenceProposalId(conferenceProposal.getId());
+			financialSupport.setType(FinancialSupport.TYPE_ASSOSIATE);
+			fromAssosiate.add(financialSupport);
+		}
 		this.fromExternal = conferenceProposal.getFromExternal();
+		for (int i=fromExternal.size(); i< MAX_NUM_FINANCIAL_SUPPORT; i++){
+			FinancialSupport financialSupport = new FinancialSupport();
+			financialSupport.setConferenceProposalId(conferenceProposal.getId());
+			financialSupport.setType(FinancialSupport.TYPE_EXTERNAL);
+			fromExternal.add(financialSupport);
+		}
 		this.fromAdmitanceFee = conferenceProposal.getFromAdmitanceFee();
+		for (int i=fromAdmitanceFee.size(); i< MAX_NUM_FINANCIAL_SUPPORT; i++){
+			FinancialSupport financialSupport = new FinancialSupport();
+			financialSupport.setConferenceProposalId(conferenceProposal.getId());
+			financialSupport.setType(FinancialSupport.TYPE_ADMITANCEFEE);
+			fromAdmitanceFee.add(financialSupport);
+		}
+		
+		
 		this.deleted = conferenceProposal.getDeleted();
 		this.deadlineRemarks = conferenceProposal.getDeadlineRemarks();
 		this.isInsideDeadline =conferenceProposal.getIsInsideDeadline();

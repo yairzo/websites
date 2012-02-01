@@ -169,7 +169,7 @@
 					<td>
 						<font>תחילת הכנס:</font>
 					<c:if test="${!readOnly && !command.submitted}">
-						<input type="text" class="green medium100" name="startConfDate" id="startConfDate" value="${startConfDate}"/>
+						<input type="text" class="green medium100" name="startConfDate" id="startConfDate" value="${startConfDate}" readonly="readonly"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
 						${startConfDate}
@@ -178,7 +178,7 @@
 					<td>
 					<font>	סיום הכנס:</font>
 					<c:if test="${!readOnly && !command.submitted}">
-						<input type="text" class="green medium100" name="endConfDate" id="endConfDate" value="${endConfDate}"/>
+						<input type="text" class="green medium100" name="endConfDate" id="endConfDate" value="${endConfDate}" readonly="readonly"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
 						${endConfDate}
@@ -445,7 +445,8 @@
 				    <th width="150" style="border: thin black dotted"> סכום </th>
 				    <th width="150" style="border: thin black dotted"> מטבע </th>
 					</tr>
-					<c:if test="${readOnly || command.submitted}">
+					<c:choose>
+ 					<c:when test="${readOnly || command.submitted}">
            				<c:forEach items="${command.fromAssosiate}" var="fromAssosiate">
 						<tr>
 						<td style="border: thin black dotted">
@@ -460,60 +461,35 @@
 						</td>
 						</tr>
 						</c:forEach>
-					</c:if>
-					<c:if test="${!readOnly && !command.submitted}">
-           				<c:forEach items="${command.fromAssosiate}" var="financialSupport">
+					</c:when>
+ 					<c:otherwise>					
+           				<c:forEach items="${command.fromAssosiate}" var="financialSupport" varStatus="varStatus">
+           				<form:hidden path="fromAssosiate[${varStatus.index}].conferenceProposalId"/>
+           				<form:hidden path="fromAssosiate[${varStatus.index}].type"/>
+						<tr style="display: none;" class="assosiate">
 						<tr>
 						<td>
-							<input type="text" class="green autosaveclass" name="financialSupport_name_${financialSupport.id}" value="${financialSupport.name}"/>
+							<form:input cssClass="green autosaveclass" path="fromAssosiate[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="financialSupport_sum_${financialSupport.id}" value="${financialSupport.sum}"/>
+							<form:input cssClass="green autosaveclass" path="fromAssosiate[${varStatus.index}].sum"/>
 						</td>
 						<td>
-       					   <select class="green autosaveclass medium170" name="financialSupport_currency_${financialSupport.id}">
+							<form:select cssClass="green medium170 autosaveclass" path="fromAssosiate[${varStatus.index}].currency">
       						<option value="0">מטבע</option>
-      						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
-      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
-       		        		</select>
+       						<option value="1">שקל</option>
+      						<option value="2">דולר</option>
+							</form:select>
 						</td>
 						<td>
-							<img src="image/icon_delete.gif" class="deleteFinancialSupport" id="${financialSupport.id}"/>
+							<c:set var="financialSupport" value="${command.fromAssosiate[varStatus.index]}"/>
+							<img src="image/icon_delete.gif" class="deleteFinancialSupport"/>							
 						</td>
 						</tr>
 						</c:forEach>
-						<tr>
-						<td>
-							<input type="text" class="green fromAssosiateSave" name="fromAssosiate_name"/>
-						</td>
-						<td>
-							<input type="text" class="green fromAssosiateSave" name="fromAssosiate_sum"/>
-						</td> 
-						<td>
-        					<select class="green fromAssosiateSave medium170" name="fromAssosiate_currency" >
-      						<option value="0">מטבע</option>
-      						<option value="1">שקל</option>
-      						<option value="2">דולר</option>
-       		        		</select>
-						</td>
-						</tr>
-						<tr>
-						<td>
-							<input type="text" class="green fromAssosiateSave" name="fromAssosiate_name2"/>
-						</td>
-						<td>
-							<input type="text" class="green fromAssosiateSave" name="fromAssosiate_sum2"/>
-						</td> 
-						<td>
-        					<select class="green fromAssosiateSave medium170" name="fromAssosiate_currency2" >
-      						<option value="0">מטבע</option>
-      						<option value="1">שקל</option>
-      						<option value="2">דולר</option>
-       		        		</select>
-						</td>
-						</tr>					
-						<tr><td><a href="#" class="fromAssosiateSave">הוסף שורות</a></td></tr>
-						</c:if>
+						<tr><td><a href="#" onclick="hideExtraCommittee("assosiate");">הוסף שורות</a></td></tr>
+					</c:otherwise>
+					</c:choose>
 					</table>
 					</td>
 				</tr>
@@ -526,7 +502,8 @@
 				    <th width="150" style="border: 1px black dotted"> סכום </th>
 				    <th width="150" style="border: 1px black dotted"> מטבע </th>
 					</tr>
-					<c:if test="${readOnly || command.submitted}">
+					<c:choose>
+ 					<c:when test="${readOnly || command.submitted}">
            			<c:forEach items="${command.fromExternal}" var="fromExternal">
 						<tr>
 						<td style="border: thin black dotted">
@@ -541,64 +518,39 @@
 						</td>
 						</tr>
 					</c:forEach>
-					</c:if>
-					<c:if test="${!readOnly && !command.submitted}">
-          				<c:forEach items="${command.fromExternal}" var="financialSupport">
+					</c:when>
+ 					<c:otherwise>					
+           				<c:forEach items="${command.fromExternal}" var="financialSupport" varStatus="varStatus">
+           				<form:hidden path="fromExternal[${varStatus.index}].conferenceProposalId"/>
+           				<form:hidden path="fromExternal[${varStatus.index}].type"/>
+						<tr style="display: none;" class="external">
 						<tr>
 						<td>
-							<input type="text" class="green autosaveclass" name="financialSupport_name_${financialSupport.id}" value="${financialSupport.name}"/>
+							<form:input cssClass="green autosaveclass" path="fromExternal[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="financialSupport_sum_${financialSupport.id}" value="${financialSupport.sum}"/>
+							<form:input cssClass="green autosaveclass" path="fromExternal[${varStatus.index}].sum"/>
 						</td>
 						<td>
-       					   <select class="green autosaveclass medium170" name="financialSupport_currency_${financialSupport.id}">
+							<form:select cssClass="green medium170 autosaveclass" path="fromExternal[${varStatus.index}].currency">
       						<option value="0">מטבע</option>
-      						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
-      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
-       		        		</select>
+       						<option value="1">שקל</option>
+      						<option value="2">דולר</option>
+							</form:select>
 						</td>
 						<td>
-							<img src="image/icon_delete.gif" class="deleteFinancialSupport" id="${financialSupport.id}"/>
+							<c:set var="financialSupport" value="${command.fromExternal[varStatus.index]}"/>
+							<img src="image/icon_delete.gif" class="deleteFinancialSupport"/>							
 						</td>
 						</tr>
 						</c:forEach>
-						<tr>
-						<td>
-							<input type="text" class="green autosaveclass" name="fromExternal_name"/>
-						</td>
-						<td>
-							<input type="text" class="green autosaveclass" name="fromExternal_sum"/>
-						</td>
-						<td>
-        					<select class="green autosaveclass medium170" name="fromExternal_currency" >
-      						<option value="0">מטבע</option>
-       						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
-      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
-       		        		</select>
-						</td>
-						</tr>					
-						<tr>
-						<td>
-							<input type="text" class="green autosaveclass" name="fromExternal_name2"/>
-						</td>
-						<td>
-							<input type="text" class="green autosaveclass" name="fromExternal_sum2"/>
-						</td>
-						<td>
-        					<select class="green autosaveclass medium170" name="fromExternal_currency2" >
-      						<option value="0">מטבע</option>
-       						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
-      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
-       		        		</select>
-						</td>
-						</tr>					
-						<tr><td><a href="#" class="fromExternalSave">הוסף שורות</a></td></tr>
-					</c:if>
+						<tr><td><a href="#" onclick="hideExtraCommittee("external");">הוסף שורות</a></td></tr>
+					</c:otherwise>
+					</c:choose>
 					</table>
 					</td>
 				</tr>
-				<tr class="form">
+				<tr>
 					<td colspan="4">מדמי הרשמה:
 					<table width="500" style="border: 1px black dotted" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
@@ -606,7 +558,8 @@
 				    <th width="150" style="border: 1px black dotted"> סכום </th>
 				    <th width="150" style="border: 1px black dotted"> מטבע </th>
 					</tr>
- 					<c:if test="${readOnly || command.submitted}">
+ 					<c:choose>
+ 					<c:when test="${readOnly || command.submitted}">
            				<c:forEach items="${command.fromAdmitanceFee}" var="fromAdmitanceFee">
 						<tr>
 						<td style="border: thin black dotted">
@@ -621,62 +574,35 @@
 						</td>
 						</tr>
 						</c:forEach>
-					</c:if>
-					<c:if test="${!readOnly && !command.submitted}">
-           				<c:forEach items="${command.fromAdmitanceFee}" var="financialSupport">
+					</c:when>
+ 					<c:otherwise>					
+           				<c:forEach items="${command.fromAdmitanceFee}" var="financialSupport" varStatus="varStatus">
+           				<form:hidden path="fromAdmitanceFee[${varStatus.index}].conferenceProposalId"/>
+           				<form:hidden path="fromAdmitanceFee[${varStatus.index}].type"/>
+						<tr style="display: none;" class="admitanceFee">
 						<tr>
 						<td>
-							<input type="text" class="green autosaveclass" name="financialSupport_name_${financialSupport.id}" value="${financialSupport.name}"/>
+							<form:input cssClass="green autosaveclass" path="fromAdmitanceFee[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<input type="text" class="green autosaveclass" name="financialSupport_sum_${financialSupport.id}" value="${financialSupport.sum}"/>
+							<form:input cssClass="green autosaveclass" path="fromAdmitanceFee[${varStatus.index}].sum"/>
 						</td>
 						<td>
-       					   <select class="green autosaveclass medium170" name="financialSupport_currency_${financialSupport.id}">
+							<form:select cssClass="green medium170 autosaveclass" path="fromAdmitanceFee[${varStatus.index}].currency">
       						<option value="0">מטבע</option>
-      						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
-      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
-       		        		</select>
+       						<option value="1">שקל</option>
+      						<option value="2">דולר</option>
+							</form:select>
 						</td>
-		
-
 						<td>
-							<img src="image/icon_delete.gif" class="deleteFinancialSupport" id="${financialSupport.id}"/>
+							<c:set var="financialSupport" value="${command.fromAdmitanceFee[varStatus.index]}"/>
+							<img src="image/icon_delete.gif" class="deleteFinancialSupport"/>							
 						</td>
 						</tr>
 						</c:forEach>
-						<tr>
-						<td>
-							<input type="text" class="green autosaveclass" name="fromAdmitanceFee_name" value="משתתפים"/>
-						</td>
-						<td>
-							<input type="text" class="green autosaveclass" name="fromAdmitanceFee_sum" />
-						</td>
-						<td>
-        					<select name="fromAdmitanceFee_currency" class="green autosaveclass medium170">
-      						<option value="0">מטבע</option>
-       						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
-      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
-       		        		</select>
-						</td>
-						</tr>					
-						<tr>
-						<td>
-							<input type="text" class="green autosaveclass" name="fromAdmitanceFee_name2" value="משתתפים"/>
-						</td>
-						<td>
-							<input type="text" class="green autosaveclass" name="fromAdmitanceFee_sum2" />
-						</td>
-						<td>
-        					<select name="fromAdmitanceFee_currency2" class="green autosaveclass medium170">
-      						<option value="0">מטבע</option>
-       						<option value="1" <c:if test="${financialSupport.currency==1}">selected</c:if>>שקל</option>
-      						<option value="2" <c:if test="${financialSupport.currency==2}">selected</c:if>>דולר</option>
-       		        		</select>
-						</td>
-						</tr>					
-						<tr><td><a href="#" class="fromAdmitanceFeeSave">הוסף שורות</a></td></tr>
-					</c:if>
+						<tr><td><a href="#" onclick="hideExtraCommittee("admitanceFee");">הוסף שורות</a></td></tr>
+					</c:otherwise>
+					</c:choose>
 					</table>
 					</td>
 				</tr>
@@ -777,16 +703,16 @@
 						<tr style="display: none;" class="operationalCommittee committee">
 
 						<td>
-							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].name"/>
+							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].institute"/>
+							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td>
-							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].instituteRole"/>
+							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td>
-							<form:input cssClass="green" path="operationalCommittees[${varStatus.index}].committeeRole"/>
+							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.operationalCommittees[varStatus.index]}"/>

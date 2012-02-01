@@ -8,7 +8,9 @@ $(document).ready(function() {
 	
 	hideExtraCommittee("scientificCommittee");
 	hideExtraCommittee("operationalCommittee");
-	hideExtraOperationalCommittee();
+	hideExtraCommittee("admitanceFee");
+	hideExtraCommittee("assosiate");
+	hideExtraCommittee("external");
 	
 	$("button.guestsAttach").click(function(event){
 		event.preventDefault();
@@ -25,7 +27,7 @@ $(document).ready(function() {
 	});
 	
 	
-	$("#startConfDate").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy', onSelect: function(){
+	$("#startConfDate").datepicker({ showOn: 'both', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy', onSelect: function(){
     	var str1 = $("#startConfDate").val();
         var dt1  = str1.substring(0,2); 
         var mon1 = str1.substring(3,5); 
@@ -41,7 +43,7 @@ $(document).ready(function() {
     }
 	});	
 	
-	$("#endConfDate").datepicker({ showOn: 'button', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy',onSelect: function(){
+	$("#endConfDate").datepicker({ showOn: 'both', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy',onSelect: function(){
     	var str1 = $("#startConfDate").val();
         var str2 = $("#endConfDate").val();
         var dt1  = str1.substring(0,2); 
@@ -183,21 +185,6 @@ $(document).ready(function() {
     	return true;
     });
 	
-	$(".222deleteFinancialSupport").click(function(){
-		var financialSupportId= this.id;
-   		$.alerts.confirm('<fmt:message key="iw_IL.conferenceProposal.deleteFinancialSupport.confirm"/>', "מחיקת הכנסה",
-    	function(confirm){
-    	   if (confirm==1){
-				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteFinancialSupport\"/>");
-				$("#form").append("<input type=\"hidden\" name=\"financialSupportId\" value=\""+financialSupportId +"\"/>");
-    			$("#form").submit();
-    			return true;
-    	   }
-    	   else{
-    	   		return false;
-    	   }
-    	});    
-   	});	
 	
 	$(".deleteFinancialSupport").click(function(e){
 		e.preventDefault();
@@ -210,9 +197,9 @@ $(document).ready(function() {
                },
             "כן" : function() {
                 $(this).dialog("close");
-				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteFinancialSupport\"/>");
-				$("#form").append("<input type=\"hidden\" name=\"financialSupportId\" value=\""+financialSupportId +"\"/>");
-    			$("#form").submit();
+    	   		deleteButton.parents('tr.financialSupport').remove();
+    	   		$("#form").ajaxForm();
+    	   		$("#form").ajaxSubmit();
     			return true;
                }
             });
@@ -367,11 +354,6 @@ $(document).ready(function() {
    
    var fieldname=""; 
    function openHelp(name,mytext){
-       	//linkOffset = $(name).position();
-       	//linkWidth = $(name).width();
-       	//linkHeight = $(name).height();
-      	//scrolltop = $(window).scrollTop();
-   	 	//$("#genericDialog").dialog("option", "position", [(linkOffset.left - 200/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
 	    fieldname=name;
    	 	if(fieldname=="")
 	    	$("#genericDialog").dialog("option", "position", "center");
@@ -421,23 +403,5 @@ function hideExtraCommittee(trCssClass){
 	});
 }
 
-function hideExtraOperationalCommittee(){
-	var emptyRowsCounter = 0;
-	$('tr.operationalCommittee').each(function(){
-		var row = $(this);
-		var allInputsEmpty = true;
-		row.find('input').each(function(){
-			if ($(this).val()!=""){
-				row.show();
-				allInputsEmpty = false;
-			}
-		});
-		if (allInputsEmpty){
-			if (emptyRowsCounter ==0)
-				row.show();
-			emptyRowsCounter = emptyRowsCounter +1;
-		}
-	})
-}
 
 </script>
