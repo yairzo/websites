@@ -99,7 +99,7 @@
 					<td nowrap>
 						<font> הגוף היוזם:</font>
 					<c:if test="${!readOnly && !command.submitted}">
-						<form:input cssClass="green" path="initiatingBody" /><img src="image/icon-docs-info.gif" id="dialogInitiatingBody"/>
+						<form:input htmlEscape="true" cssClass="green" path="initiatingBody" /><img src="image/icon-docs-info.gif" id="dialogInitiatingBody"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
 						<form:hidden path="initiatingBody"/>
@@ -206,7 +206,7 @@
 					<td>
 						<font> פירוט מיקום:
 					<c:if test="${!readOnly && !command.submitted}">
-						<form:input cssClass="green" path="locationDetail"/>
+						<form:input htmlEscape="true" cssClass="green" path="locationDetail"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
 						<form:hidden path="locationDetail"/>
@@ -364,7 +364,7 @@
 				<tr class="form">
 					<c:if test="${!readOnly && !command.submitted}">
 					<td colspan="4">
-						<form:textarea cssClass="green" path="description" cols="100" rows="4"/>
+						<form:textarea htmlEscape="true" cssClass="green" path="description" cols="100" rows="4"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
@@ -466,13 +466,12 @@
            				<c:forEach items="${command.fromAssosiate}" var="financialSupport" varStatus="varStatus">
            				<form:hidden path="fromAssosiate[${varStatus.index}].conferenceProposalId"/>
            				<form:hidden path="fromAssosiate[${varStatus.index}].type"/>
-						<tr style="display: none;" class="assosiate">
-						<tr>
+						<tr style="display: none;" class="assosiate financialSupport">
 						<td>
-							<form:input cssClass="green autosaveclass" path="fromAssosiate[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromAssosiate[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="fromAssosiate[${varStatus.index}].sum"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromAssosiate[${varStatus.index}].sum"/>
 						</td>
 						<td>
 							<form:select cssClass="green medium170 autosaveclass" path="fromAssosiate[${varStatus.index}].currency">
@@ -523,13 +522,12 @@
            				<c:forEach items="${command.fromExternal}" var="financialSupport" varStatus="varStatus">
            				<form:hidden path="fromExternal[${varStatus.index}].conferenceProposalId"/>
            				<form:hidden path="fromExternal[${varStatus.index}].type"/>
-						<tr style="display: none;" class="external">
-						<tr>
+						<tr style="display: none;" class="external financialSupport">
 						<td>
-							<form:input cssClass="green autosaveclass" path="fromExternal[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromExternal[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="fromExternal[${varStatus.index}].sum"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromExternal[${varStatus.index}].sum"/>
 						</td>
 						<td>
 							<form:select cssClass="green medium170 autosaveclass" path="fromExternal[${varStatus.index}].currency">
@@ -579,13 +577,12 @@
            				<c:forEach items="${command.fromAdmitanceFee}" var="financialSupport" varStatus="varStatus">
            				<form:hidden path="fromAdmitanceFee[${varStatus.index}].conferenceProposalId"/>
            				<form:hidden path="fromAdmitanceFee[${varStatus.index}].type"/>
-						<tr style="display: none;" class="admitanceFee">
-						<tr>
+						<tr style="display: none;" class="admitanceFee financialSupport">
 						<td>
-							<form:input cssClass="green autosaveclass" path="fromAdmitanceFee[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromAdmitanceFee[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="fromAdmitanceFee[${varStatus.index}].sum"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromAdmitanceFee[${varStatus.index}].sum"/>
 						</td>
 						<td>
 							<form:select cssClass="green medium170 autosaveclass" path="fromAdmitanceFee[${varStatus.index}].currency">
@@ -644,16 +641,16 @@
            				<form:hidden path="scientificCommittees[${varStatus.index}].type"/>
 						<tr style="display: none;" class="scientificCommittee committee">
 						<td>
-							<form:input cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].institute"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].instituteRole"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].committeeRole"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.scientificCommittees[varStatus.index]}"/>
@@ -703,16 +700,16 @@
 						<tr style="display: none;" class="operationalCommittee committee">
 
 						<td>
-							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].institute"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].instituteRole"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td>
-							<form:input cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].committeeRole"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.operationalCommittees[varStatus.index]}"/>
@@ -840,7 +837,7 @@
 		       		<td nowrap>
 	   					<font>שם החברה:</font>&nbsp;&nbsp;&nbsp;&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input cssClass="green medium170" path="organizingCompanyName" />
+	   					<form:input htmlEscape="true" cssClass="green medium170" path="organizingCompanyName" />
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="organizingCompanyName"/>
@@ -850,7 +847,7 @@
 		       		<td nowrap>
 	   				<font>טלפון:</font>&nbsp;&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input cssClass="green medium170" path="organizingCompanyPhone" id="organizingCompanyPhone"/>
+	   					<form:input htmlEscape="true" cssClass="green medium170" path="organizingCompanyPhone" id="organizingCompanyPhone"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="organizingCompanyPhone"/>
@@ -860,7 +857,7 @@
 		       		<td nowrap>
 	   				<font>פקס:<font>&nbsp;&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input cssClass="green medium170" path="organizingCompanyFax" id="organizingCompanyFax"/>
+	   					<form:input htmlEscape="true" cssClass="green medium170" path="organizingCompanyFax" id="organizingCompanyFax"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="organizingCompanyFax"/>
@@ -870,7 +867,7 @@
 				    <td nowrap>
 	   					<font>אימייל:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input cssClass="green medium170" path="organizingCompanyEmail" id="organizingCompanyEmail"/>
+	   					<form:input htmlEscape="true" cssClass="green medium170" path="organizingCompanyEmail" id="organizingCompanyEmail"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="organizingCompanyEmail"/>
@@ -897,7 +894,7 @@
 	   				</td>
 	   				<td>
 					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input cssClass="green medium170" path="contactPerson" />
+	   					<form:input htmlEscape="true" cssClass="green medium170" path="contactPerson" />
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="contactPerson"/>
@@ -909,7 +906,7 @@
 	   				</td>
 	   				<td>
 					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input cssClass="green medium170" path="contactPersonRole" />
+	   					<form:input htmlEscape="true" cssClass="green medium170" path="contactPersonRole" />
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="contactPersonRole"/>
@@ -921,7 +918,7 @@
 	   				</td>
 	   				<td>
 					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input cssClass="green medium170" path="contactPersonPhone" id="contactPersonPhone"/>
+	   					<form:input htmlEscape="true" cssClass="green medium170" path="contactPersonPhone" id="contactPersonPhone"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="contactPersonPhone"/>
@@ -933,7 +930,7 @@
 	   				</td>
 	   				<td>
 					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input cssClass="green medium170" path="contactPersonEmail" id="contactPersonEmail"/>
+	   					<form:input htmlEscape="true" cssClass="green medium170" path="contactPersonEmail" id="contactPersonEmail"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="contactPersonEmail"/>
@@ -961,7 +958,7 @@
 				<tr>
 					<c:if test="${!readOnly && !command.submitted}">			
 					<td colspan="4" >
-						<form:textarea cssClass="green" path="remarks" cols="100" rows="3"/>
+						<form:textarea htmlEscape="true" cssClass="green" path="remarks" cols="100" rows="3"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
@@ -1022,7 +1019,7 @@
 				</tr>
 				<tr>
 				    <td colspan="4">
-						<form:textarea cssClass="green" path="approverEvaluation" cols="100" rows="3"/>
+						<form:textarea htmlEscape="true" cssClass="green" path="approverEvaluation" cols="100" rows="3"/>
 					</td>
 				</tr>
 				</authz:authorize>
@@ -1032,7 +1029,7 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<form:textarea cssClass="green" path="adminRemarks" cols="100" rows="3"/>
+						<form:textarea htmlEscape="true" cssClass="green" path="adminRemarks" cols="100" rows="3"/>
 					</td>
 				</tr>
 				</authz:authorize>
@@ -1050,7 +1047,7 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<textarea class="green" name="newCommitteeRemarks" cols="100" rows="1"></textarea>
+						<textarea htmlEscape="true" class="green" name="newCommitteeRemarks" cols="100" rows="1"></textarea>
 					</td>
 				</tr>
 				</authz:authorize>

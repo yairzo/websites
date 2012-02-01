@@ -96,6 +96,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			support.setName(rs.getString("name"));
 			support.setSum(rs.getString("sum"));
 			support.setCurrency(rs.getString("currency"));
+			support.setType(rs.getInt("type"));
 			return support;
 		}
     };	
@@ -113,11 +114,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		);
 	}   
 	public void updateFinancialSupport(FinancialSupport financialSupport){
-		String query = "update financialSupport set name = ?, sum = ?, currency = ? where id =?";
+		String query = "update financialSupport set name = ?, sum = ?, currency = ?, type=?  where id =?";
 		getSimpleJdbcTemplate().update(query,
 				financialSupport.getName(),
 				financialSupport.getSum(),
 				financialSupport.getCurrency(),
+				financialSupport.getType(),
 				financialSupport.getId()
 		);
 	}   

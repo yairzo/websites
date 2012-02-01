@@ -95,7 +95,13 @@ $(document).ready(function() {
 	       	 	url:       'editConferenceProposal.html' ,        
 	       	 	type:      'POST'
 	     	};
+	   		$("#form").ajaxForm();
 		    $('#form').ajaxSubmit(options);
+			hideExtraCommittee("scientificCommittee");
+			hideExtraCommittee("operationalCommittee");
+			hideExtraCommittee("admitanceFee");
+			hideExtraCommittee("assosiate");
+			hideExtraCommittee("external");
 		}
 		else 
 			return false;
@@ -189,6 +195,7 @@ $(document).ready(function() {
 	$(".deleteFinancialSupport").click(function(e){
 		e.preventDefault();
 		var financialSupportId= this.id;
+		var deleteButton = $(this);
 	   	$("#genericDialog").dialog({ modal: true });
     	$("#genericDialog").dialog('option', 'buttons', {
             "לא" : function() {
