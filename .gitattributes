@@ -19,6 +19,7 @@ src/huard/iws/service/PageBodyImageService.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/service/PageBodyImageServiceImpl.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/servlet/ConferenceProposalsCsv.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/servlet/ImageViewer.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/util/ConferenceProposalSearchCreteria.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/ImageHandler.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ConferenceProposalController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ConferenceProposalGradeController.java svn_mime_002dtype=text%2Fplain

@@ -466,7 +466,9 @@
            				<c:forEach items="${command.fromAssosiate}" var="financialSupport" varStatus="varStatus">
            				<form:hidden path="fromAssosiate[${varStatus.index}].conferenceProposalId"/>
            				<form:hidden path="fromAssosiate[${varStatus.index}].type"/>
+
 						<tr style="display: none;" class="assosiate financialSupport">
+
 						<td>
 							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromAssosiate[${varStatus.index}].name"/>
 						</td>
@@ -522,6 +524,7 @@
            				<c:forEach items="${command.fromExternal}" var="financialSupport" varStatus="varStatus">
            				<form:hidden path="fromExternal[${varStatus.index}].conferenceProposalId"/>
            				<form:hidden path="fromExternal[${varStatus.index}].type"/>
+
 						<tr style="display: none;" class="external financialSupport">
 						<td>
 							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromExternal[${varStatus.index}].name"/>
@@ -577,6 +580,7 @@
            				<c:forEach items="${command.fromAdmitanceFee}" var="financialSupport" varStatus="varStatus">
            				<form:hidden path="fromAdmitanceFee[${varStatus.index}].conferenceProposalId"/>
            				<form:hidden path="fromAdmitanceFee[${varStatus.index}].type"/>
+
 						<tr style="display: none;" class="admitanceFee financialSupport">
 						<td>
 							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromAdmitanceFee[${varStatus.index}].name"/>

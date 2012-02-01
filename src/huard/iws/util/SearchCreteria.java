@@ -1,10 +1,10 @@
 package huard.iws.util;
 
 public class SearchCreteria {
-	private String searchPhrase;
-	private String searchField;
-	private String roleFilter;
-	private String whereClause;
+	protected String searchPhrase;
+	protected String searchField;
+	protected String roleFilter;
+	protected String whereClause;
 
 
 	public String getRoleFilter() {

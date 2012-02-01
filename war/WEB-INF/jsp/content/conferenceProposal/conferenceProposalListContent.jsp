@@ -20,17 +20,16 @@
         <input type="hidden" name="searchCreteria.roleFilter" value="${command.searchCreteria.roleFilter}"/>
     	<table border="0" align="center" style="width: 80%; direction: rtl;" cellspacing="10">
     		<tr>
+    			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
     			<td class="container" style="width: 35%;">
     				<span style="text-align: center;"><h2> סינון הבקשות </h2></span>
     				<br/>
-    				<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-               		     לפי חוקר:
+    				    לפי חוקר:
                		 <br/>    
                		     <form:input cssStyle="width: 400px;" cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
-                    </authz:authorize>
-                    <br/>
-                    <br/>
+                    
   				    <authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
+				  	<br/>
 				  	<br/>
 				  	<select style="width: 400px;" name="searchByApprover" id="searchByApprover" class="green"> 
       					<option value="0"/>בחר דיקן</option>
@@ -46,25 +45,32 @@
 	        			</option>
 	        		</c:forEach>
        				</select>
-				   </authz:authorize>
+				    </authz:authorize>
+				    
+				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
 				   <br/>
-				   <br/>
-				   <authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+				   <br/>	
  				   		לפי סטאטוס: 				   
  				   <br/>
  				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 				  
-  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="0" <c:if test="${searchBySubmitted==0}">checked="checked"</c:if>/> הצעות מוגשות
-  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="1" <c:if test="${searchBySubmitted==1}">checked="checked"</c:if>/> טיוטות
+  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="1" <c:if test="${searchBySubmitted==1}">checked="checked"</c:if>/> הצעות מוגשות
+  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="0" <c:if test="${searchBySubmitted==0}">checked="checked"</c:if>/> טיוטות
+  				   </authz:authorize>
+  				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+  				   	 <input type="hidden" name="searchBySubmitted" value="1"/>
+  				   </authz:authorize>
+  				   <authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
   				   <br/>  				   
       			   <br/>
  				   		 לפי ועדה:  				   
 				  	<br/>
  				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 				  
-  				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="0" <c:if test="${searchByDeadline==0}">checked="checked"</c:if>/> כינוס הועדה הקרוב
-  				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="1" <c:if test="${searchByDeadline==1}">checked="checked"</c:if>/> כל ההגשות
+  				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="1" <c:if test="${searchByDeadline==1}">checked="checked"</c:if>/> כינוס הועדה הקרוב
+  				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="0" <c:if test="${searchByDeadline==0}">checked="checked"</c:if>/> כל ההגשות
 				  	<br/>
 				   </authz:authorize>
 				</td>
+				</authz:authorize>
     			<td class="container" style="width: 65%; vertical-align: top;">
     				<span style="text-align: center;"><h2> רשימת הבקשות </h2></span>
     				<table style="width: 100%;">
@@ -74,7 +80,8 @@
   							<td align="right">
 				  				<table style="width: 100%">
   									<tr>
-				  						<td width="30%">
+				  						<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+				  						<td width="25%">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
   											<a href="person.html?id=${conferenceProposal.researcher.id}">
   												<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
@@ -84,12 +91,14 @@
   												<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
   											</authz:authorize>  											
   										</td>
-										<td width="40%">
+  										</authz:authorize>
+										<td width="35%">
   											<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out value="${conferenceProposal.subject}"/></a>
   										</td>
-  										<td width="30%">
- 											<c:if test="${conferenceProposal.approverId!=0}">
-  												<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
+  										<td width="25%">
+ 											<c:choose>
+ 											<c:when test="${conferenceProposal.approverId > 0}">
+  											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
   													<a href="person.html?id=${conferenceProposal.approver.id}">
   														<c:out value="${conferenceProposal.approver.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.approver.lastNameHebrew}"/>
   													</a>
@@ -97,8 +106,21 @@
   											<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMIN">
   												<c:out value="${conferenceProposal.approver.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.approver.lastNameHebrew}"/>
   											</authz:authorize>
-  											</c:if>
+  											</c:when>
+  											<c:otherwise>
+  												טרם נבחר דיקן
+  											</c:otherwise>
+  											</c:choose>
   										</td>
+  										<td>
+  											<c:choose>
+  											<c:when test="${conferenceProposal.submitted}">
+  												הוגשה
+  											</c:when>
+  											<c:otherwise>
+  												טיוטה
+  											</c:otherwise>
+  											</c:choose>
   									</tr>
   								</table>
   							</td>
@@ -112,9 +134,11 @@
     	</table>
     	<table align="center" style="width: 80%; direction: rtl;">
   	  		<tr>
+  	  			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
   	  			<td style="width: 35%;">
   	  				&nbsp;
   	  			</td>
+  	  			</authz:authorize>
                 <td style="width: 65%;" align="center">
 					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
                 </td>
@@ -122,6 +146,8 @@
   	  	</table>
   	  	<br/>
   	  	<br/>
+  	  	
+  	  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
     	
     	<table align="center" class="container" style="width: 80%; direction: rtl;" cellspacing="10">
     		<tr>
@@ -184,6 +210,7 @@
     			</td>
     		</tr>
     	</table>
+    	</authz:authorize>
       
       	</form:form>
     </td>

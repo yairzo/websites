@@ -4,7 +4,6 @@ import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Faculty;
-import huard.iws.model.FinancialSupport;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
 import huard.iws.service.MailMessageService;
@@ -18,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -226,6 +224,10 @@ public class ConferenceProposalController extends GeneralFormController{
 			request.getSession().setAttribute("userMessage", userMessage);
 		}	
 		//return to same page
+		
+		if (request.getBooleanParameter("ajaxSubmit", false))
+			return null;
+		
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", conferenceProposalBean.getId())	;
 		return new ModelAndView(new RedirectView("editConferenceProposal.html"), newModel);

@@ -1,6 +1,6 @@
 <%@ page  pageEncoding="UTF-8" %>
 <script type="text/javascript" src="js/jquery.autosave.js"></script>
-<script language="Javascript">
+<script>
 
 
 
@@ -89,23 +89,39 @@ $(document).ready(function() {
  
     });
 
-	$('.autosaveclass').autoSave(function(){
-		if ("${command.versionId}"==0){
-		   var options = {
+	$('form').find('input').autoSave(function(){
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		var options = {
 	       	 	url:       'editConferenceProposal.html' ,        
 	       	 	type:      'POST'
-	     	};
-	   		$("#form").ajaxForm();
-		    $('#form').ajaxSubmit(options);
-			hideExtraCommittee("scientificCommittee");
+     	};
+   		$("#form").ajaxForm();
+   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" value=\"true\"/>");
+	    $('#form').ajaxSubmit(options);
+		var elementClass = $(this).attr('class');
+		if (elementClass.indexOf("scientificCommittee")!=-1)
+	    	hideExtraCommittee("scientificCommittee");
+		if (elementClass.indexOf("operationalCommittee")!=-1)
 			hideExtraCommittee("operationalCommittee");
+		if (elementClass.indexOf("admitanceFee")!=-1)
 			hideExtraCommittee("admitanceFee");
+		if (elementClass.indexOf("assosiate")!=-1)
 			hideExtraCommittee("assosiate");
+		if (elementClass.indexOf("external")!=-1)
 			hideExtraCommittee("external");
-		}
-		else 
+		}, {delay: 2000});
+	
+	$('form').find('select').change(function(){
+		<c:if test="${command.versionId > 0}">
 			return false;
-    }, {delay: 2000});	
+		</c:if>
+		$("#form").ajaxForm();
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" value=\"true\"/>");
+	    $('#form').ajaxSubmit();
+	});
+
 	
 	$('#guestsAttach').change(function(){
 		if ("${command.versionId}"==0){

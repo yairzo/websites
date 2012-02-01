@@ -9,6 +9,7 @@ import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.PersonListService;
+import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
@@ -38,18 +39,13 @@ public class ConferenceProposalListController extends GeneralFormController {
 			throws Exception{
 		ConferenceProposalListCommand searchCommand = (ConferenceProposalListCommand)command;
 
-		request.getSession().setAttribute("conferenceProposalsSearchCreteria", searchCommand.getSearchCreteria());
-		request.getSession().setAttribute("conferenceProposalsListView", searchCommand.getListView());
+		//request.getSession().setAttribute("conferenceProposalsSearchCreteria", searchCommand.getSearchCreteria());
+		//request.getSession().setAttribute("conferenceProposalsListView", searchCommand.getListView());
 		
 		
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		String action = request.getParameter("action", "");
 
-		if (action.equals("edit") && searchCommand.getConferenceProposalId()>0){
-			newModel.put("id",searchCommand.getConferenceProposalId());
-			return new ModelAndView( new RedirectView("editConferenceProposal.html"),newModel);
-		}
-		
 		if (action.equals("delete") && searchCommand.getConferenceProposalId()>0){
 			ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(searchCommand.getConferenceProposalId()));
 			origConferenceProposalBean.setDeleted(true);
@@ -90,7 +86,8 @@ public class ConferenceProposalListController extends GeneralFormController {
 
 		ConferenceProposalListCommand searchCommand = (ConferenceProposalListCommand) model.get("command");
 
-		logger.info(searchCommand.getSearchCreteria().getSearchPhrase());
+		logger.info("Show form search command: " + searchCommand.getSearchCreteria().getWhereClause());
+		logger.info("Show form search command: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(searchCommand.getListView(), searchCommand.getSearchCreteria(),userPersonBean);
 		List<ConferenceProposalBean> conferenceProposalBeans = new ArrayList<ConferenceProposalBean>();
 
@@ -100,10 +97,21 @@ public class ConferenceProposalListController extends GeneralFormController {
 			conferenceProposalBeans.add(conferenceProposalBean);
 		}
 		model.put("conferenceProposals", conferenceProposalBeans);
-		//save the search params for paging
-		model.put("searchByApprover", request.getSession().getAttribute("searchByApprover"));
-		model.put("searchBySubmitted", request.getSession().getAttribute("searchBySubmitted"));
-		model.put("searchByDeadline", request.getSession().getAttribute("searchByDeadline"));
+		
+		// We handle the case of a new form, no search options were selected
+		/*Integer searchByApprover = (Integer) request.getSession().getAttribute("searchByApprover");
+		if (searchByApprover == null)
+			searchByApprover = 0;
+		Integer searchBySubmitted = (Integer) request.getSession().getAttribute("searchBySubmitted");
+		if (searchBySubmitted == null)
+			searchBySubmitted = 0;
+		Integer searchByDeadline = (Integer) request.getSession().getAttribute("searchByDeadline");
+		if (searchByDeadline == null)
+			searchByDeadline = 0;*/		
+		
+		model.put("searchByApprover", searchCommand.getSearchCreteria().getSearchByApprover());
+		model.put("searchBySubmitted", searchCommand.getSearchCreteria().getSearchBySubmitted());
+		model.put("searchByDeadline", searchCommand.getSearchCreteria().getSearchByDeadline());
 		// a list of possible proposal approvers
 		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
 		
@@ -118,26 +126,32 @@ public class ConferenceProposalListController extends GeneralFormController {
 
 		ConferenceProposalListCommand searchCommand = new ConferenceProposalListCommand();
 		if (!isFormSubmission(request.getRequest())){
-			SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("conferenceProposalsSearchCreteria");
+			ConferenceProposalSearchCreteria searchCreteria = (ConferenceProposalSearchCreteria) request.getSession().getAttribute("conferenceProposalSearchCreteria");
 			request.getSession().setAttribute("conferenceProposalsSearchCreteria", null);
-			ListView listView = (ListView) request.getSession().getAttribute("conferenceProposalsListView");
+			ListView listView = (ListView) request.getSession().getAttribute("conferenceProposalListView");
 			if (searchCreteria == null){
-				//deafult view
-				searchCreteria = new SearchCreteria();
+				//default view
+				searchCreteria = new ConferenceProposalSearchCreteria();
 				String whereClause ="";
 				String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 				if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER")){
 					whereClause = " date(deadline)>'"+previousDeadline +"'";
-					request.getSession().setAttribute("searchBySubmitted", 2);
+					searchCreteria.setSearchBySubmitted(ConferenceProposalSearchCreteria.DRAFT);
+					
 				}
-				else
+				else{
 					whereClause = " submitted=1 and date(deadline)>'"+previousDeadline +"'";
+					searchCreteria.setSearchBySubmitted(ConferenceProposalSearchCreteria.SUBMITTED);
+				}
 				searchCreteria.setWhereClause(whereClause);
 				int roleFilterId = request.getIntParameter("rf", 0);
 				String roleFilter = Constants.getUsersRoles().get(roleFilterId);
 				if (roleFilter == null)
 					roleFilter = "";
 				searchCreteria.setRoleFilter(roleFilter);
+				
+				searchCreteria.setSearchByApprover(ConferenceProposalSearchCreteria.NO_APPROVER);
+				searchCreteria.setSearchByDeadline(ConferenceProposalSearchCreteria.CURRENT_DEADLINE);
 				listView = null;
 			}
 			if (listView == null){
@@ -149,46 +163,43 @@ public class ConferenceProposalListController extends GeneralFormController {
 			conferenceProposalListService.prepareListView(listView, searchCreteria, userPersonBean);
 
 			searchCommand.setSearchCreteria(searchCreteria);
-			searchCommand.setListView(listView);
-
-			request.getSession().setAttribute("searchCreteria", null);
-			request.getSession().setAttribute("listView", null);
+			logger.info("form backing search command on showing form: " + searchCommand.getSearchCreteria().getWhereClause());
+			logger.info("form backing search command on showing form: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
+			searchCommand.setListView(listView);			
 		}
 		if (isFormSubmission(request.getRequest())){
 			String whereClause = "";
-			SearchCreteria searchCreteria = new SearchCreteria();
-			if(request.getIntParameter("searchByApprover", 0)>0){
+			ConferenceProposalSearchCreteria searchCreteria = new ConferenceProposalSearchCreteria();
+			int searchByApprover = request.getIntParameter("searchByApprover", 0);
+			if( searchByApprover > 0){
 				whereClause += " approverId=" + request.getIntParameter("searchByApprover", 0);
 			}
-			if(request.getIntParameter("searchBySubmitted", 0)==0){
-					if(!whereClause.equals(""))
-						whereClause+=" and";
-					whereClause += " submitted=1";
-			}
-			else if(request.getIntParameter("searchBySubmitted", 0)==1){
-					if(!whereClause.equals(""))
-						whereClause+=" and";
-					whereClause += " submitted=0";
-			}
+			int searchBySubmitted = request.getIntParameter("searchBySubmitted", 0);
+			if(!whereClause.isEmpty())
+				whereClause+=" and";
+			whereClause += " submitted=" + searchBySubmitted;
+			
 			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-			if(request.getIntParameter("searchByDeadline", 0)==0){
+			int searchByDeadline = request.getIntParameter("searchByDeadline", 0);
+			if( searchByDeadline == 1){
 					if(!whereClause.equals(""))
 						whereClause+=" and";
 					whereClause += " date(deadline)>'"+previousDeadline +"'";
 			}	
 			searchCreteria.setWhereClause(whereClause);
+			searchCreteria.setSearchByApprover(searchByApprover);
+			searchCreteria.setSearchBySubmitted(searchBySubmitted);
+			searchCreteria.setSearchByDeadline(searchByDeadline);
 			searchCommand.setSearchCreteria(searchCreteria);
-			
-			logger.info("Approver: " + request.getIntParameter("searchByApprover", 0));
-			request.getSession().setAttribute("searchByApprover", request.getIntParameter("searchByApprover", 0));
-			request.getSession().setAttribute("searchBySubmitted", request.getIntParameter("searchBySubmitted", 0));
-			request.getSession().setAttribute("searchByDeadline", request.getIntParameter("searchByDeadline", 0));
+			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getWhereClause());
+			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
+			request.getSession().setAttribute("conferenceProposalSearchCreteria", searchCreteria);
 		}
 		return searchCommand;
 	}
 
 	public class ConferenceProposalListCommand{
-		SearchCreteria searchCreteria = new SearchCreteria();
+		ConferenceProposalSearchCreteria searchCreteria = new ConferenceProposalSearchCreteria();
 		ListView listView = new ListView();
 		int conferenceProposalId=0;
 
@@ -199,20 +210,18 @@ public class ConferenceProposalListController extends GeneralFormController {
 		public void setConferenceProposalId(int conferenceProposalId) {
 			this.conferenceProposalId = conferenceProposalId;
 		}
-		public SearchCreteria getSearchCreteria() {
-			return searchCreteria;
-		}
-		public void setSearchCreteria(SearchCreteria searchCreteria) {
-			this.searchCreteria = searchCreteria;
-		}
 		public ListView getListView() {
 			return listView;
 		}
 		public void setListView(ListView listView) {
 			this.listView = listView;
 		}
-
-
+		public ConferenceProposalSearchCreteria getSearchCreteria() {
+			return searchCreteria;
+		}
+		public void setSearchCreteria(ConferenceProposalSearchCreteria searchCreteria) {
+			this.searchCreteria = searchCreteria;
+		}
 	}
 
 	private ConferenceProposalListService conferenceProposalListService;

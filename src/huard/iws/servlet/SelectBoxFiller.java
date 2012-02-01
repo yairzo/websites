@@ -78,6 +78,8 @@ public class SelectBoxFiller extends HttpServlet {
 		if (userPersonBean.isAuthorized("LISTS", "ADMIN")) return true;
 		if (userPersonBean.isAuthorized("LISTS", "EDITOR")) return true;
 		if (userPersonBean.isAuthorized("POST", "ADMIN")) return true;
+		if (userPersonBean.isAuthorized("CONFERENCE", "ADMIN")) return true;
+		if (userPersonBean.isAuthorized("CONFERENCE", "APPROVER")) return true;
 
 		String proposalId;
 		int aProposalId=0;
