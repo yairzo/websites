@@ -74,10 +74,12 @@
     			<td class="container" style="width: 65%; vertical-align: top;">
     				<span style="text-align: center;"><h2> רשימת הבקשות </h2></span>
     				<table style="width: 100%;">
+    				<c:choose>
+    				<c:when test="${fn:length(conferenceProposals) > 0}">
     				<c:forEach items="${conferenceProposals}" var="conferenceProposal" varStatus="varStatus">
              			<c:choose><c:when test="${varStatus.index%2==0}"><c:set var="cssClass" value="darker"/></c:when><c:otherwise><c:set var="cssClass" value="brighter"/></c:otherwise></c:choose>
              			<tr class="${cssClass}" style="height: 30px;">
-  							<td align="right">
+  							<td align="right" style="padding: 0px 20px;">
 				  				<table style="width: 100%">
   									<tr>
 				  						<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
@@ -126,7 +128,15 @@
   							</td>
   	  					</tr>
   	  			  </c:forEach>
-  	  			  
+  	  			  </c:when>
+  	  			  <c:otherwise>
+  	  			  	<tr class="darker" style="height: 30px;">
+  						<td align="right" style="padding: 0px 20px;">
+  							אין בקשות לצפייה
+  						</td>
+  					</tr>
+  				</c:otherwise>
+  				</c:choose>  	  			  
   	  			  </table>
   	  			  	 		  
     		</td>

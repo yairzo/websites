@@ -470,16 +470,16 @@
 						<tr style="display: none;" class="assosiate financialSupport">
 
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromAssosiate[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass assosiate" path="fromAssosiate[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromAssosiate[${varStatus.index}].sum"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass assosiate" path="fromAssosiate[${varStatus.index}].sum"/>
 						</td>
 						<td>
 							<form:select cssClass="green medium170 autosaveclass" path="fromAssosiate[${varStatus.index}].currency">
-      						<option value="0">מטבע</option>
-       						<option value="1">שקל</option>
-      						<option value="2">דולר</option>
+      						<form:option value="0">מטבע</form:option>
+       						<form:option value="1">שקל</form:option>
+      						<form:option value="2">דולר</form:option>
 							</form:select>
 						</td>
 						<td>
@@ -527,16 +527,16 @@
 
 						<tr style="display: none;" class="external financialSupport">
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromExternal[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass external" path="fromExternal[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromExternal[${varStatus.index}].sum"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass external" path="fromExternal[${varStatus.index}].sum"/>
 						</td>
 						<td>
 							<form:select cssClass="green medium170 autosaveclass" path="fromExternal[${varStatus.index}].currency">
-      						<option value="0">מטבע</option>
-       						<option value="1">שקל</option>
-      						<option value="2">דולר</option>
+      						<form:option value="0">מטבע</form:option>
+       						<form:option value="1">שקל</form:option>
+      						<form:option value="2">דולר</form:option>
 							</form:select>
 						</td>
 						<td>
@@ -583,16 +583,16 @@
 
 						<tr style="display: none;" class="admitanceFee financialSupport">
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromAdmitanceFee[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass admitanceFee" path="fromAdmitanceFee[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="fromAdmitanceFee[${varStatus.index}].sum"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass admitanceFee" path="fromAdmitanceFee[${varStatus.index}].sum"/>
 						</td>
 						<td>
 							<form:select cssClass="green medium170 autosaveclass" path="fromAdmitanceFee[${varStatus.index}].currency">
-      						<option value="0">מטבע</option>
-       						<option value="1">שקל</option>
-      						<option value="2">דולר</option>
+      						<form:option value="0">מטבע</form:option>
+       						<form:option value="1">שקל</form:option>
+      						<form:option value="2">דולר</form:option>
 							</form:select>
 						</td>
 						<td>
@@ -645,16 +645,16 @@
            				<form:hidden path="scientificCommittees[${varStatus.index}].type"/>
 						<tr style="display: none;" class="scientificCommittee committee">
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass scientificCommittee" path="scientificCommittees[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].institute"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass scientificCommittee" path="scientificCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].instituteRole"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass scientificCommittee" path="scientificCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="scientificCommittees[${varStatus.index}].committeeRole"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass scientificCommittee" path="scientificCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.scientificCommittees[varStatus.index]}"/>
@@ -704,16 +704,16 @@
 						<tr style="display: none;" class="operationalCommittee committee">
 
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass operationalCommittee" path="operationalCommittees[${varStatus.index}].name"/>
 						</td>
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].institute"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass operationalCommittee" path="operationalCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].instituteRole"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass operationalCommittee" path="operationalCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td>
-							<form:input htmlEscape="true" cssClass="green autosaveclass" path="operationalCommittees[${varStatus.index}].committeeRole"/>
+							<form:input htmlEscape="true" cssClass="green autosaveclass operationalCommittee" path="operationalCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.operationalCommittees[varStatus.index]}"/>

@@ -1,7 +1,8 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 <%@ include file="/WEB-INF/jsp/include/header.jsp" %>
-<script language="Javascript">
+<%@ include file="/WEB-INF/jsp/content/conferenceProposal/conferenceProposalStyle.jsp" %>
+<script>
 $(document).ready(function() {
 	
   $("#genericDialog").dialog({
@@ -10,9 +11,10 @@ $(document).ready(function() {
         hide: 'fade',
         modal: true,
         width: 400,
+        title: "הצהרה על זכאות להגשת בקשה למימון כנס"
   });
  
-  $(".ui-dialog-titlebar").hide();
+  
  
   function openHelp(name,mytext){
      linkOffset = $(name).position();
