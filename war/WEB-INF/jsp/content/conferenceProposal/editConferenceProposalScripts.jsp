@@ -328,8 +328,10 @@ $(document).ready(function() {
 		else{
 			$("#errorcontactPersonPhone").html('');
 		}
-		if (errors)
+		if (errors){
+			alert('errors');
 			return false;
+		}
 		else{
 			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
     		$("#form").submit();
