@@ -53,13 +53,22 @@ th
 	color:#525148;
 	font-weight: bold;
 }
-
+.medium50
+{
+	text-align: right;
+	width: 50px;
+	
+}
 .medium100
 {
 	text-align: right;
 	width: 100px;
 }
-
+.medium150
+{
+	text-align: right;
+	width: 150px;
+}
 .medium170
 {
 	text-align: right;

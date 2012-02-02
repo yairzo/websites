@@ -27,7 +27,7 @@ $(document).ready(function() {
 	});
 	
 	
-	$("#startConfDate").datepicker({ showOn: 'both', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy', onSelect: function(){
+	$("#startConfDate").datepicker({ dateFormat: 'dd/mm/yy', onSelect: function(){
     	var str1 = $("#startConfDate").val();
         var dt1  = str1.substring(0,2); 
         var mon1 = str1.substring(3,5); 
@@ -43,7 +43,7 @@ $(document).ready(function() {
     }
 	});	
 	
-	$("#endConfDate").datepicker({ showOn: 'both', buttonImageOnly: true, buttonImage: 'image/icon_calendar.gif',dateFormat: 'dd/mm/yy',onSelect: function(){
+	$("#endConfDate").datepicker({ dateFormat: 'dd/mm/yy',onSelect: function(){
     	var str1 = $("#startConfDate").val();
         var str2 = $("#endConfDate").val();
         var dt1  = str1.substring(0,2); 
