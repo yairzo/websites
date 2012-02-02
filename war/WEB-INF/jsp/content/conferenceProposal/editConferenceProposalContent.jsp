@@ -148,7 +148,7 @@
 				<tr class="form">
 					<c:if test="${!readOnly && !command.submitted}">
 					<td colspan="4">
-						<form:textarea cssClass="green autosaveclass" path="subject" id="subject" cols="95" rows="2"/>
+						<form:textarea cssClass="green" path="subject" id="subject" cols="95" rows="2"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
@@ -472,13 +472,13 @@
 						<tr style="display: none;" class="assosiate financialSupport">
 
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass assosiate" path="fromAssosiate[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green assosiate" path="fromAssosiate[${varStatus.index}].name"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass assosiate" path="fromAssosiate[${varStatus.index}].sum"/>
+							<form:input htmlEscape="true" cssClass="green assosiate" path="fromAssosiate[${varStatus.index}].sum"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:select cssClass="green medium170 autosaveclass" path="fromAssosiate[${varStatus.index}].currency">
+							<form:select cssClass="green medium170" path="fromAssosiate[${varStatus.index}].currency">
       						<form:option value="0">מטבע</form:option>
        						<form:option value="1">שקל</form:option>
       						<form:option value="2">דולר</form:option>
@@ -490,7 +490,6 @@
 						</td>
 						</tr>
 						</c:forEach>
-						<tr><td><a href="#" onclick="hideExtraCommittee("assosiate");">הוסף שורות</a></td></tr>
 					</c:otherwise>
 					</c:choose>
 					</table>
@@ -529,13 +528,13 @@
 
 						<tr style="display: none;" class="external financialSupport">
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass external" path="fromExternal[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green external" path="fromExternal[${varStatus.index}].name"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass external" path="fromExternal[${varStatus.index}].sum"/>
+							<form:input htmlEscape="true" cssClass="green external" path="fromExternal[${varStatus.index}].sum"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:select cssClass="green medium170 autosaveclass" path="fromExternal[${varStatus.index}].currency">
+							<form:select cssClass="green medium170" path="fromExternal[${varStatus.index}].currency">
       						<form:option value="0">מטבע</form:option>
        						<form:option value="1">שקל</form:option>
       						<form:option value="2">דולר</form:option>
@@ -547,7 +546,6 @@
 						</td>
 						</tr>
 						</c:forEach>
-						<tr><td><a href="#" onclick="hideExtraCommittee("external");">הוסף שורות</a></td></tr>
 					</c:otherwise>
 					</c:choose>
 					</table>
@@ -585,13 +583,13 @@
 
 						<tr style="display: none;" class="admitanceFee financialSupport">
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass admitanceFee" path="fromAdmitanceFee[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green admitanceFee" path="fromAdmitanceFee[${varStatus.index}].name"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass admitanceFee" path="fromAdmitanceFee[${varStatus.index}].sum"/>
+							<form:input htmlEscape="true" cssClass="green admitanceFee" path="fromAdmitanceFee[${varStatus.index}].sum"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:select cssClass="green medium170 autosaveclass" path="fromAdmitanceFee[${varStatus.index}].currency">
+							<form:select cssClass="green medium170" path="fromAdmitanceFee[${varStatus.index}].currency">
       						<form:option value="0">מטבע</form:option>
        						<form:option value="1">שקל</form:option>
       						<form:option value="2">דולר</form:option>
@@ -603,7 +601,6 @@
 						</td>
 						</tr>
 						</c:forEach>
-						<tr><td><a href="#" onclick="hideExtraCommittee("admitanceFee");">הוסף שורות</a></td></tr>
 					</c:otherwise>
 					</c:choose>
 					</table>
@@ -657,16 +654,16 @@
            				<form:hidden path="scientificCommittees[${varStatus.index}].type"/>
 						<tr style="display: none;" class="scientificCommittee committee">
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass scientificCommittee" path="scientificCommittees[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green scientificCommittee" path="scientificCommittees[${varStatus.index}].name"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass scientificCommittee" path="scientificCommittees[${varStatus.index}].institute"/>
+							<form:input htmlEscape="true" cssClass="green scientificCommittee" path="scientificCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass scientificCommittee" path="scientificCommittees[${varStatus.index}].instituteRole"/>
+							<form:input htmlEscape="true" cssClass="green scientificCommittee" path="scientificCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass scientificCommittee" path="scientificCommittees[${varStatus.index}].committeeRole"/>
+							<form:input htmlEscape="true" cssClass="green scientificCommittee" path="scientificCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.scientificCommittees[varStatus.index]}"/>
@@ -674,7 +671,6 @@
 						</td>
 						</tr>
 						</c:forEach>
-						<tr><td><a href="#" class="scientificCommitteeSave" onclick="hideExtraCommittee("scientificCommittee");">הוסף שורות</a></td></tr>
 					</c:otherwise>
 					</c:choose>
 					</table>
@@ -714,16 +710,16 @@
 						<tr style="display: none;" class="operationalCommittee committee">
 
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass operationalCommittee" path="operationalCommittees[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="green operationalCommittee" path="operationalCommittees[${varStatus.index}].name"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass operationalCommittee" path="operationalCommittees[${varStatus.index}].institute"/>
+							<form:input htmlEscape="true" cssClass="green operationalCommittee" path="operationalCommittees[${varStatus.index}].institute"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass operationalCommittee" path="operationalCommittees[${varStatus.index}].instituteRole"/>
+							<form:input htmlEscape="true" cssClass="green operationalCommittee" path="operationalCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td style="border: 1px black dotted">
-							<form:input htmlEscape="true" cssClass="green autosaveclass operationalCommittee" path="operationalCommittees[${varStatus.index}].committeeRole"/>
+							<form:input htmlEscape="true" cssClass="green operationalCommittee" path="operationalCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.operationalCommittees[varStatus.index]}"/>
@@ -731,7 +727,6 @@
 						</td>
 						</tr>
 						</c:forEach>
-						<tr><td><a href="#" class="operationalCommitteeSave" onclick="hideExtraCommittee("operationalCommittee");">הוסף שורות</a></td></tr>
 					</c:otherwise>
 					</c:choose>
 					</table>
@@ -1083,11 +1078,11 @@
 			<td colspan="4" align="center">
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 					<c:if test="${!command.submitted}">
-						<button class="grey submit" onclick="" id="saveId">שמירה </button>&nbsp;&nbsp;
+						<button class="grey submit" >שמירה </button>&nbsp;&nbsp;
 					</c:if>
 				</authz:authorize>
 				<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-					<button class="grey submit" onclick="" id="saveId">שמירה </button>&nbsp;&nbsp;
+					<button class="grey submit" >שמירה </button>&nbsp;&nbsp;
 				</authz:authorize>
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_ADMIN">
 					<c:if test="${!command.submitted}">

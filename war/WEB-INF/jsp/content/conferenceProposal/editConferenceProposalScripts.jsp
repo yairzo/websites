@@ -98,7 +98,7 @@ $(document).ready(function() {
 	       	 	type:      'POST'
      	};
    		$("#form").ajaxForm();
-   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" value=\"true\"/>");
+   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 	    $('#form').ajaxSubmit(options);
 		var elementClass = $(this).attr('class');
 		if (elementClass.indexOf("scientificCommittee")!=-1)
@@ -111,15 +111,17 @@ $(document).ready(function() {
 			hideExtraCommittee("assosiate");
 		if (elementClass.indexOf("external")!=-1)
 			hideExtraCommittee("external");
-		}, {delay: 2000});
+	    $('#ajaxSubmit').remove();
+	}, {delay: 2000});
 	
 	$('form').find('select').change(function(){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
 		$("#form").ajaxForm();
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" value=\"true\"/>");
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 	    $('#form').ajaxSubmit();
+	    $('#ajaxSubmit').remove();
 	});
 
 	
@@ -135,8 +137,8 @@ $(document).ready(function() {
 		else 
 			return false;
 	});	
+	
 	$('#programAttach').change(function(){
-		
 		if ("${command.versionId}"==0){
 		   var options = {
 	       	 	url:       'editConferenceProposal.html' ,        
@@ -172,41 +174,6 @@ $(document).ready(function() {
 		else
 			$('.organizingCompanyPart').hide();
 	});
-	
-	
-	
-	$(".fromAdmitanceFeeSave").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromAdmitanceFeeSave\"/>");
-    	$("#form").submit();
-    	return true;
-    });
-	
-	$(".fromExternalSave").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromExternalSave\"/>");
-    	$("#form").submit();
-    	return true;
-    });
-	
-
-	$(".fromAssosiateSave").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"fromAssosiateSave\"/>");
-    	$("#form").submit();
-    	return true;
-    });
-	
-	$(".scientificCommitteeSave").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"scientificCommitteeSave\"/>");
-    	$("#form").submit();
-    	return true;
-    });
-	
-	
-	$(".operationalCommitteeSave").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"operationalCommitteeSave\"/>");
-    	$("#form").submit();
-    	return true;
-    });
-	
 	
 	$(".deleteFinancialSupport").click(function(e){
 		e.preventDefault();
@@ -339,18 +306,11 @@ $(document).ready(function() {
 		}
     });
 	
-	$("button.unsubmitForGrading").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"unsubmitForGrading\"/>");
-    	$("#form").submit();
-    	return true;
-    });
-	
 	
 	$("button.submit").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"saved\"/>");
 		$("#form").submit();
     	return true;
-    	
     });	
 	
     
@@ -403,8 +363,6 @@ $(document).ready(function() {
 	$("#genericDialog").dialog({ modal: false });
 	openHelp("",userMessage);
     </c:if> 
-
-    
    
 });
 
