@@ -850,7 +850,7 @@
 	            <td colspan="4">
 				<table width="900"  style="border:1px black dotted" cellpadding="2" cellspacing="0" align="center">
 	            <tr>
-	            	<td colspan="4">
+	            	<td colspan="4" style="border:1px black dotted">
 					<c:if test="${!readOnly && !command.submitted}">			
 		       		   <font> ארגון ע"י חברה מסחרית</font><form:checkbox cssClass="green" id="company" path="organizingCompany"/>
 					</c:if>
@@ -860,13 +860,8 @@
 					</c:if>
 					</td>
 				</tr>
-				
-	             <tr class="form">
-		       		<td colspan="4">
-		       		<table >
-		       		<tr class="organizingCompanyPart">
-		       		<td>שם החברה:
-	   				<td>
+	            <tr class="form organizingCompanyPart">
+		       		<td nowrap style="border:1px black dotted">שם החברה:&nbsp;&nbsp;&nbsp;&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyName" />
 					</c:if>
@@ -875,8 +870,7 @@
 	   					${command.organizingCompanyName}
 					</c:if>
 					</td>
-		       		<td>טלפון:</td>
-	   				<td>
+		       		<td style="border:1px black dotted">טלפון:&nbsp;&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyPhone" id="organizingCompanyPhone"/>
 					</c:if>
@@ -885,8 +879,7 @@
 	   					${command.organizingCompanyPhone}
 					</c:if>
 					</td>
-		       		<td>פקס:</td>
-		       		<td>
+		       		<td style="border:1px black dotted">פקס:&nbsp;
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyFax" id="organizingCompanyFax"/>
 					</c:if>
@@ -895,8 +888,7 @@
 	   					${command.organizingCompanyFax}
 					</c:if>
 	   				</td>
-				    <td>אימייל:</td>
-				    <td>
+				    <td style="border:1px black dotted">אימייל:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium200" path="organizingCompanyEmail" id="organizingCompanyEmail"/>
 					</c:if>
@@ -906,17 +898,8 @@
 					</c:if>
 	   				</td>
 				</tr>
-				<tr>
-				<td colspan="4">
-				<div id="errororganizingCompanyPhone" dir="rtl"><p></p></div>
-				<div id="errororganizingCompanyFax" dir="rtl"><p></p></div>
-				<div id="errororganizingCompanyEmail" dir="rtl"><p></p></div>
-				</td>
-				</tr>
-	            <tr>
-		       		<td nowrap>שם איש קשר:
-	   				</td>
-	   				<td>
+	            <tr class="form">
+		       		<td nowrap style="border:1px black dotted">שם איש קשר:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPerson" />
 					</c:if>
@@ -925,9 +908,7 @@
 	   					${command.contactPerson}
 					</c:if>
 					</td>
-		       		<td>תפקיד:
-	   				</td>
-	   				<td>
+		       		<td nowrap style="border:1px black dotted">תפקיד:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPersonRole" />
 					</c:if>
@@ -936,9 +917,7 @@
 	   					${command.contactPersonRole}
 					</c:if>
 					</td>
-		       		<td>טלפון:
-	   				</td>
-	   				<td>
+		       		<td nowrap style="border:1px black dotted">טלפון:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPersonPhone" id="contactPersonPhone"/>
 					</c:if>
@@ -947,9 +926,7 @@
 	   					${command.contactPersonPhone}
 					</c:if>
 					</td>
-				    <td>אימייל:
-	   				</td>
-	   				<td>
+				    <td nowrap style="border:1px black dotted">אימייל:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium200" path="contactPersonEmail" id="contactPersonEmail"/>
 					</c:if>
@@ -959,19 +936,18 @@
  					</c:if>
 	   				</td>
 		       		</tr>
-		       		</table>
-					</td>
+				</table>
+				</td>
 				</tr>
 				<tr>
 				<td colspan="4">
+				<div id="errororganizingCompanyPhone" dir="rtl"><p></p></div>
+				<div id="errororganizingCompanyFax" dir="rtl"><p></p></div>
+				<div id="errororganizingCompanyEmail" dir="rtl"><p></p></div>
 				<div id="errorcontactPersonPhone" dir="rtl"><p></p></div>
 				<div id="errorcontactPersonEmail" dir="rtl"><p></p></div>
 				</td>
 				</tr>	
-				</table>
-				</td>
-				</tr>
-				<tr><td>&nbsp;</td></tr>
 
 				<tr>
 		             <td colspan="4"><h3>הגשה</h3></td>
