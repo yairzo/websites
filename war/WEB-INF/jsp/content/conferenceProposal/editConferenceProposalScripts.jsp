@@ -89,7 +89,7 @@ $(document).ready(function() {
  
     });
 
-	$('form').find('input').autoSave(function(){
+	$('form').find('input:not([class*=submit])').autoSave(function(){		
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
@@ -115,6 +115,8 @@ $(document).ready(function() {
 	}, {delay: 2000});
 	
 	$('form').find('select').change(function(){
+		alert('here');
+
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
@@ -308,9 +310,10 @@ $(document).ready(function() {
 	
 	
 	$("button.submit").click(function(){
+		$("#form").ajaxForm();
 		$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"saved\"/>");
 		$("#form").submit();
-    	return true;
+    	window.location.reload();
     });	
 	
     
