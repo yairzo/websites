@@ -15,7 +15,7 @@
   </tr>
   <tr>
     <td>
-      <table width="1000" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468" dir="rtl">
+      <table width="1000" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bca2a2" dir="rtl">
         <tr>
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" action="editConferenceProposal.html" commandName="command" enctype="multipart/form-data">
@@ -60,37 +60,37 @@
 				</tr>
                 <tr class="form">
                 <td colspan="4">
-                <table width="1000" style="border:1px black dotted" cellpadding="2" cellspacing="0" align="center">
+                <table width="1000" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
                 <tr class="form">
-					<td width="300" style="border:1px black dotted">
+					<td width="300" style="border:1px #bca2a2 dotted">
 						 <font>שם חוקר:</font>
 						${command.researcher.degreeHebrew } ${command.researcher.firstNameHebrew } ${command.researcher.lastNameHebrew }
 					</td>
-					<td width="300" style="border:1px black dotted">
+					<td width="300" style="border:1px #bca2a2 dotted">
 						 <font>מחלקה:</font>
 					${command.researcher.department } 
 					</td>
-					<td width="300" style="border:1px black dotted">
+					<td width="300" style="border:1px #bca2a2 dotted">
 						 <font>פקולטה:</font>
 						${faculty } 
 					</td>
 				</tr>
                 <tr class="form">
-					<td style="border:1px black dotted">
+					<td style="border:1px #bca2a2 dotted">
 						 <font>טלפון:</font>
 						${command.researcher.phone } 
 					</td>
-					<td style="border:1px black dotted">
+					<td style="border:1px #bca2a2 dotted">
 						 <font>פקס:</font>
 						${command.researcher.fax } 
 					</td>
-					<td  style="border:1px black dotted" nowrap>
+					<td  style="border:1px #bca2a2 dotted" nowrap>
 						 <font>דואר אלקטרוני:</font>
 						${command.researcher.email } 
 					</td>
 				</tr>
 				<tr class="form">
-					<td style="border:1px black dotted" nowrap>
+					<td style="border:1px #bca2a2 dotted" nowrap>
 						<font> הגוף היוזם:</font>
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input htmlEscape="true" cssClass="green medium200" path="initiatingBody" /><img src="image/icon-docs-info.gif" width="15" height="15" id="dialogInitiatingBody"/>
@@ -101,7 +101,7 @@
 					</c:if>
 					</td>
 					
-					<td style="border:1px black dotted" nowrap>
+					<td style="border:1px #bca2a2 dotted" nowrap>
 						 <font>תפקיד בגוף היוזם:</font>
 					<c:if test="${!readOnly && !command.submitted}">
        					<form:select path="initiatingBodyRole" cssClass="green" >
@@ -125,7 +125,7 @@
 						</c:choose>
 					</c:if>
 					</td>
-					<td style="border:1px black dotted">&nbsp;</td>
+					<td style="border:1px #bca2a2 dotted">&nbsp;</td>
 				</tr>
 				</table>
 				</td>
@@ -136,9 +136,9 @@
 				</tr>
 				<tr class="form">
 				<td colspan="4">
-				<table width="1000" style="border:1px black dotted" cellpadding="2" cellspacing="0" align="center">
+				<table width="1000" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 				<tr>
-				<td colspan="4" style="border:1px black dotted">
+				<td colspan="4" style="border:1px #bca2a2 dotted">
 				<table>
 				<tr>
 					<td colspan="4">
@@ -167,7 +167,7 @@
 				</tr>
 
 				<tr class="form">
-					<td style="border:1px black dotted" align="center">
+					<td style="border:1px #bca2a2 dotted" align="center">
 						תחילת הכנס:
 					<c:if test="${!readOnly && !command.submitted}">
 						<input type="text" class="green medium100" name="startConfDate" id="startConfDate" value="${startConfDate}" readonly="readonly"/>
@@ -176,7 +176,7 @@
 						${startConfDate}
 					</c:if>
 					</td>
-					<td style="border:1px black dotted" align="center">
+					<td style="border:1px #bca2a2 dotted" align="center">
 						סיום הכנס:
 					<c:if test="${!readOnly && !command.submitted}">
 						<input type="text" class="green medium100" name="endConfDate" id="endConfDate" value="${endConfDate}" readonly="readonly"/>
@@ -185,7 +185,7 @@
 						${endConfDate}
 					</c:if>
 					</td>
-					<td style="border:1px black dotted" align="center">
+					<td style="border:1px #bca2a2 dotted" align="center">
 						 מיקום:
 					<c:if test="${!readOnly && !command.submitted}">
       					<form:select path="location" cssClass="green">
@@ -204,7 +204,7 @@
 						</c:choose>
 					</c:if>
 					</td>
-					<td style="border:1px black dotted" align="center">
+					<td style="border:1px #bca2a2 dotted" align="center">
 						פירוט מיקום:
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input htmlEscape="true" cssClass="green medium200" path="locationDetail"/>
@@ -216,90 +216,90 @@
 					</td>
 				</tr>
 				<tr class="form">
-					<td colspan="2" style="border:1px black dotted">
+					<td colspan="2" style="border:1px #bca2a2 dotted">
 					   מספר משתתפים:
-				       <table style="border: 1px black dotted" cellpadding="2" cellspacing="0" align="center">
+				       <table style="border: 1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 				       <tr>
-				       <td style="border: 1px black dotted">&nbsp;</td>
-				       <td style="border: 1px black dotted"> מרצים </td> 
-				       <td style="border: 1px black dotted"> מוזמנים </td>
+				       <td style="border: 1px #bca2a2 dotted">&nbsp;</td>
+				       <td style="border: 1px #bca2a2 dotted"> מרצים </td> 
+				       <td style="border: 1px #bca2a2 dotted"> מוזמנים </td>
 					   </tr>
 						<tr>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							מחו"ל:
 						</td>
 						<c:if test="${!readOnly && !command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium50" path="foreignLecturers" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:hidden path="foreignLecturers"/>
 							${command.foreignLecturers}
 						</td>
 						</c:if>
 						<c:if test="${!readOnly && !command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium50" path="foreignGuests" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:hidden path="foreignGuests"/>
 							${command.foreignGuests}
 						</td>
 						</c:if>
 						</tr>
 						<tr>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							מהארץ:
 						</td>
 						<c:if test="${!readOnly && !command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium50" path="localLecturers" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:hidden path="localLecturers"/>
 							${command.localLecturers}
 						</td>
 						</c:if>
 						<c:if test="${!readOnly && !command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium50" path="localGuests" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:hidden path="localGuests"/>
 							${command.localGuests}
 						</td>
 						</c:if>
 						</tr>
 						<tr>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							קהל נוסף:
 						</td>
 						<c:if test="${!readOnly && !command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium50" path="audienceLecturers" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:hidden path="audienceLecturers"/>
 							${command.audienceLecturers}
 						</td>
 						</c:if>
 						<c:if test="${!readOnly && !command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium50" path="audienceGuests" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:hidden path="audienceGuests"/>
 							${command.audienceGuests}
 						</td>
@@ -309,7 +309,7 @@
 						<br>
  				    </td>
 
-				<td colspan="2" style="border:1px black dotted">
+				<td colspan="2" style="border:1px #bca2a2 dotted">
 				<table align="center">
 					<tr class="form">
 				       <td><font>רשימת מוזמנים:</font></td>
@@ -347,7 +347,7 @@
 				</tr>
 				
 				<tr>
-				<td colspan="4" style="border:1px black dotted">
+				<td colspan="4" style="border:1px #bca2a2 dotted">
 				<table>
 				<tr>
 					<td colspan="4"> 
@@ -379,9 +379,9 @@
 				</tr>
 	            <tr class="form">
 	            	<td colspan="4">
-					<table width="1000" style="border:1px black dotted" cellpadding="2" cellspacing="0" align="center">
+					<table width="1000" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 	            	<tr class="form">
-		       		<td style="border:1px black dotted">
+		       		<td style="border:1px #bca2a2 dotted">
 	   					סה"כ התקציב לארגון הכנס:
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input cssClass="green medium100" path="totalCost"  id="totalCost"/>
@@ -407,7 +407,7 @@
 						</c:choose>
 					</c:if>
 	   				</td>
-					<td style="border:1px black dotted">
+					<td style="border:1px #bca2a2 dotted">
 				       תוכנית תקציבית:
 						<c:if test="${!readOnly && !command.submitted}">
 						<input style="width: 0px; height: 0px;" class="green" type="file" name="financialAttach" id="financialAttach"/>
@@ -427,14 +427,14 @@
 				</tr>
 
 				<tr>
-					<td colspan="4" style="border:1px black dotted">
+					<td colspan="4" style="border:1px #bca2a2 dotted">
 	           		הכנסות צפויות<br>
 					משותפים לארגון:
 					<table width="725" cellpadding="1" cellspacing="0" align="center">
  				    <tr>
-				    <th style="border: 1px black dotted"> שם </th> 
-				    <th style="border: 1px black dotted"> סכום </th>
-				    <th style="border: 1px black dotted"> מטבע </th>
+				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
+				    <th style="border: 1px #bca2a2 dotted"> סכום </th>
+				    <th style="border: 1px #bca2a2 dotted"> מטבע </th>
 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
@@ -460,13 +460,13 @@
 
 						<tr style="display: none;" class="assosiate financialSupport">
 
-						<td style="border: 1px black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth assosiate" path="fromAssosiate[${varStatus.index}].name"/>
 						</td>
-						<td style="border: 1px black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth assosiate" path="fromAssosiate[${varStatus.index}].sum"/>
 						</td>
-						<td style="border: 1px black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<form:select cssClass="greennoborder medium220" path="fromAssosiate[${varStatus.index}].currency">
       						<form:option value="0">מטבע</form:option>
        						<form:option value="1">שקל</form:option>
@@ -485,9 +485,9 @@
 					<br>ממממן חיצוני:
 					<table width="725" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: 1px black dotted"> שם </th> 
-				    <th style="border: 1px black dotted"> סכום </th>
-				    <th style="border: 1px black dotted"> מטבע </th>
+				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
+				    <th style="border: 1px #bca2a2 dotted"> סכום </th>
+				    <th style="border: 1px #bca2a2 dotted"> מטבע </th>
 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
@@ -512,13 +512,13 @@
            				<form:hidden path="fromExternal[${varStatus.index}].type"/>
 
 						<tr style="display: none;" class="external financialSupport">
-						<td style="border: 1px black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth external" path="fromExternal[${varStatus.index}].name"/>
 						</td>
-						<td style="border: 1px black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth external" path="fromExternal[${varStatus.index}].sum"/>
 						</td>
-						<td style="border: 1px black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<form:select cssClass="greennoborder medium220" path="fromExternal[${varStatus.index}].currency">
       						<form:option value="0">מטבע</form:option>
        						<form:option value="1">שקל</form:option>
@@ -537,21 +537,21 @@
 					<br>מדמי הרשמה:
 					<table width="725" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: 1px black dotted"> שם </th> 
-				    <th style="border: 1px black dotted"> סכום </th>
-				    <th style="border: 1px black dotted"> מטבע </th>
+				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
+				    <th style="border: 1px #bca2a2 dotted"> סכום </th>
+				    <th style="border: 1px #bca2a2 dotted"> מטבע </th>
 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
            				<c:forEach items="${command.fromAdmitanceFee}" var="fromAdmitanceFee">
 						<tr>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 						<c:out value="${fromAdmitanceFee.name}"></c:out>
 						</td>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 						<c:out value="${fromAdmitanceFee.sum}"></c:out>
 						</td>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 						<c:if test="${fromAdmitanceFee.currency==1}">שקל</c:if>
 						<c:if test="${fromAdmitanceFee.currency==2}">דולר</c:if>
 						</td>
@@ -564,13 +564,13 @@
            				<form:hidden path="fromAdmitanceFee[${varStatus.index}].type"/>
 
 						<tr style="display: none;" class="admitanceFee financialSupport">
-						<td style="border: 1px black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee" path="fromAdmitanceFee[${varStatus.index}].name"/>
 						</td>
-						<td style="border: 1px black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee" path="fromAdmitanceFee[${varStatus.index}].sum"/>
 						</td>
-						<td style="border: 1px black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<form:select cssClass="greennoborder medium220" path="fromAdmitanceFee[${varStatus.index}].currency">
       						<form:option value="0">מטבע</form:option>
        						<form:option value="1">שקל</form:option>
@@ -598,16 +598,16 @@
 				</tr>
 				<tr>
 				<td colspan="4" >
-				<table width="1000"  style="border:1px black dotted" cellpadding="2" cellspacing="0" align="center">
+				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 				<tr>
-					<td colspan="4" style="border:1px black dotted">
+					<td colspan="4" style="border:1px #bca2a2 dotted">
 					ועדה מדעית:
  					<table width="725"  cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: 1px black dotted"> שם </th> 
-				    <th style="border: 1px black dotted"> מוסד </th>
-				    <th style="border: 1px black dotted"> תפקיד במוסד </th>
-				    <th style="border: 1px black dotted"> תפקיד בועדה </th>
+				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
+				    <th style="border: 1px #bca2a2 dotted"> מוסד </th>
+				    <th style="border: 1px #bca2a2 dotted"> תפקיד במוסד </th>
+				    <th style="border: 1px #bca2a2 dotted"> תפקיד בועדה </th>
 					</tr>
  					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
@@ -633,16 +633,16 @@
            				<form:hidden path="scientificCommittees[${varStatus.index}].conferenceProposalId"/>
            				<form:hidden path="scientificCommittees[${varStatus.index}].type"/>
 						<tr style="display: none;" class="scientificCommittee committee">
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].name"/>
 						</td>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].institute"/>
 						</td>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].instituteRole"/>
 						</td>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
@@ -658,10 +658,10 @@
 					ועדה מארגנת:
  					<table width="725" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: 1px black dotted"> שם </th> 
-				    <th style="border: 1px black dotted"> מוסד </th>
-				    <th style="border: 1px black dotted"> תפקיד במוסד </th>
-				    <th style="border: 1px black dotted"> תפקיד בועדה </th>
+				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
+				    <th style="border: 1px #bca2a2 dotted"> מוסד </th>
+				    <th style="border: 1px #bca2a2 dotted"> תפקיד במוסד </th>
+				    <th style="border: 1px #bca2a2 dotted"> תפקיד בועדה </th>
 					</tr>
  					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
@@ -689,16 +689,16 @@
            				<form:hidden path="operationalCommittees[${varStatus.index}].type"/>
 						<tr style="display: none;" class="operationalCommittee committee">
 
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].name"/>
 						</td>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].institute"/>
 						</td>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].instituteRole"/>
 						</td>
-						<td style="border: 1px black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].committeeRole"/>
 						</td>					
 						<td>
@@ -723,9 +723,9 @@
 				</tr>
 				<tr>
 				<td>
-				<table width="1000"  style="border:1px black dotted" cellpadding="2" cellspacing="0" align="center">
+				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 	            <tr class="form">
-		       		<td width="300" style="border:1px black dotted">
+		       		<td width="300" style="border:1px #bca2a2 dotted">
 	   				סכום הסיוע המבוקש:
 					<c:if test="${!readOnly && !command.submitted}">			
 						<form:input cssClass="green medium100" path="supportSum" id="supportSum"/>
@@ -735,7 +735,7 @@
  						${command.supportSum}
 					</c:if>
 					</td>
-					<td style="border:1px black dotted">
+					<td style="border:1px #bca2a2 dotted">
 	   				<font>מטבע:</font>
 					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select path="supportCurrency" cssClass="green">
@@ -752,14 +752,14 @@
 						</c:choose>
 					</c:if>
 					</td>
-					<td style="border:1px black dotted">&nbsp;</td>
+					<td style="border:1px #bca2a2 dotted">&nbsp;</td>
 				</tr>
 				<tr style="display:none;">
 				<td colspan="4"><div id="errorsupportsum" dir="rtl"><p></p></div>
 				</td>
 				</tr>
 	            <tr class="form">
-		       		<td style="border:1px black dotted">
+		       		<td style="border:1px #bca2a2 dotted">
 					<c:if test="${!readOnly && !command.submitted}">			
 		       		    אולם<form:checkbox cssClass="green" path="auditorium"/>
 					</c:if>
@@ -776,7 +776,7 @@
 						חדר סמנירים<input type="checkbox" disabled="disabled" value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
 					</c:if>
 					</td>
-					<td style="border:1px black dotted">
+					<td style="border:1px #bca2a2 dotted">
 	   					מספר משתתפים:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green medium50" path="participants" id="participants"/>
@@ -786,7 +786,7 @@
 	   					${command.participants}
 					</c:if>
 					</td>
-					<td style="border:1px black dotted">
+					<td style="border:1px #bca2a2 dotted">
 	   				  קמפוס מועדף:
  					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select path="prefferedCampus" cssClass="green">
@@ -824,9 +824,9 @@
 				</tr>
 	            <tr>
 	            <td colspan="4">
-				<table width="1000"  style="border:1px black dotted" cellpadding="2" cellspacing="0" align="center">
+				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 	            <tr>
-	            	<td colspan="4" style="border:1px black dotted">
+	            	<td colspan="4" style="border:1px #bca2a2 dotted">
 					<c:if test="${!readOnly && !command.submitted}">			
 		       		   <font> ארגון ע"י חברה מסחרית</font><form:checkbox cssClass="green" id="company" path="organizingCompany"/>
 					</c:if>
@@ -837,7 +837,7 @@
 					</td>
 				</tr>
 	            <tr class="form organizingCompanyPart">
-		       		<td nowrap style="border:1px black dotted">שם החברה:
+		       		<td nowrap style="border:1px #bca2a2 dotted">שם החברה:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyName" />
 					</c:if>
@@ -846,7 +846,7 @@
 	   					${command.organizingCompanyName}
 					</c:if>
 					</td>
-		       		<td style="border:1px black dotted">טלפון:
+		       		<td style="border:1px #bca2a2 dotted">טלפון:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyPhone" id="organizingCompanyPhone"/>
 					</c:if>
@@ -855,7 +855,7 @@
 	   					${command.organizingCompanyPhone}
 					</c:if>
 					</td>
-		       		<td style="border:1px black dotted">פקס:
+		       		<td style="border:1px #bca2a2 dotted">פקס:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyFax" id="organizingCompanyFax"/>
 					</c:if>
@@ -864,7 +864,7 @@
 	   					${command.organizingCompanyFax}
 					</c:if>
 	   				</td>
-				    <td style="border:1px black dotted">אימייל:
+				    <td style="border:1px #bca2a2 dotted">אימייל:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium250" path="organizingCompanyEmail" id="organizingCompanyEmail"/>
 					</c:if>
@@ -875,7 +875,7 @@
 	   				</td>
 				</tr>
 	            <tr class="form">
-		       		<td nowrap style="border:1px black dotted">שם איש קשר:
+		       		<td nowrap style="border:1px #bca2a2 dotted">שם איש קשר:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPerson" />
 					</c:if>
@@ -884,7 +884,7 @@
 	   					${command.contactPerson}
 					</c:if>
 					</td>
-		       		<td nowrap style="border:1px black dotted">תפקיד:
+		       		<td nowrap style="border:1px #bca2a2 dotted">תפקיד:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPersonRole" />
 					</c:if>
@@ -893,7 +893,7 @@
 	   					${command.contactPersonRole}
 					</c:if>
 					</td>
-		       		<td nowrap style="border:1px black dotted">טלפון:
+		       		<td nowrap style="border:1px #bca2a2 dotted">טלפון:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPersonPhone" id="contactPersonPhone"/>
 					</c:if>
@@ -902,7 +902,7 @@
 	   					${command.contactPersonPhone}
 					</c:if>
 					</td>
-				    <td nowrap style="border:1px black dotted">אימייל:
+				    <td nowrap style="border:1px #bca2a2 dotted">אימייל:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input htmlEscape="true" cssClass="green medium250" path="contactPersonEmail" id="contactPersonEmail"/>
 					</c:if>
@@ -930,9 +930,9 @@
         		 </tr>
         		<tr>
         		<td colspan="4">
-				<table width="1000"  style="border:1px black dotted" cellpadding="2" cellspacing="0" align="center">
+				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
         		<tr>
-        		<td colspan="4" style="border:1px black dotted">
+        		<td colspan="4" style="border:1px #bca2a2 dotted">
         		<table>
 				<tr>
 					<td colspan="4">הערות לועדה:
@@ -988,9 +988,9 @@
         		 </tr>
 				<tr>
 				<td colspan="4">
-				<table width="1000"  style="border:1px black dotted" cellpadding="2" cellspacing="0" align="center">
+				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 				<tr>
-				<td colspan="4" style="border:1px black dotted">
+				<td colspan="4" style="border:1px #bca2a2 dotted">
 				<table>
 
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">			
