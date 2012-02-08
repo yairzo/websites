@@ -91,28 +91,50 @@ $(document).ready(function() {
     	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
 		$("#form").submit();
     });
+    
     $('#buttonStartGrading').click(function(event){
-    	
-    	$( "#dialog:ui-dialog" ).dialog( "destroy" );
-    	$( "#dialog-confirm" ).dialog({
-			resizable: false,
-			height:250,
-			width: 400,
-			modal: true,
-			title: "אישור שליחת בקשה לדירוג",
+		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+    	if($('#approver').val()==0){
+ 			$( "#dialog-confirm" ).dialog({
+ 		        autoOpen: false,
+				resizable: false,
+				height:250,
+				width: 400,
+				modal: true,
+				title: "שליחת בקשה לדירוג",
 			
-			buttons: {
-				"שלח": function() {
+				buttons: {
+					"סגור": function() {
+					$( this ).dialog( "close" );
+					}
+				}
+			});
+ 	  	    $("#dialog-confirm").text("לא נבחר דיקן מאשר").dialog("open");
+		}
+   		else{
+    			$( "#dialog-confirm" ).dialog({
+     		    autoOpen: false,
+				resizable: false,
+				height:250,
+				width: 400,
+				modal: true,
+				title: "שליחת בקשה לדירוג",
+			
+				buttons: {
+					"שלח": function() {
 					$("#form").append("<input type=\"hidden\" name=\"action\" value=\"startGrading\"/>");
 			    	$("#form").submit();
-				},
-				"בטל": function() {
+					},
+					"בטל": function() {
 					$( this ).dialog( "close" );
+					}
 				}
-			}
-		});
+			});
+     	  	$("#dialog-confirm").text("את/ה עומד/ת לשלוח בקשה לדירוג במייל לדיקן. האם את/ה מאשר/ת ?").dialog("open");
+    	}
     	event.preventDefault();
     	return false;
+    	
     });
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>

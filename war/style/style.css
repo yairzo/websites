@@ -81,6 +81,12 @@ th
 	width: 200px;
 	vertical-align: top;
 }
+.medium220
+{
+	text-align: right;
+	width: 250px;
+	vertical-align: top;
+}
 .medium300
 {
 	text-align: right;
@@ -126,13 +132,21 @@ input.green
 	border: 1px solid #767468;
 	background-color:#F4EEE4;
 }
-
+input.greennoborder
+{
+	border: 0;
+	background-color:#F4EEE4;
+}
 select.green
 {
 	border: 1px solid #767468;
 	background-color:#F4EEE4;
 }
-
+select.greennoborder
+{
+	border: 0;
+	background-color:#F4EEE4;
+}
 .grey
 {
 	font-size: 14px;

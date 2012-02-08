@@ -215,7 +215,7 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td colspan="5">
-						<table>
+						<table dir="rtl">
 							<tr>
 								<td>הערה כללית לועדה:</td>
 								<td align="center"><textarea class="green"

@@ -115,8 +115,6 @@ $(document).ready(function() {
 	}, {delay: 2000});
 	
 	$('form').find('select').change(function(){
-		alert('here');
-
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>

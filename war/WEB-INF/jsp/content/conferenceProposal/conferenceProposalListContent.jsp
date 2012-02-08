@@ -167,7 +167,7 @@
     		</tr>
     		<tr>
 				<td>
-  					<select name="approver" class="green">
+  					<select name="approver" id="approver" class="green">
       					<option value="0">בחר דיקן לשליחת בקשה לדירוג</option>
        					<c:forEach items="${deans}" var="deanPerson">
 	        				<option htmlEscape="true" value="${deanPerson.id}" ><c:out escapeXml="false" value="${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/></option>
