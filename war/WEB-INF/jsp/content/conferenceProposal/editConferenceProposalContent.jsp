@@ -139,7 +139,7 @@
 				<table width="1000" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 				<tr>
 				<td colspan="4" style="border:1px #bca2a2 dotted">
-				<table>
+				<table width="980">
 				<tr>
 					<td colspan="4">
 						 <font>נושא הכנס (באנגלית):</font>
@@ -147,8 +147,8 @@
 				</tr>
 				<tr class="form">
 					<c:if test="${!readOnly && !command.submitted}">
-					<td colspan="4">
-						<form:textarea cssClass="green" path="subject" id="subject" cols="105" rows="2"/>
+					<td colspan="4" align="center">
+						<form:textarea cssClass="green" path="subject" id="subject" cols="80" rows="2"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
@@ -167,7 +167,7 @@
 				</tr>
 
 				<tr class="form">
-					<td style="border:1px #bca2a2 dotted" align="center">
+					<td style="border:1px #bca2a2 dotted">
 						תחילת הכנס:
 					<c:if test="${!readOnly && !command.submitted}">
 						<input type="text" class="green medium100" name="startConfDate" id="startConfDate" value="${startConfDate}" readonly="readonly"/>
@@ -176,7 +176,7 @@
 						${startConfDate}
 					</c:if>
 					</td>
-					<td style="border:1px #bca2a2 dotted" align="center">
+					<td style="border:1px #bca2a2 dotted">
 						סיום הכנס:
 					<c:if test="${!readOnly && !command.submitted}">
 						<input type="text" class="green medium100" name="endConfDate" id="endConfDate" value="${endConfDate}" readonly="readonly"/>
@@ -185,7 +185,7 @@
 						${endConfDate}
 					</c:if>
 					</td>
-					<td style="border:1px #bca2a2 dotted" align="center">
+					<td style="border:1px #bca2a2 dotted">
 						 מיקום:
 					<c:if test="${!readOnly && !command.submitted}">
       					<form:select path="location" cssClass="green">
@@ -204,7 +204,7 @@
 						</c:choose>
 					</c:if>
 					</td>
-					<td style="border:1px #bca2a2 dotted" align="center">
+					<td style="border:1px #bca2a2 dotted">
 						פירוט מיקום:
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input htmlEscape="true" cssClass="green medium200" path="locationDetail"/>
@@ -216,7 +216,7 @@
 					</td>
 				</tr>
 				<tr class="form">
-					<td colspan="2" style="border:1px #bca2a2 dotted">
+					<td colspan="3" style="border:1px #bca2a2 dotted">
 					   מספר משתתפים:
 				       <table style="border: 1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 				       <tr>
@@ -230,7 +230,7 @@
 						</td>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium50" path="foreignLecturers" />
+							<form:input cssClass="greennoborder medium150" path="foreignLecturers" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
@@ -241,7 +241,7 @@
 						</c:if>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium50" path="foreignGuests" />
+							<form:input cssClass="greennoborder medium150" path="foreignGuests" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
@@ -257,7 +257,7 @@
 						</td>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium50" path="localLecturers" />
+							<form:input cssClass="greennoborder medium150" path="localLecturers" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
@@ -268,7 +268,7 @@
 						</c:if>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium50" path="localGuests" />
+							<form:input cssClass="greennoborder medium150" path="localGuests" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
@@ -284,7 +284,7 @@
 						</td>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium50" path="audienceLecturers" />
+							<form:input cssClass="greennoborder medium150" path="audienceLecturers" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
@@ -295,7 +295,7 @@
 						</c:if>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium50" path="audienceGuests" />
+							<form:input cssClass="greennoborder medium150" path="audienceGuests" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
@@ -309,7 +309,7 @@
 						<br>
  				    </td>
 
-				<td colspan="2" style="border:1px #bca2a2 dotted">
+				<td style="border:1px #bca2a2 dotted">
 				<table align="center">
 					<tr class="form">
 				       <td><font>רשימת מוזמנים:</font></td>
@@ -348,7 +348,7 @@
 				
 				<tr>
 				<td colspan="4" style="border:1px #bca2a2 dotted">
-				<table>
+				<table width="980">
 				<tr>
 					<td colspan="4"> 
 						יש לפרט את התוכן העיוני של הכנס וחשיבותו לתחום:
@@ -356,8 +356,8 @@
 				</tr>
 				<tr class="form">
 					<c:if test="${!readOnly && !command.submitted}">
-					<td colspan="4" >
-						<form:textarea htmlEscape="true" cssClass="green" path="description" cols="105" rows="4"/>
+					<td colspan="4" align="center">
+						<form:textarea htmlEscape="true" cssClass="green" path="description" cols="80" rows="4"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
@@ -367,6 +367,7 @@
 					</td>
 					</c:if>
 				</tr>
+				<tr><td>&nbsp;</td></tr>
 				</table>
 				</td>
 				</tr>
@@ -374,6 +375,7 @@
 				</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
+				
 	            <tr class="form">
 		       		<td colspan="4" align="right"><h3>תקציב הכנס</h3></td>
 				</tr>
@@ -933,15 +935,16 @@
 				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
         		<tr>
         		<td colspan="4" style="border:1px #bca2a2 dotted">
-        		<table>
+        		<table width="980">
 				<tr>
-					<td colspan="4">הערות לועדה:
+					<td colspan="4">
+					הערות לועדה:
 					</td>
 				</tr>
 				<tr>
 					<c:if test="${!readOnly && !command.submitted}">			
-					<td colspan="4" >
-						<form:textarea htmlEscape="true" cssClass="green" path="remarks" cols="105" rows="3"/>
+					<td colspan="4" align="center">
+						<form:textarea htmlEscape="true" cssClass="green" path="remarks" cols="80" rows="3"/>
 					</td>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
@@ -951,6 +954,7 @@
 	   				</td>
 					</c:if>
 				</tr>																
+				<tr><td>&nbsp;</td></tr>
 	            <tr id="deanApproval" class="form">
 		       		<td colspan="4">
 	   				<font>הגורם המאשר:</font>
@@ -981,7 +985,6 @@
 				</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
-				
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
 				<tr>
 		             <td colspan="4"><h3>&nbsp;</h3></td>
@@ -991,7 +994,7 @@
 				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 				<tr>
 				<td colspan="4" style="border:1px #bca2a2 dotted">
-				<table>
+				<table width="980">
 
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">			
 				<c:if test="${command.submitted}">			
@@ -1013,8 +1016,8 @@
 		       		<td>חוות דעת הדיקן המאשר:</td>
 				</tr>
 				<tr>
-				    <td colspan="4">
-						<form:textarea htmlEscape="true" cssClass="green" path="approverEvaluation" cols="105" rows="3"/>
+				    <td colspan="4" align="center">
+						<form:textarea htmlEscape="true" cssClass="green" path="approverEvaluation" cols="80" rows="3"/>
 					</td>
 				</tr>
 				</authz:authorize>
@@ -1023,8 +1026,8 @@
 					<td>הערות הרשות למו"פ:</td>
 				</tr>
 				<tr>
-					<td colspan="4">
-						<form:textarea htmlEscape="true" cssClass="green" path="adminRemarks" cols="105" rows="3"/>
+					<td colspan="4" align="center">
+						<form:textarea htmlEscape="true" cssClass="green" path="adminRemarks" cols="80" rows="3"/>
 					</td>
 				</tr>
 				</authz:authorize>
@@ -1041,8 +1044,8 @@
 					<td><font>הוסף הערה:</font></td>
 				</tr>
 				<tr>
-					<td colspan="4">
-						<textarea htmlEscape="true" class="green" name="newCommitteeRemarks" cols="105" rows="1"></textarea>
+					<td colspan="4" align="center">
+						<textarea htmlEscape="true" class="green" name="newCommitteeRemarks" cols="80" rows="1"></textarea>
 					</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>

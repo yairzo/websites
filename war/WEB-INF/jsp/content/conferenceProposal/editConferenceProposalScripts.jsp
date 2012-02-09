@@ -111,7 +111,6 @@ $(document).ready(function() {
 			hideExtraCommittee("assosiate");
 		if (elementClass.indexOf("external")!=-1)
 			hideExtraCommittee("external");
-	    $('#ajaxSubmit').remove();
 	}, {delay: 2000});
 	
 	$('form').find('select').change(function(){
@@ -121,7 +120,6 @@ $(document).ready(function() {
 		$("#form").ajaxForm();
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 	    $('#form').ajaxSubmit();
-	    $('#ajaxSubmit').remove();
 	});
 
 	
@@ -300,8 +298,11 @@ $(document).ready(function() {
 			return false;
 		}
 		else{
+			$("#form").ajaxForm();
 			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
-    		$("#form").submit();
+    		$("#form").ajaxSubmit();
+    		window.location.reload();
+    		openHelp('','הטופס הוגש בהצלחה')
     		return true;
 		}
     });
@@ -310,8 +311,10 @@ $(document).ready(function() {
 	$("button.submit").click(function(){
 		$("#form").ajaxForm();
 		$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"saved\"/>");
-		$("#form").submit();
-    	window.location.reload();
+		$("#form").ajaxSubmit();
+		window.location.reload();
+		openHelp('','הטופס נשמר בהצלחה')
+   		return true;
     });	
 	
     
@@ -358,12 +361,6 @@ $(document).ready(function() {
     		$("#genericDialog").dialog("option", "position", "center");
     });   
     
-	<c:if test="${userMessage!=null}">
-	var userMessage = "${userMessage}";
-   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
-	$("#genericDialog").dialog({ modal: false });
-	openHelp("",userMessage);
-    </c:if> 
    
 });
 

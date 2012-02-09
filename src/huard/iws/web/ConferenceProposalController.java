@@ -144,12 +144,8 @@ public class ConferenceProposalController extends GeneralFormController{
 		}
 		
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
-		if(request.getParameter("showMessage", "").equals("saved")){
-			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
-			request.getSession().setAttribute("userMessage", userMessage);
-		}	
+
 		//return to same page
-		System.out.println("11111111111" + request.getBooleanParameter("ajaxSubmit", false));
 		if (request.getBooleanParameter("ajaxSubmit", false)){
 			return null;
 		}

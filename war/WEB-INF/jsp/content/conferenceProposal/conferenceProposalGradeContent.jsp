@@ -149,8 +149,6 @@ $(document).ready(function() {
 						<input type="hidden" id="listViewOrderBy" name="listView.orderBy"
 							value="${command.listView.orderBy}" />
 
-						<c:choose>
-							<c:when test="${fn:length(conferenceProposals) > 0}">
 								<table width="900" border="0" align="center" cellpadding="3"
 									dir="rtl">
 									<tr>
@@ -159,11 +157,13 @@ $(document).ready(function() {
 									</tr>
 								</table>
 
+						<c:choose>
+							<c:when test="${fn:length(conferenceProposals) > 0}">
 								<div id="genericDialog" title="כנסים" style="display: none"
 									dir="rtl"></div>
 
 								<table width="900" border="0" cellspacing=0 cellpadding=2
-									rules="groups" dir="rtl">
+									dir="rtl">
 									<thead>
 										<tr>
 											<td width="150">שם החוקר/ת</td>
@@ -207,19 +207,18 @@ $(document).ready(function() {
 										</c:forEach>
 									</tbody>
 								</table>
-				</td>
-			</tr>
+			<table width="900" border="0" align="center" cellpadding="3" dir="rtl">
 			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
 				<tr>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td colspan="5">
-						<table dir="rtl">
+						<table width="900" dir="rtl">
 							<tr>
 								<td>הערה כללית לועדה:</td>
-								<td align="center"><textarea class="green"
-										name="deadlineRemarks" id="deadlineRemarks" rows="3" cols="80">${deadlineRemarks}</textarea>
+								<td align="center">
+								<textarea class="green"	name="deadlineRemarks" id="deadlineRemarks" rows="3" cols="80">${deadlineRemarks}</textarea>
 								</td>
 							</tr>
 						</table></td>
@@ -248,6 +247,10 @@ $(document).ready(function() {
 				</tr>
 			</c:otherwise>
 			</c:choose>
+
+		</table>								
+		</td>
+		</tr>
 
 		</table>
 	</td>
