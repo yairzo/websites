@@ -6,6 +6,8 @@
 
 $(document).ready(function() {
 	
+	$("#form").ajaxForm();
+	
 	hideExtraCommittee("scientificCommittee");
 	hideExtraCommittee("operationalCommittee");
 	hideExtraCommittee("admitanceFee");
@@ -97,7 +99,7 @@ $(document).ready(function() {
 	       	 	url:       'editConferenceProposal.html' ,        
 	       	 	type:      'POST'
      	};
-   		$("#form").ajaxForm();
+   		
    		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 	    $('#form').ajaxSubmit(options);
 		var elementClass = $(this).attr('class');
@@ -117,7 +119,7 @@ $(document).ready(function() {
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		$("#form").ajaxForm();
+		
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 	    $('#form').ajaxSubmit();
 	});
@@ -186,7 +188,7 @@ $(document).ready(function() {
             "כן" : function() {
                 $(this).dialog("close");
     	   		deleteButton.parents('tr.financialSupport').remove();
-    	   		$("#form").ajaxForm();
+    	   		
     	   		$("#form").ajaxSubmit();
     			return true;
                }
@@ -208,7 +210,7 @@ $(document).ready(function() {
             "כן" : function() {
                 $(this).dialog("close");
     	   		deleteButton.parents('tr.committee').remove();
-    	   		$("#form").ajaxForm();
+    	   		
     	   		$("#form").ajaxSubmit();
     	        return true;
             }
@@ -298,23 +300,28 @@ $(document).ready(function() {
 			return false;
 		}
 		else{
-			$("#form").ajaxForm();
 			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
-    		$("#form").ajaxSubmit();
-    		window.location.reload();
-    		openHelp('','הטופס הוגש בהצלחה')
-    		return true;
+			var options = { 
+	   			success:    function() { 
+	   			   	openHelp('','הטופס הוגש בהצלחה')
+	   			   	window.location.reload(); 
+	    		} 
+			}; 
+			$("#form").ajaxSubmit(options);
+    		return false;
 		}
     });
 	
 	
 	$("button.submit").click(function(){
-		$("#form").ajaxForm();
-		$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"saved\"/>");
-		$("#form").ajaxSubmit();
-		window.location.reload();
-		openHelp('','הטופס נשמר בהצלחה')
-   		return true;
+		var options = { 
+	   		success:    function() { 
+	   		   	openHelp('','הטופס נשמר')
+	   		   	window.location.reload(); 
+	    	} 
+		}; 
+		$("#form").ajaxSubmit(options);
+    	return false;
     });	
 	
     
@@ -341,16 +348,7 @@ $(document).ready(function() {
 	  return false;
    }); 
    
-   var fieldname=""; 
-   function openHelp(name,mytext){
-	    fieldname=name;
-   	 	if(fieldname=="")
-	    	$("#genericDialog").dialog("option", "position", "center");
-	    else
-   	 		$('#genericDialog').dialog({position: { my: 'top', at: 'top', of: $(name)} });
-   	 	
-	    $("#genericDialog").text(mytext).dialog("open");
-    } 
+   
     
     $("#form,#genericDialog").click(function(e){
     	$("#genericDialog").dialog("close");
@@ -363,6 +361,17 @@ $(document).ready(function() {
     
    
 });
+
+var fieldname=""; 
+function openHelp(name,mytext){
+	    fieldname=name;
+	 	if(fieldname=="")
+	    	$("#genericDialog").dialog("option", "position", "center");
+	    else
+	 		$('#genericDialog').dialog({position: { my: 'top', at: 'top', of: $(name)} });
+	 	
+	    $("#genericDialog").text(mytext).dialog("open");
+} 
 
 
 function hideExtraCommittee(trCssClass){
