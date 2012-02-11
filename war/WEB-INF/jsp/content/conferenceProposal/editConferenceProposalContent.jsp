@@ -1000,7 +1000,7 @@
 				<c:if test="${command.submitted}">			
 				<tr class="form">
 					<td>
-				   		<input type="checkbox" class="green" name="cancelSubmission"/><font>ביטול הגשה</font>
+				   		<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/><font>ביטול הגשה</font>
  					</td>
 					<c:if test="${!command.isInsideDeadline}">			
 					<td colspan=3>

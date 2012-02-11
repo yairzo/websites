@@ -91,7 +91,7 @@ $(document).ready(function() {
  
     });
 
-	$('form').find('input:not([class*=submit])').autoSave(function(){		
+	$('form').find('input:not([class*=submit],[class*=cancelSubmission])').autoSave(function(){		
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
@@ -296,14 +296,16 @@ $(document).ready(function() {
 			$("#errorcontactPersonPhone").html('');
 		}
 		if (errors){
-			alert('errors');
+		   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
 			return false;
 		}
 		else{
 			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
 			var options = { 
 	   			success:    function() { 
-	   			   	openHelp('','הטופס הוגש בהצלחה')
+	   			   	openHelp('','הטופס הוגש בהצלחה');
 	   			   	window.location.reload(); 
 	    		} 
 			}; 

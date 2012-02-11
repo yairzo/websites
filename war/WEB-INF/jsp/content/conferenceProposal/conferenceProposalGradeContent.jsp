@@ -180,11 +180,10 @@ $(document).ready(function() {
 
 											<tr
 												class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
-												<td width="150"><a
-													href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out
+												<td width="150"><c:out
 															value="${conferenceProposal.researcher.firstNameHebrew}" />&nbsp;<c:out
 															value="${conferenceProposal.researcher.lastNameHebrew}" />
-												</a></td>
+												</td>
 												<td width="350"><a
 													href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out
 															value="${conferenceProposal.subject}" />
