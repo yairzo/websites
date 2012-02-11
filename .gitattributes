@@ -341,6 +341,7 @@ war/js/ckeditor/skins/v2/images/sprites_ie6.png svn_mime_002dtype=application%2F
 war/js/ckeditor/skins/v2/images/toolbar_start.gif svn_mime_002dtype=application%2Foctet-stream
 war/js/jquery-1.6.2.min.js svn_mime_002dtype=text%2Fplain
 war/js/jquery-ui-1.8.16.custom.min.js svn_mime_002dtype=text%2Fplain
+war/js/jquery-ui-timepicker-addon.js svn_mime_002dtype=text%2Fplain
 war/js/tiny_mce/plugins/advimage/img/sample.gif svn_mime_002dtype=application%2Foctet-stream
 war/js/tiny_mce/plugins/emotions/img/smiley-cool.gif svn_mime_002dtype=application%2Foctet-stream
 war/js/tiny_mce/plugins/emotions/img/smiley-cry.gif svn_mime_002dtype=application%2Foctet-stream
@@ -390,3 +391,4 @@ war/js/tiny_mce/themes/advanced/skins/o2k7/img/button_bg_silver.png svn_mime_002
 war/js/tiny_mce/themes/simple/img/icons.gif svn_mime_002dtype=application%2Foctet-stream
 war/js/tiny_mce/themes/simple/skins/o2k7/img/button_bg.png svn_mime_002dtype=application%2Foctet-stream
 war/style/jquery-ui-1.8.16.custom.css svn_mime_002dtype=text%2Fplain
+war/style/jquery-ui-timepicker-addon.css svn_mime_002dtype=text%2Fplain

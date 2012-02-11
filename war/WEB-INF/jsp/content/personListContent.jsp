@@ -36,6 +36,12 @@ function resetAutocomplete(persons){
 	);
 }
 
+function cleanSearch(){
+	$("input#searchPhrase").val('');
+	$("input#listViewPage").remove();
+	$("input#orderBy").remove();
+}
+
 $(document).ready(function() {
 
 
@@ -87,11 +93,7 @@ $(document).ready(function() {
 });
 
 
-function cleanSearch(){
-	$("input#searchPhrase").val('');
-	$("input#listViewPage").remove();
-	$("input#orderBy").remove();
-}
+
 
 
 

@@ -1,13 +1,52 @@
 <%@ page  pageEncoding="UTF-8" %>
 
+
+<style>
+	.ui-autocomplete {
+		max-height: 200px;
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+		/* add padding to account for vertical scrollbar */
+		padding-right: 20px;
+		direction: rtl;
+	}
+	
+	.ui-autocomplete li {
+		list-style-type: none;
+	}
+
+
+</style>
+
 <script language="Javascript">
+
+
 
 var lists = "<c:forEach items="${allLists}" var="list"><c:out value="${list.name}"/>,</c:forEach>".split(",");
 
-function resetAutocomplete(){
-	$("#searchPhrase").unautocomplete();
-	$("#searchPhrase").autocomplete(lists, {align: 'right'});
+function resetAutocomplete(lists){
+	$("#searchPhrase").autocomplete( 
+			{source: lists,
+			 minLength: 2,
+			 highlight: true,
+			 select: function(event, ui) {
+				 $("input#listViewPage").remove();
+				$("input#orderBy").remove();
+				$("#searchPhrase").val(ui.item.label);
+				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+				$("#form").submit();				 
+			 }
+		    }
+	);
 }
+
+function cleanSearch(){
+	$("input#searchPhrase").val('');
+	$("input#listViewPage").remove();
+	$("input#orderBy").remove();
+}
+
 
 $(document).ready(function() {
 
@@ -50,19 +89,21 @@ $(document).ready(function() {
     });
 
     $("#buttonCleanSearch").click(function(){
-    $("input#searchPhrase").val('');
-   $("input#listViewPage").remove();
-	$("input#orderBy").remove();
-	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-	$("#form").submit();
-    return true;
+    	cleanSearch();
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+		$("#form").submit();
+    	return true;
+    });
+    
+    $("#searchPhrase").click(function(){
+    	cleanSearch()
     });
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 
 
 
-resetAutocomplete();
+resetAutocomplete(lists);
 $("#searchPhrase").focus();
 
 });

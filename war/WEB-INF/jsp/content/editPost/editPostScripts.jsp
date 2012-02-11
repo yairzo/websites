@@ -1,3 +1,23 @@
+<%@ page  pageEncoding="UTF-8" %>
+
+<style>
+	.ui-autocomplete {
+		max-height: 200px;
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+		/* add padding to account for vertical scrollbar */
+		padding-right: 20px;
+		direction: rtl;
+	}
+	
+	.ui-autocomplete li {
+		list-style-type: none;
+	}
+
+
+</style>
+
 <script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>
@@ -144,6 +164,15 @@
 			var targetId = $(element).parent().attr("id");
 			$("tbody#"+targetId+"Sub").toggle();
 	}
+	
+	function resetAutocomplete(callOfProposals){
+		$("input.callOfProposal").autocomplete( 
+				{source: callOfProposals,
+				 minLength: 2,
+				 highlight: true				 
+			    }
+		);
+	}
 
 
 
@@ -185,8 +214,7 @@
 		if (typeId <=3){
 			$.get('selectBoxFiller',{type:'callOfProposal',localeId:'${command.localeId}'},function(data){
    	   				callOfProposals = data.split(",,");
-   	   				$("input.callOfProposal").unautocomplete();
-   	   				$("input.callOfProposal").autocomplete(callOfProposals, {align: 'left', scroll: 'true', scrollHeight: 90});
+   	   				resetAutocomplete(callOfProposals);   	   				
    	             });
 		}
 		else{
@@ -212,8 +240,7 @@
 		$("a.reloadCallOfProposalsList").click(function(){
 			$.get('selectBoxFiller',{type:'callOfProposal',localeId:'${command.localeId}'},function(data){
    	   				callOfProposals = data.split(",,");
-   	   				$("input.callOfProposal").unautocomplete();
-   	   				$("input.callOfProposal").autocomplete(callOfProposals, {align: 'left', scroll: 'true', scrollHeight: 90});
+   	   				resetAutocomplete(callOfProposals);   
    	             });
    	     });
 
@@ -393,10 +420,36 @@
 				}
 				return false;
 			});
+		
+	
+	
+	$("#date").datepicker({ dateFormat: 'dd/mm/yy'
+    });
+	
+	$(function() {
+        $.datepicker.regional['he'] = {
+            closeText: 'סגור',
+            prevText: '&#x3c;הקודם',
+            nextText: 'הבא&#x3e;',
+            currentText: 'היום',
+            monthNames: ['ינואר','פברואר','מרץ','אפריל','מאי','יוני',
+            'יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'],
+            monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+            dayNames: ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'],
+            dayNamesShort: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
+            dayNamesMin: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
+            weekHeader: 'Wk',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 0,
+            isRTL: true,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['he']);
+ 
+    });
+		
+		
 	});
-
-$(function(){
-		$('#date').datePicker(); //.val(new Date().asString()).trigger('change');
-});
 
 </script>
