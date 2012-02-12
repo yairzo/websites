@@ -194,6 +194,9 @@ public class ConferenceProposalListController extends GeneralFormController {
 			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getWhereClause());
 			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
 			request.getSession().setAttribute("conferenceProposalSearchCreteria", searchCreteria);
+			ListView listView = new ListView();
+			listView.setPage(request.getIntParameter("listView.page", 1));			
+			request.getSession().setAttribute("conferenceProposalListView", listView);
 		}
 		return searchCommand;
 	}

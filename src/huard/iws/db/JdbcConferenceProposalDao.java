@@ -31,7 +31,6 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		logger.info(query);
 		ConferenceProposal conferenceProposal =
 			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
-		logger.info("conference proposal id: " + conferenceProposal.getId());
 		conferenceProposal.setFromAssosiate(getSupportFromAssosiate(id));
 		conferenceProposal.setFromExternal(getSupportFromExternal(id));
 		conferenceProposal.setFromAdmitanceFee(getSupportFromAdmitanceFee(id));
@@ -42,6 +41,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public List<FinancialSupport> getSupportFromAssosiate(int conferenceProposalId){
 		String query = "select * from financialSupport where conferenceProposalId=? and type=1";
+		logger.info(query);
 		List<FinancialSupport> supportFromAssosiate =
 			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
 		return supportFromAssosiate;
@@ -49,6 +49,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 	public List<FinancialSupport> getSupportFromExternal(int conferenceProposalId){
 		String query = "select * from financialSupport where conferenceProposalId=? and type=2";
+		logger.info(query);
 		List<FinancialSupport> supportFromExternal =
 			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
 		return supportFromExternal;
@@ -56,6 +57,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public List<FinancialSupport> getSupportFromAdmitanceFee(int conferenceProposalId){
 		String query = "select * from financialSupport where conferenceProposalId=? and type=3";
+		logger.info(query);
 		List<FinancialSupport> supportFromAdmitanceFee =
 			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
 		return supportFromAdmitanceFee;
@@ -63,6 +65,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public List<Committee> getScientificCommittees(int conferenceProposalId){
 		String query = "select * from committee where conferenceProposalId=? and type=1";
+		logger.info(query);
 		List<Committee> scientificCommittees =
 			getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
 		return scientificCommittees;
@@ -70,6 +73,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public List<Committee> getOperationalCommittees(int conferenceProposalId){
 		String query = "select * from committee where conferenceProposalId=? and type=2";
+		logger.info(query);
 		List<Committee> operationalCommittees =
 			getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
 		return operationalCommittees;
@@ -105,6 +109,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		if (financialSupport.isEmpty())
 			return;
 		String query = "insert financialSupport set conferenceProposalId = ?, name = ?, sum = ?, type = ?, currency = ?";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				financialSupport.getConferenceProposalId(),
 				financialSupport.getName(),
@@ -115,6 +120,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	}   
 	public void updateFinancialSupport(FinancialSupport financialSupport){
 		String query = "update financialSupport set name = ?, sum = ?, currency = ?, type=?  where id =?";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				financialSupport.getName(),
 				financialSupport.getSum(),
@@ -145,6 +151,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public void insertCommittees(ConferenceProposal conferenceProposal){
 		String query = "delete from committee where conferenceProposalId = ?";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposal.getId());
 		for (Committee committee: conferenceProposal.getScientificCommittees()){
@@ -157,6 +164,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 	public void insertFinancialSupports(ConferenceProposal conferenceProposal){
 		String query = "delete from financialSupport where conferenceProposalId = ?";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposal.getId());
 		for (FinancialSupport financialSupport: conferenceProposal.getFromAssosiate()){
@@ -172,11 +180,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 	public void deleteFinancialSupport(int financialSupportId){
 		String query = "delete from financialSupport where id = ?;";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query, financialSupportId);
 	}
 
 	public void updateCommittee(Committee committee){
 		String query = "update committee set name = ?, institute = ?, instituteRole = ?, committeeRole = ? where id=?";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				committee.getName(),
 				committee.getInstitute(),
@@ -187,6 +197,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	} 	
 	public void deleteCommittee(int committeeId){
 		String query = "delete from committee where id = ?;";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query, committeeId);
 	}
 	
@@ -202,8 +213,10 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	} 
 	public void updateLastGradingByApproverDeadline(int approverId,String deadline){
 		String query = "select max(id) from conferenceProposalGrading where approverId = ? and date(deadline) =?;";
+		logger.info(query);
 		int id = getSimpleJdbcTemplate().queryForInt(query,approverId, deadline);
 		query = "update conferenceProposalGrading set finishedGradingDate=now() where id=?;";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query, id);
 	}
 	
@@ -239,9 +252,10 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
     };	
     
 	public ConferenceProposal getVersionConferenceProposal(int confId, int verId){
-		String conferenceSelect = "select  * from conferenceProposalVersion where conferenceProposalId = ? and id = ? ";
+		String query = "select  * from conferenceProposalVersion where conferenceProposalId = ? and id = ? ";
+		logger.info(query);
 		ConferenceProposal conferenceProposal =
-		getSimpleJdbcTemplate().queryForObject(conferenceSelect, versionRowMapper,	confId ,verId );
+		getSimpleJdbcTemplate().queryForObject(query, versionRowMapper,	confId ,verId );
 		logger.info("conference proposal id: " + conferenceProposal.getId());
 		conferenceProposal.setFromAssosiate(getSupportFromAssosiate(confId));
 		conferenceProposal.setFromExternal(getSupportFromExternal(confId));
@@ -253,6 +267,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 	public int getFirstVersion(int confId){
 		String query = "select min(id) from conferenceProposalVersion where conferenceProposalId = ?";
+		logger.info(query);
 		return getSimpleJdbcTemplate().queryForInt(query,confId);
 	}
 	
@@ -264,6 +279,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		}
 		else{
 			String query = "select id from conferenceProposalVersion where conferenceProposalId = ? and id<" + verId + " order by id desc limit 1";
+			logger.info(query);
 			return getSimpleJdbcTemplate().queryForInt(query,confId);
 		}
 	}
@@ -273,6 +289,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		}
 		else{
 			String query = "select id from conferenceProposalVersion where conferenceProposalId = ? and id> " + verId + " order by id limit 1";
+			logger.info(query);
 			return getSimpleJdbcTemplate().queryForInt(query,confId);
 		}
 	}
@@ -280,6 +297,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 	public int getLastVersion(int confId){
 		String query = "select max(id) from conferenceProposalVersion where conferenceProposalId = ?";
+		logger.info(query);
 		return getSimpleJdbcTemplate().queryForInt(query,confId);
 	}
 
@@ -446,6 +464,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 	public int insertConferenceProposal(ConferenceProposal conferenceProposal){
 		String query = "select max(internalId) from conferenceProposal;";
+		logger.info(query);
 		int maxInternal= getSimpleJdbcTemplate().queryForInt(query);
 		//System.out.println(maxInternal);
 		Calendar now = Calendar.getInstance();
@@ -458,7 +477,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			internalId=internalYear+1;
 		//System.out.println(internalId);
 		
-		final String proposalInsert = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?;";
+		final String queryS1 = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?;";
+		logger.info(queryS1);
 		final int personId = conferenceProposal.getPersonId();
 		final long deadline = conferenceProposal.getDeadline();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -466,7 +486,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				new PreparedStatementCreator() {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 		            PreparedStatement ps =
-		                connection.prepareStatement(proposalInsert, new String[] {"id"});
+		                connection.prepareStatement(queryS1, new String[] {"id"});
 		            ps.setInt(1, personId);
 		            ps.setTimestamp(2, new java.sql.Timestamp(deadline));
 		            ps.setInt(3, internalId);
@@ -475,12 +495,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		    },
 		    keyHolder);
 		final int key=keyHolder.getKey().intValue();
-		final String proposalVersionInsert = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?;";
+		final String queryS2 = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?;";
+		logger.info(queryS2);
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 		            PreparedStatement ps =
-		                connection.prepareStatement(proposalVersionInsert, new String[] {"id"});
+		                connection.prepareStatement(queryS2, new String[] {"id"});
 		            ps.setInt(1, key);
 		            ps.setInt(2, personId);
 		            ps.setTimestamp(3, new java.sql.Timestamp(deadline));
@@ -548,6 +569,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", isInsideDeadline= ?" + 
 				", committeeRemarks= ?" +
 				" where id = ?;";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposal.getPersonId(),
 				conferenceProposal.getInternalId(),
@@ -608,7 +630,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		insertFinancialSupports(conferenceProposal);	
 		
 		//insert to version table
-		 String proposalVersionInsert = "insert conferenceProposalVersion set "+
+		 query = "insert conferenceProposalVersion set "+
 				" conferenceProposalId = ?" +
 				", personId = ?" + 
 				", internalId = ?" +
@@ -664,8 +686,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", committeeRemarks= ?" +
 				";";
 
-		
-		getSimpleJdbcTemplate().update(proposalVersionInsert,conferenceProposal.getId(),
+		logger.info(query);
+		getSimpleJdbcTemplate().update(query,conferenceProposal.getId(),
 				conferenceProposal.getPersonId(),
 				conferenceProposal.getInternalId(),
 				conferenceProposal.getApproverId(),
@@ -723,11 +745,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 	public void deleteConferenceProposal(int id){
 		String query = "delete from conferenceProposal where id = ?;";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query, id);
 	}
 	
 	public List<ConferenceProposal> getConferenceProposals() {
 		String query = "select * from conferenceProposal where deleted=0 order by id";
+		logger.info(query);
 		List<ConferenceProposal> conferenceProposals =
 			getSimpleJdbcTemplate().query(query, rowMapper);
 		return conferenceProposals;
@@ -735,6 +759,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public List<ConferenceProposal> getConferenceProposalsByDate(String prevdeadline) {
 		String query = "select * from conferenceProposal where deleted=0 and date(deadline)> '" + prevdeadline +"' order by id";
+		logger.info(query);
 		List<ConferenceProposal> conferenceProposals =
 			getSimpleJdbcTemplate().query(query, rowMapper);
 		return conferenceProposals;
@@ -742,6 +767,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public List<ConferenceProposal> getConferenceProposalsByPerson( int personId) {
 		String query = "select * from conferenceProposal where deleted=0 and personId = ?";
+		logger.info(query);
 		List<ConferenceProposal> conferenceProposals =
 			getSimpleJdbcTemplate().query(query, rowMapper, personId);
 		return conferenceProposals;
@@ -755,7 +781,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 		query += " limit "+ (lv.getPage()-1) * lv.getRowsInPage() + "," + lv.getRowsInPage();
 
-		System.out.println(query);
+		logger.info(query);
 
 		List<ConferenceProposal> conferenceProposals =
 			getSimpleJdbcTemplate().query(query, rowMapper);
@@ -768,10 +794,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		String query = "select count(*) from conferenceProposal";
 		//get where clause by search critieria
 		query += getConferenceProposalsWhereClause(search,userPersonBean);
-
-
-		System.out.println(query);
-
+		logger.info(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 
     }
@@ -824,32 +847,33 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	public void gradeHigher(ConferenceProposal conferenceProposal, String prevdeadline){
 		String query = "update conferenceProposal set grade=grade - 1 where deleted=0 and approverId=? and grade=? and date(deadline)>'"+prevdeadline +"';";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()+1);
-		System.out.println(query);
+		logger.info(query);
 		query = "update conferenceProposal set grade= grade + 1 where id=?;";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
-		System.out.println(query);
+		logger.info(query);
 	}
 	public void gradeLower(ConferenceProposal conferenceProposal, String prevdeadline){
 		String query = "update conferenceProposal set grade=grade + 1 where deleted=0 and approverId=? and grade=? and date(deadline)>'"+prevdeadline +"';";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()-1);
-		System.out.println(query);
+		logger.info(query);
 		query = "update conferenceProposal set grade= grade - 1 where id=?;";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
-		System.out.println(query);
+		logger.info(query);
 	}
 	public int getMaxGrade(int approverId, String prevdeadline){
-		String query = "select max(grade) from conferenceProposal where deleted=0 and approverId=? and date(deadline)>'"+prevdeadline +"';";
-		System.out.println(query);
+		String query = "select max(grade) from conferenceProposal where deleted=0 and submitted = 1 and approverId=? and date(deadline)>'"+prevdeadline +"';";
+		logger.info(query);
+		logger.info("Approver id: " + approverId);
 		return getSimpleJdbcTemplate().queryForInt(query,approverId);
 	}
 	public void rearangeGrades(int grade, int approverId, String prevdeadline){
-		String query = "update conferenceProposal set grade=grade-1 where deleted=0 and grade>? and approverId=? and date(deadline)>'"+prevdeadline +"';";
-		System.out.println(query);
+		String query = "update conferenceProposal set grade=grade-1 where deleted=0 and submitted = 1 and grade>? and approverId=? and date(deadline)>'"+prevdeadline +"';";
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query,grade,approverId);
 	}
 	public void updateDeadlineRemarks(int approverId, String prevdeadline, String deadlineRemarks){
 		String query = "update conferenceProposal set deadlineRemarks =? where deleted=0 and approverId=? and submitted=1 and date(deadline)>'"+prevdeadline +"' and isInsideDeadline=1;";
-		System.out.println(query);
+		logger.info(query);
 		getSimpleJdbcTemplate().update(query,deadlineRemarks,approverId);
 	}
 
