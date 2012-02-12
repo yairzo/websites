@@ -91,7 +91,7 @@ $(document).ready(function() {
  
     });
 
-	$('form').find('input:not([class*=submit],[class*=cancelSubmission])').autoSave(function(){		
+	$('form').find('input:not([class*=submit],[class*=cancelSubmission],[type=file])').autoSave(function(){		
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
@@ -125,42 +125,31 @@ $(document).ready(function() {
 	});
 
 	
-	$('#guestsAttach').change(function(){
-		if ("${command.versionId}"==0){
-		   var options = {
-	       	 	url:       'editConferenceProposal.html' ,        
-	       	 	type:      'POST'
-	     	};
-		    $('#form').ajaxSubmit(options);
-		    $('#guestsAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&attachmentId=1' target='_blank'>רשימת מוזמנים</a><img src='image/icon_somefile.gif'/>");
-		}
-		else 
+	$('#guestsAttach').change(function(event){
+		<c:if test="${command.versionId > 0}">
 			return false;
+		</c:if>
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit();
+		$('#guestsAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&attachmentId=1' target='_blank'>רשימת מוזמנים</a><img src='image/icon_somefile.gif'/>");
+		
 	});	
 	
 	$('#programAttach').change(function(){
-		if ("${command.versionId}"==0){
-		   var options = {
-	       	 	url:       'editConferenceProposal.html' ,        
-	       	 	type:      'POST'
-	     	};
-		    $('#form').ajaxSubmit(options);
-		   	$('#programAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&attachmentId=1' target='_blank'>תוכנית הכנס</a><img src='image/icon_somefile.gif'/>");
-		}
-		else 
+		<c:if test="${command.versionId > 0}">
 			return false;
+		</c:if>
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit(options);
+		$('#programAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&attachmentId=1' target='_blank'>תוכנית הכנס</a><img src='image/icon_somefile.gif'/>");		
 	});		
 	$('#financialAttach').change(function(){
-		if ("${command.versionId}"==0){
-		   var options = {
-	       	 	url:       'editConferenceProposal.html' ,        
-	       	 	type:      'POST'
-	     	};
-		    $('#form').ajaxSubmit(options);
-		    $('#financialAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&attachmentId=1' target='_blank'>תוכנית תקציבית</a><img src='image/icon_somefile.gif'/>");
-		}
-		else 
+		<c:if test="${command.versionId > 0}">
 			return false;
+		</c:if>
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit(options);
+		$('#financialAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&attachmentId=1' target='_blank'>תוכנית תקציבית</a><img src='image/icon_somefile.gif'/>");
 	});		
 
 	if($('#company').attr('checked') || $('#companyViewOnly').attr('checked'))
