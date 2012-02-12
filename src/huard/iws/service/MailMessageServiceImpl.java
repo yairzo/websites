@@ -119,7 +119,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("server", getServer());
 		model.put("proposalMessageOpening", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage.proposalMessageOpening"));
 		model.put("conferenceMessage", true);
-		String [] messageParams = new String []{sender.getDegreeFullNameHebrew(),Integer.toString(conferenceProposal.getId()),conferenceProposal.getSubject()};
+		String [] messageParams = new String []{sender.getDegreeFullNameHebrew(),Integer.toString(conferenceProposal.getId()),conferenceProposal.getSubject(),getServer()};
 		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);
@@ -138,7 +138,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("align", "right");
 		model.put("recipient", recipient.getDegreeFullNameHebrew());
 		model.put("server", getServer());
-		String [] messageParams = new String []{sender.getDegreeFullNameHebrew()};
+		String [] messageParams = new String []{sender.getDegreeFullNameHebrew(),getServer()};
 		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);
@@ -162,7 +162,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("deanName", dean.getDegreeFullName());
 		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
 		model.put("server", getServer());
-		String [] messageParams = new String []{dean.getDegreeFullNameHebrew()};
+		String [] messageParams = new String []{dean.getDegreeFullNameHebrew(),getServer()};
 		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);

@@ -119,7 +119,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		String committeeRemarks=request.getParameter("newCommitteeRemarks","");
 		if(!committeeRemarks.equals("")){
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-				committeeRemarks = "<br>" + committeeRemarks + "-" + userPersonBean.getDegreeFullName() + "," + formatter.format(new Date());
+				committeeRemarks = "<br>" + userPersonBean.getDegreeFullName() + "," + formatter.format(new Date()) + "-" + committeeRemarks ;
 		}
 		conferenceProposalBean.setCommitteeRemarks(origConferenceProposalBean.getCommitteeRemarks() + committeeRemarks);
 		

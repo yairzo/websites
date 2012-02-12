@@ -167,7 +167,7 @@
 				</tr>
 
 				<tr class="form">
-					<td style="border:1px #bca2a2 dotted">
+					<td width="200" style="border:1px #bca2a2 dotted">
 						תחילת הכנס:
 					<c:if test="${!readOnly && !command.submitted}">
 						<input type="text" class="green medium100" name="startConfDate" id="startConfDate" value="${startConfDate}" readonly="readonly"/>
@@ -176,7 +176,7 @@
 						${startConfDate}
 					</c:if>
 					</td>
-					<td style="border:1px #bca2a2 dotted">
+					<td width="200" style="border:1px #bca2a2 dotted">
 						סיום הכנס:
 					<c:if test="${!readOnly && !command.submitted}">
 						<input type="text" class="green medium100" name="endConfDate" id="endConfDate" value="${endConfDate}" readonly="readonly"/>
@@ -204,7 +204,7 @@
 						</c:choose>
 					</c:if>
 					</td>
-					<td style="border:1px #bca2a2 dotted">
+					<td  style="border:1px #bca2a2 dotted">
 						פירוט מיקום:
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input htmlEscape="true" cssClass="green medium200" path="locationDetail"/>
@@ -234,7 +234,7 @@
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px #bca2a2 dotted">
+						<td width="120" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="foreignLecturers"/>
 							${command.foreignLecturers}
 						</td>
@@ -245,7 +245,7 @@
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px #bca2a2 dotted">
+						<td width="120" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="foreignGuests"/>
 							${command.foreignGuests}
 						</td>
@@ -261,7 +261,7 @@
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px #bca2a2 dotted">
+						<td width="120" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="localLecturers"/>
 							${command.localLecturers}
 						</td>
@@ -272,7 +272,7 @@
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px #bca2a2 dotted">
+						<td width="120" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="localGuests"/>
 							${command.localGuests}
 						</td>
@@ -288,7 +288,7 @@
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px #bca2a2 dotted">
+						<td width="120" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="audienceLecturers"/>
 							${command.audienceLecturers}
 						</td>
@@ -299,7 +299,7 @@
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td style="border: 1px #bca2a2 dotted">
+						<td width="120" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="audienceGuests"/>
 							${command.audienceGuests}
 						</td>
