@@ -98,12 +98,24 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposalBean.setToDate(origConferenceProposalBean.getToDate());
 		}
 		
+		//if changed IsInsideDeadline to enter current grading
+		if(!request.getParameter("isInsideDeadline","").equals("")){ 
+				conferenceProposalBean.setIsInsideDeadline(true);
+				//assign default grade
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
+		}
+		else{
+			conferenceProposalBean.setIsInsideDeadline(origConferenceProposalBean.getIsInsideDeadline());
+		}
+		
 		//submit for grade
 		if(request.getParameter("action","").equals("submitForGrading")){
 			conferenceProposalBean.setSubmitted(true);
 			conferenceProposalBean.setSubmissionDate(System.currentTimeMillis());
-			if (System.currentTimeMillis()> conferenceProposalBean.getDeadline())// submitted after deadline
+			if (System.currentTimeMillis()> conferenceProposalBean.getDeadline()){// submitted after deadline
 				conferenceProposalBean.setIsInsideDeadline(false);
+			}
 			else{
 				//assign default grade
 				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
@@ -132,16 +144,6 @@ public class ConferenceProposalController extends GeneralFormController{
 				conferenceProposalBean.setGrade(0);
 		}
 		
-		//if changed IsInsideDeadline to enter current grading
-		if(conferenceProposalBean.getIsInsideDeadline() && !origConferenceProposalBean.getIsInsideDeadline()){
-				conferenceProposalBean.setIsInsideDeadline(true);
-				//assign default grade
-				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-				conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
-		}
-		else{
-			conferenceProposalBean.setIsInsideDeadline(origConferenceProposalBean.getIsInsideDeadline());
-		}
 		
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
 

@@ -1004,7 +1004,7 @@
  					</td>
 					<c:if test="${!command.isInsideDeadline}">			
 					<td colspan=3>
-				   		<input type="checkbox" class="green" name="isInsideDeadline"/><font>צרפ/י להגשות לקראת הועדה הקרובה</font>
+				   		<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/><font>צרפ/י להגשות לקראת הועדה הקרובה</font>
 				   	</td>
 					</c:if>
 				</tr>

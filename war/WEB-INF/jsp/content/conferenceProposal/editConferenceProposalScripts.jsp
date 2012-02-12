@@ -91,7 +91,7 @@ $(document).ready(function() {
  
     });
 
-	$('form').find('input:not([class*=submit],[class*=cancelSubmission],[type=file])').autoSave(function(){		
+	$('form').find('input:not([class*=submit],[class*=cancelSubmission],[class*=isInsideDeadline],[type=file])').autoSave(function(){		
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
