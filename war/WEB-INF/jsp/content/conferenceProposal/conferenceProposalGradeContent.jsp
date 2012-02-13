@@ -65,6 +65,12 @@ $(document).ready(function() {
             });
     		openHelp(this,errors);		
  		} 
+        else{
+            $(this).dialog("close");
+	 	 	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"stopGrading\"/>");
+  	   		$("#form").submit();
+  	   		return true;
+        }
         return false;
  	});
      
