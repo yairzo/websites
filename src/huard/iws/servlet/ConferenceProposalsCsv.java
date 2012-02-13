@@ -398,7 +398,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append(',');
 					b.append(financialSupport.getSum());
 					b.append(',');
-					b.append(financialSupport.getCurrency());
+					b.append(financialSupport.getCurrency().equals("1")?"שקל":"דולר");
 					b.append('\n');
 				}
 			}
