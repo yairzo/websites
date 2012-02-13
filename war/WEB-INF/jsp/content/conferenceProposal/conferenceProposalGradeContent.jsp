@@ -42,10 +42,10 @@ $(document).ready(function() {
  			errors = "לא נרשמה הערה כללית לועדה. ";
  		}
  		var evaluation=false;
-        <c:forEach items="${conferenceProposals}" var="conferenceProposal">
-        <c:if test="${fn:length(conferenceProposal.approverEvaluation)>0}">
-         evaluation=true;	
-        </c:if>
+    	<c:forEach items="${conferenceProposals}" var="conferenceProposal">
+ 		if($("textarea#${conferenceProposal.id}").val()==''){
+ 	         evaluation=true;	
+ 		}
         </c:forEach>
 		if(evaluation)
 	        errors += " לא נרשמה חוות דעת לכל ההצעות. ";
@@ -64,7 +64,7 @@ $(document).ready(function() {
                }
             });
     		openHelp(this,errors);		
- 		}  
+ 		} 
         return false;
  	});
      
@@ -190,7 +190,7 @@ $(document).ready(function() {
 												</a></td>
 												<td width="50" align="center"><c:out
 														value="${conferenceProposal.grade}" /></td>
-												<td width="300"><textarea class="green saveclass"
+												<td width="300"><textarea class="green saveclass evaluation"
 														name="approverEvaluation${conferenceProposal.id}"
 														id="${conferenceProposal.id}" rows="1" cols="40">${conferenceProposal.approverEvaluation}</textarea>
 												</td>
