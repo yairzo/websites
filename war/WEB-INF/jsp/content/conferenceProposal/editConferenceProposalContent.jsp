@@ -1057,6 +1057,12 @@
 				</td>
 				</tr>	
 				</authz:authorize>
+				<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
+						<form:hidden path="approverEvaluation"/>
+				</authz:authorize>
+				<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMIN">
+						<form:hidden path="adminRemarks"/>
+				</authz:authorize>
 				
 				<tr><td>&nbsp;</td></tr>
 		
