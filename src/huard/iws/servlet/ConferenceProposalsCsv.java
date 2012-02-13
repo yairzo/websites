@@ -328,7 +328,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			if(conferenceProposalBean.getApproverEvaluation().equals(""))
 				b.append(" ");
 			else
-				b.append(conferenceProposalBean.getApproverEvaluation());
+				b.append(conferenceProposalBean.getApproverEvaluation().replace(",", " ").trim());
 			b.append(',');
 			b.append(conferenceProposalBean.getGrade());
 			b.append(',');
