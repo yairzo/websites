@@ -1031,7 +1031,8 @@
 					</td>
 				</tr>
 				</authz:authorize>
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
+				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_COMMITTEE">
+				<tr><td>&nbsp;</td></tr>				
 				<tr>
 					<td>הערות הועדה:</td>
 				</tr>
@@ -1040,6 +1041,8 @@
 	   					${command.committeeRemarks}
 	   				</td>
 				</tr>
+				</authz:authorize>
+				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE">
 				<tr>
 					<td><font>הוסף הערה:</font></td>
 				</tr>

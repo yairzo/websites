@@ -140,7 +140,7 @@ $(document).ready(function() {
 			return false;
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit(options);
+		$('#form').ajaxSubmit();
 		$('#programAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&attachmentId=1' target='_blank'>תוכנית הכנס</a><img src='image/icon_somefile.gif'/>");		
 	});		
 	$('#financialAttach').change(function(){
@@ -148,7 +148,7 @@ $(document).ready(function() {
 			return false;
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit(options);
+		$('#form').ajaxSubmit();
 		$('#financialAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&attachmentId=1' target='_blank'>תוכנית תקציבית</a><img src='image/icon_somefile.gif'/>");
 	});		
 

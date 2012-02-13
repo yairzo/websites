@@ -13,12 +13,8 @@ import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
-import huard.iws.util.SearchCreteria;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,7 +132,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 				String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 				if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER")){
 					whereClause = " date(deadline)>'"+previousDeadline +"'";
-					searchCreteria.setSearchBySubmitted(ConferenceProposalSearchCreteria.DRAFT);
+					//searchCreteria.setSearchBySubmitted(ConferenceProposalSearchCreteria.DRAFT);
 					
 				}
 				else{
@@ -175,9 +171,17 @@ public class ConferenceProposalListController extends GeneralFormController {
 				whereClause += " approverId=" + request.getIntParameter("searchByApprover", 0);
 			}
 			int searchBySubmitted = request.getIntParameter("searchBySubmitted", 0);
-			if(!whereClause.isEmpty())
-				whereClause+=" and";
-			whereClause += " submitted=" + searchBySubmitted;
+			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN")){
+				if(!whereClause.isEmpty())
+					whereClause += " and";
+				whereClause += " submitted=" + searchBySubmitted;
+			}
+			else if (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")
+				|| userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE")){
+				if(!whereClause.isEmpty())
+					whereClause += " and";
+				whereClause += " submitted = 1";
+			}
 			
 			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 			int searchByDeadline = request.getIntParameter("searchByDeadline", 0);
