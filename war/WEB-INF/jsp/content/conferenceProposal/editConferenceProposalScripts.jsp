@@ -131,7 +131,7 @@ $(document).ready(function() {
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit();
-		$('#guestsAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&attachmentId=1' target='_blank'>רשימת מוזמנים</a><img src='image/icon_somefile.gif'/>");
+		$('#guestsAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&attachmentId=1' target='_blank'>רשימת מוזמנים</a>");
 		
 	});	
 	
@@ -141,7 +141,7 @@ $(document).ready(function() {
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit();
-		$('#programAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&attachmentId=1' target='_blank'>תוכנית הכנס</a><img src='image/icon_somefile.gif'/>");		
+		$('#programAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&attachmentId=1' target='_blank'>תוכנית הכנס</a>");		
 	});		
 	$('#financialAttach').change(function(){
 		<c:if test="${command.versionId > 0}">
@@ -149,7 +149,7 @@ $(document).ready(function() {
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit();
-		$('#financialAttachDiv').html("<a href='fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&attachmentId=1' target='_blank'>תוכנית תקציבית</a><img src='image/icon_somefile.gif'/>");
+		$('#financialAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&attachmentId=1' target='_blank'>תוכנית תקציבית</a>");
 	});		
 
 	if($('#company').attr('checked') || $('#companyViewOnly').attr('checked'))

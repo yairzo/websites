@@ -93,7 +93,8 @@
 					<td style="border:1px #bca2a2 dotted" nowrap>
 						<font> הגוף היוזם:</font>
 					<c:if test="${!readOnly && !command.submitted}">
-						<form:input htmlEscape="true" cssClass="green medium200" path="initiatingBody" /><img src="image/icon-docs-info.gif" width="15" height="15" id="dialogInitiatingBody"/>
+						<form:input htmlEscape="true" cssClass="green medium200" path="initiatingBody" />
+      		        	<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogInitiatingBody"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
 						<form:hidden path="initiatingBody"/>
@@ -112,7 +113,7 @@
       						<form:option value="4">חבר בגוף</form:option>
       						<form:option value="5">חבר ניהולי</form:option>
        		        	</form:select>
-       		        	<img src="image/icon-docs-info.gif" width="15" height="15" id="dialogInitiatingBodyRole"/>
+       		        	<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogInitiatingBodyRole"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
 						<form:hidden path="initiatingBodyRole"/>
@@ -322,7 +323,7 @@
 						<span id="guestsAttachDiv">
 						<c:if test="${fn:length(command.guestsAttach)>0}">
 							<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&contentType=${command.guestsAttachContentType}&attachmentId=1"
-								target="_blank"><img src="image/icon_somefile.gif"/>&nbsp;רשימת מוזמנים</a>
+								target="_blank"><img src="image/attach.jpg"/>&nbsp;רשימת מוזמנים</a>
 						</c:if>
 						</span>
 						</td>
@@ -337,7 +338,7 @@
 						<span id="programAttachDiv">
 						<c:if test="${fn:length(command.programAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&contentType=${command.programAttachContentType}&attachmentId=1"
-							target="_blank"><img src="image/icon_somefile.gif"/>&nbsp;תוכנית הכנס</a>
+							target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית הכנס</a>
 						</c:if>
 						</span>
 						</td>
@@ -418,7 +419,7 @@
 						<span id="financialAttachDiv">
 						<c:if test="${fn:length(command.financialAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&contentType=${command.financialAttachContentType}&attachmentId=1"
-							target="_blank"><img src="image/icon_somefile.gif"/>&nbsp;תוכנית תקציבית</a>
+							target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית תקציבית</a>
 						</c:if>
 						</span>
 					</td>
@@ -477,7 +478,7 @@
 						</td>
 						<td>
 							<c:set var="financialSupport" value="${command.fromAssosiate[varStatus.index]}"/>
-							<img src="image/icon_delete.gif" class="deleteFinancialSupport"/>							
+							<img src="image/icon_delete.gif" class="deleteFinancialSupport" title="מחיקת שורה"/>							
 						</td>
 						</tr>
 						</c:forEach>
@@ -529,7 +530,7 @@
 						</td>
 						<td>
 							<c:set var="financialSupport" value="${command.fromExternal[varStatus.index]}"/>
-							<img src="image/icon_delete.gif" class="deleteFinancialSupport"/>							
+							<img src="image/icon_delete.gif" class="deleteFinancialSupport" title="מחיקת שורה"/>							
 						</td>
 						</tr>
 						</c:forEach>
@@ -581,7 +582,7 @@
 						</td>
 						<td>
 							<c:set var="financialSupport" value="${command.fromAdmitanceFee[varStatus.index]}"/>
-							<img src="image/icon_delete.gif" class="deleteFinancialSupport"/>							
+							<img src="image/icon_delete.gif" class="deleteFinancialSupport" title="מחיקת שורה"/>							
 						</td>
 						</tr>
 						</c:forEach>
@@ -649,7 +650,7 @@
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.scientificCommittees[varStatus.index]}"/>
-							<img src="image/icon_delete.gif" class="deleteCommittee"/>							
+							<img src="image/icon_delete.gif" class="deleteCommittee" title="מחיקת שורה"/>							
 						</td>
 						</tr>
 						</c:forEach>
@@ -705,7 +706,7 @@
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.operationalCommittees[varStatus.index]}"/>
-							<img src="image/icon_delete.gif" class="deleteCommittee"/>							
+							<img src="image/icon_delete.gif" class="deleteCommittee" title="מחיקת שורה"/>							
 						</td>
 						</tr>
 						</c:forEach>
@@ -985,9 +986,9 @@
 				</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
+				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
 				<tr>
-		             <td colspan="4"><h3>&nbsp;</h3></td>
+		             <td colspan="4"><h3>חוות דעת הדיקן המאשר</h3></td>
         		 </tr>
 				<tr>
 				<td colspan="4">
@@ -995,23 +996,6 @@
 				<tr>
 				<td colspan="4" style="border:1px #bca2a2 dotted">
 				<table width="980">
-
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">			
-				<c:if test="${command.submitted}">			
-				<tr class="form">
-					<td>
-				   		<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/><font>ביטול הגשה</font>
- 					</td>
-					<c:if test="${!command.isInsideDeadline}">			
-					<td colspan=3>
-				   		<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/><font>צרפ/י להגשות לקראת הועדה הקרובה</font>
-				   	</td>
-					</c:if>
-				</tr>
-				</c:if>
-				</authz:authorize>
-				
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
 	            <tr>
 		       		<td>חוות דעת הדיקן המאשר:</td>
 				</tr>
@@ -1020,8 +1004,25 @@
 						<form:textarea htmlEscape="true" cssClass="green" path="approverEvaluation" cols="80" rows="3"/>
 					</td>
 				</tr>
+				</table>
+				</td>
+				</tr>
+				</table>
+				</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
 				</authz:authorize>
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
+				<tr>
+		             <td colspan="4"><h3>הערות הרשות למו"פ</h3></td>
+        		 </tr>
+				<tr>
+				<td colspan="4">
+				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+				<tr>
+				<td colspan="4" style="border:1px #bca2a2 dotted">
+				<table width="980">
+				
 				<tr>
 					<td>הערות הרשות למו"פ:</td>
 				</tr>
@@ -1030,19 +1031,42 @@
 						<form:textarea htmlEscape="true" cssClass="green" path="adminRemarks" cols="80" rows="3"/>
 					</td>
 				</tr>
+				</table>
+				</td>
+				</tr>
+				</table>
+				</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
 				</authz:authorize>
+
+
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_COMMITTEE">
-				<tr><td>&nbsp;</td></tr>				
+				<tr>
+		             <td colspan="4"><h3>הערות הועדה</h3></td>
+        		 </tr>
+				<tr>
+				<td colspan="4">
+				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+				<tr>
+				<td colspan="4" style="border:1px #bca2a2 dotted">
+				<table width="980">
 				<tr>
 					<td>הערות הועדה:</td>
 				</tr>
+				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">				
 				<tr>
-	   				<td colspan="4">
-	   					${command.committeeRemarks}
+	   				<td colspan="4" align="center">
+						<form:textarea htmlEscape="true" cssClass="green" path="committeeRemarks" cols="80" rows="3"/>
 	   				</td>
 				</tr>
 				</authz:authorize>
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE">
+				<tr>
+	   				<td colspan="4">
+	   				${committeeRemarksWithLineBreaks}
+	   				</td>
+				</tr>
 				<tr>
 					<td><font>הוסף הערה:</font></td>
 				</tr>
@@ -1060,11 +1084,29 @@
 				</td>
 				</tr>	
 				</authz:authorize>
+				
 				<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
 						<form:hidden path="approverEvaluation"/>
 				</authz:authorize>
 				<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMIN">
 						<form:hidden path="adminRemarks"/>
+						<form:hidden path="committeeRemarks"/>
+				</authz:authorize>
+				
+				
+				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">			
+				<c:if test="${command.submitted}">			
+				<tr class="form">
+					<td>
+				   		<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/><font>ביטול הגשה</font>
+ 					</td>
+					<c:if test="${!command.isInsideDeadline}">			
+					<td colspan=3>
+				   		<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/><font>צרפ/י להגשות לקראת הועדה הקרובה</font>
+				   	</td>
+					</c:if>
+				</tr>
+				</c:if>
 				</authz:authorize>
 				
 				<tr><td>&nbsp;</td></tr>
@@ -1073,26 +1115,26 @@
 			<td colspan="4" align="center">
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 					<c:if test="${!command.submitted}">
-						<button class="grey submit" >שמירה </button>&nbsp;&nbsp;
+						<button title="שמירת פרטי ההצעה" class="grey submit" > שמירה </button>&nbsp;&nbsp;
 					</c:if>
 				</authz:authorize>
 				<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-					<button class="grey submit" >שמירה </button>&nbsp;&nbsp;
+					<button title="שמירת פרטי ההצעה" class="grey submit"  > שמירה </button>&nbsp;&nbsp;
 				</authz:authorize>
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_ADMIN">
 					<c:if test="${!command.submitted}">
-						<button class="grey submitForGrading" onclick="">הגשה</button>&nbsp;&nbsp;
+						<button class="grey submitForGrading" title="שליחת ההצעה לדיקן" onclick="">הגשה</button>&nbsp;&nbsp;
 					</c:if>
 				</authz:authorize>
 				<c:if test="${!command.submitted}">			
 					<c:if test="${!firstVersion}">	
-						<button class="grey" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;">צפה בגרסה קודמת </button>&nbsp;&nbsp;		
+						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;">צפה בגרסה קודמת </button>&nbsp;&nbsp;		
 					</c:if>
 					<c:if test="${!lastVersion}">			
-						<button class="grey" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${nextVersion}';return false;">צפה בגרסה הבאה </button>&nbsp;&nbsp;
+						<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${nextVersion}';return false;">צפה בגרסה הבאה </button>&nbsp;&nbsp;
 					</c:if>
 				</c:if>
-				<button class="grey" onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		
+				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		
 			</td>
 		</tr>
 

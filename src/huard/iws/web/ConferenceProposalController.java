@@ -124,16 +124,16 @@ public class ConferenceProposalController extends GeneralFormController{
 			//send mail to approver
 			PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
 			if (updatedApprover.isValidEmail()) 
-				mailMessageService.createSimpleConferenceMail(updatedApprover, userPersonBean, conferenceProposalBean, "updatedApprover");
+				mailMessageService.createSimpleConferenceMail(updatedApprover, conferenceProposalBean.getResearcher(), conferenceProposalBean, "updatedApprover");
 		}
 		
 		//committeRemarks
 		String committeeRemarks=request.getParameter("newCommitteeRemarks","");
 		if(!committeeRemarks.equals("")){
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-				committeeRemarks = "<br>" + userPersonBean.getDegreeFullName() + "," + formatter.format(new Date()) + "-" + committeeRemarks ;
+				committeeRemarks =userPersonBean.getDegreeFullName() + "," + formatter.format(new Date()) + "-" + committeeRemarks +"\n";
+				conferenceProposalBean.setCommitteeRemarks(origConferenceProposalBean.getCommitteeRemarks() + committeeRemarks);
 		}
-		conferenceProposalBean.setCommitteeRemarks(origConferenceProposalBean.getCommitteeRemarks() + committeeRemarks);
 		
 		//cancelSubmission
 		if(!request.getParameter("cancelSubmission", "").equals("")){
@@ -198,6 +198,7 @@ public class ConferenceProposalController extends GeneralFormController{
 				internalIdString = Integer.toString(conferenceProposal.getInternalId()).substring(0,4) + "/" + Integer.toString(conferenceProposal.getInternalId()).substring(4);
 			}
 			model.put("internalIdString", internalIdString);
+			model.put("committeeRemarksWithLineBreaks", conferenceProposal.getCommitteeRemarks().replace("\n", "<br/>"));
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		

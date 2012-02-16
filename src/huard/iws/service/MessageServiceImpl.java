@@ -101,6 +101,7 @@ public class MessageServiceImpl implements MessageService{
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 		helper.setTo(mailMessage.getTo());
+		helper.setCc(mailMessage.getCc());
 		helper.setFrom(mailMessage.getFrom());
 		helper.setSubject(mailMessage.getSubject());
 
