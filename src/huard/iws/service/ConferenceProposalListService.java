@@ -12,9 +12,9 @@ import java.util.List;
 
 public interface ConferenceProposalListService {
 
-	public List<ConferenceProposal> getConferenceProposalsPage(ListView lv, SearchCreteria search, PersonBean userPersonBean);
+	public List<ConferenceProposal> getConferenceProposalsPage(ListView lv, SearchCreteria search, PersonBean userPersonBean,boolean forGrading);
 
-	public void prepareListView(ListView lv, SearchCreteria search, PersonBean userPersonBean);
+	public void prepareListView(ListView lv, SearchCreteria search, PersonBean userPersonBean,boolean forGrading);
 
 	public void gradeHigher(ConferenceProposal conferenceProposal, String deadline);
 

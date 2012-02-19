@@ -199,6 +199,8 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 			model.put("internalIdString", internalIdString);
 			model.put("committeeRemarksWithLineBreaks", conferenceProposal.getCommitteeRemarks().replace("\n", "<br/>"));
+			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+			model.put("maxGrade",conferenceProposalService.getMaxGrade(conferenceProposal.getApproverId(),prevdeadline));
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		

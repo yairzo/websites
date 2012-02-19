@@ -162,6 +162,7 @@ public class ConferenceProposalBean {
 		this.fromAdmitanceFee = new ArrayList<FinancialSupport>();
 		for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++){
 			FinancialSupport financialSupport = new FinancialSupport();
+			financialSupport.setName("דמי הרשמה");
 			financialSupport.setType(FinancialSupport.TYPE_ADMITANCEFEE);
 			fromAdmitanceFee.add(financialSupport);
 		}
@@ -264,6 +265,7 @@ public class ConferenceProposalBean {
 		for (int i=fromAdmitanceFee.size(); i< MAX_NUM_FINANCIAL_SUPPORT; i++){
 			FinancialSupport financialSupport = new FinancialSupport();
 			financialSupport.setConferenceProposalId(conferenceProposal.getId());
+			financialSupport.setName("דמי הרשמה");
 			financialSupport.setType(FinancialSupport.TYPE_ADMITANCEFEE);
 			fromAdmitanceFee.add(financialSupport);
 		}

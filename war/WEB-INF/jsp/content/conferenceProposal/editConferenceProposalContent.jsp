@@ -31,6 +31,9 @@
 			<authz:authorize ifNotGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
  				<c:set var="readOnly" value="false"/>
  			</authz:authorize>
+			<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMINISTRATOR">
+ 				<c:set var="admin" value="true"/>
+ 			</authz:authorize>
  			
             <table border="0" align="center" cellpadding="2" cellspacing="0">
 
@@ -49,9 +52,16 @@
 				</c:if>
                 
                 <tr class="form">
-					<td>
+					<td colspan="4">
 					מספר פנימי:
 					${internalIdString}
+					&nbsp;&nbsp;
+					<c:if test="${admin && command.submitted}">
+					דירוג:
+					${command.grade}
+					מתוך:
+					${maxGrade}
+					</c:if>
 					</td>
 				</tr>
 
@@ -540,7 +550,6 @@
 					<br>מדמי הרשמה:
 					<table width="725" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
 				    <th style="border: 1px #bca2a2 dotted"> סכום </th>
 				    <th style="border: 1px #bca2a2 dotted"> מטבע </th>
 					</tr>
@@ -548,9 +557,6 @@
  					<c:when test="${readOnly || command.submitted}">
            				<c:forEach items="${command.fromAdmitanceFee}" var="fromAdmitanceFee">
 						<tr>
-						<td style="border: 1px #bca2a2 dotted">
-						<c:out value="${fromAdmitanceFee.name}"></c:out>
-						</td>
 						<td style="border: 1px #bca2a2 dotted">
 						<c:out value="${fromAdmitanceFee.sum}"></c:out>
 						</td>
@@ -567,10 +573,7 @@
            				<form:hidden path="fromAdmitanceFee[${varStatus.index}].type"/>
 
 						<tr style="display: none;" class="admitanceFee financialSupport">
-						<td style="border: 1px #bca2a2 dotted" align="center">
-							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee" path="fromAdmitanceFee[${varStatus.index}].name"/>
-						</td>
-						<td style="border: 1px #bca2a2 dotted" align="center">
+						<td width="500" style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee" path="fromAdmitanceFee[${varStatus.index}].sum"/>
 						</td>
 						<td style="border: 1px #bca2a2 dotted" align="center">

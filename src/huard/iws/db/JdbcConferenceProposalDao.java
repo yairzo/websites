@@ -773,11 +773,11 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		return conferenceProposals;
     }
 
-	public List<ConferenceProposal> getConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean) {
+	public List<ConferenceProposal> getConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean, boolean forGrading) {
 
 		String query = "select * from conferenceProposal";
 		//get where clause by search critieria
-		query += getConferenceProposalsWhereClause(search,userPersonBean);
+		query += getConferenceProposalsWhereClause(search,userPersonBean,forGrading);
 
 		query += " limit "+ (lv.getPage()-1) * lv.getRowsInPage() + "," + lv.getRowsInPage();
 
@@ -789,17 +789,17 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		return conferenceProposals;
     }
 	
-	public int countConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean) {
+	public int countConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean, boolean forGrading) {
 
 		String query = "select count(*) from conferenceProposal";
 		//get where clause by search critieria
-		query += getConferenceProposalsWhereClause(search,userPersonBean);
+		query += getConferenceProposalsWhereClause(search,userPersonBean,forGrading);
 		logger.info(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 
     }
 
-	public String getConferenceProposalsWhereClause(SearchCreteria search, PersonBean userPersonBean){
+	public String getConferenceProposalsWhereClause(SearchCreteria search, PersonBean userPersonBean, boolean forGrading){
 		
 		String whereClause="";
 
@@ -837,7 +837,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		else
 			whereClause+=" where deleted=0";
 		//order by
-		if (userPersonBean.isAuthorized("CONFERENCE","APPROVER")){
+		if (forGrading){
 			whereClause += " order by grade";
 		}		
 		return whereClause;

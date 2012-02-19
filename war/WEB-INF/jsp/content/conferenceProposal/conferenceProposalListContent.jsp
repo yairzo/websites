@@ -205,7 +205,7 @@
 							</c:choose>
              			<tbody>
   						<tr>
-		  					<td class="${rowBgBrightness}">${conferenceProposalGrading.approver.degreeFullNameHebrew}</td>
+		  					<td class="${rowBgBrightness}"><a href="conferenceProposalsGrade.html?approverId=${conferenceProposalGrading.approver.id}">${conferenceProposalGrading.approver.degreeFullNameHebrew}</a></td>
 			  				<td class="${rowBgBrightness}">${conferenceProposalGrading.formattedSentForGradingDate}</td>
 			  				<td class="${rowBgBrightness}">${conferenceProposalGrading.formattedFinishedGradingDate}</td>
   	  					</tr>

@@ -13,8 +13,8 @@ import java.util.List;
 
 public class ConferenceProposalListServiceImpl implements ConferenceProposalListService{
 
-	public List<ConferenceProposal> getConferenceProposalsPage(ListView lv, SearchCreteria search, PersonBean userPersonBean) {
-		List<ConferenceProposal> l = getConferenceProposals(lv, search, userPersonBean);
+	public List<ConferenceProposal> getConferenceProposalsPage(ListView lv, SearchCreteria search, PersonBean userPersonBean,boolean forGrading) {
+		List<ConferenceProposal> l = getConferenceProposals(lv, search, userPersonBean, forGrading);
 		List<ConferenceProposal> conferenceProposalsPage = new ArrayList<ConferenceProposal>();
 		for (Object o : l){
 			ConferenceProposal conferenceProposal = (ConferenceProposal) o;
@@ -23,14 +23,14 @@ public class ConferenceProposalListServiceImpl implements ConferenceProposalList
 		return conferenceProposalsPage;
 	}
 
-	public void prepareListView(ListView lv, SearchCreteria search,PersonBean userPersonBean){
-		lv.setLastPage(lv.getNumOfPages(conferenceProposalDao.countConferenceProposals(lv,search,userPersonBean)));
+	public void prepareListView(ListView lv, SearchCreteria search,PersonBean userPersonBean,boolean forGrading){
+		lv.setLastPage(lv.getNumOfPages(conferenceProposalDao.countConferenceProposals(lv,search,userPersonBean,forGrading)));
 		lv.setNearPages(lv.getScroll());
 	}
 
 
-	public List<ConferenceProposal> getConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean) {
-		return conferenceProposalDao.getConferenceProposals(lv, search,userPersonBean);
+	public List<ConferenceProposal> getConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean,boolean forGrading) {
+		return conferenceProposalDao.getConferenceProposals(lv, search,userPersonBean,forGrading);
 	}
 	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate) {
 		return conferenceProposalDao.getConferenceProposalsByDate(fromDate);

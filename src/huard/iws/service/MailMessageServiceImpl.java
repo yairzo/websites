@@ -178,7 +178,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);
 		System.out.println(body);
-		messageService.sendMail(to, CONFERENCE_PROPOSAL_MAIL_ADDRESS, null,null,subject, body, getCommonResources());
+		messageService.sendMail(to, CONFERENCE_PROPOSAL_MAIL_ADDRESS,null,null, subject, body, getCommonResources());
 	}
 
 	public void createSimplePartnerMail(PersonBean recipient, ProposalBean proposal,

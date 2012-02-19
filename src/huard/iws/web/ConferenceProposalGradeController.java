@@ -67,7 +67,10 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		}*/
 		if (action.equals("stopGrading")){
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
-			conferenceProposalListService.updateLastGradingByApproverDeadline(userPersonBean.getId(),deadline);
+			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !request.getSession().getAttribute("approverId").equals(""))//if admin enters on behalf of approver
+				conferenceProposalListService.updateLastGradingByApproverDeadline(new Integer(request.getSession().getAttribute("approverId").toString()).intValue(),deadline);
+			else
+				conferenceProposalListService.updateLastGradingByApproverDeadline(userPersonBean.getId(),deadline);
 			//send mail to admins list
 			mailMessageService.createDeanGradeFinishedGradingMail(userPersonBean,"finishedGrading");
 			//return success message
@@ -76,7 +79,10 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		}
 		if (action.equals("saveDeadlineRemarks")){
 			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-			conferenceProposalService.updateDeadlineRemarks(userPersonBean.getId(),previousDeadline,request.getParameter("deadlineRemarks", ""));
+			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !request.getSession().getAttribute("approverId").equals(""))//if admin enters on behalf of approver
+				conferenceProposalService.updateDeadlineRemarks(new Integer(request.getSession().getAttribute("approverId").toString()).intValue(),previousDeadline,request.getParameter("deadlineRemarks", ""));
+			else
+				conferenceProposalService.updateDeadlineRemarks(userPersonBean.getId(),previousDeadline,request.getParameter("deadlineRemarks", ""));
 		}		
 
 		return new ModelAndView(new RedirectView(getSuccessView()));
@@ -89,7 +95,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 
 		ConferenceProposalGradeCommand gradeCommand = (ConferenceProposalGradeCommand) model.get("command");
 		
-		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(gradeCommand.getListView(),gradeCommand.getSearchCreteria(),userPersonBean);
+		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(gradeCommand.getListView(),gradeCommand.getSearchCreteria(),userPersonBean,true);
 		List<ConferenceProposalBean> conferenceProposalBeans = new ArrayList<ConferenceProposalBean>();
 		String deadlineRemarks="";
 		for (ConferenceProposal conferenceProposal: conferenceProposals){
@@ -110,6 +116,11 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		ConferenceProposalGradeCommand gradeCommand = new ConferenceProposalGradeCommand();
 		String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 		String whereClause = " submitted=1 and date(deadline)>'"+previousDeadline +"' and isInsideDeadline=1";
+		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && request.getIntParameter("approverId",0)>0)//if admin enters on behalf of approver
+			request.getSession().setAttribute("approverId",request.getParameter("approverId",""));
+		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !request.getSession().getAttribute("approverId").equals(""))//if admin enters on behalf of approver
+			whereClause +=" and approverId=" + request.getSession().getAttribute("approverId");
+
 		if (!isFormSubmission(request.getRequest())){
 			SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("conferenceProposalsSearchCreteria");
 			request.getSession().setAttribute("conferenceProposalsSearchCreteria", null);
@@ -132,7 +143,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			}
 			//add how many rows
 			listView.setRowsInPage(ROWS_IN_PAGE);
-			conferenceProposalListService.prepareListView(listView, searchCreteria, userPersonBean);
+			conferenceProposalListService.prepareListView(listView, searchCreteria, userPersonBean,true);
 
 			gradeCommand.setSearchCreteria(searchCreteria);
 			gradeCommand.setListView(listView);

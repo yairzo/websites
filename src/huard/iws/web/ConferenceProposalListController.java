@@ -84,7 +84,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 
 		logger.info("Show form search command: " + searchCommand.getSearchCreteria().getWhereClause());
 		logger.info("Show form search command: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
-		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(searchCommand.getListView(), searchCommand.getSearchCreteria(),userPersonBean);
+		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(searchCommand.getListView(), searchCommand.getSearchCreteria(),userPersonBean,false);
 		List<ConferenceProposalBean> conferenceProposalBeans = new ArrayList<ConferenceProposalBean>();
 
 		for (ConferenceProposal conferenceProposal: conferenceProposals){
@@ -156,7 +156,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			}
 			//add how many rows
 			listView.setRowsInPage(ROWS_IN_PAGE);
-			conferenceProposalListService.prepareListView(listView, searchCreteria, userPersonBean);
+			conferenceProposalListService.prepareListView(listView, searchCreteria, userPersonBean,false);
 
 			searchCommand.setSearchCreteria(searchCreteria);
 			logger.info("form backing search command on showing form: " + searchCommand.getSearchCreteria().getWhereClause());

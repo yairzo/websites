@@ -213,7 +213,6 @@ $(document).ready(function() {
 									</tbody>
 								</table>
 			<table width="900" border="0" align="center" cellpadding="3" dir="rtl">
-			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
 				<tr>
 					<td>&nbsp;</td>
 				</tr>
@@ -237,7 +236,6 @@ $(document).ready(function() {
 						<button id="buttonStopGrading" class="grey" />סיום הדירוג
 						</button></td>
 				</tr>
-			</authz:authorize>
 			</c:when>
 			<c:otherwise>
 				<tr>
