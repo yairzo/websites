@@ -183,7 +183,12 @@ public class ConferenceProposalController extends GeneralFormController{
 		}
 		else{//show edit
 			ConferenceProposalBean conferenceProposal = (ConferenceProposalBean) model.get("command");
-			
+			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER") && conferenceProposal.getResearcher().getId()!=userPersonBean.getId()){
+				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
+			}
+			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER") && conferenceProposal.getApprover().getId()!=userPersonBean.getId()){
+				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
+			}
 			logger.info("Conference proposal scientific committee: " + conferenceProposal.getScientificCommittees().size());
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

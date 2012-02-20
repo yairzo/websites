@@ -116,9 +116,9 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		ConferenceProposalGradeCommand gradeCommand = new ConferenceProposalGradeCommand();
 		String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 		String whereClause = " submitted=1 and date(deadline)>'"+previousDeadline +"' and isInsideDeadline=1";
-		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && request.getIntParameter("approverId",0)>0)//if admin enters on behalf of approver
+		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !request.getParameter("approverId","").equals(""))//if admin enters on behalf of approver
 			request.getSession().setAttribute("approverId",request.getParameter("approverId",""));
-		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !request.getSession().getAttribute("approverId").equals(""))//if admin enters on behalf of approver
+		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && request.getSession().getAttribute("approverId")!=null && !request.getSession().getAttribute("approverId").equals(""))//if admin enters on behalf of approver
 			whereClause +=" and approverId=" + request.getSession().getAttribute("approverId");
 
 		if (!isFormSubmission(request.getRequest())){

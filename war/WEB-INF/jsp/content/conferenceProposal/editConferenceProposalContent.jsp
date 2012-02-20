@@ -24,6 +24,7 @@
  			<form:hidden path="versionId"/>
  			<form:hidden path="personId"/>
  			<form:hidden path="deadline"/>
+			
  			
 			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
  				<c:set var="readOnly" value="true"/>
@@ -31,9 +32,14 @@
 			<authz:authorize ifNotGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
  				<c:set var="readOnly" value="false"/>
  			</authz:authorize>
-			<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMINISTRATOR">
+			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
  				<c:set var="admin" value="true"/>
  			</authz:authorize>
+ 			
+ 			<c:set var="compulsoryFieldSign" value=""></c:set>
+			<c:if test="${!readOnly && !command.submitted}">
+ 				<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"></c:set>
+ 			</c:if>
  			
             <table border="0" align="center" cellpadding="2" cellspacing="0">
 
@@ -55,11 +61,11 @@
 					<td colspan="4">
 					מספר פנימי:
 					${internalIdString}
-					&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;
 					<c:if test="${admin && command.submitted}">
 					דירוג:
 					${command.grade}
-					מתוך:
+					&nbsp;מתוך
 					${maxGrade}
 					</c:if>
 					</td>
@@ -73,35 +79,35 @@
                 <table width="1000" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
                 <tr class="form">
 					<td width="300" style="border:1px #bca2a2 dotted">
-						 <font>שם חוקר:</font>
+						 שם חוקר:
 						${command.researcher.degreeHebrew } ${command.researcher.firstNameHebrew } ${command.researcher.lastNameHebrew }
 					</td>
 					<td width="300" style="border:1px #bca2a2 dotted">
-						 <font>מחלקה:</font>
+						 מחלקה:
 					${command.researcher.department } 
 					</td>
 					<td width="300" style="border:1px #bca2a2 dotted">
-						 <font>פקולטה:</font>
+						 פקולטה:
 						${faculty } 
 					</td>
 				</tr>
                 <tr class="form">
 					<td style="border:1px #bca2a2 dotted">
-						 <font>טלפון:</font>
+						 טלפון:
 						${command.researcher.phone } 
 					</td>
 					<td style="border:1px #bca2a2 dotted">
-						 <font>פקס:</font>
+						 פקס:
 						${command.researcher.fax } 
 					</td>
 					<td  style="border:1px #bca2a2 dotted" nowrap>
-						 <font>דואר אלקטרוני:</font>
+						 דואר אלקטרוני:
 						${command.researcher.email } 
 					</td>
 				</tr>
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted" nowrap>
-						<font> הגוף היוזם:</font>
+						 הגוף היוזם:
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input htmlEscape="true" cssClass="green medium200" path="initiatingBody" />
       		        	<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogInitiatingBody"/>
@@ -113,7 +119,7 @@
 					</td>
 					
 					<td style="border:1px #bca2a2 dotted" nowrap>
-						 <font>תפקיד בגוף היוזם:</font>
+						 תפקיד בגוף היוזם:
 					<c:if test="${!readOnly && !command.submitted}">
        					<form:select path="initiatingBodyRole" cssClass="green" >
       						<form:option value="0">בחר/י תפקיד</form:option>
@@ -153,7 +159,7 @@
 				<table width="980">
 				<tr>
 					<td colspan="4">
-						 <font>נושא הכנס (באנגלית):</font>
+						 ${compulsoryFieldSign}נושא הכנס (באנגלית):
 					</td>
 				</tr>
 				<tr class="form">
@@ -234,6 +240,7 @@
 				       <td style="border: 1px #bca2a2 dotted">&nbsp;</td>
 				       <td style="border: 1px #bca2a2 dotted"> מרצים </td> 
 				       <td style="border: 1px #bca2a2 dotted"> מוזמנים </td>
+				       <td style="border: 1px #bca2a2 dotted"> קהל נוסף </td>
 					   </tr>
 						<tr>
 						<td style="border: 1px #bca2a2 dotted">
@@ -241,26 +248,37 @@
 						</td>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium150" path="foreignLecturers" />
+							<form:input cssClass="greennoborder medium100" path="foreignLecturers" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td width="120" style="border: 1px #bca2a2 dotted">
+						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="foreignLecturers"/>
 							${command.foreignLecturers}
 						</td>
 						</c:if>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium150" path="foreignGuests" />
+							<form:input cssClass="greennoborder medium100" path="foreignGuests" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td width="120" style="border: 1px #bca2a2 dotted">
+						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="foreignGuests"/>
 							${command.foreignGuests}
 						</td>
 						</c:if>
+						<c:if test="${!readOnly && !command.submitted}">
+						<td style="border: 1px #bca2a2 dotted">
+							<form:input cssClass="greennoborder medium100" path="audienceLecturers" />
+						</td>
+						</c:if>
+						<c:if test="${readOnly || command.submitted}">
+						<td width="100" style="border: 1px #bca2a2 dotted">
+							<form:hidden path="audienceLecturers"/>
+							${command.audienceLecturers}
+						</td>
+						</c:if>						
 						</tr>
 						<tr>
 						<td style="border: 1px #bca2a2 dotted">
@@ -268,54 +286,39 @@
 						</td>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium150" path="localLecturers" />
+							<form:input cssClass="greennoborder medium100" path="localLecturers" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td width="120" style="border: 1px #bca2a2 dotted">
+						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="localLecturers"/>
 							${command.localLecturers}
 						</td>
 						</c:if>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium150" path="localGuests" />
+							<form:input cssClass="greennoborder medium100" path="localGuests" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td width="120" style="border: 1px #bca2a2 dotted">
+						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="localGuests"/>
 							${command.localGuests}
 						</td>
 						</c:if>
-						</tr>
-						<tr>
-						<td style="border: 1px #bca2a2 dotted">
-							קהל נוסף:
-						</td>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium150" path="audienceLecturers" />
+							<form:input cssClass="greennoborder medium100" path="audienceGuests" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
-						<td width="120" style="border: 1px #bca2a2 dotted">
-							<form:hidden path="audienceLecturers"/>
-							${command.audienceLecturers}
-						</td>
-						</c:if>
-						<c:if test="${!readOnly && !command.submitted}">
-						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium150" path="audienceGuests" />
-						</td>
-						</c:if>
-						<c:if test="${readOnly || command.submitted}">
-						<td width="120" style="border: 1px #bca2a2 dotted">
+						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="audienceGuests"/>
 							${command.audienceGuests}
 						</td>
-						</c:if>
+						</c:if>						
 						</tr>
+
 						</table>
 						<br>
  				    </td>
@@ -323,7 +326,7 @@
 				<td style="border:1px #bca2a2 dotted">
 				<table align="center">
 					<tr class="form">
-				       <td><font>רשימת מוזמנים:</font></td>
+				       <td>רשימת מוזמנים:</td>
 						<td colspan="3">
 						<c:if test="${!readOnly && !command.submitted}">
 						<input style="width: 0px; height: 0px;" class="green" type="file" name="guestsAttach" id="guestsAttach"/>
@@ -339,7 +342,7 @@
 						</td>
 					</tr>
 					<tr class="form">
-				       <td><font>תוכנית הכנס:</font></td>
+				       <td>תוכנית הכנס:</td>
 						<td colspan="3">
 						<c:if test="${!readOnly && !command.submitted}">
 						<input style="width: 0px; height: 0px;" class="green" type="file" name="programAttach" id="programAttach"/>
@@ -404,7 +407,7 @@
 						${command.totalCost}
 					</c:if>
 
-	   				<font>מטבע:</font>
+	   				מטבע:
 					<c:if test="${!readOnly && !command.submitted}">
        				<form:select path="totalCostCurrency" cssClass="green">
       					<form:option value="0">בחר/י מטבע</form:option>
@@ -573,11 +576,11 @@
            				<form:hidden path="fromAdmitanceFee[${varStatus.index}].type"/>
 
 						<tr style="display: none;" class="admitanceFee financialSupport">
-						<td width="500" style="border: 1px #bca2a2 dotted" align="center">
+						<td width="370" style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee" path="fromAdmitanceFee[${varStatus.index}].sum"/>
 						</td>
-						<td style="border: 1px #bca2a2 dotted" align="center">
-							<form:select cssClass="greennoborder medium220" path="fromAdmitanceFee[${varStatus.index}].currency">
+						<td width="350" style="border: 1px #bca2a2 dotted" align="center">
+							<form:select cssClass="greennoborder fillwidth" path="fromAdmitanceFee[${varStatus.index}].currency">
       						<form:option value="0">מטבע</form:option>
        						<form:option value="1">שקל</form:option>
       						<form:option value="2">דולר</form:option>
@@ -742,7 +745,7 @@
 					</c:if>
 					</td>
 					<td style="border:1px #bca2a2 dotted">
-	   				<font>מטבע:</font>
+	   				מטבע:
 					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select path="supportCurrency" cssClass="green">
       					<form:option value="0">בחר/י מטבע</form:option>
@@ -834,11 +837,11 @@
 	            <tr>
 	            	<td colspan="4" style="border:1px #bca2a2 dotted">
 					<c:if test="${!readOnly && !command.submitted}">			
-		       		   <font> ארגון ע"י חברה מסחרית</font><form:checkbox cssClass="green" id="company" path="organizingCompany"/>
+		       		    ארגון ע"י חברה מסחרית<form:checkbox cssClass="green" id="company" path="organizingCompany"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 					<form:hidden path="organizingCompany"/>
-		       		   <font> ארגון ע"י חברה מסחרית</font><input type="checkbox" disabled="disabled" id="companyViewOnly" value="" <c:if test="${command.organizingCompany}">checked</c:if> />
+		       		    ארגון ע"י חברה מסחרית<input type="checkbox" disabled="disabled" id="companyViewOnly" value="" <c:if test="${command.organizingCompany}">checked</c:if> />
 					</c:if>
 					</td>
 				</tr>
@@ -961,7 +964,7 @@
 				<tr><td>&nbsp;</td></tr>
 	            <tr id="deanApproval" class="form">
 		       		<td colspan="4">
-	   				<font>הגורם המאשר:</font>
+	   				${compulsoryFieldSign}הגורם המאשר:
 					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select id="deanSelect"  path="approverId" cssClass="green">
       					<form:option value="0">בחר/י גורם מאשר</form:option>
@@ -1071,7 +1074,7 @@
 	   				</td>
 				</tr>
 				<tr>
-					<td><font>הוסף הערה:</font></td>
+					<td>הוסף הערה:</td>
 				</tr>
 				<tr>
 					<td colspan="4" align="center">
@@ -1101,11 +1104,11 @@
 				<c:if test="${command.submitted}">			
 				<tr class="form">
 					<td>
-				   		<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/><font>ביטול הגשה</font>
+				   		<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/>ביטול הגשה
  					</td>
 					<c:if test="${!command.isInsideDeadline}">			
 					<td colspan=3>
-				   		<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/><font>צרפ/י להגשות לקראת הועדה הקרובה</font>
+				   		<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
 				   	</td>
 					</c:if>
 				</tr>

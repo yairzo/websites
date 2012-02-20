@@ -23,10 +23,9 @@
 				<input type="hidden" name="cp" value="${cp}"/>
 
               <table width="600" border="0" align="center" cellpadding="2" cellspacing="0">
-				<c:set var="compulsoryFieldSign" value=""/>
+				<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"/>
 
 				<authz:authorize ifAnyGranted="ROLE_EDIT_USER_DETAILS">
-				<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"/>
 				<tr>
 				<td colspan="3">
 
