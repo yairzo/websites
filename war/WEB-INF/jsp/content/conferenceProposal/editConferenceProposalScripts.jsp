@@ -3,10 +3,10 @@
 <script>
 
 
-
 $(document).ready(function() {
-	
+
 	$("#form").ajaxForm();
+
 	
 	hideExtraCommittee("scientificCommittee");
 	hideExtraCommittee("operationalCommittee");
@@ -91,7 +91,7 @@ $(document).ready(function() {
  
     });
 
-	$('form').find('input:not([class*=submit],[class*=cancelSubmission],[class*=isInsideDeadline],[type=file])').autoSave(function(){		
+	$('form').find('input:not([class*=submit],[class*=cancelSubmission],[class*=isInsideDeadline],[type=file],[type=button])').autoSave(function(){		
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
@@ -123,7 +123,15 @@ $(document).ready(function() {
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 	    $('#form').ajaxSubmit();
 	});
-
+	
+	$('form').find('textarea').autoSave(function(){
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+	    $('#form').ajaxSubmit();
+	});
 	
 	$('#guestsAttach').change(function(event){
 		<c:if test="${command.versionId > 0}">
@@ -291,13 +299,14 @@ $(document).ready(function() {
 			return false;
 		}
 		else{
-			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
 			var options = { 
 	   			success:    function() { 
-	   			   	openHelp('','הטופס הוגש בהצלחה');
 	   			   	window.location.reload(); 
 	    		} 
 			}; 
+			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+			$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"submitted\"/>");
 			$("#form").ajaxSubmit(options);
     		return false;
 		}
@@ -307,26 +316,35 @@ $(document).ready(function() {
 	$("button.submit").click(function(){
 		var options = { 
 	   		success:    function() { 
-	   		   	openHelp('','הטופס נשמר')
 	   		   	window.location.reload(); 
 	    	} 
 		}; 
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"saved\"/>");
 		$("#form").ajaxSubmit(options);
     	return false;
-    });	
+    });
+	
 	
     
      $("#genericDialog").dialog({
            autoOpen: false,
            show: 'fade',
            hide: 'fade',
-           width: 200,
+           modal: true,
+           width: 400,
            open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
      });
+		<c:if test="${userMessage!=null}">
+		var userMessage = "${userMessage}";
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		openHelp('',userMessage);
+		</c:if>
     
    $(".ui-dialog-titlebar").hide();
    $("#dialogInitiatingBody").click(function(e) {
-   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 	$("#genericDialog").dialog({ modal: false });
     openHelp("#dialogInitiatingBody","הגוף שיוזם את הכנס");
     return false;
@@ -348,10 +366,13 @@ $(document).ready(function() {
     $(window).scroll(function() {
     	if (fieldname=="") 
     		$("#genericDialog").dialog("option", "position", "center");
-    });   
+    }); 
     
+
    
 });
+
+
 
 var fieldname=""; 
 function openHelp(name,mytext){

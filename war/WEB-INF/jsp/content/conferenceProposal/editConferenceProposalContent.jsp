@@ -43,7 +43,7 @@
  			
             <table border="0" align="center" cellpadding="2" cellspacing="0">
 
-				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"></div>
+				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"><p>text put here</p></div>
 				
                 <tr>
                   <td colspan="4" align="center"><h1>בקשה למימון לכנס</h1>

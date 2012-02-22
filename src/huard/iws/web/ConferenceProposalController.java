@@ -36,7 +36,6 @@ public class ConferenceProposalController extends GeneralFormController{
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 	throws Exception{
-
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
 		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		
@@ -146,7 +145,15 @@ public class ConferenceProposalController extends GeneralFormController{
 		
 		
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
-
+		if(request.getParameter("showMessage", "").equals("saved")){
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
+			request.getSession().setAttribute("userMessage", userMessage);
+		}		
+		if(request.getParameter("showMessage", "").equals("submitted")){
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.submitted");
+			request.getSession().setAttribute("userMessage", userMessage);
+		}		
+		
 		//return to same page
 		if (request.getBooleanParameter("ajaxSubmit", false)){
 			return null;
