@@ -8,6 +8,11 @@ public class CallOfProposal {
 	private String title;
 	private String amountOfGrant;
 	private String deskId;
+	private String deskAndContact;
+	private String forms;
+	private String description;
+	private String budgetDetails;
+	private String additionalInformation;
 
 
 
@@ -19,6 +24,11 @@ public class CallOfProposal {
 		this.title = "";
 		this.amountOfGrant = "";
 		this.deskId = "";
+		this.deskAndContact="";
+		this.forms="";
+		this.description="";
+		this.budgetDetails="";
+		this.additionalInformation="";
 	}
 
 	public String getAmountOfGrant() {
@@ -68,4 +78,46 @@ public class CallOfProposal {
 	public void setPublicationTimeMillis(long publicationTimeMillis) {
 		this.publicationTimeMillis = publicationTimeMillis;
 	}
+	
+	public String getDeskAndContact() {
+		return deskAndContact;
+	}
+
+	public void setDeskAndContact(String deskAndContact) {
+		this.deskAndContact = deskAndContact;
+	}
+	
+	public String getForms() {
+		return forms;
+	}
+
+	public void setForms(String forms) {
+		this.forms = forms;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getBudgetDetails() {
+		return budgetDetails;
+	}
+
+	public void setBudgetDetails(String budgetDetails) {
+		this.budgetDetails = budgetDetails;
+	}
+
+	
+	public String getadditionalInformation() {
+		return additionalInformation;
+	}
+
+	public void setAdditionalInformation(String additionalInformation) {
+		this.additionalInformation = additionalInformation;
+	}
+
 }
