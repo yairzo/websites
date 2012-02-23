@@ -10,9 +10,9 @@ public interface PageWordsIndexerDao {
 	
 	public void deleteLatelyUpdatedInfoPagesFromIndexTable(long runsInterval, String server);
 
-	public int getEnglishDesk (String deskId);
+	public int getEnglishDesk (String deskId,String server);
 
-	public int getHebrewDesk (String deskId);
+	public int getHebrewDesk (String deskId,String server);
 
 	public void insertWordToInfoPagesIndexTable(String word,int ardNum,String server);
 	

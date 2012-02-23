@@ -16,8 +16,10 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 	private final long runsInterval = 36000000L;
 	
 	private JdbcPageWordsIndexerDao jdbcpageWordsIndexerDao;
+	private PersonListServiceImpl personListServiceImpl;
 	public PageWordsIndexerServiceImpl(){
 		jdbcpageWordsIndexerDao = new JdbcPageWordsIndexerDao();
+		personListServiceImpl = new PersonListServiceImpl();
 	}
 	
 	public void indexInfoPages(boolean init){
@@ -31,7 +33,7 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 			callOfProposals = jdbcpageWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,"localhost");
 		//callOfProposals = pageWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,configurationService.getConfigurationString("websiteDb"));
 		System.out.println("InfoPagesIndexer: Indexing, Starting... Indexing "+callOfProposals.size()+" pages.");
-		pageWordsIndexerDao.deleteLatelyUpdatedInfoPagesFromIndexTable(runsInterval,"localhost");
+		jdbcpageWordsIndexerDao.deleteLatelyUpdatedInfoPagesFromIndexTable(runsInterval,"localhost");
 		
 		for (CallOfProposal callOfProposal: callOfProposals){
 			
@@ -39,8 +41,10 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 			
 			System.out.println(callOfProposal.getId()+" "+text);
 			
-			PersonBean[] deskPersonsEnglish = personListService.getPersonsArray(pageWordsIndexerDao.getEnglishDesk(callOfProposal.getDeskId()));
-			PersonBean[] deskPersonsHebrew = personListService.getPersonsArray(pageWordsIndexerDao.getHebrewDesk(callOfProposal.getDeskId()));
+			//PersonBean[] deskPersonsEnglish = personListService.getPersonsArray(pageWordsIndexerDao.getEnglishDesk(callOfProposal.getDeskId(),configurationService.getConfigurationString("websiteDb")));
+			//PersonBean[] deskPersonsHebrew = personListService.getPersonsArray(pageWordsIndexerDao.getHebrewDesk(callOfProposal.getDeskId(),configurationService.getConfigurationString("websiteDb")));
+			PersonBean[] deskPersonsEnglish = personListServiceImpl.getPersonsArray(jdbcpageWordsIndexerDao.getEnglishDesk(callOfProposal.getDeskId(),"localhost"));
+			PersonBean[] deskPersonsHebrew = personListServiceImpl.getPersonsArray(jdbcpageWordsIndexerDao.getHebrewDesk(callOfProposal.getDeskId(),"localhost"));
 			for (PersonBean personBean : deskPersonsEnglish) {
 				text = text.concat(personBean.getDegreeEnglish()+" ");
 				text = text.concat(personBean.getFirstNameEnglish()+ " ");
@@ -95,10 +99,12 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 					wordsList.add(replaceAll(word,"/",""));
 				}
 
-				pageWordsIndexerDao.insertWordToInfoPagesIndexTable(word,callOfProposal.getId(),configurationService.getConfigurationString("websiteDb"));
+				//pageWordsIndexerDao.insertWordToInfoPagesIndexTable(word,callOfProposal.getId(),configurationService.getConfigurationString("websiteDb"));
+				jdbcpageWordsIndexerDao.insertWordToInfoPagesIndexTable(word,callOfProposal.getId(),"localhost");
 			}
 		}
-		pageWordsIndexerDao.purgeInfoPagesIndexTable(configurationService.getConfigurationString("websiteDb"));
+		//pageWordsIndexerDao.purgeInfoPagesIndexTable(configurationService.getConfigurationString("websiteDb"));
+		jdbcpageWordsIndexerDao.purgeInfoPagesIndexTable("localhost");
 		System.out.println("InfoPagesIndexer:Indexing Success");
 	}
 
@@ -136,18 +142,16 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 
 
 	private ConfigurationService configurationService;
-
 	public void setConfigurationService(ConfigurationService configurationService) {
 		this.configurationService = configurationService;
 	}
+	
 	private PersonListService personListService;
-
 	public void setPersonListService(PersonListService personListService) {
 		this.personListService = personListService;
 	}
 
 	private PageWordsIndexerDao pageWordsIndexerDao;
-
 	public PageWordsIndexerDao getPageWordsIndexerDao() {
 		return pageWordsIndexerDao;
 	}

@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
-public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements PageWordsIndexerDao {
+public class JdbcPageWordsIndexerDao implements PageWordsIndexerDao {
 
 	private java.util.Date now;
 	
@@ -19,6 +19,8 @@ public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements Pag
 		try{
 			now = new java.util.Date();
 			long lastRunTime = now.getTime() - runsInterval;
+			//System.out.println("lastRunTime:"+lastRunTime);
+	lastRunTime=1300000000000L;// just for testing
 			String queryString = "SELECT * FROM InfoPages,TabledInfoPages,InfoPagesLastUpdates"+
 			" WHERE InfoPages.isDeleted=0 AND date>="+lastRunTime+" AND InfoPages.ardNum=TabledInfoPages.ardNum AND "+
 			" InfoPages.ardNum = InfoPagesLastUpdates.ardNum";
@@ -48,15 +50,35 @@ public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements Pag
 		}
 	}	
 	
-	public int getEnglishDesk (String deskId){
-		String query = "SELECT listIdEnglish FROM Desks WHERE deskId=?";
-		logger.info(query);
-		return getSimpleJdbcTemplate().queryForInt(query,deskId);
+	public int getEnglishDesk (String deskId,String server){
+		try{
+			String query = "SELECT listIdEnglish FROM Desks WHERE deskId='"+deskId + "';";
+			System.out.println(query);
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(query);
+			resultSet.next();
+			return resultSet.getInt("listIdEnglish");
+		}
+		catch (SQLException e){
+			System.out.println(e);
+			return 0;
+		}
 	}
-	public int getHebrewDesk (String deskId){
-		String query = "SELECT listIdHebrew FROM Desks WHERE deskId=?";
-		logger.info(query);
-		return getSimpleJdbcTemplate().queryForInt(query,deskId);
+	
+	public int getHebrewDesk (String deskId,String server){
+		try{
+			String query = "SELECT listIdHebrew FROM Desks WHERE deskId='"+deskId + "';";
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(query);
+			resultSet.next();
+			return resultSet.getInt("listIdEnglish");
+		}
+		catch (SQLException e){
+			System.out.println(e);
+			return 0;
+		}
 	}
 	
 	public void insertWordToInfoPagesIndexTable(String word,int ardNum,String server){
