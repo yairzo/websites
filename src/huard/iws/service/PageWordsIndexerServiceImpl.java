@@ -2,7 +2,6 @@ package huard.iws.service;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.db.PageWordsIndexerDao;
-import huard.iws.db.PostDao;
 import huard.iws.model.CallOfProposal;
 import huard.iws.util.WordsTokenizer;
 
@@ -32,6 +31,12 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 		
 		int counter=0;
 		String columnsvalues="";
+		
+		//TODO: rewrite the code: before iterating the callOfProposals, build a HashMap<String, String>. The key will be the desk id, 
+		// the value will be a string that contains all the names + titles + emails  in hebrew + english
+		//than in the loop just call personsMap.get("<deskId>")
+		
+		
 		for (CallOfProposal callOfProposal: callOfProposals){
 			
 			String text = callOfProposal.toString();
@@ -94,7 +99,8 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 					wordsList.add(word.substring(pos+1));
 					wordsList.add(replaceAll(word,"/",""));
 				}
-
+		//TODO: let's talk about the counter issue I would like to rewrite it
+				
 				if(!word.equals("")){
 					if (counter>1)
 						columnsvalues += ",";
