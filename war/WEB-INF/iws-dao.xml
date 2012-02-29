@@ -54,6 +54,10 @@
 		<property name="dataSource" ref="dataSource"/>
      </bean>
 
+	<bean id="pageWordsIndexerDao" class="huard.iws.db.JdbcPageWordsIndexerDao">
+		<property name="dataSource" ref="dataSource"/>
+     </bean>
+
 	<bean id="proposalStateHistoryDao" class="huard.iws.db.JdbcProposalStateHistoryDao">
 		<property name="dataSource" ref="dataSource"/>
      </bean>

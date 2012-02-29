@@ -715,7 +715,23 @@
       		value="huard.iws.service.SendPostService"/>
   		<property name="registry" ref="registry"/>
 	</bean>
-
+	
+	<bean id="pageWordsIndexerServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="pageWordsIndexerService"/>
+  		<property name="serviceName" value="PageWordsIndexerService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.PageWordsIndexerService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+	
+	<bean id="pageTextualWordsIndexerServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="pageTextualWordsIndexerService"/>
+  		<property name="serviceName" value="PageTextualWordsIndexerService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.PageTextualWordsIndexerService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+	
 	<bean id="fundServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
   		<property name="service" ref="fundService"/>
   		<property name="serviceName" value="FundService"/>

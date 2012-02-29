@@ -104,6 +104,30 @@
             <ref bean="callOfProposalService"/>
         </property>
     </bean>
+    
+   <bean id="pageWordsIndexerService" class="huard.iws.service.PageWordsIndexerServiceImpl">
+		<property name="pageWordsIndexerDao">
+            <ref bean="pageWordsIndexerDao"/>
+        </property>
+        <property name="personListService">
+            <ref bean="personListService"/>
+        </property>
+        <property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+    </bean>
+    
+   <bean id="pageTextualWordsIndexerService" class="huard.iws.service.PageTextualWordsIndexerServiceImpl">
+		<property name="pageWordsIndexerDao">
+            <ref bean="pageWordsIndexerDao"/>
+        </property>
+        <property name="personListService">
+            <ref bean="personListService"/>
+        </property>
+        <property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+    </bean>
 
 	<bean id="proposalStateHistoryService" class="huard.iws.service.ProposalStateHistoryServiceImpl">
 		<property name="proposalStateHistoryDao">

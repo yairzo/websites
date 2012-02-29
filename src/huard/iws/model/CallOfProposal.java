@@ -1,5 +1,6 @@
 package huard.iws.model;
 
+
 public class CallOfProposal {
 	private int id;
 	private int fundId;
@@ -29,6 +30,18 @@ public class CallOfProposal {
 		this.description="";
 		this.budgetDetails="";
 		this.additionalInformation="";
+	}
+	
+	public String toString(){
+			StringBuffer text = new StringBuffer();
+			text.append(fundId+" * ");
+			text.append(title+" * ");
+			text.append(forms+" * ");
+			text.append(description+" * ");
+			text.append(amountOfGrant+" * ");
+			text.append(budgetDetails+" * ");
+			text.append(additionalInformation+" * ");
+			return text.toString();
 	}
 
 	public String getAmountOfGrant() {

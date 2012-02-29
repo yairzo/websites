@@ -2,7 +2,7 @@ package huard.iws.service;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.db.PageWordsIndexerDao;
-import huard.iws.db.JdbcPageWordsIndexerDao;
+import huard.iws.db.PostDao;
 import huard.iws.model.CallOfProposal;
 import huard.iws.util.WordsTokenizer;
 
@@ -15,13 +15,7 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 
 	private final long runsInterval = 36000000L;
 	
-	private JdbcPageWordsIndexerDao jdbcpageWordsIndexerDao;
-	private PersonListServiceImpl personListServiceImpl;
-	public PageWordsIndexerServiceImpl(){
-		jdbcpageWordsIndexerDao = new JdbcPageWordsIndexerDao();
-		personListServiceImpl = new PersonListServiceImpl();
-	}
-	
+
 	public void indexInfoPages(boolean init){
 		long runsInterval;
 		if (init) 
@@ -30,21 +24,20 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 			runsInterval = this.runsInterval;
 
 		if (callOfProposals==null) 
-			callOfProposals = jdbcpageWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,"localhost");
-		//callOfProposals = pageWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,configurationService.getConfigurationString("websiteDb"));
-		System.out.println("InfoPagesIndexer: Indexing, Starting... Indexing "+callOfProposals.size()+" pages.");
-		jdbcpageWordsIndexerDao.deleteLatelyUpdatedInfoPagesFromIndexTable(runsInterval,"localhost");
+			callOfProposals = pageWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,configurationService.getConfigurationString("websiteDb"));
+	
+		System.out.println("InfoPagesIndexer: Indexing "+callOfProposals.size()+" pages.");
+		if (callOfProposals.size()>0) 
+			pageWordsIndexerDao.deleteLatelyUpdatedInfoPagesFromIndexTable(callOfProposals,init,configurationService.getConfigurationString("websiteDb"));
 		
+		int counter=0;
+		String columnsvalues="";
 		for (CallOfProposal callOfProposal: callOfProposals){
 			
 			String text = callOfProposal.toString();
 			
-			System.out.println(callOfProposal.getId()+" "+text);
-			
-			//PersonBean[] deskPersonsEnglish = personListService.getPersonsArray(pageWordsIndexerDao.getEnglishDesk(callOfProposal.getDeskId(),configurationService.getConfigurationString("websiteDb")));
-			//PersonBean[] deskPersonsHebrew = personListService.getPersonsArray(pageWordsIndexerDao.getHebrewDesk(callOfProposal.getDeskId(),configurationService.getConfigurationString("websiteDb")));
-			PersonBean[] deskPersonsEnglish = personListServiceImpl.getPersonsArray(jdbcpageWordsIndexerDao.getEnglishDesk(callOfProposal.getDeskId(),"localhost"));
-			PersonBean[] deskPersonsHebrew = personListServiceImpl.getPersonsArray(jdbcpageWordsIndexerDao.getHebrewDesk(callOfProposal.getDeskId(),"localhost"));
+			PersonBean[] deskPersonsEnglish = personListService.getPersonsArray(pageWordsIndexerDao.getEnglishDesk(callOfProposal.getDeskId(),configurationService.getConfigurationString("websiteDb")));
+			PersonBean[] deskPersonsHebrew = personListService.getPersonsArray(pageWordsIndexerDao.getHebrewDesk(callOfProposal.getDeskId(),configurationService.getConfigurationString("websiteDb")));
 			for (PersonBean personBean : deskPersonsEnglish) {
 				text = text.concat(personBean.getDegreeEnglish()+" ");
 				text = text.concat(personBean.getFirstNameEnglish()+ " ");
@@ -59,6 +52,8 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 				text = text.concat(personBean.getLastNameHebrew()+" ");
 				text = text.concat(personBean.getTitle()+" ");
 			}
+			
+			System.out.println("111111111111111 text: "+ text);
 
 			text = replaceAll(text, "*", " * ");  //pad all * with spaces
 			text = replaceAll(text, "<", " <");
@@ -68,8 +63,8 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 			List<String> wordsList = wt.getSubstringsList(text);
 			wordsList.addAll(wt.getSubstringsList(text,2));
 			wordsList.addAll(wt.getSubstringsList(text,3));
-
 			for (int j=0; j<wordsList.size(); j++){
+				counter++;
 				String word = (String)wordsList.get(j);
 				word=word.trim();
 
@@ -81,6 +76,7 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 				word = replaceAll(word, ";", "");
 				word = replaceAll(word, "~", "");
 				word = replaceAll(word, ":", "");
+				word = replaceAll(word, "'", "");
 				word = replaceOnEdges(word, "\\\"","");
 				int pos;
 				if ((pos=word.indexOf("-"))!=-1) {
@@ -99,12 +95,26 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 					wordsList.add(replaceAll(word,"/",""));
 				}
 
-				//pageWordsIndexerDao.insertWordToInfoPagesIndexTable(word,callOfProposal.getId(),configurationService.getConfigurationString("websiteDb"));
-				jdbcpageWordsIndexerDao.insertWordToInfoPagesIndexTable(word,callOfProposal.getId(),"localhost");
+				if(!word.equals("")){
+					if (counter>1)
+						columnsvalues += ",";
+					columnsvalues += "('" + word + "'," + callOfProposal.getId() + ")";
+				}
+				else
+					counter--;
+				if(counter==100){
+					pageWordsIndexerDao.insertWordToInfoPagesIndexTable(columnsvalues,configurationService.getConfigurationString("websiteDb"));
+					counter=0;
+					columnsvalues="";
+				}
 			}
 		}
-		//pageWordsIndexerDao.purgeInfoPagesIndexTable(configurationService.getConfigurationString("websiteDb"));
-		jdbcpageWordsIndexerDao.purgeInfoPagesIndexTable("localhost");
+		if(counter>0 && counter<100){
+			pageWordsIndexerDao.insertWordToInfoPagesIndexTable(columnsvalues,configurationService.getConfigurationString("websiteDb"));
+			counter=0;
+			columnsvalues="";
+		}
+		pageWordsIndexerDao.purgeInfoPagesIndexTable(configurationService.getConfigurationString("websiteDb"));
 		System.out.println("InfoPagesIndexer:Indexing Success");
 	}
 
@@ -130,16 +140,6 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 		return s;
 	}
 
-	public static void main (String [] args){
-		System.out.println("Starting ....");
-		PageWordsIndexerServiceImpl pageWordsIndexerServiceImpl = new PageWordsIndexerServiceImpl();
-		boolean init = false;
-		if (args.length>0){
-			init = (args[0]!=null && "init".equals(args[0]));
-		}
-		pageWordsIndexerServiceImpl.indexInfoPages(init);
-	}
-
 
 	private ConfigurationService configurationService;
 	public void setConfigurationService(ConfigurationService configurationService) {
@@ -152,9 +152,8 @@ public class PageWordsIndexerServiceImpl implements PageWordsIndexerService{
 	}
 
 	private PageWordsIndexerDao pageWordsIndexerDao;
-	public PageWordsIndexerDao getPageWordsIndexerDao() {
-		return pageWordsIndexerDao;
+	public void setPageWordsIndexerDao(PageWordsIndexerDao pageWordsIndexerDao) {
+		this.pageWordsIndexerDao = pageWordsIndexerDao;
 	}
-
 
 }

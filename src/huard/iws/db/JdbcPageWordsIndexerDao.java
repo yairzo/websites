@@ -1,6 +1,7 @@
 package huard.iws.db;
 
 import huard.iws.model.CallOfProposal;
+import huard.iws.model.TextualPage;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,7 +12,8 @@ import java.util.List;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
-public class JdbcPageWordsIndexerDao implements PageWordsIndexerDao {
+
+public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements PageWordsIndexerDao {
 
 	private java.util.Date now;
 	
@@ -20,7 +22,7 @@ public class JdbcPageWordsIndexerDao implements PageWordsIndexerDao {
 			now = new java.util.Date();
 			long lastRunTime = now.getTime() - runsInterval;
 			//System.out.println("lastRunTime:"+lastRunTime);
-	lastRunTime=1300000000000L;// just for testing
+			//lastRunTime=1300000000000L;// just for testing
 			String queryString = "SELECT * FROM InfoPages,TabledInfoPages,InfoPagesLastUpdates"+
 			" WHERE InfoPages.isDeleted=0 AND date>="+lastRunTime+" AND InfoPages.ardNum=TabledInfoPages.ardNum AND "+
 			" InfoPages.ardNum = InfoPagesLastUpdates.ardNum";
@@ -35,25 +37,86 @@ public class JdbcPageWordsIndexerDao implements PageWordsIndexerDao {
 		}
 
 	}	
-	public void deleteLatelyUpdatedInfoPagesFromIndexTable(long runsInterval, String server){
+	public List<TextualPage> getLatelyUpdatedPubPages(long runsInterval, String server){
 		try{
 			now = new java.util.Date();
 			long lastRunTime = now.getTime() - runsInterval;
-			String updateString = "DELETE FROM InfoPagesIndex WHERE ardNum IN (SELECT ardNum FROM InfoPagesLastUpdates"+
-			" WHERE date>"+lastRunTime+");";
+			//lastRunTime=1300000000000L;// just for testing
+			String queryString = "SELECT * FROM PubPages,PubPagesLastUpdates"+
+			" WHERE PubPages.isDeleted=0 AND PubPages.onSite=1 AND date>="+lastRunTime+" AND PubPages.ardNum = PubPagesLastUpdates.ardNum";
+			System.out.println(queryString);
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(queryString);
+			return moveResultSetToPubPages(resultSet);
+		}
+		catch (SQLException e){
+			System.out.println(e);
+			return null;
+		}
+
+	}	
+	
+	public void deleteLatelyUpdatedInfoPagesFromIndexTable(List<CallOfProposal> indexedInfoPages,boolean fullIndex, String server){
+		try{
+			String queryInClause = buildInfoPagesQueryInClause(indexedInfoPages);			
+			String query = "DELETE FROM InfoPagesIndex";
+			if (!fullIndex)
+				query += " WHERE ardNum IN ("+queryInClause+")";
+			System.out.println(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "DELETE", server);
 			Statement statement = connection.createStatement();
-			statement.executeUpdate(updateString);
+			statement.executeUpdate(query);
 		}
 		catch(SQLException e){
 			System.out.println(e);
 		}
-	}	
+	}
+
+	private String buildInfoPagesQueryInClause(List<CallOfProposal> infoPages){
+		StringBuilder sb = new StringBuilder();
+		boolean first = true;
+		for (CallOfProposal infoPage: infoPages){
+			if (!first)
+				sb.append(",");
+			sb.append(infoPage.getId());
+			first = false;
+		}
+		return sb.toString();
+	}
+
+	public void deleteLatelyUpdatedPubPagesFromIndexTable(List<TextualPage> indexedTextualPages,boolean fullIndex,String server){
+		try{
+			String queryInClause = buildPubPagesQueryInClause(indexedTextualPages);
+			String query = "DELETE FROM PubPagesIndex";
+			if (!fullIndex)
+				query += " WHERE ardNum IN ("+queryInClause+")";
+			System.out.println(query);
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "DELETE", server);
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+		}
+		catch(SQLException e){
+			System.out.println(e);
+		}
+	}
 	
+	private String buildPubPagesQueryInClause(List<TextualPage> textualPages){
+		StringBuilder sb = new StringBuilder();
+		boolean first = true;
+		for (TextualPage textualPage: textualPages){
+			if (!first)
+				sb.append(",");
+			sb.append(textualPage.getId());
+			first = false;
+		}
+		return sb.toString();
+	}
+	
+
 	public int getEnglishDesk (String deskId,String server){
 		try{
 			String query = "SELECT listIdEnglish FROM Desks WHERE deskId='"+deskId + "';";
-			System.out.println(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
@@ -73,7 +136,7 @@ public class JdbcPageWordsIndexerDao implements PageWordsIndexerDao {
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
 			resultSet.next();
-			return resultSet.getInt("listIdEnglish");
+			return resultSet.getInt("listIdHebrew");
 		}
 		catch (SQLException e){
 			System.out.println(e);
@@ -81,20 +144,34 @@ public class JdbcPageWordsIndexerDao implements PageWordsIndexerDao {
 		}
 	}
 	
-	public void insertWordToInfoPagesIndexTable(String word,int ardNum,String server){
+	public void insertWordToInfoPagesIndexTable(String columnsvalues,String server){
 		try{
-			word = word.replaceAll("\"", "\\\\\"");
-			String updateString ="INSERT IGNORE InfoPagesIndex SET word=\""+word+"\", ardNum="+ardNum;
+			columnsvalues = columnsvalues.replaceAll("\"", "\\\\\"");
+			String insertString ="INSERT IGNORE INTO InfoPagesIndex VALUES " + columnsvalues + ";";
+			System.out.println(insertString);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "INSERT", server);
 			Statement statement = connection.createStatement();
-			statement.executeUpdate(updateString);
-
+			statement.executeUpdate(insertString);
 		}
 		catch (SQLException e){
 			System.out.println("Insert Word: "+e);
 		}
 	}
-	
+
+	public void insertWordToTextualPagesIndexTable(String columnsvalues,String server){
+		try{
+			columnsvalues = columnsvalues.replaceAll("\"", "\\\\\"");
+			String insertString ="INSERT IGNORE INTO PubPagesIndex VALUES " + columnsvalues + ";";
+			System.out.println(insertString);
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "INSERT", server);
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(insertString);
+		}
+		catch (SQLException e){
+			System.out.println("Insert Word: "+e);
+		}
+	}
+
 	public void purgeInfoPagesIndexTable(String server){
 		try{
 			String updateString ="DELETE FROM InfoPagesIndex WHERE word LIKE '%<%' OR word LIKE '%>%';";
@@ -106,7 +183,17 @@ public class JdbcPageWordsIndexerDao implements PageWordsIndexerDao {
 			System.out.println(e);
 		}
 	}
-	
+	public void purgePubPagesIndexTable(String server){
+		try{
+			String updateString ="DELETE FROM PubPagesIndex WHERE word LIKE '%<%' OR word LIKE '%>%';";
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "DELETE", server);
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(updateString);
+		}
+		catch (SQLException e){
+			System.out.println(e);
+		}
+	}	
 	public List<CallOfProposal> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
 		List<CallOfProposal> callOfProposals = new ArrayList<CallOfProposal>();
 		while (resultSet.next()){
@@ -127,6 +214,19 @@ public class JdbcPageWordsIndexerDao implements PageWordsIndexerDao {
 		}
 		return callOfProposals;
 	}
-	
+	public List<TextualPage> moveResultSetToPubPages(ResultSet resultSet) throws SQLException{
+   		List<TextualPage> textualPages = new ArrayList<TextualPage>();
+   	   	while (resultSet.next()){
+   	   		TextualPage textPage = new TextualPage();
+   	   		textPage.setId(resultSet.getInt("ardNum"));
+   	   		textPage.setTitle(resultSet.getString("title"));
+   	   		textPage.setHtml(resultSet.getString("html"));
+   	   		textPage.setWraper(resultSet.getBoolean("wraper"));
+   	   		textPage.setSourceToWrap(resultSet.getString("sourceToWrap"));
+   	   		textualPages.add(textPage);
+     	}
+     	return textualPages;
+	}	
+
 
 }
