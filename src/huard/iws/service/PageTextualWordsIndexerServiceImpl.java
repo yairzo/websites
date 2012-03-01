@@ -52,7 +52,6 @@ public class PageTextualWordsIndexerServiceImpl implements PageTextualWordsIndex
 						text = text.concat(personBean.getPhone()+" ");
 					}
 				}
-				System.out.println("111111111111111 text: "+ text);
 			}
 
 			text = text.replaceAll("\\*", " * ");  //pad all * with spaces
@@ -97,41 +96,28 @@ public class PageTextualWordsIndexerServiceImpl implements PageTextualWordsIndex
 					
 					if(!word.equals("")){
 						counter++;
-						if (counter>1)
+						if (!columnsvalues.equals(""))
 							columnsvalues += ",";
 						columnsvalues += "('" + word + "'," + textualPage.getId() + ")";
 					}
-					if(counter==100){
+					if(counter%100==0 || counter==textualPages.size()){
 						pageWordsIndexerDao.insertWordToTextualPagesIndexTable(columnsvalues,configurationService.getConfigurationString("websiteDb"));
-						counter=0;
 						columnsvalues="";
 					}					
 				}
 			}
-			//if finished wordlist loop and still left less then 100 words
-			if(counter>0 && counter<100){
-				pageWordsIndexerDao.insertWordToTextualPagesIndexTable(columnsvalues,configurationService.getConfigurationString("websiteDb"));
-				counter=0;
-				columnsvalues="";
-			}
+			counter=0;
 			for (String word : extendedWordsList){
 				if(!word.equals("")){
 					counter++;
-					if (counter>1)
+					if (!columnsvalues.equals(""))
 						columnsvalues += ",";
 					columnsvalues += "('" + word + "'," + textualPage.getId() + ")";
 				}
-				if(counter==100){
+				if(counter%100==0 || counter==extendedWordsList.size()){
 					pageWordsIndexerDao.insertWordToTextualPagesIndexTable(columnsvalues,configurationService.getConfigurationString("websiteDb"));
-					counter=0;
 					columnsvalues="";
 				}					
-			}
-			//if finished extendedWordsList loop and still left less then 100 words
-			if(counter>0 && counter<100){
-				pageWordsIndexerDao.insertWordToTextualPagesIndexTable(columnsvalues,configurationService.getConfigurationString("websiteDb"));
-				counter=0;
-				columnsvalues="";
 			}
 		}//loop over pages
 

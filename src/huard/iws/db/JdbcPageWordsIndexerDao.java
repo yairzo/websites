@@ -2,6 +2,7 @@ package huard.iws.db;
 
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.TextualPage;
+import huard.iws.model.Desk;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
@@ -17,6 +20,7 @@ public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements Pag
 
 	private java.util.Date now;
 	
+
 	public List<CallOfProposal> getLatelyUpdatedInfoPages(long runsInterval, String server){
 		try{
 			now = new java.util.Date();
@@ -148,7 +152,7 @@ public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements Pag
 		try{
 			columnsvalues = columnsvalues.replaceAll("\"", "\\\\\"");
 			String insertString ="INSERT IGNORE INTO InfoPagesIndex VALUES " + columnsvalues + ";";
-			System.out.println(insertString);
+			//System.out.println(insertString);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "INSERT", server);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(insertString);
@@ -162,7 +166,7 @@ public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements Pag
 		try{
 			columnsvalues = columnsvalues.replaceAll("\"", "\\\\\"");
 			String insertString ="INSERT IGNORE INTO PubPagesIndex VALUES " + columnsvalues + ";";
-			System.out.println(insertString);
+			//System.out.println(insertString);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "INSERT", server);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(insertString);
@@ -228,5 +232,31 @@ public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements Pag
      	return textualPages;
 	}	
 
+	public List<Desk> getDesks(String server){
+		try{
+			String queryString = "SELECT * FROM Desks;";
+			System.out.println(queryString);
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(queryString);
+			return moveResultSetToDesksList(resultSet);
+		}
+		catch (SQLException e){
+			System.out.println(e);
+			return null;
+		}
+	}	
+	
+	public List<Desk> moveResultSetToDesksList(ResultSet resultSet) throws SQLException{
+		List<Desk> desks = new ArrayList<Desk>();
+   	   	while (resultSet.next()){
+   	   		Desk desk = new Desk();
+   	   		desk.setId(resultSet.getString("deskId"));
+   	   		desk.setEnglishListId(resultSet.getInt("listIdEnglish"));
+   	   		desk.setHebrewListId(resultSet.getInt("listIdHebrew"));
+   	   		desks.add(desk);
+     	}
+     	return desks;
+	}	
 
 }

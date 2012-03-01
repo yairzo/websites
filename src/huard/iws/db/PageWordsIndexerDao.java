@@ -1,6 +1,7 @@
 package huard.iws.db;
 
 import huard.iws.model.CallOfProposal;
+import huard.iws.model.Desk;
 import huard.iws.model.TextualPage;
 
 import java.util.List;
@@ -26,5 +27,8 @@ public interface PageWordsIndexerDao {
 	public void purgeInfoPagesIndexTable(String server);
 
 	public void purgePubPagesIndexTable(String server);
+	
+	public List<Desk> getDesks(String server);
+
 
 }
