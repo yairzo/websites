@@ -7,6 +7,7 @@ import huard.iws.model.Fund;
 import huard.iws.model.Institute;
 import huard.iws.model.OrganizationUnit;
 import huard.iws.model.Person;
+import huard.iws.model.Post;
 import huard.iws.service.CallOfProposalService;
 import huard.iws.service.FundService;
 import huard.iws.service.InstituteListService;
@@ -15,6 +16,7 @@ import huard.iws.service.PersonListService;
 import huard.iws.service.PersonProposalService;
 import huard.iws.service.PersonService;
 import huard.iws.service.UniverseService;
+import huard.iws.service.PostService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.UserPersonUtils;
 
@@ -41,6 +43,7 @@ public class SelectBoxFiller extends HttpServlet {
 	private PersonListService personListService;
 	private OrganizationUnitService organizationUnitService;
 	private CallOfProposalService callOfProposalService;
+	private PostService postService;
 
 	final static long serialVersionUID = 0;
 
@@ -69,6 +72,10 @@ public class SelectBoxFiller extends HttpServlet {
 
 		obj  = context.getBean("callOfProposalService");
 		callOfProposalService = (CallOfProposalService)obj;
+		
+		obj  = context.getBean("postService");
+		postService = (PostService)obj;
+
 	}
 
 	private boolean isAuthorized(HttpServletRequest request){
@@ -193,7 +200,6 @@ public class SelectBoxFiller extends HttpServlet {
 		}
 
 		if (type.equals("callOfProposal")){
-			System.out.println("I'm here !!!!!!!");
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -205,6 +211,23 @@ public class SelectBoxFiller extends HttpServlet {
 			List<CallOfProposal> callsOfProposals = callOfProposalService.getCallsOfProposals(localeId);
 			for (CallOfProposal callOfProposal: callsOfProposals){
 				sb.append(callOfProposal.getTitle() + " - " + callOfProposal.getId() + ",,");
+			}
+			sb.delete(sb.length()-2, sb.length());
+			ServletOutputStream out = response.getOutputStream();
+			out.print(sb.toString());
+			out.flush();
+			out.close();
+		}
+		
+		if (type.equals("post")){
+			System.out.println("I'm here !!!!!!!");
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html");
+			response.setStatus(HttpServletResponse.SC_OK);
+			StringBuilder sb = new StringBuilder();
+			List<Post> posts = postService.getPosts();
+			for (Post post: posts){
+				sb.append(post.getMessageSubject() + ",,");
 			}
 			sb.delete(sb.length()-2, sb.length());
 			ServletOutputStream out = response.getOutputStream();

@@ -50,8 +50,8 @@ public class PostServiceImpl implements PostService{
 
 	private List<Post> getPosts(ListView lv, SearchCreteria search,
 			PersonBean userPersonBean, boolean receivedOnly) {
-		if (search != null && search.getSearchField()!=null
-				&& search.getSearchPhrase()!=null && ! "".equals(search.getSearchPhrase())){
+		if (search != null && ((search.getSearchField()!=null
+				&& search.getSearchPhrase()!=null && !search.getSearchPhrase().equals("")) || (search.getWhereClause()!=null && !search.getWhereClause().equals(""))) ){
 			return postDao.getPosts(lv, search, userPersonBean, receivedOnly);
 		}
 		else {
@@ -69,6 +69,7 @@ public class PostServiceImpl implements PostService{
 
 	public List<Post> getPostsPage(ListView lv, SearchCreteria search,
 			PersonBean userPersonBean, boolean receivedOnly) {
+		
 		ListPaginator lp = new ListPaginator(getPosts(lv, search, userPersonBean, receivedOnly), POSTS_IN_PAGE);
 		List l = lp.getPage(lv.getPage());
 		List<Post> postPage = new ArrayList<Post>();

@@ -2,6 +2,28 @@
 
 <script language="Javascript">
 
+function resetAutocomplete(posts){
+	$("#searchPhrase").autocomplete( 
+			{source: posts,
+			 minLength: 2,
+			 highlight: true,
+			 select: function(event, ui) {
+				$("input#listViewPage").remove();
+				$("input#orderBy").remove();
+				$("#searchPhrase").val(ui.item.label);
+				$("#form").append("<input type=\"hidden\" path=\"searchCreteria.searchField\" value=\"messageSubject\"/>");
+				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+				$("#form").submit();				 
+			 }
+		    }
+	);
+}
+
+function cleanSearch(){
+	$("input#searchPhrase").val('');
+	$("input#listViewPage").remove();
+	$("input#orderBy").remove();
+}
 
 
 $(document).ready(function() {
@@ -27,10 +49,27 @@ $(document).ready(function() {
     });
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
+ 	$('.searchSent').click(function(){
+ 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+		$("#form").submit();
+ 	});
 
+ 	$("#searchPhrase").click(function(){
+ 		cleanSearch()
+ 	});
+ 	
+ 	$.get('selectBoxFiller',{type:'post'},function(data){
+		var posts = data.split(",,");
+		resetAutocomplete(posts)
+		$("#searchPhrase").focus();
+	});
 
- $("#searchPhrase").focus();
-
+ 	$("#postDate").datepicker({ dateFormat: 'yy-mm-dd', onSelect: function(){
+ 	   	$("#searchPhrase").empty();
+    	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+		$("#form").submit();
+    	}
+	});	
 });
 
 </script>
@@ -58,35 +97,35 @@ $(document).ready(function() {
             	<input type="hidden" id="listViewPage" name="listView.page" value="${command.listView.page}"/>
             	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
 
-              <table width="400" border="0" align="center" cellpadding="3" dir="rtl">
+              <table width="600" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
                   <td colspan="2" align="center"><h1>רשימת הודעות</h1>
                   </td>
                 </tr>
                 <tr>
-                  <td width="201" align="center" valign="center"><form:input id="searchPhrase" cssClass="green" path="searchCreteria.searchPhrase"/>
-                  </td>
+                  <td colspan="2">
+                  לפי נושא:<input type="text" id="searchPhrase" class="green" name="searchPhrase"/>
 
-                  <td width="173" align="right">
+						לפי תאריך:<input type="text" class="green medium100" name="postDate" id="postDate" readonly="readonly"/>
 
-                     <button id="buttonSearch" class="grey">חפש</button>
+                      <!-- <button id="buttonSearch" class="grey">בטל חיפוש</button>  -->
 
 
-                  </td>
-                </tr>
-
-                <tr>
-                  <td colspan="2" align="center">חפש לפי:&nbsp;&nbsp;
-                  <form:radiobutton id="searchField" path="searchCreteria.searchField" value="messageSubject"  /> כותרת ההודעה
-					<form:radiobutton id="searchField" path="searchCreteria.searchField" value="sendTime" /> זמן השליחה
                   </td>
                 </tr>
-                <tr>
-                  <td colspan="2"><img src="image/hr.gif" width="380" height="10"></td>
+               <tr>
+                  <td colspan="2">
+  				   <input class="searchSent" type="radio" name="searchSent" class="green" value="1" <c:if test="${searchSent==1}">checked="checked"</c:if>/>  כולל טיוטות
+  				   <input class="searchSent" type="radio" name="searchSent" class="green" value="0" <c:if test="${searchSent==0}">checked="checked"</c:if>/>  לא כולל טיוטות
+                 </td>
                 </tr>
-              </table>
+ 
+               </table>
 
-				<table width="400" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+				<table width="600" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+               <tr>
+                  <td colspan="2"><img src="image/hr.gif" width="580" height="10"></td>
+                </tr>
 
 
 

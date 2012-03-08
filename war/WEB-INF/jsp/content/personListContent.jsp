@@ -150,13 +150,18 @@ $(document).ready(function() {
   						
   						<td style="direction: rtl;">
   							<a href="person.html?id=${person.id}">  							
-  							
+  							<c:if test="${fn:length(person.firstNameHebrew)>0 || fn:length(person.lastNameHebrew)>0}">
+ 
   							<c:out value="${person.firstNameHebrew}"/> &nbsp;
   						
   							<c:out value="${person.lastNameHebrew}"/> &nbsp;
   						
   							<c:out value="${person.email}"/>
-  							
+
+  							</c:if>
+  							<c:if test="${fn:length(person.firstNameHebrew)==0 && fn:length(person.lastNameHebrew)==0}">
+  							ללא שם
+  							</c:if>
   							</a>
   						
   						</tr>

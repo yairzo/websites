@@ -64,7 +64,7 @@ public class PersonListController extends GeneralFormController {
 		for (Person person: persons){
 			PersonBean personBean = new PersonBean(person);
 			personBean.setBusyRecord(recordProtectService.isRecordBusy("person",personBean.getId(), userPersonBean.getUsername()));
-			if (! personBean.getDegreeFullName().trim().isEmpty())
+			//if (! personBean.getDegreeFullName().trim().isEmpty())
 				personBeans.add(personBean);
 		}
 		

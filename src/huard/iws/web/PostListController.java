@@ -5,6 +5,7 @@ import huard.iws.bean.PostBean;
 import huard.iws.model.Post;
 import huard.iws.service.PersonService;
 import huard.iws.service.PostService;
+import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.SearchCreteria;
@@ -39,12 +40,11 @@ public class PostListController extends GeneralFormController {
 			return new ModelAndView( new RedirectView("deletePost.html"),newModel);
 		}
 
-		request.getSession().setAttribute("postsSearchCreteria", aCommand.getSearchCreteria());
 
 		if (action.equals("search"))
 			aCommand.getListView().setPage(1);
-
-		request.getSession().setAttribute("postsListView", aCommand.getListView());
+		//request.getSession().setAttribute("postsSearchCreteria", aCommand.getSearchCreteria());
+		//request.getSession().setAttribute("postsListView", aCommand.getListView());
 
 		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
 	}
@@ -60,12 +60,13 @@ public class PostListController extends GeneralFormController {
 			int aIsReceived = request.getIntParameter("received", 0);
 			isReceived = (aIsReceived == 1);
 		}
-
+		
 		postService.prepareListView(command.getListView(), command.getSearchCreteria(), userPersonBean, isReceived );
 
-		request.getSession().setAttribute("searchCreteria", null);
-		request.getSession().setAttribute("listView", null);
+		//request.getSession().setAttribute("searchCreteria", null);
+		//request.getSession().setAttribute("listView", null);
 
+		System.out.println("Show form search command: " + command.getSearchCreteria().getWhereClause());
 		List<Post> posts = postService.getPostsPage(command.getListView(), command.getSearchCreteria(), userPersonBean, isReceived);
 		List<PostBean> postBeans = new ArrayList<PostBean>();
 
@@ -74,6 +75,7 @@ public class PostListController extends GeneralFormController {
 			//postBean.setBusyRecord(recordProtectService.isRecordBusy("post",postBean.getId(), userPostBean.getUsername()));
 			postBeans.add(postBean);
 		}
+		model.put("searchSent", request.getSession().getAttribute("searchSent"));
 		model.put("posts", postBeans);
 		return new ModelAndView ("postList",model);
 	}
@@ -81,24 +83,52 @@ public class PostListController extends GeneralFormController {
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		PostListControllerCommand command = new PostListControllerCommand();
-		SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("postsSearchCreteria");
-		request.getSession().setAttribute("postsSearchCreteria", null);
+		if (!isFormSubmission(request.getRequest())){
 
-		if (searchCreteria == null){
-			searchCreteria = new SearchCreteria();
-			searchCreteria.setSearchField("messageSubject");
+			SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("postsSearchCreteria");
+			//request.getSession().setAttribute("postsSearchCreteria", null);
+			if (searchCreteria == null)
+				searchCreteria = new SearchCreteria();
+
+			ListView listView = (ListView) request.getSession().getAttribute("postsListView");
+			if (listView == null){
+				listView = new ListView();
+				listView.setOrderBy("isVerified, sendTime");
+			}
+			
+			command.setSearchCreteria(searchCreteria);
+			command.setListView(listView);
 		}
-
-		ListView listView = (ListView) request.getSession().getAttribute("postsListView");
-
-		if (listView == null){
-			listView = new ListView();
+		if (isFormSubmission(request.getRequest())){
+			SearchCreteria searchCreteria = new SearchCreteria();
+			String whereClause = "";
+			String postDate = request.getParameter("postDate","");
+			if( !postDate.equals("")){
+				whereClause += " Date(sendTime)='" + request.getParameter("postDate", "") + "'";
+			}
+			String searchSent = request.getParameter("searchSent","");
+			if( searchSent.equals("0")){
+				if (!whereClause.equals(""))
+					whereClause += " and ";
+				whereClause += " isSent=1";
+			}
+			searchCreteria.setWhereClause(whereClause);
+			request.getSession().setAttribute("searchSent", searchSent);
+			
+			String searchPhrase = request.getParameter("searchPhrase","");
+			if( !searchPhrase.equals("")){
+				searchCreteria.setSearchField("messageSubject");
+				searchCreteria.setSearchPhrase(searchPhrase);
+			}
+			
+			command.setSearchCreteria(searchCreteria);
+			request.getSession().setAttribute("postsSearchCreteria", searchCreteria);
+			ListView listView = new ListView();
 			listView.setOrderBy("isVerified, sendTime");
+			listView.setPage(request.getIntParameter("listView.page", 1));			
+			request.getSession().setAttribute("postsListView", listView);
+			command.setListView(listView);
 		}
-
-		command.setSearchCreteria(searchCreteria);
-		command.setListView(listView);
-
 		return command;
 	}
 

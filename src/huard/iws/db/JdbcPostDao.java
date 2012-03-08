@@ -157,54 +157,43 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 		if (isReceived){
 			query.append("select * from post, personToPost where personToPost.personId = ? and post.id = personToPost.postId");
-			if (search != null){
-				query.append(" and "+search.getSearchField()+"= ?");
-			}
+			query.append(getPostsWhereClause(search,userPersonBean));
 			query.append(" order by "+lv.getOrderBy());
-			posts =
-				search != null ?
-					getSimpleJdbcTemplate().query(query.toString(), rowMapper,
-							userPersonBean.getId(), search.getSearchPhrase())
-					:
-					getSimpleJdbcTemplate().query(query.toString(), rowMapper,
-							userPersonBean.getId())
-					;
+			posts =getSimpleJdbcTemplate().query(query.toString(), rowMapper,userPersonBean.getId());
 		}
 		else{
 			if (userPersonBean.isAuthorized("POST", "ADMIN")){
 				query.append("select * from post");
-				if (search != null){
-					query.append(" where "+search.getSearchField()+"= ?");
-				}
+				query.append(getPostsWhereClause(search,userPersonBean));
 				query.append(" order by "+lv.getOrderBy());
-				posts =
-					search != null ?
-						getSimpleJdbcTemplate().query(query.toString(), rowMapper,
-								search.getSearchPhrase())
-						:
-						getSimpleJdbcTemplate().query(query.toString(), rowMapper)
-						;
+				System.out.println("query:" + query.toString());
+				posts =	getSimpleJdbcTemplate().query(query.toString(), rowMapper);
 			}
 			else{
 				query.append("select * from post where creatorId = ? or senderId = ?");
-				if (search != null){
-					query.append(" and "+search.getSearchField()+"= ?");
-				}
+				query.append(getPostsWhereClause(search,userPersonBean));
 				query.append(" order by "+lv.getOrderBy());
-				posts =
-					search != null ?
-						getSimpleJdbcTemplate().query(query.toString(), rowMapper,
-								userPersonBean.getId(), userPersonBean.getId(), search.getSearchPhrase())
-						:
-						getSimpleJdbcTemplate().query(query.toString(), rowMapper,
-								userPersonBean.getId(), userPersonBean.getId())
-						;
+				posts =getSimpleJdbcTemplate().query(query.toString(), rowMapper,userPersonBean.getId(), userPersonBean.getId());
 			}
 		}
 		return posts;
 	}
 
-
+	public String getPostsWhereClause(SearchCreteria search, PersonBean userPersonBean){
+		String whereClause="";
+		if (search != null){
+			if(search.getSearchField() !=null && !search.getSearchField().equals(""))
+				whereClause +=" where " + search.getSearchField()+"= '" +search.getSearchPhrase() +"'";
+			if(search.getWhereClause() !=null && !search.getWhereClause().equals("")){
+				if(whereClause.equals(""))
+					whereClause +=" where ";
+				else 
+					whereClause +=" and ";
+				whereClause += search.getWhereClause();
+			}
+		}	
+		return whereClause;
+	}
 
 
 
