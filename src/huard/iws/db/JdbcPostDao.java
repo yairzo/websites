@@ -113,7 +113,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	}
 
 	public int insertPost(int creatorId){
-		final String query = "insert post set creatorId = ?, creationTime = ?;";
+		final String query = "insert post set creatorId = ?, creationTime = ?,localeId='iw_IL';";
 		final int aCreatorId = creatorId;
 		final Timestamp creationDate = new Timestamp(new java.util.Date().getTime());
 		KeyHolder keyHolder = new GeneratedKeyHolder();

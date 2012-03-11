@@ -39,6 +39,12 @@ $(document).ready(function() {
     $("#form").submit();
     return true;
     });
+    
+    $("#buttonCopy").click(function(){
+    	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"copy\"/>");
+        $("#form").submit();
+        return true;
+    });
 
     $("#buttonSearch").click(function(){
     $("input#listViewPage").remove();
@@ -161,10 +167,11 @@ $(document).ready(function() {
 
 	    <tr>
 		<td>
-			<button class="grey" onclick="window.location='post.html'; return false;">הוסף</button>
+			<button class="grey" onclick="window.location='post.html?action=new'; return false;">הוסף</button>
 
 			<button id="buttonEdit" class="grey" />ערוך</button>
 			<button id="buttonDelete" class="grey" />מחק</button>
+			<button id="buttonCopy" class="grey"/>שכפל</button>
 		</td>
 		</tr>
 		<tr>

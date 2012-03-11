@@ -4,6 +4,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.PostBean;
 import huard.iws.bean.SubjectBean;
 import huard.iws.model.Attachment;
+import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Post;
 import huard.iws.model.Subject;
 import huard.iws.service.PersonListService;
@@ -111,6 +112,12 @@ public class EditPostController extends GeneralFormController {
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
+		if (request.getParameter("action", "").equals("new")){
+			int id = postService.insertPost(userPersonBean.getId());
+			Map<String, Object> newModel = new HashMap<String, Object>();
+			newModel.put("id",id);
+			return new ModelAndView ( new RedirectView("post.html"), newModel);
+		}
 
 		PostBean postBean = (PostBean) model.get("command");
 
@@ -142,7 +149,7 @@ public class EditPostController extends GeneralFormController {
 				postBean.getSendTime().getTime(), postBean.getLocaleId()));
 
 		model.put("postTypes", postService.getPostTypes());
-
+		
 		return new ModelAndView("editPost", model);
 	}
 
@@ -151,6 +158,10 @@ public class EditPostController extends GeneralFormController {
 
 		Post post = new Post();
 		PostBean postBean = new PostBean();
+		
+		if ( isFormSubmission(request.getRequest()) || request.getParameter("action","").equals("new"))
+			return postBean;
+		
 		if ( ! isFormSubmission(request.getRequest())){
 			int id = request.getIntParameter("id", 0);
 			if (id ==0){

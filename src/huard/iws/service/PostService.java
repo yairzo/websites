@@ -42,5 +42,7 @@ public interface PostService {
 	public List<PersonBean> getSubscribersSubject(int subjectId);
 
 	public List<Post> getOpenPosts();
+	
+	public int copyPost (int sourcePostId, PersonBean userPersonBean);
 
 }

@@ -39,7 +39,10 @@ public class PostListController extends GeneralFormController {
 			newModel.put("id",aCommand.getPostId());
 			return new ModelAndView( new RedirectView("deletePost.html"),newModel);
 		}
-
+		if (action.equals("copy") && aCommand.getPostId()>0){
+			int newPostId = postService.copyPost(aCommand.getPostId(), userPersonBean);
+			return new ModelAndView(new RedirectView("post.html?id=" + newPostId));
+		}
 
 		if (action.equals("search"))
 			aCommand.getListView().setPage(1);
