@@ -90,8 +90,10 @@ public class PostListController extends GeneralFormController {
 
 			SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("postsSearchCreteria");
 			//request.getSession().setAttribute("postsSearchCreteria", null);
-			if (searchCreteria == null)
+			if (searchCreteria == null){
 				searchCreteria = new SearchCreteria();
+				request.getSession().setAttribute("searchSent", "1");
+			}
 
 			ListView listView = (ListView) request.getSession().getAttribute("postsListView");
 			if (listView == null){

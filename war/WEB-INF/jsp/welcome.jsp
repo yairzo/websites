@@ -127,7 +127,7 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR">
 						<tr>
 							<th align="right">
-								<a style="text-decoration: none" href="post.html">מערכת דיוור - שליחת הודעה חדשה</a>
+								<a style="text-decoration: none" href="post.html?action=new">מערכת דיוור - שליחת הודעה חדשה</a>
 							</th>
 						</tr>
 						</authz:authorize>

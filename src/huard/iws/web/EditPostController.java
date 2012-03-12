@@ -42,6 +42,12 @@ public class EditPostController extends GeneralFormController {
 
 		PostBean postBean = (PostBean)command;
 
+		String action = request.getParameter("action", "");
+		if (action.equals("delete")){
+			postService.deletePost(postBean.getId());
+			return new ModelAndView(new RedirectView("posts.html"));
+		}
+		
 		String subjectsIdsString = request.getParameter("subjectsIdsString","");
 		
 		List<Integer> subjectsIds = BaseUtils.getIntegerList(subjectsIdsString, ",");
@@ -90,7 +96,6 @@ public class EditPostController extends GeneralFormController {
 		if (postBean.getSubjectsIds() == null){
 				postBean.setSubjectsIds(new ArrayList<Integer>());
 		}
-		String action = request.getParameter("action", "");
 		if (action.equals("sendme")){
 			postBean.setSelfSend(true);
 		}
@@ -164,14 +169,14 @@ public class EditPostController extends GeneralFormController {
 		
 		if ( ! isFormSubmission(request.getRequest())){
 			int id = request.getIntParameter("id", 0);
-			if (id ==0){
+			/*if (id ==0){
 				id = postService.insertPost(userPersonBean.getId());
 				post.setId(id);
 				post.setCreatorId(userPersonBean.getId());
 			}
-			else{
+			else{*/
 				post = postService.getPost(id);
-			}
+			//}
 			postBean = new PostBean(post);
 		}
 		return postBean;

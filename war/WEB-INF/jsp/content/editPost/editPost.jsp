@@ -100,7 +100,7 @@
 						<td colspan="2">
 
 								<div class="bodyTA">
-									<form:textarea id="body" path="message" cssClass="tinymce"/>
+									<form:textarea id="body" path="message" cssClass="tinymce message"/>
 								</div>
 						</td>
 				</tr>

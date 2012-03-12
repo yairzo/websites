@@ -174,11 +174,25 @@
 		);
 	}
 
+	var formExit=true;
 
+	window.onunload = function() {
+		var checkedSubject=false;
+		$('input.subSubject').each(function(){
+			if (this.checked){
+				checkedSubject=true;
+			}
+		});
+		if ($('.messageSubject').val()==''  && $('.callOfProposal').val()=='' && $('.message').val()=='' && checkedSubject==false && formExit){
+			$('form#form').append('<input type="hidden" name="action" value="delete"/>');
+			$('form#form').submit();
+ 		}
+	}
 
 
 	$(document).ready(function() {
 
+		
 		$("input.rdoTypeTinymce").attr("cheked",true);
 		ShowTinyMCE();
 		$("input.radios").click(function(){
@@ -293,6 +307,7 @@
 			$('form#form').submit();
 		});
 		$('button.save').click(function(){
+			formExit=false;
 			$('form#form').append('<input type="hidden" name="action" value="save"/>');
 			var ids="";
 			$('input.subSubject').each(function(){
@@ -309,6 +324,7 @@
 			$('form#form').submit();
 		});
 		$('button.sendme').click(function(){
+			formExit=false;
 			$('form#form').append('<input type="hidden" name="action" value="sendme"/>');
 			var ids="";
 			$('input.subSubject').each(function(){
