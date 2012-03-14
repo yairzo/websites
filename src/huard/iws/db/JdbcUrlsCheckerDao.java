@@ -3,7 +3,7 @@ package huard.iws.db;
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.TextualPage;
 import huard.iws.model.PageUrl;
-import huard.iws.model.PageMailUrl;
+//import huard.iws.model.PageMailUrl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -209,7 +209,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		}
 	}	
 	
-	public void deleteOldRowsFromPubPagesUrls(String server){
+	/*public void deleteOldRowsFromPubPagesUrls(String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
@@ -277,7 +277,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		catch(SQLException e){
 			System.out.println(e);
 		}
-	}
+	}*/
 
 	
 	public List<PageUrl> getInfoPagesUrls(Integer ardNum,String server){
@@ -386,7 +386,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		}
 	}
 
-	public List<PageMailUrl> getInfoPagesMailUrlsFromTable(String server){
+	/*public List<PageMailUrl> getInfoPagesMailUrlsFromTable(String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
@@ -471,6 +471,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		catch(SQLException e){
 			System.out.println(e);
 		}
-	}
+	}*/
 
 }
