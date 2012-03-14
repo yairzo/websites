@@ -78,7 +78,7 @@ public class PostListController extends GeneralFormController {
 			//postBean.setBusyRecord(recordProtectService.isRecordBusy("post",postBean.getId(), userPostBean.getUsername()));
 			postBeans.add(postBean);
 		}
-		model.put("searchSent", request.getSession().getAttribute("searchSent"));
+		model.put("searchVerified", request.getSession().getAttribute("searchVerified"));
 		model.put("posts", postBeans);
 		return new ModelAndView ("postList",model);
 	}
@@ -92,13 +92,19 @@ public class PostListController extends GeneralFormController {
 			//request.getSession().setAttribute("postsSearchCreteria", null);
 			if (searchCreteria == null){
 				searchCreteria = new SearchCreteria();
-				request.getSession().setAttribute("searchSent", "1");
+				request.getSession().setAttribute("searchVerified", "1");
 			}
 
 			ListView listView = (ListView) request.getSession().getAttribute("postsListView");
+			request.getSession().setAttribute("postsListView", null);
 			if (listView == null){
 				listView = new ListView();
-				listView.setOrderBy("isVerified, sendTime");
+				String orderBy = request.getParameter("orderBy","");
+		System.out.println("1111 orderby:" + orderBy);
+				if( !orderBy.equals(""))
+					listView.setOrderBy(orderBy);
+				else
+					listView.setOrderBy("sendTime desc");
 			}
 			
 			command.setSearchCreteria(searchCreteria);
@@ -111,14 +117,14 @@ public class PostListController extends GeneralFormController {
 			if( !postDate.equals("")){
 				whereClause += " Date(sendTime)='" + request.getParameter("postDate", "") + "'";
 			}
-			String searchSent = request.getParameter("searchSent","");
-			if( searchSent.equals("0")){
+			String searchVerified = request.getParameter("searchVerified","");
+			if( searchVerified.equals("0")){
 				if (!whereClause.equals(""))
 					whereClause += " and ";
-				whereClause += " isSent=1";
+				whereClause += " isVerified=1";
 			}
 			searchCreteria.setWhereClause(whereClause);
-			request.getSession().setAttribute("searchSent", searchSent);
+			request.getSession().setAttribute("searchVerified", searchVerified);
 			
 			String searchPhrase = request.getParameter("searchPhrase","");
 			if( !searchPhrase.equals("")){
@@ -128,11 +134,18 @@ public class PostListController extends GeneralFormController {
 			
 			command.setSearchCreteria(searchCreteria);
 			request.getSession().setAttribute("postsSearchCreteria", searchCreteria);
+
 			ListView listView = new ListView();
-			listView.setOrderBy("isVerified, sendTime");
+			String orderBy = request.getParameter("orderBy","");
+System.out.println("1111 orderby:" + orderBy);
+			if( !orderBy.equals(""))
+				listView.setOrderBy(orderBy);
+			else
+				listView.setOrderBy("sendTime desc");
 			listView.setPage(request.getIntParameter("listView.page", 1));			
-			request.getSession().setAttribute("postsListView", listView);
+
 			command.setListView(listView);
+			request.getSession().setAttribute("postsListView", listView);
 		}
 		return command;
 	}

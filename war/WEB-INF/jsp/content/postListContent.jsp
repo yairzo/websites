@@ -1,5 +1,21 @@
 <%@ page  pageEncoding="UTF-8" %>
+<style>
+	.ui-autocomplete {
+		max-height: 200px;
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+		/* add padding to account for vertical scrollbar */
+		padding-right: 20px;
+		direction: rtl;
+	}
+	
+	.ui-autocomplete li {
+		list-style-type: none;
+	}
 
+
+</style>
 <script language="Javascript">
 
 function resetAutocomplete(posts){
@@ -25,6 +41,28 @@ function cleanSearch(){
 	$("input#orderBy").remove();
 }
 
+$(function() {
+    $.datepicker.regional['he'] = {
+        closeText: 'סגור',
+        prevText: '&#x3c;הקודם',
+        nextText: 'הבא&#x3e;',
+        currentText: 'היום',
+        monthNames: ['ינואר','פברואר','מרץ','אפריל','מאי','יוני',
+        'יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'],
+        monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+        dayNames: ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'],
+        dayNamesShort: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
+        dayNamesMin: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
+        weekHeader: 'Wk',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 0,
+        isRTL: true,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['he']);
+
+});
 
 $(document).ready(function() {
 
@@ -55,7 +93,7 @@ $(document).ready(function() {
     });
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
- 	$('.searchSent').click(function(){
+ 	$('.searchVerified').click(function(){
  		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
 		$("#form").submit();
  	});
@@ -121,8 +159,8 @@ $(document).ready(function() {
                 </tr>
                <tr>
                   <td colspan="2">
-  				   <input class="searchSent" type="radio" name="searchSent" class="green" value="1" <c:if test="${searchSent==1}">checked="checked"</c:if>/>  כולל טיוטות
-  				   <input class="searchSent" type="radio" name="searchSent" class="green" value="0" <c:if test="${searchSent==0}">checked="checked"</c:if>/>  לא כולל טיוטות
+  				   <input class="searchVerified" type="radio" name="searchVerified" class="green" value="1" <c:if test="${searchVerified==1}">checked="checked"</c:if>/>  כולל טיוטות
+  				   <input class="searchVerified" type="radio" name="searchVerified" class="green" value="0" <c:if test="${searchVerified==0}">checked="checked"</c:if>/>  לא כולל טיוטות
                  </td>
                 </tr>
  
@@ -138,8 +176,8 @@ $(document).ready(function() {
 
               <tr>
 
-                <th align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="posts.html?orderBy=isVerified,messageSubject&page=<c:out value="${listView.page}"/>&searchField=<c:out value="${command.searchCreteria.searchField}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="image/downArrow.gif" border="0"></a>&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="posts.html?orderBy=isVerified,sendTime&page=<c:out value="${listView.page}"/>&searchField=<c:out value="${command.searchCreteria.searchField}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="image/downArrow.gif" border="0"></a></th>
+                <th align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="posts.html?orderBy=messageSubject&page=<c:out value="${listView.page}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="image/downArrow.gif" border="0"></a></th>
+                <th align="right"><a href="posts.html?orderBy=sendTime&page=<c:out value="${listView.page}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="image/downArrow.gif" border="0"></a></th>
 
               </tr>
 
@@ -147,7 +185,7 @@ $(document).ready(function() {
 			<c:forEach items="${posts}" var="post" varStatus="varStatus">
              <tbody>
   				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
-  				<td align="right">
+  				<td width="270" align="right">
 				  	<c:choose>
 					  <c:when test="${false}">
 						  &nbsp;
@@ -156,12 +194,12 @@ $(document).ready(function() {
 			  			<form:radiobutton path="postId" value="${post.id}"/>
   					  </c:otherwise>
 				  	</c:choose>
-
-  				<c:out value="${post.messageSubject}"/>
-
-  				<c:out value="${post.sendTime}"/>
-  			</td>
-  	  	</tr>
+				<a href="post.html?id=${post.id}"><c:choose><c:when test="${fn:length(post.messageSubject)>0}"><c:out value="${post.messageSubject}"></c:out></c:when><c:otherwise>ללא כותרת</c:otherwise></c:choose></a>
+				</td>
+				<td align="right">
+  				<c:out value="${post.formattedSendTime}"/>
+  				</td>
+   	  			</tr>
   	  	</tbody>
 	   </c:forEach>
 
@@ -175,7 +213,7 @@ $(document).ready(function() {
 		</td>
 		</tr>
 		<tr>
-                <td align="center"><br>
+                <td colspan="2" align="center"><br>
 					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
                 </td>
                 </tr>
