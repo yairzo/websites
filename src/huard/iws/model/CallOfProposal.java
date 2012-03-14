@@ -14,6 +14,9 @@ public class CallOfProposal {
 	private String description;
 	private String budgetDetails;
 	private String additionalInformation;
+	private String pageWebAddress;
+	private boolean descriptionOnly;
+
 
 
 
@@ -30,6 +33,8 @@ public class CallOfProposal {
 		this.description="";
 		this.budgetDetails="";
 		this.additionalInformation="";
+		this.pageWebAddress="";
+		this.descriptionOnly= false;
 	}
 	
 	public String toString(){
@@ -133,4 +138,18 @@ public class CallOfProposal {
 		this.additionalInformation = additionalInformation;
 	}
 
+	public String getPageWebAddress() {
+		return pageWebAddress;
+	}
+
+	public void setPageWebAddress(String string) {
+		pageWebAddress = string;
+	}
+	
+	public boolean isDescriptionOnly() {
+		return descriptionOnly;
+	}
+	public void setDescriptionOnly(boolean descriptionOnly) {
+		this.descriptionOnly = descriptionOnly;
+	}
 }
