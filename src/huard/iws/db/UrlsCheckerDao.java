@@ -24,7 +24,7 @@ public interface UrlsCheckerDao {
 	
 	public void insertPubPagesURLsTable(int ardNum, List<PageUrl> URLsList, String server);
 
-	//public void deleteOldRowsFromPubPagesUrls(String server);
+	public void deleteOldRowsFromPubPagesUrls(String server);
 	
 	//public void deleteFromInfoPagesMailUrls(String server);
 	

@@ -209,7 +209,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		}
 	}	
 	
-	/*public void deleteOldRowsFromPubPagesUrls(String server){
+	public void deleteOldRowsFromPubPagesUrls(String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
@@ -221,7 +221,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		}
 	}
 
-	public void deleteFromInfoPagesMailUrls(String server){
+	/*public void deleteFromInfoPagesMailUrls(String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
