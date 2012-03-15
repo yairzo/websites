@@ -156,33 +156,27 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		StringBuilder query = new StringBuilder() ;
 
 		if (isReceived){
-			query.append("select * from post, personToPost where personToPost.personId = ? and post.id = personToPost.postId");
-			query.append(getPostsWhereClause(search,userPersonBean));
+			//query.append("select * from post, personToPost where personToPost.personId = ? and post.id = personToPost.postId");
+			query.append("select * from post, personToPost");
+			query.append(getPostsWhereClause(search,userPersonBean,isReceived));
 			query.append(" order by "+lv.getOrderBy());
-			posts =getSimpleJdbcTemplate().query(query.toString(), rowMapper,userPersonBean.getId());
+			System.out.println("query:"+query);
+			posts =getSimpleJdbcTemplate().query(query.toString(), rowMapper);
 		}
 		else{
-			if (userPersonBean.isAuthorized("POST", "ADMIN")){
-				query.append("select * from post");
-				query.append(getPostsWhereClause(search,userPersonBean));
-				query.append(" order by "+lv.getOrderBy());
-				System.out.println("query:" + query.toString());
-				posts =	getSimpleJdbcTemplate().query(query.toString(), rowMapper);
-			}
-			else{
-				query.append("select * from post where creatorId = ? or senderId = ?");
-				query.append(getPostsWhereClause(search,userPersonBean));
-				query.append(" order by "+lv.getOrderBy());
-				posts =getSimpleJdbcTemplate().query(query.toString(), rowMapper,userPersonBean.getId(), userPersonBean.getId());
-			}
+			query.append("select * from post");
+			query.append(getPostsWhereClause(search,userPersonBean,isReceived));
+			query.append(" order by "+lv.getOrderBy());
+			System.out.println("query:" + query.toString());
+			posts =	getSimpleJdbcTemplate().query(query.toString(), rowMapper);
 		}
 		return posts;
 	}
 
-	public String getPostsWhereClause(SearchCreteria search, PersonBean userPersonBean){
+	public String getPostsWhereClause(SearchCreteria search, PersonBean userPersonBean,boolean isReceived){
 		String whereClause="";
 		if (search != null){
-			if(search.getSearchField() !=null && !search.getSearchField().equals(""))
+			if(search.getSearchPhrase() !=null && !search.getSearchPhrase().equals(""))
 				whereClause +=" where " + search.getSearchField()+"= '" +search.getSearchPhrase() +"'";
 			if(search.getWhereClause() !=null && !search.getWhereClause().equals("")){
 				if(whereClause.equals(""))
@@ -192,6 +186,20 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 				whereClause += search.getWhereClause();
 			}
 		}	
+		if (isReceived){
+			if(whereClause.equals(""))
+				whereClause +=" where ";
+			else 
+				whereClause +=" and ";
+			whereClause += " personToPost.personId = " + userPersonBean.getId() +" and post.id = personToPost.postId" ;
+		}
+		if (userPersonBean.isAuthorized("POST","CREATOR")){
+			if(whereClause.equals(""))
+				whereClause +=" where ";
+			else 
+				whereClause +=" and ";
+			whereClause += " creatorId = " + userPersonBean.getId() ;
+		}
 		return whereClause;
 	}
 

@@ -100,7 +100,6 @@ public class PostListController extends GeneralFormController {
 			if (listView == null){
 				listView = new ListView();
 				String orderBy = request.getParameter("orderBy","");
-		System.out.println("1111 orderby:" + orderBy);
 				if( !orderBy.equals(""))
 					listView.setOrderBy(orderBy);
 				else
@@ -137,7 +136,6 @@ public class PostListController extends GeneralFormController {
 
 			ListView listView = new ListView();
 			String orderBy = request.getParameter("orderBy","");
-System.out.println("1111 orderby:" + orderBy);
 			if( !orderBy.equals(""))
 				listView.setOrderBy(orderBy);
 			else

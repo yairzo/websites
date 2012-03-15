@@ -30,7 +30,7 @@
 	function ShowCKEDITOR()
 	{
 		currentEditor = "ckeditor";
-		$('textarea:tinymce').tinymce().remove();
+		//$('textarea:tinymce').tinymce().remove();
 		var config=	{
 			uiColor: '#F4EEE4',
 			contentsCss : 'assets/output_xhtml.css',
@@ -192,8 +192,8 @@
 
 	$(document).ready(function() {
 
-		
-		$("input.rdoTypeTinymce").attr("cheked",true);
+		ShowCKEDITOR();
+		/*$("input.rdoTypeTinymce").attr("cheked",true);
 		ShowTinyMCE();
 		$("input.radios").click(function(){
 	   	 if ($(this).val() == 'rdoTypeCKEDITOR' && currentEditor != 'ckeditor')
@@ -207,7 +207,7 @@
 			 });
        		 ShowTinyMCE();
     	 	}
-		});
+		});*/
 
 		$("a.addAttachEditor").click(function(){
 			var html = $("td.attach").html();
