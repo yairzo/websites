@@ -23,7 +23,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate("UPDATE InfoPagesURLs SET thisBuild=0;");
-			statement.close();
 		}
 		catch(SQLException e){
 			System.out.println(e);
@@ -40,7 +39,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 						" ORDER BY RAND();");
 			System.out.println(query);
 			ResultSet resultSet = statement.executeQuery(query);
-			statement.close();
 			return moveResultSetToTabledInfoPages(resultSet);
 		}
 		catch(SQLException e){
@@ -97,15 +95,14 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 				String sql = "UPDATE InfoPagesURLs SET ardNum="+ardNum+
 				", URL=\""+pageUrl.getUrl()+"\", urlText=\""+pageUrl.getUrlText()+"\", formerFileSize=fileSize, fileSize=0,"+
 				" thisBuild=1 WHERE ardNum="+ardNum+" AND URL=\""+pageUrl.getUrl()+"\";";
-				System.out.println(sql);
+				//System.out.println(sql);
 				int r = statement.executeUpdate(sql);
 
 				if (r==0) {
 					sql = "INSERT InfoPagesURLs SET ardNum="+ardNum+
 					", URL=\""+pageUrl.getUrl()+"\", urlText=\""+pageUrl.getUrlText()+"\", thisBuild=1;";
-					System.out.println(sql);
+					//System.out.println(sql);
 					statement.executeUpdate(sql);
-					statement.close();
 				}
 			}
 		}
@@ -119,7 +116,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate("DELETE FROM InfoPagesURLs WHERE thisBuild=0;");
-			statement.close();
 		}
 		catch(SQLException e){
 			System.out.println(e);
@@ -131,7 +127,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate("UPDATE PubPagesURLs SET thisBuild=0 ;");
-			statement.close();
 		}
 		catch(SQLException e){
 			System.out.println(e);
@@ -145,7 +140,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			String query = "SELECT * FROM PubPages WHERE onSite=1 AND isDeleted=0 "
 			+(ardNum!=null ? "AND PubPages.ardNum="+ardNum+";"  : "ORDER BY RAND();");
 			ResultSet resultSet = statement.executeQuery(query);
-			statement.close();
 			return moveResultSetToPubPage(resultSet);
 		}
 		catch(SQLException e){
@@ -201,7 +195,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 					" thisBuild=1 WHERE ardNum="+ardNum+" AND URL=\""+pageUrl.getUrl()+"\";");
 				if (r==0) statement.executeUpdate("INSERT PubPagesURLs SET ardNum="+ardNum+
 				", URL=\""+pageUrl.getUrl()+"\", urlText=\""+pageUrl.getUrlText()+"\", thisBuild=1;");
-				statement.close();
 			}
 		}
 		catch(SQLException e){
@@ -214,7 +207,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate("DELETE FROM PubPagesURLs WHERE thisBuild=0 ;");
-			statement.close();
 		}
 		catch(SQLException e){
 			System.out.println(e);
@@ -300,7 +292,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 				pageUrl.setStatus(resultSet.getString("status"));
 				pagesURLs.add(pageUrl);
 			}
-			statement.close();
 			return pagesURLs;
 		}
 		catch(SQLException e){
@@ -315,7 +306,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM TabledInfoPages, InfoPages WHERE InfoPages.ardNum="+ardNum+";");
 			List<CallOfProposal> infoPages = moveResultSetToTabledInfoPages(resultSet);
-			statement.close();
 			return infoPages;
 		}
 		catch(SQLException e){
@@ -330,10 +320,11 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Timestamp now = new Timestamp(System.currentTimeMillis());
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("UPDATE InfoPagesURLs SET fileSize="+pageUrl.getFileSize()
+			String query = "UPDATE InfoPagesURLs SET fileSize="+pageUrl.getFileSize()
 					+", status=\""+pageUrl.getStatus()+"\", checkedTime=\""+now+
-					"\" WHERE ardNum="+pageUrl.getArdNum()+" AND URL=\""+pageUrl.getUrl()+"\";");
-			statement.close();
+					"\" WHERE ardNum="+pageUrl.getArdNum()+" AND URL=\""+pageUrl.getUrl()+"\";";
+			System.out.println(query);
+			statement.executeUpdate(query);
 		}
 		catch(SQLException e){
 			System.out.println(e);
@@ -360,7 +351,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 				pageUrl.setStatus(resultSet.getString("status"));
 				pagesURLs.add(pageUrl);
 			}
-			statement.close();
 			return pagesURLs;
 		}
 		catch(SQLException e){
@@ -377,9 +367,8 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			String query = "UPDATE PubPagesURLs SET fileSize="+pageUrl.getFileSize()
 			+", status=\""+pageUrl.getStatus()+"\", checkedTime=\""+now+
 			"\" WHERE ardNum="+pageUrl.getArdNum()+" AND URL=\""+pageUrl.getUrl()+"\";";
-
+			System.out.println(query);
 			statement.executeUpdate(query);
-			statement.close();
 		}
 		catch(SQLException e){
 			System.out.println(e);

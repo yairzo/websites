@@ -26,16 +26,28 @@ public class ExecUrlsChecker {
 	public static void main (String [] args){
 	
 		Integer ardNum = null;
-		if (args.length==3) ardNum = new Integer(args[2]);
+		if (args.length==2) ardNum = new Integer(args[1]);
 		ExecUrlsChecker execUrlsChecker = new ExecUrlsChecker();
-		
+		String pathToApp = "/home/mop";
 		if (args[0].equals("buildTables") ){
+			if (execUrlsChecker.getUrlsCheckerService() == null){
+				System.out.println("Probably rmi lookup failed. exiting !");
+				return;
+			}
+			System.out.println("Starting....buildTables" );
 			execUrlsChecker.getUrlsCheckerService().buildInfoPagesURLsTable(ardNum);
 			execUrlsChecker.getUrlsCheckerService().buildPubPagesURLsTable(ardNum);
+			System.out.println("finished." );
 		}
 		else if (args[0].equals("checkUrls") ){
-			execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInInfoPagesURLsTable(ardNum, args[1]);
-			execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInPubPagesURLsTable(ardNum, args[1]);
+			if (execUrlsChecker.getUrlsCheckerService() == null){
+				System.out.println("Probably rmi lookup failed. exiting !");
+				return;
+			}
+			System.out.println("Starting....checkUrls" );
+			execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInInfoPagesURLsTable(ardNum, pathToApp);
+			execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInPubPagesURLsTable(ardNum, pathToApp);
+			System.out.println("finished." );
 		}
 		//else if (args[0].equals("checkMailAddresses") ){
 			//execUrlsChecker.getUrlsCheckerService().updateMailURLsStatusInInfoPagesMailURLsTable();

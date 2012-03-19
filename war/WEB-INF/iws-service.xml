@@ -129,6 +129,15 @@
         </property>
     </bean>
 
+   <bean id="urlsCheckerService" class="huard.iws.service.UrlsCheckerServiceImpl">
+		<property name="urlsCheckerDao">
+            <ref bean="urlsCheckerDao"/>
+        </property>
+        <property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+    </bean>
+
 	<bean id="proposalStateHistoryService" class="huard.iws.service.ProposalStateHistoryServiceImpl">
 		<property name="proposalStateHistoryDao">
             <ref bean="proposalStateHistoryDao"/>

@@ -58,6 +58,10 @@
 		<property name="dataSource" ref="dataSource"/>
      </bean>
 
+	<bean id="urlsCheckerDao" class="huard.iws.db.JdbcUrlsCheckerDao">
+		<property name="dataSource" ref="dataSource"/>
+     </bean>
+
 	<bean id="proposalStateHistoryDao" class="huard.iws.db.JdbcProposalStateHistoryDao">
 		<property name="dataSource" ref="dataSource"/>
      </bean>

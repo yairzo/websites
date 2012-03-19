@@ -731,7 +731,15 @@
       		value="huard.iws.service.PageTextualWordsIndexerService"/>
   		<property name="registry" ref="registry"/>
 	</bean>
-	
+
+	<bean id="urlsCheckerServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="urlsCheckerService"/>
+  		<property name="serviceName" value="UrlsCheckerService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.UrlsCheckerService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+		
 	<bean id="fundServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
   		<property name="service" ref="fundService"/>
   		<property name="serviceName" value="FundService"/>

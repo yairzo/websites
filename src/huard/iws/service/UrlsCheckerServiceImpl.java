@@ -15,27 +15,6 @@ import java.util.List;
 
 public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 	
-	/*private String pathToApp;
-	private final String appName="urlsChecker";
-	private Properties prop;
-	private String from;
-	private String cc;
-	private String replyTo;
-	private String webDomain;
-	private String port;
-	private Integer ardNum;*/
-	
-	/*public UrlsCheckerServiceImpl(String pathToApp, Integer ardNum){
-		prop = getAppProperties(pathToApp);
-		this.pathToApp = pathToApp;
-		from = prop.getProperty("userAtDomain");
-		cc = prop.getProperty("adminMailAddress");
-		replyTo = prop.getProperty("adminMailAddress");
-		webDomain = prop.getProperty("webDomain");
-		port = prop.getProperty("port");
-		this.ardNum = ardNum;
-	}*/
-
 	public void buildInfoPagesURLsTable(Integer ardNum){
 		String server = configurationService.getConfigurationString("websiteDb");
 		urlsCheckerDao.markExistingRowsInInfoPagesUrls(server);
@@ -70,22 +49,58 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 	}
 
 	public List<PageUrl> getURLs(String text){
+		List<PageUrl> pageUrls = new ArrayList<PageUrl>();
 		WordsTokenizer wt = new WordsTokenizer("*");
 		List<String> tokens = wt.getSubstringsList(text);
-		List<PageUrl> pageUrls = new ArrayList<PageUrl>();
-		String lastToken="";
-		for (String token : tokens){
-			if ( (token.indexOf("http://")==-1 && token.indexOf("ftp://")==-1)
-				|| (token.trim().indexOf("http://")!=0 && token.trim().indexOf("ftp://")!=0 )){
-			}
-			else {
-				PageUrl pageUrl = new PageUrl(lastToken,token);
-				pageUrls.add(pageUrl);
-			}
+		if(tokens.size()>0){
+			String lastToken="";
+			for (String token : tokens){
+				if ( (token.indexOf("http://")==-1 && token.indexOf("ftp://")==-1)
+						|| (token.trim().indexOf("http://")!=0 && token.trim().indexOf("ftp://")!=0 )){
+				}
+				else {
+			System.out.println("url:" + token);
+					PageUrl pageUrl = new PageUrl(lastToken,token);
+					pageUrls.add(pageUrl);
+				}
 
-			lastToken=token;
+				lastToken=token;
+			}
+			return pageUrls;
 		}
-		return pageUrls;
+		else{//when no *
+			int fromIndex=0;
+			while (text.indexOf("http://", fromIndex)>-1){
+				String url = "";
+				int index=text.indexOf("http://", fromIndex);
+				//if (text.indexOf("*", fromIndex)>-1)
+				//	url = text.substring(text.indexOf("http://", fromIndex), text.indexOf("*", index));
+				//else 
+				if (text.indexOf(" ", fromIndex)>-1)
+					url = text.substring(text.indexOf("http://", fromIndex), text.indexOf(" ", index));
+				else
+					url = text.substring(text.indexOf("http://", fromIndex));
+				PageUrl pageUrl = new PageUrl("",url);
+				pageUrls.add(pageUrl);
+				fromIndex = index+7;
+			}
+			fromIndex=0;
+			while (text.indexOf("ftp://", fromIndex)>-1){
+				String url = "";
+				int index=text.indexOf("ftp://", fromIndex);
+				//if (text.indexOf("*", fromIndex)>-1)
+				//	url = text.substring(text.indexOf("ftp://", fromIndex), text.indexOf("*", index));
+				//else 
+				if (text.indexOf(" ", fromIndex)>-1)
+					url = text.substring(text.indexOf("ftp://", fromIndex), text.indexOf(" ", index));
+				else
+					url = text.substring(text.indexOf("ftp://", fromIndex));
+				PageUrl pageUrl = new PageUrl("",url);
+				pageUrls.add(pageUrl);
+				fromIndex = index+6;
+			}
+			return pageUrls;
+		}
 	}
 
 	/*public void buildInfoPagesMailURLsTable(){
@@ -142,16 +157,14 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 				System.out.println("Last ArdNum: "+lastArdNum);
 				System.out.println("ArdNum: "+pageUrl.getArdNum());
 
-				//if (pageUrl.getArdNum()==lastArdNum){
-					try{
-						System.out.println("Waiting .....");
-						Thread.sleep(2000);
-					}
-					catch (InterruptedException ie){
-					}
-				//}
-
-				String pathToDownloadedFile = pathToApp+"/urlsChecker/work/"+pageUrl.getArdNum()+"Target.html";
+				try{
+					System.out.println("Waiting .....");
+					Thread.sleep(2000);
+				}
+				catch (InterruptedException ie){
+				}
+				
+				String pathToDownloadedFile = pathToApp+"/work/urlsChecker/"+pageUrl.getArdNum()+"Target.html";
 				System.out.println("Command: wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
 				Process p = Runtime.getRuntime().exec("wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
 				try{
@@ -166,9 +179,29 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 				pageUrl.setFileSize(fileSize);
 				file.delete();
 
+				System.out.println("exit value: "+p.exitValue());
 				System.out.println("Sizes: "+fileSize+" "+pageUrl.getFormerFileSize());
-				if (fileSize==0 || (fileSize < 5000 && fileSize - pageUrl.getFormerFileSize() > 0)){
-
+				
+				if(p.exitValue()==0){
+					System.out.println("fileSize:"+fileSize + "  pageUrl.getFormerFileSize():"+ pageUrl.getFormerFileSize());
+					if (pageUrl.getFormerFileSize()>0 && Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
+						System.out.println("Url is Changed. exit status:"+p.exitValue());
+						pageUrl.setStatus("Changed");
+						pageUrl.setFileSize(fileSize);
+					}
+					else {
+						System.out.println("Url is Alive");
+						pageUrl.setStatus("Alive");
+					}					
+				}
+				else{
+					System.out.println("Url is Dead. Exit status:"+p.exitValue());
+					pageUrl.setStatus("Dead");
+					pageUrl.setFileSize(fileSize);
+				}
+				
+				/*if (fileSize==0 || (fileSize < 5000 && fileSize - pageUrl.getFormerFileSize() > 0)){
+					System.out.println("Url is Dead. Exit status:"+p.exitValue());
 					pageUrl.setStatus("Dead");
 					pageUrl.setFileSize(fileSize);
 					//String docOwner = urlsCheckerDao.getInfoPageByArdNum(pageUrl.getArdNum(),server).get(0).getDocOwner().toLowerCase();
@@ -177,12 +210,14 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 					//MailCollector.getMailCollector().add(from, to, cc, "", replyTo, subject, createDeadUrlMailMessageBody(pageUrl, "infoPage") , "");
 				}
 				else if (Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
+					System.out.println("Url is Changed. exit status:"+p.exitValue());
 					pageUrl.setStatus("Changed");
 					pageUrl.setFileSize(fileSize);
 				}
 				else {
+					System.out.println("Url is Alive");
 					pageUrl.setStatus("Alive");
-				}
+				}*/
 				urlsCheckerDao.updateTabledInfoPagesUrl(pageUrl,server);
 
 				lastArdNum=pageUrl.getArdNum();
@@ -203,18 +238,17 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 			for (PageUrl pageUrl: pagesUrls){
 				if (ardNum==null || (ardNum!=null && pageUrl.getArdNum()==ardNum)){
 
-				//if (pageUrl.getArdNum()==lastArdNum){
-					try{
-						System.out.println("Waiting .....");
-						Thread.sleep(2000);
-					}
-					catch (InterruptedException ie){
-					}
-				//}
+				try{
+					System.out.println("Waiting .....");
+					Thread.sleep(2000);
+				}
+				catch (InterruptedException ie){
+				}
+
 				System.out.println("*********************************");
 				System.out.println("Last ArdNum: "+lastArdNum);
 				System.out.println("ArdNum: "+pageUrl.getArdNum());
-				String pathToDownloadedFile = pathToApp+"/urlsChecker/work/"+pageUrl.getArdNum()+"Target.html";
+				String pathToDownloadedFile = pathToApp+"/work/urlsChecker/"+pageUrl.getArdNum()+"Target.html";
 				System.out.println("Command: wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
 				Process p = Runtime.getRuntime().exec("wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
 				try{
@@ -229,7 +263,25 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 				pageUrl.setFileSize(fileSize);
 				file.delete();
 				System.out.println("Sizes: "+fileSize+" "+pageUrl.getFormerFileSize());
-				if (fileSize==0 || (fileSize < 5000 && fileSize - pageUrl.getFormerFileSize() > 0)) {
+				if(p.exitValue()==0){
+					System.out.println("fileSize:"+fileSize + "  pageUrl.getFormerFileSize():"+ pageUrl.getFormerFileSize());
+					if (pageUrl.getFormerFileSize()>0 && Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
+						System.out.println("Url is Changed. exit status:"+p.exitValue());
+						pageUrl.setStatus("Changed");
+						pageUrl.setFileSize(fileSize);
+					}
+					else {
+						System.out.println("Url is Alive");
+						pageUrl.setStatus("Alive");
+					}					
+				}
+				else{
+					System.out.println("Url is Dead. Exit status:"+p.exitValue());
+					pageUrl.setStatus("Dead");
+					pageUrl.setFileSize(fileSize);
+				}
+				
+				/*if (fileSize==0 || (fileSize < 5000 && fileSize - pageUrl.getFormerFileSize() > 0)) {
 					pageUrl.setStatus("Dead");
 					pageUrl.setFileSize(fileSize);
 					//String docOwner = urlsCheckerDao.getPubPageByArdNum(pageUrl.getArdNum(),server).get(0).getDocOwner().toLowerCase();
@@ -243,7 +295,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 				}
 				else {
 					pageUrl.setStatus("Alive");
-				}
+				}*/
 
 				urlsCheckerDao.updatePubPagesUrl(pageUrl,server);
 				lastArdNum=pageUrl.getArdNum();
@@ -355,11 +407,6 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 		this.configurationService = configurationService;
 	}
 	
-	/*private PersonListService personListService;
-	public void setPersonListService(PersonListService personListService) {
-		this.personListService = personListService;
-	}
-	*/
 	private UrlsCheckerDao urlsCheckerDao;
 	public void setUrlsCheckerDao(UrlsCheckerDao urlsCheckerDao) {
 		this.urlsCheckerDao = urlsCheckerDao;
