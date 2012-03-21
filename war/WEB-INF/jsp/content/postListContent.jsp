@@ -113,7 +113,15 @@ $(document).ready(function() {
     	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
 		$("#form").submit();
     	}
-	});	
+	});
+ 	
+    $("#buttonCleanSearch").click(function(){
+    	$("input#listViewPage").remove();
+    	$("input#orderBy").remove();
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+		$("#form").submit();
+    	return true;
+    });
 });
 
 </script>
@@ -152,15 +160,14 @@ $(document).ready(function() {
 
 						לפי תאריך:<input type="text" class="green medium100" name="postDate" id="postDate" readonly="readonly"/>
 
-                      <!-- <button id="buttonSearch" class="grey">בטל חיפוש</button>  -->
-
-
-                  </td>
+                   </td>
                 </tr>
                <tr>
                   <td colspan="2">
   				   <input class="searchVerified" type="radio" name="searchVerified" class="green" value="1" <c:if test="${searchVerified==1}">checked="checked"</c:if>/>  כולל טיוטות
   				   <input class="searchVerified" type="radio" name="searchVerified" class="green" value="0" <c:if test="${searchVerified==0}">checked="checked"</c:if>/>  לא כולל טיוטות
+                   &nbsp;<button id="buttonCleanSearch" class="grey">בטל חיפוש</button> 
+
                  </td>
                 </tr>
  
@@ -174,14 +181,14 @@ $(document).ready(function() {
 
 
 
-              <tr>
+ 
 
-                <th align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="posts.html?orderBy=messageSubject&page=<c:out value="${listView.page}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="image/downArrow.gif" border="0"></a></th>
+   			<c:choose>
+    		<c:when test="${fn:length(posts) > 0}">
+             <tr>
+               <th align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="posts.html?orderBy=messageSubject&page=<c:out value="${listView.page}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="image/downArrow.gif" border="0"></a></th>
                 <th align="right"><a href="posts.html?orderBy=sendTime&page=<c:out value="${listView.page}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="image/downArrow.gif" border="0"></a></th>
-
               </tr>
-
-
 			<c:forEach items="${posts}" var="post" varStatus="varStatus">
              <tbody>
   				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
@@ -200,9 +207,17 @@ $(document).ready(function() {
   				<c:out value="${post.formattedSendTime}"/>
   				</td>
    	  			</tr>
-  	  	</tbody>
-	   </c:forEach>
-
+  	  		</tbody>
+	   		</c:forEach>
+ 	  		</c:when>
+  	  		<c:otherwise>
+  	  			  	<tr class="darker" style="height: 30px;">
+  						<td align="right" style="padding: 0px 20px;">
+  							אין הודעות 
+   						</td>
+  					</tr>
+  			</c:otherwise>
+  			</c:choose>  	  		
 	    <tr>
 		<td>
 			<button class="grey" onclick="window.location='post.html?action=new'; return false;">הוסף</button>
