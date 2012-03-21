@@ -6,7 +6,7 @@ import huard.iws.model.TextualPage;
 
 import java.util.List;
 
-public interface PageWordsIndexerDao {
+public interface PagesWordsIndexerDao {
 
 	public List<CallOfProposal> getLatelyUpdatedInfoPages(long runsInterval, String server);
 

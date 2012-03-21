@@ -717,21 +717,13 @@
 	</bean>
 	
 	<bean id="pageWordsIndexerServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
-  		<property name="service" ref="pageWordsIndexerService"/>
-  		<property name="serviceName" value="PageWordsIndexerService"/>
+  		<property name="service" ref="pagesWordsIndexerService"/>
+  		<property name="serviceName" value="PagesWordsIndexerService"/>
   		<property name="serviceInterface"
-      		value="huard.iws.service.PageWordsIndexerService"/>
+      		value="huard.iws.service.PagesWordsIndexerService"/>
   		<property name="registry" ref="registry"/>
 	</bean>
 	
-	<bean id="pageTextualWordsIndexerServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
-  		<property name="service" ref="pageTextualWordsIndexerService"/>
-  		<property name="serviceName" value="PageTextualWordsIndexerService"/>
-  		<property name="serviceInterface"
-      		value="huard.iws.service.PageTextualWordsIndexerService"/>
-  		<property name="registry" ref="registry"/>
-	</bean>
-
 	<bean id="urlsCheckerServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
   		<property name="service" ref="urlsCheckerService"/>
   		<property name="serviceName" value="UrlsCheckerService"/>

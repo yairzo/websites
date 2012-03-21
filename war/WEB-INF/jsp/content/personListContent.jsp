@@ -45,19 +45,7 @@ function cleanSearch(){
 $(document).ready(function() {
 
 
-	$("#buttonEdit").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"edit\"/>");
-    	$("#form").submit();
-    	return true;
-    });
-
-    $("#buttonDelete").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
-    	$("#form").submit();
-    	return true;
-    });
-
-    $("#buttonSearch").click(function(){
+	$("#buttonSearch").click(function(){
     	$("input#listViewPage").remove();
 		$("input#orderBy").remove();
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
@@ -174,9 +162,6 @@ $(document).ready(function() {
 	    <tr>
 		<td>
 			<button class="grey" onclick="window.location='person.html'; return false;">הוסף</button>
-
-			<button id="buttonEdit" class="grey" />ערוך</button>
-			<button id="buttonDelete" class="grey" />מחק</button>
 		</td>
 		</tr>
 		<tr>

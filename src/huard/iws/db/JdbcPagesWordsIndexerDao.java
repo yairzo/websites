@@ -1,8 +1,8 @@
 package huard.iws.db;
 
 import huard.iws.model.CallOfProposal;
-import huard.iws.model.TextualPage;
 import huard.iws.model.Desk;
+import huard.iws.model.TextualPage;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,13 +10,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
 
-public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements PageWordsIndexerDao {
+public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements PagesWordsIndexerDao {
 
 	private java.util.Date now;
 	
@@ -25,14 +23,12 @@ public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements Pag
 		try{
 			now = new java.util.Date();
 			long lastRunTime = now.getTime() - runsInterval;
-			//System.out.println("lastRunTime:"+lastRunTime);
-			//lastRunTime=1300000000000L;// just for testing
-			String queryString = "SELECT * FROM InfoPages,TabledInfoPages,InfoPagesLastUpdates"+
+			String query = "SELECT * FROM InfoPages,TabledInfoPages,InfoPagesLastUpdates"+
 			" WHERE InfoPages.isDeleted=0 AND date>="+lastRunTime+" AND InfoPages.ardNum=TabledInfoPages.ardNum AND "+
 			" InfoPages.ardNum = InfoPagesLastUpdates.ardNum";
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(queryString);
+			ResultSet resultSet = statement.executeQuery(query);
 			return moveResultSetToTabledInfoPages(resultSet);
 		}
 		catch (SQLException e){
@@ -151,11 +147,11 @@ public class JdbcPageWordsIndexerDao extends SimpleJdbcDaoSupport implements Pag
 	public void insertWordToInfoPagesIndexTable(String columnsvalues,String server){
 		try{
 			columnsvalues = columnsvalues.replaceAll("\"", "\\\\\"");
-			String insertString ="INSERT IGNORE INTO InfoPagesIndex VALUES " + columnsvalues + ";";
-			//System.out.println(insertString);
+			String query ="INSERT IGNORE INTO InfoPagesIndex VALUES " + columnsvalues + ";";
+			System.out.println(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "INSERT", server);
 			Statement statement = connection.createStatement();
-			statement.executeUpdate(insertString);
+			statement.executeUpdate(query);
 		}
 		catch (SQLException e){
 			System.out.println("Insert Word: "+e);

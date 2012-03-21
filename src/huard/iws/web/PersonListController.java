@@ -68,11 +68,12 @@ public class PersonListController extends GeneralFormController {
 				personBeans.add(personBean);
 		}
 		
-		if (personBeans.size() == 1){
+		// removed since it was redirecting before a search was performed
+		/*if (personBeans.size() == 1){
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id", personBeans.get(0).getId());
 			return new ModelAndView(new RedirectView("person.html"), newModel);
-		}
+		}*/
 		
 		model.put("persons", personBeans);
 		

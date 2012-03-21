@@ -54,7 +54,7 @@
 		<property name="dataSource" ref="dataSource"/>
      </bean>
 
-	<bean id="pageWordsIndexerDao" class="huard.iws.db.JdbcPageWordsIndexerDao">
+	<bean id="pagesWordsIndexerDao" class="huard.iws.db.JdbcPagesWordsIndexerDao">
 		<property name="dataSource" ref="dataSource"/>
      </bean>
 

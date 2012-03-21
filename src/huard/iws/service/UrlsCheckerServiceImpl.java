@@ -148,15 +148,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 		try{
 			String server = configurationService.getConfigurationString("websiteDb");
 			List<PageUrl> pagesUrls = urlsCheckerDao.getInfoPagesUrls(ardNum,server);
-			int lastArdNum=0;
-			File file;
 			for (PageUrl pageUrl: pagesUrls){
-				if (ardNum==null || (ardNum!=null && pageUrl.getArdNum()==ardNum)){
-
-				System.out.println("*********************************");
-				System.out.println("Last ArdNum: "+lastArdNum);
-				System.out.println("ArdNum: "+pageUrl.getArdNum());
-
 				try{
 					System.out.println("Waiting .....");
 					Thread.sleep(2000);
@@ -173,8 +165,9 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 					System.out.println("Download Time:"+(System.currentTimeMillis()-start)/1000);
 				}
 				catch (InterruptedException ie){
+					ie.printStackTrace();
 				}
-				file = new File (pathToDownloadedFile);
+				File file = new File (pathToDownloadedFile);
 				long fileSize = file.length();
 				pageUrl.setFileSize(fileSize);
 				file.delete();
@@ -220,9 +213,8 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 				}*/
 				urlsCheckerDao.updateTabledInfoPagesUrl(pageUrl,server);
 
-				lastArdNum=pageUrl.getArdNum();
 			}
-			}
+			
 		}
 		catch(IOException e){
 				System.out.println(e);
@@ -233,10 +225,9 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 		try{
 			String server = configurationService.getConfigurationString("websiteDb");
 			List<PageUrl> pagesUrls = urlsCheckerDao.getPubPagesUrls(server);
-			int lastArdNum=0;
+			
 			File file;
 			for (PageUrl pageUrl: pagesUrls){
-				if (ardNum==null || (ardNum!=null && pageUrl.getArdNum()==ardNum)){
 
 				try{
 					System.out.println("Waiting .....");
@@ -245,9 +236,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 				catch (InterruptedException ie){
 				}
 
-				System.out.println("*********************************");
-				System.out.println("Last ArdNum: "+lastArdNum);
-				System.out.println("ArdNum: "+pageUrl.getArdNum());
+				
 				String pathToDownloadedFile = pathToApp+"/work/urlsChecker/"+pageUrl.getArdNum()+"Target.html";
 				System.out.println("Command: wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
 				Process p = Runtime.getRuntime().exec("wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
@@ -298,9 +287,8 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 				}*/
 
 				urlsCheckerDao.updatePubPagesUrl(pageUrl,server);
-				lastArdNum=pageUrl.getArdNum();
 			}
-			}
+			
 		}
 		catch(IOException e){
 				System.out.println(e);

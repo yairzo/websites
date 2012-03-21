@@ -1,5 +1,7 @@
 package huard.iws.exec;
 
+import java.io.File;
+
 import huard.iws.service.UrlsCheckerService;
 
 //import org.apache.log4j.Logger;
@@ -8,7 +10,8 @@ import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 public class ExecUrlsChecker {
 
 	//private static final Logger logger = Logger.getLogger(ExecWordsIndexer.class);
-
+	private UrlsCheckerService urlsCheckerService;	
+	
 	public ExecUrlsChecker(){
 		try{
 			RmiProxyFactoryBean factory = new RmiProxyFactoryBean();
@@ -24,26 +27,35 @@ public class ExecUrlsChecker {
 
 
 	public static void main (String [] args){
-	
+		
 		Integer ardNum = null;
-		if (args.length==2) ardNum = new Integer(args[1]);
-		ExecUrlsChecker execUrlsChecker = new ExecUrlsChecker();
-		String pathToApp = "/home/mop";
-		if (args[0].equals("buildTables") ){
-			if (execUrlsChecker.getUrlsCheckerService() == null){
-				System.out.println("Probably rmi lookup failed. exiting !");
+		if (args.length==3){
+			try{	
+				ardNum = new Integer(args[2]);
+			}
+			catch (NumberFormatException e) {
+				e.printStackTrace();
 				return;
 			}
+		}		
+		ExecUrlsChecker execUrlsChecker = new ExecUrlsChecker();
+		if (execUrlsChecker.getUrlsCheckerService() == null){
+			System.out.println("Probably rmi lookup failed. exiting !");
+			return;
+		}
+		String pathToApp = args[1];
+		File file = new File(pathToApp);
+		if (!file.exists()){
+			System.out.println("Can't find working dir.");
+			return;
+		}
+		if (args[0].equals("buildTables") ){
 			System.out.println("Starting....buildTables" );
 			execUrlsChecker.getUrlsCheckerService().buildInfoPagesURLsTable(ardNum);
 			execUrlsChecker.getUrlsCheckerService().buildPubPagesURLsTable(ardNum);
 			System.out.println("finished." );
 		}
 		else if (args[0].equals("checkUrls") ){
-			if (execUrlsChecker.getUrlsCheckerService() == null){
-				System.out.println("Probably rmi lookup failed. exiting !");
-				return;
-			}
 			System.out.println("Starting....checkUrls" );
 			execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInInfoPagesURLsTable(ardNum, pathToApp);
 			execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInPubPagesURLsTable(ardNum, pathToApp);
@@ -62,7 +74,7 @@ public class ExecUrlsChecker {
 	}
 
 
-	private UrlsCheckerService urlsCheckerService;
+	
 	public UrlsCheckerService getUrlsCheckerService() {
 		return urlsCheckerService;
 	}

@@ -105,9 +105,9 @@
         </property>
     </bean>
     
-   <bean id="pageWordsIndexerService" class="huard.iws.service.PageWordsIndexerServiceImpl">
-		<property name="pageWordsIndexerDao">
-            <ref bean="pageWordsIndexerDao"/>
+   <bean id="pagesWordsIndexerService" class="huard.iws.service.PagesWordsIndexerServiceImpl">
+		<property name="pagesWordsIndexerDao">
+            <ref bean="pagesWordsIndexerDao"/>
         </property>
         <property name="personListService">
             <ref bean="personListService"/>
@@ -115,19 +115,7 @@
         <property name="configurationService">
             <ref bean="configurationService"/>
         </property>
-    </bean>
-    
-   <bean id="pageTextualWordsIndexerService" class="huard.iws.service.PageTextualWordsIndexerServiceImpl">
-		<property name="pageWordsIndexerDao">
-            <ref bean="pageWordsIndexerDao"/>
-        </property>
-        <property name="personListService">
-            <ref bean="personListService"/>
-        </property>
-        <property name="configurationService">
-            <ref bean="configurationService"/>
-        </property>
-    </bean>
+    </bean>   
 
    <bean id="urlsCheckerService" class="huard.iws.service.UrlsCheckerServiceImpl">
 		<property name="urlsCheckerDao">
