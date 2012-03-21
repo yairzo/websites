@@ -22,7 +22,7 @@ public class PersonListServiceImpl implements PersonListService{
 	public List<Person> getPersonsPage(ListView lv, SearchCreteria search) {
 		//ListPaginator lp = new ListPaginator(getPersons(lv, search), PERSONS_IN_PAGE);
 		//List l = lp.getPage(lv.getPage());
-		List l = getPersons(lv, search);
+		List<Person> l = getPersons(lv, search);
 		List<Person> personsPage = new ArrayList<Person>();
 		for (Object o : l){
 			Person person = (Person) o;
@@ -83,15 +83,6 @@ public class PersonListServiceImpl implements PersonListService{
 			persons.add(personBean);
 		}
 		return persons;
-	}
-
-	public PersonBean [] getPersonsArray (int listId){
-		List<PersonBean> personsBeansList = getPersonsList(listId);
-		PersonBean [] personsBeansArray = new PersonBean [ personsBeansList.size()];
-		for (int i = 0 ; i < personsBeansArray.length ; i++){
-			personsBeansArray [i] = personsBeansList.get(i);
-		}
-		return personsBeansArray;
 	}
 
 	public Set<Integer> getPersonsListIds (int listId){

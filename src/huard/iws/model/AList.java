@@ -19,6 +19,9 @@ public class AList{
 	private String preface;
 	private String footer;
 	private long lastUpdate;
+	
+	public static final int PERSONS_LIST_TYPE_ID = 1;
+	public static final int ORGANIZATION_UNIT_LIST_TYPE_ID = 2;
 
 	private int location;
 

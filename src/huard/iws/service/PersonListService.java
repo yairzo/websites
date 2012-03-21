@@ -23,8 +23,6 @@ public interface PersonListService {
 
 	public List<PersonBean> getPersonsList( int listId, String localeId);
 
-	public PersonBean [] getPersonsArray (int listId);
-
 	public Set<Integer> getPersonsListIds (int listId);
 
 	public PersonBean getPersonsListPerson (int listId, int personId);

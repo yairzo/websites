@@ -2,6 +2,7 @@ package huard.iws.service;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.db.PagesWordsIndexerDao;
+import huard.iws.model.AList;
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.Desk;
 import huard.iws.model.TextualPage;
@@ -13,8 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 	
+	private static final Logger logger = Logger.getLogger(PagesWordsIndexerServiceImpl.class);
+
 	private final long RUNS_INTERVAL = 36000000L;	
 
 	public void indexInfoPages(boolean init){
@@ -37,8 +42,8 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 		List<Desk> desks = pagesWordsIndexerDao.getDesks(configurationService.getConfigurationString("websiteDb"));
 		for (Desk desk: desks){
 			try{
-				PersonBean[] deskPersonsEnglish = personListService.getPersonsArray(desk.getEnglishListId());
-				PersonBean[] deskPersonsHebrew = personListService.getPersonsArray(desk.getHebrewListId());
+				List<PersonBean> deskPersonsEnglish = personListService.getPersonsList(desk.getEnglishListId());
+				List<PersonBean> deskPersonsHebrew = personListService.getPersonsList(desk.getHebrewListId());
 				String value ="";
 				for (PersonBean personBean : deskPersonsEnglish) {
 					value = value.concat(personBean.getDegreeEnglish()+" ");
@@ -164,28 +169,31 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 		if (textualPages.size()>0) 
 			pagesWordsIndexerDao.deleteLatelyUpdatedPubPagesFromIndexTable(textualPages, init,configurationService.getConfigurationString("websiteDb"));
 		
-		System.out.println("PubPagesIndexer Indexing "+textualPages.size()+" pages.");
+		logger.info("PubPagesIndexer Indexing "+textualPages.size()+" pages.");
 
 		int counter=0;
 		String columnsvalues="";
 		for (TextualPage textualPage: textualPages){
 
-			System.out.println("Working on PubPage: "+textualPage.getId());
+			logger.info("Working on PubPage: "+textualPage.getId());
 			
 			String text = textualPage.toString();
 			
-			if (textualPage.isWraper()) { // get list Id for contact person list
-				if(textualPage.getSourceToWrap().indexOf("id=")!=-1){
+			if (textualPage.isWraper() && textualPage.getSourceToWrap().matches("^viewList.htm.*?id=([\\d]+).*?$")){
 					String link = textualPage.getSourceToWrap();
-					String listId = link.replaceFirst("[?&]id=([\\d]+).*?", "$1");
-					System.out.println("listId:" +listId);
-					PersonBean[] deskPersonsHebrew = personListService.getPersonsArray(new Integer(listId).intValue());
+					String aListId = link.replaceFirst("^.*?id=([\\d]+).*?$", "$1");
+					int listId = Integer.parseInt(aListId);
+					AList aList  = listService.getList(listId);
+					//index only if it's a persons list
+					if (aList.getListTypeId() != AList.PERSONS_LIST_TYPE_ID)
+						continue;
+					
+					List<PersonBean> deskPersonsHebrew = personListService.getPersonsList(listId);
 					for (PersonBean personBean : deskPersonsHebrew) {
 						text = text.concat(personBean.getDegreeFullNameHebrew()+" ");
 						text = text.concat(personBean.getDepartment()+" ");
 						text = text.concat(personBean.getPhone()+" ");
-					}
-				}
+					}				
 			}
 
 			text = text.replaceAll("\\*", " * ");  //pad all * with spaces
@@ -246,7 +254,7 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 		}//loop over pages
 
 		pagesWordsIndexerDao.purgePubPagesIndexTable(configurationService.getConfigurationString("websiteDb"));
-		System.out.println("Textual pages indexed " + counter + " words in " + textualPages.size() + " textual pages");
+		logger.info("Textual pages indexed " + counter + " words in " + textualPages.size() + " textual pages");
 	}
 
 
@@ -257,12 +265,25 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 	
 	private PersonListService personListService;
 	public void setPersonListService(PersonListService personListService) {
-		this.personListService = personListService;
+		this.personListService = personListService;		
 	}
+	
+	private ListService listService;
+	public void setListService(ListService listService) {
+		this.listService = listService;
+	}
+
 
 	private PagesWordsIndexerDao pagesWordsIndexerDao;
 	public void setPagesWordsIndexerDao(PagesWordsIndexerDao pagesWordsIndexerDao) {
 		this.pagesWordsIndexerDao = pagesWordsIndexerDao;
+	}
+	
+	public static void main (String [] args){
+		String s = "http://ard.huji.ac.il/iws/viewList.html?id=30&iv=1";
+		String listId = s.replaceFirst("^.*?id=([\\d]+).*?$", "$1");
+		System.out.println(listId);
+		
 	}
 
 }

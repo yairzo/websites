@@ -112,6 +112,9 @@
         <property name="personListService">
             <ref bean="personListService"/>
         </property>
+        <property name="listService">
+            <ref bean="listService"/>
+        </property>
         <property name="configurationService">
             <ref bean="configurationService"/>
         </property>
