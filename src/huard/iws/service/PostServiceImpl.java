@@ -1,16 +1,11 @@
 package huard.iws.service;
 
-import huard.iws.bean.PostBean;
-import huard.iws.bean.AListColumnInstructionBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.db.PostDao;
-import huard.iws.model.AList;
-import huard.iws.model.AListInstruction;
 import huard.iws.model.Post;
 import huard.iws.model.PostType;
 import huard.iws.util.ListPaginator;
 import huard.iws.util.ListView;
-import huard.iws.util.RequestWrapper;
 import huard.iws.util.SearchCreteria;
 
 import java.util.ArrayList;
@@ -51,7 +46,6 @@ public class PostServiceImpl implements PostService{
 	public List<Post> getSelfSendPosts(){
 		return postDao.getSelfSendPosts();
 	}
-
 
 	private List<Post> getPosts(ListView lv, SearchCreteria search,
 			PersonBean userPersonBean, boolean receivedOnly) {
