@@ -21,6 +21,21 @@ public class SearchCreteria {
 		roleFilter = "";
 		whereClause = "";
 	}
+	
+	public String getFullWhereCluase(){
+		String whereCluase = "";
+		if (whereCluase.isEmpty() && searchPhrase.isEmpty())
+			return "";
+		whereCluase += "where";
+		if (! this.whereClause.isEmpty())
+			whereCluase += this.whereClause;
+		if (! searchPhrase.isEmpty()){
+			if (! whereCluase.endsWith("where"))
+				whereCluase += " and";
+			whereCluase += searchField + " = " + searchPhrase;
+		}
+		return whereCluase;
+	}
 
 	public String getSearchField() {
 		return searchField;

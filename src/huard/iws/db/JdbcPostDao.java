@@ -7,7 +7,6 @@ import huard.iws.model.Post;
 import huard.iws.model.PostType;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.ListView;
-import huard.iws.util.SQLUtils;
 import huard.iws.util.SearchCreteria;
 
 import java.sql.Connection;
@@ -153,45 +152,27 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	public List<Post> getPosts(ListView lv, SearchCreteria search,	PersonBean userPersonBean) {
 
 		List<Post> posts;
-		StringBuilder query = new StringBuilder() ;
-
-		query.append("select * from post");
-		if (userPersonBean.isAuthorized("POST","CREATOR"))
-			query.append(", personToPost");
-
-		query.append(getPostsWhereClause(search,userPersonBean));
-		query.append(" order by "+lv.getOrderBy());
-		System.out.println("query:" + query.toString());
+		String query = "select * from post";
+		if (userPersonBean.isAuthorized("POST","READER"))
+			query += "inner join personToPost on (personToPost.personId = " + userPersonBean.getId() +" and post.id = personToPost.postId)";
+		query += getPostsWhereClause(search,userPersonBean);
+		query += " order by "+lv.getOrderBy();
+		System.out.println(query);
 		posts =	getSimpleJdbcTemplate().query(query.toString(), rowMapper);
 		return posts;
-	}
-
-
+	}	
+	
 	public String getPostsWhereClause(SearchCreteria search, PersonBean userPersonBean){
-		String whereClause="";
-		if ((search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty())) || userPersonBean.isAuthorized("POST","READER") || userPersonBean.isAuthorized("POST","CREATOR") )
-			whereClause += " where ";
-		
-		if (userPersonBean.isAuthorized("POST","READER")){
-			whereClause += " personToPost.personId = " + userPersonBean.getId() +" and post.id = personToPost.postId" ;
-			if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty()))
-				whereClause += " and ";
-		}
+		if (search == null)
+			return "";
+		String whereClause = search.getFullWhereCluase();
 		if (userPersonBean.isAuthorized("POST","CREATOR")){
+			if (whereClause.isEmpty())
+				whereClause += "where";
+			else
+				whereClause += "and";
 			whereClause += " creatorId = " + userPersonBean.getId() ;
-			if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty()))
-				whereClause += " and ";
-		}
-		if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty())){
-			if (!search.getWhereClause().isEmpty()){// where clause
-				whereClause+= search.getWhereClause();
-				if(!search.getSearchPhrase().isEmpty())
-					whereClause += " and ";
-			}
-			if(!search.getSearchPhrase().isEmpty()){ //search phrase
-				whereClause += search.getSearchField()+"= '" +search.getSearchPhrase() +"'";
-			}
-		}
+		}		
 		return whereClause;
 	}
 

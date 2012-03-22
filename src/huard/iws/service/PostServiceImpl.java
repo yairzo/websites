@@ -64,8 +64,6 @@ public class PostServiceImpl implements PostService{
 		return lp.getNumOfPages();
 	}
 
-
-
 	public List<Post> getPostsPage(ListView lv, SearchCreteria search,
 			PersonBean userPersonBean) {
 		
