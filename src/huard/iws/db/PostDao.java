@@ -24,9 +24,9 @@ public interface PostDao {
 
 	public List<Post> getPosts(String additionalCondition);
 
-	public List<Post> getPosts(ListView lv, PersonBean userPersonBean, boolean receivedOnly);
+	public List<Post> getPosts(ListView lv, PersonBean userPersonBean);
 
-	public List<Post> getPosts(ListView lv, SearchCreteria search, PersonBean userPersonBean, boolean receivedOnly);
+	public List<Post> getPosts(ListView lv, SearchCreteria search, PersonBean userPersonBean);
 
 	public List<Post> getYetSentPosts();
 

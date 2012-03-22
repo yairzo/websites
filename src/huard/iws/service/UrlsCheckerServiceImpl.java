@@ -145,64 +145,53 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 
 
 	public void updateURLsStatusAndSizeInInfoPagesURLsTable(Integer ardNum, String pathToApp){
+		String server = configurationService.getConfigurationString("websiteDb");
+		List<PageUrl> pagesUrls = urlsCheckerDao.getInfoPagesUrls(ardNum,server);
+		for (PageUrl pageUrl: pagesUrls){
+			pageUrl = updateURLsStatusAndSize(pageUrl, pathToApp);
+			if(pageUrl!=null)
+				urlsCheckerDao.updateTabledInfoPagesUrl(pageUrl,server);
+
+		}
+	}	
+
+	public void updateURLsStatusAndSizeInPubPagesURLsTable(Integer ardNum, String pathToApp){
+		String server = configurationService.getConfigurationString("websiteDb");
+		List<PageUrl> pagesUrls = urlsCheckerDao.getPubPagesUrls(server);
+		for (PageUrl pageUrl: pagesUrls){
+			pageUrl = updateURLsStatusAndSize(pageUrl, pathToApp);
+			if(pageUrl!=null)
+				urlsCheckerDao.updatePubPagesUrl(pageUrl,server);
+		}
+			
+	}
+
+	public PageUrl updateURLsStatusAndSize(PageUrl pageUrl, String pathToApp){
 		try{
-			String server = configurationService.getConfigurationString("websiteDb");
-			List<PageUrl> pagesUrls = urlsCheckerDao.getInfoPagesUrls(ardNum,server);
-			for (PageUrl pageUrl: pagesUrls){
-				try{
-					System.out.println("Waiting .....");
-					Thread.sleep(2000);
-				}
-				catch (InterruptedException ie){
-				}
-				
-				String pathToDownloadedFile = pathToApp+"/work/urlsChecker/"+pageUrl.getArdNum()+"Target.html";
-				System.out.println("Command: wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
-				Process p = Runtime.getRuntime().exec("wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
-				try{
-					long start = System.currentTimeMillis();
-					p.waitFor();
-					System.out.println("Download Time:"+(System.currentTimeMillis()-start)/1000);
-				}
-				catch (InterruptedException ie){
-					ie.printStackTrace();
-				}
+			System.out.println("Waiting .....");
+			Thread.sleep(2000);
+		}
+		catch (InterruptedException ie){
+		}
+		try{
+			String pathToDownloadedFile = pathToApp+"/work/urlsChecker/"+pageUrl.getArdNum()+"Target.html";
+			System.out.println("Command: wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
+			Process p = Runtime.getRuntime().exec("wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
+			try{
+				long start = System.currentTimeMillis();
+				p.waitFor();
+				System.out.println("Download Time:"+(System.currentTimeMillis()-start)/1000);
+			}
+			catch (InterruptedException ie){
+			}
+
+			if(p.exitValue()==0){
 				File file = new File (pathToDownloadedFile);
 				long fileSize = file.length();
 				pageUrl.setFileSize(fileSize);
 				file.delete();
-
-				System.out.println("exit value: "+p.exitValue());
-				System.out.println("Sizes: "+fileSize+" "+pageUrl.getFormerFileSize());
-				
-				if(p.exitValue()==0){
-					System.out.println("fileSize:"+fileSize + "  pageUrl.getFormerFileSize():"+ pageUrl.getFormerFileSize());
-					if (pageUrl.getFormerFileSize()>0 && Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
-						System.out.println("Url is Changed. exit status:"+p.exitValue());
-						pageUrl.setStatus("Changed");
-						pageUrl.setFileSize(fileSize);
-					}
-					else {
-						System.out.println("Url is Alive");
-						pageUrl.setStatus("Alive");
-					}					
-				}
-				else{
-					System.out.println("Url is Dead. Exit status:"+p.exitValue());
-					pageUrl.setStatus("Dead");
-					pageUrl.setFileSize(fileSize);
-				}
-				
-				/*if (fileSize==0 || (fileSize < 5000 && fileSize - pageUrl.getFormerFileSize() > 0)){
-					System.out.println("Url is Dead. Exit status:"+p.exitValue());
-					pageUrl.setStatus("Dead");
-					pageUrl.setFileSize(fileSize);
-					//String docOwner = urlsCheckerDao.getInfoPageByArdNum(pageUrl.getArdNum(),server).get(0).getDocOwner().toLowerCase();
-					//String to = "yair@"+webDomain;
-					//String subject = "Dead URL notification";
-					//MailCollector.getMailCollector().add(from, to, cc, "", replyTo, subject, createDeadUrlMailMessageBody(pageUrl, "infoPage") , "");
-				}
-				else if (Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
+				System.out.println("fileSize:"+fileSize + "  pageUrl.getFormerFileSize():"+ pageUrl.getFormerFileSize());
+				if (pageUrl.getFormerFileSize()>0 && Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
 					System.out.println("Url is Changed. exit status:"+p.exitValue());
 					pageUrl.setStatus("Changed");
 					pageUrl.setFileSize(fileSize);
@@ -210,92 +199,22 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 				else {
 					System.out.println("Url is Alive");
 					pageUrl.setStatus("Alive");
-				}*/
-				urlsCheckerDao.updateTabledInfoPagesUrl(pageUrl,server);
-
+				}					
 			}
-			
+			else{
+				System.out.println("Url is Dead. Exit status:"+p.exitValue());
+				pageUrl.setStatus("Dead");
+				pageUrl.setFileSize(0);
+			}
+			return pageUrl;
 		}
 		catch(IOException e){
-				System.out.println(e);
+			System.out.println(e);
+			return null;
 		}
 	}
-
-	public void updateURLsStatusAndSizeInPubPagesURLsTable(Integer ardNum, String pathToApp){
-		try{
-			String server = configurationService.getConfigurationString("websiteDb");
-			List<PageUrl> pagesUrls = urlsCheckerDao.getPubPagesUrls(server);
-			
-			File file;
-			for (PageUrl pageUrl: pagesUrls){
-
-				try{
-					System.out.println("Waiting .....");
-					Thread.sleep(2000);
-				}
-				catch (InterruptedException ie){
-				}
-
-				
-				String pathToDownloadedFile = pathToApp+"/work/urlsChecker/"+pageUrl.getArdNum()+"Target.html";
-				System.out.println("Command: wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
-				Process p = Runtime.getRuntime().exec("wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
-				try{
-					long start = System.currentTimeMillis();
-					p.waitFor();
-					System.out.println("Download Time:"+(System.currentTimeMillis()-start)/1000);
-				}
-				catch (InterruptedException ie){
-				}
-				file = new File (pathToDownloadedFile);
-				long fileSize = file.length();
-				pageUrl.setFileSize(fileSize);
-				file.delete();
-				System.out.println("Sizes: "+fileSize+" "+pageUrl.getFormerFileSize());
-				if(p.exitValue()==0){
-					System.out.println("fileSize:"+fileSize + "  pageUrl.getFormerFileSize():"+ pageUrl.getFormerFileSize());
-					if (pageUrl.getFormerFileSize()>0 && Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
-						System.out.println("Url is Changed. exit status:"+p.exitValue());
-						pageUrl.setStatus("Changed");
-						pageUrl.setFileSize(fileSize);
-					}
-					else {
-						System.out.println("Url is Alive");
-						pageUrl.setStatus("Alive");
-					}					
-				}
-				else{
-					System.out.println("Url is Dead. Exit status:"+p.exitValue());
-					pageUrl.setStatus("Dead");
-					pageUrl.setFileSize(fileSize);
-				}
-				
-				/*if (fileSize==0 || (fileSize < 5000 && fileSize - pageUrl.getFormerFileSize() > 0)) {
-					pageUrl.setStatus("Dead");
-					pageUrl.setFileSize(fileSize);
-					//String docOwner = urlsCheckerDao.getPubPageByArdNum(pageUrl.getArdNum(),server).get(0).getDocOwner().toLowerCase();
-					//String to = "yair@"+webDomain;
-					//String subject = "Dead URL notification";
-					//MailCollector.getMailCollector().add(from, to, cc, "", replyTo, subject, createDeadUrlMailMessageBody(pageUrl, "pubPage") , "");
-				}
-				else if (Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
-					pageUrl.setStatus("Changed");
-					pageUrl.setFileSize(fileSize);
-				}
-				else {
-					pageUrl.setStatus("Alive");
-				}*/
-
-				urlsCheckerDao.updatePubPagesUrl(pageUrl,server);
-			}
-			
-		}
-		catch(IOException e){
-				System.out.println(e);
-		}
-	}
-
-
+	
+	
 	/*public String createDeadUrlMailMessageBody(PageUrl pageUrl, String type){
 		String message = "The following URL: <a href=\""+pageUrl.getUrl()+"\">"+pageUrl.getUrl()+
 		"</a> seems to be dead " +

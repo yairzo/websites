@@ -25,9 +25,9 @@ public interface PostService {
 
 	public List<Post> getSelfSendPosts();
 
-	public List<Post> getPostsPage(ListView lv, SearchCreteria search, PersonBean userPersonBean, boolean receivedOnly);
+	public List<Post> getPostsPage(ListView lv, SearchCreteria search, PersonBean userPersonBean);
 
-	public void prepareListView(ListView lv, SearchCreteria search, PersonBean userPersonBean, boolean receivedOnly);
+	public void prepareListView(ListView lv, SearchCreteria search, PersonBean userPersonBean);
 
 	public List<PostType> getPostTypes();
 

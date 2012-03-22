@@ -48,28 +48,28 @@ public class PostServiceImpl implements PostService{
 	}
 
 	private List<Post> getPosts(ListView lv, SearchCreteria search,
-			PersonBean userPersonBean, boolean receivedOnly) {
+			PersonBean userPersonBean) {
 		if (search != null && ((search.getSearchField()!=null
 				&& search.getSearchPhrase()!=null && !search.getSearchPhrase().equals("")) || (search.getWhereClause()!=null && !search.getWhereClause().equals(""))) ){
-			return postDao.getPosts(lv, search, userPersonBean, receivedOnly);
+			return postDao.getPosts(lv, search, userPersonBean);
 		}
 		else {
-			return postDao.getPosts(lv, userPersonBean, receivedOnly);
+			return postDao.getPosts(lv, userPersonBean);
 		}
 	}
 
 	public int getLastPageNum(ListView lv, SearchCreteria search,
-			PersonBean userPersonBean, boolean receivedOnly){
-		ListPaginator lp = new ListPaginator(getPosts(lv, search, userPersonBean, receivedOnly), POSTS_IN_PAGE);
+			PersonBean userPersonBean){
+		ListPaginator lp = new ListPaginator(getPosts(lv, search, userPersonBean), POSTS_IN_PAGE);
 		return lp.getNumOfPages();
 	}
 
 
 
 	public List<Post> getPostsPage(ListView lv, SearchCreteria search,
-			PersonBean userPersonBean, boolean receivedOnly) {
+			PersonBean userPersonBean) {
 		
-		ListPaginator lp = new ListPaginator(getPosts(lv, search, userPersonBean, receivedOnly), POSTS_IN_PAGE);
+		ListPaginator lp = new ListPaginator(getPosts(lv, search, userPersonBean), POSTS_IN_PAGE);
 		List l = lp.getPage(lv.getPage());
 		List<Post> postPage = new ArrayList<Post>();
 		for (Object o : l){
@@ -80,8 +80,8 @@ public class PostServiceImpl implements PostService{
 	}
 
 	public void prepareListView(ListView lv, SearchCreteria search,
-			PersonBean userPersonBean, boolean receivedOnly){
-		ListPaginator lp = new ListPaginator(getPosts(lv, search, userPersonBean, receivedOnly), POSTS_IN_PAGE);
+			PersonBean userPersonBean){
+		ListPaginator lp = new ListPaginator(getPosts(lv, search, userPersonBean), POSTS_IN_PAGE);
 		lv.setLastPage(lp.getNumOfPages());
 		lv.setNearPages(lp.getNearPages(lv.getPage()));
 	}

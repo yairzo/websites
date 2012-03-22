@@ -8,6 +8,7 @@
 		/* add padding to account for vertical scrollbar */
 		padding-right: 20px;
 		direction: rtl;
+		width:200;
 	}
 	
 	.ui-autocomplete li {
@@ -156,9 +157,8 @@ $(document).ready(function() {
                 </tr>
                 <tr>
                   <td colspan="2">
-                  לפי נושא:<input type="text" id="searchPhrase" class="green" name="searchPhrase"/>
-
-						לפי תאריך:<input type="text" class="green medium100" name="postDate" id="postDate" readonly="readonly"/>
+                  לפי נושא:<input type="text" id="searchPhrase" class="green medium220" name="searchPhrase"/>
+					לפי תאריך:<input type="text" class="green medium100" name="postDate" id="postDate" readonly="readonly"/>
 
                    </td>
                 </tr>
@@ -175,7 +175,7 @@ $(document).ready(function() {
 
 				<table width="600" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
                <tr>
-                  <td colspan="2"><img src="image/hr.gif" width="580" height="10"></td>
+                  <td colspan="2"><img src="image/hr.gif" width="600" height="10"></td>
                 </tr>
 
 
@@ -192,7 +192,7 @@ $(document).ready(function() {
 			<c:forEach items="${posts}" var="post" varStatus="varStatus">
              <tbody>
   				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
-  				<td width="270" align="right">
+  				<td width="300" align="right">
 				  	<c:choose>
 					  <c:when test="${false}">
 						  &nbsp;

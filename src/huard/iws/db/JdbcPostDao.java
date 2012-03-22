@@ -7,6 +7,7 @@ import huard.iws.model.Post;
 import huard.iws.model.PostType;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.ListView;
+import huard.iws.util.SQLUtils;
 import huard.iws.util.SearchCreteria;
 
 import java.sql.Connection;
@@ -149,56 +150,47 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		return posts;
 	}
 
-	public List<Post> getPosts(ListView lv, SearchCreteria search,
-			PersonBean userPersonBean, boolean isReceived) {
+	public List<Post> getPosts(ListView lv, SearchCreteria search,	PersonBean userPersonBean) {
 
 		List<Post> posts;
 		StringBuilder query = new StringBuilder() ;
 
-		if (isReceived){
-			//query.append("select * from post, personToPost where personToPost.personId = ? and post.id = personToPost.postId");
-			query.append("select * from post, personToPost");
-			query.append(getPostsWhereClause(search,userPersonBean,isReceived));
-			query.append(" order by "+lv.getOrderBy());
-			System.out.println("query:"+query);
-			posts =getSimpleJdbcTemplate().query(query.toString(), rowMapper);
-		}
-		else{
-			query.append("select * from post");
-			query.append(getPostsWhereClause(search,userPersonBean,isReceived));
-			query.append(" order by "+lv.getOrderBy());
-			System.out.println("query:" + query.toString());
-			posts =	getSimpleJdbcTemplate().query(query.toString(), rowMapper);
-		}
+		query.append("select * from post");
+		if (userPersonBean.isAuthorized("POST","CREATOR"))
+			query.append(", personToPost");
+
+		query.append(getPostsWhereClause(search,userPersonBean));
+		query.append(" order by "+lv.getOrderBy());
+		System.out.println("query:" + query.toString());
+		posts =	getSimpleJdbcTemplate().query(query.toString(), rowMapper);
 		return posts;
 	}
 
-	public String getPostsWhereClause(SearchCreteria search, PersonBean userPersonBean,boolean isReceived){
+
+	public String getPostsWhereClause(SearchCreteria search, PersonBean userPersonBean){
 		String whereClause="";
-		if (search != null){
-			if(search.getSearchPhrase() !=null && !search.getSearchPhrase().equals(""))
-				whereClause +=" where " + search.getSearchField()+"= '" +search.getSearchPhrase() +"'";
-			if(search.getWhereClause() !=null && !search.getWhereClause().equals("")){
-				if(whereClause.equals(""))
-					whereClause +=" where ";
-				else 
-					whereClause +=" and ";
-				whereClause += search.getWhereClause();
-			}
-		}	
-		if (isReceived){
-			if(whereClause.equals(""))
-				whereClause +=" where ";
-			else 
-				whereClause +=" and ";
+		if ((search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty())) || userPersonBean.isAuthorized("POST","READER") || userPersonBean.isAuthorized("POST","CREATOR") )
+			whereClause += " where ";
+		
+		if (userPersonBean.isAuthorized("POST","READER")){
 			whereClause += " personToPost.personId = " + userPersonBean.getId() +" and post.id = personToPost.postId" ;
+			if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty()))
+				whereClause += " and ";
 		}
 		if (userPersonBean.isAuthorized("POST","CREATOR")){
-			if(whereClause.equals(""))
-				whereClause +=" where ";
-			else 
-				whereClause +=" and ";
 			whereClause += " creatorId = " + userPersonBean.getId() ;
+			if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty()))
+				whereClause += " and ";
+		}
+		if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty())){
+			if (!search.getWhereClause().isEmpty()){// where clause
+				whereClause+= search.getWhereClause();
+				if(!search.getSearchPhrase().isEmpty())
+					whereClause += " and ";
+			}
+			if(!search.getSearchPhrase().isEmpty()){ //search phrase
+				whereClause += search.getSearchField()+"= '" +search.getSearchPhrase() +"'";
+			}
 		}
 		return whereClause;
 	}
@@ -206,8 +198,8 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 
 
-	public List<Post> getPosts(ListView lv, PersonBean userPersonBean, boolean receivedOnly) {
-		return getPosts(lv, null, userPersonBean, receivedOnly);
+	public List<Post> getPosts(ListView lv, PersonBean userPersonBean) {
+		return getPosts(lv, null, userPersonBean);
     }
 
 	public List<Post> getYetSentPosts(){

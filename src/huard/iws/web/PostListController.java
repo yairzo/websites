@@ -58,19 +58,19 @@ public class PostListController extends GeneralFormController {
 
 		PostListControllerCommand command = (PostListControllerCommand) model.get("command");
 
-		boolean isReceived = userPersonBean.isAuthorized("POST", "READER");
+		/*boolean isReceived = userPersonBean.isAuthorized("POST", "READER");
 		if (! isReceived){
 			int aIsReceived = request.getIntParameter("received", 0);
 			isReceived = (aIsReceived == 1);
-		}
+		}*/
 		
-		postService.prepareListView(command.getListView(), command.getSearchCreteria(), userPersonBean, isReceived );
+		postService.prepareListView(command.getListView(), command.getSearchCreteria(), userPersonBean );
 
 		//request.getSession().setAttribute("searchCreteria", null);
 		//request.getSession().setAttribute("listView", null);
 
 		System.out.println("Show form search command: " + command.getSearchCreteria().getWhereClause());
-		List<Post> posts = postService.getPostsPage(command.getListView(), command.getSearchCreteria(), userPersonBean, isReceived);
+		List<Post> posts = postService.getPostsPage(command.getListView(), command.getSearchCreteria(), userPersonBean);
 		List<PostBean> postBeans = new ArrayList<PostBean>();
 
 		for (Post post: posts){
