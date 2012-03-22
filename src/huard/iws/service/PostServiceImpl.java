@@ -47,7 +47,7 @@ public class PostServiceImpl implements PostService{
 		return postDao.getSelfSendPosts();
 	}
 
-	private List<Post> getPosts(ListView lv, SearchCreteria search,
+	public List<Post> getPosts(ListView lv, SearchCreteria search,
 			PersonBean userPersonBean) {
 		if (search != null && ((search.getSearchField()!=null
 				&& search.getSearchPhrase()!=null && !search.getSearchPhrase().equals("")) || (search.getWhereClause()!=null && !search.getWhereClause().equals(""))) ){

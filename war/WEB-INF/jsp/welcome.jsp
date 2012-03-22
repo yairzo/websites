@@ -131,12 +131,14 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR,ROLE_POST_SENDER">
+						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR,ROLE_POST_SENDER,ROLE_POST_READER">
 						<tr>
 							<th align="right">
 								<a style="text-decoration: none" href="posts.html">מערכת דיוור - דפדוף במאגר ההודעות</a>
 							</th>
 						</tr>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN">
 						<tr>
 							<th align="right">
 								<a style="text-decoration: none" href="persons.html?rf=1">מערכת דיוור - דפדוף במאגר הרשומים</a>
@@ -148,6 +150,7 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
+						
 						<authz:authorize ifAnyGranted="ROLE_EQF_DEAN,ROLE_EQF_YISSUM,ROLE_EQF_RESEARCHER">
 						<tr>
 							<th align="right">

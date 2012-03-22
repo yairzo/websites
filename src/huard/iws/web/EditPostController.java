@@ -128,7 +128,7 @@ public class EditPostController extends GeneralFormController {
 
 		boolean allowedToViewPost = postBean.isVerified() && sendPostService.isToBeSentTo(postBean.toPost(), userPersonBean);
 
-		if ( ! userPersonBean.isAnyAuthorized(new String []{"POST_ADMIN","POST_CREATOR","POST_SENDER"})
+		if ( ! userPersonBean.isAnyAuthorized(new String []{"POST_ADMIN","POST_CREATOR","POST_SENDER","POST_READER"})
 				&& ! allowedToViewPost)
 			return new ModelAndView(new RedirectView("accessDenied.html"));
 

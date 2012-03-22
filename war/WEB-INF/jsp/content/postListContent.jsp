@@ -193,14 +193,9 @@ $(document).ready(function() {
              <tbody>
   				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
   				<td width="300" align="right">
-				  	<c:choose>
-					  <c:when test="${false}">
-						  &nbsp;
-				  	  </c:when>
-				  	  <c:otherwise>
-			  			<form:radiobutton path="postId" value="${post.id}"/>
-  					  </c:otherwise>
-				  	</c:choose>
+  				<authz:authorize ifNotGranted="ROLE_POST_READER">
+ 			  	<form:radiobutton path="postId" value="${post.id}"/>
+				</authz:authorize>
 				<a href="post.html?id=${post.id}"><c:choose><c:when test="${fn:length(post.messageSubject)>0}"><c:out value="${post.messageSubject}"></c:out></c:when><c:otherwise>ללא כותרת</c:otherwise></c:choose></a>
 				</td>
 				<td align="right">
@@ -218,15 +213,18 @@ $(document).ready(function() {
   					</tr>
   			</c:otherwise>
   			</c:choose>  	  		
+  		
+  		<authz:authorize ifNotGranted="ROLE_POST_READER">
 	    <tr>
 		<td>
 			<button class="grey" onclick="window.location='post.html?action=new'; return false;">הוסף</button>
-
 			<button id="buttonEdit" class="grey" />ערוך</button>
 			<button id="buttonDelete" class="grey" />מחק</button>
 			<button id="buttonCopy" class="grey"/>שכפל</button>
 		</td>
 		</tr>
+		</authz:authorize>
+		
 		<tr>
                 <td colspan="2" align="center"><br>
 					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>

@@ -152,7 +152,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	public List<Post> getPosts(ListView lv, SearchCreteria search,	PersonBean userPersonBean) {
 
 		List<Post> posts;
-		String query = "select * from post";
+		String query = "select * from post ";
 		if (userPersonBean.isAuthorized("POST","READER"))
 			query += "inner join personToPost on (personToPost.personId = " + userPersonBean.getId() +" and post.id = personToPost.postId)";
 		query += getPostsWhereClause(search,userPersonBean);
@@ -168,9 +168,9 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 			whereClause = search.getFullWhereCluase();
 		if (userPersonBean.isAuthorized("POST","CREATOR")){
 			if (whereClause.isEmpty())
-				whereClause += "where";
+				whereClause += " where";
 			else
-				whereClause += "and";
+				whereClause += " and";
 			whereClause += " creatorId = " + userPersonBean.getId() ;
 		}		
 		return whereClause;

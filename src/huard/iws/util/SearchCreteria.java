@@ -23,16 +23,17 @@ public class SearchCreteria {
 	}
 	
 	public String getFullWhereCluase(){
+	System.out.println("1111111111:" + this.whereClause);
 		String whereCluase = "";
-		if (whereCluase.isEmpty() && searchPhrase.isEmpty())
+		if (this.whereClause.isEmpty() && searchPhrase.isEmpty())
 			return "";
-		whereCluase += "where";
+		whereCluase += "where ";
 		if (! this.whereClause.isEmpty())
 			whereCluase += this.whereClause;
 		if (! searchPhrase.isEmpty()){
-			if (! whereCluase.endsWith("where"))
-				whereCluase += " and";
-			whereCluase += searchField + " = " + searchPhrase;
+			if (! whereCluase.endsWith("where "))
+				whereCluase += " and ";
+			whereCluase += searchField + " = '" + searchPhrase +"'";
 		}
 		return whereCluase;
 	}

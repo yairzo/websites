@@ -18,6 +18,7 @@ import huard.iws.service.PersonService;
 import huard.iws.service.UniverseService;
 import huard.iws.service.PostService;
 import huard.iws.util.ApplicationContextProvider;
+import huard.iws.util.ListView;
 import huard.iws.util.UserPersonUtils;
 
 import java.io.IOException;
@@ -86,6 +87,7 @@ public class SelectBoxFiller extends HttpServlet {
 		if (userPersonBean.isAuthorized("LISTS", "EDITOR")) return true;
 		if (userPersonBean.isAuthorized("POST", "ADMIN")) return true;
 		if (userPersonBean.isAuthorized("POST", "CREATOR")) return true;
+		if (userPersonBean.isAuthorized("POST", "READER")) return true;
 		if (userPersonBean.isAuthorized("CONFERENCE", "ADMIN")) return true;
 		if (userPersonBean.isAuthorized("CONFERENCE", "APPROVER")) return true;
 		if (userPersonBean.isAuthorized("CONFERENCE", "COMMITTEE")) return true;
@@ -226,7 +228,10 @@ public class SelectBoxFiller extends HttpServlet {
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
 			StringBuilder sb = new StringBuilder();
-			List<Post> posts = postService.getPosts();
+			PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+			ListView listView = new ListView();
+			listView.setOrderBy("sendTime desc");
+			List<Post> posts = postService.getPosts(listView,null,userPersonBean);
 			for (Post post: posts){
 				sb.append(post.getMessageSubject() + ",,");
 			}

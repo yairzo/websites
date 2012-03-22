@@ -9,7 +9,7 @@
 				<table width="600" border="0" align="center" cellpadding="2"
 					cellspacing="0">
 
-				<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR">
+				<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR,ROLE_POST_READER">
 					<tr>
 						<td>
 							<fmt:message key="${lang.localeId}.post.subject"/>

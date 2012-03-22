@@ -277,8 +277,8 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Timestamp now = new Timestamp(System.currentTimeMillis());
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
-			String query = "SELECT * FROM InfoPagesURLs WHERE DATEDIFF('"+now+"', checkedTime) > 90"
-				+(ardNum!=null ? " AND ardNum="+ardNum+"" : "")+" ORDER BY RAND()";
+			String query = "SELECT * FROM InfoPagesURLs WHERE "
+				+(ardNum!=null ? " ardNum="+ardNum+"" : "  DATEDIFF('"+now+"', checkedTime) > 90 ORDER BY RAND()");
 			System.out.println(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			List<PageUrl> pagesURLs = new ArrayList<PageUrl>();

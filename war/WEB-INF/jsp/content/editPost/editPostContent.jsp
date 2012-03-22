@@ -13,8 +13,13 @@
 
 </td>
 </tr>
+
+  	<authz:authorize ifAnyGranted="ROLE_POST_READER">
+ 	<c:set var="reader" value="true"/>
+	</authz:authorize>
+
 	<c:choose>
-	<c:when test="${command.verified}">
+	<c:when test="${command.verified || reader}">
 		<%@ include file="/WEB-INF/jsp/content/editPost/viewPost.jsp" %>
 	</c:when>
 	<c:otherwise>
