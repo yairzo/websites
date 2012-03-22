@@ -163,9 +163,9 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	}	
 	
 	public String getPostsWhereClause(SearchCreteria search, PersonBean userPersonBean){
-		if (search == null)
-			return "";
-		String whereClause = search.getFullWhereCluase();
+		String whereClause = "";
+		if (search != null)
+			whereClause = search.getFullWhereCluase();
 		if (userPersonBean.isAuthorized("POST","CREATOR")){
 			if (whereClause.isEmpty())
 				whereClause += "where";
