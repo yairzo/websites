@@ -199,6 +199,13 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN">
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="urls.html">צפייה בקישורים </a>
+							</th>
+						</tr>
+						</authz:authorize>
 						<tr>
 							<td>
 								&nbsp;

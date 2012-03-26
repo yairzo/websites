@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import huard.iws.util.ListView;
+import huard.iws.util.SearchCreteria;
 
 
 public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsCheckerDao {
@@ -314,6 +316,35 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		}
 	}
 
+	public List<PageUrl> getSearchInfoPagesUrls(ListView lv, SearchCreteria search, String server){
+		try{
+			Timestamp now = new Timestamp(System.currentTimeMillis());
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			String query = "SELECT * FROM InfoPagesURLs ";
+			if (search != null)
+				query += search.getFullWhereCluase();
+			query += " order by "+lv.getOrderBy();
+			System.out.println(query);
+			ResultSet resultSet = statement.executeQuery(query);
+			List<PageUrl> pagesURLs = new ArrayList<PageUrl>();
+			while (resultSet.next()){
+				PageUrl pageUrl = new PageUrl();
+				pageUrl.setArdNum(resultSet.getInt("ardNum"));
+				pageUrl.setUrl(resultSet.getString("URL"));
+				pageUrl.setUrlText(resultSet.getString("urlText"));
+				pageUrl.setFileSize(resultSet.getLong("fileSize"));
+				pageUrl.setFormerFileSize(resultSet.getLong("formerFileSize"));
+				pageUrl.setStatus(resultSet.getString("status"));
+				pagesURLs.add(pageUrl);
+			}
+			return pagesURLs;
+		}
+		catch(SQLException e){
+			System.out.println(e);
+			return null;
+		}
+	}
 	
 	public void updateTabledInfoPagesUrl(PageUrl pageUrl,String server){
 		try{
@@ -340,6 +371,34 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 				+" WHERE DATEDIFF('"+now+"', checkedTime) > 90 ORDER BY RAND();";
 			ResultSet resultSet = statement.executeQuery(query);
 			System.out.println(query);
+			List<PageUrl> pagesURLs = new ArrayList<PageUrl>();
+			while (resultSet.next()){
+				PageUrl pageUrl = new PageUrl();
+				pageUrl.setArdNum(resultSet.getInt("ardNum"));
+				pageUrl.setUrl(resultSet.getString("URL"));
+				pageUrl.setUrlText(resultSet.getString("urlText"));
+				pageUrl.setFileSize(resultSet.getLong("fileSize"));
+				pageUrl.setFormerFileSize(resultSet.getLong("formerFileSize"));
+				pageUrl.setStatus(resultSet.getString("status"));
+				pagesURLs.add(pageUrl);
+			}
+			return pagesURLs;
+		}
+		catch(SQLException e){
+			System.out.println(e);
+			return null;
+		}
+	}
+	public List<PageUrl> getSearchPubPagesUrls(ListView lv, SearchCreteria search, String server){
+		try{
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			String query = "SELECT * FROM PubPagesURLs ";
+			if (search != null)
+				query += search.getFullWhereCluase();
+			query += " order by "+lv.getOrderBy();
+			System.out.println(query);
+			ResultSet resultSet = statement.executeQuery(query);
 			List<PageUrl> pagesURLs = new ArrayList<PageUrl>();
 			while (resultSet.next()){
 				PageUrl pageUrl = new PageUrl();

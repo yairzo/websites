@@ -80,7 +80,17 @@
             <ref bean="postService"/>
         </property>
      </bean>
-
+     
+	<bean id="urlsListController" class="huard.iws.web.UrlsListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.UrlsListController$UrlListControllerCommand</value></property>
+        <property name="formView"><value>urlsList</value></property>
+        <property name="successView"><value>urls.html</value></property>
+    	<property name="urlsCheckerService">
+            <ref bean="urlsCheckerService"/>
+        </property>
+     </bean>
+     
 	<bean id="approvePostController" class="huard.iws.web.ApprovePostController" parent="generalController">
 		<property name="postService">
             <ref bean="postService"/>
@@ -836,6 +846,7 @@
 				<prop key="/personPost.html">editPersonPostSubscriptionController</prop>
 				<prop key="/approvePost.html">approvePostController</prop>
 				<prop key="/posts.html">postListController</prop>
+				<prop key="/urls.html">urlsListController</prop>
 				<prop key="/organizationUnits.html">organizationUnitListController</prop>
 				<prop key="/organizationUnit.html">editOrganizationUnitController</prop>
 				<prop key="/organizationUnitAttribution.html">editOrganizationUnitAttributionController</prop>

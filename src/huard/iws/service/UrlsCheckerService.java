@@ -1,5 +1,11 @@
 package huard.iws.service;
 
+import huard.iws.model.PageUrl;
+import huard.iws.util.ListView;
+import huard.iws.util.SearchCreteria;
+
+import java.util.List;
+
 public interface UrlsCheckerService {
 
 	public void buildInfoPagesURLsTable(Integer ardNum);
@@ -19,5 +25,10 @@ public interface UrlsCheckerService {
 	//public void updateMailURLsStatusInInfoPagesMailURLsTable();
 
 	//public void updateMailURLsStatusInPubPagesMailURLsTable();
+	
+	public List<PageUrl> getSearchPubPagesUrls(ListView lv, SearchCreteria search, String server);
+
+	public List<PageUrl> getSearchInfoPagesUrls(ListView lv, SearchCreteria search, String server);
+
 	
 }

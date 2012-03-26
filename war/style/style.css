@@ -127,6 +127,8 @@ span.errors
 	font-color: red;
 }
 
+
+
 input.green
 {
 	border: 1px solid #767468;
@@ -169,6 +171,10 @@ textarea.green
 	color:#FFFFFF;
 }
 
+.red
+{
+	color: red;
+}
 .brighter
 {
 	background-color:#FCFAF7;
@@ -195,7 +201,15 @@ a:hover
 {	color:767468;
 	text-decoration:underline
 }
-
+a.red:link, a.red:active
+{
+	color:red;
+	text-decoration:none;
+}
+a.red:hover
+{	color:red;
+	text-decoration:underline
+}
 ol.padded
 {
 list-style: padding 15px;

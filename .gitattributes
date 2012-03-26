@@ -1,6 +1,7 @@
 src/huard/iws/bean/ConferenceProposalBean.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/bean/InitiatingBodyBean.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/bean/PageBodyImageBean.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/bean/PageUrlBean.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/db/ConferenceProposalDao.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/db/JdbcConferenceProposalDao.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/db/JdbcPageBodyImageDao.java svn_mime_002dtype=text%2Fplain
@@ -40,6 +41,7 @@ src/huard/iws/web/ConferenceProposalGradeController.java svn_mime_002dtype=text%
 src/huard/iws/web/ConferenceProposalListController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ImageActionsController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/UploadImageController.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/web/UrlsListController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/EditConferenceProposalValidator.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/UploadImageValidator.java svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/conferenceProposalAffirmation.jsp svn_mime_002dtype=text%2Fplain
@@ -54,8 +56,10 @@ war/WEB-INF/jsp/content/conferenceProposal/editConferenceProposalContent.jsp svn
 war/WEB-INF/jsp/content/conferenceProposal/editConferenceProposalScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/uploadImage/uploadImageContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/uploadImage/uploadImageScripts.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/content/urlsListContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/editConferenceProposal.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/uploadImage.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/urlsList.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/lib/acegi-security-1.0.5.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/aspectjrt.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/aspectjweaver.jar svn_mime_002dtype=application%2Foctet-stream

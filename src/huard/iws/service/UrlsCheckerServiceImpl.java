@@ -1,7 +1,11 @@
 package huard.iws.service;
 
+import huard.iws.bean.PersonBean;
 import huard.iws.db.UrlsCheckerDao;
 import huard.iws.model.CallOfProposal;
+import huard.iws.util.ListPaginator;
+import huard.iws.util.ListView;
+import huard.iws.util.SearchCreteria;
 import huard.iws.util.WordsTokenizer;
 import huard.iws.model.TextualPage;
 import huard.iws.model.PageUrl;
@@ -176,7 +180,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 		try{
 			String pathToDownloadedFile = pathToApp+"/work/urlsChecker/"+pageUrl.getArdNum()+"Target.html";
 			System.out.println("Command: wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
-			Process p = Runtime.getRuntime().exec("wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
+			Process p = Runtime.getRuntime().exec("wget -t 2 -w 10s -T 60 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
 			try{
 				long start = System.currentTimeMillis();
 				p.waitFor();
@@ -307,7 +311,15 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 			return null;
 		}
 	}*/
+	
+	public List<PageUrl> getSearchPubPagesUrls(ListView lv, SearchCreteria search, String server){
+		return urlsCheckerDao.getSearchPubPagesUrls(lv, search, server);
+	}
 
+	public List<PageUrl> getSearchInfoPagesUrls(ListView lv, SearchCreteria search, String server){
+		return urlsCheckerDao.getSearchInfoPagesUrls(lv, search, server);
+	}
+	
 	
 	private ConfigurationService configurationService;
 	public void setConfigurationService(ConfigurationService configurationService) {

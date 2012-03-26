@@ -4,6 +4,8 @@ import huard.iws.model.CallOfProposal;
 //import huard.iws.model.PageMailUrl;
 import huard.iws.model.PageUrl;
 import huard.iws.model.TextualPage;
+import huard.iws.util.ListView;
+import huard.iws.util.SearchCreteria;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -53,5 +55,9 @@ public interface UrlsCheckerDao {
 	//public void setInfoPagesMailUrlSuspected(String address,String server);
 
 	//public void setPubPagesMailUrlSuspected(String address,String server);
+	
+	public List<PageUrl> getSearchPubPagesUrls(ListView lv, SearchCreteria search, String server);
+
+	public List<PageUrl> getSearchInfoPagesUrls(ListView lv, SearchCreteria search, String server);
 
 }
