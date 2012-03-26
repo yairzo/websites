@@ -113,7 +113,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	}
 
 	public int insertPost(int creatorId){
-		final String query = "insert post set creatorId = ?, creationTime = ?,localeId='iw_IL';";
+		final String query = "insert post set creatorId = ?, senderId = ?, creationTime = ?,localeId='iw_IL';";
 		final int aCreatorId = creatorId;
 		final Timestamp creationDate = new Timestamp(new java.util.Date().getTime());
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -123,7 +123,8 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 						PreparedStatement ps =
 							connection.prepareStatement(query, new String[] {"id"});
 						ps.setInt(1, aCreatorId);
-						ps.setTimestamp(2, creationDate);
+						ps.setInt(2, aCreatorId);
+						ps.setTimestamp(3, creationDate);
 						return ps;
 					}
 				},
@@ -153,11 +154,11 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 		List<Post> posts;
 		String query = "select * from post ";
-		if (userPersonBean.isAuthorized("POST","READER"))
+		if (userPersonBean.isOnlyAuthorized("POST","READER"))
 			query += "inner join personToPost on (personToPost.personId = " + userPersonBean.getId() +" and post.id = personToPost.postId)";
 		query += getPostsWhereClause(search,userPersonBean);
 		query += " order by "+lv.getOrderBy();
-		System.out.println(query);
+		logger.info(query);
 		posts =	getSimpleJdbcTemplate().query(query.toString(), rowMapper);
 		return posts;
 	}	
@@ -166,7 +167,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		String whereClause = "";
 		if (search != null)
 			whereClause = search.getFullWhereCluase();
-		if (userPersonBean.isAuthorized("POST","CREATOR")){
+		if (userPersonBean.isAuthorized("POST","CREATOR") && !userPersonBean.isAuthorized("POST", "ADMIN")){
 			if (whereClause.isEmpty())
 				whereClause += " where";
 			else

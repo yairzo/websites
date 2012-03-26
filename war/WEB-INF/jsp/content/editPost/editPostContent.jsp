@@ -14,16 +14,15 @@
 </td>
 </tr>
 
-  	<authz:authorize ifAnyGranted="ROLE_POST_READER">
- 	<c:set var="reader" value="true"/>
-	</authz:authorize>
-
-	<c:choose>
-	<c:when test="${command.verified || reader}">
+  	
+ 	<c:choose>
+	<c:when test="${command.verified}">
 		<%@ include file="/WEB-INF/jsp/content/editPost/viewPost.jsp" %>
 	</c:when>
 	<c:otherwise>
+		<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR">
 		<%@ include file="/WEB-INF/jsp/content/editPost/editPost.jsp" %>
+		</authz:authorize>
 	</c:otherwise>
 	</c:choose>
 

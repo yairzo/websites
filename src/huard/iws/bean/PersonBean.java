@@ -3,6 +3,7 @@ package huard.iws.bean;
 import huard.iws.model.Person;
 import huard.iws.model.PersonListAttribution;
 import huard.iws.util.MD5Encoder;
+import huard.iws.web.EditPostController;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.acegisecurity.GrantedAuthority;
+import org.apache.log4j.Logger;
 
 public class PersonBean implements Serializable {
 
@@ -93,6 +95,8 @@ public class PersonBean implements Serializable {
 	private int personAttributionId;
 
 	private Timestamp lastLogin;
+	
+	private static final Logger logger = Logger.getLogger(PostBean.class);
 
 
 
@@ -335,6 +339,19 @@ public class PersonBean implements Serializable {
 		String privilege = "ROLE_" + moduleName + "_" + authority;
 		return privileges.contains(privilege);
 	}
+	
+	public boolean isOnlyAuthorized(String moduleName, String authority) {
+		if (privileges == null)
+			return false;
+		String privilege = "ROLE_" + moduleName + "_" + authority;
+		if (! privileges.contains(privilege))
+			return false;
+		for (String aPrivilege: privileges){
+			if (! aPrivilege.equals(privilege) && aPrivilege.contains(moduleName))
+				return false;
+		}
+		return true;
+	}
 
 	public boolean isAuthorized(String authority){
 		if (privileges == null)
@@ -350,9 +367,11 @@ public class PersonBean implements Serializable {
 		if (privileges == null)
 			return false;
 		for (String privilege : privileges) {
-			for (String authority: authorities)
+			for (String authority: authorities){
+				logger.info ( "Privilege: " + privilege + " Authority: " + authority);
 				if (privilege.contains(authority))
 					return true;
+			}
 		}
 		return false;
 	}
