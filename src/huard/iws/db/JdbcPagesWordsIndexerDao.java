@@ -3,6 +3,7 @@ package huard.iws.db;
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.Desk;
 import huard.iws.model.TextualPage;
+import huard.iws.util.SQLUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
@@ -144,18 +146,32 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 		}
 	}
 	
-	public void insertWordToInfoPagesIndexTable(String columnsvalues,String server){
+	public int insertWordToInfoPagesIndexTable(List<String> words, int callOfProposalId, String server){
+		int counter = 0;
 		try{
-			columnsvalues = columnsvalues.replaceAll("\"", "\\\\\"");
-			String query ="INSERT IGNORE INTO InfoPagesIndex VALUES " + columnsvalues + ";";
-			System.out.println(query);
+			
+			String columnsValues = "";
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "INSERT", server);
 			Statement statement = connection.createStatement();
-			statement.executeUpdate(query);
+			for (String word: words){
+				counter++;
+				if (!columnsValues.isEmpty())
+					columnsValues += ",";
+				columnsValues += "('" + SQLUtils.toSQLString(word) + "'," + callOfProposalId + ")";
+
+				if(counter%100==0 || counter==words.size()){
+					String query ="INSERT IGNORE INTO InfoPagesIndex VALUES " + columnsValues + ";";
+					//if (counter % 1000 == 0)
+						//System.out.println(query);				
+					statement.executeUpdate(query);
+					columnsValues="";
+				}
+			}
 		}
 		catch (SQLException e){
 			System.out.println("Insert Word: "+e);
 		}
+		return counter;
 	}
 
 	public void insertWordToTextualPagesIndexTable(String columnsvalues,String server){

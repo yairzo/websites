@@ -29,6 +29,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 
 	public Person getPerson(int id){
 		String query = "select * from person where id=?";
+		logger.info(query.replaceAll("\\?", ""+id));
 		Person person =
 			getSimpleJdbcTemplate().queryForObject(query, personRowMapper,	id);		
 		applyPersonSubjectIds(person);

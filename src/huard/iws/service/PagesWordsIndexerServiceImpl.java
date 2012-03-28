@@ -6,6 +6,7 @@ import huard.iws.model.AList;
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.Desk;
 import huard.iws.model.TextualPage;
+import huard.iws.util.SQLUtils;
 import huard.iws.util.WordsTokenizer;
 
 import java.util.ArrayList;
@@ -60,21 +61,29 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 					value = value.concat(personBean.getTitle()+" ");
 				}
 				desksPersonsMap.put(desk.getId(),value);
+				if (value != null){
+				logger.info("Desk id: " + desk.getId() + " " + value.length());
+				if (value.length() > 20)
+					logger.info("Desk persons: " + value.substring(0,20));
+				}
+				else{
+					logger.info("Desk persons null");
+				}
 			}
 			catch(Exception e){
 				System.out.println("Exception: "+ e.getMessage());
 			}
 		}
 		
-		int counter=0;
-		String columnsvalues="";
-		
+		int counter = 0;
 		for (CallOfProposal callOfProposal: callOfProposals){
-			
+			logger.info("Call of porposal: " + callOfProposal.getId());
 			String text = callOfProposal.toString();
 			
 			if(callOfProposal.getDeskId()!=null && desksPersonsMap.get(callOfProposal.getDeskId())!=null)
-				text.concat(desksPersonsMap.get(callOfProposal.getDeskId()));
+				text += " " + desksPersonsMap.get(callOfProposal.getDeskId());
+				
+			logger.info("DEsk persons: " + desksPersonsMap.get(callOfProposal.getDeskId()));
 			
 			text = replaceAll(text, "*", " * ");  //pad all * with spaces
 			text = replaceAll(text, "<", " <");
@@ -119,18 +128,8 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 					actualWordsList.add(replaceAll(word,"/",""));
 				}
 			}
-			for (String word: actualWordsList){
-				if(!word.isEmpty()){
-					counter++;
-					if (!columnsvalues.isEmpty())
-						columnsvalues += ",";
-					columnsvalues += "('" + word + "'," + callOfProposal.getId() + ")";
-				}
-				if(counter%100==0 || counter==callOfProposals.size()){
-					pagesWordsIndexerDao.insertWordToInfoPagesIndexTable(columnsvalues,configurationService.getConfigurationString("websiteDb"));
-					columnsvalues="";
-				}
-			}
+			counter += pagesWordsIndexerDao.insertWordToInfoPagesIndexTable(actualWordsList, callOfProposal.getId(), 
+					configurationService.getConfigurationString("websiteDb"));
 		}
 		pagesWordsIndexerDao.purgeInfoPagesIndexTable(configurationService.getConfigurationString("websiteDb"));
 		System.out.println("InfoPagesIndexer: Indexed " + counter + " words in " + callOfProposals.size() + "call of proposals");
