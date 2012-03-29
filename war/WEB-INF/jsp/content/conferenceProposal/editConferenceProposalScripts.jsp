@@ -299,16 +299,31 @@ $(document).ready(function() {
 			return false;
 		}
 		else{
-			var options = { 
-	   			success:    function() { 
-	   			   	window.location.reload(); 
-	    		} 
-			}; 
-			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
-			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-			$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"submitted\"/>");
-			$("#form").ajaxSubmit(options);
-    		return false;
+
+	    	$("#genericDialog").dialog('option', 'buttons', {
+	            "לא" : function() {
+	                $(this).dialog("close");
+	                return false;
+	               },
+	            "כן" : function() {
+	                $(this).dialog("close");
+	    			var options = { 
+	    		   			success:    function() { 
+	    		   			   	window.location.reload(); 
+	    		    		} 
+	    				}; 
+	    				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
+	    				$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+	    				$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"submitted\"/>");
+	    				$("#form").ajaxSubmit(options);
+	    	    		return false;
+	               }
+	        });
+	    	var text = 'ידוע לי שקבלת תמיכה כספית בהוצאות ארגון הכנס ו/או אישור להקצאת אולם ללא תשלום או בתשלום חלקי ';
+			text += 'מותנית בפרסום חסות האוניברסיטה בכל פרסומי הכנס ובהגשת מאזן תקציבי מפורט תוך חודשיים ממועד סיום הכנס.<br/> ';
+	    	text += 'האם ברצונך להמשיך להגשה?';
+			openHelp('',text);
+	        return false;
 		}
     });
 	
@@ -357,6 +372,34 @@ $(document).ready(function() {
 	  return false;
    }); 
    
+   $("#dialogBudget").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		var texts='<p>';
+		texts='על פי תקנות מס הכנסה <b>חל חיוב מס הכנסה על כיבוד</b>.';
+		texts +='התשלומים למס הכנסה יהיו על חשבון תקציב הכנס (בין אם הכיבוד הוזמן מגורם פנימי או מגורם חיצוני) וכלהלן:<br/>';
+		texts += '<b>18% - על כיבוד קל</b> (לא קשור למע"מ) - לכל מנה <b>בסכום של עד 27 ש"ח</b>.<br/>';
+		texts += '<b>90% - על כיבוד כגון ארוחה מלאה במזנון או בישיבה</b> - לכל מנה בסכום <b>העולה על 27 ש"ח לאדם</b>.<br/>';
+		texts += 'פטור מתשלום מס הכנסה על כיבוד יחול במקרים שלהן:<br/>';
+		texts += '1. כיבוד של אורחים מחו"ל ומארחיהם <b>בתנאי שהאירוח הוא במסגרת התפקיד</b>.<br/>';
+		texts += '2. כיבוד משתתפים בכנס בינלאומי <b>בתנאי ששליש מהם מחו"ל</b> - לצורך הסדרת הפטור, <br/>';
+		texts += '	יש לצרף לחשבונית המס רשימה מפורטת של שמות המשתתפים בציון המוסדות והארצות מהם הם באים ולציין את המספר הכולל של המשתתפים.<br/>';
+		texts += '3. כאשר משתתפי הכנס משלמים דמי השתתפות ומצוין במפורש שהתשלום כולל כיבוד.<br/>';
+		texts += '<b>ועדת הכנסים מעודדת שיתוף דור ההמשך של החוקרים (תלמידי מוסמך ודוקטורט) <br/>';
+		texts += 'בכנסים ותשקול בחיוב בקשה לתמיכה בכנס הכוללת סעיפים תקציביים המפרטים הוצאות הקשורות להשתתפות זו.<b>'
+		texts+='</p>';	    
+	    openHelp("#dialogBudget",texts);
+	    return false;
+	   });
+   $("#dialogRooms").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		var texts='<p>';
+		texts='החדרים/אולמות שועדת הכנסים מאשרת אינם בבית בלגיה, בית מאירסדורף ובית צרפת שהנם גופים מסחריים עצמאיים.';
+		texts+='</p>';	    
+	    openHelp("#dialogRooms",texts);
+	    return false;
+	   });
    
     
     $("#form,#genericDialog").click(function(e){
@@ -376,13 +419,17 @@ $(document).ready(function() {
 
 var fieldname=""; 
 function openHelp(name,mytext){
+		if(name=="#dialogBudget")
+			$("#genericDialog").dialog({ width: 600 });
+		else
+			$("#genericDialog").dialog({ width: 400 });
 	    fieldname=name;
 	 	if(fieldname=="")
 	    	$("#genericDialog").dialog("option", "position", "center");
 	    else
 	 		$('#genericDialog').dialog({position: { my: 'top', at: 'top', of: $(name)} });
 	 	
-	    $("#genericDialog").text(mytext).dialog("open");
+	    $("#genericDialog").html(mytext).dialog("open");
 } 
 
 

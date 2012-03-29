@@ -389,9 +389,232 @@
 				</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
+	            <tr class="form">
+		       		<td colspan="4" align="right"><h3>ארגון הכנס</h3></td>
+				</tr>
+				<tr>
+				<td colspan="4" >
+				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+				<tr>
+					<td colspan="4" style="border:1px #bca2a2 dotted">
+					ועדה מדעית:
+ 					<table width="725"  cellpadding="1" cellspacing="0" align="center">
+				    <tr>
+				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
+				    <th style="border: 1px #bca2a2 dotted"> מוסד </th>
+				    <th style="border: 1px #bca2a2 dotted"> תפקיד במוסד </th>
+				    <th style="border: 1px #bca2a2 dotted"> תפקיד בועדה </th>
+					</tr>
+ 					<c:choose>
+ 					<c:when test="${readOnly || command.submitted}">
+           				<c:forEach items="${command.scientificCommittees}" var="committee">
+						<tr>
+						<td style="border: thin black dotted">
+							<c:out value="${committee.name}"></c:out>
+						</td>
+						<td style="border: thin black dotted">
+							<c:out value="${committee.institute}"></c:out>
+						</td>
+						<td style="border: thin black dotted">
+							<c:out value="${committee.instituteRole}"></c:out>
+						</td>
+						<td style="border: thin black dotted">
+							<c:out value="${committee.committeeRole}"></c:out>
+						</td>					
+						</tr>
+						</c:forEach>
+					</c:when>
+ 					<c:otherwise>					
+           				<c:forEach items="${command.scientificCommittees}" var="committee" varStatus="varStatus">
+           				<form:hidden path="scientificCommittees[${varStatus.index}].conferenceProposalId"/>
+           				<form:hidden path="scientificCommittees[${varStatus.index}].type"/>
+						<tr style="display: none;" class="scientificCommittee committee">
+						<td style="border: 1px #bca2a2 dotted">
+							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].name"/>
+						</td>
+						<td style="border: 1px #bca2a2 dotted">
+							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].institute"/>
+						</td>
+						<td style="border: 1px #bca2a2 dotted">
+							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].instituteRole"/>
+						</td>
+						<td style="border: 1px #bca2a2 dotted">
+							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].committeeRole"/>
+						</td>					
+						<td>
+							<c:set var="committee" value="${command.scientificCommittees[varStatus.index]}"/>
+							<img src="image/icon_delete.gif" class="deleteCommittee" title="מחיקת שורה"/>							
+						</td>
+						</tr>
+						</c:forEach>
+					</c:otherwise>
+					</c:choose>
+					</table>
+					<br>
+					ועדה מארגנת:
+ 					<table width="725" cellpadding="1" cellspacing="0" align="center">
+				    <tr>
+				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
+				    <th style="border: 1px #bca2a2 dotted"> מוסד </th>
+				    <th style="border: 1px #bca2a2 dotted"> תפקיד במוסד </th>
+				    <th style="border: 1px #bca2a2 dotted"> תפקיד בועדה </th>
+					</tr>
+ 					<c:choose>
+ 					<c:when test="${readOnly || command.submitted}">
+           				<c:forEach items="${command.operationalCommittees}" var="committee">
+						<tr>
+						<td style="border: thin black dotted">
+							<c:out value="${committee.name}"></c:out>
+						</td>
+						<td style="border: thin black dotted">
+							<c:out value="${committee.institute}"></c:out>
+						</td>
+						<td style="border: thin black dotted">
+							<c:out value="${committee.instituteRole}"></c:out>
+						</td>
+						<td style="border: thin black dotted">
+							<c:out value="${committee.committeeRole}"></c:out>
+						</td>					
+						</tr>
+						</c:forEach>
+
+					</c:when>
+ 					<c:otherwise>					
+           				<c:forEach items="${command.operationalCommittees}" var="committee" varStatus="varStatus">
+           				<form:hidden path="operationalCommittees[${varStatus.index}].conferenceProposalId"/>
+           				<form:hidden path="operationalCommittees[${varStatus.index}].type"/>
+						<tr style="display: none;" class="operationalCommittee committee">
+
+						<td style="border: 1px #bca2a2 dotted">
+							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].name"/>
+						</td>
+						<td style="border: 1px #bca2a2 dotted">
+							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].institute"/>
+						</td>
+						<td style="border: 1px #bca2a2 dotted">
+							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].instituteRole"/>
+						</td>
+						<td style="border: 1px #bca2a2 dotted">
+							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].committeeRole"/>
+						</td>					
+						<td>
+							<c:set var="committee" value="${command.operationalCommittees[varStatus.index]}"/>
+							<img src="image/icon_delete.gif" class="deleteCommittee" title="מחיקת שורה"/>							
+						</td>
+						</tr>
+						</c:forEach>
+					</c:otherwise>
+					</c:choose>
+					<tr><td>&nbsp;</td></tr>
+					</table>
+					</td>
+				</tr>
+	            <tr>
+	            	<td colspan="4" style="border:1px #bca2a2 dotted">
+					<c:if test="${!readOnly && !command.submitted}">			
+		       		    ארגון ע"י חברה מסחרית<form:checkbox cssClass="green" id="company" path="organizingCompany"/>
+					</c:if>
+					<c:if test="${readOnly || command.submitted}">			
+					<form:hidden path="organizingCompany"/>
+		       		    ארגון ע"י חברה מסחרית<input type="checkbox" disabled="disabled" id="companyViewOnly" value="" <c:if test="${command.organizingCompany}">checked</c:if> />
+					</c:if>
+					</td>
+				</tr>
+	            <tr class="form organizingCompanyPart">
+		       		<td nowrap style="border:1px #bca2a2 dotted">שם החברה:
+					<c:if test="${!readOnly && !command.submitted}">			
+	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyName" />
+					</c:if>
+					<c:if test="${readOnly || command.submitted}">			
+						<form:hidden path="organizingCompanyName"/>
+	   					${command.organizingCompanyName}
+					</c:if>
+					</td>
+		       		<td style="border:1px #bca2a2 dotted">טלפון:
+					<c:if test="${!readOnly && !command.submitted}">			
+	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyPhone" id="organizingCompanyPhone"/>
+					</c:if>
+					<c:if test="${readOnly || command.submitted}">			
+						<form:hidden path="organizingCompanyPhone"/>
+	   					${command.organizingCompanyPhone}
+					</c:if>
+					</td>
+		       		<td style="border:1px #bca2a2 dotted">פקס:
+					<c:if test="${!readOnly && !command.submitted}">			
+	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyFax" id="organizingCompanyFax"/>
+					</c:if>
+					<c:if test="${readOnly || command.submitted}">			
+						<form:hidden path="organizingCompanyFax"/>
+	   					${command.organizingCompanyFax}
+					</c:if>
+	   				</td>
+				    <td style="border:1px #bca2a2 dotted">אימייל:
+					<c:if test="${!readOnly && !command.submitted}">			
+	   					<form:input htmlEscape="true" cssClass="green medium250" path="organizingCompanyEmail" id="organizingCompanyEmail"/>
+					</c:if>
+					<c:if test="${readOnly || command.submitted}">			
+						<form:hidden path="organizingCompanyEmail"/>
+	   					${command.organizingCompanyEmail}
+					</c:if>
+	   				</td>
+				</tr>
+	            <tr class="form">
+		       		<td nowrap style="border:1px #bca2a2 dotted">שם איש קשר:
+					<c:if test="${!readOnly && !command.submitted}">			
+	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPerson" />
+					</c:if>
+					<c:if test="${readOnly || command.submitted}">			
+						<form:hidden path="contactPerson"/>
+	   					${command.contactPerson}
+					</c:if>
+					</td>
+		       		<td nowrap style="border:1px #bca2a2 dotted">תפקיד:
+					<c:if test="${!readOnly && !command.submitted}">			
+	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPersonRole" />
+					</c:if>
+					<c:if test="${readOnly || command.submitted}">			
+						<form:hidden path="contactPersonRole"/>
+	   					${command.contactPersonRole}
+					</c:if>
+					</td>
+		       		<td nowrap style="border:1px #bca2a2 dotted">טלפון:
+					<c:if test="${!readOnly && !command.submitted}">			
+	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPersonPhone" id="contactPersonPhone"/>
+					</c:if>
+					<c:if test="${readOnly || command.submitted}">			
+						<form:hidden path="contactPersonPhone"/>
+	   					${command.contactPersonPhone}
+					</c:if>
+					</td>
+				    <td nowrap style="border:1px #bca2a2 dotted">אימייל:
+					<c:if test="${!readOnly && !command.submitted}">			
+	   					<form:input htmlEscape="true" cssClass="green medium250" path="contactPersonEmail" id="contactPersonEmail"/>
+					</c:if>
+					<c:if test="${readOnly || command.submitted}">			
+						<form:hidden path="contactPersonEmail"/>
+	   					${command.contactPersonEmail}
+ 					</c:if>
+	   				</td>
+		       		</tr>
+				</table>
+				</td>
+				</tr>
+				<tr>
+				<td colspan="4">
+				<div id="errororganizingCompanyPhone" dir="rtl"><p></p></div>
+				<div id="errororganizingCompanyFax" dir="rtl"><p></p></div>
+				<div id="errororganizingCompanyEmail" dir="rtl"><p></p></div>
+				<div id="errorcontactPersonPhone" dir="rtl"><p></p></div>
+				<div id="errorcontactPersonEmail" dir="rtl"><p></p></div>
+				</td>
+				</tr>	
+				
+				<tr><td>&nbsp;</td></tr>
 				
 	            <tr class="form">
-		       		<td colspan="4" align="right"><h3>תקציב הכנס</h3></td>
+		       		<td colspan="4" align="right"><h3>הערות ביחס לתקציב הכנס <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogBudget"/></h3>
+		       		
+		       		</td>
 				</tr>
 	            <tr class="form">
 	            	<td colspan="4">
@@ -602,133 +825,8 @@
 				</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
-	            <tr class="form">
-		       		<td colspan="4" align="right"><h3>ועדה מארגנת</h3></td>
-				</tr>
-				<tr>
-				<td colspan="4" >
-				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-				<tr>
-					<td colspan="4" style="border:1px #bca2a2 dotted">
-					ועדה מדעית:
- 					<table width="725"  cellpadding="1" cellspacing="0" align="center">
-				    <tr>
-				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
-				    <th style="border: 1px #bca2a2 dotted"> מוסד </th>
-				    <th style="border: 1px #bca2a2 dotted"> תפקיד במוסד </th>
-				    <th style="border: 1px #bca2a2 dotted"> תפקיד בועדה </th>
-					</tr>
- 					<c:choose>
- 					<c:when test="${readOnly || command.submitted}">
-           				<c:forEach items="${command.scientificCommittees}" var="committee">
-						<tr>
-						<td style="border: thin black dotted">
-							<c:out value="${committee.name}"></c:out>
-						</td>
-						<td style="border: thin black dotted">
-							<c:out value="${committee.institute}"></c:out>
-						</td>
-						<td style="border: thin black dotted">
-							<c:out value="${committee.instituteRole}"></c:out>
-						</td>
-						<td style="border: thin black dotted">
-							<c:out value="${committee.committeeRole}"></c:out>
-						</td>					
-						</tr>
-						</c:forEach>
-					</c:when>
- 					<c:otherwise>					
-           				<c:forEach items="${command.scientificCommittees}" var="committee" varStatus="varStatus">
-           				<form:hidden path="scientificCommittees[${varStatus.index}].conferenceProposalId"/>
-           				<form:hidden path="scientificCommittees[${varStatus.index}].type"/>
-						<tr style="display: none;" class="scientificCommittee committee">
-						<td style="border: 1px #bca2a2 dotted">
-							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].name"/>
-						</td>
-						<td style="border: 1px #bca2a2 dotted">
-							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].institute"/>
-						</td>
-						<td style="border: 1px #bca2a2 dotted">
-							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].instituteRole"/>
-						</td>
-						<td style="border: 1px #bca2a2 dotted">
-							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].committeeRole"/>
-						</td>					
-						<td>
-							<c:set var="committee" value="${command.scientificCommittees[varStatus.index]}"/>
-							<img src="image/icon_delete.gif" class="deleteCommittee" title="מחיקת שורה"/>							
-						</td>
-						</tr>
-						</c:forEach>
-					</c:otherwise>
-					</c:choose>
-					</table>
-					<br>
-					ועדה מארגנת:
- 					<table width="725" cellpadding="1" cellspacing="0" align="center">
-				    <tr>
-				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
-				    <th style="border: 1px #bca2a2 dotted"> מוסד </th>
-				    <th style="border: 1px #bca2a2 dotted"> תפקיד במוסד </th>
-				    <th style="border: 1px #bca2a2 dotted"> תפקיד בועדה </th>
-					</tr>
- 					<c:choose>
- 					<c:when test="${readOnly || command.submitted}">
-           				<c:forEach items="${command.operationalCommittees}" var="committee">
-						<tr>
-						<td style="border: thin black dotted">
-							<c:out value="${committee.name}"></c:out>
-						</td>
-						<td style="border: thin black dotted">
-							<c:out value="${committee.institute}"></c:out>
-						</td>
-						<td style="border: thin black dotted">
-							<c:out value="${committee.instituteRole}"></c:out>
-						</td>
-						<td style="border: thin black dotted">
-							<c:out value="${committee.committeeRole}"></c:out>
-						</td>					
-						</tr>
-						</c:forEach>
-
-					</c:when>
- 					<c:otherwise>					
-           				<c:forEach items="${command.operationalCommittees}" var="committee" varStatus="varStatus">
-           				<form:hidden path="operationalCommittees[${varStatus.index}].conferenceProposalId"/>
-           				<form:hidden path="operationalCommittees[${varStatus.index}].type"/>
-						<tr style="display: none;" class="operationalCommittee committee">
-
-						<td style="border: 1px #bca2a2 dotted">
-							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].name"/>
-						</td>
-						<td style="border: 1px #bca2a2 dotted">
-							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].institute"/>
-						</td>
-						<td style="border: 1px #bca2a2 dotted">
-							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].instituteRole"/>
-						</td>
-						<td style="border: 1px #bca2a2 dotted">
-							<form:input htmlEscape="true" cssClass="greennoborder operationalCommittee medium170" path="operationalCommittees[${varStatus.index}].committeeRole"/>
-						</td>					
-						<td>
-							<c:set var="committee" value="${command.operationalCommittees[varStatus.index]}"/>
-							<img src="image/icon_delete.gif" class="deleteCommittee" title="מחיקת שורה"/>							
-						</td>
-						</tr>
-						</c:forEach>
-					</c:otherwise>
-					</c:choose>
-					<tr><td>&nbsp;</td></tr>
-					</table>
-					</td>
-				</tr>
-				</table>
-				</td>
-				</tr>
-				
-				<tr><td>&nbsp;</td></tr>
 				<tr class="form">
-		       		<td colspan="4" align="right"><h3>סוג הסיוע המבוקש</h3></td>
+		       		<td colspan="4" align="right"><h3>סוג הסיוע המבוקש והיקפו</h3></td>
 				</tr>
 				<tr>
 				<td>
@@ -784,6 +882,7 @@
 						<form:hidden path="seminarRoom"/>
 						חדר סמנירים<input type="checkbox" disabled="disabled" value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
 					</c:if>
+					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRooms"/>
 					</td>
 					<td style="border:1px #bca2a2 dotted">
 	   					מספר משתתפים:
@@ -826,113 +925,6 @@
 				</tr>
 				<tr><td>&nbsp;</td></tr>
 
-	            <tr class="form">
-		       		<td colspan="4" align="right">
-	   					<h3>ארגון הכנס</h3>
-	   				</td>
-				</tr>
-	            <tr>
-	            <td colspan="4">
-				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-	            <tr>
-	            	<td colspan="4" style="border:1px #bca2a2 dotted">
-					<c:if test="${!readOnly && !command.submitted}">			
-		       		    ארגון ע"י חברה מסחרית<form:checkbox cssClass="green" id="company" path="organizingCompany"/>
-					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
-					<form:hidden path="organizingCompany"/>
-		       		    ארגון ע"י חברה מסחרית<input type="checkbox" disabled="disabled" id="companyViewOnly" value="" <c:if test="${command.organizingCompany}">checked</c:if> />
-					</c:if>
-					</td>
-				</tr>
-	            <tr class="form organizingCompanyPart">
-		       		<td nowrap style="border:1px #bca2a2 dotted">שם החברה:
-					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyName" />
-					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
-						<form:hidden path="organizingCompanyName"/>
-	   					${command.organizingCompanyName}
-					</c:if>
-					</td>
-		       		<td style="border:1px #bca2a2 dotted">טלפון:
-					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyPhone" id="organizingCompanyPhone"/>
-					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
-						<form:hidden path="organizingCompanyPhone"/>
-	   					${command.organizingCompanyPhone}
-					</c:if>
-					</td>
-		       		<td style="border:1px #bca2a2 dotted">פקס:
-					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyFax" id="organizingCompanyFax"/>
-					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
-						<form:hidden path="organizingCompanyFax"/>
-	   					${command.organizingCompanyFax}
-					</c:if>
-	   				</td>
-				    <td style="border:1px #bca2a2 dotted">אימייל:
-					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input htmlEscape="true" cssClass="green medium250" path="organizingCompanyEmail" id="organizingCompanyEmail"/>
-					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
-						<form:hidden path="organizingCompanyEmail"/>
-	   					${command.organizingCompanyEmail}
-					</c:if>
-	   				</td>
-				</tr>
-	            <tr class="form">
-		       		<td nowrap style="border:1px #bca2a2 dotted">שם איש קשר:
-					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPerson" />
-					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
-						<form:hidden path="contactPerson"/>
-	   					${command.contactPerson}
-					</c:if>
-					</td>
-		       		<td nowrap style="border:1px #bca2a2 dotted">תפקיד:
-					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPersonRole" />
-					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
-						<form:hidden path="contactPersonRole"/>
-	   					${command.contactPersonRole}
-					</c:if>
-					</td>
-		       		<td nowrap style="border:1px #bca2a2 dotted">טלפון:
-					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPersonPhone" id="contactPersonPhone"/>
-					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
-						<form:hidden path="contactPersonPhone"/>
-	   					${command.contactPersonPhone}
-					</c:if>
-					</td>
-				    <td nowrap style="border:1px #bca2a2 dotted">אימייל:
-					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input htmlEscape="true" cssClass="green medium250" path="contactPersonEmail" id="contactPersonEmail"/>
-					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
-						<form:hidden path="contactPersonEmail"/>
-	   					${command.contactPersonEmail}
- 					</c:if>
-	   				</td>
-		       		</tr>
-				</table>
-				</td>
-				</tr>
-				<tr>
-				<td colspan="4">
-				<div id="errororganizingCompanyPhone" dir="rtl"><p></p></div>
-				<div id="errororganizingCompanyFax" dir="rtl"><p></p></div>
-				<div id="errororganizingCompanyEmail" dir="rtl"><p></p></div>
-				<div id="errorcontactPersonPhone" dir="rtl"><p></p></div>
-				<div id="errorcontactPersonEmail" dir="rtl"><p></p></div>
-				</td>
-				</tr>	
 
 				<tr>
 		             <td colspan="4"><h3>הגשה</h3></td>
@@ -945,7 +937,7 @@
         		<table width="980">
 				<tr>
 					<td colspan="4">
-					הערות לועדה:
+					הערות מגיש הבקשה לועדה:
 					</td>
 				</tr>
 				<tr>
@@ -964,10 +956,10 @@
 				<tr><td>&nbsp;</td></tr>
 	            <tr id="deanApproval" class="form">
 		       		<td colspan="4">
-	   				${compulsoryFieldSign}הגורם המאשר:
+	   				${compulsoryFieldSign}הגורם הממליץ:
 					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select id="deanSelect"  path="approverId" cssClass="green">
-      					<form:option value="0">בחר/י גורם מאשר</form:option>
+      					<form:option value="0">בחר/י גורם ממליץ</form:option>
        					<c:forEach items="${deans}" var="deanPerson">
 	        				<form:option htmlEscape="true" value="${deanPerson.id}" ><c:out escapeXml="false" value="${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/></form:option>
        					</c:forEach>
@@ -994,7 +986,7 @@
 				<tr><td>&nbsp;</td></tr>
 				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
 				<tr>
-		             <td colspan="4"><h3>חוות דעת הדיקן המאשר</h3></td>
+		             <td colspan="4"><h3>חוות דעת הדיקן הממליץ</h3></td>
         		 </tr>
 				<tr>
 				<td colspan="4">
@@ -1003,7 +995,7 @@
 				<td colspan="4" style="border:1px #bca2a2 dotted">
 				<table width="980">
 	            <tr>
-		       		<td>חוות דעת הדיקן המאשר:</td>
+		       		<td>חוות דעת הדיקן הממליץ:</td>
 				</tr>
 				<tr>
 				    <td colspan="4" align="center">

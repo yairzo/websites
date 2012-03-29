@@ -174,7 +174,8 @@ public class ConferenceProposalListController extends GeneralFormController {
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN")){
 				if(!whereClause.isEmpty())
 					whereClause += " and";
-				whereClause += " submitted=" + searchBySubmitted;
+				if (searchBySubmitted < 2)// 2 is all proposals
+					whereClause += " submitted =" + searchBySubmitted;
 			}
 			else if (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")
 				|| userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE")){
@@ -185,10 +186,13 @@ public class ConferenceProposalListController extends GeneralFormController {
 			
 			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 			int searchByDeadline = request.getIntParameter("searchByDeadline", 0);
-			if( searchByDeadline == 1){
+			if( searchByDeadline > 0){
 					if(!whereClause.equals(""))
-						whereClause+=" and";
-					whereClause += " date(deadline)>'"+previousDeadline +"'";
+						whereClause+=" and date(deadline)>'"+previousDeadline +"'";
+					if(searchByDeadline==1)//for this conference meeting
+						whereClause += " and isInsideDeadline = 1";
+					else if(searchByDeadline==2)//for next conference meeting
+						whereClause += " and isInsideDeadline = 0";
 			}	
 			searchCreteria.setWhereClause(whereClause);
 			searchCreteria.setSearchByApprover(searchByApprover);
