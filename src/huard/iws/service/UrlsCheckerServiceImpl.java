@@ -1,16 +1,12 @@
 package huard.iws.service;
 
-import huard.iws.bean.PersonBean;
 import huard.iws.db.UrlsCheckerDao;
 import huard.iws.model.CallOfProposal;
-import huard.iws.util.ListPaginator;
+import huard.iws.model.PageUrl;
+import huard.iws.model.TextualPage;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
 import huard.iws.util.WordsTokenizer;
-import huard.iws.model.TextualPage;
-import huard.iws.model.PageUrl;
-//import huard.iws.model.PageMailUrl;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -188,28 +184,27 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 			}
 			catch (InterruptedException ie){
 			}
-
-			if(p.exitValue()==0){
-				File file = new File (pathToDownloadedFile);
-				long fileSize = file.length();
-				pageUrl.setFileSize(fileSize);
-				file.delete();
-				System.out.println("fileSize:"+fileSize + "  pageUrl.getFormerFileSize():"+ pageUrl.getFormerFileSize());
-				if (pageUrl.getFormerFileSize()>0 && Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
-					System.out.println("Url is Changed. exit status:"+p.exitValue());
-					pageUrl.setStatus("Changed");
-					pageUrl.setFileSize(fileSize);
-				}
-				else {
-					System.out.println("Url is Alive");
-					pageUrl.setStatus("Alive");
-				}					
-			}
-			else{
+			if (p.exitValue() != 0){
 				System.out.println("Url is Dead. Exit status:"+p.exitValue());
 				pageUrl.setStatus("Dead");
 				pageUrl.setFileSize(0);
+				return pageUrl;
 			}
+			
+			File file = new File (pathToDownloadedFile);
+			long fileSize = file.length();
+			pageUrl.setFileSize(fileSize);
+			//file.delete();
+			System.out.println("fileSize:"+fileSize + "  pageUrl.getFormerFileSize():"+ pageUrl.getFormerFileSize());
+			if (pageUrl.getFormerFileSize()>0 && Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
+				System.out.println("Url is Changed. exit status:"+p.exitValue());
+				pageUrl.setStatus("Changed");
+				pageUrl.setFileSize(fileSize);
+			}
+			else {
+				System.out.println("Url is Alive");
+				pageUrl.setStatus("Alive");									
+			}			
 			return pageUrl;
 		}
 		catch(IOException e){

@@ -1,10 +1,9 @@
 package huard.iws.exec;
 
-import java.io.File;
-
 import huard.iws.service.UrlsCheckerService;
 
-//import org.apache.log4j.Logger;
+import java.io.File;
+
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
 public class ExecUrlsChecker {
@@ -28,13 +27,40 @@ public class ExecUrlsChecker {
 
 	public static void main (String [] args){
 		
+		String usagePhrase = "Usage: ExecUrlsChecker buildTables|checkUrls pathToApp CallOfProposals|TextualPages [ardNum]";
+				
+		if (args.length < 3 || args.length > 4){
+			System.out.println(usagePhrase);
+			return;
+		}
+		boolean validExecution = true;
+		String mode = args[0];
+		String pathToApp = args[1];
+		String pageType = args[2];
+		
+		if (!mode.equals("buildTables") && !mode.equals("checkUrls")){
+			System.out.println(usagePhrase);
+			validExecution = false;
+		}
+		else if (!new File(args[1]).exists()){
+			System.out.println(usagePhrase);
+			System.out.println("Can't find working dir.");
+			validExecution = false;
+		}		
+		else if (!pageType.equals("CallOfProposals") && !pageType.equals("TextualPages")){
+			System.out.println(usagePhrase);
+			validExecution = false;
+		}
+		
 		Integer ardNum = null;
-		if (args.length==3){
+		if (!validExecution)
+			return;
+		else if (args.length==4){
 			try{	
-				ardNum = new Integer(args[2]);
+				ardNum = new Integer(args[3]);
 			}
 			catch (NumberFormatException e) {
-				e.printStackTrace();
+				System.out.println(usagePhrase);
 				return;
 			}
 		}		
@@ -43,38 +69,27 @@ public class ExecUrlsChecker {
 			System.out.println("Probably rmi lookup failed. exiting !");
 			return;
 		}
-		String pathToApp = args[1];
-		File file = new File(pathToApp);
-		if (!file.exists()){
-			System.out.println("Can't find working dir.");
-			return;
-		}
-		if (args[0].equals("buildTables") ){
+					
+		if (mode.equals("buildTables") ){
 			System.out.println("Starting....buildTables" );
-			execUrlsChecker.getUrlsCheckerService().buildInfoPagesURLsTable(ardNum);
-			execUrlsChecker.getUrlsCheckerService().buildPubPagesURLsTable(ardNum);
+			if (pageType.equals("CallOfProposals")){
+				System.out.println("Will run now.");
+				execUrlsChecker.getUrlsCheckerService().buildInfoPagesURLsTable(ardNum);
+				
+			}
+			else if (pageType.equals("TextualPages"))
+				execUrlsChecker.getUrlsCheckerService().buildPubPagesURLsTable(ardNum);
 			System.out.println("finished." );
 		}
-		else if (args[0].equals("checkUrls") ){
+		else if (mode.equals("checkUrls")){
 			System.out.println("Starting....checkUrls" );
-			execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInInfoPagesURLsTable(ardNum, pathToApp);
-			execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInPubPagesURLsTable(ardNum, pathToApp);
+			if (pageType.equals("CallOfProposals"))
+				execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInInfoPagesURLsTable(ardNum, pathToApp);
+			else if (pageType.equals("TextualPages"))
+				execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInPubPagesURLsTable(ardNum, pathToApp);
 			System.out.println("finished." );
 		}
-		//else if (args[0].equals("checkMailAddresses") ){
-			//execUrlsChecker.getUrlsCheckerService().updateMailURLsStatusInInfoPagesMailURLsTable();
-			//execUrlsChecker.getUrlsCheckerService().updateMailURLsStatusInPubPagesMailURLsTable();
-		//}
-		//else if (args[0].equals("notify")){
-			//execUrlsChecker.getUrlsCheckerService().buildInfoPagesMailURLsTable();
-			//execUrlsChecker.getUrlsCheckerService().buildPubPagesMailURLsTable();
-			//execUrlsChecker.getUrlsCheckerService().notifyPeopleWhoseMailAddressOnTheSite();
-		//}
-
-	}
-
-
-	
+	}	
 	public UrlsCheckerService getUrlsCheckerService() {
 		return urlsCheckerService;
 	}

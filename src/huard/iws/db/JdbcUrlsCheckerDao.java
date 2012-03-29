@@ -1,9 +1,10 @@
 package huard.iws.db;
 
 import huard.iws.model.CallOfProposal;
-import huard.iws.model.TextualPage;
 import huard.iws.model.PageUrl;
-//import huard.iws.model.PageMailUrl;
+import huard.iws.model.TextualPage;
+import huard.iws.util.ListView;
+import huard.iws.util.SearchCreteria;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
-import huard.iws.util.ListView;
-import huard.iws.util.SearchCreteria;
 
 
 public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsCheckerDao {
@@ -24,7 +23,9 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("UPDATE InfoPagesURLs SET thisBuild=0;");
+			String query = "UPDATE InfoPagesURLs SET thisBuild=0;";
+			logger.info(query);
+			statement.executeUpdate(query);
 		}
 		catch(SQLException e){
 			System.out.println(e);
@@ -94,17 +95,17 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			for (PageUrl pageUrl: URLsList){
-				String sql = "UPDATE InfoPagesURLs SET ardNum="+ardNum+
-				", URL=\""+pageUrl.getUrl()+"\", urlText=\""+pageUrl.getUrlText()+"\", formerFileSize=fileSize, fileSize=0,"+
+				String query = "UPDATE InfoPagesURLs SET ardNum="+ardNum+
+				", urlText=\""+pageUrl.getUrlText()+"\", formerFileSize=fileSize, fileSize=0,"+
 				" thisBuild=1 WHERE ardNum="+ardNum+" AND URL=\""+pageUrl.getUrl()+"\";";
-				//System.out.println(sql);
-				int r = statement.executeUpdate(sql);
+				System.out.println(query);
+				int r = statement.executeUpdate(query);
 
 				if (r==0) {
-					sql = "INSERT InfoPagesURLs SET ardNum="+ardNum+
-					", URL=\""+pageUrl.getUrl()+"\", urlText=\""+pageUrl.getUrlText()+"\", thisBuild=1;";
-					//System.out.println(sql);
-					statement.executeUpdate(sql);
+					query = "INSERT InfoPagesURLs (ardNum, URL, urlText, thisBuild, checkedTime) VALUES ("
+							+ ardNum + ", '" + pageUrl.getUrl()+"', '"+pageUrl.getUrlText()+"', 1, NOW());";
+					System.out.println(query);
+					statement.executeUpdate(query);
 				}
 			}
 		}
@@ -117,7 +118,9 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("DELETE FROM InfoPagesURLs WHERE thisBuild=0;");
+			String query = "DELETE FROM InfoPagesURLs WHERE thisBuild=0";
+			System.out.println(query);
+			statement.executeUpdate(query);
 		}
 		catch(SQLException e){
 			System.out.println(e);
@@ -279,8 +282,10 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Timestamp now = new Timestamp(System.currentTimeMillis());
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
-			String query = "SELECT * FROM InfoPagesURLs WHERE "
-				+(ardNum!=null ? " ardNum="+ardNum+"" : "  DATEDIFF('"+now+"', checkedTime) > 90 ORDER BY RAND()");
+			String query = "SELECT * FROM InfoPagesURLs WHERE DATEDIFF('"+now+"', checkedTime) > 1";
+			if (ardNum != null)
+				query += " AND ardNum = " + ardNum;
+			query += " ORDER BY checkedTime LIMIT 30";
 			System.out.println(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			List<PageUrl> pagesURLs = new ArrayList<PageUrl>();
@@ -318,7 +323,6 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 
 	public List<PageUrl> getSearchInfoPagesUrls(ListView lv, SearchCreteria search, String server){
 		try{
-			Timestamp now = new Timestamp(System.currentTimeMillis());
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "SELECT * FROM InfoPagesURLs ";
@@ -352,8 +356,8 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "UPDATE InfoPagesURLs SET fileSize="+pageUrl.getFileSize()
-					+", status=\""+pageUrl.getStatus()+"\", checkedTime=\""+now+
-					"\" WHERE ardNum="+pageUrl.getArdNum()+" AND URL=\""+pageUrl.getUrl()+"\";";
+					+", status='"+pageUrl.getStatus()+"', checkedTime='"+now+
+					"' WHERE ardNum="+pageUrl.getArdNum()+" AND URL='"+pageUrl.getUrl()+"'";
 			System.out.println(query);
 			statement.executeUpdate(query);
 		}
