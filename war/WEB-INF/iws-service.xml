@@ -383,6 +383,12 @@
     	</property>
      </bean>
 
+    <bean id="personPrivilegeService" class="huard.iws.service.PersonPrivilegeServiceImpl">
+    	<property name="personPrivilegeDao">
+    		<ref bean="personPrivilegeDao"/>
+    	</property>
+    </bean>
+    
  	<bean id="recordProtectService" class="huard.iws.service.RecordProtectServiceImpl">
 		<property name="recordProtect">
     		<ref bean="recordProtect"/>

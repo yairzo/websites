@@ -219,6 +219,12 @@
         </property>
      </bean>
 
+    <bean id="personPrivilegeDao" class="huard.iws.db.JdbcPersonPrivilegeDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
      <bean id="helperTableDao" class="huard.iws.db.JdbcHelperTableDao">
     	<property name="dataSource">
             <ref bean="dataSource"/>

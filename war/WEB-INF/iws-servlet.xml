@@ -569,6 +569,16 @@
         </property>
      </bean>
 
+	<bean id="editPersonPrivilegeController" class="huard.iws.web.EditPersonPrivilegeController"
+		parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.PersonBean</value></property>
+        <property name="formView"><value>editPersonPrivilege</value></property>
+        <property name="successView"><value>personPrivilege.html</value></property>
+        <property name="personPrivilegeService">
+            <ref bean="personPrivilegeService"/>
+        </property>
+    </bean>
 
 	<bean id="conferenceProposalController" class="huard.iws.web.ConferenceProposalController" parent="generalFormController">
     	<property name="commandName"><value>command</value></property>
@@ -811,6 +821,7 @@
                 <prop key="/person.html">editPersonController</prop>
                 <prop key="/deletePerson.html">deletePersonController</prop>
 				<prop key="/personAttribution.html">editPersonAttributionController</prop>
+				<prop key="/personPrivilege.html">editPersonPrivilegeController</prop>
 				<prop key="/deletePersonAttribution.html">deletePersonAttributionController</prop>
 				<prop key="/lists.html">listController</prop>
 				<prop key="/listInstruction.html">editListInstructionController</prop>
