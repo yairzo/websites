@@ -145,6 +145,8 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		String query = "select * from post";
 		if (additionalCondition != null)
 				query += " where " + additionalCondition;
+		query += " order by sendTime desc";
+		System.out.println("query:" + query);
 		List<Post> posts = getSimpleJdbcTemplate().query(query, rowMapper);
 		applySubjectIds(posts);
 		return posts;
@@ -208,7 +210,12 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		}, postId);
 		return BaseUtils.toSet(personIds);
 	}
-
+	
+	public int countNotSentPostPersons(){
+		String query = "select count(*) from personToPost where isSent = 0";
+		return getSimpleJdbcTemplate().queryForInt(query);
+	}
+	
 	public Map<Integer,Set<Integer>> getPreparedPostPersonsMap(){
 		String query = "select * from personToPost where isSelfSend = 0";
 		final Map<Integer,Set<Integer>> preparedPostPersonsMap = new HashMap<Integer, Set<Integer>>();

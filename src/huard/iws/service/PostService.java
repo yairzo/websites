@@ -46,5 +46,8 @@ public interface PostService {
 	public List<Post> getOpenPosts();
 	
 	public int copyPost (int sourcePostId, PersonBean userPersonBean);
+	
+	public int countNotSentPostPersons();
+
 
 }

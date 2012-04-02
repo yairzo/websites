@@ -67,7 +67,8 @@ public class PostReportsController extends GeneralController{
 
 		model.put("openPostsCount", openPosts.size());
 
-
+		int notSentPosts = postService.countNotSentPostPersons();
+		model.put("notSentPostsCount", notSentPosts);
 
 		int subjectId = request.getIntParameter("sid", 0);
 

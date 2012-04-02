@@ -21,6 +21,19 @@
 
 
               <table width="600" border="0" align="center" cellpadding="2" cellspacing="0">
+
+				<c:if test="${notSentPostsCount>0}">
+				<tr>
+			 		<th colspan="4" align="right">
+			 		${notSentPostsCount} פוסטים לא נשלחו
+			 		</th>
+				</tr>
+			 	<tr>
+			 		<td>
+			 			&nbsp;
+			 		</td>
+			 	</tr>
+			 	</c:if>
 			 	<tr>
 			 		<th colspan="4">
 			 			מספר רשומים כולל: ${subscribersCount}
@@ -130,6 +143,8 @@
 			  </table>
 			  </c:if>
 
+
+			 
 			  <c:if test="${! empty subscribersDisabled}">
 			  <br/>
 			  <br/>

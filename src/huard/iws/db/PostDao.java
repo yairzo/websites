@@ -47,5 +47,8 @@ public interface PostDao {
 	public void markPersonPostAsSent(int personId, int postId);
 
 	public List<PostType> getPostTypes();
+	
+	public int countNotSentPostPersons();
+
 
 }

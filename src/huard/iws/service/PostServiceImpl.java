@@ -138,6 +138,9 @@ public class PostServiceImpl implements PostService{
 		postDao.updatePost(newPost);
 		return newPostId;
 	}
+	public int countNotSentPostPersons(){
+		return postDao.countNotSentPostPersons();
+	}
 	
 	private PostDao postDao;
 
