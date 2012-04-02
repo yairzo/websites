@@ -433,7 +433,7 @@
 				</tr>
 				</table>
             </authz:authorize>
-            <authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
+            <authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN">
             	<table width="600" border="0" align="center" cellpadding="3">
             	<tr>
 		             <td colspan="3"><img src="image/hr.gif" width="580" height="10"></td>
