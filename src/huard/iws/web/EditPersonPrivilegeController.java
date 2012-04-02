@@ -69,7 +69,8 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 		if ( userPersonBean.getId() != id && ! userPersonBean.isAuthorized("ADMIN"))
 			return new ModelAndView(new RedirectView("accessDenied.html"));
 
-		//PersonBean personBean = (PersonBean) model.get("command");
+		PersonBean personBean = (PersonBean) model.get("command");
+		
 		List<PersonPrivilege> personPrivileges = personPrivilegeService.getPersonPrivileges(id);
 		List<PersonPrivilegeBean> personPrivilegesBeans = new ArrayList<PersonPrivilegeBean>();
 		List<String> privelegeStrArr = new ArrayList<String>();
@@ -89,8 +90,10 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 		}
 		model.put("allPrivileges", allPrivilegesBeans);
 		
-		//LanguageUtils.applyLanguage(model, request, response, personBean.getPreferedLocaleId());
-
+		LanguageUtils.applyLanguage(model, request, response, userPersonBean.getPreferedLocaleId());
+		
+		model.put("personName", personBean.getDegreeFullNameHebrew());
+		
 		return new ModelAndView("editPersonPrivilege", model);
 	}
 

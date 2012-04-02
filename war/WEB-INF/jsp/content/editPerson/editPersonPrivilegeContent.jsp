@@ -71,7 +71,7 @@
 				<form:hidden path="id" />
 				<table width="600" border="0" align="center" cellpadding="2">
 					<tr>
-						<td colspan="2" align="center"><h1> הרשאות משתמש</h1></td>
+						<td colspan="2" align="center"><h1> הרשאות משתמש - ${personName} </h1></td>
 					</tr>
 				</table>
 				
@@ -94,7 +94,7 @@
 						<td align="center">רשימת ההרשאות<br>
         				<select id="allPrivilegesSelect" cssClass="green" MULTIPLE SIZE="5" STYLE="width:260;">
        					<c:forEach items="${allPrivileges}" var="privilege">
-	        				<option htmlEscape="true" value="${privilege.privilege}" ><c:out escapeXml="false" value="${privilege.privilege}"/></option>
+	        				<option htmlEscape="true" value="${privilege.privilege}" title="<fmt:message key="iw_IL.eqfSystem.editPersonPrivilege.${privilege.privilege}"/>" ><c:out escapeXml="false" value="${privilege.privilege}"/></option>
        					</c:forEach>
        		        	</select>
      		            </td> 
