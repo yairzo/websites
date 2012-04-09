@@ -50,5 +50,7 @@ public interface PostDao {
 	
 	public int countNotSentPostPersons();
 
+	public int countSentPostPersons();
+
 
 }

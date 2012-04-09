@@ -212,7 +212,12 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	}
 	
 	public int countNotSentPostPersons(){
-		String query = "select count(*) from personToPost where isSent = 0";
+		String query = "select count(*) from personToPost where isSent = 0 and creationTime> CURRENT_DATE - INTERVAL 30 DAY";
+		return getSimpleJdbcTemplate().queryForInt(query);
+	}
+	
+	public int countSentPostPersons(){
+		String query = "select count(*) from (select personId,date(creationTime) from personToPost where isSent = 1 and creationTime> CURRENT_DATE - INTERVAL 7 DAY group by personId,date(creationTime) ) as temp;";
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 	

@@ -22,10 +22,12 @@
 
               <table width="600" border="0" align="center" cellpadding="2" cellspacing="0">
 
-				<c:if test="${notSentPostsCount>0}">
 				<tr>
 			 		<th colspan="4" align="right">
-			 		${notSentPostsCount} פוסטים לא נשלחו
+			 		
+			 	 השבוע נשלחו ${sentPostsCount} אימיילים.
+			 	 &nbsp;  
+			 		${notSentPostsCount} הודעות נכשלו בשליחה.
 			 		</th>
 				</tr>
 			 	<tr>
@@ -33,7 +35,6 @@
 			 			&nbsp;
 			 		</td>
 			 	</tr>
-			 	</c:if>
 			 	<tr>
 			 		<th colspan="4">
 			 			מספר רשומים כולל: ${subscribersCount}

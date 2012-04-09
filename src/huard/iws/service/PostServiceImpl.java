@@ -141,7 +141,11 @@ public class PostServiceImpl implements PostService{
 	public int countNotSentPostPersons(){
 		return postDao.countNotSentPostPersons();
 	}
-	
+
+	public int countSentPostPersons(){
+		return postDao.countSentPostPersons();
+	}
+
 	private PostDao postDao;
 
 	public void setPostDao(PostDao postDao) {

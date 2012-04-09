@@ -88,15 +88,20 @@ public class SendPostServiceImpl implements SendPostService{
 
 		logger.info("prepareSendPosts: day: " + dayOfWeek + " hour: "+ hourOfDay);
 
-
+System.out.println("1111111111");
 		markSentPosts(yetSentPosts, persons);
+		System.out.println("222222222");
 		int prepareSendPostCounter = 0;
 		for (Post post: yetSentPosts){
+			System.out.println("33333333333" + post.getId());
 			if (! post.isSent() && post.isVerified()){
+				System.out.println("44444444444" + post.getId());
 				for (PersonBean person: persons){
 					if (!isPreparedToSend(post, person) && isToBeSentTo(post, person)){
+						System.out.println("555555" + post.getId() + " 555555555555" + person.getId());
 						if (post.isSendImmediately() || person.isPostReceiveImmediately() || (person.getPostReceiveDays().contains(dayOfWeek)
 								&& person.getPostReceiveHour() == hourOfDay)){
+							System.out.println("6666666666" + post.getId() + " 666666666666" + person.getId());
 							postDao.insertPersonPost(person.getId(), post.getId());
 							prepareSendPostCounter++;
 						}

@@ -49,5 +49,7 @@ public interface PostService {
 	
 	public int countNotSentPostPersons();
 
+	public int countSentPostPersons();
+
 
 }
