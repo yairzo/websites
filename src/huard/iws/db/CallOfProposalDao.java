@@ -15,5 +15,9 @@ public interface CallOfProposalDao {
 	public List<CallOfProposal> getCallsOfProposals(String server, boolean open);
 
 	public void insertAuthorizedMD5(String md5, String server);
+	
+	public List<CallOfProposal> getAliveTabledInfoPages(Integer ardNum,String server);
+	
+
 
 }

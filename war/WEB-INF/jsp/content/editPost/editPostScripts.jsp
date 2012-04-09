@@ -215,7 +215,7 @@
 		});
 
 		<c:if test="$false && ${command.typeId == 2}">
-			$("textarea#body").val('');
+			$("textarea#body").html('');
 			$("textarea#body").append('${callOfProposalTemplate}');
 		</c:if>
 
@@ -260,18 +260,18 @@
 
 
 		$("select.callOfProposal").change(function(){
-			var message = $("textarea#body").val();
+			var message = $("textarea#body").html();
 			var callOfProposalId = $(this).val();
 
 			if (message == ""){
-				$("textarea#body").val('');
+				$("textarea#body").html('');
 				$("textarea#body").load("objectQuery?type=callOfProposal&id=" + callOfProposalId);
 			}
 			$.alerts.confirm('<fmt:message key="${lang.localeId}.post.changeCallOfProposal.confirm"/>',
     			'<fmt:message key="iw_IL.eqfSystem.editProposal.confirm.title"/>',
     			function(confirm){
     				if (confirm==1){
-    					$("textarea#body").val('');
+    					$("textarea#body").html('');
 						$("textarea#body").load("objectQuery?type=callOfProposal&id=" + callOfProposalId);
 					}
 				}
@@ -280,16 +280,17 @@
 
 
 		$(".langSelect").change(function(){
-			$.alerts.confirm('<fmt:message key="${lang.localeId}.post.changeLanguage.confirm"/>',
-    			'<fmt:message key="iw_IL.eqfSystem.editProposal.confirm.title"/>',
-    			function(confirm){
-    				if (confirm==1){
-    					$("textarea#body").val('');
-						$('form#form').append('<input type="hidden" name="action" value="save"/>');
-						$('form#form').submit();
-					}
-				}
-			);
+				$.alerts.confirm('<fmt:message key="${lang.localeId}.post.changeLanguage.confirm"/>',
+		    			'<fmt:message key="iw_IL.eqfSystem.editProposal.confirm.title"/>',
+		    			function(confirm){
+		    				if (confirm==1){
+		   						$("textarea#body").html('');
+								$('form#form').append('<input type="hidden" name="action" value="save"/>');
+								$('form#form').submit();
+							}
+						}
+				);
+
 		});
 
 		$(".addFile").hide();

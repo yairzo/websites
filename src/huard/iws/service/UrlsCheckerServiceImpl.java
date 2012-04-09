@@ -1,6 +1,7 @@
 package huard.iws.service;
 
 import huard.iws.db.UrlsCheckerDao;
+import huard.iws.db.CallOfProposalDao;
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.PageUrl;
 import huard.iws.model.TextualPage;
@@ -18,7 +19,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 	public void buildInfoPagesURLsTable(Integer ardNum){
 		String server = configurationService.getConfigurationString("websiteDb");
 		urlsCheckerDao.markExistingRowsInInfoPagesUrls(server);
-		List<CallOfProposal> callOfProposals = urlsCheckerDao.getAliveTabledInfoPages(ardNum,server);
+		List<CallOfProposal> callOfProposals = callOfProposalDao.getAliveTabledInfoPages(ardNum,server);
 		for (CallOfProposal callOfProposal: callOfProposals){
 			String text = callOfProposal.toString();
 			List<PageUrl> pageURLsList = getURLs(text);
@@ -325,5 +326,9 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 	public void setUrlsCheckerDao(UrlsCheckerDao urlsCheckerDao) {
 		this.urlsCheckerDao = urlsCheckerDao;
 	}
-
+	
+	private CallOfProposalDao callOfProposalDao;
+	public void setCallOfProposalDao(CallOfProposalDao callOfProposalDao) {
+		this.callOfProposalDao = callOfProposalDao;
+	}
 }

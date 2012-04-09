@@ -132,4 +132,48 @@ public class JdbcCallOfProposalDao implements CallOfProposalDao {
 		List<CallOfProposal> callOfProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callOfProposals;
 	}*/
+	
+	public List<CallOfProposal> getAliveTabledInfoPages(Integer ardNum,String server){
+		try{
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			java.util.Date now = new java.util.Date();
+			String query = "SELECT * FROM InfoPages,TabledInfoPages WHERE"+
+				" InfoPages.ardNum = TabledInfoPages.ardNum AND InfoPages.isDeleted=0 "+
+				(ardNum!=null ? " AND InfoPages.ardNum="+ardNum+";"  : " AND InfoPages.subDate>"+now.getTime()+
+						" ORDER BY RAND();");
+			System.out.println(query);
+			ResultSet resultSet = statement.executeQuery(query);
+			return moveResultSetToTabledInfoPages(resultSet);
+		}
+		catch(SQLException e){
+			System.out.println(e);
+			return null;
+		}
+	}
+	public List<CallOfProposal> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
+		List<CallOfProposal> tabledInfoPages = new ArrayList<CallOfProposal>();
+		while (resultSet.next()){
+			CallOfProposal tabledInfoPage = new CallOfProposal();
+			tabledInfoPage.setId(resultSet.getInt("ardNum"));
+			tabledInfoPage.setTitle(resultSet.getString("title"));
+			tabledInfoPage.setPublicationTimeMillis(resultSet.getLong("pubDate"));
+			tabledInfoPage.setFundId(resultSet.getInt("fundNum"));
+			tabledInfoPage.setSubmissionTimeMillis(resultSet.getLong("subDate"));
+			tabledInfoPage.setDeskId(resultSet.getString("deskId"));
+			tabledInfoPage.setPageWebAddress(resultSet.getString("pageWebAddress"));
+			tabledInfoPage.setDescriptionOnly(resultSet.getBoolean("descriptionOnly"));
+			tabledInfoPage.setDeskAndContact(resultSet.getString("deskAndContact"));
+			tabledInfoPage.setForms(resultSet.getString("forms"));
+			tabledInfoPage.setDescription(resultSet.getString("description"));
+			tabledInfoPage.setAmountOfGrant(resultSet.getString("amountOfGrant"));
+			tabledInfoPage.setBudgetDetails(resultSet.getString("budgetDetails"));
+			tabledInfoPage.setAdditionalInformation(resultSet.getString("additionalInformation"));
+			tabledInfoPages.add(tabledInfoPage);
+		}
+		return tabledInfoPages;
+	}
+
+	
+
 }

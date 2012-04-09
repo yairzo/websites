@@ -31,6 +31,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			System.out.println(e);
 		}
 	}
+	/* moved to JdbcCallOfProposal
 	public List<CallOfProposal> getAliveTabledInfoPages(Integer ardNum,String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
@@ -49,6 +50,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			return null;
 		}
 	}
+	
 	public List<CallOfProposal> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
 		List<CallOfProposal> tabledInfoPages = new ArrayList<CallOfProposal>();
 		while (resultSet.next()){
@@ -88,7 +90,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			tabledInfoPages.add(tabledInfoPage);
 		}
 		return tabledInfoPages;
-	}
+	}*/
 
 	public void insertTabledInfoPagesURLsTable(int ardNum, List<PageUrl> URLsList,String server){
 		try{
@@ -307,7 +309,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		}
 	}
 
-	public List<CallOfProposal> getInfoPageByArdNum(int ardNum,String server){
+	/* public List<CallOfProposal> getInfoPageByArdNum(int ardNum,String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
@@ -319,7 +321,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			System.out.println(e);
 			return null;
 		}
-	}
+	}*/
 
 	public List<PageUrl> getSearchInfoPagesUrls(ListView lv, SearchCreteria search, String server){
 		try{

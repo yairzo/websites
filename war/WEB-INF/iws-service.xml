@@ -121,6 +121,9 @@
     </bean>   
 
    <bean id="urlsCheckerService" class="huard.iws.service.UrlsCheckerServiceImpl">
+		<property name="callOfProposalDao">
+            <ref bean="callOfProposalDao"/>
+        </property>
 		<property name="urlsCheckerDao">
             <ref bean="urlsCheckerDao"/>
         </property>
