@@ -12,7 +12,8 @@ public class PageBodyImage implements Serializable{
 	private byte [] image;
 	private int uploaderPersonId;
 	private int approved;
-	
+	private String url;
+
 	public int getId() {
 		return id;
 	}
@@ -55,6 +56,11 @@ public class PageBodyImage implements Serializable{
 	public void setApproved(int approved) {
 		this.approved = approved;
 	}
-
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 }

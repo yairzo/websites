@@ -11,7 +11,7 @@ public class PageBodyImageBean {
 	private byte [] image;
 	private int uploaderPersonId;
 	private int approved;
-
+	private String url;
 
 	private String title;
 
@@ -35,6 +35,7 @@ public class PageBodyImageBean {
 		this.image = pageBodyImage.getImage();
 		this.uploaderPersonId = pageBodyImage.getUploaderPersonId();
 		this.approved = pageBodyImage.getApproved();
+		this.url = pageBodyImage.getUrl();
 	}
 
 	public PageBodyImage toPageBodyImage(){
@@ -46,6 +47,7 @@ public class PageBodyImageBean {
 		pageBodyImage.setImage(image);
 		pageBodyImage.setUploaderPersonId(uploaderPersonId);
 		pageBodyImage.setApproved(approved);
+		pageBodyImage.setUrl(url);
 
 		return pageBodyImage;
 	}
@@ -105,6 +107,12 @@ public class PageBodyImageBean {
 	}
 	public void setApproved(int approved) {
 		this.approved = approved;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 

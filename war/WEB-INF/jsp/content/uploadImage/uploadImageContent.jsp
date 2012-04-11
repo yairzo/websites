@@ -59,6 +59,15 @@
 						<font color="red"><form:errors cssClass="errors" path="captionEnglish"/></font>
 					</td>
 				</tr>
+                <tr class="form">
+					<td width="250">
+						 כתובת אתר המקושר לתמונה:
+					</td>
+					<td width="300">
+					 	<form:input cssClass="green" path="url" />
+					</td>
+ 				</tr> 
+				
 				<tr>
 					<td width="250">${compulsoryFieldSign}
 						 צרף קובץ (רוחב 420 גובה 240 גודל עד 300K):
