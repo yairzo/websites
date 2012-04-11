@@ -59,7 +59,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<form:errors cssClass="errors" path="civilId"/>
+						<font color="red"><form:errors cssClass="errors" path="civilId"/></font>
 					</td>
 				</tr>
 

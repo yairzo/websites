@@ -53,8 +53,11 @@ public class ObjectQuery extends HttpServlet{
 			Object obj = context.getBean("callOfProposalService");
 			callOfProposalService = (CallOfProposalService)obj;
 			CallOfProposal callOfProposal = callOfProposalService.getCallOfProposal(id);
+			//if no such callOfProposal - user entered wrong number
+			if (callOfProposal.getId()==0)
+				return;
+			
 			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal, true);
-
 
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");

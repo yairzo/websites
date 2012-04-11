@@ -39,6 +39,9 @@ public class EditPersonValidator implements Validator {
 		ValidationUtils.rejectIfEmpty(errors, "department", "iw_IL.required.department");
 		ValidationUtils.rejectIfEmpty(errors, "academicTitle", "iw_IL.required.academicTitle");
 
+		if (!personBean.getCivilId().isEmpty() && ! personBean.getCivilId().trim().matches("\\d{8}")){
+			errors.rejectValue("civilId", "iw_IL.invalid.civilId");
+		}
 	}
 
 
