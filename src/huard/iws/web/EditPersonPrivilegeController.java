@@ -37,7 +37,9 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 
 		if (action.equals("insert")){//add from allPrivilegesSelected values to personPrivilege table
 			String password = request.getParameter("password","");
-			String encodedPassword = MD5Encoder.digest(password);
+			String encodedPassword = "";
+			if(!password.isEmpty())
+				encodedPassword=MD5Encoder.digest(password);
 			String vals = request.getParameter("vals", "");
 			StringTokenizer valsTk = new StringTokenizer(vals,",");
 			while (valsTk.hasMoreTokens() ){
