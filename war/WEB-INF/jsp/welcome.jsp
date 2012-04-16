@@ -165,7 +165,7 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN">
+						<authz:authorize ifAnyGranted="ROLE_IMAGE_ADMIN,ROLE_IMAGE_RESEARCHER">
 						<tr>
 							<th align="right">
 								<a style="text-decoration: none" href="uploadImage.html">עריכת תמונות</a>

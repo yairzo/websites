@@ -49,11 +49,11 @@
 <tr>
  <td>
  	<c:choose>
-    	<c:when test="${iframeView}">
-      		<c:set var="totalWidth" value="70%"/>
+    	<c:when test="${print}">
+      		<c:set var="totalWidth" value="600"/>
       	</c:when>
       	<c:otherwise>
-      		<c:set var="totalWidth" value="800"/>
+      		<c:set var="totalWidth" value="1200"/>
       	</c:otherwise>
      </c:choose>
 
@@ -61,7 +61,7 @@
 		<form:form id="form" name="form" method="POST" action="viewListAdmin.html" commandName="command">
 			<form:hidden path="id"/>
 
-      	<table width="600" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
+      	<table width="${totalWidth}" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
       		<tr>
          		  <td valign="top" align="center">
 		<c:choose>

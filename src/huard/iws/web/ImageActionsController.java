@@ -6,6 +6,7 @@ import huard.iws.util.RequestWrapper;
 import huard.iws.service.PageBodyImageService;
 
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,13 +22,26 @@ public class ImageActionsController extends GeneralFormController {
 			return new ModelAndView( new RedirectView("welcome.html"));
 		}
 		else if (action != null && action.equals("delete")) {
-			int id = request.getIntParameter("imageId",0);
-			System.out.println("id: " + id);
-			pageBodyImageService.deletePageBodyImage(id);
+			String ids = request.getParameter("imageIds","");
+			StringTokenizer tk  = new StringTokenizer(ids,",");
+			while (tk.hasMoreTokens()){
+				String tkn= tk.nextToken();
+				if(tkn.isEmpty())
+					continue;
+				int id = new Integer(tkn).intValue();
+				pageBodyImageService.deletePageBodyImage(id);
+			}
 		}
 		else if (action != null && action.equals("approve")) {
-			int id = request.getIntParameter("imageId",0);
-			pageBodyImageService.approvePageBodyImage(id);
+			String ids = request.getParameter("imageIds","");
+			StringTokenizer tk  = new StringTokenizer(ids,",");
+			while (tk.hasMoreTokens()){
+				String tkn= tk.nextToken();
+				if(tkn.isEmpty())
+					continue;
+				int id = new Integer(tkn).intValue();
+				pageBodyImageService.approvePageBodyImage(id);
+			}
 		}
 
 		return new ModelAndView(new RedirectView("uploadImage.html"));

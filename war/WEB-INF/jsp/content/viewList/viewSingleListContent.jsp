@@ -49,11 +49,22 @@
  </c:if>
 
 
+
 	<tr class="viewList" style="height: ${tableHeaderHeight}">
 		<c:forEach items="${listBean.columnBeans}" var="column" varStatus="varStatus">
-			<c:choose>
+		
+		<c:choose>
+ 		<c:when test="${print}">
+      		<c:set var="columnWidth" value="${column.width/2}"/>
+    	</c:when>
+    	<c:otherwise>
+      		<c:set var="columnWidth" value="${column.width}"/>
+ 		</c:otherwise>
+		</c:choose>	
+		
+		<c:choose>
 			<c:when test="${! column.hidden }">
-				<th class="viewList" width="<c:out value="${column.width}%"/>">
+				<th class="viewList" width="<c:out value="${columnWidth}%"/>">
 					<table>
 						<tr>
 							<td>
@@ -66,8 +77,8 @@
 						<a class="nobrColumn" href="#" style="font-size: 9px">nbr</a>
 						<a class="boldColumn" href="#" style="font-size: 9px">B</a>
 						<a class="alignColumn" href="#" style="font-size: 9px">A.${column.alignSign}</a>
-						<span style="font-size: 9px">${column.width}</span>
-						</nobr>
+ 						<span style="font-size: 9px">${columnWidth}</span>
+ 						</nobr>
 					</c:if>
 						   </td>
 						   <th class="fillWidth" style="font-size: 12pt;">

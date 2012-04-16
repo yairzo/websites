@@ -2,6 +2,7 @@ package huard.iws.service;
 
 import huard.iws.db.PageBodyImageDao;
 import huard.iws.model.PageBodyImage;
+import huard.iws.bean.PersonBean;
 
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class PageBodyImageServiceImpl implements PageBodyImageService{
 		return pageBodyImageDao.getPageBodyImage(id);
 	}
 
-	public List<PageBodyImage> getPageBodyImages( int page){
-		return pageBodyImageDao.getPageBodyImages( page);
+	public List<PageBodyImage> getPageBodyImages( int page, PersonBean personBean){
+		return pageBodyImageDao.getPageBodyImages( page,personBean);
 	}
 
 	public List<PageBodyImage> getApprovedPageBodyImages(){

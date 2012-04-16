@@ -49,7 +49,7 @@ public class UploadImageController extends GeneralFormController {
 		  model.put("previousPage", Math.max(0, page -1));
 		  model.put("nextPage", Math.min(pageBodyImageService.countImages(),  page + 1));
 
-		  List<PageBodyImage> pageBodyImages =	  pageBodyImageService.getPageBodyImages(page);
+		  List<PageBodyImage> pageBodyImages =	  pageBodyImageService.getPageBodyImages(page,userPersonBean);
 
 		  List<PageBodyImageBean> pageBodyImagesBeans = new  ArrayList<PageBodyImageBean>();
 		  for (PageBodyImage pageBodyImage: pageBodyImages){

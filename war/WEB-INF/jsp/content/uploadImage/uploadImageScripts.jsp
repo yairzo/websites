@@ -2,28 +2,35 @@
 
 
 $(document).ready(function() {
-
+	
 	 $("a.delete").click(function(){
-		 	$("input[@type=checkbox][@checked]").each(
+			var ids ="";
+		 	$("#chkboxName:checked").each(
 				function() {
-					var id = $(this).val();
-					$("form#editImage").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
-					$("form#editImage").append("<input type=\"hidden\" name=\"imageId\" value=\""+id+"\"/>");
-					$("form#editImage").ajaxSubmit( function(){
-						$("span#img"+id).remove();
-					});
-				 }
-			);
-		});
-	 $("a.approve").click(function(){
-		 	$("input[@type=checkbox][@checked]").each(
-				function() {
-					var id = $(this).val();
-					$("form#editImage").append("<input type=\"hidden\" name=\"action\" value=\"approve\"/>");
-					$("form#editImage").append("<input type=\"hidden\" name=\"imageId\" value=\""+id+"\"/>");
-					$('form#editImage').submit();
+					ids +=  $(this).val()+",";
 				}
 			);
+		 	if(ids!=""){
+					$("form#editImage").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
+					$("form#editImage").append("<input type=\"hidden\" name=\"imageIds\" value=\""+ids+"\"/>");
+					$('form#editImage').submit();
+					return false;
+			}
+		});
+	 
+	 $("a.approve").click(function(){
+			var ids ="";
+		 	$("#chkboxName:checked").each(
+				function() {
+					ids +=  $(this).val()+",";
+				}
+			);
+		 	if(ids!=""){
+				$("form#editImage").append("<input type=\"hidden\" name=\"action\" value=\"approve\"/>");
+				$("form#editImage").append("<input type=\"hidden\" name=\"imageIds\" value=\""+ids+"\"/>");
+				$('form#editImage').submit();
+				return false;
+		 	}
 		});
 
 	$('.cancel').click(function(){

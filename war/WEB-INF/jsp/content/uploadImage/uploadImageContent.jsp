@@ -93,6 +93,7 @@
 		</tr>
 	</table>
 	</form:form>
+		<form:form id="editImage" name="editImage" method="POST" action="editImage.html" commandName="command" >
 
             <table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
 
@@ -112,7 +113,7 @@
   						<td>
   							<span id="img${image.id}">
   								<img id="${image.id}" style="${borderStyle}" src="imageViewer?imageId=${image.id}&attachType=bodyImage" width="72" height="72">
-  								<input type="checkbox" value="${image.id}"/>
+  								<input name="chkboxName" id="chkboxName" type="checkbox" value="${image.id}"/>
 	  							<br/>
   								${image.name}<br/>
   							</span>
@@ -135,9 +136,11 @@
 			<a href="#" class="delete">מחק</a>
 			&nbsp;
 			&nbsp;
+			<authz:authorize ifAnyGranted="ROLE_IMAGE_ADMIN">
 			<a href="#" class="approve">אשר</a>
 			&nbsp;
 			&nbsp;
+			</authz:authorize>
 			<a href="#" class="cancel">סיים</a>
 		</td>
   	</tr>
@@ -154,7 +157,7 @@
   </tr>
 
 </table>
-<form id="editImage" name="editImage" method="POST" action="editImage.html"/>
+	</form:form>
 
 </body>
 </html>

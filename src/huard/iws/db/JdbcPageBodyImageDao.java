@@ -1,6 +1,7 @@
 package huard.iws.db;
 
 import huard.iws.model.PageBodyImage;
+import huard.iws.bean.PersonBean;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -57,15 +58,19 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 			return pageBodyImage;
 	}
 
-	public List<PageBodyImage> getPageBodyImages(int page){
-		String query = "select * from image order by creationTime desc limit "
-			+ page * NUM_IMAGES_PER_PAGE + "," + NUM_IMAGES_PER_PAGE;
-		//System.out.println("Before loading images !!!!!");
+	public List<PageBodyImage> getPageBodyImages(int page, PersonBean personBean){
+		String query = "select * from image";
+		if(personBean.isAuthorized("IMAGE","RESEARCHER"))
+			query+=" where uploaderPersonId=" + personBean.getId();
+		query += " order by creationTime desc limit " + page * NUM_IMAGES_PER_PAGE + "," + NUM_IMAGES_PER_PAGE;
+		System.out.println("query:" + query);
 		List<PageBodyImage> pageBodyImages =
 			getSimpleJdbcTemplate().query(query, rowMapper);
 		//System.out.println("After loading images !!!!!");
 			return pageBodyImages;
 	}
+	
+
 
 	public List<PageBodyImage> getApprovedPageBodyImages(){
 		String query = "select * from image where approved=1 order by creationTime desc";
@@ -92,6 +97,7 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 
 	public void deletePageBodyImage(int id){
 		String query = "delete from image where id = ?";
+	System.out.println("query:" + query);
 		getSimpleJdbcTemplate().update(query, id);
 	}
 
