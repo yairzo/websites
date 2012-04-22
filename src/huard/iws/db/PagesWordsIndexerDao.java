@@ -20,9 +20,9 @@ public interface PagesWordsIndexerDao {
 
 	public int getHebrewDesk (String deskId,String server);
 
-	public int insertWordToInfoPagesIndexTable(List<String> words, int callOfProposal, String server);
+	public int insertWordsToInfoPagesIndexTable(List<String> words, int callOfProposalId, String server);
 
-	public void insertWordToTextualPagesIndexTable(String columnsvalues,String server);
+	public int insertWordsToPubPagesIndexTable(List<String> words, int textualPageId, String server);
 
 	public void purgeInfoPagesIndexTable(String server);
 

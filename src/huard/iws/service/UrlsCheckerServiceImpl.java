@@ -163,8 +163,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 			pageUrl = updateURLsStatusAndSize(pageUrl, pathToApp);
 			if(pageUrl!=null)
 				urlsCheckerDao.updatePubPagesUrl(pageUrl,server);
-		}
-			
+		}			
 	}
 
 	public PageUrl updateURLsStatusAndSize(PageUrl pageUrl, String pathToApp){

@@ -56,6 +56,9 @@ public class PostListController extends GeneralFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
+		if (!userPersonBean.isAnyAuthorized(new String [] {"ROLE_POST_ADMIN","ROLE_POST_CREATOR","ROLE_POST_READER"}))
+			return new ModelAndView(new RedirectView("accessDenied.html"));
+		
 		PostListControllerCommand command = (PostListControllerCommand) model.get("command");
 
 		/*boolean isReceived = userPersonBean.isAuthorized("POST", "READER");
@@ -174,17 +177,7 @@ public class PostListController extends GeneralFormController {
 
 	}
 
-	private PersonService personService;
-
 	private PostService postService;
-
-	public PersonService getPersonService() {
-		return personService;
-	}
-
-	public void setPersonService(PersonService personService) {
-		this.personService = personService;
-	}
 
 	public PostService getPostService() {
 		return postService;

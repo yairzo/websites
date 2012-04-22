@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
@@ -146,7 +145,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 		}
 	}
 	
-	public int insertWordToInfoPagesIndexTable(List<String> words, int callOfProposalId, String server){
+	public int insertWordsToInfoPagesIndexTable(List<String> words, int callOfProposalId, String server){
 		int counter = 0;
 		try{
 			
@@ -173,19 +172,33 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 		}
 		return counter;
 	}
-
-	public void insertWordToTextualPagesIndexTable(String columnsvalues,String server){
+	
+	public int insertWordsToPubPagesIndexTable(List<String> words, int textualPageId, String server){
+		int counter = 0;
 		try{
-			columnsvalues = columnsvalues.replaceAll("\"", "\\\\\"");
-			String insertString ="INSERT IGNORE INTO PubPagesIndex VALUES " + columnsvalues + ";";
-			//System.out.println(insertString);
+			
+			String columnsValues = "";
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "INSERT", server);
 			Statement statement = connection.createStatement();
-			statement.executeUpdate(insertString);
+			for (String word: words){
+				counter++;
+				if (!columnsValues.isEmpty())
+					columnsValues += ",";
+				columnsValues += "('" + SQLUtils.toSQLString(word) + "'," + textualPageId + ")";
+
+				if(counter%100==0 || counter==words.size()){
+					String query ="INSERT IGNORE INTO PubPagesIndex VALUES " + columnsValues + ";";
+					if (counter % 1000 == 0)
+						System.out.println(query);				
+					statement.executeUpdate(query);
+					columnsValues="";
+				}
+			}
 		}
 		catch (SQLException e){
 			System.out.println("Insert Word: "+e);
 		}
+		return counter;
 	}
 
 	public void purgeInfoPagesIndexTable(String server){

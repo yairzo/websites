@@ -79,7 +79,7 @@
     	<property name="postService">
             <ref bean="postService"/>
         </property>
-     </bean>
+    </bean>
      
 	<bean id="urlsListController" class="huard.iws.web.UrlsListController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
@@ -105,7 +105,6 @@
             <ref bean="personService"/>
         </property>
       </bean>
-
 
 	<bean id="editPartnerController" class="huard.iws.web.EditPartnerController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>

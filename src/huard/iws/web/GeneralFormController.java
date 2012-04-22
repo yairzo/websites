@@ -32,6 +32,7 @@ public abstract class GeneralFormController extends SimpleFormController
 		{
 			request.setCharacterEncoding("UTF-8");
 			RequestWrapper requestWrapper = new RequestWrapper( request);
+			logger.info("personService is null " + (personService == null));
 			PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
 			try
 			{
