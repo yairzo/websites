@@ -766,7 +766,15 @@
       		value="huard.iws.service.PageBodyImageService"/>
   		<property name="registry" ref="registry"/>
 	</bean>
-
+	
+	<bean id="parseOrganizationUnitServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="parseOrganizationUnitService"/>
+  		<property name="serviceName" value="ParseOrganizationUnitFileService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.ParseOrganizationUnitFileService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+	
 	<bean id="registry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
 		<property name="port" value="1199"/>
 	</bean>

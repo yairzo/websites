@@ -49,7 +49,7 @@ public abstract class ListViewableBean implements IListViewableBean{
 				field.setWidth(""+columnInstruction.getWidth());
 
 				if (columnInstruction.isMailAddress()){
-					field.setText("<a href=\"mailto:"+field.getText()+"\"/>@</a>");
+					field.setText("<a href=\"mailto:"+field.getText()+"\" class=\"nounderline\">@</a>");
 				}
 				if (columnInstruction.isWebAddress()){
 					field.setText("<a href=\""+field.getText()+"\" target=\"_new\"/>W</a>");
@@ -67,7 +67,7 @@ public abstract class ListViewableBean implements IListViewableBean{
 						else{
 							if (! target.startsWith("http://"))
 								target = "http://"+field;
-							prefix = "<a href=\""+target+"\" target=\"_new\">";
+							prefix = "<a href=\""+target+"\" target=\"_new\" class=\"nounderline\">";
 							suffix = "</a>";
 						}
 					}

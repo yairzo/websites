@@ -11,6 +11,10 @@ public class FacultyServiceImpl implements FacultyService{
 		return facultyDao.getFaculty(id);
 	}
 
+	public int getFacultyByNameHebrew(String nameHebrew){
+		return facultyDao.getFacultyByNameHebrew(nameHebrew);	
+	}
+
 	public List<Faculty> getFaculties(){
 		return facultyDao.getFaculties();
 	}

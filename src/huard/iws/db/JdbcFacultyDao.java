@@ -17,7 +17,14 @@ public class JdbcFacultyDao extends SimpleJdbcDaoSupport implements FacultyDao {
 			getSimpleJdbcTemplate().queryForObject(query, rowMapper,	id);
 		return faculty;
 	}
-
+	
+	public int getFacultyByNameHebrew(String nameHebrew){
+		String query = "select id from faculty where nameHebrew=?;";
+		int faculty =
+			getSimpleJdbcTemplate().queryForInt(query, nameHebrew);
+		return faculty;
+	}
+	
 	private ParameterizedRowMapper<Faculty> rowMapper = new ParameterizedRowMapper<Faculty>(){
 		public Faculty mapRow(ResultSet rs, int rowNum) throws SQLException{
             Faculty faculty = new Faculty();

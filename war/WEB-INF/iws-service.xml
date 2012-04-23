@@ -40,7 +40,15 @@
         </property>
      </bean>
 
-
+	<bean id="parseOrganizationUnitService" class="huard.iws.service.ParseOrganizationUnitFileServiceImpl">
+		<property name="organizationUnitService">
+            <ref bean="organizationUnitService"/>
+        </property>
+		<property name="facultyService">
+            <ref bean="facultyService"/>
+        </property>
+    </bean>
+    
 	<bean id="organizationUnitService" class="huard.iws.service.OrganizationUnitServiceImpl">
 		<property name="listInstructionService">
             <ref bean="listInstructionService"/>

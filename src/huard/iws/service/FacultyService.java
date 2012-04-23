@@ -8,6 +8,8 @@ public interface FacultyService {
 
 	public Faculty getFaculty(int id);
 
+	public int getFacultyByNameHebrew(String nameHebrew);
+
 	public List<Faculty> getFaculties();
 
 }
