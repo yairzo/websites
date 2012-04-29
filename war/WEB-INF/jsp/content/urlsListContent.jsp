@@ -128,7 +128,7 @@ $(document).ready(function() {
 				<c:choose><c:when test="${fn:length(pubPagesURL.urlText)>0}"><c:out value="${pubPagesURL.urlText}"></c:out></c:when><c:otherwise>ללא כותרת</c:otherwise></c:choose>
 				</td>
  				<td align="right">
-				<a href="${pubPagesURL.url}" class="<c:choose><c:when test="${infoPagesURL.isDead}">red</c:when></c:choose>"><c:out value="${pubPagesURL.url}"></c:out></a>
+				<a href="${pubPagesURL.url}" class="<c:choose><c:when test="${pubPagesURL.isDead}">red</c:when></c:choose>"><c:out value="${pubPagesURL.url}"></c:out></a>
   				</td>
 				<td align="right" <c:choose><c:when test="${pubPagesURL.isDead}">style="color:red"</c:when></c:choose>>
 				<c:out value="${pubPagesURL.status}"></c:out>

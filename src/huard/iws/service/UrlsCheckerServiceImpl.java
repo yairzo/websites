@@ -175,8 +175,8 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 		}
 		try{
 			String pathToDownloadedFile = pathToApp+"/work/urlsChecker/"+pageUrl.getArdNum()+"Target.html";
-			System.out.println("Command: wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
-			Process p = Runtime.getRuntime().exec("wget -t 2 -w 10s -T 60 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" "+pageUrl.getUrl());
+			System.out.println("Command: wget -t 2 -w 10s -T 120 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" '"+pageUrl.getUrl()+"'");
+			Process p = Runtime.getRuntime().exec("wget -t 2 -w 10s -T 60 -U  Mozilla/5.0 -O "+pathToDownloadedFile+" '"+pageUrl.getUrl().replace(" ","%20") +"'");
 			try{
 				long start = System.currentTimeMillis();
 				p.waitFor();
@@ -194,7 +194,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 			File file = new File (pathToDownloadedFile);
 			long fileSize = file.length();
 			pageUrl.setFileSize(fileSize);
-			//file.delete();
+			file.delete();
 			System.out.println("fileSize:"+fileSize + "  pageUrl.getFormerFileSize():"+ pageUrl.getFormerFileSize());
 			if (pageUrl.getFormerFileSize()>0 && Math.abs(fileSize - pageUrl.getFormerFileSize()) > 20000){
 				System.out.println("Url is Changed. exit status:"+p.exitValue());
