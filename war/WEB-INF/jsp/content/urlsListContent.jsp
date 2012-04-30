@@ -107,7 +107,7 @@ $(document).ready(function() {
 
     		<tr>
     			<td colspan="4">
-    				<span style="text-align: center;"><h2>דפים ציבוריים</h2></span>
+    				<span style="text-align: center;"><h2>דפי טקסט</h2></span>
     			</td>
     		</tr>
    			<c:choose>
