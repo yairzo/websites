@@ -11,10 +11,8 @@
 
 				<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR,ROLE_POST_READER">
 					<tr>
-						<td>
+						<td colspan="2">
 							<fmt:message key="${lang.localeId}.post.subject"/>
-						</td>
-						<td>
 								${command.messageSubject}
 						</td>
 					</tr>
@@ -41,10 +39,8 @@
 					</tr>
 
 					<tr>
-						<td>
+						<td colspan="2">
 							<fmt:message key="${lang.localeId}.post.creator"/>
-						</td>
-						<td>
 							<c:out value="${command.creator.degreeFullName}"/>
 						</td>
 						</tr>
@@ -66,27 +62,27 @@
 						</td>
 					</tr>
 
+						<c:if test="${fn:length(command.additionalAddresses)>0}">
+							<tr>
+								<td colspan="2">
+									<fmt:message key="${lang.localeId}.post.additionalAddresses"/>
+									<c:out value="${command.additionalAddresses}"/>
+								</td>
+							</tr>
+						 </c:if>
 
-						<tr>
-						<td>
-							<fmt:message key="${lang.localeId}.post.additionalAddresses"/>
-						</td>
-						<td>
-							<c:out value="${command.additionalAddresses}"/>
-						</td>
-						</tr>
-
-					<tr>
-						<td colspan="2">
+						<c:if test="${command.sendImmediately}">
+					 		<tr>
+							<td colspan="2">
 							&nbsp;
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
+							</td>
+							</tr>
+							<tr>
+							<td colspan="2">
 							<fmt:message key="${lang.localeId}.post.sendImmediately"/>
-							<input type="checkbox" value="" <c:if test="${command.sendImmediately}"> checked </c:if> />
-						</td>
-					</tr>
+							</td>
+							</tr> 
+						 </c:if>
 
 
 					<tr>
@@ -97,10 +93,8 @@
 
 
 					<tr>
-						<td>
+						<td colspan="2">
 							<fmt:message key="${lang.localeId}.post.timeSent"/>
-						</td>
-						<td>
 							<c:out value="${sendDateTime}"/>
 						</td>
 						</tr>

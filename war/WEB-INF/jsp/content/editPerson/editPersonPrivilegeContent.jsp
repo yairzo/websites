@@ -95,7 +95,7 @@
 						<select id="allPrivilegesSelect" cssClass="green" MULTIPLE SIZE="5" STYLE="width:400;">
        					<c:forEach items="${allPrivileges}" var="privilege">
        					
-	        				<option htmlEscape="true" value="${privilege.privilege}" title="${privilege.privilege}"><fmt:message key="iw_IL.eqfSystem.editPersonPrivilege.${privilege.privilege}"/> (<c:out escapeXml="false" value="${privilege.privilege}"/>)</option>
+	        				<option htmlEscape="true" value="${privilege.privilege}" title="${privilege.privilege}"><fmt:message key="iw_IL.eqfSystem.editPersonPrivilege.${privilege.privilege}"/></option>
        					</c:forEach>
        		        	</select>
      		            </td> 
@@ -108,7 +108,7 @@
 						 <td align="center">הרשאות משתמש<br>
         				<select id="personPrivilegesSelect" cssClass="green" MULTIPLE SIZE="5" STYLE="width:400;" >
        					<c:forEach items="${personPrivileges}" var="personPrivilege">
-	        				<option htmlEscape="true" value="${personPrivilege.id}" ><fmt:message key="iw_IL.eqfSystem.editPersonPrivilege.${personPrivilege.privilege}"/> (<c:out escapeXml="false" value="${personPrivilege.privilege}"/>)</option>
+	        				<option htmlEscape="true" value="${personPrivilege.id}" title="${personPrivilege.privilege}"><fmt:message key="iw_IL.eqfSystem.editPersonPrivilege.${personPrivilege.privilege}"/> </option>
        					</c:forEach>
        		        	</select>
       		            </td> 

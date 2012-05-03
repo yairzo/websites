@@ -117,6 +117,9 @@
 		<property name="pagesWordsIndexerDao">
             <ref bean="pagesWordsIndexerDao"/>
         </property>
+        <property name="organizationUnitService">
+            <ref bean="organizationUnitService"/>
+        </property>
         <property name="personListService">
             <ref bean="personListService"/>
         </property>

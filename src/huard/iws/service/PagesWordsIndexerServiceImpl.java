@@ -1,11 +1,13 @@
 package huard.iws.service;
 
+import huard.iws.bean.OrganizationUnitBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.db.PagesWordsIndexerDao;
 import huard.iws.model.AList;
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.Desk;
 import huard.iws.model.TextualPage;
+import huard.iws.model.OrganizationUnit;
 import huard.iws.util.WordsTokenizer;
 
 import java.util.ArrayList;
@@ -172,17 +174,23 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 				int listId = Integer.parseInt(aListId);
 				
 				AList aList  = listService.getList(listId);
-				//index only if it's a persons list
-				if (aList.getListTypeId() != AList.PERSONS_LIST_TYPE_ID)
-					continue;
-
-				List<PersonBean> deskPersonsHebrew = personListService.getPersonsList(listId);
-				for (PersonBean personBean : deskPersonsHebrew) {
-					text = text.concat(personBean.getDegreeFullNameHebrew()+" ");
-					text = text.concat(personBean.getDepartment()+" ");
-					text = text.concat(personBean.getPhone()+" ");
+				// persons list
+				if (aList.getListTypeId() == AList.PERSONS_LIST_TYPE_ID){
+					List<PersonBean> deskPersonsHebrew = personListService.getPersonsList(listId);
+					for (PersonBean personBean : deskPersonsHebrew) {
+						text = text.concat(personBean.getDegreeFullNameHebrew()+" ");
+						text = text.concat(personBean.getDepartment()+" ");
+						text = text.concat(personBean.getPhone()+" ");
+					}
 				}
-				System.out.println("Persons texts: " + text);
+				else{//organization unit list
+					List<OrganizationUnit> organizationUnitList = organizationUnitService.getOrganizationUnits(listId);
+					for (OrganizationUnit organizationUnit : organizationUnitList) {
+						text = text.concat(organizationUnit.getNameHebrew()+" ");
+						text = text.concat(organizationUnit.getNameEnglish()+" ");
+					}
+				}
+				//System.out.println("texts: " + text);
 			}
 
 			text = text.replaceAll("\\*", " * ");  //pad all * with spaces
@@ -244,6 +252,13 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 	public void setConfigurationService(ConfigurationService configurationService) {
 		this.configurationService = configurationService;
 	}
+
+	private OrganizationUnitService organizationUnitService;
+	public void setOrganizationUnitService(
+			OrganizationUnitService organizationUnitService) {
+		this.organizationUnitService = organizationUnitService;
+	}
+
 
 	private PersonListService personListService;
 	public void setPersonListService(PersonListService personListService) {

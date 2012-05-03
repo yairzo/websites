@@ -1,12 +1,41 @@
 <%@ page  pageEncoding="UTF-8" %>
 
+<style>
+	.ui-autocomplete {
+		max-height: 200px;
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+		/* add padding to account for vertical scrollbar */
+		padding-right: 20px;
+		direction: rtl;
+	}
+	
+	.ui-autocomplete li {
+		list-style-type: none;
+	}
+
+
+</style>
+
 <script language="Javascript">
 
 var organizationUnits = "<c:forEach items="${allOrganizationUnits}" var="organizationUnit"><c:out escapeXml="false" value="${organizationUnit.nameHebrew}"/>;;</c:forEach>".split(";;");
 
-function resetAutocomplete(){
-	$("#searchPhrase").unautocomplete();
-	$("#searchPhrase").autocomplete(organizationUnits, {align: 'right'});
+function resetAutocomplete(organizationUnits){
+	$("#searchPhrase").autocomplete( 
+			{source: organizationUnits,
+			 minLength: 2,
+			 highlight: true,
+			 select: function(event, ui) {
+				$("input#listViewPage").remove();
+				$("input#orderBy").remove();
+				$("#searchPhrase").val(ui.item.label);
+				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+				$("#form").submit();				 
+			 }
+		    }
+	);
 }
 $(document).ready(function() {
 
@@ -53,7 +82,7 @@ $(document).ready(function() {
 
 
 
- 	resetAutocomplete();
+ 	resetAutocomplete(organizationUnits);
  	$("#searchPhrase").focus();
 
 
