@@ -35,6 +35,10 @@ public class LoginController extends GeneralController{
 
 		model.put("generalLoginInstructions", messageService.getMessage("iw_IL.general.login.generalLoginInstructions."+titleCode));
 
+		int loginError = request.getIntParameter("login_error", 0);
+
+		model.put("loginError", messageService.getMessage("iw_IL.general.login.loginError."+loginError));
+
 		return new ModelAndView("login",model);
 	}
 

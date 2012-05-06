@@ -186,6 +186,9 @@ public class ViewListController extends GeneralFormController {
 		int iframeView = request.getIntParameter("iv", 0);
 		model.put("iframeView", iframeView ==1 || userPersonBean.isAuthorized("LISTS", "ANONYMOUS"));
 
+		int ajaxView = request.getIntParameter("a", 0);
+		model.put("ajaxView", ajaxView == 1);
+
 		int anEditMode = request.getIntParameter("em", 0);
 		boolean editModeAuthorized = (userPersonBean.isAuthorized("LISTS", "ADMIN") ||
 				userPersonBean.isAuthorized("LISTS", "EDITOR"));
