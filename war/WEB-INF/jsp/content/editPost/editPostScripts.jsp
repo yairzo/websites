@@ -35,12 +35,12 @@
 			uiColor:'#F4EEE4',
 			contentsCss:'js/ckeditor/_samples/assets/output_xhtml.css',
 			height:"190", width:"700",
-			coreStyles_bold : { element : 'span', attributes : {'class': 'Bold'} },
-			coreStyles_italic : { element : 'span', attributes : {'class': 'Italic'}},
-			coreStyles_underline : { element : 'span', attributes : {'class': 'Underline'}},
-			coreStyles_strike : { element : 'span', attributes : {'class': 'StrikeThrough'}, overrides : 'strike' },
-			coreStyles_subscript : { element : 'span', attributes : {'class': 'Subscript'}, overrides : 'sub' },
-			coreStyles_superscript : { element : 'span', attributes : {'class': 'Superscript'}, overrides : 'sup' },
+			//coreStyles_bold : { element : 'span', attributes : {'class': 'Bold'} },
+			//coreStyles_italic : { element : 'span', attributes : {'class': 'Italic'}},
+			//coreStyles_underline : { element : 'span', attributes : {'class': 'Underline'}},
+			//coreStyles_strike : { element : 'span', attributes : {'class': 'StrikeThrough'}, overrides : 'strike' },
+			//coreStyles_subscript : { element : 'span', attributes : {'class': 'Subscript'}, overrides : 'sub' },
+			//coreStyles_superscript : { element : 'span', attributes : {'class': 'Superscript'}, overrides : 'sup' },
 			/*font_names : 'Comic Sans MS/FontComic;Courier New/FontCourier;Times New Roman/FontTimes',
 			font_style :
 			{
