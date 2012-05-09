@@ -71,6 +71,11 @@
 					</th>
 				</tr>
                 <tr>
+					<th colspan="2" align="right" style="color:red">
+						${loginError}
+					</th>
+				</tr>
+                <tr>
 					<th colspan="2" align="right">
 					<a style="text-decoration: underline;" href="mailto:mop@ard.huji.ac.il">יצירת קשר</a> לפתרון בעיות רישום או כניסה למערכת
 					</th>

@@ -1,5 +1,9 @@
 <%@ page  pageEncoding="UTF-8" %>
 
+	<div id="genericDialog" title="" style="display:none" dir="rtl">
+		<p>text put here</p>
+	</div>
+
           <td align="right" bgcolor="#787669" height="20">
           		<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>
           	        <c:set var="pageName" value="רשימת ההצעות לכנסים"/>
@@ -76,7 +80,12 @@
 				</td>
 				</authz:authorize>
     			<td class="container" style="width: 65%; vertical-align: top;">
-    				<span style="text-align: center;"><h2> רשימת הבקשות </h2></span>
+				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
+    					<span style="text-align: center;"><h2> רשימת הבקשות שלך</h2></span>
+   					</authz:authorize>
+				  	<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+    					<span style="text-align: center;"><h2> רשימת הבקשות </h2></span>
+   					</authz:authorize>
     				<table style="width: 100%;">
     				<c:choose>
     				<c:when test="${fn:length(conferenceProposals) > 0}">
@@ -85,11 +94,11 @@
 				  				<table style="width: 100%">
   									<tr>
 				  					<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-		  							<td style="font-weight: bold;width:25%;">שם המגיש</td>
+		  							<td style="font-weight: bold;width:25%;">החוקר המבקש</td>
   									</authz:authorize>
 			  						<td style="font-weight: bold;width:35%;">שם הכנס</td>
 			  						<td style="font-weight: bold;width:25%;">הדיקן הממליץ</td>
- 			  						<td style="font-weight: bold;">סטטוס </td>
+ 			  						<td style="font-weight: bold;">סטטוס הבקשה </td>
  									</tr>
   								</table>
   							</td>
@@ -156,10 +165,26 @@
   					</tr>
   				</c:otherwise>
   				</c:choose>  	  			  
-  	  			  </table>
+    			
+    			<tr>
+				<td align="right">
+					&nbsp;
+				</td>
+				</tr> 
+    			<tr>
+				<td align="right">
+					<a style="text-decoration: none" href="editConferenceProposal.html?action=new" class="confirmLink">הגשת בקשה למימון כנס</a>
+      		        <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogNewConferenceProposal"/>
+				</td>
+				</tr>
+				 
+  	  			</table>
+
   	  			  	 		  
     		</td>
-    		</tr>    	
+    		</tr>   
+    		
+    		 	
     	</table>
     	<table align="center" style="width: 80%; direction: rtl;">
   	  		<tr>
@@ -172,6 +197,8 @@
 					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
                 </td>
             </tr>
+ 
+
   	  	</table>
   	  	<br/>
   	  	

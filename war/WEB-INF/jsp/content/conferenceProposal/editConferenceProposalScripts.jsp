@@ -4,7 +4,7 @@
 
 
 $(document).ready(function() {
-
+	
 	$("#form").ajaxForm();
 
 	
@@ -13,6 +13,15 @@ $(document).ready(function() {
 	hideExtraCommittee("admitanceFee");
 	hideExtraCommittee("assosiate");
 	hideExtraCommittee("external");
+	calcFee("fromExternal");
+	calcFee("fromAssosiate");
+	calcFee("fromAdmitanceFee");
+	
+	calcParticipants();
+	
+	$(".calcSum").change(function(e) {
+		calcParticipants();
+	 });   
 	
 	$("button.guestsAttach").click(function(event){
 		event.preventDefault();
@@ -107,12 +116,19 @@ $(document).ready(function() {
 	    	hideExtraCommittee("scientificCommittee");
 		if (elementClass.indexOf("operationalCommittee")!=-1)
 			hideExtraCommittee("operationalCommittee");
-		if (elementClass.indexOf("admitanceFee")!=-1)
+		if (elementClass.indexOf("admitanceFee")!=-1){
 			hideExtraCommittee("admitanceFee");
-		if (elementClass.indexOf("assosiate")!=-1)
+			calcFee("fromAdmitanceFee");
+		}
+		if (elementClass.indexOf("assosiate")!=-1){
 			hideExtraCommittee("assosiate");
-		if (elementClass.indexOf("external")!=-1)
+			calcFee("fromAssosiate");
+		}
+		if (elementClass.indexOf("external")!=-1){
 			hideExtraCommittee("external");
+			calcFee("fromExternal");
+		}
+
 	}, {delay: 2000});
 	
 	$('form').find('select').change(function(){
@@ -160,17 +176,38 @@ $(document).ready(function() {
 		$('#financialAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&attachmentId=1' target='_blank'>תוכנית תקציבית</a>");
 	});		
 
-	if($('#company').attr('checked') || $('#companyViewOnly').attr('checked'))
+	/*if($('#company').attr('checked') || $('#companyViewOnly').attr('checked'))
 		$('.organizingCompanyPart').show();
 	else
 		$('.organizingCompanyPart').hide();
-	
-	$('#company').click(function(){	
+	*/
+	if(${command.organizingCompany}){
+		$('.organizingCompanyPart').show();
+		$('.organizingContactPart').hide();
+	}
+	else{
+		$('.organizingCompanyPart').hide();
+		$('.organizingContactPart').show();
+	}
+
+	$("input:radio[name=organizingCompany]").click(function() {
+	    var value = $(this).val();
+		if(value=="true"){
+			$('.organizingCompanyPart').show();
+			$('.organizingContactPart').hide();
+		}
+		else {
+			$('.organizingCompanyPart').hide();
+			$('.organizingContactPart').show();
+		}
+	});
+
+	/*$('#company').click(function(){	
 		if($('#company').attr('checked'))
 			$('.organizingCompanyPart').show();
 		else
 			$('.organizingCompanyPart').hide();
-	});
+	});*/
 	
 	$(".deleteFinancialSupport").click(function(e){
 		e.preventDefault();
@@ -218,6 +255,13 @@ $(document).ready(function() {
 	
 	$("button.submitForGrading").click(function(){
 		var errors=false;
+		if(!$("#acceptTerms").attr('checked')){
+			errors = true;
+			$("#erroracceptTerms").html('<font color="red">יש לאשר קבלת תנאי ההגשה (לסמן את תיבת הסימון )<font color="red"><br>');
+		}
+		else{
+			$("#erroracceptTerms").html('');
+		}
 		if($("#deanSelect").val()=='0'){
 			errors = true;
 			$("#errordeanselect").html('<font color="red">יש לבחור מאשר לפני הגשה<font color="red"><br>');
@@ -232,18 +276,32 @@ $(document).ready(function() {
 		else{
 			$("#errorsubject").html('');
 		}
+		if($("#location").val()=='0'){
+			errors = true;
+			$("#errordetails").html('<font color="red">יש לבחור מיקום<font color="red"><br>');
+		}
+		else{
+			$("#errordetails").html('');
+		}
+		if($("#description").val()==''){
+			errors = true;
+			$("#errordescription").html('<font color="red">יש למלא שדה התוכן העיוני של הכנס וחשיבותו לתחום<font color="red"><br>');
+		}
+		else{
+			$("#errordescription").html('');
+		}
 		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 		var countRegex=/^\d+$/;
 		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 		var phoneRegex = /^[\d]{2,3}-[\d]{7}$/;		
-		if(!numberRegex.test($("#totalCost").val())){
+		if($("#totalCost").val()=='0.0' || !numberRegex.test($("#totalCost").val())){
 			errors = true;
 			$("#errortotalcost").html('<font color="red">יש להכניס ערך מספרי לשדה סכום<font color="red"><br>');
 		}
 		else{
 			$("#errortotalcost").html('');
 		}
-		if(!numberRegex.test($("#supportSum").val())){
+		if($("#supportSum").val()=='0.0' || !numberRegex.test($("#supportSum").val())){
 			errors = true;
 			$("#errorsupportsum").html('<font color="red">יש להכניס ערך מספרי לשדה סכום הסיוע המבוקש<font color="red"><br>');
 		}
@@ -361,7 +419,7 @@ $(document).ready(function() {
    $("#dialogInitiatingBody").click(function(e) {
 	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 	$("#genericDialog").dialog({ modal: false });
-    openHelp("#dialogInitiatingBody","הגוף שיוזם את הכנס");
+    openHelp("#dialogInitiatingBody","רשום את שמו של הגוף שיוזם את הכנס. גוף זה יכול שיהיה יחידה/מרכז בתוך האוניברסיטה או ישות מוגדרת מחוץ לאוניברסיטה");
     return false;
    });
      
@@ -371,7 +429,30 @@ $(document).ready(function() {
 	  openHelp("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
 	  return false;
    }); 
-   
+   $("#dialogProposer").click(function(e) {
+		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		  $("#genericDialog").dialog({ modal: false });
+		  openHelp("#dialogProposer","המבקש מייצג את מארגני הכנס בהליך בקשה זה");
+		  return false;
+	   }); 
+   $("#dialogSupportSum").click(function(e) {
+		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		  $("#genericDialog").dialog({ modal: false });
+		  openHelp("#dialogSupportSum","לפי השער היציג בעת ההגשה");
+		  return false;
+	   }); 
+   $("#dialogGuestsAttach").click(function(e) {
+		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		  $("#genericDialog").dialog({ modal: false });
+		  openHelp("#dialogGuestsAttach",'יש לצרף רשימה מפורטת של המשתתפים מהארץ ומחו"ל,תוך תיאור מעמדם המדעי, ושל המוסדות והארצות מהם הם באים.');
+		  return false;
+	   });   
+   $("#dialogProgramAttach").click(function(e) {
+		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		  $("#genericDialog").dialog({ modal: false });
+		  openHelp("#dialogProgramAttach","יש לצרף את תוכנית הכנס (ובמידת ההכרח רק תוכנית ראשונית)");
+		  return false;
+	   });   
    $("#dialogBudget").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
@@ -400,7 +481,15 @@ $(document).ready(function() {
 	    openHelp("#dialogRooms",texts);
 	    return false;
 	   });
-   
+   $("#dialogRooms2").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		var texts='<p>';
+		texts='החוקר אחראי לתיאום החדר/אולם. אישור הוועדה אינו מהווה התחייבות בנוגע לחדר/אולם המסוים.';
+		texts+='</p>';	    
+	    openHelp("#dialogRooms2",texts);
+	    return false;
+	   });
     
     $("#form,#genericDialog").click(function(e){
     	$("#genericDialog").dialog("close");
@@ -450,6 +539,58 @@ function hideExtraCommittee(trCssClass){
 			emptyRowsCounter = emptyRowsCounter +1;
 		}
 	});
+}
+
+function calcFee(feeType){
+	var totalFee=0;
+	var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
+	for (var i=0;i<10;i++){
+		var fieldName = feeType + '[' + i + ']' + ".sum";
+		if(numberRegex.test(document.getElementById(fieldName).value)){
+			totalFee +=parseInt(document.getElementById(fieldName).value);
+		}
+	}
+	alert(feeType +" total:" + totalFee);
+}
+
+function calcParticipants(){
+	var localCount=0;
+	var abroadCount=0;
+	var guestCount=0;
+	var lecturersCount=0;
+	var otherCount=0;
+	var countRegex = /^\d+$/;
+	if(countRegex.test(document.form.foreignLecturers.value)){
+		abroadCount+=parseInt(document.form.foreignLecturers.value);
+		lecturersCount+=parseInt(document.form.foreignLecturers.value);
+	}
+	if(countRegex.test(document.form.foreignGuests.value)){
+		abroadCount+=parseInt(document.form.foreignGuests.value);
+		guestCount+=parseInt(document.form.foreignGuests.value);
+	}
+	if(countRegex.test(document.form.audienceLecturers.value)){
+		abroadCount+=parseInt(document.form.audienceLecturers.value);
+		otherCount+=parseInt(document.form.audienceLecturers.value);
+	}
+	if(countRegex.test(document.form.localLecturers.value)){
+		localCount+=parseInt(document.form.localLecturers.value);
+		lecturersCount+=parseInt(document.form.localLecturers.value);
+	}
+	if(countRegex.test(document.form.localGuests.value)){
+		localCount+=parseInt(document.form.localGuests.value);
+		guestCount+=parseInt(document.form.localGuests.value);
+	}
+	if(countRegex.test(document.form.audienceGuests.value)){
+		localCount+=parseInt(document.form.audienceGuests.value);
+		otherCount+=parseInt(document.form.audienceGuests.value);
+	}
+	$("#abroadCount").html(abroadCount);
+	$("#localCount").html(localCount);
+	$("#lecturersCount").html(lecturersCount);
+	$("#guestCount").html(guestCount);
+	$("#otherCount").html(otherCount);
+	$("#totalCount").html(abroadCount + localCount);
+
 }
 
 

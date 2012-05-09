@@ -96,7 +96,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		else{
 			conferenceProposalBean.setToDate(origConferenceProposalBean.getToDate());
 		}
-		
+		conferenceProposalBean.setOrganizingCompany(request.getBooleanParameter("organizingCompany", false));
 		//if changed IsInsideDeadline to enter current grading
 		if(!request.getParameter("isInsideDeadline","").equals("")){ 
 				conferenceProposalBean.setIsInsideDeadline(true);

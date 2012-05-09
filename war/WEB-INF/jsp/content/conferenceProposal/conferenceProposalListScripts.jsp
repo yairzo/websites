@@ -137,6 +137,52 @@ $(document).ready(function() {
     	
     });
 
+   
+    
+    
+    $("#genericDialog").dialog({
+        autoOpen: false,
+        show: 'fade',
+        hide: 'fade',
+        modal: true,
+        width: 600,
+        height:300,
+        title: "מערכת הכנסים"
+    });
+ 
+
+  function openHelp(name,mytext){
+    /* linkOffset = $(name).position();
+     linkWidth = $(name).width();
+     linkHeight = $(name).height();
+     scrolltop = $(window).scrollTop();
+     $("#genericDialog").dialog("option", "position", [(linkOffset.left - 600/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
+    */ 
+    $("#genericDialog").html(mytext).dialog("open");
+  } 
+  	
+  $(".confirmLink").click(function(e){
+    	e.preventDefault();
+    	var targetUrl = $(this).attr("href");
+       	$("#genericDialog").dialog('option', 'buttons', {
+                "בטל" : function() {
+                    $(this).dialog("close");
+                 },
+                "המשך להגשת הבקשה" : function() {
+                	window.location.href = targetUrl;
+                 }
+        });
+    	openHelp(this,"א. אני מצהיר בזאת שהנני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>ב. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.");
+       	return false;
+       }); 
+  
+  $("#dialogNewConferenceProposal").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+	    openHelp("#dialogNewConferenceProposal","וודא עם שותפיך לארגון הכנס שלא פתחו כבר בקשה לכנס זה ולא הגישו בקשה אחרת למימון כנס במהלך השנה האחרונה.");
+	    return false;
+	   });
+   
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 });
 </script>

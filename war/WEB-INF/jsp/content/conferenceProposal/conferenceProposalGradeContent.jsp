@@ -98,7 +98,7 @@ $(document).ready(function() {
   	    	$("#genericDialog").dialog("option", "position", "center");
   	    else
      	 	$('#genericDialog').dialog({position: { my: 'top', at: 'top', of: $(fieldname)} });
-  	    $("#genericDialog").text(mytext).dialog("open");
+  	    $("#genericDialog").html(mytext).dialog("open");
       } 
       
       $("#form,#genericDialog").click(function(e){
@@ -109,6 +109,34 @@ $(document).ready(function() {
       	if (fieldname=="") 
       		$("#genericDialog").dialog("option", "position", "center");
        }); 
+
+      $("#dialogGrade").click(function(e) {
+  		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+  		$("#genericDialog").dialog({ modal: false });
+  		var texts='<p>';
+  		texts+='ככל שהדירוג נמוך יותר - עדיפותה של הבקשה לתמיכה גבוהה יותר, לדעת הדיקן';
+  		texts+='</p>';	    
+  	    openHelp("#dialogGrade",texts);
+  	    return false;
+  	   });
+      $("#dialogDeadlineRemarks").click(function(e) {
+    		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+    		$("#genericDialog").dialog({ modal: false });
+    		var texts='<p>';
+    		texts+='כל מה שלדעת הדיקן רלוונטי לשיקולי הוועדה, בנוגע לבקשות שבהמלצתו';
+    		texts+='</p>';	    
+    	    openHelp("#dialogDeadlineRemarks",texts);
+    	    return false;
+    	});
+      $("#dialogStopGrading").click(function(e) {
+  		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+  		$("#genericDialog").dialog({ modal: false });
+  		var texts='<p>';
+  		texts+='לחיצה תשלח לרכז/ת הועדה מייל המודיע שהדיקן סיים את הדירוג. היא תופעל רק אם מולאו כל חוות הדעת.';
+  		texts+='</p>';	    
+  	    openHelp("#dialogStopGrading",texts);
+  	    return false;
+  	   });
       
   	<c:if test="${userMessage!=null}">
 	var userMessage = "${userMessage}";
@@ -172,11 +200,11 @@ $(document).ready(function() {
 									dir="rtl">
 									<thead>
 										<tr>
-											<td width="150">שם החוקר/ת</td>
+											<td width="150">שם החוקר/ת המגיש</td>
 											<td width="350">נושא הכנס</td>
 											<td width="50">דירוג</td>
 											<td width="300">חוות דעת</td>
-											<td width="30"></td>
+											<td width="30"><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGrade"/></td>
 										</tr>
 									</thead>
 
@@ -220,7 +248,7 @@ $(document).ready(function() {
 					<td colspan="5">
 						<table width="900" dir="rtl">
 							<tr>
-								<td>הערה כללית לועדה:</td>
+								<td>הערה כללית לועדה:<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDeadlineRemarks"/></td>
 								<td align="center">
 								<textarea class="green"	name="deadlineRemarks" id="deadlineRemarks" rows="3" cols="80">${deadlineRemarks}</textarea>
 								</td>
@@ -233,8 +261,10 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td colspan="5" align="center">
-						<button id="buttonStopGrading" class="grey" />סיום הדירוג
-						</button></td>
+						<button id="buttonStopGrading" class="grey" />הודע על סיום הדירוג
+						</button>
+						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogStopGrading"/>
+					</td>
 				</tr>
 			</c:when>
 			<c:otherwise>

@@ -6,23 +6,24 @@
 $(document).ready(function() {
 	
   $("#genericDialog").dialog({
-        autoOpen: false,
-        show: 'fade',
-        hide: 'fade',
-        modal: true,
-        width: 400,
-        title: "הצהרה על זכאות להגשת בקשה למימון כנס"
-  });
+      autoOpen: false,
+      show: 'fade',
+      hide: 'fade',
+      modal: true,
+      width: 600,
+      height:300,
+      title: "מערכת הכנסים"
+ });
  
   
  
   function openHelp(name,mytext){
-     linkOffset = $(name).position();
+    /* linkOffset = $(name).position();
      linkWidth = $(name).width();
      linkHeight = $(name).height();
      scrolltop = $(window).scrollTop();
      $("#genericDialog").dialog("option", "position", [(linkOffset.left - 400/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
-     $("#genericDialog").text(mytext).dialog("open");
+     */$("#genericDialog").html(mytext).dialog("open");
   } 
 
   $(".confirmLink").click(function(e){
@@ -36,7 +37,7 @@ $(document).ready(function() {
             	window.location.href = targetUrl;
              }
     });
-	openHelp(this,"אני מצהיר בזאת שהנני חוקר/ת במסלול הרגיל ובשירות פעיל.");
+	openHelp(this,"א. אני מצהיר בזאת שהנני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>ב. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.");
    	return false;
    });	
 });
