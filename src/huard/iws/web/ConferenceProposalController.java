@@ -36,6 +36,7 @@ public class ConferenceProposalController extends GeneralFormController{
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 	throws Exception{
+		System.out.println("11111111111 here");
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
 		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		
@@ -143,6 +144,17 @@ public class ConferenceProposalController extends GeneralFormController{
 				conferenceProposalBean.setGrade(0);
 		}
 		
+		String action = request.getParameter("action", "");
+		if (action.equals("delete")){
+			conferenceProposalBean.setDeleted(true);
+			if(conferenceProposalBean.getSubmitted()){//if was already submitted need to rearrange grades
+				conferenceProposalBean.setSubmitted(false);
+				conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				conferenceProposalService.rearangeGrades(conferenceProposalBean.getGrade(), conferenceProposalBean.getApproverId(), prevdeadline);
+				conferenceProposalBean.setGrade(0);
+			}
+		}
 		
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
 		if(request.getParameter("showMessage", "").equals("saved")){
@@ -153,11 +165,16 @@ public class ConferenceProposalController extends GeneralFormController{
 			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.submitted");
 			request.getSession().setAttribute("userMessage", userMessage);
 		}		
+		if(request.getParameter("showMessage", "").equals("deleted")){
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.deleted");
+			request.getSession().setAttribute("userMessage", userMessage);
+		}	
 		
 		//return to same page
 		if (request.getBooleanParameter("ajaxSubmit", false)){
 			return null;
 		}
+			
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", conferenceProposalBean.getId())	;
 		return new ModelAndView(new RedirectView("editConferenceProposal.html"), newModel);
@@ -165,7 +182,7 @@ public class ConferenceProposalController extends GeneralFormController{
 	
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception	{
-
+		System.out.println("22222222222 here");
 		model.put("previousVersion", conferenceProposalService.getPreviousVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
 		model.put("nextVersion", conferenceProposalService.getNextVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
 		model.put("firstVersion", request.getSession().getAttribute("firstVersion"));
@@ -193,7 +210,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER") && conferenceProposal.getResearcher().getId()!=userPersonBean.getId()){
 				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
 			}
-			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER") && conferenceProposal.getApprover().getId()!=userPersonBean.getId()){
+			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER") && conferenceProposal.getApprover()!=null && conferenceProposal.getApprover().getId()!=userPersonBean.getId()){
 				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
 			}
 			logger.info("Conference proposal scientific committee: " + conferenceProposal.getScientificCommittees().size());
@@ -221,6 +238,7 @@ public class ConferenceProposalController extends GeneralFormController{
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
+		System.out.println("0000000000 here" +isFormSubmission(request.getRequest()));
 		ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean();
 		logger.info("action : " + request.getParameter("action",""));
 		
@@ -255,10 +273,10 @@ public class ConferenceProposalController extends GeneralFormController{
 			ServletRequestDataBinder binder) throws ServletException {
 		// to actually be able to convert Multipart instance to byte[]
 		// we have to register a custom editor
-		binder.registerCustomEditor(byte[].class,
-				new ByteArrayMultipartFileEditor());
+		binder.registerCustomEditor(byte[].class,	new ByteArrayMultipartFileEditor());
 		// now Spring knows how to handle multipart object and convert them
 	}	
+	
 	private ConferenceProposalService conferenceProposalService;
 
 	public void setConferenceProposalService(ConferenceProposalService conferenceProposalService) {

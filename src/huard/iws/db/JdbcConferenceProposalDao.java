@@ -27,7 +27,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 
 	public ConferenceProposal getConferenceProposal(int id){
-		String query = "select * from conferenceProposal where id=? and deleted=0";
+		String query = "select * from conferenceProposal where id=?";
 		logger.info(query);
 		ConferenceProposal conferenceProposal =
 			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
@@ -101,6 +101,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			support.setSum(rs.getString("sum"));
 			support.setCurrency(rs.getString("currency"));
 			support.setType(rs.getInt("type"));
+			support.setSumPerson(rs.getString("sumPerson"));
 			return support;
 		}
     };	
@@ -108,24 +109,26 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	public void insertFinancialSupport(FinancialSupport financialSupport){
 		if (financialSupport.isEmpty())
 			return;
-		String query = "insert financialSupport set conferenceProposalId = ?, name = ?, sum = ?, type = ?, currency = ?";
+		String query = "insert financialSupport set conferenceProposalId = ?, name = ?, sum = ?, type = ?, currency = ?, sumPerson=?";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				financialSupport.getConferenceProposalId(),
 				financialSupport.getName(),
 				financialSupport.getSum(),
 				financialSupport.getType(),
-				financialSupport.getCurrency()
+				financialSupport.getCurrency(),
+				financialSupport.getSumPerson()
 		);
 	}   
 	public void updateFinancialSupport(FinancialSupport financialSupport){
-		String query = "update financialSupport set name = ?, sum = ?, currency = ?, type=?  where id =?";
+		String query = "update financialSupport set name = ?, sum = ?, currency = ?, type=?, sumPerson=?  where id =?";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				financialSupport.getName(),
 				financialSupport.getSum(),
 				financialSupport.getCurrency(),
 				financialSupport.getType(),
+				financialSupport.getSumPerson(),
 				financialSupport.getId()
 		);
 	}   

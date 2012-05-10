@@ -7,6 +7,7 @@ public class FinancialSupport {
 	private String sum;
 	private String currency;
 	private int type;
+	private String sumPerson;
 
 	public static int TYPE_ASSOSIATE = 1;
 	public static int TYPE_EXTERNAL = 2;
@@ -19,6 +20,7 @@ public class FinancialSupport {
 		this.sum = "";
 		this.currency = "";
 		this.type = 0;
+		this.sumPerson="";
 	}
 	
 	public boolean isEmpty(){
@@ -61,5 +63,12 @@ public class FinancialSupport {
 	public void setType(int type) {
 		this.type = type;
 	}
+	public String getSumPerson() {
+		return sumPerson;
+	}
+	public void setSumPerson(String sumPerson) {
+		this.sumPerson = sumPerson;
+	}
+
 
 }

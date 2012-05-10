@@ -123,7 +123,6 @@
       						<form:option value="4">חבר בגוף</form:option>
       						<form:option value="5">חבר ניהולי</form:option>
        		        	</form:select>
-       		        	<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogInitiatingBodyRole"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
 						<form:hidden path="initiatingBodyRole"/>
@@ -466,7 +465,7 @@
 							<c:set var="committee" value="${command.scientificCommittees[varStatus.index]}"/>
 							<img src="image/icon_delete.gif" class="deleteCommittee" title="מחיקת שורה"/>							
 						</td>
-						</tr>
+						</tr> 
 						</c:forEach>
 					</c:otherwise>
 					</c:choose>
@@ -786,7 +785,7 @@
 					</c:forEach>
 					</c:when>
  					<c:otherwise>					
-           				<c:forEach items="${command.fromExternal}" var="financialSupport" varStatus="varStatus">
+           			  <c:forEach items="${command.fromExternal}" var="financialSupport" varStatus="varStatus">
            				<form:hidden path="fromExternal[${varStatus.index}].conferenceProposalId"/>
            				<form:hidden path="fromExternal[${varStatus.index}].type"/>
 
@@ -816,7 +815,9 @@
 					<br>מדמי הרשמה:
 					<table width="725" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-				    <th style="border: 1px #bca2a2 dotted"> סכום </th>
+				    <th style="border: 1px #bca2a2 dotted"> סכום כולל </th>
+				    <th style="border: 1px #bca2a2 dotted"> מספר המשלמים</th>
+				    <th style="border: 1px #bca2a2 dotted"> סכום למשתתף</th>
 				    <th style="border: 1px #bca2a2 dotted"> מטבע </th>
 					</tr>
 					<c:choose>
@@ -825,6 +826,12 @@
 						<tr>
 						<td style="border: 1px #bca2a2 dotted">
 						<c:out value="${fromAdmitanceFee.sum}"></c:out>
+						</td>
+						<td style="border: 1px #bca2a2 dotted">
+						<c:out value="${fromAdmitanceFee.name}"></c:out>
+						</td>
+						<td style="border: 1px #bca2a2 dotted">
+						<c:out value="${fromAdmitanceFee.sumPerson}"></c:out>
 						</td>
 						<td style="border: 1px #bca2a2 dotted">
 						<c:if test="${fromAdmitanceFee.currency==1}">שקל</c:if>
@@ -839,10 +846,16 @@
            				<form:hidden path="fromAdmitanceFee[${varStatus.index}].type"/>
 
 						<tr style="display: none;" class="admitanceFee financialSupport">
-						<td width="370" style="border: 1px #bca2a2 dotted" align="center">
+						<td width="175" style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee" path="fromAdmitanceFee[${varStatus.index}].sum"/>
 						</td>
-						<td width="330" style="border: 1px #bca2a2 dotted" align="center">
+						<td width="175" style="border: 1px #bca2a2 dotted" align="center">
+							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee" path="fromAdmitanceFee[${varStatus.index}].name"/>
+						</td>
+						<td width="175" style="border: 1px #bca2a2 dotted" align="center">
+							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee" path="fromAdmitanceFee[${varStatus.index}].sumPerson"/>
+						</td>
+						<td width="175" style="border: 1px #bca2a2 dotted" align="center">
 							<form:select cssClass="greennoborder fillwidth" path="fromAdmitanceFee[${varStatus.index}].currency">
       						<form:option value="0">מטבע</form:option>
        						<form:option value="1">שקל</form:option>
@@ -903,10 +916,6 @@
 					</td> 
 					<td style="border:1px #bca2a2 dotted">&nbsp;</td>-->
 				</tr>
-				<tr style="display:none;">
-				<td colspan="3"><div id="errorsupportsum" dir="rtl"><p></p></div>
-				</td>
-				</tr>
 	            <tr class="form">
 		       		<td style="border:1px #bca2a2 dotted">
 					<c:if test="${!readOnly && !command.submitted}">			
@@ -960,14 +969,15 @@
  					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRooms2"/>
        				</td>
 				</tr>	
-				<tr style="display:none;">
-				<td colspan="4"><div id="errorparticipants" dir="rtl"><p></p></div>
-				</td>
-				</tr>
 				</table>
 				</td>
 				</tr>
-				<tr><td>&nbsp;</td></tr>
+				<tr>
+				<td colspan="4">
+				<div id="errorparticipants" dir="rtl"><p></p></div>
+				<div id="errorsupportsum" dir="rtl"><p></p></div>
+				</td>
+				</tr>
 
 
 				<tr>
@@ -1039,7 +1049,7 @@
 				<td colspan="4" style="border:1px #bca2a2 dotted">
 				<table width="980">
 	            <tr>
-		       		<td>חוות דעת הדיקן הממליץ (${command.approver.degreeFullNameHebrew}) בנוגע לבקשה:
+		       		<td>חוות דעת הדיקן הממליץ ${command.approver.degreeFullNameHebrew} בנוגע לבקשה:
 		       		<c:if test="${command.submitted}">
 					דירוג:
 					${command.grade}
@@ -1187,6 +1197,7 @@
 					<c:if test="${!command.submitted}">
 						<button class="grey submitForGrading" title="שליחת ההצעה לדיקן" onclick="">הגשה</button>&nbsp;&nbsp;
 					</c:if>
+					<button class="grey delete" title="ביטול הבקשה" onclick="">ביטול הבקשה</button>&nbsp;&nbsp;
 				</authz:authorize>
 				<c:if test="${!command.submitted}">			
 					<c:if test="${!firstVersion}">	

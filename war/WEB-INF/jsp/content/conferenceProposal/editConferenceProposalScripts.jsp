@@ -13,9 +13,10 @@ $(document).ready(function() {
 	hideExtraCommittee("admitanceFee");
 	hideExtraCommittee("assosiate");
 	hideExtraCommittee("external");
-	calcFee("fromExternal");
+	/*calcFee("fromExternal");
 	calcFee("fromAssosiate");
 	calcFee("fromAdmitanceFee");
+	*/
 	
 	calcParticipants();
 	
@@ -253,6 +254,33 @@ $(document).ready(function() {
     	return false;
 	});	
 	
+	$("button.delete").click(function(e){
+		e.preventDefault();
+	   	$("#genericDialog").dialog({ modal: true });
+    	$("#genericDialog").dialog('option', 'buttons', {
+            "לא" : function() {
+                $(this).dialog("close");
+                return false;
+               },
+            "כן" : function() {
+                $(this).dialog("close");
+        		var options = { 
+        		   		success:    function() { 
+        		   		   	window.location.reload(); 
+        		    	} 
+        			}; 
+
+    	      	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
+    			$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"deleted\"/>");
+    			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+     	   		$("#form").ajaxSubmit(options);
+    			return false;
+               }
+            });
+    	openHelp("","האם הנך מאשר/ת את ביטול הבקשה?");
+        return false;
+   	});	
+	
 	$("button.submitForGrading").click(function(){
 		var errors=false;
 		if(!$("#acceptTerms").attr('checked')){
@@ -410,7 +438,7 @@ $(document).ready(function() {
      });
 		<c:if test="${userMessage!=null}">
 		var userMessage = "${userMessage}";
-		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");window.location.href = "conferenceProposals.html";} });
 		$("#genericDialog").dialog({ modal: false });
 		openHelp('',userMessage);
 		</c:if>
@@ -423,12 +451,12 @@ $(document).ready(function() {
     return false;
    });
      
-   $("#dialogInitiatingBodyRole").click(function(e) {
+   /*$("#dialogInitiatingBodyRole").click(function(e) {
 	  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 	  $("#genericDialog").dialog({ modal: false });
 	  openHelp("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
 	  return false;
-   }); 
+   }); */
    $("#dialogProposer").click(function(e) {
 		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		  $("#genericDialog").dialog({ modal: false });
@@ -541,16 +569,17 @@ function hideExtraCommittee(trCssClass){
 	});
 }
 
+
 function calcFee(feeType){
-	var totalFee=0;
+	/*var totalFee=0;
 	var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 	for (var i=0;i<10;i++){
 		var fieldName = feeType + '[' + i + ']' + ".sum";
 		if(numberRegex.test(document.getElementById(fieldName).value)){
 			totalFee +=parseInt(document.getElementById(fieldName).value);
 		}
-	}
-	alert(feeType +" total:" + totalFee);
+	}*/
+	//alert(feeType +" total:" + totalFee);
 }
 
 function calcParticipants(){

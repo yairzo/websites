@@ -28,11 +28,16 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	private static final Logger logger = Logger.getLogger(JdbcPersonDao.class);
 
 	public Person getPerson(int id){
+		try{
 		String query = "select * from person where id=?";
 		Person person =
 			getSimpleJdbcTemplate().queryForObject(query, personRowMapper,	id);		
 		applyPersonSubjectIds(person);
 		return person;
+		}
+		catch(Exception e){
+			return new Person();
+		}
 	}
 
 	private void applyPersonSubjectIds(Person person){
