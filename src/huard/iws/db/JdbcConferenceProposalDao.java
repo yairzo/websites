@@ -205,22 +205,23 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	}
 	
 	public void insertGradingInfo(ConferenceProposalGrading conferenceProposalGrading){
-		String query = "insert conferenceProposalGrading set approverId = ?, adminId = ?, deadline = ?, sentForGradingDate = now(), finishedGradingDate = ?";
+		String query = "insert conferenceProposalGrading set approverId = ?, adminId = ?, deadline = ?, sentForGradingDate = now(), finishedGradingDate = ?, adminSendRemark=?";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposalGrading.getApproverId(),
 				conferenceProposalGrading.getAdminId(),
 				new java.sql.Timestamp(conferenceProposalGrading.getDeadline()),
-				new java.sql.Timestamp(conferenceProposalGrading.getFinishedGradingDate())
+				new java.sql.Timestamp(conferenceProposalGrading.getFinishedGradingDate()),
+				conferenceProposalGrading.getAdminSendRemark()
 		);
 	} 
-	public void updateLastGradingByApproverDeadline(int approverId,String deadline){
+	public void updateLastGradingByApproverDeadline(int approverId,String deadline,String deadlineRemarks){
 		String query = "select max(id) from conferenceProposalGrading where approverId = ? and date(deadline) =?;";
 		logger.info(query);
 		int id = getSimpleJdbcTemplate().queryForInt(query,approverId, deadline);
-		query = "update conferenceProposalGrading set finishedGradingDate=now() where id=?;";
+		query = "update conferenceProposalGrading set finishedGradingDate=now(), deadlineRemark=? where id=?;";
 		logger.info(query);
-		getSimpleJdbcTemplate().update(query, id);
+		getSimpleJdbcTemplate().update(query, deadlineRemarks, id);
 	}
 	
 	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline){
@@ -250,6 +251,9 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			if (aFinishedGradingDate != null)
 				finishedGradingDate = aFinishedGradingDate.getTime();
 			conferenceProposalGrading.setFinishedGradingDate(finishedGradingDate);
+			conferenceProposalGrading.setAdminSendRemark(rs.getString("adminSendRemark"));
+			conferenceProposalGrading.setDeadlineRemark(rs.getString("deadlineRemark"));
+
 			return conferenceProposalGrading;
 		}
     };	

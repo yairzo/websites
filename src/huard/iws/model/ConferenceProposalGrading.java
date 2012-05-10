@@ -14,6 +14,8 @@ public class ConferenceProposalGrading {
 	private long deadline;
 	private long sentForGradingDate;
 	private long finishedGradingDate;
+	private String adminSendRemark;
+	private String deadlineRemark;
 
 
 	public int getId() {
@@ -77,6 +79,18 @@ public class ConferenceProposalGrading {
 			Date tmpDate = new Date(finishedGradingDate);
 			return formatter.format(tmpDate);
 		}
+	}
+	public String getAdminSendRemark() {
+		return adminSendRemark;
+	}
+	public void setAdminSendRemark(String adminSendRemark) {
+		this.adminSendRemark = adminSendRemark;
+	}
+	public String getDeadlineRemark() {
+		return deadlineRemark;
+	}
+	public void setDeadlineRemark(String deadlineRemark) {
+		this.deadlineRemark = deadlineRemark;
 	}
 
 

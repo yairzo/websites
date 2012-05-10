@@ -24,7 +24,7 @@ public interface ConferenceProposalListService {
 
 	public void insertGradingInfo(ConferenceProposalGrading conferenceProposalGrading);
 	
-	public void updateLastGradingByApproverDeadline(int approverId,String deadline);
+	public void updateLastGradingByApproverDeadline(int approverId,String deadline,String deadlineRemarks);
 
 	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline);
 

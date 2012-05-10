@@ -230,6 +230,25 @@ public class ConferenceProposalController extends GeneralFormController{
 			model.put("committeeRemarksWithLineBreaks", conferenceProposal.getCommitteeRemarks().replace("\n", "<br/>"));
 			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 			model.put("maxGrade",conferenceProposalService.getMaxGrade(conferenceProposal.getApproverId(),prevdeadline));
+			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")){
+				if(conferenceProposal.getResearcher().getId()==userPersonBean.getId())
+					model.put("creator",true);
+				else model.put("approver", true);
+			}
+			else if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN")){
+				if(conferenceProposal.getResearcher().getId()==userPersonBean.getId())
+					model.put("creator",true);
+				else model.put("admin", true);
+			}
+			else if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE")){
+				if(conferenceProposal.getResearcher().getId()==userPersonBean.getId())
+					model.put("creator",true);
+				else model.put("committee", true);
+			}
+			else if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER")){
+				model.put("creator",true);
+			}
+
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		

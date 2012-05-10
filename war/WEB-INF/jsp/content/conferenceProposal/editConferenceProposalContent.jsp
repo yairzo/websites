@@ -26,15 +26,12 @@
  			<form:hidden path="deadline"/>
 			
  			
-			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
+			<c:if test="${approver || committee}">
  				<c:set var="readOnly" value="true"/>
- 			</authz:authorize>
-			<authz:authorize ifNotGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
- 				<c:set var="readOnly" value="false"/>
- 			</authz:authorize>
-			<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
- 				<c:set var="admin" value="true"/>
- 			</authz:authorize>
+ 			</c:if>
+			<c:if test="${!approver && !committee}">
+				<c:set var="readOnly" value="false"/>
+ 			</c:if>
  			
  			<c:set var="compulsoryFieldSign" value=""></c:set>
 			<c:if test="${!readOnly && !command.submitted}">
@@ -1038,7 +1035,7 @@
 				</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
+				<c:if test="${admin || approver || committee}">
 				<tr>
 		             <td colspan="4"><h3>חוות דעת הדיקן הממליץ</h3></td>
         		 </tr>
@@ -1063,6 +1060,13 @@
 						<form:textarea htmlEscape="true" cssClass="green" path="approverEvaluation" cols="80" rows="3"/>
 					</td>
 				</tr>
+		       	<c:if test="${fn:length(command.deadlineRemarks)>0}">
+				<tr>
+	   				<td colspan="4"> הערה כללית של הדיקן:
+	   				${command.deadlineRemarks}
+	   				</td>
+				</tr>
+				</c:if>
 				</table>
 				</td>
 				</tr>
@@ -1070,9 +1074,9 @@
 				</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
-				</authz:authorize>
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
-				<tr>
+				</c:if>
+				<c:if test="${admin}">
+ 				<tr>
 		             <td colspan="4"><h3>הערות רכזת הועדה</h3></td>
         		 </tr>
 				<tr>
@@ -1097,10 +1101,10 @@
 				</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
-				</authz:authorize>
+				</c:if>
 
 
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_COMMITTEE">
+				<c:if test="${admin || committee}">
 				<tr>
 		             <td colspan="4"><h3>הערות חברי הועדה</h3></td>
         		 </tr>
@@ -1113,15 +1117,15 @@
 				<tr>
 					<td>הערות חברי הועדה בנוגע לבקשה:</td>
 				</tr>
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">				
-				<tr>
+				<c:if test="${admin}">
+ 				<tr>
 	   				<td colspan="4" align="center">
 						<form:textarea htmlEscape="true" cssClass="green" path="committeeRemarks" cols="80" rows="3"/>
 	   				</td>
 				</tr>
-				</authz:authorize>
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE">
-				<tr>
+				</c:if>
+				<c:if test="${committee}">
+ 				<tr>
 	   				<td colspan="4">
 	   				${committeeRemarksWithLineBreaks}
 	   				</td>
@@ -1135,26 +1139,25 @@
 					</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
-				</authz:authorize>
+				</c:if>
 				</table>
 				</td>
 				</tr>
 				</table>
 				</td>
 				</tr>	
-				</authz:authorize>
+				</c:if>
 				
-				<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER">
+				<c:if test="${!admin && !approver && !committee}">
 						<form:hidden path="approverEvaluation"/>
-				</authz:authorize>
-				<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMIN">
-						<form:hidden path="adminRemarks"/>
+				</c:if>
+				<c:if test="${!admin}">
+ 						<form:hidden path="adminRemarks"/>
 						<form:hidden path="committeeRemarks"/>
-				</authz:authorize>
+				</c:if>
 				
 				
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">			
-				<c:if test="${command.submitted}">			
+				<c:if test="${admin && command.submitted}">
 				<tr class="form">
 					<td>
 				   		<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/>ביטול הגשה
@@ -1166,9 +1169,7 @@
 					</c:if>
 				</tr>
 				</c:if>
-				</authz:authorize>
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_ADMIN">			
-				<c:if test="${!command.submitted}">			
+				<c:if test="${creator && !command.submitted}">
 				<tr class="form">
 					<td colspan="4">
 				   		<input type="checkbox" class="green" name="acceptTerms" id="acceptTerms"/>ידוע לי שקבלת תמיכה כספית בהוצאות ארגון הכנס ו/או אישור להקצאת אולם ללא
@@ -1180,25 +1181,22 @@
 					</td>
 				</tr>
 				</c:if>
-				</authz:authorize>
 				<tr><td>&nbsp;</td></tr>
 		
 		<tr class="form">
 			<td colspan="4" align="center">
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
-					<c:if test="${!command.submitted}">
+				<c:if test="${creator && !command.submitted}">				
 						<button title="שמירת פרטי ההצעה" class="grey submit" > שמירה </button>&nbsp;&nbsp;
-					</c:if>
-				</authz:authorize>
-				<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+				</c:if>
+				<c:if test="${!creator}">				
 					<button title="שמירת פרטי ההצעה" class="grey submit"  > שמירה </button>&nbsp;&nbsp;
-				</authz:authorize>
-				<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_ADMIN">
+				</c:if>
+				<c:if test="${creator || admin}">				
 					<c:if test="${!command.submitted}">
 						<button class="grey submitForGrading" title="שליחת ההצעה לדיקן" onclick="">הגשה</button>&nbsp;&nbsp;
 					</c:if>
 					<button class="grey delete" title="ביטול הבקשה" onclick="">ביטול הבקשה</button>&nbsp;&nbsp;
-				</authz:authorize>
+				</c:if>
 				<c:if test="${!command.submitted}">			
 					<c:if test="${!firstVersion}">	
 						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;">צפה בגרסה קודמת </button>&nbsp;&nbsp;		

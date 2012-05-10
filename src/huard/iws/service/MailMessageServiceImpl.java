@@ -8,6 +8,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.PostBean;
 import huard.iws.bean.ProposalBean;
 import huard.iws.bean.ConferenceProposalBean;
+import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.constant.Constants;
 import huard.iws.db.MailMessageDao;
 import huard.iws.model.Attachment;
@@ -139,17 +140,17 @@ public class MailMessageServiceImpl implements MailMessageService{
 	}
 
 	public void createSimpleConferenceGradeMail(PersonBean recipient, String messageKey){
-		createSimpleConferenceGradeMail(recipient, new PersonBean(), messageKey);
+		createSimpleConferenceGradeMail(new ConferenceProposalGrading(), recipient, new PersonBean(), messageKey);
 	}
 
-	public void createSimpleConferenceGradeMail(PersonBean recipient, PersonBean sender, String messageKey){
+	public void createSimpleConferenceGradeMail(ConferenceProposalGrading conferenceProposalGrading, PersonBean recipient, PersonBean sender, String messageKey){
 		String subject = messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".subject");
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
 		model.put("align", "right");
 		model.put("recipient", recipient.getDegreeFullNameHebrew());
 		model.put("server", getServer());
-		String [] messageParams = new String []{sender.getDegreeFullNameHebrew(),getServer()};
+		String [] messageParams = new String []{sender.getDegreeFullNameHebrew(),getServer(),conferenceProposalGrading.getAdminSendRemark()};
 		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);

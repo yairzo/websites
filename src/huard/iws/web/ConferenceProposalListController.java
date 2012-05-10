@@ -42,7 +42,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		String action = request.getParameter("action", "");
 
-		if (action.equals("delete") && searchCommand.getConferenceProposalId()>0){
+		/*if (action.equals("delete") && searchCommand.getConferenceProposalId()>0){
 			ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(searchCommand.getConferenceProposalId()));
 			origConferenceProposalBean.setDeleted(true);
 			if(origConferenceProposalBean.getSubmitted()){
@@ -54,7 +54,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 				origConferenceProposalBean.setGrade(0);
 			}
 			conferenceProposalService.updateConferenceProposal(origConferenceProposalBean.toConferenceProposal());
-		}
+		}*/
 		
 		if (action.equals("startGrading")){
 			ConferenceProposalGrading conferenceProposalGrading = new ConferenceProposalGrading();
@@ -63,13 +63,13 @@ public class ConferenceProposalListController extends GeneralFormController {
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
 			logger.info("deadline : " + deadline);
 			conferenceProposalGrading.setDeadline(DateUtils.parseDate(deadline, "yyyy-MM-dd"));
-			
+			conferenceProposalGrading.setAdminSendRemark(request.getParameter("adminSendRemarks", ""));
 			conferenceProposalGrading.setFinishedGradingDate(1000);
 			conferenceProposalListService.insertGradingInfo(conferenceProposalGrading);
 			//send mail to approver to start grading
 			PersonBean updatedApprover = new PersonBean(personService.getPerson(request.getIntParameter("approver", 0)));
 			if (updatedApprover.isValidEmail()) 
-				mailMessageService.createSimpleConferenceGradeMail(updatedApprover, userPersonBean,"startGrading");
+				mailMessageService.createSimpleConferenceGradeMail(conferenceProposalGrading,updatedApprover, userPersonBean,"startGrading");
 		}
 
 		return new ModelAndView(new RedirectView(getSuccessView()), newModel);

@@ -98,7 +98,7 @@
   									</authz:authorize>
 			  						<td style="font-weight: bold;width:35%;">שם הכנס</td>
 			  						<td style="font-weight: bold;width:25%;">הדיקן הממליץ</td>
- 			  						<td style="font-weight: bold;">סטטוס הבקשה </td>
+ 			  						<td style="font-weight: bold;">סטטוס  </td>
  									</tr>
   								</table>
   							</td>
@@ -221,8 +221,9 @@
 	        				<option htmlEscape="true" value="${deanPerson.id}" ><c:out escapeXml="false" value="${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/></option>
        					</c:forEach>
        				</select>
-					&nbsp;&nbsp;
-					<button id="buttonStartGrading" class="grey" />שלח לדירוג</button>
+					&nbsp;הערה לדיקן:
+					<input type="text" class="green" name="adminSendRemarks" id="adminSendRemarks" style="width:450"/>
+					&nbsp;<button id="buttonStartGrading" class="grey" />שלח לדירוג</button>
 			    </td>
 		  </tr>
 		  <tr>
@@ -234,12 +235,14 @@
 		  	<td>
     				<c:choose>
     				<c:when test="${fn:length(conferenceProposalGradings)>0}">
-    				<table style="width: 80%;" align="center">
+    				<table style="width: 100%;" align="center">
              			<thead>
   						<tr>
-		  					<td style="font-weight: bold;width: 40%;">נשלח לדיקן</td>
-			  				<td style="font-weight: bold;width: 30%;">נשלח בתאריך</td>
-			  				<td style="font-weight: bold;width: 30%;">הדיקן סיים לדרג</td>
+		  					<td style="font-weight: bold;width: 30%;">נשלח לדיקן</td>
+			  				<td style="font-weight: bold;width: 15%;">נשלח בתאריך</td>
+			  				<td style="font-weight: bold;width: 15%;">הדיקן סיים לדרג</td>
+			  				<td style="font-weight: bold;width: 20%;">הערת הרכז/ת לדיקן</td>
+			  				<td style="font-weight: bold;width: 20%;">הערת הדיקן</td>
   	  					</tr>
   	  					</thead>
              			<c:forEach items="${conferenceProposalGradings}" var="conferenceProposalGrading" varStatus="varStatus">
@@ -256,7 +259,9 @@
 		  					<td class="${rowBgBrightness}"><a href="conferenceProposalsGrade.html?approverId=${conferenceProposalGrading.approver.id}">${conferenceProposalGrading.approver.degreeFullNameHebrew} - ${conferenceProposalGrading.approver.department}</a></td>
 			  				<td class="${rowBgBrightness}">${conferenceProposalGrading.formattedSentForGradingDate}</td>
 			  				<td class="${rowBgBrightness}">${conferenceProposalGrading.formattedFinishedGradingDate}</td>
-  	  					</tr>
+			  				<td class="${rowBgBrightness}"><font title="${conferenceProposalGrading.adminSendRemark}">${conferenceProposalGrading.adminSendRemark}</font></td>
+			  				<td class="${rowBgBrightness}"><font title="${conferenceProposalGrading.deadlineRemark}">${conferenceProposalGrading.deadlineRemark}</font></td>
+   	  					</tr>
   	  		 			</tbody>
   	  		 		   </c:forEach>
 					</table>

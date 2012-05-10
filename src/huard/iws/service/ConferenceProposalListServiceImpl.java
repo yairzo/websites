@@ -48,8 +48,8 @@ public class ConferenceProposalListServiceImpl implements ConferenceProposalList
 		conferenceProposalDao.insertGradingInfo(conferenceProposalGrading);
 	}
 	
-	public void updateLastGradingByApproverDeadline(int approverId,String deadline){
-		conferenceProposalDao.updateLastGradingByApproverDeadline(approverId,deadline);
+	public void updateLastGradingByApproverDeadline(int approverId,String deadline,String deadlineRemarks){
+		conferenceProposalDao.updateLastGradingByApproverDeadline(approverId,deadline,deadlineRemarks);
 	}
 
 	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline){

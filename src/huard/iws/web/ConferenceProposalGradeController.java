@@ -68,9 +68,9 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		if (action.equals("stopGrading")){
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !request.getSession().getAttribute("approverId").equals(""))//if admin enters on behalf of approver
-				conferenceProposalListService.updateLastGradingByApproverDeadline(new Integer(request.getSession().getAttribute("approverId").toString()).intValue(),deadline);
+				conferenceProposalListService.updateLastGradingByApproverDeadline(new Integer(request.getSession().getAttribute("approverId").toString()).intValue(),deadline,request.getParameter("deadlineRemarks", ""));
 			else
-				conferenceProposalListService.updateLastGradingByApproverDeadline(userPersonBean.getId(),deadline);
+				conferenceProposalListService.updateLastGradingByApproverDeadline(userPersonBean.getId(),deadline,request.getParameter("deadlineRemarks", ""));
 			//send mail to admins list
 			mailMessageService.createDeanGradeFinishedGradingMail(userPersonBean,"finishedGrading");
 			//return success message
