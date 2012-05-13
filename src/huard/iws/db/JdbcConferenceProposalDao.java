@@ -839,10 +839,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "')) ";
 			}
 		}
-		if(!whereClause.equals(""))
-			whereClause += " and deleted=0"; 
-		else
-			whereClause+=" where deleted=0";
+		if (!userPersonBean.isAuthorized("RESEARCHER") && !userPersonBean.isAuthorized("CONFERENCE","ADMIN") ){//researcher can see also what he canceled, admin according to search
+			if(!whereClause.equals(""))
+				whereClause += " and deleted=0"; 
+			else
+				whereClause+=" where deleted=0";
+		}
+		
 		//order by
 		if (forGrading){
 			whereClause += " order by grade";

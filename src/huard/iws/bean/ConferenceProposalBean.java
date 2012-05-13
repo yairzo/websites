@@ -6,7 +6,9 @@ import huard.iws.model.FinancialSupport;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ConferenceProposalBean {
@@ -377,6 +379,24 @@ public class ConferenceProposalBean {
 		PersonBean approver = new PersonBean(
 				personService.getPerson(this.approverId));
 		return approver;
+	}
+
+	public String getFormattedFromDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Date fromDate = new Date(this.fromDate);
+		return formatter.format(fromDate);
+	}
+	
+	public String getStatusDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		if(this.submitted==true){
+			Date submissionDate = new Date(this.submissionDate);
+			return formatter.format(submissionDate);
+		}
+		else {
+			Date openDate = new Date(this.openDate);
+			return formatter.format(openDate);
+		}
 	}
 	
 	public int getPersonId() {

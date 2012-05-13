@@ -619,6 +619,9 @@
          <property name="mailMessageService">
         	<ref bean="mailMessageService"/>
         </property>
+         <property name="facultyService">
+        	<ref bean="facultyService"/>
+        </property>
      </bean>
      
 	<bean id="conferenceProposalGradeController" class="huard.iws.web.ConferenceProposalGradeController" parent="generalFormController">

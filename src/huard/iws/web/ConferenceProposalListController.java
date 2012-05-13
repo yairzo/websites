@@ -5,8 +5,10 @@ import huard.iws.bean.PersonBean;
 import huard.iws.constant.Constants;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
+import huard.iws.model.Faculty;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
+import huard.iws.service.FacultyService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.PersonListService;
 import huard.iws.util.ConferenceProposalSearchCreteria;
@@ -104,7 +106,10 @@ public class ConferenceProposalListController extends GeneralFormController {
 		Integer searchByDeadline = (Integer) request.getSession().getAttribute("searchByDeadline");
 		if (searchByDeadline == null)
 			searchByDeadline = 0;*/		
-		
+
+		//get faculty name by user facultyId
+		Faculty faculty = facultyService.getFaculty(userPersonBean.getFacultyId());
+		model.put("myFaculty", faculty.getNameHebrew());
 		model.put("searchByApprover", searchCommand.getSearchCreteria().getSearchByApprover());
 		model.put("searchBySubmitted", searchCommand.getSearchCreteria().getSearchBySubmitted());
 		model.put("searchByDeadline", searchCommand.getSearchCreteria().getSearchByDeadline());
@@ -174,7 +179,9 @@ public class ConferenceProposalListController extends GeneralFormController {
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN")){
 				if(!whereClause.isEmpty())
 					whereClause += " and";
-				if (searchBySubmitted < 2)// 2 is all proposals
+				if(searchBySubmitted==3)
+					whereClause += " deleted = 1";
+				else if (searchBySubmitted < 2)// 2 is all proposals
 					whereClause += " submitted =" + searchBySubmitted;
 			}
 			else if (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")
@@ -187,12 +194,15 @@ public class ConferenceProposalListController extends GeneralFormController {
 			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 			int searchByDeadline = request.getIntParameter("searchByDeadline", 0);
 			if( searchByDeadline > 0){
-					if(!whereClause.equals(""))
-						whereClause+=" and date(deadline)>'"+previousDeadline +"'";
+					if(!whereClause.isEmpty())
+						whereClause+=" and"; 
 					if(searchByDeadline==1)//for this conference meeting
-						whereClause += " and isInsideDeadline = 1";
+						whereClause += " isInsideDeadline = 1";
 					else if(searchByDeadline==2)//for next conference meeting
-						whereClause += " and isInsideDeadline = 0";
+						whereClause += " isInsideDeadline = 0";
+					if(!whereClause.isEmpty())
+						whereClause+=" and"; 
+					whereClause += " date(deadline)>'"+previousDeadline +"'";
 			}	
 			searchCreteria.setWhereClause(whereClause);
 			searchCreteria.setSearchByApprover(searchByApprover);
@@ -259,9 +269,12 @@ public class ConferenceProposalListController extends GeneralFormController {
 		this.conferenceProposalService = conferenceProposalService;
 	}
 	
-	/*private RecordProtectService recordProtectService;
+	
+	private FacultyService facultyService;
 
-	public void setRecordProtectService(RecordProtectService recordProtectService) {
-		this.recordProtectService = recordProtectService;
-	}*/
+	public void setFacultyService(FacultyService facultyService) {
+		this.facultyService = facultyService;
+	}
+	
+
 }

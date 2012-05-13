@@ -22,7 +22,7 @@
         <input type="hidden" id="listViewPage" name="listView.page" value="${command.listView.page}"/>
         <input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
         <input type="hidden" name="searchCreteria.roleFilter" value="${command.searchCreteria.roleFilter}"/>
-    	<table border="0" align="center" style="width: 80%; direction: rtl;" cellspacing="10">
+    	<table border="0" align="center" style="width: 95%; direction: rtl;" cellspacing="10">
     		<tr>
     			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
     			<td class="container" style="width: 35%;">
@@ -30,12 +30,12 @@
     				<br/>
     				    לפי שם החוקר:
                		 <br/>    
-               		     <form:input cssStyle="width: 400px;" cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
+               		     <form:input cssStyle="width: 280px;" cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
                     
   				    <authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
 				  	<br/>
 				  	<br/>
-				  	<select style="width: 400px;" name="searchByApprover" id="searchByApprover" class="green"> 
+				  	<select style="width: 280px;" name="searchByApprover" id="searchByApprover" class="green"> 
       					<option value="0"/>בחר דיקן</option>
       				<c:forEach items="${deans}" var="deanPerson">
        					<c:set var="selected" value="false"/>
@@ -57,9 +57,11 @@
  				   		לפי סטאטוס: 				   
  				   <br/>
  				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 				  
-  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="1" <c:if test="${searchBySubmitted==1}">checked="checked"</c:if>/> בקשות מוגשות
+  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="1" <c:if test="${searchBySubmitted==1}">checked="checked"</c:if>/> מוגשות
   				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="0" <c:if test="${searchBySubmitted==0}">checked="checked"</c:if>/> טיוטות
+  				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="3" <c:if test="${searchBySubmitted==3}">checked="checked"</c:if>/> מבוטלות
   				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="2" <c:if test="${searchBySubmitted==2}">checked="checked"</c:if>/> כל הבקשות
   				   </authz:authorize>
@@ -83,7 +85,10 @@
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
     					<span style="text-align: center;"><h2> רשימת הבקשות שלך</h2></span>
    					</authz:authorize>
-				  	<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+    					<span style="text-align: center;"><h2> רשימת הבקשות שבהמלצת הדיקן - יחידה:<c:out escapeXml="false" value="${myFaculty}"></c:out></h2> </span>
+   					</authz:authorize>
+				  	<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER">
     					<span style="text-align: center;"><h2> רשימת הבקשות </h2></span>
    					</authz:authorize>
     				<table style="width: 100%;">
@@ -94,11 +99,13 @@
 				  				<table style="width: 100%">
   									<tr>
 				  					<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-		  							<td style="font-weight: bold;width:25%;">החוקר המבקש</td>
+		  							<td style="font-weight: bold;width:20%;align:right;">החוקר המבקש</td>
   									</authz:authorize>
-			  						<td style="font-weight: bold;width:35%;">שם הכנס</td>
-			  						<td style="font-weight: bold;width:25%;">הדיקן הממליץ</td>
- 			  						<td style="font-weight: bold;">סטטוס  </td>
+			  						<td style="font-weight: bold;width:25%;align:right;">שם הכנס</td>
+			  						<td style="font-weight: bold;width:10%;align:right;">תאריך הכנס</td>
+			  						<td style="font-weight: bold;width:20%;align:right;">הדיקן הממליץ</td>
+ 			  						<td style="font-weight: bold;width:10%;align:right;">סטטוס</td>
+ 			  						<td style="font-weight: bold;width:10%;align:right;">תאריך הסטטוס</td>
  									</tr>
   								</table>
   							</td>
@@ -111,7 +118,7 @@
 				  				<table style="width: 100%">
   									<tr>
 				  						<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-				  						<td width="25%">
+				  						<td width="20%">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
   											<a href="person.html?id=${conferenceProposal.researcher.id}">
   												<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
@@ -122,10 +129,13 @@
   											</authz:authorize>  											
   										</td>
   										</authz:authorize>
-										<td width="35%">
+ 										<td width="25%">
   											<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:choose><c:when test="${fn:length(conferenceProposal.subject)>0}"><c:out value="${conferenceProposal.subject}"></c:out></c:when><c:otherwise>ללא נושא</c:otherwise></c:choose></a>
   										</td>
-  										<td width="25%">
+ 										<td width="10%">
+   												<c:out value="${conferenceProposal.formattedFromDate}"/>
+ 										</td>
+  										<td width="20%">
  											<c:choose>
  											<c:when test="${conferenceProposal.approverId > 0}">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
@@ -142,15 +152,27 @@
   											</c:otherwise>
   											</c:choose>
   										</td>
-  										<td>
+  										<td width="10%">
   											<c:choose>
-  											<c:when test="${conferenceProposal.submitted}">
-  												הוגשה
+   											<c:when test="${conferenceProposal.deleted}">
+  												בוטלה
   											</c:when>
-  											<c:otherwise>
+   											<c:otherwise>
+ 												<c:choose>
+  												<c:when test="${conferenceProposal.submitted}">
+  												הוגשה
+  												</c:when>
+  												<c:otherwise>
   												טיוטה
+  												</c:otherwise>
+  												</c:choose>
   											</c:otherwise>
   											</c:choose>
+  										</td>
+ 										<td width="10%">
+   												<c:out value="${conferenceProposal.statusDate}"/>
+ 										</td>
+  										
   									</tr>
   								</table>
   							</td>
@@ -186,7 +208,7 @@
     		
     		 	
     	</table>
-    	<table align="center" style="width: 80%; direction: rtl;">
+    	<table align="center" style="width: 90%; direction: rtl;">
   	  		<tr>
   	  			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
   	  			<td style="width: 35%;">
@@ -204,7 +226,7 @@
   	  	
   	  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
     	
-    	<table align="center" style="width: 80%; direction: rtl;" cellspacing="10">
+    	<table align="center" style="width: 95%; direction: rtl;" cellspacing="10">
     	<tr>
     	<td>
     	<table align="center" class="container" style="width: 100%; direction: rtl;" >
