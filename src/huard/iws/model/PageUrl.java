@@ -21,6 +21,13 @@ public class PageUrl {
 		this.urlText = urlText;
 		this.url = url;
 	}
+	
+	public boolean isValid(){
+		boolean isValid = true;
+		if (urlText.length() > 255)
+			isValid = false;
+		return isValid;
+	}
 
 
 	/**

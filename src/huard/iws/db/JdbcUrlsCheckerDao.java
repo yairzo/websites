@@ -1,9 +1,9 @@
 package huard.iws.db;
 
-import huard.iws.model.CallOfProposal;
 import huard.iws.model.PageUrl;
 import huard.iws.model.TextualPage;
 import huard.iws.util.ListView;
+import huard.iws.util.SQLUtils;
 import huard.iws.util.SearchCreteria;
 
 import java.sql.Connection;
@@ -97,15 +97,17 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			for (PageUrl pageUrl: URLsList){
+				if (!pageUrl.isValid())
+					continue;
 				String query = "UPDATE InfoPagesURLs SET ardNum="+ardNum+
-				", urlText=\""+pageUrl.getUrlText()+"\", formerFileSize=fileSize, fileSize=0,"+
-				" thisBuild=1 WHERE ardNum="+ardNum+" AND URL=\""+pageUrl.getUrl()+"\";";
+				", urlText='" + SQLUtils.toSQLString(pageUrl.getUrlText()) + "', formerFileSize=fileSize, fileSize=0," +
+				" thisBuild=1 WHERE ardNum=" + ardNum + " AND URL='" + pageUrl.getUrl() + "'";
 				System.out.println(query);
 				int r = statement.executeUpdate(query);
 
 				if (r==0) {
 					query = "INSERT InfoPagesURLs (ardNum, URL, urlText, thisBuild, checkedTime) VALUES ("
-							+ ardNum + ", '" + pageUrl.getUrl()+"', '"+pageUrl.getUrlText()+"', 1, NOW());";
+							+ ardNum + ", '" + pageUrl.getUrl() + "', '" + SQLUtils.toSQLString(pageUrl.getUrlText()) + "', 1, NOW());";
 					System.out.println(query);
 					statement.executeUpdate(query);
 				}
@@ -197,11 +199,14 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			for (PageUrl pageUrl: URLsList){
-				int r = statement.executeUpdate("UPDATE PubPagesURLs SET ardNum="+ardNum+
-					", URL=\""+pageUrl.getUrl()+"\", urlText=\""+pageUrl.getUrlText()+"\", formerFileSize=fileSize, fileSize=0,"+
-					" thisBuild=1 WHERE ardNum="+ardNum+" AND URL=\""+pageUrl.getUrl()+"\";");
-				if (r==0) statement.executeUpdate("INSERT PubPagesURLs SET ardNum="+ardNum+
-				", URL=\""+pageUrl.getUrl()+"\", urlText=\""+pageUrl.getUrlText()+"\", thisBuild=1;");
+				if (!pageUrl.isValid())
+					continue;
+				int r = statement.executeUpdate("UPDATE PubPagesURLs SET ardNum=" + ardNum +
+					", urlText='" + SQLUtils.toSQLString(pageUrl.getUrlText()) + "', formerFileSize=fileSize, fileSize=0,"+
+					" thisBuild=1 WHERE ardNum=" + ardNum + " AND URL='"+pageUrl.getUrl() + "'");
+				if (r==0) 
+					statement.executeUpdate("INSERT PubPagesURLs SET ardNum=" + ardNum +
+							", URL='"+pageUrl.getUrl()+"', urlText='"+SQLUtils.toSQLString(pageUrl.getUrlText()) + "', thisBuild=1");
 			}
 		}
 		catch(SQLException e){

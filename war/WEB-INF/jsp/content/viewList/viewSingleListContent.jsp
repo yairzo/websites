@@ -55,10 +55,10 @@
 		
 		<c:choose>
  		<c:when test="${print}">
-      		<c:set var="columnWidth" value="${column.width/2}"/>
+      		<c:set var="columnWidth" value="${column.width}"/>
     	</c:when>
     	<c:otherwise>
-      		<c:set var="columnWidth" value="${column.width}"/>
+      		<c:set var="columnWidth" value="${column.width*2}"/>
  		</c:otherwise>
 		</c:choose>	
 		

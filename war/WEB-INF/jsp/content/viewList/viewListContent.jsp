@@ -53,7 +53,7 @@
       		<c:set var="totalWidth" value="600"/>
       	</c:when>
       	<c:otherwise>
-      		<c:set var="totalWidth" value="1200"/>
+      		<c:set var="totalWidth" value="960"/>
       	</c:otherwise>
      </c:choose>
 

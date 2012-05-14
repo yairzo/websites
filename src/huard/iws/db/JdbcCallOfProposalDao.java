@@ -133,7 +133,7 @@ public class JdbcCallOfProposalDao implements CallOfProposalDao {
 		return callOfProposals;
 	}*/
 	
-	public List<CallOfProposal> getAliveTabledInfoPages(Integer ardNum,String server){
+	public List<CallOfProposal> getAliveTabledInfoPages(Integer ardNum, String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();

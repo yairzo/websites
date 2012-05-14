@@ -23,7 +23,7 @@
 
 
 
-var lists = "<c:forEach items="${allLists}" var="list"><c:out value="${list.name}"/>,</c:forEach>".split(",");
+var lists = '<c:forEach items="${allLists}" var="list"><c:out escapeXml="false" value="${list.name}"/>,</c:forEach>'.split(",");
 
 function resetAutocomplete(lists){
 	$("#searchPhrase").autocomplete( 

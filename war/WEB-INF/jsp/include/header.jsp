@@ -1,6 +1,5 @@
 <%@ page  pageEncoding="UTF-8" %>
 
-
 <html>
 <head>
 	<title>הרשות למחקר ופיתוח - מערכת אינטרנט משולבת</title>
@@ -109,7 +108,7 @@
     <td <c:if test="${!iframeView && !print}">background="image/bg.jpg"</c:if>>
       <table width="700" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-          <td valign="top" align="center"><c:if test="${!iframeView}"><img src="image/header.jpg" width="700" height="97" border="0" useMap="#Map"></c:if></td>
+          <td valign="top" align="center"><c:if test="${!iframeView || !ajaxView}"><img src="image/header.jpg" width="700" height="97" border="0" useMap="#Map"></c:if></td>
         </tr>
      <c:if test="${iframeView || print}">
      </table>
