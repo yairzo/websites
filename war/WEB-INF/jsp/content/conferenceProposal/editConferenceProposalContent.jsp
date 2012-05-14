@@ -1184,19 +1184,23 @@
 		
 		<tr class="form">
 			<td colspan="4" align="center">
-				<c:if test="${creator && !command.submitted}">				
+				<c:if test="${!command.deleted}">				
+					<c:if test="${creator && !command.submitted}">				
 						<button title="שמירת פרטי ההצעה" class="grey submit" > שמירה </button>&nbsp;&nbsp;
-				</c:if>
-				<c:if test="${!creator}">				
-					<button title="שמירת פרטי ההצעה" class="grey submit"  > שמירה </button>&nbsp;&nbsp;
+					</c:if>
+					<c:if test="${!creator}">				
+						<button title="שמירת פרטי ההצעה" class="grey submit" > שמירה </button>&nbsp;&nbsp;
+					</c:if>
 				</c:if>
 				<c:if test="${creator || admin}">				
-					<c:if test="${!command.submitted}">
+					<c:if test="${!command.submitted && !command.deleted}">
 						<button class="grey submitForGrading" title="שליחת ההצעה לדיקן" onclick="">הגשה</button>&nbsp;&nbsp;
 					</c:if>
-					<button class="grey delete" title="ביטול הבקשה" onclick="">ביטול הבקשה</button>&nbsp;&nbsp;
+					<c:if test="${!command.deleted}">			
+						<button class="grey delete" title="ביטול הבקשה" onclick="">ביטול הבקשה</button>&nbsp;&nbsp;
+					</c:if>
 				</c:if>
-				<c:if test="${!command.submitted}">			
+				<c:if test="${!command.submitted && !command.deleted}">			
 					<c:if test="${!firstVersion}">	
 						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;">צפה בגרסה קודמת </button>&nbsp;&nbsp;		
 					</c:if>
