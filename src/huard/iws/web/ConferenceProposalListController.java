@@ -182,7 +182,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 				if(searchBySubmitted==3)
 					whereClause += " deleted = 1";
 				else if (searchBySubmitted < 2)// 2 is all proposals
-					whereClause += " submitted =" + searchBySubmitted;
+					whereClause += " submitted =" + searchBySubmitted + " and deleted=0";
 			}
 			else if (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")
 				|| userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE")){
