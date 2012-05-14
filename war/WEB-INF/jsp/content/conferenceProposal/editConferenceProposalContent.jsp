@@ -593,7 +593,6 @@
 	            		<input type="radio" name="organizingCompany" value="false" <c:if test="${!command.organizingCompany}">checked</c:if>/>הארגון המנהלתי של הכנס ייערך ע"י איש קשר 
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
-						<form:hidden path="organizingCompany"/>
 		       		    <input type="radio" disabled="disabled" value="" <c:if test="${!command.organizingCompany}">checked</c:if> />הארגון המנהלתי של הכנס ייערך ע"י איש קשר
 					</c:if>
 				</tr>
