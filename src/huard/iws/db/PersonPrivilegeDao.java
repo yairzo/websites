@@ -11,8 +11,14 @@ public interface PersonPrivilegeDao {
 
 	public List<Privilege> getAllPrivileges ();
 
-	public void insertPersonPrivilege(int personId, String privilege, String password);
+	public void insertPersonPrivilege(int personId, String privilege, String password, String enabled);
 	
+	public void updatePersonPrivilege(int personId,String password, String enabled);
+	
+	public String getPrivilegePassword(int personId);
+
+	public int getPrivilegeEnabled(int personId);
+
 	public void deletePersonPrivilege(int privilege);
 
 

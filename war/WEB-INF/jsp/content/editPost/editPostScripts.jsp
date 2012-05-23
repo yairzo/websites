@@ -176,17 +176,19 @@
 	var formExit=true;
 
 	window.onunload = function() {
-		var checkedSubject=false;
-		$('input.subSubject').each(function(){
-			if (this.checked){
-				checkedSubject=true;
-			}
-		});
-		if ($('.messageSubject').val()==''  && $('.callOfProposal').val()=='' && $('.message').val()=='' && checkedSubject==false && formExit){
-			$('form#form').append('<input type="hidden" name="action" value="delete"/>');
-			$('form#form').submit();
- 		}
-	}
+		if (formExit){
+			var checkedSubject=false;
+			$('input.subSubject').each(function(){
+				if (this.checked){
+					checkedSubject=true;
+				}
+			});
+			if ($('.messageSubject').val()==''  && $('.callOfProposal').val()=='' && $('.message').val()=='' && checkedSubject==false){
+		 		$('form#form').append('<input type="hidden" name="action" value="delete"/>');
+				$('form#form').submit();
+ 			}
+		}
+	};
 
 
 	$(document).ready(function() {
@@ -239,15 +241,12 @@
 			if ($("input.callOfProposal").val() == "") return;
 			var callOfProposalTitle = $("input.callOfProposal").val();
 			var id = callOfProposalTitle.replace(/.+ - /,"");
-			if (ckeditor){
-				$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposal&id="+id, function(data){
-					$("textarea.tinymce").val(data);
-				});
-			}
-			else
-				$("textarea#body").load("objectQuery?type=callOfProposal&id="+id);
-			var title = callOfProposalTitle.replace(/ - [\d]+$/,"");
-			$("input.messageSubject").val(title);
+			$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposal&id="+id, function(data){
+				$("textarea.tinymce").val(data);
+			});
+			$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposalTitle&id="+id, function(data){
+				$("input.messageSubject").val(data);
+			});
 		});
 
 		$("a.reloadCallOfProposalsList").click(function(){
@@ -306,38 +305,68 @@
 			$('form#form').append('<input type="hidden" name="action" value="cancel"/>');
 			$('form#form').submit();
 		});
+		
 		$('button.save').click(function(){
 			formExit=false;
-			$('form#form').append('<input type="hidden" name="action" value="save"/>');
-			var ids="";
-			$('input.subSubject').each(function(){
-				if (this.checked){
-					var id = this.id;
-					id = id.substring(id.indexOf('.') + 1);
-					if (ids !="")
-						ids = ids + ","
-					ids = ids +id;
-				}
-			});
-			
-			$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
-			$('form#form').submit();
+			if ($('.messageSubject').val()==''){
+			   	$("#genericDialog").dialog({ modal: true });
+	 	    	$("#genericDialog").dialog('option', 'buttons',{"סגור" : function() {$(this).dialog("close");return false;}});
+	    	    $("#genericDialog").text("יש להזין טקסט מזהה לשימוש פנימי").dialog("open");
+		        return false;
+	 		}
+			else{
+				$('form#form').append('<input type="hidden" name="action" value="save"/>');
+				var ids="";
+				$('input.subSubject').each(function(){
+					if (this.checked){
+						var id = this.id;
+						id = id.substring(id.indexOf('.') + 1);
+						if (ids !="")
+							ids = ids + ","
+						ids = ids +id;
+					}
+				});
+				$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+				$('form#form').submit();
+			}
 		});
+		
 		$('button.sendme').click(function(){
 			formExit=false;
-			$('form#form').append('<input type="hidden" name="action" value="sendme"/>');
-			var ids="";
-			$('input.subSubject').each(function(){
-				if (this.checked){
-					var id = this.id;
-					id = id.substring(id.indexOf('.') + 1);
-					if (ids !="")
-						ids = ids + ","
-					ids = ids +id;
+			if ($('.messageSubject').val()==''){
+			   	$("#genericDialog").dialog({ modal: true });
+	 	    	$("#genericDialog").dialog('option', 'buttons',{"סגור" : function() {$(this).dialog("close");return false;}});
+	    	    $("#genericDialog").text("יש להזין טקסט מזהה לשימוש פנימי").dialog("open");
+		        return false;
+	 		}
+			else{
+				var messageText = $('.message').val();
+				if(messageText.indexOf("xxxxx")>0 ){
+				   	$("#genericDialog").dialog({ modal: true });
+		 	    	$("#genericDialog").dialog('option', 'buttons',{
+						"המשך לשליחת ההודעה": function() {
+							$('form#form').append('<input type="hidden" name="action" value="sendme"/>');
+							var ids="";
+							$('input.subSubject').each(function(){
+								if (this.checked){
+									var id = this.id;
+									id = id.substring(id.indexOf('.') + 1);
+									if (ids !="")
+										ids = ids + ","
+									ids = ids +id;
+								}
+							});
+							$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+							$('form#form').submit();
+		 	    		},
+						"בטל": function() {
+							$( this ).dialog( "close" );
+						}
+		 	    	});
+		    	    $("#genericDialog").text("הודעה זו מכילה את המקטע xxxxx. האם ברצונך להמשיך לשליחת ההודעה?").dialog("open");
+			        return false;
 				}
-			});
-			$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
-			$('form#form').submit();
+			}
 		});
 
 

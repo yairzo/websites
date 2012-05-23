@@ -38,12 +38,13 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 		if (action.equals("insert")){//add from allPrivilegesSelected values to personPrivilege table
 			String password = request.getParameter("password","");
 			String encodedPassword = "";
-			if(!password.isEmpty())
+			if(!password.isEmpty()&& !password.equals("11111111"))
 				encodedPassword=MD5Encoder.digest(password);
+			String enabled = request.getParameter("enabled","");
 			String vals = request.getParameter("vals", "");
 			StringTokenizer valsTk = new StringTokenizer(vals,",");
 			while (valsTk.hasMoreTokens() ){
-				personPrivilegeService.insertPersonPrivilege(personBean.getId(),valsTk.nextToken(),encodedPassword);
+				personPrivilegeService.insertPersonPrivilege(personBean.getId(),valsTk.nextToken(),encodedPassword,enabled);
 			}
 		}
 		if (action.equals("delete")){//delete from personPrivilege table personPrivilegesSelected values
@@ -59,6 +60,15 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 				}
 			}
 		}
+		if (action.equals("save")){//save just password, enabled
+			String password = request.getParameter("password","");
+			String encodedPassword = "";
+			if(!password.isEmpty()&& !password.equals("11111111"))
+				encodedPassword=MD5Encoder.digest(password);
+			String enabled = request.getParameter("enabled","");
+			personPrivilegeService.updatePersonPrivilege(personBean.getId(),encodedPassword,enabled);
+		}
+
 		newModel.put("id", personBean.getId());
 		return new ModelAndView( new RedirectView(getSuccessView()), newModel);
 	}
@@ -95,6 +105,13 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 		LanguageUtils.applyLanguage(model, request, response, userPersonBean.getPreferedLocaleId());
 		
 		model.put("personName", personBean.getDegreeFullNameHebrew());
+		
+		if(personPrivilegeService.getPrivilegePassword(personBean.getId()).isEmpty())
+			model.put("password", "");
+		else
+			model.put("password", "11111111");
+		
+		model.put("enabled",personPrivilegeService.getPrivilegeEnabled(personBean.getId()));
 		
 		return new ModelAndView("editPersonPrivilege", model);
 	}

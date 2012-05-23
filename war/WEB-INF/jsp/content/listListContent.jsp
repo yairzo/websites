@@ -133,17 +133,18 @@ $("#searchPhrase").focus();
             	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
                 <form:hidden path="searchCreteria.searchField"/>
 
-              <table width="400" border="0" align="center" cellpadding="3" dir="rtl">
+              <table width="500" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
                   <td colspan="2" align="center"><h1>רשימת רשימות</h1>
                   </td>
                 </tr>
                 <tr>
-                  <td width="201" align="center" valign="center"><form:input id="searchPhrase" htmlEscape="true" cssClass="green" path="searchCreteria.searchPhrase"/>
+                  <td width="320" align="center" valign="center">
+                  <form:input id="searchPhrase" htmlEscape="true" cssClass="green fillWidth" path="searchCreteria.searchPhrase"/>
 
                   </td>
 
-                  <td width="173" align="right">
+                  <td width="180" align="right">
 
                      <button id="buttonSearch" class="grey">חפש</button>
                      <button id="buttonCleanSearch" class="grey">נקה חיפוש</button>
@@ -154,12 +155,12 @@ $("#searchPhrase").focus();
 
 
                 <tr>
-                  <td colspan="2"><img src="image/hr.gif" width="380" height="10"></td>
+                  <td colspan="2"><img src="image/hr.gif" width="500" height="10"></td>
                 </tr>
 
               </table>
 
-				<table width="400" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+				<table width="500" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
 
 
 

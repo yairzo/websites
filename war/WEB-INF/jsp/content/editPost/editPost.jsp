@@ -3,6 +3,7 @@
 	<form:form id="form" name="form" method="POST" action="post.html"
 				commandName="command" enctype="multipart/form-data">
 
+				<div id="genericDialog" title="" style="display:none" dir="rtl"><p>text put here</p></div>
 
 				<form:hidden path="id" />
 				<form:hidden path="creatorId"/>
@@ -68,7 +69,7 @@
 
 				<tr>
 						<td>
-							<fmt:message key="${lang.localeId}.post.subject"/>
+							<font color="red">*</font><fmt:message key="${lang.localeId}.post.subject"/>
 						</td>
 						<td>
 							<form:input size="40" path="messageSubject" cssClass="green messageSubject"/>

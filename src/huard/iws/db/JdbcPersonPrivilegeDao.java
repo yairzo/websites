@@ -51,13 +51,41 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
     }
 	};
 
-	public void insertPersonPrivilege(int personId, String privilege, String password){
+	public void insertPersonPrivilege(int personId, String privilege, String password, String enabled){
 		if(password.isEmpty()){
 			String query = "select distinct password from personPrivilege where personId = ?";
 			password = getSimpleJdbcTemplate().queryForObject(query,String.class,personId);
 		}
-		String query = "insert ignore personPrivilege set personId = ?, privilege = ?, password = ?, enabled=1";
-		getSimpleJdbcTemplate().update(query, personId, privilege, password);
+		String query = "insert ignore personPrivilege set personId = ?, privilege = ?,password=?";
+		getSimpleJdbcTemplate().update(query, personId, privilege,password);
+
+		query = "update personPrivilege set password = ?,enabled=?  where personId=?";
+		getSimpleJdbcTemplate().update(query, password, enabled, personId);
+	}
+	
+	public void updatePersonPrivilege(int personId,String password, String enabled){
+		if(!password.isEmpty()){
+			String query = "update personPrivilege set password = ?  where personId=?";
+			getSimpleJdbcTemplate().update(query, password, personId);
+		}
+
+		String query = "update personPrivilege set enabled=?  where personId=?";
+		getSimpleJdbcTemplate().update(query, enabled, personId);
+	}
+	
+	
+	public String getPrivilegePassword(int personId){
+		try{	
+			String query = "select distinct password from personPrivilege where personId = ?";
+			return getSimpleJdbcTemplate().queryForObject(query,String.class,personId);
+		}
+		catch(Exception e){
+			return "";
+		}
+	}
+	public int getPrivilegeEnabled(int personId){
+			String query = "select distinct enabled from personPrivilege where personId = ?";
+			return getSimpleJdbcTemplate().queryForInt(query,personId);
 	}
 
 	public void deletePersonPrivilege(int privilege){

@@ -23,12 +23,17 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 
 
 	public AList getList(int id){
+		try{
 		String query = "select * from list where id=?";
 		AList aList =
 			getSimpleJdbcTemplate().queryForObject(query,
 					rowMapper,	id);
 		aList.setSublists(getSublists(id));
 		return aList;
+		}
+		catch(Exception e){
+			return null;
+		}
 	}
 
 	public List<AList> getSublists (int listId){

@@ -317,6 +317,13 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
 				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
 				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";
+		
+		if(searchPhraseValid [0] || searchPhraseValid [1])
+			whereClause += " and";
+		else
+			whereClause +=" where";
+		whereClause += " (concat(lastNameHebrew,firstNameHebrew)<>'')";
+		
 		return whereClause;
 	}
 	

@@ -37,16 +37,17 @@
 				</c:choose>
 			</th>
 		</tr>
-
-
-
-
-
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="center">
+				<input type="button" value="סגור חלון" onclick="window.close()">	
+			</td>
+		</tr>
 
                   </table>
                 </td>
               </tr>
-			  <tbody>
+
 
 
             </table>

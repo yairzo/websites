@@ -99,6 +99,7 @@
       			/partner.html=ROLE_EQF_ADMIN,ROLE_EQF_MOP
       			/institute.html=ROLE_EQF_ADMIN,ROLE_EQF_MOP
       			/personPost.html=ROLE_POST_ADMIN,ROLE_POST_CREATOR,ROLE_POST_READER
+      			/personPrivilege.html=ROLE_LISTS_ADMIN
       			/approvePost.html=ROLE_POST_ADMIN,ROLE_POST_CREATOR
       			/posts.html=ROLE_POST_ADMIN,ROLE_POST_CREATOR,ROLE_POST_SENDER,ROLE_POST_READER
       			/organizationUnits.html=ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR

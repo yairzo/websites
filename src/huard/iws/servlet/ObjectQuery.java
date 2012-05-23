@@ -67,7 +67,27 @@ public class ObjectQuery extends HttpServlet{
 			out.flush();
 			out.close();
 		}
+		if (type.equals("callOfProposalTitle")){
+			if (! userPersonBean.isAuthorized("POST", "ADMIN") && ! userPersonBean.isAuthorized("POST", "CREATOR"))
+				return ;
+			Object obj = context.getBean("callOfProposalService");
+			callOfProposalService = (CallOfProposalService)obj;
+			CallOfProposal callOfProposal = callOfProposalService.getCallOfProposal(id);
+			//if no such callOfProposal - user entered wrong number
+			if (callOfProposal.getId()==0)
+				return;
+			
+			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal, true);
 
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html");
+			response.setStatus(HttpServletResponse.SC_OK);
+			ServletOutputStream out = response.getOutputStream();
+			out.print(callOfProposalBean.getTitle() + " - " + callOfProposalBean.getId());
+			out.flush();
+			out.close();
+		}
+		
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res)

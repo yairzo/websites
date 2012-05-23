@@ -11,7 +11,13 @@ public interface PersonPrivilegeService {
 
 	public List<Privilege> getAllPrivileges ();
 
-	public void insertPersonPrivilege(int personId, String privilege, String encodedPassword);
+	public void insertPersonPrivilege(int personId, String privilege, String encodedPassword, String enabled);
+	
+	public void updatePersonPrivilege(int personId,String password, String enabled);
 
+	public String getPrivilegePassword(int personId);
+	
+	public int getPrivilegeEnabled(int personId);
+	
 	public void deletePersonPrivilege(int privilege);
 }

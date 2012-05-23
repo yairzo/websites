@@ -53,15 +53,8 @@
 	<tr class="viewList" style="height: ${tableHeaderHeight}">
 		<c:forEach items="${listBean.columnBeans}" var="column" varStatus="varStatus">
 		
-		<c:choose>
- 		<c:when test="${print}">
-      		<c:set var="columnWidth" value="${column.width}"/>
-    	</c:when>
-    	<c:otherwise>
-      		<c:set var="columnWidth" value="${column.width*2}"/>
- 		</c:otherwise>
-		</c:choose>	
-		
+     	<c:set var="columnWidth" value="${column.width}"/>
+ 		
 		<c:choose>
 			<c:when test="${! column.hidden }">
 				<th class="viewList" width="<c:out value="${columnWidth}%"/>">

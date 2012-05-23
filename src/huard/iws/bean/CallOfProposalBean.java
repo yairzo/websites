@@ -84,16 +84,19 @@ public class CallOfProposalBean {
 			sb.append(" <a class=\"bold\" href=\"http://" + fund.getWebAddress() + "\">" + fund.getName() + ", " + fund.getShortName() + "</a>;;");
 		else
 			sb.append("# Funding agency #");
-
-		sb.append(messageService.getMessage("general.callOfProposal.submission", getLocaleId()) + ": "
-				+ DateUtils.getLocaleDependentShortDateFormat(submissionTimeMillis, getLocaleId()
-						) + " <br/> ");
+		if(submissionTimeMillis==0)
+			sb.append(messageService.getMessage("general.callOfProposal.submission", getLocaleId()) + ": "
+					+ messageService.getMessage("general.callOfProposal.submissionAllYear", getLocaleId()) + " <br/> ");
+		else	
+			sb.append(messageService.getMessage("general.callOfProposal.submission", getLocaleId()) + ": "
+				+ DateUtils.getLocaleDependentShortDateFormat(submissionTimeMillis, getLocaleId()) + " <br/> ");
 		if (! amountOfGrant.isEmpty())
 			sb.append(messageService.getMessage("general.callOfProposal.amountOfGrant", getLocaleId()) + ": " + amountOfGrant + ";;");
 		sb.append(messageService.getMessage("general.callOfProposal.successIndex", getLocaleId()) + ": xxxxx;;");
 		sb.append(" " +messageService.getMessage("general.callOfProposal.deskPrefix", getLocaleId()));
 		MopDeskBean mopDeskBean = new MopDeskBean(mopDesk);
-		sb.append("#mu# #mp##mue#, <span class=\"bold\">" + mopDeskBean.getName(getLocaleId()) + "." +messageService.getMessage("general.callOfProposal.publication", getLocaleId()) + ":" + DateUtils.getLocaleDependentShortDateFormat(publicationTimeMillis, getLocaleId()) + "</span>");
+		//sb.append("#mu# #mp##mue#, <span class=\"bold\">" + mopDeskBean.getName(getLocaleId()) + "." +messageService.getMessage("general.callOfProposal.publication", getLocaleId()) + ":" + DateUtils.getLocaleDependentShortDateFormat(publicationTimeMillis, getLocaleId()) + "</span>");
+		sb.append("#mu# #mp##mue#, <span class=\"bold\">" + mopDeskBean.getName(getLocaleId()) + "." + "</span>");
 
 		return sb.toString();
 	}

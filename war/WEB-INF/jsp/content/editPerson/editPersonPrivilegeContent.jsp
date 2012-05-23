@@ -19,20 +19,15 @@
 		});
 		 $(".ui-dialog-titlebar").hide();
 		$('.select').click(function(){
-			<c:if test="${fn:length(personPrivileges) == 0}">
 				if($('#password').val()==''){
 					$("#genericDialog").dialog("option", "buttons", {"סגור" : function() {  $(this).dialog("close");} });
 					$("#genericDialog").dialog({ modal: false });
 		    	   	$("#genericDialog").dialog("option", "position", "center");
-		    	    $("#genericDialog").text("יש להזין סיסמת ברירת מחדל עבור משתמש חדש").dialog("open");
+		    	    $("#genericDialog").text("יש להזין סיסמה").dialog("open");
 					return false;
 				}
 				else
 					addPriveleges();
-	    	</c:if>
-			<c:if test="${fn:length(personPrivileges) > 0}">
-					addPriveleges();
-	    	</c:if>
   		});
 		
 		$('.unselect').click(function(){
@@ -41,6 +36,11 @@
 	   		$("#form").submit();
 	    	return true;
     	});
+		$('#save').click(function(){
+			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"save\"/>");
+	   		$("#form").submit();
+	    	return true;
+		});
 		
   });
 	
@@ -69,30 +69,37 @@
 			<td valign="top" align="center"><br>
 
 				<form:hidden path="id" />
-				<table width="800" border="0" align="center" cellpadding="2">
+				<table width="700" border="0" align="center" cellpadding="2">
 					<tr>
 						<td colspan="2" align="center"><h1> הרשאות משתמש - ${personName} </h1></td>
 					</tr>
 				</table>
 				
-				<table width="900" border="0" align="center" cellpadding="2" cellspacing="0">
+				<table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
 				
 				<div id="genericDialog" title="" style="display:none" dir="rtl"><p>text put here</p></div>
 			
-				<c:choose>
-				<c:when test="${fn:length(personPrivileges) == 0}">
-					<tr class="form">
-					<td colspan="3" align="right" >
+				<tr class="form">
+					<td align="right" >
 						סיסמה:
-						<input class="green" type="password" name="password" id="password">
+						<input class="green" type="password" name="password" id="password" value="${password}">
 					</td>
-					</tr>				
-				</c:when>
-				</c:choose>
+					<td align="right" >
+						פעיל:
+						<select name="enabled" class="green" >
+      						<option value="0" <c:if test="${enabled==0}" > selected </c:if>>לא</option>
+      						<option value="1" <c:if test="${enabled==1}" > selected </c:if>>כן</option>
+        		        	</select>
+						
+					</td>
+					<td align="right" >
+					<button class="grey" id="save">שמור </button>
+					</td>
+						</tr>				
 				
 				<tr>
 						<td align="center">רשימת ההרשאות<br>
-						<select id="allPrivilegesSelect" cssClass="green" MULTIPLE SIZE="5" STYLE="width:400;">
+						<select id="allPrivilegesSelect" cssClass="green" MULTIPLE SIZE="5" STYLE="width:300;">
        					<c:forEach items="${allPrivileges}" var="privilege">
        					
 	        				<option htmlEscape="true" value="${privilege.privilege}" title="${privilege.privilege}"><fmt:message key="iw_IL.eqfSystem.editPersonPrivilege.${privilege.privilege}"/></option>
@@ -106,7 +113,7 @@
      		            </td>
      		            
 						 <td align="center">הרשאות משתמש<br>
-        				<select id="personPrivilegesSelect" cssClass="green" MULTIPLE SIZE="5" STYLE="width:400;" >
+        				<select id="personPrivilegesSelect" cssClass="green" MULTIPLE SIZE="5" STYLE="width:300;" >
        					<c:forEach items="${personPrivileges}" var="personPrivilege">
 	        				<option htmlEscape="true" value="${personPrivilege.id}" title="${personPrivilege.privilege}"><fmt:message key="iw_IL.eqfSystem.editPersonPrivilege.${personPrivilege.privilege}"/> </option>
        					</c:forEach>
@@ -116,6 +123,7 @@
            		</tr>
            		<tr><td>&nbsp;</td>
            		</tr>
+          		</tr>
 
 				</table>
 			</td>

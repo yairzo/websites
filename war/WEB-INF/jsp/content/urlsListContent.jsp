@@ -80,7 +80,7 @@ $(document).ready(function() {
              <tbody>
   				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 				<td align="right" <c:choose><c:when test="${infoPagesURL.isDead}">style="color:red"</c:when></c:choose>>
-				<c:out value="${infoPagesURL.ardNum}"></c:out>
+				<a href="http://${server}/huard/infoPageViewer.jsp?ardNum=${infoPagesURL.ardNum}" class="<c:choose><c:when test="${infoPagesURL.isDead}">red</c:when></c:choose>" target="_blank"><c:out value="${infoPagesURL.ardNum}"></c:out></a>
   				</td>
   				<td align="right" <c:choose><c:when test="${infoPagesURL.isDead}">style="color:red"</c:when></c:choose>>
 				<c:choose><c:when test="${fn:length(infoPagesURL.urlText)>0}"><c:out value="${infoPagesURL.urlText}"></c:out></c:when><c:otherwise>ללא כותרת</c:otherwise></c:choose>
