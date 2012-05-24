@@ -192,6 +192,12 @@ a:link, a:active
 	color:2C2B27;
 	text-decoration:none;
 }
+a.underline:link, a.underline:active
+{
+	color:2C2B27;
+	text-decoration:underline
+}
+
 a:visited
 {
 	color:767468;

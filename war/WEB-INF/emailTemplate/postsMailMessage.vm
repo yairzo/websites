@@ -88,7 +88,7 @@
 
     <td style="text-align: ${post.language.align}; direction: ${post.language.dir};">
     	<br/>
-    	#set ($mailtoUrl = "<a style=\"text-decoration: none\" href=\"mailto:")
+    	#set ($mailtoUrl = "<a style=\"text-decoration: underline\" href=\"mailto:")
         #set ($mailtoUrl = $mailtoUrl + ${post.sender.email})
         #set ($mailtoUrl = $mailtoUrl + "?subject=Re:")
         #set ($mailtoUrl = $mailtoUrl + ${post.messageSubject})
@@ -103,7 +103,7 @@
 		#set ($postMessage = $postMessage.replaceAll(";;", $bulletImg))
 		#set ($postMessage = $postMessage.replaceAll("#@#", $attach))
 		#set ($postMessage = $postMessage.replaceAll("#mu#",$mailtoUrl))
-		#set ($postMessage = $postMessage.replaceAll("#mp#",${post.sender.degreeFullName}))
+		#set ($postMessage = $postMessage.replaceAll("#mp#",${post.sender.fullName}))
 		#set ($postMessage = $postMessage.replaceAll("#mue#","</a>"))
 
 		#if ($personMD5)

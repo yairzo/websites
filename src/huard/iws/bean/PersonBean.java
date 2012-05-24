@@ -296,7 +296,14 @@ public class PersonBean implements Serializable {
 					+ lastNameEnglish;
 		return degreeFullName;
 	}
-
+	public String getFullName() {
+		String fullName = "";
+		if (localeId.equals("iw_IL"))
+			fullName = firstNameHebrew + " " + lastNameHebrew;
+		else if (localeId.equals("en_US"))
+			fullName = firstNameEnglish + " " + lastNameEnglish;
+		return fullName;
+	}
 	public String getDegreeFullName(String localeId){
 		String degreeFullName = "";
 		if (localeId.equals("iw_IL"))
