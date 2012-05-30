@@ -62,15 +62,20 @@ public class PersonListServiceImpl implements PersonListService{
 	}
 
 	public List<PersonBean> getPersonsList( int listId) {
-		List<PersonListAttribution> personListAttributions = personAttributionListService.getPersonAttributions(listId);
 		List<PersonBean> persons = new ArrayList<PersonBean>();
-		for (PersonListAttribution personListAttribution : personListAttributions){
-			Person person = personDao.getPerson(personListAttribution.getPersonId());
-			PersonBean personBean = new PersonBean(person);
-			personBean.combinePersonAndPersonAttributionDetails(personListAttribution);
-			persons.add(personBean);
+		try{
+			List<PersonListAttribution> personListAttributions = personAttributionListService.getPersonAttributions(listId);
+			for (PersonListAttribution personListAttribution : personListAttributions){
+				Person person = personDao.getPerson(personListAttribution.getPersonId());
+				PersonBean personBean = new PersonBean(person);
+				personBean.combinePersonAndPersonAttributionDetails(personListAttribution);
+				persons.add(personBean);
+			}
+			return persons;
 		}
-		return persons;
+		catch (Exception e){
+			return persons;
+		}
 	}
 
 	public List<PersonBean> getPersonsList( int listId, String localeId) {
