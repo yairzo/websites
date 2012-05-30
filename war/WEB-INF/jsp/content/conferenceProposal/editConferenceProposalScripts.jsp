@@ -419,9 +419,10 @@ $(document).ready(function() {
 	   		success:    function() { 
 	   		   	window.location.reload(); 
 	    	} 
-		}; 
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"saved\"/>");
+		};
+		$("#form").remove("input.test");
+		$("#form").append("<input type=\"hidden\" class=\"test\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$("#form").append("<input type=\"hidden\" class=\"test\" name=\"showMessage\" value=\"saved\"/>");
 		$("#form").ajaxSubmit(options);
     	return false;
     });

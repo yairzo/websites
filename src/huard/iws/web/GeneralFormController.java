@@ -123,7 +123,6 @@ public abstract class GeneralFormController extends SimpleFormController
 				model = new HashMap<String, Object>();
 
 			PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
-
 			return onSubmit(command, model, requestWrapper, userPersonBean);
 		}
 
