@@ -366,6 +366,22 @@
 		    	    $("#genericDialog").text("הודעה זו מכילה את המקטע xxxxx. האם ברצונך להמשיך לשליחת ההודעה?").dialog("open");
 			        return false;
 				}
+				else{
+					$('form#form').append('<input type="hidden" name="action" value="sendme"/>');
+					var ids="";
+					$('input.subSubject').each(function(){
+						if (this.checked){
+							var id = this.id;
+							id = id.substring(id.indexOf('.') + 1);
+							if (ids !="")
+								ids = ids + ","
+							ids = ids +id;
+						}
+					});
+					$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+					$('form#form').submit();
+
+				}
 			}
 		});
 
