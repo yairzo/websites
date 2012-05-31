@@ -184,7 +184,7 @@
 				}
 			});
 			if ($('.messageSubject').val()==''  && $('.callOfProposal').val()=='' && $('.message').val()=='' && checkedSubject==false){
-		 		$('form#form').append('<input type="hidden" name="action" value="delete"/>');
+		 		$('form#form').append('<input type="hidden" name="deletePost" value="true"/>');
 				$('form#form').submit();
  			}
 		}

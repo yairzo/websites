@@ -43,7 +43,8 @@ public class EditPostController extends GeneralFormController {
 		PostBean postBean = (PostBean)command;
 
 		String action = request.getParameter("action", "");
-		if (action.equals("delete")){
+		String deletePost = request.getParameter("deletePost", "");
+		if (deletePost.equals("true")){
 			postService.deletePost(postBean.getId());
 			return new ModelAndView(new RedirectView("posts.html"));
 		}
@@ -82,7 +83,7 @@ public class EditPostController extends GeneralFormController {
 				postBean.getAttachments().add(attachment);
 			}
 		}
-		if (postBean.getDate() != null && postBean.getHour() !=null){
+		if (postBean.getDate() != null && !postBean.getDate().equals("") && postBean.getHour() !=null && !postBean.getHour().equals("")){
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh");
 			try {
 				long datetime = sdf.parse(postBean.getDate()+" "+postBean.getHour()).getTime();

@@ -53,7 +53,7 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 
 	public void insertPersonPrivilege(int personId, String privilege, String password, String enabled){
 		if(password.isEmpty()){
-			String query = "select distinct password from personPrivilege where personId = ?";
+			String query = "select distinct password from personPrivilege where personId = ? limit 1";
 			password = getSimpleJdbcTemplate().queryForObject(query,String.class,personId);
 		}
 		String query = "insert ignore personPrivilege set personId = ?, privilege = ?,password=?";
@@ -76,7 +76,7 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 	
 	public String getPrivilegePassword(int personId){
 		try{	
-			String query = "select distinct password from personPrivilege where personId = ?";
+			String query = "select distinct password from personPrivilege where personId = ? limit 1";
 			return getSimpleJdbcTemplate().queryForObject(query,String.class,personId);
 		}
 		catch(Exception e){
