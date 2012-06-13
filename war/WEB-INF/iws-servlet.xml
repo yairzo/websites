@@ -76,6 +76,9 @@
         <property name="commandClass"><value>huard.iws.web.PostListController$PostListControllerCommand</value></property>
         <property name="formView"><value>postList</value></property>
         <property name="successView"><value>posts.html</value></property>
+    	<property name="messageService">
+            <ref bean="messageService"/>
+        </property>
     	<property name="postService">
             <ref bean="postService"/>
         </property>

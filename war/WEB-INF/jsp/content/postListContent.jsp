@@ -123,7 +123,27 @@ $(document).ready(function() {
 		$("#form").submit();
     	return true;
     });
+    
+    $("#genericDialog").dialog({
+        autoOpen: false,
+        show: 'fade',
+        hide: 'fade',
+        modal: true,
+        width: 400,
+        open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
+    });
+    $(".ui-dialog-titlebar").hide();
+    
+    <c:if test="${userMessage!=null}">
+    var userMessage = "${userMessage}";
+    $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+    $("#genericDialog").dialog("option", "position", "center");
+    $("#genericDialog").html(userMessage).dialog("open");
+
+    </c:if>
 });
+
+
 
 </script>
 
@@ -131,9 +151,8 @@ $(document).ready(function() {
 
           <td align="right" bgcolor="#787669" height="20">
           		<c:set var="applicationName" value="מערכת דיוור"/>
-          	        <c:set var="pageName" value="רשימת הודעות"/>
-       	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
-
+          	    <c:set var="pageName" value="רשימת הודעות"/>
+       	        <%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
           </td>
 
         </tr>
@@ -144,6 +163,7 @@ $(document).ready(function() {
   <tr>
     <td>
       <table width="700" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
+ 		  <div id="genericDialog" title="" style="display:none" dir="rtl"><p>text put here</p></div>
         <tr>
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" commandName="command" action="posts.html">
@@ -214,7 +234,7 @@ $(document).ready(function() {
   			</c:otherwise>
   			</c:choose>  	  		
   		
-  		<authz:authorize ifNotGranted="ROLE_POST_READER">
+  		<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR">
 	    <tr>
 		<td>
 			<button class="grey" onclick="window.location='post.html?action=new'; return false;">הוסף</button>

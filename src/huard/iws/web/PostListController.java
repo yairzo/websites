@@ -3,6 +3,7 @@ package huard.iws.web;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.PostBean;
 import huard.iws.model.Post;
+import huard.iws.service.MessageService;
 import huard.iws.service.PersonService;
 import huard.iws.service.PostService;
 import huard.iws.util.ConferenceProposalSearchCreteria;
@@ -36,8 +37,20 @@ public class PostListController extends GeneralFormController {
 			return new ModelAndView( new RedirectView("post.html"),newModel);
 		}
 		if (action.equals("delete") && aCommand.getPostId()>0){
-			newModel.put("id",aCommand.getPostId());
-			return new ModelAndView( new RedirectView("deletePost.html"),newModel);
+			Post post = postService.getPost(aCommand.getPostId());
+			if(post.isVerified()){
+				String userMessage = messageService.getMessage("iw_IL.post.verifiedCannotDelete");
+				request.getSession().setAttribute("userMessage", userMessage);
+			}
+			else if(!userPersonBean.isAuthorized("ROLE_POST_ADMIN") && post.getCreatorId()!=userPersonBean.getId()){
+				String userMessage = messageService.getMessage("iw_IL.post.notCreatorCannotDelete");
+				request.getSession().setAttribute("userMessage", userMessage);
+			}
+			else{
+				String userMessage = messageService.getMessage("iw_IL.post.deleted");
+				request.getSession().setAttribute("userMessage", userMessage);
+				postService.deletePost(aCommand.getPostId());
+			}
 		}
 		if (action.equals("copy") && aCommand.getPostId()>0){
 			int newPostId = postService.copyPost(aCommand.getPostId(), userPersonBean);
@@ -186,4 +199,11 @@ public class PostListController extends GeneralFormController {
 	public void setPostService(PostService postService) {
 		this.postService = postService;
 	}
+	
+	private MessageService messageService;
+
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
+	}
+
 }
