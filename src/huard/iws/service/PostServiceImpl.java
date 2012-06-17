@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class PostServiceImpl implements PostService{
 
@@ -146,6 +147,15 @@ public class PostServiceImpl implements PostService{
 		return postDao.countSentPostPersons();
 	}
 
+	public Map<Integer,Integer> getCountPostPersonsToSend(){
+		return postDao.getCountPostPersonsToSend();
+	}
+
+	public Map<Integer,Integer> getCountPostPersonsSent(){
+		return postDao.getCountPostPersonsSent();
+	}
+
+	
 	private PostDao postDao;
 
 	public void setPostDao(PostDao postDao) {

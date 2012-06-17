@@ -52,5 +52,8 @@ public interface PostDao {
 
 	public int countSentPostPersons();
 
+	public Map<Integer,Integer> getCountPostPersonsToSend();
+
+	public Map<Integer,Integer> getCountPostPersonsSent();
 
 }

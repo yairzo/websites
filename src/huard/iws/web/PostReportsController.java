@@ -11,6 +11,7 @@ import huard.iws.util.RequestWrapper;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -62,11 +63,23 @@ public class PostReportsController extends GeneralController{
 		model.put("subscribers", subscribers);
 
 		List<Post> openPosts = postService.getOpenPosts();
-
+		Map<Integer, Integer> getCountPostPersonsToSend = postService.getCountPostPersonsToSend();
+		Map<Integer, Integer> getCountPostPersonsSent = postService.getCountPostPersonsSent();
+		for(Post openPost:openPosts){
+			if(getCountPostPersonsToSend.containsKey(openPost.getId()) ){
+				int toSend = getCountPostPersonsToSend.get(openPost.getId());
+				int sent=0;
+				if(getCountPostPersonsSent.containsKey(openPost.getId()))
+					sent = getCountPostPersonsSent.get(openPost.getId());
+				openPost.setCountNotSent(toSend-sent);
+			}
+		}
 		model.put("openPosts", openPosts);
 
 		model.put("openPostsCount", openPosts.size());
+		
 
+		
 		int notSentPosts = postService.countNotSentPostPersons();
 		model.put("notSentPostsCount", notSentPosts);
 		int sentPosts = postService.countSentPostPersons();

@@ -8,6 +8,7 @@ import huard.iws.util.SearchCreteria;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface PostService {
 
@@ -51,5 +52,8 @@ public interface PostService {
 
 	public int countSentPostPersons();
 
+	public Map<Integer,Integer> getCountPostPersonsToSend();
+
+	public Map<Integer,Integer> getCountPostPersonsSent();
 
 }

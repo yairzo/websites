@@ -346,5 +346,33 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		sb.append("')");
 		return sb.toString();
 	}
-
+	
+	public Map<Integer,Integer> getCountPostPersonsToSend(){
+		String query = "select post.id, count(distinct(personId)) as count from post inner join subjectToPost on (post.id = subjectToPost.postId) inner join subjectToPerson using (subjectId) where isSent =0 and isVerified=1 group by post.id;";
+		final Map<Integer,Integer> countPostPersonsMap = new HashMap<Integer, Integer>();
+		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
+			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
+				int postId = rs.getInt("id");
+				int count = rs.getInt("count");
+				if (! countPostPersonsMap.containsKey(postId))
+					countPostPersonsMap.put(postId, count);
+				return 0;
+			}
+		});
+		return countPostPersonsMap;
+	}
+	public Map<Integer,Integer> getCountPostPersonsSent(){
+		String query = "select postId, count(distinct(personId)) as count from personToPost where isSelfSend=0 group By postId;";
+		final Map<Integer,Integer> countPostPersonsMap = new HashMap<Integer, Integer>();
+		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
+			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
+				int postId = rs.getInt("postId");
+				int count = rs.getInt("count");
+				if (! countPostPersonsMap.containsKey(postId))
+					countPostPersonsMap.put(postId, count);
+				return 0;
+			}
+		});
+		return countPostPersonsMap;
+	}
 }

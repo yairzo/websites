@@ -183,7 +183,7 @@
 			  <c:if test="${!fullList && ! empty openPosts}">
 					<br/>
 					<br/>
-					<table width="800" border="0" align="center" cellpadding="2" cellspacing="0">
+			 	 <table width="670" border="0" align="center" cellpadding="2" cellspacing="0">
 						<tr>
 							<th colspan="2">
 								${openPostsCount} פוסטים בתהליך שליחה
@@ -196,11 +196,15 @@
 						</tr>
 						<c:forEach items="${openPosts}" var="post">
 							<tr>
-								<td>
+								<td colspan="2">
+								
 									${post.messageSubject}
 								</td>
 								<td>
 									${post.sendTime}
+									</td>
+									<td>
+										טרם נשלחו ל- ${post.countNotSent} אנשים
 								</td>
 							</tr>
 						</c:forEach>

@@ -21,6 +21,7 @@ public class Post implements ISubjectRelated{
 	private boolean selfSent;
 	private String localeId;
 	private int typeId;
+	private int countNotSent;
 
 	private List<Attachment> attachments;
 
@@ -40,6 +41,7 @@ public class Post implements ISubjectRelated{
 		this.selfSent = false;
 		this.localeId = "iw_IL";
 		this.typeId = 1;
+		this.countNotSent=0;
 	}
 
 	public String getAdditionalAddresses() {
@@ -171,5 +173,11 @@ public class Post implements ISubjectRelated{
 		this.sendImmediately = sendImmediately;
 	}
 
+	public int getCountNotSent() {
+		return countNotSent;
+	}
 
+	public void setCountNotSent(int countNotSent) {
+		this.countNotSent = countNotSent;
+	}
 }
