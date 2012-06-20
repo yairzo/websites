@@ -210,9 +210,10 @@
     	 	}
 		});*/
 
-		$("a.addAttachEditor").click(function(){
+		$("button.addAttachEditor").click(function(){
 			var html = $("td.attach").html();
 			$("textarea#body").append(" #@# " + html);
+			return false;
 		});
 
 		<c:if test="$false && ${command.typeId == 2}">
@@ -236,8 +237,7 @@
 			$("tr.selectCallOfProposal").hide();
 		}
 
-
-		$("a.importCallOfProposal").click(function(){
+		$("button.importCallOfProposal").click(function(){
 			if ($("input.callOfProposal").val() == "") return;
 			var callOfProposalTitle = $("input.callOfProposal").val();
 			var id = callOfProposalTitle.replace(/.+ - /,"");
@@ -247,13 +247,15 @@
 			$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposalTitle&id="+id, function(data){
 				$("input.messageSubject").val(data);
 			});
+			return false;
 		});
 
-		$("a.reloadCallOfProposalsList").click(function(){
+		$("button.reloadCallOfProposalsList").click(function(){
 			$.get('selectBoxFiller',{type:'callOfProposal',localeId:'${command.localeId}'},function(data){
    	   				callOfProposals = data.split(",,");
    	   				resetAutocomplete(callOfProposals);   
    	             });
+			return false;
    	     });
 
 
@@ -311,7 +313,7 @@
 			if ($('.messageSubject').val()==''){
 			   	$("#genericDialog").dialog({ modal: true });
 	 	    	$("#genericDialog").dialog('option', 'buttons',{"סגור" : function() {$(this).dialog("close");return false;}});
-	    	    $("#genericDialog").text("יש להזין טקסט מזהה לשימוש פנימי").dialog("open");
+	    	    $("#genericDialog").text("יש להזין נושא").dialog("open");
 		        return false;
 	 		}
 			else{
@@ -336,7 +338,7 @@
 			if ($('.messageSubject').val()==''){
 			   	$("#genericDialog").dialog({ modal: true });
 	 	    	$("#genericDialog").dialog('option', 'buttons',{"סגור" : function() {$(this).dialog("close");return false;}});
-	    	    $("#genericDialog").text("יש להזין טקסט מזהה לשימוש פנימי").dialog("open");
+	    	    $("#genericDialog").text("יש להזין נושא").dialog("open");
 		        return false;
 	 		}
 			else{
@@ -510,7 +512,22 @@
  
     });
 		
-		
+    $("#genericDialog").dialog({
+        autoOpen: false,
+        show: 'fade',
+        hide: 'fade',
+        modal: true,
+        width: 400,
+        open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
+    });
+    
+     <c:if test="${userMessage!=null}">
+    var userMessage = "${userMessage}";
+    $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+    $("#genericDialog").dialog("option", "position", "center");
+    $("#genericDialog").html(userMessage).dialog("open");
+
+    </c:if>		
 	});
 
 </script>

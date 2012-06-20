@@ -57,8 +57,8 @@
 						</td>
 						<td style="text-align: ${lang.align}; direction: ${lang.dir}">
 						<input type="text" class="green callOfProposal">&nbsp;
-						<a href="#" class="importCallOfProposal"><fmt:message key="${lang.localeId}.post.importCallOfProposal"/></a>&nbsp;
-						<a href="#" class="reloadCallOfProposalsList"><fmt:message key="${lang.localeId}.post.reloadCallOfProposalsList"/></a>
+						<button class="importCallOfProposal grey" onclick=""><fmt:message key="${lang.localeId}.post.importCallOfProposal"/></button>&nbsp;
+						<button class="reloadCallOfProposalsList grey" onclick=""><fmt:message key="${lang.localeId}.post.reloadCallOfProposalsList"/></button>
 						</td>
 				</tr>
 				<tr class="selectCallOfProposal">
@@ -129,7 +129,7 @@
 										href="http://${server}/iws/fileViewer?postId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}&md5=${command.md5}"
 										target="_blank">${attachment.title}</a></td>
 									<td>
-										<a href="#" class="addAttachEditor"><fmt:message key="${lang.localeId}.post.addAttachEditor"/></a>
+										<button class="addAttachEditor grey" onclick=""><fmt:message key="${lang.localeId}.post.addAttachEditor"/></button>
 								</tr>
 							</c:forEach>
 						</table>

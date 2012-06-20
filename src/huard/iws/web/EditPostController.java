@@ -7,6 +7,7 @@ import huard.iws.model.Attachment;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Post;
 import huard.iws.model.Subject;
+import huard.iws.service.MessageService;
 import huard.iws.service.PersonListService;
 import huard.iws.service.PostService;
 import huard.iws.service.SendPostService;
@@ -108,6 +109,8 @@ public class EditPostController extends GeneralFormController {
 		if (action.equals("sendme")){
 			sendPostService.prepareSelfSendPosts();
 			sendPostService.sendSelfPosts();
+			String userMessage = messageService.getMessage("iw_IL.post.sentToMe");
+			request.getSession().setAttribute("userMessage", userMessage);
 		}
 
 		Map<String, Object> newModel = new HashMap<String, Object>();
@@ -207,6 +210,12 @@ public class EditPostController extends GeneralFormController {
 
 	public void setSendPostService(SendPostService sendPostService) {
 		this.sendPostService = sendPostService;
+	}
+	
+	private MessageService messageService;
+
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
 	}
 
 }

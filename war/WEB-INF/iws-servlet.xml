@@ -169,6 +169,9 @@
         <property name="sendPostService">
             <ref bean="sendPostService"/>
         </property>
+       <property name="messageService">
+            <ref bean="messageService"/>
+        </property>
       </bean>
 
 	<bean id="proposalStateHistoryController" class="huard.iws.web.ProposalStateHistoryController"
