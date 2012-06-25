@@ -130,6 +130,11 @@ public class FileViewer extends HttpServlet {
 				contentType=conferenceProposal.getFinancialAttachContentType();
 				filename = "Financial Program";
 			}
+			else if (attachFile.equals("companyAttach")){
+				file = conferenceProposal.getCompanyAttach();
+				contentType=conferenceProposal.getCompanyAttachContentType();
+				filename = "Company Agreement";
+			}
 			else return;
 
 		}

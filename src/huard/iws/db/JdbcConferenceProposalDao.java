@@ -88,6 +88,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			committee.setInstitute(rs.getString("institute"));
 			committee.setInstituteRole(rs.getString("instituteRole"));
 			committee.setCommitteeRole(rs.getString("committeeRole"));
+			committee.setCommitteeRoleOrganizing(rs.getString("committeeRoleOrganizing"));
 			committee.setType(rs.getInt("type"));
 			return committee;
 		}
@@ -135,12 +136,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	public void insertCommittee(Committee committee){
 		if (committee.isEmpty())
 			return;
-		String query = "insert committee set conferenceProposalId = ?, name = ?, institute = ?, instituteRole = ?, committeeRole = ?, type=?";
+		String query = "insert committee set conferenceProposalId = ?, name = ?, institute = ?, instituteRole = ?, committeeRole = ?, committeeRoleOrganizing = ?,type=?";
 		logger.info(query + " " + committee.getConferenceProposalId()+" "+
 				committee.getName()+" "+
 				committee.getInstitute()+" "+
 				committee.getInstituteRole()+" "+
 				committee.getCommitteeRole()+" "+
+				committee.getCommitteeRoleOrganizing()+" "+
 				committee.getType());
 		getSimpleJdbcTemplate().update(query,
 				committee.getConferenceProposalId(),
@@ -148,6 +150,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				committee.getInstitute(),
 				committee.getInstituteRole(),
 				committee.getCommitteeRole(),
+				committee.getCommitteeRoleOrganizing(),
 				committee.getType()
 		);
 	}
@@ -188,13 +191,14 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	}
 
 	public void updateCommittee(Committee committee){
-		String query = "update committee set name = ?, institute = ?, instituteRole = ?, committeeRole = ? where id=?";
+		String query = "update committee set name = ?, institute = ?, instituteRole = ?, committeeRole = ?,committeeRoleOrganizing = ? where id=?";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				committee.getName(),
 				committee.getInstitute(),
 				committee.getInstituteRole(),
 				committee.getCommitteeRole(),
+				committee.getCommitteeRoleOrganizing(),
 				committee.getId()
 		);
 	} 	
@@ -343,6 +347,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setProgramAttachContentType(rs.getString("programAttachContentType"));
 			conferenceProposal.setFinancialAttach(rs.getBytes("financeAttach"));
 			conferenceProposal.setFinancialAttachContentType(rs.getString("financeAttachContentType"));
+			conferenceProposal.setCompanyAttach(rs.getBytes("companyAttach"));
+			conferenceProposal.setCompanyAttachContentType(rs.getString("companyAttachContentType"));
 			conferenceProposal.setInitiatingBody(rs.getString("initiatingBody"));
 			conferenceProposal.setInitiatingBodyRole(rs.getInt("initiatingBodyRole"));
 			long openDate = 0;
@@ -424,6 +430,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setProgramAttachContentType(rs.getString("programAttachContentType"));
 			conferenceProposal.setFinancialAttach(rs.getBytes("financeAttach"));
 			conferenceProposal.setFinancialAttachContentType(rs.getString("financeAttachContentType"));
+			conferenceProposal.setCompanyAttach(rs.getBytes("companyAttach"));
+			conferenceProposal.setCompanyAttachContentType(rs.getString("companyAttachContentType"));
 			conferenceProposal.setInitiatingBody(rs.getString("initiatingBody"));
 			conferenceProposal.setInitiatingBodyRole(rs.getInt("initiatingBodyRole"));
 			long openDate = 0;
@@ -545,6 +553,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", programAttachContentType = ?" + 
 				", financeAttach = ?" + 
 				", financeAttachContentType = ?" + 
+				", companyAttach = ?" + 
+				", companyAttachContentType = ?" + 
 				", initiatingBody =  ?" + 
 				", initiatingBodyRole = ?" + 
 				//", openDate=  ?" + 
@@ -601,6 +611,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getProgramAttachContentType(),
 				conferenceProposal.getFinancialAttach(),
 				conferenceProposal.getFinancialAttachContentType(),
+				conferenceProposal.getCompanyAttach(),
+				conferenceProposal.getCompanyAttachContentType(),
 				conferenceProposal.getInitiatingBody(),
 				conferenceProposal.getInitiatingBodyRole(),
 				//new java.sql.Timestamp(conferenceProposal.getOpenDate()),
@@ -662,6 +674,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", programAttachContentType = ?" + 
 				", financeAttach = ?" + 
 				", financeAttachContentType = ?" + 
+				", companyAttach = ?" + 
+				", companyAttachContentType = ?" + 
 				", initiatingBody =  ?" + 
 				", initiatingBodyRole = ?" + 
 				", openDate=  ?" + 
@@ -718,6 +732,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getProgramAttachContentType(),
 				conferenceProposal.getFinancialAttach(),
 				conferenceProposal.getFinancialAttachContentType(),
+				conferenceProposal.getCompanyAttach(),
+				conferenceProposal.getCompanyAttachContentType(),
 				conferenceProposal.getInitiatingBody(),
 				conferenceProposal.getInitiatingBodyRole(),
 				new java.sql.Timestamp(conferenceProposal.getOpenDate()),

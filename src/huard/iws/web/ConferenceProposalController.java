@@ -57,6 +57,9 @@ public class ConferenceProposalController extends GeneralFormController{
 				else if (filename.equals("financialAttach") && conferenceProposalBean.getFinancialAttach()!=null && conferenceProposalBean.getFinancialAttach().length>0){
 					conferenceProposalBean.setFinancialAttachContentType(file.getContentType());
 				}
+				else if (filename.equals("companyAttach") && conferenceProposalBean.getCompanyAttach()!=null && conferenceProposalBean.getCompanyAttach().length>0){
+					conferenceProposalBean.setCompanyAttachContentType(file.getContentType());
+				}
 			}
 		}		
 		//if not added attachment don't override prev attachment
@@ -71,6 +74,10 @@ public class ConferenceProposalController extends GeneralFormController{
 		if(conferenceProposalBean.getFinancialAttach().length==0){
 			conferenceProposalBean.setFinancialAttach(origConferenceProposalBean.getFinancialAttach());
 			conferenceProposalBean.setFinancialAttachContentType(origConferenceProposalBean.getFinancialAttachContentType());
+		}		
+		if(conferenceProposalBean.getCompanyAttach().length==0){
+			conferenceProposalBean.setCompanyAttach(origConferenceProposalBean.getCompanyAttach());
+			conferenceProposalBean.setCompanyAttachContentType(origConferenceProposalBean.getCompanyAttachContentType());
 		}		
 		
 		//set fields that don't appear in the page

@@ -7,6 +7,7 @@ public class Committee {
 	private String institute;
 	private String instituteRole;
 	private String committeeRole;
+	private String committeeRoleOrganizing;
 	private int type;
 	
 	public static int TYPE_SCIENTIFIC = 1;
@@ -19,12 +20,13 @@ public class Committee {
 		this.institute = "";
 		this.instituteRole = "";
 		this.committeeRole = "";
+		this.committeeRoleOrganizing = "";
 		this.type = 0;
 	}
 
 	public boolean isEmpty(){
 		return name.isEmpty() && institute.isEmpty()
-				&& instituteRole.isEmpty() && committeeRole.isEmpty();
+				&& instituteRole.isEmpty() && committeeRole.isEmpty() && committeeRoleOrganizing.isEmpty();
 	}
 	
 	public String getName() {
@@ -62,6 +64,12 @@ public class Committee {
 	}
 	public void setCommitteeRole(String committeeRole) {
 		this.committeeRole = committeeRole;
+	}
+	public String getCommitteeRoleOrganizing() {
+		return committeeRoleOrganizing;
+	}
+	public void setCommitteeRoleOrganizing(String committeeRoleOrganizing) {
+		this.committeeRoleOrganizing = committeeRoleOrganizing;
 	}
 	public int getType() {
 		return type;

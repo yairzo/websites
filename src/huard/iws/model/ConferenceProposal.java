@@ -74,6 +74,8 @@ public class ConferenceProposal {
 	private String deadlineRemarks;
 	private boolean isInsideDeadline;
 	private String committeeRemarks;
+	private byte[] companyAttach;
+	private String companyAttachContentType;
 
 	public ConferenceProposal(){
 		this.id = 0;
@@ -136,7 +138,10 @@ public class ConferenceProposal {
 		this.deadlineRemarks="";
 		this.isInsideDeadline = true;
 		this.committeeRemarks = "";
+		this.companyAttach = new byte[0];
+		this.companyAttachContentType= "";
 	}
+
 	
 	public int getId() {
 		return id;
@@ -573,5 +578,21 @@ public class ConferenceProposal {
 	public void setCommitteeRemarks(String committeeRemarks){
 		this.committeeRemarks = committeeRemarks;
 	}	
-	
+
+	public byte[] getCompanyAttach() {
+		return companyAttach;
+	}
+
+	public void setCompanyAttach(byte[] companyAttach) {
+		this.companyAttach = companyAttach;
+	}
+
+	public String getCompanyAttachContentType() {
+		return companyAttachContentType;
+	}
+
+	public void setCompanyAttachContentType(String companyAttachContentType) {
+		this.companyAttachContentType = companyAttachContentType;
+	}
+
 }

@@ -13,10 +13,10 @@ $(document).ready(function() {
 	hideExtraCommittee("admitanceFee");
 	hideExtraCommittee("assosiate");
 	hideExtraCommittee("external");
-	/*calcFee("fromExternal");
+	calcFee("fromExternal");
 	calcFee("fromAssosiate");
 	calcFee("fromAdmitanceFee");
-	*/
+	calcTotalFee();
 	
 	calcParticipants();
 	
@@ -36,6 +36,10 @@ $(document).ready(function() {
 	$("button.financialAttach").click(function(event){
 		event.preventDefault();
         $('input#financialAttach').click();
+	});
+	$("button.companyAttach").click(function(event){
+		event.preventDefault();
+        $('input#companyAttach').click();
 	});
 	
 	
@@ -100,8 +104,9 @@ $(document).ready(function() {
         $.datepicker.setDefaults($.datepicker.regional['he']);
  
     });
-
-	$('form').find('input:not([class*=submit],[class*=cancelSubmission],[class*=isInsideDeadline],[type=file],[type=button])').autoSave(function(){		
+	
+	$('form').find('input:not([class*=fee],[class*=submit],[class*=cancelSubmission],[class*=isInsideDeadline],[type=file],[type=button])').autoSave(function(){		
+		//alert("saving...");
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
@@ -109,27 +114,30 @@ $(document).ready(function() {
 	       	 	url:       'editConferenceProposal.html' ,        
 	       	 	type:      'POST'
      	};
-   		
-   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-	    $('#form').ajaxSubmit(options);
 		var elementClass = $(this).attr('class');
-		if (elementClass.indexOf("scientificCommittee")!=-1)
-	    	hideExtraCommittee("scientificCommittee");
-		if (elementClass.indexOf("operationalCommittee")!=-1)
-			hideExtraCommittee("operationalCommittee");
-		if (elementClass.indexOf("admitanceFee")!=-1){
-			hideExtraCommittee("admitanceFee");
-			calcFee("fromAdmitanceFee");
-		}
-		if (elementClass.indexOf("assosiate")!=-1){
-			hideExtraCommittee("assosiate");
-			calcFee("fromAssosiate");
-		}
-		if (elementClass.indexOf("external")!=-1){
-			hideExtraCommittee("external");
-			calcFee("fromExternal");
-		}
-
+		//if (elementClass.indexOf("fee")!=-1){
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+  			$('#form').ajaxSubmit(options);
+			if (elementClass.indexOf("scientificCommittee")!=-1)
+	    		hideExtraCommittee("scientificCommittee");
+			if (elementClass.indexOf("operationalCommittee")!=-1)
+				hideExtraCommittee("operationalCommittee");
+			if (elementClass.indexOf("admitanceFee")!=-1){
+				hideExtraCommittee("admitanceFee");
+				calcFee("fromAdmitanceFee");
+				calcTotalFee();
+			}
+			if (elementClass.indexOf("assosiate")!=-1){
+				hideExtraCommittee("assosiate");
+				calcFee("fromAssosiate");
+				calcTotalFee();
+			}
+			if (elementClass.indexOf("external")!=-1){
+				hideExtraCommittee("external");
+				calcFee("fromExternal");
+				calcTotalFee();
+			}
+		//}
 	}, {delay: 2000});
 	
 	$('form').find('select').change(function(){
@@ -148,6 +156,27 @@ $(document).ready(function() {
 		
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 	    $('#form').ajaxSubmit();
+	});
+	
+	$('.fee').change(function(event){
+		event.preventDefault();
+
+		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		if(!numberRegex.test($(this).val())){
+			 $(this).val('');
+			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
+			 //alert('נא להכניס ערך מספרי לשדה זה');
+			 return false;
+		}
+		else if(parseInt($(this).val())>150000){
+			 $(this).val('');
+			 //openHelp(this,'נא להכניס ערך שאינו עולה על 150000');
+			 alert('נא להכניס ערך שאינו עולה על 150000');
+			 return false;
+		}
+		return false;
 	});
 	
 	$('#guestsAttach').change(function(event){
@@ -176,6 +205,15 @@ $(document).ready(function() {
 		$('#form').ajaxSubmit();
 		$('#financialAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&attachmentId=1' target='_blank'>תוכנית תקציבית</a>");
 	});		
+	$('#companyAttach').change(function(event){
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit();
+		$('#companyAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=companyAttach&attachmentId=1' target='_blank'>הסכם חברה</a>");
+		
+	});	
 
 	/*if($('#company').attr('checked') || $('#companyViewOnly').attr('checked'))
 		$('.organizingCompanyPart').show();
@@ -221,10 +259,15 @@ $(document).ready(function() {
                 return false;
                },
             "כן" : function() {
+       	   		console.log("calc");
                 $(this).dialog("close");
     	   		deleteButton.parents('tr.financialSupport').remove();
-    	   		
-    	   		$("#form").ajaxSubmit();
+    	   		calcFee("fromExternal");
+    	   		calcFee("fromAssosiate");
+    	   		calcFee("fromAdmitanceFee");
+     	   		calcTotalFee();
+   				$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+   	   			$("#form").ajaxSubmit();
     			return true;
                }
             });
@@ -250,7 +293,7 @@ $(document).ready(function() {
     	        return true;
             }
         });
-		openHelp(this,"האם הנך מאשר את מחיקת הועדה?");
+		openHelp(this,"האם הנך מאשר את מחיקת חבר/ת הועדה?");
     	return false;
 	});	
 	
@@ -434,6 +477,7 @@ $(document).ready(function() {
            show: 'fade',
            hide: 'fade',
            modal: true,
+		   height:200,
            width: 400,
            open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
      });
@@ -445,19 +489,53 @@ $(document).ready(function() {
 		</c:if>
     
    $(".ui-dialog-titlebar").hide();
+   
    $("#dialogInitiatingBody").click(function(e) {
 	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 	$("#genericDialog").dialog({ modal: false });
-    openHelp("#dialogInitiatingBody","רשום את שמו של הגוף שיוזם את הכנס. גוף זה יכול שיהיה יחידה/מרכז בתוך האוניברסיטה או ישות מוגדרת מחוץ לאוניברסיטה");
+    openHelp("#dialogInitiatingBody",' רשום את שמו של הגוף שיוזם את הכנס. גוף זה יכול שיהיה יחידה/מרכז בתוך האוניברסיטה או ישות מוגדרת מחוץ לאוניברסיטה או "קבוצת חוקרים" או "מגיש הבקשה".');
     return false;
    });
-     
-   /*$("#dialogInitiatingBodyRole").click(function(e) {
-	  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
-	  $("#genericDialog").dialog({ modal: false });
-	  openHelp("#dialogInitiatingBodyRole","תפקיד בגוף היוזם את הכנס");
-	  return false;
-   }); */
+
+   $("#dialogDescription").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+	    openHelp("#dialogDescription",'הקלד או הדבק עד 500 תווים');
+	    return false;
+	});
+   $("#dialogTotalCost").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+	    openHelp("#dialogTotalCost",'יש לרשום את סה"כ ההוצאות הצפויות לארגון הכנס ולביצועו. אין לכלול את הסכום המבוקש מהוועדה. הערך יהיה בדולר ע"פ השער היציג בעת מילוי הטופס. ');
+	    return false;
+	});   
+   $("#dialogCommittee").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		var text ='תוכן חלק זה נועד להמחיש את האיכות האקדמית של הכנס, את רמת ארגונו ואת מידת "בין-לאומיותו".</br>';
+		text+='	ועדה מדעית = מי שעוסק בקביעת התוכן האקדמי</br>';
+		text+='ועדה מדעית = מי שעוסק בקביעת מתכונת ביצוע הכנס, מרציו ומשתתפיו </br>';
+		text+='מוסד = המוסד/ארגון אליו שייך הנקוב ברשומה</br>';
+		text+='נא מלא הפרטים עד 10 רשומות</br>';
+		text+='לחיצה על ה X מאפשרת מחיקת הרשומה';
+	    openHelp("#dialogCommittee",text);
+	    return false;
+	   });
+
+
+   $("#dialogParticipants").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 300 });
+	    openHelp("#dialogParticipants",' יש למלא את הערכים בתאים האפורים. הסיכומים יחושבו אוטומטית.</br>"מרצים"=מרצים+מנחים+פאנליסטים</br>"מוזמנים"=אלה המוזמנים כמאזינים בלבד</br>"קהל נוסף"=בני זוג+מלווים ותקשורת+אחרים');
+	    return false;
+	});
+   $("#dialogCompany").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		  openHelp("#dialogCompany","הקלד את שם החברה וצרף את ההסכם עמה. אם עדיין לא נחתם הסכם עם החברה הקלד 'לא נבחרה' וצרף קובץ בו מתוארות המשימות שתדרשנה מהחברה.");
+	    return false;
+	});
    $("#dialogProposer").click(function(e) {
 		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		  $("#genericDialog").dialog({ modal: false });
@@ -485,6 +563,7 @@ $(document).ready(function() {
    $("#dialogBudget").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 300 });
 		var texts='<p>';
 		texts='על פי תקנות מס הכנסה <b>חל חיוב מס הכנסה על כיבוד</b>.';
 		texts +='התשלומים למס הכנסה יהיו על חשבון תקציב הכנס (בין אם הכיבוד הוזמן מגורם פנימי או מגורם חיצוני) וכלהלן:<br/>';
@@ -520,7 +599,7 @@ $(document).ready(function() {
 	    return false;
 	   });
     
-    $("#form,#genericDialog").click(function(e){
+    $("#genericDialog").click(function(e){
     	$("#genericDialog").dialog("close");
     });    
     
@@ -533,7 +612,18 @@ $(document).ready(function() {
    
 });
 
-
+function textlimiter(){
+	var tex = document.form.description.value;
+	var len = tex.length;
+	if(len > 500){
+	    tex = tex.substring(0,500);
+	    document.form.description.value =tex;
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		openHelp("","שדה התוכן העינוי מוגבל ל 500 תווים");
+	}
+    return false;
+}
 
 var fieldname=""; 
 function openHelp(name,mytext){
@@ -570,18 +660,31 @@ function hideExtraCommittee(trCssClass){
 	});
 }
 
-
 function calcFee(feeType){
-	/*var totalFee=0;
+	var totalFee=0;
 	var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 	for (var i=0;i<10;i++){
 		var fieldName = feeType + '[' + i + ']' + ".sum";
-		if(numberRegex.test(document.getElementById(fieldName).value)){
+		if(document.getElementById(fieldName)!=null && numberRegex.test(document.getElementById(fieldName).value)){
 			totalFee +=parseInt(document.getElementById(fieldName).value);
 		}
-	}*/
-	//alert(feeType +" total:" + totalFee);
+	}
+	var totalname="#" + feeType + "Count";
+	$(totalname).html(totalFee);
 }
+
+function calcTotalFee(){
+	var total=0;
+	var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
+	if(numberRegex.test($("#fromExternalCount").text()))
+		total=total + parseInt($("#fromExternalCount").text());
+	if(numberRegex.test($("#fromAssosiateCount").text()))
+		total+= parseInt($("#fromAssosiateCount").text());
+	if(numberRegex.test($("#fromAdmitanceFeeCount").text()))
+		total+=parseInt($("#fromAdmitanceFeeCount").text());
+	$("#fromAllFeeCount").html(total);
+}
+
 
 function calcParticipants(){
 	var localCount=0;

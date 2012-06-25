@@ -245,11 +245,11 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(',');
 			b.append(conferenceProposalBean.getTotalCost());
 			b.append(',');
-			b.append(conferenceProposalBean.getTotalCostCurrency()==1?"שקל":"דולר");
+			b.append("דולר");
 			b.append(',');
 			b.append(conferenceProposalBean.getSupportSum());
 			b.append(',');
-			b.append(conferenceProposalBean.getSupportCurrency()==1?"שקל":"דולר");
+			b.append("דולר");
 			b.append(',');
 			b.append(conferenceProposalBean.getAuditorium());
 			b.append(',');

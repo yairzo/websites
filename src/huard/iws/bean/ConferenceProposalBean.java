@@ -83,6 +83,8 @@ public class ConferenceProposalBean {
 	private String deadlineRemarks;
 	private boolean isInsideDeadline;
 	private String committeeRemarks;
+	private byte[] companyAttach;
+	private String companyAttachContentType;
 
 
 	public ConferenceProposalBean() {
@@ -172,6 +174,9 @@ public class ConferenceProposalBean {
 		this.deadlineRemarks="";
 		this.isInsideDeadline =true;
 		this.committeeRemarks ="";
+		this.companyAttach = new byte[0];
+		this.companyAttachContentType = "";
+
 	}
 
 	public ConferenceProposalBean(ConferenceProposal conferenceProposal) {
@@ -277,6 +282,8 @@ public class ConferenceProposalBean {
 		this.deadlineRemarks = conferenceProposal.getDeadlineRemarks();
 		this.isInsideDeadline =conferenceProposal.getIsInsideDeadline();
 		this.committeeRemarks = conferenceProposal.getCommitteeRemarks();
+		this.companyAttach = conferenceProposal.getCompanyAttach();
+		this.companyAttachContentType = conferenceProposal.getCompanyAttachContentType();
 
 		// System.out.println("beannnnnnnnnnnnnnnn:" + this.getSubject() +
 		// this.getApproverEvaluation() + this.getApproverId() +
@@ -348,6 +355,8 @@ public class ConferenceProposalBean {
 		conferenceProposal.setDeadlineRemarks(deadlineRemarks);
 		conferenceProposal.setIsInsideDeadline(isInsideDeadline);
 		conferenceProposal.setCommitteeRemarks(committeeRemarks);
+		conferenceProposal.setCompanyAttach(companyAttach);
+		conferenceProposal.setCompanyAttachContentType(companyAttachContentType);
 		return conferenceProposal;
 	}
 
@@ -857,5 +866,21 @@ public class ConferenceProposalBean {
 	public void setCommitteeRemarks(String committeeRemarks){
 		this.committeeRemarks = committeeRemarks;
 	}	
+
+	public byte[] getCompanyAttach() {
+		return companyAttach;
+	}
+
+	public void setCompanyAttach(byte[] companyAttach) {
+		this.companyAttach = companyAttach;
+	}
+
+	public String getCompanyAttachContentType() {
+		return companyAttachContentType;
+	}
+
+	public void setCompanyAttachContentType(String companyAttachContentType) {
+		this.companyAttachContentType = companyAttachContentType;
+	}
 
 }
