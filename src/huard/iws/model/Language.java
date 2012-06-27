@@ -66,5 +66,5 @@ public class Language {
 	public boolean isUTF8(){
 		return name.equals("Hebrew");
 	}
-
+	
 }

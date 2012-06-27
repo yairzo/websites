@@ -4,6 +4,7 @@ import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Faculty;
+import huard.iws.model.FinancialSupport;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
 import huard.iws.service.MailMessageService;
@@ -46,7 +47,11 @@ public class ConferenceProposalController extends GeneralFormController{
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
 			Iterator fileNames = multipartRequest.getFileNames();
 			while (fileNames.hasNext()) {
+				
 				String filename = (String) fileNames.next();
+				System.out.println("******************************");
+				System.out.println(" filename : " + filename );
+				System.out.println("******************************");
 				MultipartFile file = multipartRequest.getFile(filename);
 				if (filename.equals("guestsAttach") && conferenceProposalBean.getGuestsAttach()!=null && conferenceProposalBean.getGuestsAttach().length>0){
 					conferenceProposalBean.setGuestsAttachContentType(file.getContentType());
@@ -59,6 +64,17 @@ public class ConferenceProposalController extends GeneralFormController{
 				}
 				else if (filename.equals("companyAttach") && conferenceProposalBean.getCompanyAttach()!=null && conferenceProposalBean.getCompanyAttach().length>0){
 					conferenceProposalBean.setCompanyAttachContentType(file.getContentType());
+				}
+				else if (filename.startsWith("fromAssosiate")){
+					//We have to handle the binding, no auto binding here
+					String aIndex = filename.replaceFirst("^.*?\\[([\\d]+)\\].*?$","$1");
+					int index = Integer.parseInt(aIndex);
+					if (index < conferenceProposalBean.getFromAssosiate().size()){
+						FinancialSupport financialSupport = conferenceProposalBean.getFromAssosiate().get(index);
+						if (financialSupport != null){
+							financialSupport.setFileContentType(file.getContentType());
+						}
+					}				
 				}
 			}
 		}		
@@ -78,7 +94,16 @@ public class ConferenceProposalController extends GeneralFormController{
 		if(conferenceProposalBean.getCompanyAttach().length==0){
 			conferenceProposalBean.setCompanyAttach(origConferenceProposalBean.getCompanyAttach());
 			conferenceProposalBean.setCompanyAttachContentType(origConferenceProposalBean.getCompanyAttachContentType());
-		}		
+		}
+		for (int i = 0 ; i < conferenceProposalBean.getFromAssosiate().size(); i ++){
+			if (conferenceProposalBean.getFromAssosiate().get(i).getReferenceFile().length == 0
+					&& i < origConferenceProposalBean.getFromAssosiate().size()){
+				byte [] file = origConferenceProposalBean.getFromAssosiate().get(i).getReferenceFile();
+				conferenceProposalBean.getFromAssosiate().get(i).setReferenceFile(file);
+				String contentType = origConferenceProposalBean.getFromAssosiate().get(i).getFileContentType();
+				conferenceProposalBean.getFromAssosiate().get(i).setFileContentType(contentType);
+			}
+		}
 		
 		//set fields that don't appear in the page
 		conferenceProposalBean.setGrade(origConferenceProposalBean.getGrade());

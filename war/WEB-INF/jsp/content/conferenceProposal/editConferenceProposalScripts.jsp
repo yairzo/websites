@@ -16,9 +16,9 @@ $(document).ready(function() {
 	calcFee("fromExternal");
 	calcFee("fromAssosiate");
 	calcFee("fromAdmitanceFee");
-	calcTotalFee();
-	
+	calcTotalFee();	
 	calcParticipants();
+	
 	
 	$(".calcSum").change(function(e) {
 		calcParticipants();
@@ -27,6 +27,11 @@ $(document).ready(function() {
 	$("button.guestsAttach").click(function(event){
 		event.preventDefault();
         $('input#guestsAttach').click();
+	});
+	
+	$("button.fromAssosiateAttach").click(function(event){
+		event.preventDefault();
+        $(this).siblings('input.fromAssosiateAttachFile').click();
 	});
 	
 	$("button.programAttach").click(function(event){
@@ -213,6 +218,14 @@ $(document).ready(function() {
 		$('#form').ajaxSubmit();
 		$('#companyAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=companyAttach&attachmentId=1' target='_blank'>הסכם חברה</a>");
 		
+	});	
+	
+	$('.fromAssosiateAttachFile').change(function(event){
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit();
 	});	
 
 	/*if($('#company').attr('checked') || $('#companyViewOnly').attr('checked'))

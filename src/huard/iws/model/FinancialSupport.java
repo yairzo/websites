@@ -8,7 +8,9 @@ public class FinancialSupport {
 	private String currency;
 	private int type;
 	private String sumPerson;
-
+	private byte[] referenceFile;
+	private String fileContentType;
+	
 	public static int TYPE_ASSOSIATE = 1;
 	public static int TYPE_EXTERNAL = 2;
 	public static int TYPE_ADMITANCEFEE = 3;
@@ -21,8 +23,27 @@ public class FinancialSupport {
 		this.currency = "";
 		this.type = 0;
 		this.sumPerson="";
+		this.referenceFile = new byte[0];
+		this.fileContentType = "";
 	}
 	
+	
+	public byte[] getReferenceFile() {
+		return referenceFile;
+	}
+
+
+	public void setReferenceFile(byte[] referenceFile) {
+		this.referenceFile = referenceFile;
+	}
+
+
+	public String getFileContentType() {
+		return fileContentType;
+	}
+	public void setFileContentType(String fileContentType) {
+		this.fileContentType = fileContentType;
+	}
 	public boolean isEmpty(){
 		return name.isEmpty() && sum.isEmpty();
 	}
@@ -33,6 +54,7 @@ public class FinancialSupport {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getSum() {
 		return sum;
 	}

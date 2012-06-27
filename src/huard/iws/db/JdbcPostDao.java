@@ -362,7 +362,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		return countPostPersonsMap;
 	}
 	public Map<Integer,Integer> getCountPostPersonsSent(){
-		String query = "select postId, count(distinct(personId)) as count from personToPost where isSelfSend=0 group By postId;";
+		String query = "select postId, count(personId) as count from personToPost where isSelfSend=0 group By postId";
 		final Map<Integer,Integer> countPostPersonsMap = new HashMap<Integer, Integer>();
 		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
 			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{

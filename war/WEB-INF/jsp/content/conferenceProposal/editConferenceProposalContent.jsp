@@ -724,11 +724,12 @@
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 	           		פירוט מקורות המימון<br>
 					משותפים לארגון:
-					<table width="575" cellpadding="1" cellspacing="0" align="center">
+					<table width="775" cellpadding="1" cellspacing="0" align="center">
  				    <tr>
 				    <th style="border: 1px #bca2a2 dotted"> שם השותף </th> 
 				    <th style="border: 1px #bca2a2 dotted"> סכום (דולר)</th>
 				    <!-- <th style="border: 1px #bca2a2 dotted"> מטבע </th> -->
+				    <th style="border: 1px #bca2a2 dotted">אסמכתא</th>
 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
@@ -767,6 +768,19 @@
       						<form:option value="2">דולר</form:option>
 							</form:select>
 						</td>-->
+						<td width="250" style="border: 1px #bca2a2 dotted" align="center">
+							<c:choose>
+							<c:when test="${fn:length(command.fromAssosiate[varStatus.index].referenceFile)>0}">
+								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&attachFile=fromAssosiateAttach&contentType=${command.fromAssosiate[varStatus.index].fileContentType}"
+									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
+							</c:when>
+							<c:otherwise>
+								<span align="right">טרם צורפה אסמכתא</span>
+							</c:otherwise>
+							</c:choose>
+							<input id="fromAssosiate[${varStatus.index}].referenceFile" style="width: 0px; height: 0px;" class="green fromAssosiateAttachFile" type="file" name="fromAssosiate[${varStatus.index}].referenceFile"/>
+							<button align="left" class="green fromAssosiateAttach">עיון ...</button>
+						</td>
 						<td>
 							<c:set var="financialSupport" value="${command.fromAssosiate[varStatus.index]}"/>
 							<img src="image/icon_delete.gif" class="deleteFinancialSupport" title="מחיקת שורה"/>							
@@ -782,7 +796,7 @@
 						<td width="150" style="border: 1px #bca2a2 dotted" align="right">
 						<span id="fromAssosiateCount"></span>
 						</td>
-						<td></td>
+						<td style="border: 1px #bca2a2 dotted">&nbsp;</td>
 					</tr>
 					</table>
 					<br>ממממן חיצוני:

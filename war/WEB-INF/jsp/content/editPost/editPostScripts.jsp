@@ -210,9 +210,12 @@
     	 	}
 		});*/
 
-		$("button.addAttachEditor").click(function(){
+
+		$("button.addAttachEditor").click(function(event){			
+
 			var html = $("td.attach").html();
-			$("textarea#body").append(" #@# " + html);
+			var ckeditorHtml = CKEDITOR.dom.element.createFromHtml('<span>&nbsp;#@# ' + html + '</span>');
+			CKEDITOR.instances.body.insertElement(ckeditorHtml);
 			return false;
 		});
 
@@ -237,12 +240,15 @@
 			$("tr.selectCallOfProposal").hide();
 		}
 
+
+
 		$("button.importCallOfProposal").click(function(){
+
 			if ($("input.callOfProposal").val() == "") return;
 			var callOfProposalTitle = $("input.callOfProposal").val();
 			var id = callOfProposalTitle.replace(/.+ - /,"");
 			$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposal&id="+id, function(data){
-				$("textarea.tinymce").val(data);
+				$("textarea.tinymce").val('<p dir="${lang.dir}"> ' + data + ' </p>');				
 			});
 			$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposalTitle&id="+id, function(data){
 				$("input.messageSubject").val(data);
@@ -252,9 +258,10 @@
 
 		$("button.reloadCallOfProposalsList").click(function(){
 			$.get('selectBoxFiller',{type:'callOfProposal',localeId:'${command.localeId}'},function(data){
-   	   				callOfProposals = data.split(",,");
-   	   				resetAutocomplete(callOfProposals);   
-   	             });
+   	   			callOfProposals = data.split(",,");
+   	   			resetAutocomplete(callOfProposals);   
+   	        });
+			return false;
 			return false;
    	     });
 
@@ -280,6 +287,7 @@
 
 
 		$(".langSelect").change(function(){
+				formExit = false;
 				$.alerts.confirm('<fmt:message key="${lang.localeId}.post.changeLanguage.confirm"/>',
 		    			'<fmt:message key="iw_IL.eqfSystem.editProposal.confirm.title"/>',
 		    			function(confirm){

@@ -103,6 +103,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			support.setCurrency(rs.getString("currency"));
 			support.setType(rs.getInt("type"));
 			support.setSumPerson(rs.getString("sumPerson"));
+			support.setReferenceFile(rs.getBytes("referenceFile"));
+			support.setFileContentType(rs.getString("referenceFileContentType"));
 			return support;
 		}
     };	
@@ -110,7 +112,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	public void insertFinancialSupport(FinancialSupport financialSupport){
 		if (financialSupport.isEmpty())
 			return;
-		String query = "insert financialSupport set conferenceProposalId = ?, name = ?, sum = ?, type = ?, currency = ?, sumPerson=?";
+		String query = "insert financialSupport set conferenceProposalId = ?, name = ?, sum = ?, type = ?, currency = ?, sumPerson = ?, referenceFile = ?, referenceFileContentType = ?";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				financialSupport.getConferenceProposalId(),
@@ -118,7 +120,9 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				financialSupport.getSum(),
 				financialSupport.getType(),
 				financialSupport.getCurrency(),
-				financialSupport.getSumPerson()
+				financialSupport.getSumPerson(),
+				financialSupport.getReferenceFile(),
+				financialSupport.getFileContentType()				
 		);
 	}   
 	public void updateFinancialSupport(FinancialSupport financialSupport){
