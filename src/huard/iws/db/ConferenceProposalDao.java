@@ -6,6 +6,7 @@ import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.FinancialSupport;
 import huard.iws.bean.PersonBean;
+import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
 
@@ -35,9 +36,9 @@ public interface ConferenceProposalDao {
 	
 	public List<ConferenceProposal> getConferenceProposalsByPerson( int personId);
 	
-	public List<ConferenceProposal> getConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean,boolean forGrading);
+	public List<ConferenceProposal> getConferenceProposals(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean,boolean forGrading);
 	
-	public int countConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean, boolean forGrading);
+	public int countConferenceProposals(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean, boolean forGrading);
 
 	public void gradeHigher(ConferenceProposal conferenceProposal, String deadline);
 	
@@ -52,6 +53,8 @@ public interface ConferenceProposalDao {
 	public void insertFinancialSupport(FinancialSupport financialSupport);
 	
 	public void updateFinancialSupport(FinancialSupport financialSupport);
+	
+	public FinancialSupport getFinancialSupport(int financialSupportId);
 	
 	public void insertCommittee(Committee committee);
 	
@@ -70,5 +73,7 @@ public interface ConferenceProposalDao {
 	public void updateLastGradingByApproverDeadline(int approverId,String deadline,String deadlineRemarks);
 	
 	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline);
+	
+	public ConferenceProposalGrading getApproverlastGrading(int approverId);
 
 }

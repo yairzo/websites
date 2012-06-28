@@ -43,6 +43,8 @@ public interface ConferenceProposalService {
 
 	public void updateFinancialSupport(FinancialSupport financialSupport);
 
+	public FinancialSupport getFinancialSupport(int financialSupportId);
+
 	public void insertCommittee(Committee committee);
 
 	public void updateCommittee(Committee committee);

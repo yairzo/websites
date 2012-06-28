@@ -99,6 +99,10 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 		conferenceProposalDao.updateFinancialSupport(financialSupport);
 	}
 
+	public FinancialSupport getFinancialSupport(int financialSupportId){
+		return conferenceProposalDao.getFinancialSupport(financialSupportId);
+	}
+
 	public void insertCommittee(Committee committee){
 		conferenceProposalDao.insertCommittee(committee);
 	}

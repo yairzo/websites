@@ -133,7 +133,7 @@
   											<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:choose><c:when test="${fn:length(conferenceProposal.subject)>0}"><c:out value="${conferenceProposal.subject}"></c:out></c:when><c:otherwise>ללא נושא</c:otherwise></c:choose></a>
   										</td>
  										<td width="10%">
-   												<c:out value="${conferenceProposal.formattedFromDate}"/>
+   											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedFromDate}"/></a>
  										</td>
   										<td width="20%">
  											<c:choose>
@@ -153,6 +153,7 @@
   											</c:choose>
   										</td>
   										<td width="10%">
+  											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">
   											<c:choose>
    											<c:when test="${conferenceProposal.deleted}">
   												בוטלה
@@ -168,9 +169,10 @@
   												</c:choose>
   											</c:otherwise>
   											</c:choose>
+  											</a>
   										</td>
  										<td width="10%">
-   												<c:out value="${conferenceProposal.statusDate}"/>
+   											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.statusDate}"/></a>
  										</td>
   										
   									</tr>
@@ -194,9 +196,18 @@
 				</td>
 				</tr> 
     			<tr>
-				<td align="right">
-					<a style="text-decoration: none" href="editConferenceProposal.html?action=new" class="confirmLink">הגשת בקשה למימון כנס</a>
+				<td>
+				<table width="100%">	
+				<tr>
+					<td  align="right">
+					<button class="grey confirmLink">הגשת בקשה למימון כנס</button>
       		        <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogNewConferenceProposal"/>
+					</td>
+					<td align="left">
+					<button  class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		
+					</td>
+				</tr>
+				</table>
 				</td>
 				</tr>
 				 

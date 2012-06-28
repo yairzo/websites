@@ -76,6 +76,28 @@ public class ConferenceProposalController extends GeneralFormController{
 						}
 					}				
 				}
+				else if (filename.startsWith("fromExternal")){
+					//We have to handle the binding, no auto binding here
+					String aIndex = filename.replaceFirst("^.*?\\[([\\d]+)\\].*?$","$1");
+					int index = Integer.parseInt(aIndex);
+					if (index < conferenceProposalBean.getFromExternal().size()){
+						FinancialSupport financialSupport = conferenceProposalBean.getFromExternal().get(index);
+						if (financialSupport != null){
+							financialSupport.setFileContentType(file.getContentType());
+						}
+					}				
+				}
+				else if (filename.startsWith("fromAdmitanceFee")){
+					//We have to handle the binding, no auto binding here
+					String aIndex = filename.replaceFirst("^.*?\\[([\\d]+)\\].*?$","$1");
+					int index = Integer.parseInt(aIndex);
+					if (index < conferenceProposalBean.getFromAdmitanceFee().size()){
+						FinancialSupport financialSupport = conferenceProposalBean.getFromAdmitanceFee().get(index);
+						if (financialSupport != null){
+							financialSupport.setFileContentType(file.getContentType());
+						}
+					}				
+				}
 			}
 		}		
 		//if not added attachment don't override prev attachment

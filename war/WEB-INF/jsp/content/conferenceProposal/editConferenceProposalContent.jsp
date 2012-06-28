@@ -769,23 +769,23 @@
 							</form:select>
 						</td>-->
 						<td width="250" style="border: 1px #bca2a2 dotted" align="center">
-							<c:choose>
-							<c:when test="${fn:length(command.fromAssosiate[varStatus.index].referenceFile)>0}">
-								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&attachFile=fromAssosiateAttach&contentType=${command.fromAssosiate[varStatus.index].fileContentType}"
+						 	<c:if test="${!readOnly && !command.submitted}">
+								<input id="fromAssosiate[${varStatus.index}].referenceFile" style="width: 0px; height: 0px;" class="green fromAssosiateAttachFile" type="file" name="fromAssosiate[${varStatus.index}].referenceFile" />
+								<button align="left" class="green fromAssosiateAttach" style="display: none;">עיון ...</button>
+							</c:if>
+							<span id="fromAssosiateAttachDiv" align="right">
+							<c:if test="${fn:length(command.fromAssosiate[varStatus.index].referenceFile)>0}">
+								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&assosiateId=${varStatus.index}&attachFile=assosiateAttach&contentType=${command.fromAssosiate[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
-							</c:when>
-							<c:otherwise>
-								<span align="right">טרם צורפה אסמכתא</span>
-							</c:otherwise>
-							</c:choose>
-							<input id="fromAssosiate[${varStatus.index}].referenceFile" style="width: 0px; height: 0px;" class="green fromAssosiateAttachFile" type="file" name="fromAssosiate[${varStatus.index}].referenceFile"/>
-							<button align="left" class="green fromAssosiateAttach">עיון ...</button>
+							</c:if>
+							</span>
 						</td>
 						<td>
 							<c:set var="financialSupport" value="${command.fromAssosiate[varStatus.index]}"/>
 							<img src="image/icon_delete.gif" class="deleteFinancialSupport" title="מחיקת שורה"/>							
 						</td>
 						</tr>
+
 						</c:forEach>
 					</c:otherwise>
 					</c:choose>
@@ -800,11 +800,12 @@
 					</tr>
 					</table>
 					<br>ממממן חיצוני:
-					<table width="575" cellpadding="1" cellspacing="0" align="center">
+					<table width="775" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
 				    <th style="border: 1px #bca2a2 dotted"> שם המממן </th> 
 				    <th style="border: 1px #bca2a2 dotted"> סכום (דולר)</th>
 				    <!--<th style="border: 1px #bca2a2 dotted"> מטבע </th>-->
+				    <th style="border: 1px #bca2a2 dotted">אסמכתא</th>
 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
@@ -842,6 +843,18 @@
       						<form:option value="2">דולר</form:option>
 							</form:select>
 						</td>-->
+						<td width="250" style="border: 1px #bca2a2 dotted" align="center">
+						 	<c:if test="${!readOnly && !command.submitted}">
+								<input id="fromExternal[${varStatus.index}].referenceFile" style="width: 0px; height: 0px;" class="green fromExternalAttachFile" type="file" name="fromExternal[${varStatus.index}].referenceFile" />
+								<button align="left" class="green fromExternalAttach" style="display: none;">עיון ...</button>
+							</c:if>
+							<span id="fromExternalAttachDiv" align="right">
+							<c:if test="${fn:length(command.fromExternal[varStatus.index].referenceFile)>0}">
+								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&externalId=${varStatus.index}&attachFile=externalAttach&contentType=${command.fromExternal[varStatus.index].fileContentType}&attachmentId=1"
+									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
+							</c:if>
+							</span>
+						</td>
 						<td>
 							<c:set var="financialSupport" value="${command.fromExternal[varStatus.index]}"/>
 							<img src="image/icon_delete.gif" class="deleteFinancialSupport" title="מחיקת שורה"/>							
@@ -857,17 +870,18 @@
 						<td width="150" style="border: 1px #bca2a2 dotted" align="right">
 						<span id="fromExternalCount"></span>
 						</td>
-						<td></td>
+						<td style="border: 1px #bca2a2 dotted">&nbsp;</td>
 					</tr>
 					
 					</table>
 					<br>מדמי הרשמה:
-					<table width="575" cellpadding="1" cellspacing="0" align="center">
+					<table width="775" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
 				    <th style="border: 1px #bca2a2 dotted"> סכום למשתתף (דולר)</th>
 				    <th style="border: 1px #bca2a2 dotted"> מספר המשלמים</th>
 				    <th style="border: 1px #bca2a2 dotted"> סכום כולל (דולר)</th>
 				    <!-- <th style="border: 1px #bca2a2 dotted"> מטבע </th> -->
+				    <th style="border: 1px #bca2a2 dotted">אסמכתא</th>
 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
@@ -911,6 +925,18 @@
       						<form:option value="2">דולר</form:option>
 							</form:select>
 						</td> -->
+						<td width="250" style="border: 1px #bca2a2 dotted" align="center">
+						 	<c:if test="${!readOnly && !command.submitted}">
+								<input id="fromAdmitanceFee[${varStatus.index}].referenceFile" style="width: 0px; height: 0px;" class="green fromAdmitanceFeeAttachFile" type="file" name="fromAdmitanceFee[${varStatus.index}].referenceFile" />
+								<button align="left" class="green fromAdmitanceFeeAttach" style="display: none;">עיון ...</button>
+							</c:if>
+							<span id="fromAdmitanceFeeAttachDiv" align="right">
+							<c:if test="${fn:length(command.fromAdmitanceFee[varStatus.index].referenceFile)>0}">
+								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&admitanceFeeId=${varStatus.index}&attachFile=admitanceFeeAttach&contentType=${command.fromAdmitanceFee[varStatus.index].fileContentType}&attachmentId=1"
+									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
+							</c:if>
+							</span>
+						</td>
 						<td>
 							<c:set var="financialSupport" value="${command.fromAdmitanceFee[varStatus.index]}"/>
 							<img src="image/icon_delete.gif" class="deleteFinancialSupport" title="מחיקת שורה"/>							
@@ -926,7 +952,7 @@
 						<td style="border: 1px #bca2a2 dotted" align="right">
 						<span id="fromAdmitanceFeeCount"></span>
 						</td>
-						<td></td>
+						<td style="border: 1px #bca2a2 dotted">&nbsp;</td>
 					</tr>
 					</table>
 					<br>&nbsp;
@@ -958,7 +984,21 @@
 				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 	            <tr class="form">
 		       		<td colspan="3" style="border:1px #bca2a2 dotted">
-	   				${compulsoryFieldSign}סכום הכסף המבוקש:
+					מבוקשת הכרת הוועדה בכנס כבין לאומי
+					<c:if test="${!readOnly && !command.submitted}">			
+		       		    <form:checkbox cssClass="green" path="auditorium"/>
+					</c:if>
+					<c:if test="${readOnly || command.submitted}">			
+						<form:hidden path="auditorium"/>
+						<input type="checkbox" disabled="disabled" value="" <c:if test="${command.auditorium}" > checked </c:if> />
+					</c:if>
+					&nbsp;&nbsp;
+					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogInternational"/>
+					</td>
+				</tr>
+	            <tr class="form">
+		       		<td colspan="3" style="border:1px #bca2a2 dotted">
+	   				${compulsoryFieldSign}מבוקשת השתתפות הוועדה במימון הכנס בסכום:
 					<c:if test="${!readOnly && !command.submitted}">			
 						<form:input cssClass="green medium100" path="supportSum" id="supportSum"/>
 					</c:if>
@@ -990,22 +1030,15 @@
 				</tr>
 	            <tr class="form">
 		       		<td style="border:1px #bca2a2 dotted">
+		       		מבוקש פטור מתשלום עבור אולם
 					<c:if test="${!readOnly && !command.submitted}">			
-		       		    אולם<form:checkbox cssClass="green" path="auditorium"/>
-					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
-						<form:hidden path="auditorium"/>
-						אולם<input type="checkbox" disabled="disabled" value="" <c:if test="${command.auditorium}" > checked </c:if> />
-					</c:if>
-					&nbsp;&nbsp;
-					<c:if test="${!readOnly && !command.submitted}">			
-						חדר סמנירים<form:checkbox cssClass="green" path="seminarRoom"/>
+						<form:checkbox cssClass="green" path="seminarRoom"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="seminarRoom"/>
-						חדר סמנירים<input type="checkbox" disabled="disabled" value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
+						<input type="checkbox" disabled="disabled" value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
 					</c:if>
-					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRooms"/>
+					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRoomsNopay"/>
 					</td>
 					<td style="border:1px #bca2a2 dotted">
 	   					ל:
@@ -1064,6 +1097,7 @@
 				<tr>
 					<td colspan="4">
 					הערות מגיש הבקשה לועדה:
+					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRemarks"/>
 					</td>
 				</tr>
 				<tr>
@@ -1083,6 +1117,7 @@
 	            <tr id="deanApproval" class="form">
 		       		<td colspan="4">
 	   				${compulsoryFieldSign}הדיקן הממליץ:
+					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogApprover"/>
 					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select id="deanSelect"  path="approverId" cssClass="green">
       					<form:option value="0">בחר/י דיקן ממליץ</form:option>
@@ -1247,8 +1282,15 @@
 				<c:if test="${creator && !command.submitted}">
 				<tr class="form">
 					<td colspan="4">
-				   		<input type="checkbox" class="green" name="acceptTerms" id="acceptTerms"/>ידוע לי שקבלת תמיכה כספית בהוצאות ארגון הכנס ו/או אישור להקצאת אולם ללא
-				   		תשלום או בתשלום חלקי מותנית בפרסום חסות האוניברסיטה בכל פרסומי הכנס ובהגשת מאזן תקציב מפורט תוך חודשיים ממועד סיום הכנס.
+					<table width="100%">
+					<tr><td>
+				   		<input type="checkbox" class="green" name="acceptTerms" id="acceptTerms"/>
+						</td>
+						<td>
+ 				   		 ידוע לי שקבלת תמיכה כספית בהוצאות ארגון הכנס ו/או אישור להקצאת אולם ללא תשלום או בתשלום חלקי מותנית בפרסום <br/>
+				   		  חסות האוניברסיטה בכל פרסומי הכנס ובהגשת מאזן תקציב מפורט תוך חודשיים ממועד סיום הכנס. אני מתחייב לעמוד בכך.
+				   		 </td>
+					</table>
  					</td>
 				</tr>
 				<tr>

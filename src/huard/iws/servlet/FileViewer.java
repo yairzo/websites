@@ -2,6 +2,7 @@ package huard.iws.servlet;
 
 import huard.iws.bean.PostBean;
 import huard.iws.model.Attachment;
+import huard.iws.model.FinancialSupport;
 import huard.iws.model.Person;
 import huard.iws.model.Post;
 import huard.iws.model.Proposal;
@@ -135,10 +136,30 @@ public class FileViewer extends HttpServlet {
 				contentType=conferenceProposal.getCompanyAttachContentType();
 				filename = "Company Agreement";
 			}
+			else if (attachFile.equals("assosiateAttach") && !requestWrapper.getParameter("assosiateId","").isEmpty()){
+				int index = new Integer(requestWrapper.getParameter("assosiateId","")).intValue();
+				FinancialSupport financialSupport = conferenceProposal.getFromAssosiate().get(index);
+				file = financialSupport.getReferenceFile();
+				contentType=financialSupport.getFileContentType();
+				filename = "Assosiate reference file";
+			}
+			else if (attachFile.equals("externalAttach") && !requestWrapper.getParameter("externalId","").isEmpty()){
+				int index = new Integer(requestWrapper.getParameter("externalId","")).intValue();
+				FinancialSupport financialSupport = conferenceProposal.getFromExternal().get(index);
+				file = financialSupport.getReferenceFile();
+				contentType=financialSupport.getFileContentType();
+				filename = "External reference file";
+			}
+			else if (attachFile.equals("admitanceFeeAttach") && !requestWrapper.getParameter("admitanceFeeId","").isEmpty()){
+				int index = new Integer(requestWrapper.getParameter("admitanceFeeId","")).intValue();
+				FinancialSupport financialSupport = conferenceProposal.getFromAdmitanceFee().get(index);
+				file = financialSupport.getReferenceFile();
+				contentType=financialSupport.getFileContentType();
+				filename = "Admitance Fee reference file";
+			}
 			else return;
 
 		}
-
 
 		try{
 

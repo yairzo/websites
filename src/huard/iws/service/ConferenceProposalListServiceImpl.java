@@ -7,13 +7,14 @@ import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
+import huard.iws.util.ConferenceProposalSearchCreteria;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceProposalListServiceImpl implements ConferenceProposalListService{
 
-	public List<ConferenceProposal> getConferenceProposalsPage(ListView lv, SearchCreteria search, PersonBean userPersonBean,boolean forGrading) {
+	public List<ConferenceProposal> getConferenceProposalsPage(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean,boolean forGrading) {
 		List<ConferenceProposal> l = getConferenceProposals(lv, search, userPersonBean, forGrading);
 		List<ConferenceProposal> conferenceProposalsPage = new ArrayList<ConferenceProposal>();
 		for (Object o : l){
@@ -23,13 +24,13 @@ public class ConferenceProposalListServiceImpl implements ConferenceProposalList
 		return conferenceProposalsPage;
 	}
 
-	public void prepareListView(ListView lv, SearchCreteria search,PersonBean userPersonBean,boolean forGrading){
+	public void prepareListView(ListView lv, ConferenceProposalSearchCreteria search,PersonBean userPersonBean,boolean forGrading){
 		lv.setLastPage(lv.getNumOfPages(conferenceProposalDao.countConferenceProposals(lv,search,userPersonBean,forGrading)));
 		lv.setNearPages(lv.getScroll());
 	}
 
 
-	public List<ConferenceProposal> getConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean,boolean forGrading) {
+	public List<ConferenceProposal> getConferenceProposals(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean,boolean forGrading) {
 		return conferenceProposalDao.getConferenceProposals(lv, search,userPersonBean,forGrading);
 	}
 	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate) {
@@ -56,6 +57,12 @@ public class ConferenceProposalListServiceImpl implements ConferenceProposalList
 		return conferenceProposalDao.getAllGradingsByCurrentDeadline(deadline);
 	}
 
+	public ConferenceProposalGrading getApproverlastGrading(int approverId){
+		return conferenceProposalDao.getApproverlastGrading(approverId);
+	}
+
+	
+	
 	private ConferenceProposalDao conferenceProposalDao;
 
 	public void setConferenceProposalDao(ConferenceProposalDao conferenceProposalDao) {

@@ -8,6 +8,7 @@ import huard.iws.model.FinancialSupport;
 import huard.iws.util.ListView;
 import huard.iws.util.SQLUtils;
 import huard.iws.util.SearchCreteria;
+import huard.iws.util.ConferenceProposalSearchCreteria;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -194,6 +195,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		getSimpleJdbcTemplate().update(query, financialSupportId);
 	}
 
+	public FinancialSupport getFinancialSupport(int financialSupportId){
+		String query = "select  * from  financialSupport where id =?";
+		FinancialSupport financialSupport =
+		getSimpleJdbcTemplate().queryForObject(query, financialSupportRowMapper,	financialSupportId );
+		return financialSupport;
+	}
+
 	public void updateCommittee(Committee committee){
 		String query = "update committee set name = ?, institute = ?, instituteRole = ?, committeeRole = ?,committeeRoleOrganizing = ? where id=?";
 		logger.info(query);
@@ -266,6 +274,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		}
     };	
     
+	public ConferenceProposalGrading getApproverlastGrading(int approverId){
+		String query = "select  * from  conferenceProposalGrading where approverId =? order by id desc limit 1 ";
+		ConferenceProposalGrading conferenceProposalGrading =
+		getSimpleJdbcTemplate().queryForObject(query, gradingRowMapper,	approverId );
+		return conferenceProposalGrading;
+	}
+   
 	public ConferenceProposal getVersionConferenceProposal(int confId, int verId){
 		String query = "select  * from conferenceProposalVersion where conferenceProposalId = ? and id = ? ";
 		logger.info(query);
@@ -496,7 +511,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			internalId=internalYear+1;
 		//System.out.println(internalId);
 		
-		final String queryS1 = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?;";
+		final String queryS1 = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?,auditorium=1;";
 		logger.info(queryS1);
 		final int personId = conferenceProposal.getPersonId();
 		final long deadline = conferenceProposal.getDeadline();
@@ -800,7 +815,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		return conferenceProposals;
     }
 
-	public List<ConferenceProposal> getConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean, boolean forGrading) {
+	public List<ConferenceProposal> getConferenceProposals(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean, boolean forGrading) {
 
 		String query = "select * from conferenceProposal";
 		//get where clause by search critieria
@@ -816,7 +831,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		return conferenceProposals;
     }
 	
-	public int countConferenceProposals(ListView lv, SearchCreteria search, PersonBean userPersonBean, boolean forGrading) {
+	public int countConferenceProposals(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean, boolean forGrading) {
 
 		String query = "select count(*) from conferenceProposal";
 		//get where clause by search critieria
@@ -826,7 +841,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
     }
 
-	public String getConferenceProposalsWhereClause(SearchCreteria search, PersonBean userPersonBean, boolean forGrading){
+	public String getConferenceProposalsWhereClause(ConferenceProposalSearchCreteria search, PersonBean userPersonBean, boolean forGrading){
 		
 		String whereClause="";
 
@@ -863,7 +878,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		//order by
 		if (forGrading){
 			whereClause += " order by grade";
-		}		
+		}
+		else if(search.getSearchBySubmitted()==1){
+			whereClause += " order by submissionDate desc";
+		}
+		else
+			whereClause += " order by openDate desc";
 		return whereClause;
 	}
 	

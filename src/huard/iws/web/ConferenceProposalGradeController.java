@@ -5,11 +5,13 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.constant.Constants;
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
 import huard.iws.service.RecordProtectService;
+import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.SearchCreteria;
@@ -106,7 +108,10 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		}
 		model.put("conferenceProposals", conferenceProposalBeans);
 		model.put("deadlineRemarks", deadlineRemarks);
-
+		
+		ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(userPersonBean.getId());
+		model.put("adminDeadlineRemarks",conferenceProposalGrading.getAdminSendRemark());
+		
 		return new ModelAndView (this.getFormView(), model);
 	}
 
@@ -122,12 +127,12 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			whereClause +=" and approverId=" + request.getSession().getAttribute("approverId");
 
 		if (!isFormSubmission(request.getRequest())){
-			SearchCreteria searchCreteria = (SearchCreteria) request.getSession().getAttribute("conferenceProposalsSearchCreteria");
+			ConferenceProposalSearchCreteria searchCreteria = (ConferenceProposalSearchCreteria) request.getSession().getAttribute("conferenceProposalsSearchCreteria");
 			request.getSession().setAttribute("conferenceProposalsSearchCreteria", null);
 			ListView listView = (ListView) request.getSession().getAttribute("conferenceProposalsListView");
 
 			if (searchCreteria == null){
-				searchCreteria = new SearchCreteria();
+				searchCreteria = new ConferenceProposalSearchCreteria();
 				int roleFilterId = request.getIntParameter("rf", 0);
 				String roleFilter = Constants.getUsersRoles().get(roleFilterId);
 				if (roleFilter == null)
@@ -158,7 +163,9 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 	}
 
 	public class ConferenceProposalGradeCommand{
-		SearchCreteria searchCreteria = new SearchCreteria();
+		//SearchCreteria searchCreteria = new SearchCreteria();
+		ConferenceProposalSearchCreteria searchCreteria = new ConferenceProposalSearchCreteria();
+
 		ListView listView = new ListView();
 		int conferenceProposalId=0;
 
@@ -169,12 +176,20 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			this.conferenceProposalId = conferenceProposalId;
 		}
 
-		public SearchCreteria getSearchCreteria() {
+		/*public SearchCreteria getSearchCreteria() {
 			return searchCreteria;
 		}
 		public void setSearchCreteria(SearchCreteria searchCreteria) {
 			this.searchCreteria = searchCreteria;
+		}*/
+		
+		public ConferenceProposalSearchCreteria getSearchCreteria() {
+			return searchCreteria;
 		}
+		public void setSearchCreteria(ConferenceProposalSearchCreteria searchCreteria) {
+			this.searchCreteria = searchCreteria;
+		}
+
 		public ListView getListView() {
 			return listView;
 		}

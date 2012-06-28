@@ -169,7 +169,7 @@ $(document).ready(function() {
                     $(this).dialog("close");
                  },
                 "המשך להגשת הבקשה" : function() {
-                	window.location.href = targetUrl;
+                	window.location.href = "editConferenceProposal.html?action=new";
                  }
         });
     	openHelp(this,"א. אני מצהיר בזאת שהנני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>ב. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.");
@@ -179,7 +179,10 @@ $(document).ready(function() {
   $("#dialogNewConferenceProposal").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-	    openHelp("#dialogNewConferenceProposal","וודא עם שותפיך לארגון הכנס שלא פתחו כבר בקשה לכנס זה ולא הגישו בקשה אחרת למימון כנס במהלך השנה האחרונה.");
+		$("#genericDialog").dialog({ height: 400 });
+		var text="לחיצה כאן תאפשר לך לפתוח, למלא ולשלוח לוועדת הכנסים, טופס בקשה לסיוע במימון כנס.<br/><br/> ";
+		text+="וודא עם שותפיך לארגון הכנס שלא פתחו כבר בקשה לכנס זה ולא הגישו בקשה אחרת למימון כנס במהלך השנה האחרונה.";
+	    openHelp("#dialogNewConferenceProposal",text);
 	    return false;
 	   });
    

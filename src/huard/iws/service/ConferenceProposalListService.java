@@ -5,6 +5,7 @@ import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 
+import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
 
@@ -12,9 +13,9 @@ import java.util.List;
 
 public interface ConferenceProposalListService {
 
-	public List<ConferenceProposal> getConferenceProposalsPage(ListView lv, SearchCreteria search, PersonBean userPersonBean,boolean forGrading);
+	public List<ConferenceProposal> getConferenceProposalsPage(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean,boolean forGrading);
 
-	public void prepareListView(ListView lv, SearchCreteria search, PersonBean userPersonBean,boolean forGrading);
+	public void prepareListView(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean,boolean forGrading);
 
 	public void gradeHigher(ConferenceProposal conferenceProposal, String deadline);
 
@@ -27,5 +28,8 @@ public interface ConferenceProposalListService {
 	public void updateLastGradingByApproverDeadline(int approverId,String deadline,String deadlineRemarks);
 
 	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline);
+	
+	public ConferenceProposalGrading getApproverlastGrading(int approverId);
+
 
 }
