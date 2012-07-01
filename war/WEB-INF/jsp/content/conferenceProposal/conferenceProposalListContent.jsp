@@ -25,7 +25,7 @@
     	<table border="0" align="center" style="width: 95%; direction: rtl;" cellspacing="10">
     		<tr>
     			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-    			<td class="container" style="width: 35%;">
+    			<td class="container" style="width: 25%;">
     				<span style="text-align: center;"><h2> סינון הבקשות שתוצגנה ברשימה</h2></span>
     				<br/>
     				    לפי שם החוקר:
@@ -69,19 +69,20 @@
   				   	 <input type="hidden" name="searchBySubmitted" value="1"/>
   				   </authz:authorize>
   				   <authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+  				   <span id="searchByDeadlineSpan">
   				   <br/>  				   
- 				   		 לפי ועדה:  				   
+ 				   		 לפי דיון:  				   
  				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="1" <c:if test="${searchByDeadline==1}">checked="checked"</c:if>/> בקשות המוגשות לכינוס הועדה הקרוב
+ 				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="1" <c:if test="${searchByDeadline==1}">checked="checked"</c:if>/> מוגשות לדיון הקרוב
   				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="2" <c:if test="${searchByDeadline==2}">checked="checked"</c:if>/> בקשות המוגשות לכינוס הועדה הבא  
+  				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="2" <c:if test="${searchByDeadline==2}">checked="checked"</c:if>/> מוגשות לדיון הבא  
  				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 				  
    				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="0" <c:if test="${searchByDeadline==0}">checked="checked"</c:if>/> כל הבקשות
-				  	
+				  	</span>
 				   </authz:authorize>
 				</td>
 				</authz:authorize>
-    			<td class="container" style="width: 65%; vertical-align: top;">
+    			<td class="container" style="width: 75%; vertical-align: top;">
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
     					<span style="text-align: center;"><h2> רשימת הבקשות שלך</h2></span>
    					</authz:authorize>
@@ -103,9 +104,10 @@
   									</authz:authorize>
 			  						<td style="font-weight: bold;width:25%;align:right;">שם הכנס</td>
 			  						<td style="font-weight: bold;width:10%;align:right;">תאריך הכנס</td>
-			  						<td style="font-weight: bold;width:20%;align:right;">הדיקן הממליץ</td>
+			  						<td style="font-weight: bold;width:15%;align:right;">הדיקן הממליץ</td>
  			  						<td style="font-weight: bold;width:10%;align:right;">סטטוס</td>
  			  						<td style="font-weight: bold;width:10%;align:right;">תאריך הסטטוס</td>
+ 			  						<td style="font-weight: bold;width:5%;align:right;">לדיון הקרוב</td>
  									</tr>
   								</table>
   							</td>
@@ -135,7 +137,7 @@
  										<td width="10%">
    											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedFromDate}"/></a>
  										</td>
-  										<td width="20%">
+  										<td width="15%">
  											<c:choose>
  											<c:when test="${conferenceProposal.approverId > 0}">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
@@ -174,7 +176,11 @@
  										<td width="10%">
    											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.statusDate}"/></a>
  										</td>
-  										
+ 										<td width="5%">
+   										<c:if test="${conferenceProposal.submitted}">
+ 										<input type="checkbox" class="saveCheckbox" name="insideDeadline${conferenceProposal.id}" id="${conferenceProposal.id}" <c:if test="${conferenceProposal.isInsideDeadline}" > checked </c:if> />
+   										</c:if>
+   										</td>
   									</tr>
   								</table>
   							</td>
@@ -200,8 +206,10 @@
 				<table width="100%">	
 				<tr>
 					<td  align="right">
+					<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 					<button class="grey confirmLink">הגשת בקשה למימון כנס</button>
       		        <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogNewConferenceProposal"/>
+					</authz:authorize>
 					</td>
 					<td align="left">
 					<button  class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		
@@ -222,11 +230,11 @@
     	<table align="center" style="width: 90%; direction: rtl;">
   	  		<tr>
   	  			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-  	  			<td style="width: 35%;">
+  	  			<td style="width: 25%;">
   	  				&nbsp;
   	  			</td>
   	  			</authz:authorize>
-                <td style="width: 65%;" align="center">
+                <td style="width: 75%;" align="center">
 					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
                 </td>
             </tr>
@@ -242,12 +250,12 @@
     	<td>
     	<table align="center" class="container" style="width: 100%; direction: rtl;" >
     		<tr>
-    			<td>
-    				<span style="text-align: center;"><h2> ניהול תהליך הדירוג וחוות הדעת</h2></span>
+    			<td style="text-align: center;">
+    				<span ><h2> ניהול תהליך התייחסות הדיקן</h2></span>
     			</td>
     		</tr>
     		<tr>
-				<td>שיגור דרישות לדירוג:<br />
+				<td>שיגור דרישות להתייחסות:<br />
   					<select name="approver" id="approver" class="green">
       					<option value="0">בחר דיקן </option>
        					<c:forEach items="${deans}" var="deanPerson">
@@ -255,8 +263,8 @@
        					</c:forEach>
        				</select>
 					&nbsp;הערה לדיקן:
-					<input type="text" class="green" name="adminSendRemarks" id="adminSendRemarks" style="width:450"/>
-					&nbsp;<button id="buttonStartGrading" class="grey" />שלח לדירוג</button>
+					<textarea class="green" name="adminSendRemarks" id="adminSendRemarks" cols="60" rows="2"></textarea>
+					&nbsp;<button id="buttonStartGrading" class="grey" />שלח לדיקן</button>
 			    </td>
 		  </tr>
 		  <tr>
@@ -271,10 +279,10 @@
     				<table style="width: 100%;" align="center">
              			<thead>
   						<tr>
-		  					<td style="font-weight: bold;width: 30%;">נשלח לדיקן</td>
+		  					<td style="font-weight: bold;width: 30%;">הדיקן הנמען</td>
 			  				<td style="font-weight: bold;width: 15%;">נשלח בתאריך</td>
-			  				<td style="font-weight: bold;width: 15%;">הדיקן סיים לדרג</td>
 			  				<td style="font-weight: bold;width: 20%;">הערת הרכז/ת לדיקן</td>
+			  				<td style="font-weight: bold;width: 15%;">הדיקן התייחס</td>
 			  				<td style="font-weight: bold;width: 20%;">הערת הדיקן</td>
   	  					</tr>
   	  					</thead>
@@ -289,10 +297,10 @@
 							</c:choose>
              			<tbody>
   						<tr>
-		  					<td class="${rowBgBrightness}"><a href="conferenceProposalsGrade.html?approverId=${conferenceProposalGrading.approver.id}">${conferenceProposalGrading.approver.degreeFullNameHebrew} - ${conferenceProposalGrading.approver.department}</a></td>
+		  					<td class="${rowBgBrightness}"><a href="conferenceProposalsGrade.html?approverId=${conferenceProposalGrading.approver.id}">${conferenceProposalGrading.approver.degreeFullNameHebrew} - ${conferenceProposalGrading.approverFaculty}</a></td>
 			  				<td class="${rowBgBrightness}">${conferenceProposalGrading.formattedSentForGradingDate}</td>
-			  				<td class="${rowBgBrightness}">${conferenceProposalGrading.formattedFinishedGradingDate}</td>
 			  				<td class="${rowBgBrightness}"><font title="${conferenceProposalGrading.adminSendRemark}">${conferenceProposalGrading.adminSendRemark}</font></td>
+			  				<td class="${rowBgBrightness}">${conferenceProposalGrading.formattedFinishedGradingDate}</td>
 			  				<td class="${rowBgBrightness}"><font title="${conferenceProposalGrading.deadlineRemark}">${conferenceProposalGrading.deadlineRemark}</font></td>
    	  					</tr>
   	  		 			</tbody>

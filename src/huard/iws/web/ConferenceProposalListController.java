@@ -44,19 +44,24 @@ public class ConferenceProposalListController extends GeneralFormController {
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		String action = request.getParameter("action", "");
 
-		/*if (action.equals("delete") && searchCommand.getConferenceProposalId()>0){
-			ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(searchCommand.getConferenceProposalId()));
-			origConferenceProposalBean.setDeleted(true);
-			if(origConferenceProposalBean.getSubmitted()){
-				//if was already submitted need to rearrange grades
-				origConferenceProposalBean.setSubmitted(false);
-				origConferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
+		if (action.equals("save") && request.getIntParameter("conferenceProposalId", 0)>0){
+			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(request.getIntParameter("conferenceProposalId", 0));
+			String insideDeadline = "insideDeadline" + new Integer(request.getIntParameter("conferenceProposalId", 0)).toString();
+			String insideDeadlineValue = request.getParameter(insideDeadline, "");
+			if(!insideDeadlineValue.isEmpty() && insideDeadlineValue.equals("on")){
+				cp.setIsInsideDeadline(true);
+				//assign default grade
 				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-				conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
-				origConferenceProposalBean.setGrade(0);
+				cp.setGrade(conferenceProposalService.getMaxGrade(cp.getApproverId(), prevdeadline)+1);
 			}
-			conferenceProposalService.updateConferenceProposal(origConferenceProposalBean.toConferenceProposal());
-		}*/
+			else{//cancel grade and rearrange grades
+				cp.setIsInsideDeadline(false);
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				conferenceProposalService.rearangeGrades(cp.getGrade(), cp.getApproverId(), prevdeadline);
+				cp.setGrade(0);
+			}
+			conferenceProposalService.updateConferenceProposal(cp);
+		}		
 		
 		if (action.equals("startGrading")){
 			ConferenceProposalGrading conferenceProposalGrading = new ConferenceProposalGrading();

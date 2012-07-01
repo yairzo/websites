@@ -2,6 +2,7 @@ package huard.iws.model;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.service.PersonService;
+import huard.iws.service.FacultyService;
 import huard.iws.util.ApplicationContextProvider;
 
 import java.text.SimpleDateFormat;
@@ -34,6 +35,19 @@ public class ConferenceProposalGrading {
 				personService.getPerson(this.approverId));
 		return approver;
 	}
+	
+	public String getApproverFaculty() {
+		PersonService personService = (PersonService) ApplicationContextProvider
+				.getContext().getBean("personService");
+		PersonBean approver = new PersonBean(
+				personService.getPerson(this.approverId));
+		//get faculty name by user facultyId
+		FacultyService facultyService = (FacultyService) ApplicationContextProvider
+				.getContext().getBean("facultyService");
+		Faculty faculty = facultyService.getFaculty(approver.getFacultyId());
+		return faculty.getNameHebrew();
+	}
+	
 	public void setApproverId(int approverId) {
 		this.approverId = approverId;
 	}

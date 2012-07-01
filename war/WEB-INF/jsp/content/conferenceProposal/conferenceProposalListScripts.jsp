@@ -25,7 +25,20 @@
 	}
 
 $(document).ready(function() {
+	if($('input[name=searchBySubmitted]:checked').val()==1)
+		$('#searchByDeadlineSpan').show();
+	else{
+		$('#searchByDeadlineSpan').hide();
+   		$('input[name=searchByDeadline]:checked').val(0);
+	}
 
+	$('.saveCheckbox').click(function(){
+		   var options = {
+	       	 	url:       'conferenceProposals.html?action=save&conferenceProposalId='+ this.id,        
+	       	 	type:      'POST'
+	     	};
+		    $('#form').ajaxSubmit(options);
+ 	});	
 
 	$("#buttonEdit").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"edit\"/>");
@@ -84,6 +97,13 @@ $(document).ready(function() {
     });
     
     $('.searchBySubmitted').click(function(){
+    	if($('input[name=searchBySubmitted]:checked').val()==1)
+    		$('#searchByDeadlineSpan').show();
+    	else{
+    		$('#searchByDeadlineSpan').hide();
+    		$('input[name=searchByDeadline]:checked').val(0);
+    	}
+
     	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
 		$("#form").submit();
     });
