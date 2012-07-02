@@ -109,7 +109,12 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		model.put("conferenceProposals", conferenceProposalBeans);
 		model.put("deadlineRemarks", deadlineRemarks);
 		
-		ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(userPersonBean.getId());
+		int grader=0;
+		if(request.getIntParameter("approverId",0)>0)
+			grader = request.getIntParameter("approverId",0);
+		else
+			grader = userPersonBean.getId();
+		ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(grader);
 		model.put("adminDeadlineRemarks",conferenceProposalGrading.getAdminSendRemark());
 		
 		return new ModelAndView (this.getFormView(), model);

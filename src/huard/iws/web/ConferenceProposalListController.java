@@ -124,6 +124,14 @@ public class ConferenceProposalListController extends GeneralFormController {
 		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
 		List<ConferenceProposalGrading> conferenceProposalGradings = conferenceProposalListService.getAllGradingsByCurrentDeadline(deadline);
 		model.put("conferenceProposalGradings", conferenceProposalGradings);
+		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER"))
+			model.put("approver",true);
+		else
+			model.put("approver",false);
+		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN"))
+			model.put("admin",true);
+		else
+			model.put("admin",false);
 		return new ModelAndView (this.getFormView(), model);
 	}
 
@@ -146,7 +154,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 					
 				}
 				else{
-					whereClause = " submitted=1 and date(deadline)>'"+previousDeadline +"'";
+					whereClause = " submitted=1 and isInsideDeadline = 1 and date(deadline)>'"+previousDeadline +"'";
 					searchCreteria.setSearchBySubmitted(ConferenceProposalSearchCreteria.SUBMITTED);
 				}
 				searchCreteria.setWhereClause(whereClause);

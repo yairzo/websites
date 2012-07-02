@@ -25,7 +25,8 @@
 	}
 
 $(document).ready(function() {
-	if($('input[name=searchBySubmitted]:checked').val()==1)
+	//alert($('input[name=searchBySubmitted]').val());
+	if($('input[name=searchBySubmitted]:checked').val()==1 || ${approver})
 		$('#searchByDeadlineSpan').show();
 	else{
 		$('#searchByDeadlineSpan').hide();
@@ -97,7 +98,7 @@ $(document).ready(function() {
     });
     
     $('.searchBySubmitted').click(function(){
-    	if($('input[name=searchBySubmitted]:checked').val()==1)
+    	if($('input[name=searchBySubmitted]:checked').val()==1 || ${approver})
     		$('#searchByDeadlineSpan').show();
     	else{
     		$('#searchByDeadlineSpan').hide();

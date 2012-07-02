@@ -133,6 +133,13 @@ public class ConferenceProposalController extends GeneralFormController{
 		conferenceProposalBean.setSubmitted(origConferenceProposalBean.getSubmitted());
 		conferenceProposalBean.setSubmissionDate(origConferenceProposalBean.getSubmissionDate());
 		conferenceProposalBean.setOpenDate(origConferenceProposalBean.getOpenDate());
+		if(conferenceProposalBean.getSubmitted()){
+			conferenceProposalBean.setOperationalCommittees(origConferenceProposalBean.getOperationalCommittees());
+			conferenceProposalBean.setScientificCommittees(origConferenceProposalBean.getScientificCommittees());
+			conferenceProposalBean.setFromAssosiate(origConferenceProposalBean.getFromAssosiate());
+			conferenceProposalBean.setFromExternal(origConferenceProposalBean.getFromExternal());
+			conferenceProposalBean.setFromAdmitanceFee(origConferenceProposalBean.getFromAdmitanceFee());
+		}
 		
 		//update dates according to calendar input
 		if(!request.getParameter("startConfDate", "").equals("")){
@@ -193,9 +200,11 @@ public class ConferenceProposalController extends GeneralFormController{
 		if(!request.getParameter("cancelSubmission", "").equals("")){
 				conferenceProposalBean.setSubmitted(false);
 				conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
-				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-				conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
-				conferenceProposalBean.setGrade(0);
+				if(origConferenceProposalBean.getGrade()>0){
+					String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+					conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
+					conferenceProposalBean.setGrade(0);
+				}
 		}
 		
 		String action = request.getParameter("action", "");
@@ -204,9 +213,12 @@ public class ConferenceProposalController extends GeneralFormController{
 			if(conferenceProposalBean.getSubmitted()){//if was already submitted need to rearrange grades
 				conferenceProposalBean.setSubmitted(false);
 				conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
-				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-				conferenceProposalService.rearangeGrades(conferenceProposalBean.getGrade(), conferenceProposalBean.getApproverId(), prevdeadline);
-				conferenceProposalBean.setGrade(0);
+				if(origConferenceProposalBean.getGrade()>0){
+					String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+					conferenceProposalService.rearangeGrades(conferenceProposalBean.getGrade(), conferenceProposalBean.getApproverId(), prevdeadline);
+					conferenceProposalBean.setGrade(0);
+				}
+
 			}
 		}
 		

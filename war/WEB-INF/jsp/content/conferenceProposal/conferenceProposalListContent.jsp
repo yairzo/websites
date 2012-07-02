@@ -107,7 +107,9 @@
 			  						<td style="font-weight: bold;width:15%;align:right;">הדיקן הממליץ</td>
  			  						<td style="font-weight: bold;width:10%;align:right;">סטטוס</td>
  			  						<td style="font-weight: bold;width:10%;align:right;">תאריך הסטטוס</td>
+   									<c:if test="${conferenceProposal.submitted && admin}">
  			  						<td style="font-weight: bold;width:5%;align:right;">לדיון הקרוב</td>
+ 			  						</c:if>
  									</tr>
   								</table>
   							</td>
@@ -176,11 +178,11 @@
  										<td width="10%">
    											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.statusDate}"/></a>
  										</td>
+   										<c:if test="${conferenceProposal.submitted && admin}">
  										<td width="5%">
-   										<c:if test="${conferenceProposal.submitted}">
  										<input type="checkbox" class="saveCheckbox" name="insideDeadline${conferenceProposal.id}" id="${conferenceProposal.id}" <c:if test="${conferenceProposal.isInsideDeadline}" > checked </c:if> />
-   										</c:if>
    										</td>
+   										</c:if>
   									</tr>
   								</table>
   							</td>

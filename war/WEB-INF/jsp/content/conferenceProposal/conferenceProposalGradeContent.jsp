@@ -231,7 +231,9 @@ $(document).ready(function() {
 											<td width="350">נושא הכנס</td>
 											<td width="80">דירוג <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeHeader"/></td>
 											<td width="300">חוות דעת <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeOpinion"/></td>
+    										<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
 											<td width="30"><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGrade"/></td>
+											</authz:authorize>
 										</tr>
 									</thead>
 
@@ -257,6 +259,7 @@ $(document).ready(function() {
 														name="approverEvaluation${conferenceProposal.id}"
 														id="${conferenceProposal.id}" rows="3" cols="40">${conferenceProposal.approverEvaluation}</textarea>
 												</td>
+   												<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
 												<td width="30">
 													<button class="grey buttonUp" id="${conferenceProposal.id}">
 														<span class="ui-icon ui-icon-arrowthick-1-n"></span>
@@ -264,7 +267,10 @@ $(document).ready(function() {
 													<button class="grey buttonDown"
 														id="${conferenceProposal.id}">
 														<span class="ui-icon ui-icon-arrowthick-1-s"></span>
-													</button></td>
+													</button>
+												</td>
+												</authz:authorize>
+												
 											</tr>
 										</c:forEach>
 									</tbody>

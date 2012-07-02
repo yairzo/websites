@@ -275,10 +275,16 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
     };	
     
 	public ConferenceProposalGrading getApproverlastGrading(int approverId){
-		String query = "select  * from  conferenceProposalGrading where approverId =? order by id desc limit 1 ";
-		ConferenceProposalGrading conferenceProposalGrading =
-		getSimpleJdbcTemplate().queryForObject(query, gradingRowMapper,	approverId );
-		return conferenceProposalGrading;
+		ConferenceProposalGrading conferenceProposalGrading = new ConferenceProposalGrading();
+		try{
+			String query = "select  * from  conferenceProposalGrading where approverId =? order by id desc limit 1 ";
+			conferenceProposalGrading =
+					getSimpleJdbcTemplate().queryForObject(query, gradingRowMapper,	approverId );
+			return conferenceProposalGrading;
+		}
+		catch( Exception e){
+			 return conferenceProposalGrading;
+		}
 	}
    
 	public ConferenceProposal getVersionConferenceProposal(int confId, int verId){

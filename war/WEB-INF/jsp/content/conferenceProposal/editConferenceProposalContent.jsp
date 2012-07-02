@@ -46,7 +46,7 @@
                   <td colspan="4" align="center"><h1>בקשה לסיוע במימון לכנס</h1>
                   </td>
                 </tr>
-				<c:if test="${!command.isInsideDeadline}">			
+				<c:if test="${!command.isInsideDeadline && command.submitted}">			
                 <tr class="form">
 					<td colspan="4" align="right">
 						<font color="red">הצעה זו הוגשה אחרי תאריך היעד להגשות לקראת כינוס הועדה הקרובה</font>
@@ -1170,9 +1170,15 @@
 						<form:textarea htmlEscape="true" cssClass="green" path="approverEvaluation" cols="80" rows="3"/>
 					</td>
 				</tr>
+				</table>
+				</td>
+				</tr>
+				<tr>
+				<td colspan="4" style="border:1px #bca2a2 dotted">
+				<table width="980">
 		       	<c:if test="${fn:length(command.deadlineRemarks)>0}">
 				<tr>
-	   				<td colspan="4"> הערה כללית של הדיקן:
+	   				<td colspan="4"> הערה כללית של הדיקן:&nbsp;&nbsp;
 	   				${command.deadlineRemarks}
 	   				</td>
 				</tr>
@@ -1269,14 +1275,12 @@
 				
 				<c:if test="${admin && command.submitted}">
 				<tr class="form">
-					<td>
+					<td colspan="4">
 				   		<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/>ביטול הגשה
- 					</td>
-					<c:if test="${!command.isInsideDeadline}">			
-					<td colspan=3>
-				   		<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
+						<c:if test="${!command.isInsideDeadline}">			
+				   			<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
+						</c:if>
 				   	</td>
-					</c:if>
 				</tr>
 				</c:if>
 				<c:if test="${creator && !command.submitted}">
