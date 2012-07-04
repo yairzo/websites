@@ -183,10 +183,10 @@ $(document).ready(function() {
 			 //alert('נא להכניס ערך מספרי לשדה זה');
 			 return false;
 		}
-		else if(parseInt($(this).val())>150000){
+		else if(Number($(this).val())>150000){
 			 $(this).val('');
-			 //openHelp(this,'נא להכניס ערך שאינו עולה על 150000');
-			 alert('נא להכניס ערך שאינו עולה על 150000');
+			 openHelp(this,'נא להכניס ערך שאינו עולה על 150000');
+			 //alert('נא להכניס ערך שאינו עולה על 150000');
 			 return false;
 		}
 		return false;
@@ -203,14 +203,71 @@ $(document).ready(function() {
 			 //alert('נא להכניס ערך מספרי לשדה זה');
 			 return false;
 		}
-		else if(parseInt($(this).val())>1000){
+		else if(Number($(this).val())>1000){
 			 $(this).val('');
-			 //openHelp(this,'נא להכניס ערך שאינו עולה על 150000');
-			 alert('נא להכניס ערך שאינו עולה על 1000');
+			 openHelp(this,'נא להכניס ערך שאינו עולה על 1000');
+			 //alert('נא להכניס ערך שאינו עולה על 1000');
 			 return false;
 		}
 		return false;
 	});
+	
+	$('.participantsCheck').change(function(event){
+		event.preventDefault();
+		var numberRegex=/^\d+$/;
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		if(!numberRegex.test($(this).val())){
+			 $(this).val('');
+			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
+			 return false;
+		}
+		else if(totalParticipantsCounter>0 && Number($(this).val())>totalParticipantsCounter){
+			 $(this).val('');
+			 openHelp(this,'נא להכניס ערך שאינו עולה על סך המשתתפים כפי שסוכמו בטבלת המשתתפים');
+			 return false;
+		}
+		else if(Number($(this).val())>1000){
+			 $(this).val('');
+			 openHelp(this,'נא להכניס ערך שאינו עולה על 1000');
+			 return false;
+		}
+		else{
+			if($('#sumPerson', $(this).closest("tr")).val()!=''){
+				var t = Number($(this).val())* Number($('#sumPerson', $(this).closest("tr")).val());
+				$(".sumPersons", $(this).closest("tr")).val(t);
+				calcFee("fromAdmitanceFee");
+				calcTotalFee();
+			}
+		}
+		return false;
+	});	
+	
+	$('#supportSum').change(function(event){
+		event.preventDefault();
+		var numberRegex=/^\d+$/;
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		if(!numberRegex.test($(this).val())){
+			 $(this).val('0');
+			 openHelp(this,'נא להכניס ערך מספרי שלם לשדה זה');
+			 return false;
+		}
+		return false;
+	});	
+	
+	$('#totalCost').change(function(event){
+		event.preventDefault();
+		var numberRegex=/^\d+$/;
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		if(!numberRegex.test($(this).val())){
+			 $(this).val('0');
+			 openHelp(this,'נא להכניס ערך מספרי שלם לשדה זה');
+			 return false;
+		}
+		return false;
+	});		
 	
 	$('.assosiate').change(function(event){
 		event.preventDefault();
@@ -234,7 +291,7 @@ $(document).ready(function() {
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit();
-		$('#guestsAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&attachmentId=1' target='_blank'>רשימת מוזמנים</a>");
+		$('#guestsAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&attachmentId=1' target='_blank'>רשימת מרצים ומוזמנים</a>");
 		
 	});	
 	
@@ -449,14 +506,14 @@ $(document).ready(function() {
 		var countRegex=/^\d+$/;
 		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 		var phoneRegex = /^[\d]{2,3}-[\d]{7}$/;		
-		if($("#totalCost").val()=='0.0' || !numberRegex.test($("#totalCost").val())){
+		if($("#totalCost").val()=='0'){
 			errors = true;
 			$("#errortotalcost").html('<font color="red">יש להכניס ערך מספרי לשדה סכום<font color="red"><br>');
 		}
 		else{
 			$("#errortotalcost").html('');
 		}
-		if($("#supportSum").val()=='0.0' || !numberRegex.test($("#supportSum").val())){
+		if($("#supportSum").val()=='0'){
 			errors = true;
 			$("#errorsupportsum").html('<font color="red">יש להכניס ערך מספרי לשדה סכום הסיוע המבוקש<font color="red"><br>');
 		}
@@ -597,9 +654,10 @@ $(document).ready(function() {
    $("#dialogCommittee").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 370 });
 		var text ='תוכן חלק זה נועד להמחיש את האיכות האקדמית של הכנס, את רמת ארגונו ואת מידת "בין-לאומיותו".</br>';
 		text+='	ועדה מדעית = מי שעוסק בקביעת התוכן האקדמי</br>';
-		text+='ועדה מדעית = מי שעוסק בקביעת מתכונת ביצוע הכנס, מרציו ומשתתפיו </br>';
+		text+='ועדה מארגנת = מי שעוסק בקביעת מתכונת ביצוע הכנס, מרציו ומשתתפיו </br>';
 		text+='מוסד = המוסד/ארגון אליו שייך הנקוב ברשומה</br>';
 		text+='נא מלא הפרטים עד 10 רשומות</br>';
 		text+='לחיצה על ה X מאפשרת מחיקת הרשומה';
@@ -636,7 +694,7 @@ $(document).ready(function() {
    $("#dialogGuestsAttach").click(function(e) {
 		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		  $("#genericDialog").dialog({ modal: false });
-		  openHelp("#dialogGuestsAttach",'יש לצרף רשימה מפורטת של המשתתפים מהארץ ומחו"ל,תוך תיאור מעמדם המדעי, ושל המוסדות והארצות מהם הם באים.');
+		  openHelp("#dialogGuestsAttach",'יש לצרף רשימה מפורטת של המשתתפים מהארץ ומחו"ל,תוך תיאור מעמדם המדעי, וציון המוסדות והארצות מהם הם באים.');
 		  return false;
 	   });   
    $("#dialogProgramAttach").click(function(e) {
@@ -658,6 +716,7 @@ $(document).ready(function() {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 300 });
+		$("#genericDialog").dialog({ width: 600 });
 		var texts='<p>';
 		texts='על פי תקנות מס הכנסה <b>חל חיוב מס הכנסה על כיבוד</b>.';
 		texts +='התשלומים למס הכנסה יהיו על חשבון תקציב הכנס (בין אם הכיבוד הוזמן מגורם פנימי או מגורם חיצוני) וכלהלן:<br/>';
@@ -741,17 +800,13 @@ function textlimiter(){
 	    document.form.description.value =tex;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		openHelp("","שדה התוכן העינוי מוגבל ל 500 תווים");
+		openHelp("","שדה התוכן העיוני מוגבל ל 500 תווים");
 	}
     return false;
 }
 
 var fieldname=""; 
 function openHelp(name,mytext){
-		if(name=="#dialogBudget")
-			$("#genericDialog").dialog({ width: 600 });
-		else
-			$("#genericDialog").dialog({ width: 400 });
 	    fieldname=name;
 	 	if(fieldname=="")
 	    	$("#genericDialog").dialog("option", "position", "center");
@@ -790,7 +845,7 @@ function calcFee(feeType){
 	for (var i=0;i<10;i++){
 		var fieldName = feeType + '[' + i + ']' + ".sum";
 		if(document.getElementById(fieldName)!=null && numberRegex.test(document.getElementById(fieldName).value)){
-			totalFee +=parseInt(document.getElementById(fieldName).value);
+			totalFee +=Number(document.getElementById(fieldName).value);
 		}
 	}
 	var totalname="#" + feeType + "Count";
@@ -801,15 +856,15 @@ function calcTotalFee(){
 	var total=0;
 	var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 	if(numberRegex.test($("#fromExternalCount").text()))
-		total=total + parseInt($("#fromExternalCount").text());
+		total=total + Number($("#fromExternalCount").text());
 	if(numberRegex.test($("#fromAssosiateCount").text()))
-		total+= parseInt($("#fromAssosiateCount").text());
+		total+= Number($("#fromAssosiateCount").text());
 	if(numberRegex.test($("#fromAdmitanceFeeCount").text()))
-		total+=parseInt($("#fromAdmitanceFeeCount").text());
+		total+=Number($("#fromAdmitanceFeeCount").text());
 	$("#fromAllFeeCount").html(total);
 }
 
-
+var totalParticipantsCounter=0;
 function calcParticipants(){
 	var localCount=0;
 	var abroadCount=0;
@@ -818,34 +873,35 @@ function calcParticipants(){
 	var otherCount=0;
 	var countRegex = /^\d+$/;
 	if(countRegex.test(document.form.foreignLecturers.value)){
-		abroadCount+=parseInt(document.form.foreignLecturers.value);
-		lecturersCount+=parseInt(document.form.foreignLecturers.value);
+		abroadCount+=Number(document.form.foreignLecturers.value);
+		lecturersCount+=Number(document.form.foreignLecturers.value);
 	}
 	if(countRegex.test(document.form.foreignGuests.value)){
-		abroadCount+=parseInt(document.form.foreignGuests.value);
-		guestCount+=parseInt(document.form.foreignGuests.value);
+		abroadCount+=Number(document.form.foreignGuests.value);
+		guestCount+=Number(document.form.foreignGuests.value);
 	}
 	if(countRegex.test(document.form.audienceLecturers.value)){
-		abroadCount+=parseInt(document.form.audienceLecturers.value);
-		otherCount+=parseInt(document.form.audienceLecturers.value);
+		abroadCount+=Number(document.form.audienceLecturers.value);
+		otherCount+=Number(document.form.audienceLecturers.value);
 	}
 	if(countRegex.test(document.form.localLecturers.value)){
-		localCount+=parseInt(document.form.localLecturers.value);
-		lecturersCount+=parseInt(document.form.localLecturers.value);
+		localCount+=Number(document.form.localLecturers.value);
+		lecturersCount+=Number(document.form.localLecturers.value);
 	}
 	if(countRegex.test(document.form.localGuests.value)){
-		localCount+=parseInt(document.form.localGuests.value);
-		guestCount+=parseInt(document.form.localGuests.value);
+		localCount+=Number(document.form.localGuests.value);
+		guestCount+=Number(document.form.localGuests.value);
 	}
 	if(countRegex.test(document.form.audienceGuests.value)){
-		localCount+=parseInt(document.form.audienceGuests.value);
-		otherCount+=parseInt(document.form.audienceGuests.value);
+		localCount+=Number(document.form.audienceGuests.value);
+		otherCount+=Number(document.form.audienceGuests.value);
 	}
 	$("#abroadCount").html(abroadCount);
 	$("#localCount").html(localCount);
 	$("#lecturersCount").html(lecturersCount);
 	$("#guestCount").html(guestCount);
 	$("#otherCount").html(otherCount);
+	totalParticipantsCounter = abroadCount + localCount;
 	$("#totalCount").html(abroadCount + localCount);
 
 }

@@ -459,10 +459,20 @@
 							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].instituteRole"/>
 						</td>
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].committeeRole"/>
+						<form:select path="scientificCommittees[${varStatus.index}].committeeRole" cssClass="green scientificCommitte medium170">
+      					<form:option value="">בחר/י תפקיד</form:option>
+      					<form:option value="1">חבר</form:option>
+      					<form:option value="2">יושב ראש</form:option>
+      					<form:option value="3">לא שותף</form:option>
+       		        	</form:select>
 						</td>					
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input htmlEscape="true" cssClass="greennoborder scientificCommittee medium170" path="scientificCommittees[${varStatus.index}].committeeRoleOrganizing"/>
+						<form:select path="scientificCommittees[${varStatus.index}].committeeRoleOrganizing" cssClass="green scientificCommitte medium170">
+      					<form:option value="">בחר/י תפקיד</form:option>
+      					<form:option value="1">חבר</form:option>
+      					<form:option value="2">יושב ראש</form:option>
+      					<form:option value="3">לא שותף</form:option>
+       		        	</form:select>
 						</td>					
 						<td>
 							<c:set var="committee" value="${command.scientificCommittees[varStatus.index]}"/>
@@ -910,13 +920,13 @@
 
 						<tr style="display: none;" class="admitanceFee financialSupport">
 						<td width="200" style="border: 1px #bca2a2 dotted" align="center">
-							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee fee" path="fromAdmitanceFee[${varStatus.index}].sumPerson"/>
+							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee fee" path="fromAdmitanceFee[${varStatus.index}].sumPerson"  id="sumPerson"/>
 						</td>
 						<td width="200" style="border: 1px #bca2a2 dotted" align="center">
-							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee" path="fromAdmitanceFee[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee participantsCheck" path="fromAdmitanceFee[${varStatus.index}].name"/>
 						</td>
 						<td width="150" style="border: 1px #bca2a2 dotted" align="center">
-							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee fee" path="fromAdmitanceFee[${varStatus.index}].sum"/>
+							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee fee sumPersons" path="fromAdmitanceFee[${varStatus.index}].sum"/>
 						</td>
 						<!--<td width="175" style="border: 1px #bca2a2 dotted" align="center">
 							<form:select cssClass="greennoborder fillwidth" path="fromAdmitanceFee[${varStatus.index}].currency">

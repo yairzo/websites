@@ -386,9 +386,9 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			if (aSubmissionDate != null)
 				submissionDate = aSubmissionDate.getTime();
 			conferenceProposal.setSubmissionDate(submissionDate);
-			conferenceProposal.setTotalCost(rs.getDouble("totalCost"));
+			conferenceProposal.setTotalCost(rs.getInt("totalCost"));
 			conferenceProposal.setTotalCostCurrency(rs.getInt("totalCostCurrency"));
-			conferenceProposal.setSupportSum(rs.getDouble("supportSum"));
+			conferenceProposal.setSupportSum(rs.getInt("supportSum"));
 			conferenceProposal.setSupportCurrency(rs.getInt("supportCurrency"));
 			conferenceProposal.setAuditorium(rs.getBoolean("auditorium"));
 			conferenceProposal.setSeminarRoom(rs.getBoolean("seminarRoom"));
@@ -469,9 +469,9 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			if (aSubmissionDate != null)
 				submissionDate = aSubmissionDate.getTime();
 			conferenceProposal.setSubmissionDate(submissionDate);
-			conferenceProposal.setTotalCost(rs.getDouble("totalCost"));
+			conferenceProposal.setTotalCost(rs.getInt("totalCost"));
 			conferenceProposal.setTotalCostCurrency(rs.getInt("totalCostCurrency"));
-			conferenceProposal.setSupportSum(rs.getDouble("supportSum"));
+			conferenceProposal.setSupportSum(rs.getInt("supportSum"));
 			conferenceProposal.setSupportCurrency(rs.getInt("supportCurrency"));
 			conferenceProposal.setAuditorium(rs.getBoolean("auditorium"));
 			conferenceProposal.setSeminarRoom(rs.getBoolean("seminarRoom"));

@@ -43,9 +43,9 @@ public class ConferenceProposal {
 	private int initiatingBodyRole;
 	private long openDate;
 	private long submissionDate;
-	private double totalCost;
+	private int totalCost;
 	private int totalCostCurrency;
-	private double supportSum;
+	private int supportSum;
 	private int supportCurrency;
 	private boolean auditorium;
 	private boolean seminarRoom;
@@ -411,19 +411,19 @@ public class ConferenceProposal {
 		this.toDate = toDate;
 	}
 
-	public double getTotalCost() {
+	public int getTotalCost() {
 		return totalCost;
 	}
 
-	public void setTotalCost(double totalCost) {
+	public void setTotalCost(int totalCost) {
 		this.totalCost = totalCost;
 	}
 
-	public double getSupportSum() {
+	public int getSupportSum() {
 		return supportSum;
 	}
 
-	public void setSupportSum(double supportSum) {
+	public void setSupportSum(int supportSum) {
 		this.supportSum = supportSum;
 	}
 
