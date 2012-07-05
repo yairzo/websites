@@ -280,7 +280,7 @@ $(document).ready(function() {
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td colspan="5">הערת הרכזת:&nbsp;
+					<td colspan="5">הערת רכזת הועדה:&nbsp;
 						<c:out value="${adminDeadlineRemarks}" />
 					</td>
 				</tr>

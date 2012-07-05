@@ -7,6 +7,12 @@ $(document).ready(function() {
 	
 	$("#form").ajaxForm();
 
+	var options = {
+       	 	url:       'editConferenceProposal.html' ,        
+       	 	type:      'POST'
+ 	};
+	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+	$('#form').ajaxSubmit(options);
 	
 	hideExtraCommittee("scientificCommittee");
 	hideExtraCommittee("operationalCommittee");
@@ -66,11 +72,30 @@ $(document).ready(function() {
         temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
         var cfd = Date.parse(temp1);
         var date1 = new Date(cfd); 
+        
+        var str2 = $("#endConfDate").val();
+        var dt2  = str2.substring(0,2); 
+        var mon2 = str2.substring(3,5); 
+        var yr2  = str2.substring(6,10); 
+        temp2 = mon2 +"/"+ dt2 +"/"+ yr2;
+        var ctd2 = Date.parse(temp2);
+        var date2 = new Date(ctd2);
+
         if(new Date()>date1){
       	  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
     	  $("#genericDialog").dialog({ modal: false });
-     	  openHelp("#startConfDate","תאריך זה כבר עבר");
+  		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
+      	  openHelp("#startConfDate","תאריך זה כבר עבר");
         }
+        else if(date1 > date2) {
+        	  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+        	  $("#genericDialog").dialog({ modal: false });
+      		$("#genericDialog").dialog({ height: 200 });
+    		$("#genericDialog").dialog({ width: 400 });
+       	  openHelp("#endConfDate","תאריך סיום לפני תאריך התחלה");
+        } 
+
     }
 	});	
 	
@@ -93,6 +118,8 @@ $(document).ready(function() {
       if(date1 > date2) {
       	  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
     	  $("#genericDialog").dialog({ modal: false });
+  		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
     	  openHelp("#endConfDate","תאריך סיום לפני תאריך התחלה");
       } 
     } });	
@@ -177,6 +204,8 @@ $(document).ready(function() {
 		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		if(!numberRegex.test($(this).val())){
 			 $(this).val('');
 			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
@@ -197,6 +226,8 @@ $(document).ready(function() {
 		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		if(!numberRegex.test($(this).val())){
 			 $(this).val('');
 			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
@@ -217,6 +248,8 @@ $(document).ready(function() {
 		var numberRegex=/^\d+$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		if(!numberRegex.test($(this).val())){
 			 $(this).val('');
 			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
@@ -248,6 +281,8 @@ $(document).ready(function() {
 		var numberRegex=/^\d+$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		if(!numberRegex.test($(this).val())){
 			 $(this).val('0');
 			 openHelp(this,'נא להכניס ערך מספרי שלם לשדה זה');
@@ -261,6 +296,8 @@ $(document).ready(function() {
 		var numberRegex=/^\d+$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		if(!numberRegex.test($(this).val())){
 			 $(this).val('0');
 			 openHelp(this,'נא להכניס ערך מספרי שלם לשדה זה');
@@ -412,6 +449,7 @@ $(document).ready(function() {
     			return true;
                }
             });
+
     	openHelp(this,"האם הנך מאשר את מחיקת שורת ההכנסה?");
         return false;
    	});	
@@ -565,6 +603,8 @@ $(document).ready(function() {
 		if (errors){
 		   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
 			openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
 			return false;
 		}
@@ -619,14 +659,14 @@ $(document).ready(function() {
            show: 'fade',
            hide: 'fade',
            modal: true,
-		   height:200,
-           width: 400,
            open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
      });
 		<c:if test="${userMessage!=null}">
 		var userMessage = "${userMessage}";
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");window.location.href = "conferenceProposals.html";} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		openHelp('',userMessage);
 		</c:if>
     
@@ -635,6 +675,8 @@ $(document).ready(function() {
    $("#dialogInitiatingBody").click(function(e) {
 	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 	$("#genericDialog").dialog({ modal: false });
+	$("#genericDialog").dialog({ height: 200 });
+	$("#genericDialog").dialog({ width: 400 });
     openHelp("#dialogInitiatingBody",' רשום את שמו של הגוף שיוזם את הכנס. גוף זה יכול שיהיה יחידה/מרכז בתוך האוניברסיטה או ישות מוגדרת מחוץ לאוניברסיטה או "קבוצת חוקרים" או "מגיש הבקשה".');
     return false;
    });
@@ -642,12 +684,16 @@ $(document).ready(function() {
    $("#dialogDescription").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 	    openHelp("#dialogDescription",'הקלד או הדבק עד 500 תווים');
 	    return false;
 	});
    $("#dialogTotalCost").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 	    openHelp("#dialogTotalCost",'יש לרשום את סה"כ ההוצאות הצפויות לארגון הכנס ולביצועו. אין לכלול את הסכום המבוקש מהוועדה. הערך יהיה בדולר ע"פ השער היציג בעת מילוי הטופס. ');
 	    return false;
 	});   
@@ -655,6 +701,7 @@ $(document).ready(function() {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 370 });
+		$("#genericDialog").dialog({ width: 400 });
 		var text ='תוכן חלק זה נועד להמחיש את האיכות האקדמית של הכנס, את רמת ארגונו ואת מידת "בין-לאומיותו".</br>';
 		text+='	ועדה מדעית = מי שעוסק בקביעת התוכן האקדמי</br>';
 		text+='ועדה מארגנת = מי שעוסק בקביעת מתכונת ביצוע הכנס, מרציו ומשתתפיו </br>';
@@ -670,42 +717,55 @@ $(document).ready(function() {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 300 });
+		$("#genericDialog").dialog({ width: 400 });
 	    openHelp("#dialogParticipants",' יש למלא את הערכים בתאים האפורים. הסיכומים יחושבו אוטומטית.</br>"מרצים"=מרצים+מנחים+פאנליסטים</br>"מוזמנים"=אלה המוזמנים כמאזינים בלבד</br>"קהל נוסף"=בני זוג+מלווים ותקשורת+אחרים');
 	    return false;
 	});
    $("#dialogCompany").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		  openHelp("#dialogCompany","הקלד את שם החברה וצרף את ההסכם עמה. אם עדיין לא נחתם הסכם עם החברה הקלד 'לא נבחרה' וצרף קובץ בו מתוארות המשימות שתדרשנה מהחברה.");
 	    return false;
 	});
    $("#dialogProposer").click(function(e) {
 		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		  $("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
 		  openHelp("#dialogProposer","המבקש מייצג את מארגני הכנס בהליך בקשה זה");
 		  return false;
 	   }); 
    $("#dialogSupportSum").click(function(e) {
 		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		  $("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
 		  openHelp("#dialogSupportSum","לפי השער היציג בעת ההגשה");
 		  return false;
 	   }); 
    $("#dialogGuestsAttach").click(function(e) {
 		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		  $("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
 		  openHelp("#dialogGuestsAttach",'יש לצרף רשימה מפורטת של המשתתפים מהארץ ומחו"ל,תוך תיאור מעמדם המדעי, וציון המוסדות והארצות מהם הם באים.');
 		  return false;
 	   });   
    $("#dialogProgramAttach").click(function(e) {
 		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		  $("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
 		  openHelp("#dialogProgramAttach","יש לצרף את תוכנית הכנס (ובמידת ההכרח רק תוכנית ראשונית)");
 		  return false;
 	   });   
    $("#dialogInternational").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		var texts='<p>';
 		texts='חשיבות ההכרה בכנס כבין לאומי היא בכך שהיא מאפשרת לחייב את תקציב הכנס בתקורה מופחתת (5%).';
 		texts+='</p>';	    
@@ -715,8 +775,8 @@ $(document).ready(function() {
    $("#dialogBudget").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 300 });
-		$("#genericDialog").dialog({ width: 600 });
+		$("#genericDialog").dialog({ height: 400 });
+		$("#genericDialog").dialog({ width: 500 });
 		var texts='<p>';
 		texts='על פי תקנות מס הכנסה <b>חל חיוב מס הכנסה על כיבוד</b>.';
 		texts +='התשלומים למס הכנסה יהיו על חשבון תקציב הכנס (בין אם הכיבוד הוזמן מגורם פנימי או מגורם חיצוני) וכלהלן:<br/>';
@@ -728,7 +788,7 @@ $(document).ready(function() {
 		texts += '	יש לצרף לחשבונית המס רשימה מפורטת של שמות המשתתפים בציון המוסדות והארצות מהם הם באים ולציין את המספר הכולל של המשתתפים.<br/>';
 		texts += '3. כאשר משתתפי הכנס משלמים דמי השתתפות ומצוין במפורש שהתשלום כולל כיבוד.<br/>';
 		texts += '<b>ועדת הכנסים מעודדת שיתוף דור ההמשך של החוקרים (תלמידי מוסמך ודוקטורט) <br/>';
-		texts += 'בכנסים ותשקול בחיוב בקשה לתמיכה בכנס הכוללת סעיפים תקציביים המפרטים הוצאות הקשורות להשתתפות זו.<b>'
+		texts += 'בכנסים ותשקול בחיוב בקשה לתמיכה בכנס הכוללת סעיפים תקציביים המפרטים הוצאות הקשורות להשתתפות זו.<b>';
 		texts+='</p>';	    
 	    openHelp("#dialogBudget",texts);
 	    return false;
@@ -736,6 +796,8 @@ $(document).ready(function() {
    $("#dialogRooms").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		var texts='<p>';
 		texts='החדרים/אולמות שועדת הכנסים מאשרת אינם בבית בלגיה, בית מאירסדורף ובית צרפת שהנם גופים מסחריים עצמאיים.';
 		texts+='</p>';	    
@@ -745,6 +807,8 @@ $(document).ready(function() {
    $("#dialogRooms2").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		var texts='<p>';
 		texts='החוקר אחראי לתיאום החדר/אולם. אישור הוועדה אינו מהווה התחייבות בנוגע לחדר/אולם המסוים.';
 		texts+='</p>';	    
@@ -754,6 +818,8 @@ $(document).ready(function() {
    $("#dialogRoomsNopay").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		var texts='<p>';
 		texts='סימון התיבה יציין בקשה לפטור מתשלום עבור אולם או חדר סמינרים המחויב בדרך כלל בדמי שימוש.';
 		texts+='</p>';	    
@@ -763,6 +829,8 @@ $(document).ready(function() {
    $("#dialogRemarks").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		var texts='<p>';
 		texts='בשדה זה ניתן להקליד הערות העשויות להיות רלוונטיות להחלטות הוועדה, או הבהרות לגבי כל אחד מהשדות שבטופס.';
 		texts+='</p>';	    
@@ -772,6 +840,8 @@ $(document).ready(function() {
    $("#dialogApprover").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		var texts='<p>';
 		texts='בחר את הדיקן שיחווה את דעתו בפני הוועדה, בנוגע לבקשה.';
 		texts+='</p>';	    
@@ -800,6 +870,8 @@ function textlimiter(){
 	    document.form.description.value =tex;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
 		openHelp("","שדה התוכן העיוני מוגבל ל 500 תווים");
 	}
     return false;
@@ -835,6 +907,25 @@ function hideExtraCommittee(trCssClass){
 			if (emptyRowsCounter ==0)
 				row.show();
 			emptyRowsCounter = emptyRowsCounter +1;
+		}
+	});
+}
+
+function removeEmptyRows(trCssClass){
+	var emptyRowsCounter = 0;
+	$('tr.'+trCssClass).each(function(){
+		var row = $(this);
+		var allInputsEmpty = true;
+		row.find('input').each(function(){
+			if ($(this).val()!=""){
+				allInputsEmpty = false;
+			}
+		});
+		if (allInputsEmpty){
+			if (emptyRowsCounter>0)
+				row.remove();
+			emptyRowsCounter = emptyRowsCounter +1;
+			
 		}
 	});
 }
