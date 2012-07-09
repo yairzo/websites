@@ -607,7 +607,17 @@
         </property>
       
        </bean>
-
+       
+	<bean id="conferenceProposalAttachmentsController" class="huard.iws.web.ConferenceProposalAttachmentsController" parent="generalFormController">
+    	<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.ConferenceProposalBean</value></property>
+        <property name="formView"><value>conferenceProposalAttachments</value></property>
+        <property name="successView"><value>conferenceProposalAttachments.html</value></property>
+        <property name="conferenceProposalService">
+            <ref bean="conferenceProposalService"/>
+        </property>
+     </bean>
+       
 	<bean id="conferenceProposalListController" class="huard.iws.web.ConferenceProposalListController" parent="generalFormController">
     	<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.ConferenceProposalListController$ConferenceProposalListCommand</value></property>
@@ -857,6 +867,7 @@
 				<prop key="/proposals.html">proposalListController</prop>
 				<prop key="/conferenceProposalAffirmation.html">urlFilenameViewController</prop>
 				<prop key="/editConferenceProposal.html">conferenceProposalController</prop>
+				<prop key="/conferenceProposalAttachments.html">conferenceProposalAttachmentsController</prop>
 				<prop key="/conferenceProposals.html">conferenceProposalListController</prop>
 				<prop key="/conferenceProposalsGrade.html">conferenceProposalGradeController</prop>
 				<prop key="/viewList.html">viewListController</prop>

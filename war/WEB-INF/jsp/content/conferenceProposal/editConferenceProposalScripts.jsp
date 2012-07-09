@@ -32,35 +32,45 @@ $(document).ready(function() {
 	
 	$("button.guestsAttach").click(function(event){
 		event.preventDefault();
-        $('input#guestsAttach').click();
+        $('#attachmentsForm #guestsAttach').click();
 	});
 	
+	var attachIndex=0;
 	$("button.fromAssosiateAttach").click(function(event){
 		event.preventDefault();
-        $(this).siblings('input.fromAssosiateAttachFile').click();
+		attachIndex=$(this).attr("id");
+		$('#attachmentsForm #fromAssosiateAttachFile').click();
+        //$(this).siblings('input.fromAssosiateAttachFile').click();
 	});
 	
 	$("button.fromExternalAttach").click(function(event){
 		event.preventDefault();
-        $(this).siblings('input.fromExternalAttachFile').click();
+		attachIndex=$(this).attr("id");
+		$('#attachmentsForm #fromExternalAttachFile').click();
+        //$(this).siblings('input.fromExternalAttachFile').click();
 	});
-
+	
 	$("button.fromAdmitanceFeeAttach").click(function(event){
 		event.preventDefault();
-        $(this).siblings('input.fromAdmitanceFeeAttachFile').click();
+		attachIndex=$(this).attr("id");
+		$('#attachmentsForm #fromAdmitanceFeeAttachFile').click();
+        //$(this).siblings('input.fromAdmitanceFeeAttachFile').click();
 	});
 
 	$("button.programAttach").click(function(event){
 		event.preventDefault();
-        $('input#programAttach').click();
+       $('#attachmentsForm #programAttach').click();
+       //$('input#programAttach').click();
 	});
 	$("button.financialAttach").click(function(event){
 		event.preventDefault();
-        $('input#financialAttach').click();
+	    $('#attachmentsForm #financialAttach').click();
+       // $('input#financialAttach').click();
 	});
 	$("button.companyAttach").click(function(event){
 		event.preventDefault();
-        $('input#companyAttach').click();
+	    $('#attachmentsForm #companyAttach').click();
+       //$('input#companyAttach').click();
 	});
 	
 	
@@ -266,13 +276,22 @@ $(document).ready(function() {
 			 return false;
 		}
 		else{
-			if($('#sumPerson', $(this).closest("tr")).val()!=''){
-				var t = Number($(this).val())* Number($('#sumPerson', $(this).closest("tr")).val());
+			if($('.sumPerson', $(this).closest("tr")).val()!=''){
+				var t = Number($(this).val())* Number($('.sumPerson', $(this).closest("tr")).val());
 				$(".sumPersons", $(this).closest("tr")).val(t);
 				calcFee("fromAdmitanceFee");
 				calcTotalFee();
 			}
 		}
+		return false;
+	});	
+	
+	$('.sumPerson').change(function(event){
+		event.preventDefault();
+		var t = Number($(this).val())* Number($('.participantsCheck', $(this).closest("tr")).val());
+		$(".sumPersons", $(this).closest("tr")).val(t);
+		calcFee("fromAdmitanceFee");
+		calcTotalFee();
 		return false;
 	});	
 	
@@ -323,11 +342,13 @@ $(document).ready(function() {
 	});
 	
 	$('#guestsAttach').change(function(event){
+		alert("here" +$(this).val());
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
+		$('#attachmentsForm').ajaxSubmit();
 		$('#guestsAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&attachmentId=1' target='_blank'>רשימת מרצים ומוזמנים</a>");
 		
 	});	
@@ -336,59 +357,76 @@ $(document).ready(function() {
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
+		$('#attachmentsForm').ajaxSubmit();
 		$('#programAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&attachmentId=1' target='_blank'>תוכנית הכנס</a>");		
 	});		
 	$('#financialAttach').change(function(){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
+		$('#attachmentsForm').ajaxSubmit();
 		$('#financialAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&attachmentId=1' target='_blank'>תוכנית תקציבית</a>");
 	});		
 	$('#companyAttach').change(function(event){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
+		$('#attachmentsForm').ajaxSubmit();
 		$('#companyAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=companyAttach&attachmentId=1' target='_blank'>הסכם חברה</a>");
 		
 	});	
 	
-	$('.fromAssosiateAttachFile').change(function(event){
+	$('#fromAssosiateAttachFile').change(function(event){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
-		var filename = $(this).attr("id");
-		var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		$(this).siblings('#fromAssosiateAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&assosiateId="+aIndex+"&attachFile=assosiateAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"attachIndex\" value=\""+attachIndex+"\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
+		$('#attachmentsForm').ajaxSubmit();
+		//var filename = $(this).attr("id");
+		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
+		//$(this).siblings('#fromAssosiateAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&assosiateId="+aIndex+"&attachFile=assosiateAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
+		var aIndex =attachIndex;
+        var divname='#fromAssosiateAttachDiv'+aIndex;
+		$(divname).html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&assosiateId="+aIndex+"&attachFile=assosiateAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
 	});	
 
-	$('.fromExternalAttachFile').change(function(event){
+	$('#fromExternalAttachFile').change(function(event){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
-		var filename = $(this).attr("id");
-		var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		$(this).siblings('#fromExternalAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&externalId="+aIndex+"&attachFile=externalAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"attachIndex\" value=\""+attachIndex+"\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
+		$('#attachmentsForm').ajaxSubmit();
+		//var filename = $(this).attr("id");
+		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
+		//$(this).siblings('#fromExternalAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&externalId="+aIndex+"&attachFile=externalAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
+		var aIndex =attachIndex;
+        var divname='#fromExternalAttachDiv'+aIndex;
+		$(divname).html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&externalId="+aIndex+"&attachFile=externalAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
 	});	
 	
-	$('.fromAdmitanceFeeAttachFile').change(function(event){
+	$('#fromAdmitanceFeeAttachFile').change(function(event){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
-		var filename = $(this).attr("id");
-		var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		$(this).siblings('#fromAdmitanceFeeAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&admitanceFeeId="+aIndex+"&attachFile=admitanceFeeAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"attachIndex\" value=\""+attachIndex+"\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
+		$('#attachmentsForm').ajaxSubmit();
+		//var filename = $(this).attr("id");
+		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
+		var aIndex =attachIndex;
+        var divname='#fromAdmitanceFeeAttachDiv'+aIndex;
+		$(divname).html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&admitanceFeeId="+aIndex+"&attachFile=admitanceFeeAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
 	});	
 
 

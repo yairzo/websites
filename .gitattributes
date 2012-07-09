@@ -46,6 +46,7 @@ src/huard/iws/servlet/ImageViewer.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/ConferenceProposalSearchCreteria.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/ImageHandler.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/WordsTokenizer.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/web/ConferenceProposalAttachmentsController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ConferenceProposalController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ConferenceProposalGradeController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ConferenceProposalListController.java svn_mime_002dtype=text%2Fplain

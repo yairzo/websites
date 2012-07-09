@@ -43,7 +43,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		
 	
 		// this part saves the content type of the attachments
-		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
+		/*if (request.getRequest().getContentType().indexOf("multipart")!=-1){
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
 			Iterator fileNames = multipartRequest.getFileNames();
 			while (fileNames.hasNext()) {
@@ -99,7 +99,8 @@ public class ConferenceProposalController extends GeneralFormController{
 					}				
 				}
 			}
-		}		
+		}	*/
+		
 		//if not added attachment don't override prev attachment
 		if(conferenceProposalBean.getGuestsAttach().length==0){
 			conferenceProposalBean.setGuestsAttach(origConferenceProposalBean.getGuestsAttach());
@@ -126,6 +127,25 @@ public class ConferenceProposalController extends GeneralFormController{
 				conferenceProposalBean.getFromAssosiate().get(i).setFileContentType(contentType);
 			}
 		}
+		for (int i = 0 ; i < conferenceProposalBean.getFromExternal().size(); i ++){
+			if (conferenceProposalBean.getFromExternal().get(i).getReferenceFile().length == 0
+					&& i < origConferenceProposalBean.getFromExternal().size()){
+				byte [] file = origConferenceProposalBean.getFromExternal().get(i).getReferenceFile();
+				conferenceProposalBean.getFromExternal().get(i).setReferenceFile(file);
+				String contentType = origConferenceProposalBean.getFromExternal().get(i).getFileContentType();
+				conferenceProposalBean.getFromExternal().get(i).setFileContentType(contentType);
+			}
+		}
+		for (int i = 0 ; i < conferenceProposalBean.getFromAdmitanceFee().size(); i ++){
+			if (conferenceProposalBean.getFromAdmitanceFee().get(i).getReferenceFile().length == 0
+					&& i < origConferenceProposalBean.getFromAdmitanceFee().size()){
+				byte [] file = origConferenceProposalBean.getFromAdmitanceFee().get(i).getReferenceFile();
+				conferenceProposalBean.getFromAdmitanceFee().get(i).setReferenceFile(file);
+				String contentType = origConferenceProposalBean.getFromAdmitanceFee().get(i).getFileContentType();
+				conferenceProposalBean.getFromAdmitanceFee().get(i).setFileContentType(contentType);
+			}
+		}
+		
 		
 		//set fields that don't appear in the page
 		conferenceProposalBean.setGrade(origConferenceProposalBean.getGrade());

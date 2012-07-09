@@ -341,7 +341,6 @@
 						רשימת מרצים ומוזמנים:<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGuestsAttach"/>						
 						</br>
 						<c:if test="${!readOnly && !command.submitted}">
-						<input style="width: 0px; height: 0px;" class="green" type="file" name="guestsAttach" id="guestsAttach"/>
 						<button class="green guestsAttach">עיון ...</button>
 						</c:if>
 						<span id="guestsAttachDiv">
@@ -356,7 +355,6 @@
 						<td colspan="4">
 						תוכנית הכנס:<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProgramAttach"/></br>
 						<c:if test="${!readOnly && !command.submitted}">
-						<input style="width: 0px; height: 0px;" class="green" type="file" name="programAttach" id="programAttach"/>
 						<button class="green programAttach">עיון ...</button>  
 												
 						</c:if>
@@ -606,7 +604,6 @@
 	   				הסכם חברה:
 	   				<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogCompany"/>
 	   					<c:if test="${!readOnly && !command.submitted}">
-						<input style="width: 0px; height: 0px;" class="green" type="file" name="companyAttach" id="companyAttach"/>
 						<button class="green companyAttach">עיון ...</button>  
 						</c:if>
 						<span id="companyAttachDiv">
@@ -718,7 +715,6 @@
 					<td style="border:1px #bca2a2 dotted">
 				       תוכנית תקציבית:
 						<c:if test="${!readOnly && !command.submitted}">
-						<input style="width: 0px; height: 0px;" class="green" type="file" name="financialAttach" id="financialAttach"/>
 						<button class="green financialAttach">עיון ...</button> 
 						</c:if>
 						<span id="financialAttachDiv">
@@ -780,10 +776,9 @@
 						</td>-->
 						<td width="250" style="border: 1px #bca2a2 dotted" align="center">
 						 	<c:if test="${!readOnly && !command.submitted}">
-								<input id="fromAssosiate[${varStatus.index}].referenceFile" style="width: 0px; height: 0px;" class="green fromAssosiateAttachFile" type="file" name="fromAssosiate[${varStatus.index}].referenceFile" />
-								<button align="left" class="green fromAssosiateAttach" style="display: none;">עיון ...</button>
+								<button align="left" class="green fromAssosiateAttach" id="${varStatus.index}" style="display: none;">עיון ...</button>
 							</c:if>
-							<span id="fromAssosiateAttachDiv" align="right">
+							<span id="fromAssosiateAttachDiv${varStatus.index}" align="right">
 							<c:if test="${fn:length(command.fromAssosiate[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&assosiateId=${varStatus.index}&attachFile=assosiateAttach&contentType=${command.fromAssosiate[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
@@ -855,10 +850,9 @@
 						</td>-->
 						<td width="250" style="border: 1px #bca2a2 dotted" align="center">
 						 	<c:if test="${!readOnly && !command.submitted}">
-								<input id="fromExternal[${varStatus.index}].referenceFile" style="width: 0px; height: 0px;" class="green fromExternalAttachFile" type="file" name="fromExternal[${varStatus.index}].referenceFile" />
-								<button align="left" class="green fromExternalAttach" style="display: none;">עיון ...</button>
+								<button align="left" class="green fromExternalAttach" id="${varStatus.index}" style="display: none;">עיון ...</button>
 							</c:if>
-							<span id="fromExternalAttachDiv" align="right">
+							<span id="fromExternalAttachDiv${varStatus.index}" align="right">
 							<c:if test="${fn:length(command.fromExternal[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&externalId=${varStatus.index}&attachFile=externalAttach&contentType=${command.fromExternal[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
@@ -920,7 +914,7 @@
 
 						<tr style="display: none;" class="admitanceFee financialSupport">
 						<td width="200" style="border: 1px #bca2a2 dotted" align="center">
-							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee fee" path="fromAdmitanceFee[${varStatus.index}].sumPerson"  id="sumPerson"/>
+							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee fee sumPerson" path="fromAdmitanceFee[${varStatus.index}].sumPerson"/>
 						</td>
 						<td width="200" style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee participantsCheck" path="fromAdmitanceFee[${varStatus.index}].name"/>
@@ -937,10 +931,9 @@
 						</td> -->
 						<td width="250" style="border: 1px #bca2a2 dotted" align="center">
 						 	<c:if test="${!readOnly && !command.submitted}">
-								<input id="fromAdmitanceFee[${varStatus.index}].referenceFile" style="width: 0px; height: 0px;" class="green fromAdmitanceFeeAttachFile" type="file" name="fromAdmitanceFee[${varStatus.index}].referenceFile" />
-								<button align="left" class="green fromAdmitanceFeeAttach" style="display: none;">עיון ...</button>
+								<button align="left" class="green fromAdmitanceFeeAttach" id="${varStatus.index}" style="display: none;">עיון ...</button>
 							</c:if>
-							<span id="fromAdmitanceFeeAttachDiv" align="right">
+							<span id="fromAdmitanceFeeAttachDiv${varStatus.index}" align="right">
 							<c:if test="${fn:length(command.fromAdmitanceFee[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&admitanceFeeId=${varStatus.index}&attachFile=admitanceFeeAttach&contentType=${command.fromAdmitanceFee[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
@@ -1346,6 +1339,15 @@
 
     </table>
 </form:form>
+		<form:form id="attachmentsForm" name="attachmentsForm" method="POST" action="conferenceProposalAttachments.html" commandName="command" enctype="multipart/form-data">
+				<input style="width: 0px; height: 0px;" class="green" type="file" name="guestsAttach" id="guestsAttach"/>
+				<input style="width: 0px; height: 0px;" class="green" type="file" name="programAttach" id="programAttach"/>
+				<input style="width: 0px; height: 0px;" class="green" type="file" name="companyAttach" id="companyAttach"/>
+				<input style="width: 0px; height: 0px;" class="green" type="file" name="financialAttach" id="financialAttach"/>
+				<input style="width: 0px; height: 0px;" class="green" type="file" id="fromAdmitanceFeeAttachFile"  name="fromAdmitanceFeeAttachFile" />
+				<input style="width: 0px; height: 0px;" class="green" type="file" id="fromExternalAttachFile"  name="fromExternalAttachFile" />
+				<input style="width: 0px; height: 0px;" class="green" type="file" id="fromAssosiateAttachFile"  name="fromAssosiateAttachFile" />
+		</form:form>
     </td>
   </tr>
 
