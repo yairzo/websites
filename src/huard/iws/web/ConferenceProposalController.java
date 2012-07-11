@@ -119,8 +119,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposalBean.setCompanyAttachContentType(origConferenceProposalBean.getCompanyAttachContentType());
 		}
 		for (int i = 0 ; i < conferenceProposalBean.getFromAssosiate().size(); i ++){
-			if (conferenceProposalBean.getFromAssosiate().get(i).getReferenceFile().length == 0
-					&& i < origConferenceProposalBean.getFromAssosiate().size()){
+			if (i < origConferenceProposalBean.getFromAssosiate().size()){
 				byte [] file = origConferenceProposalBean.getFromAssosiate().get(i).getReferenceFile();
 				conferenceProposalBean.getFromAssosiate().get(i).setReferenceFile(file);
 				String contentType = origConferenceProposalBean.getFromAssosiate().get(i).getFileContentType();
@@ -128,8 +127,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}
 		for (int i = 0 ; i < conferenceProposalBean.getFromExternal().size(); i ++){
-			if (conferenceProposalBean.getFromExternal().get(i).getReferenceFile().length == 0
-					&& i < origConferenceProposalBean.getFromExternal().size()){
+			if (i < origConferenceProposalBean.getFromExternal().size()){
 				byte [] file = origConferenceProposalBean.getFromExternal().get(i).getReferenceFile();
 				conferenceProposalBean.getFromExternal().get(i).setReferenceFile(file);
 				String contentType = origConferenceProposalBean.getFromExternal().get(i).getFileContentType();
@@ -137,8 +135,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}
 		for (int i = 0 ; i < conferenceProposalBean.getFromAdmitanceFee().size(); i ++){
-			if (conferenceProposalBean.getFromAdmitanceFee().get(i).getReferenceFile().length == 0
-					&& i < origConferenceProposalBean.getFromAdmitanceFee().size()){
+			if ( i < origConferenceProposalBean.getFromAdmitanceFee().size()){
 				byte [] file = origConferenceProposalBean.getFromAdmitanceFee().get(i).getReferenceFile();
 				conferenceProposalBean.getFromAdmitanceFee().get(i).setReferenceFile(file);
 				String contentType = origConferenceProposalBean.getFromAdmitanceFee().get(i).getFileContentType();
