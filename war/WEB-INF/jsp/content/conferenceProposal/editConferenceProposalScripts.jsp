@@ -7,13 +7,7 @@ $(document).ready(function() {
 	
 	$("#form").ajaxForm();
 
-	var options = {
-       	 	url:       'editConferenceProposal.html' ,        
-       	 	type:      'POST'
- 	};
-	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-	$('#form').ajaxSubmit(options);
-	
+
 	hideExtraCommittee("scientificCommittee");
 	hideExtraCommittee("operationalCommittee");
 	hideExtraCommittee("admitanceFee");
