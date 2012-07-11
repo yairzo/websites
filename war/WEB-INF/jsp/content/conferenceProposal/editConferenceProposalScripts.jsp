@@ -342,7 +342,6 @@ $(document).ready(function() {
 	});
 	
 	$('#guestsAttach').change(function(event){
-		alert("here" +$(this).val());
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
