@@ -26,12 +26,12 @@ public class ConferenceProposal {
 	private long toDate;
 	private String location;
 	private String locationDetail;
-	private int foreignLecturers;
-	private int localLecturers;
-	private int audienceLecturers;
-	private int foreignGuests;
-	private int localGuests;
-	private int audienceGuests;
+	private String foreignLecturers;
+	private String localLecturers;
+	private String audienceLecturers;
+	private String foreignGuests;
+	private String localGuests;
+	private String audienceGuests;
 	private byte [] guestsAttach;
 	private String guestsAttachContentType;
 	private byte [] programAttach;
@@ -91,12 +91,12 @@ public class ConferenceProposal {
 		this.toDate = 0;
 		this.location = "";
 		this.locationDetail = "";
-		this.foreignLecturers = 0;
-		this.foreignGuests = 0;
-		this.localLecturers = 0;
-		this.localGuests = 0;
-		this.audienceLecturers = 0;
-		this.audienceGuests = 0;
+		this.foreignLecturers = "";
+		this.foreignGuests = "";
+		this.localLecturers = "";
+		this.localGuests = "";
+		this.audienceLecturers = "";
+		this.audienceGuests = "";
 		this.guestsAttach = new byte[0];
 		this.guestsAttachContentType = "";
 		this.programAttach = new byte[0];
@@ -222,45 +222,45 @@ public class ConferenceProposal {
 		this.locationDetail = locationDetail;
 	}
 
-	public int getForeignLecturers() {
+	public String getForeignLecturers() {
 		return foreignLecturers;
 	}
-	public void setForeignLecturers(int foreignLecturers) {
+	public void setForeignLecturers(String foreignLecturers) {
 		this.foreignLecturers = foreignLecturers;
 	}
 	
-	public int getLocalLecturers() {
+	public String getLocalLecturers() {
 		return localLecturers;
 	}
-	public void setLocalLecturers(int localLecturers) {
+	public void setLocalLecturers(String localLecturers) {
 		this.localLecturers = localLecturers;
 	}
 	
-	public int getAudienceLecturers() {
+	public String getAudienceLecturers() {
 		return audienceLecturers;
 	}
-	public void setAudienceLecturers(int audienceLecturers) {
+	public void setAudienceLecturers(String audienceLecturers) {
 		this.audienceLecturers = audienceLecturers;
 	}
 	
-	public int getForeignGuests() {
+	public String getForeignGuests() {
 		return foreignGuests;
 	}
-	public void setForeignGuests(int foreignGuests) {
+	public void setForeignGuests(String foreignGuests) {
 		this.foreignGuests = foreignGuests;
 	}
 	
-	public int getLocalGuests() {
+	public String getLocalGuests() {
 		return localGuests;
 	}
-	public void setLocalGuests(int localGuests) {
+	public void setLocalGuests(String localGuests) {
 		this.localGuests = localGuests;
 	}
 	
-	public int getAudienceGuests() {
+	public String getAudienceGuests() {
 		return audienceGuests;
 	}
-	public void setAudienceGuests(int audienceGuests) {
+	public void setAudienceGuests(String audienceGuests) {
 		this.audienceGuests = audienceGuests;
 	}
 	
