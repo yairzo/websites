@@ -20,7 +20,8 @@ $(document).ready(function() {
 	calcParticipants();
 	
 	
-	$(".calcSum").change(function(e) {
+	$(".calcSum").keyup(function(e) {
+		//alert("111");
 		calcParticipants();
 	 });   
 	

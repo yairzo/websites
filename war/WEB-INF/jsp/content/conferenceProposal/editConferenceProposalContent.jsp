@@ -191,17 +191,21 @@
 					<c:if test="${!readOnly && !command.submitted}">
       					<form:select path="location" cssClass="green" id="location">
       						<form:option value="0">בחר/י מיקום</form:option>
-      						<form:option value="1">באוניברסיטה</form:option>
-      						<form:option value="2">בקמפוס בירושלים</form:option>
-      						<form:option value="3">בעיר במקום אחר, פרט:</form:option>
+      						<form:option value="1">בקמפוס בהר הצופים</form:option>
+      						<form:option value="2">בקמפוס בגבעת רם</form:option>
+      						<form:option value="3">בקמפוס בעין כרם</form:option>
+      						<form:option value="4">בקמפוס ברחובות</form:option>
+      						<form:option value="5">בעיר במקום אחר, פרט:</form:option>
         		    	</form:select>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
 						<form:hidden path="location"/>
 						<c:choose>
-							<c:when test="${command.location == 1}">באוניברסיטה</c:when>
-							<c:when test="${command.location == 2}">בקמפוס בירושלים</c:when>
-							<c:when test="${command.location == 3}">בעיר במקום אחר</c:when>
+							<c:when test="${command.location == 1}">בקמפוס בהר הצופים</c:when>
+							<c:when test="${command.location == 2}">בקמפוס בגבעת רם</c:when>
+							<c:when test="${command.location == 3}">בקמפוס בעין כרם</c:when>
+							<c:when test="${command.location == 4}">בקמפוס ברחובות</c:when>
+							<c:when test="${command.location == 5}">בעיר במקום אחר</c:when>
 						</c:choose>
 					</c:if>
 					</td>
