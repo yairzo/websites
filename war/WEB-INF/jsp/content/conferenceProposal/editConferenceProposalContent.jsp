@@ -195,7 +195,8 @@
       						<form:option value="2">בקמפוס בגבעת רם</form:option>
       						<form:option value="3">בקמפוס בעין כרם</form:option>
       						<form:option value="4">בקמפוס ברחובות</form:option>
-      						<form:option value="5">בעיר במקום אחר, פרט:</form:option>
+      						<form:option value="5">בקמפוס באילת</form:option>
+      						<form:option value="6">בעיר במקום אחר, פרט:</form:option>
         		    	</form:select>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
@@ -205,14 +206,15 @@
 							<c:when test="${command.location == 2}">בקמפוס בגבעת רם</c:when>
 							<c:when test="${command.location == 3}">בקמפוס בעין כרם</c:when>
 							<c:when test="${command.location == 4}">בקמפוס ברחובות</c:when>
-							<c:when test="${command.location == 5}">בעיר במקום אחר</c:when>
+							<c:when test="${command.location == 5}">בקמפוס באילת</c:when>
+							<c:when test="${command.location == 6}">בעיר במקום אחר</c:when>
 						</c:choose>
 					</c:if>
 					</td>
 					<td  style="border:1px #bca2a2 dotted">
 						פירוט מיקום:
 					<c:if test="${!readOnly && !command.submitted}">
-						<form:input htmlEscape="true" cssClass="green medium200" path="locationDetail"/>
+						<form:input htmlEscape="true" cssClass="green medium200" path="locationDetail" id="locationDetail" readonly="true"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
 						<form:hidden path="locationDetail"/>
@@ -628,9 +630,9 @@
 					</c:if>
 				</tr>
 	            <tr class="form organizingContactPart">
-		       		<td nowrap style="border:1px #bca2a2 dotted">שם איש קשר:
+		       		<td nowrap style="border:1px #bca2a2 dotted">${compulsoryFieldSign}שם איש קשר:
 					<c:if test="${!readOnly && !command.submitted}">			
-	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPerson" />
+	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPerson" id="contactPerson"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="contactPerson"/>
@@ -673,6 +675,7 @@
 				<div id="errororganizingCompanyPhone" dir="rtl"><p></p></div>
 				<div id="errororganizingCompanyFax" dir="rtl"><p></p></div>
 				<div id="errororganizingCompanyEmail" dir="rtl"><p></p></div>
+				<div id="errorcontactPersonName" dir="rtl"><p></p></div>
 				<div id="errorcontactPersonPhone" dir="rtl"><p></p></div>
 				<div id="errorcontactPersonEmail" dir="rtl"><p></p></div>
 				</td>
@@ -743,7 +746,7 @@
 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
-           				<c:forEach items="${command.fromAssosiate}" var="fromAssosiate">
+           				<c:forEach items="${command.fromAssosiate}" var="fromAssosiate" varStatus="varStatus">
 						<tr>
 						<td style="border: thin black dotted">
 							<c:out value="${fromAssosiate.name}"></c:out>
@@ -751,6 +754,15 @@
 						<td style="border: thin black dotted">
 							<c:out value="${fromAssosiate.sum}"></c:out>
 						</td>
+						<td style="border: thin black dotted" align="center">
+							<c:if test="${fn:length(fromAssosiate.referenceFile)>0}">
+								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&assosiateId=${varStatus.index}&attachFile=assosiateAttach&contentType=${fromAssosiate.fileContentType}&attachmentId=1"
+									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
+							</c:if>
+							<c:if test="${fn:length(fromAssosiate.sum)>0 && fn:length(fromAssosiate.referenceFile)==0 }">לא צורף קובץ אסמכתא
+							</c:if>
+						</td>
+						
 						<!--  <td style="border: thin black dotted">
 							<c:if test="${fromAssosiate.currency==1}">שקל</c:if>
 							<c:if test="${fromAssosiate.currency==2}">דולר</c:if>
@@ -818,7 +830,7 @@
 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
-           			<c:forEach items="${command.fromExternal}" var="fromExternal">
+           			<c:forEach items="${command.fromExternal}" var="fromExternal" varStatus="varStatus">
 						<tr>
 						<td style="border: thin black dotted">
 						<c:out value="${fromExternal.name}"></c:out>
@@ -830,6 +842,14 @@
 						<c:if test="${fromExternal.currency==1}">שקל</c:if>
 						<c:if test="${fromExternal.currency==2}">דולר</c:if>
 						</td>-->
+						<td style="border: thin black dotted" align="center">
+							<c:if test="${fn:length(fromExternal.referenceFile)>0}">
+								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&externalId=${varStatus.index}&attachFile=externalAttach&contentType=${fromExternal.fileContentType}&attachmentId=1"
+									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
+							</c:if>
+							<c:if test="${fn:length(fromExternal.sum)>0 && fn:length(fromExternal.referenceFile)==0 }">לא צורף קובץ אסמכתא
+							</c:if>
+						</td>
 						</tr>
 					</c:forEach>
 					</c:when>
@@ -893,7 +913,7 @@
 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
-           				<c:forEach items="${command.fromAdmitanceFee}" var="fromAdmitanceFee">
+           				<c:forEach items="${command.fromAdmitanceFee}" var="fromAdmitanceFee" varStatus="varStatus">
 						<tr>
 						<td style="border: 1px #bca2a2 dotted">
 						<c:out value="${fromAdmitanceFee.sumPerson}"></c:out>
@@ -908,6 +928,14 @@
 						<c:if test="${fromAdmitanceFee.currency==1}">שקל</c:if>
 						<c:if test="${fromAdmitanceFee.currency==2}">דולר</c:if>
 						</td> -->
+						<td style="border: thin black dotted" align="center">
+							<c:if test="${fn:length(fromAdmitanceFee.referenceFile)>0}">
+								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&admitanceFeeId=${varStatus.index}&attachFile=admitanceFeeAttach&contentType=${fromAdmitanceFee.fileContentType}&attachmentId=1"
+									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
+							</c:if>
+							<c:if test="${fn:length(fromAdmitanceFee.sum)>0 && fn:length(fromAdmitanceFee.referenceFile)==0 }">לא צורף קובץ אסמכתא
+							</c:if>
+						</td>
 						</tr>
 						</c:forEach>
 					</c:when>
@@ -963,13 +991,23 @@
 					</tr>
 					</table>
 					<br>&nbsp;
-					<table width="575" cellpadding="1" cellspacing="0" align="center">
+					<table width="725" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-						<td  width="180" align="right">
+						<td width="220" align="right">
 						סה"כ מכל המקורות:
 						</td>
-						<td width="180" style="border: 1px #bca2a2 dotted" align="right">
+						<td width="500" style="border: 1px #bca2a2 dotted" align="right">
 						<span id="fromAllFeeCount"></span>
+						</td>
+						<td></td>
+				    </tr>
+				    <tr><td>&nbsp;</td></tr>
+				    <tr>
+						<td>
+						ההפרש בין הוצאות להכנסות:
+						</td>
+						<td style="border: 1px #bca2a2 dotted" align="right">
+						<span id="sumDifference"></span>
 						</td>
 						<td></td>
 				    </tr>
@@ -1283,7 +1321,7 @@
 				<c:if test="${admin && command.submitted}">
 				<tr class="form">
 					<td colspan="4">
-				   		<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/>ביטול הגשה
+				   		<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/>החזר למצב טיוטה
 						<c:if test="${!command.isInsideDeadline}">			
 				   			<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
 						</c:if>

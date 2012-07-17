@@ -45,7 +45,7 @@
 	        			<option value="${deanPerson.id}" 
 	        				<c:if test="${selected}">selected="selected"</c:if>
 	        			>
-	        				<c:out escapeXml="false" value="${deanPerson.id} - ${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/>
+	        				<c:out escapeXml="false" value="${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/>
 	        			</option>
 	        		</c:forEach>
        				</select>
@@ -69,7 +69,7 @@
   				   	 <input type="hidden" name="searchBySubmitted" value="1"/>
   				   </authz:authorize>
   				   <authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-  				   <span id="searchByDeadlineSpan">
+  				   <span id="searchByDeadlineSpan" style="display: none;">
   				   <br/>  				   
  				   		 לפי דיון:  				   
  				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -200,10 +200,10 @@
 				</td>
 				</tr> 
     			<tr>
-				<td>
+				<td colspan="7">
 				<table width="100%">	
 				<tr>
-					<td  align="right">
+					<td align="right">
 					<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 					<button class="grey confirmLink">הגשת בקשה למימון כנס</button>
       		        <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogNewConferenceProposal"/>

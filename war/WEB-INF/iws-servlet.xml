@@ -593,6 +593,9 @@
         <property name="conferenceProposalService">
             <ref bean="conferenceProposalService"/>
         </property>
+        <property name="conferenceProposalListService">
+            <ref bean="conferenceProposalListService"/>
+        </property>
         <property name="personListService">
             <ref bean="personListService"/>
         </property>

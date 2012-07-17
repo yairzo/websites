@@ -4,7 +4,7 @@
 
 
 $(document).ready(function() {
-	
+
 	$("#form").ajaxForm();
 
 
@@ -19,10 +19,26 @@ $(document).ready(function() {
 	calcTotalFee();	
 	calcParticipants();
 	
+	if($('#location').val()=='6')
+		$('#locationDetail').attr('readonly', false);
+	else{
+		$('#locationDetail').attr('readonly', true);
+		$('#locationDetail').val('');
+	}
+	
 	
 	$(".calcSum").keyup(function(e) {
 		//alert("111");
 		calcParticipants();
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
+		if(totalParticipantsCounter>1000){
+			 $(this).val('');
+			 openHelp('','נא להכניס ערך שאינו עולה על 1000');
+			 return false;
+		}
 	 });   
 	
 	$("button.guestsAttach").click(function(event){
@@ -183,7 +199,7 @@ $(document).ready(function() {
 				calcFee("fromExternal");
 				calcTotalFee();
 		}
-	}, {delay: 2000});
+	}, {delay: 3000});
 	
 	$('form').find('select').change(function(){
 		<c:if test="${command.versionId > 0}">
@@ -203,6 +219,25 @@ $(document).ready(function() {
 	    $('#form').ajaxSubmit();
 	});
 	
+	$('.cancelSubmission').change(function(event){
+		if($('.cancelSubmission').is(":checked") && "${GradingFinished}"){
+	    	$("#genericDialog").dialog('option', 'buttons', {
+	            "לא" : function() {
+	                $(this).dialog("close");
+	                $('.cancelSubmission').attr('checked',false);
+	               },
+	            "כן" : function() {
+	                $(this).dialog("close");
+	                $('.cancelSubmission').attr('checked',true);
+	               }
+	            });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 300 });
+			openHelp(this,'בקשה זו כבר דורגה על ידי הדיקן לכנס הקרוב. החזרתה למצב טיוטה תוציא אותה מרשימת הבקשות לכנס ותבטל את דירוגה. האם להמשיך?');
+		}
+	});
+	
 	$('.fee').change(function(event){
 		event.preventDefault();
 
@@ -214,13 +249,11 @@ $(document).ready(function() {
 		if(!numberRegex.test($(this).val())){
 			 $(this).val('');
 			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
-			 //alert('נא להכניס ערך מספרי לשדה זה');
 			 return false;
 		}
 		else if(Number($(this).val())>150000){
 			 $(this).val('');
 			 openHelp(this,'נא להכניס ערך שאינו עולה על 150000');
-			 //alert('נא להכניס ערך שאינו עולה על 150000');
 			 return false;
 		}
 		return false;
@@ -236,13 +269,18 @@ $(document).ready(function() {
 		if(!numberRegex.test($(this).val())){
 			 $(this).val('');
 			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
-			 //alert('נא להכניס ערך מספרי לשדה זה');
 			 return false;
+		}
+		else if(totalParticipantsCounter>0 ){
+			if(Number($(this).val())>totalParticipantsCounter*1.05){
+			 $(this).val('');
+			 openHelp(this,'מספר האנשים באולם המבוקש לא יעלה על 5% ממספר המוזמנים לכנס');
+			 return false;
+			}
 		}
 		else if(Number($(this).val())>1000){
 			 $(this).val('');
 			 openHelp(this,'נא להכניס ערך שאינו עולה על 1000');
-			 //alert('נא להכניס ערך שאינו עולה על 1000');
 			 return false;
 		}
 		return false;
@@ -256,27 +294,28 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
 		if(!numberRegex.test($(this).val())){
-			 $(this).val('');
+			 $(this).val('0');
 			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
 			 return false;
 		}
-		else if(totalParticipantsCounter>0 && Number($(this).val())>totalParticipantsCounter){
-			 $(this).val('');
+		else if(totalParticipantsCounter>0 ){
+			if(Number($(this).val())>totalParticipantsCounter){
+			 $(this).val('0');
 			 openHelp(this,'נא להכניס ערך שאינו עולה על סך המשתתפים כפי שסוכמו בטבלת המשתתפים');
 			 return false;
+			}
 		}
 		else if(Number($(this).val())>1000){
-			 $(this).val('');
+			 $(this).val('0');
 			 openHelp(this,'נא להכניס ערך שאינו עולה על 1000');
 			 return false;
 		}
-		else{
-			if($('.sumPerson', $(this).closest("tr")).val()!=''){
+		
+		if($('.sumPerson', $(this).closest("tr")).val()!=''){
 				var t = Number($(this).val())* Number($('.sumPerson', $(this).closest("tr")).val());
 				$(".sumPersons", $(this).closest("tr")).val(t);
 				calcFee("fromAdmitanceFee");
 				calcTotalFee();
-			}
 		}
 		return false;
 	});	
@@ -430,6 +469,7 @@ $(document).ready(function() {
 	else
 		$('.organizingCompanyPart').hide();
 	*/
+	
 	if(${command.organizingCompany}){
 		$('.organizingCompanyPart').show();
 		$('.organizingContactPart').hide();
@@ -448,6 +488,15 @@ $(document).ready(function() {
 		else {
 			$('.organizingCompanyPart').hide();
 			$('.organizingContactPart').show();
+		}
+	});
+	
+	$("#location").change(function(e){
+		if($('#location').val()=='6')
+			$('#locationDetail').attr('readonly', false);
+		else{
+			$('#locationDetail').attr('readonly', true);
+			$('#locationDetail').val('');
 		}
 	});
 
@@ -537,7 +586,7 @@ $(document).ready(function() {
 	
 	$("button.submitForGrading").click(function(){
 		var errors=false;
-		if(!$("#acceptTerms").attr('checked')){
+		if(!$("#acceptTerms").attr('checked') && !"${admin}"){
 			errors = true;
 			$("#erroracceptTerms").html('<font color="red">יש לאשר קבלת תנאי ההגשה (לסמן את תיבת הסימון )<font color="red"><br>');
 		}
@@ -625,6 +674,13 @@ $(document).ready(function() {
 		else{
 			$("#errororganizingCompanyFax").html('');
 		}*/
+		if($('.organizingContactPart').is(":visible") && $('#contactPerson').val()==''){
+			errors = true;
+			$("#errorcontactPersonName").html('<font color="red">יש להזין שם איש קשר במידה והארגון המנהלתי של הכנס ייערך ע"י איש קשר<font color="red"><br>');
+		}
+		else{
+			$("#errorcontactPersonName").html('');
+		}
 		if($("#contactPersonPhone").val()!='' && !phoneRegex.test($("#contactPersonPhone").val())){
 			errors = true;
 			$("#errorcontactPersonPhone").html('<font color="red">יש להזין מספר טלפון איש קשר תקני<font color="red"><br>');
@@ -738,7 +794,7 @@ $(document).ready(function() {
 		text+='	ועדה מדעית = מי שעוסק בקביעת התוכן האקדמי</br>';
 		text+='ועדה מארגנת = מי שעוסק בקביעת מתכונת ביצוע הכנס, מרציו ומשתתפיו </br>';
 		text+='מוסד = המוסד/ארגון אליו שייך הנקוב ברשומה</br>';
-		text+='נא מלא הפרטים עד 10 רשומות</br>';
+		text+='נא מלא הפרטים עד 10 רשומות</br></br>';
 		text+='לחיצה על ה X מאפשרת מחיקת הרשומה';
 	    openHelp("#dialogCommittee",text);
 	    return false;
@@ -943,24 +999,6 @@ function hideExtraCommittee(trCssClass){
 	});
 }
 
-function removeEmptyRows(trCssClass){
-	var emptyRowsCounter = 0;
-	$('tr.'+trCssClass).each(function(){
-		var row = $(this);
-		var allInputsEmpty = true;
-		row.find('input').each(function(){
-			if ($(this).val()!=""){
-				allInputsEmpty = false;
-			}
-		});
-		if (allInputsEmpty){
-			if (emptyRowsCounter>0)
-				row.remove();
-			emptyRowsCounter = emptyRowsCounter +1;
-			
-		}
-	});
-}
 
 function calcFee(feeType){
 	var totalFee=0;
@@ -985,6 +1023,19 @@ function calcTotalFee(){
 	if(numberRegex.test($("#fromAdmitanceFeeCount").text()))
 		total+=Number($("#fromAdmitanceFeeCount").text());
 	$("#fromAllFeeCount").html(total);
+	var outgoing = 0;
+	if($('#totalCost').val()!=''){
+		outgoing = Number($('#totalCost').val());
+		diff = total-outgoing;
+		var text="";
+		if (diff<0){
+			diff=Math.abs(diff);
+			text = "<font color='red'>" + diff + "&nbsp;&nbsp;סכום ההכנסות המתוכננות קטן מסכום ההוצאות המתוכננות</font>";
+		}
+		else
+			text= diff;
+		$("#sumDifference").html(text);
+	}
 }
 
 var totalParticipantsCounter=0;
@@ -1026,6 +1077,8 @@ function calcParticipants(){
 	$("#otherCount").html(otherCount);
 	totalParticipantsCounter = abroadCount + localCount;
 	$("#totalCount").html(abroadCount + localCount);
+	
+
 
 }
 

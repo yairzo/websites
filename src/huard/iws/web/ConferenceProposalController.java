@@ -3,9 +3,11 @@ package huard.iws.web;
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.Faculty;
 import huard.iws.model.FinancialSupport;
 import huard.iws.service.ConferenceProposalService;
+import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.FacultyService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
@@ -37,7 +39,7 @@ public class ConferenceProposalController extends GeneralFormController{
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 	throws Exception{
-		System.out.println("11111111111 here");
+		//System.out.println("11111111111 here");
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
 		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		
@@ -265,7 +267,7 @@ public class ConferenceProposalController extends GeneralFormController{
 	
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception	{
-		System.out.println("22222222222 here");
+		//System.out.println("22222222222 here");
 		model.put("previousVersion", conferenceProposalService.getPreviousVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
 		model.put("nextVersion", conferenceProposalService.getNextVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
 		model.put("firstVersion", request.getSession().getAttribute("firstVersion"));
@@ -331,7 +333,17 @@ public class ConferenceProposalController extends GeneralFormController{
 			else if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER")){
 				model.put("creator",true);
 			}
-
+			//flag if grading process was finished - to warn in case someone clicks on un-submit
+			if(conferenceProposal.getApprover()!=null){
+				ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(conferenceProposal.getApprover().getId());
+				if(conferenceProposalGrading.getFinishedGradingDate()>1000)
+					model.put("GradingFinished",true);
+				else
+					model.put("GradingFinished",false);
+			}else{
+				model.put("GradingFinished",true);
+			}
+			
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		
@@ -340,7 +352,7 @@ public class ConferenceProposalController extends GeneralFormController{
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
-		System.out.println("0000000000 here" +isFormSubmission(request.getRequest()));
+		//System.out.println("0000000000 here" +isFormSubmission(request.getRequest()));
 		ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean();
 		logger.info("action : " + request.getParameter("action",""));
 		
@@ -385,6 +397,11 @@ public class ConferenceProposalController extends GeneralFormController{
 		this.conferenceProposalService = conferenceProposalService;
 	}
 	
+	private ConferenceProposalListService conferenceProposalListService;
+
+	public void setConferenceProposalListService(ConferenceProposalListService conferenceProposalListService) {
+		this.conferenceProposalListService = conferenceProposalListService;
+	}
 	
 	private PersonListService personListService;
 

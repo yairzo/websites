@@ -198,7 +198,7 @@ $(document).ready(function() {
 </tr>
 <tr>
 	<td>
-		<table width="900" border="1" align="center" cellpadding="0"
+		<table width="930" border="1" align="center" cellpadding="0"
 			cellspacing="0" bordercolor="#767468">
 			<tr>
 				<td valign="top" align="center"><br /> <form:form id="form"
@@ -209,7 +209,7 @@ $(document).ready(function() {
 						<input type="hidden" id="listViewOrderBy" name="listView.orderBy"
 							value="${command.listView.orderBy}" />
 
-								<table width="900" border="0" align="center" cellpadding="3"
+								<table width="930" border="0" align="center" cellpadding="3"
 									dir="rtl">
 									<tr>
 										<td colspan="2" align="center"><h1>רשימת ההצעות
@@ -223,13 +223,13 @@ $(document).ready(function() {
 								<div id="genericDialog" title="כנסים" style="display: none"
 									dir="rtl"></div>
 
-								<table width="900" border="0" cellspacing=0 cellpadding=2
+								<table width="930" border="0" cellspacing=0 cellpadding=2
 									dir="rtl">
 									<thead>
 										<tr>
 											<td width="150">שם החוקר/ת המגיש</td>
 											<td width="350">נושא הכנס</td>
-											<td width="80">דירוג <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeHeader"/></td>
+											<td width="100">דירוג <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeHeader"/></td>
 											<td width="300">חוות דעת <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeOpinion"/></td>
     										<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
 											<td width="30"><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGrade"/></td>
@@ -252,7 +252,7 @@ $(document).ready(function() {
 													href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out
 															value="${conferenceProposal.subject}" />
 												</a></td>
-												<td width="80" align="right">&nbsp;&nbsp;<a
+												<td width="100" align="right">&nbsp;&nbsp;<a
 													href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out
 														value="${conferenceProposal.grade}" /></a></td>
 												<td width="300"><textarea class="green saveclass evaluation"
@@ -286,7 +286,7 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td colspan="5">
-						<table width="900" dir="rtl">
+						<table width="930" dir="rtl">
 							<tr>
 								<td>הערה כללית לועדה:<br/><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDeadlineRemarks"/></td>
 								<td align="right">
@@ -311,7 +311,7 @@ $(document).ready(function() {
 			<c:otherwise>
 				<tr>
 					<td>
-						<table width="900" border="0" align="center" cellpadding="3"
+						<table width="930" border="0" align="center" cellpadding="3"
 							dir="rtl">
 							<tr>
 								<td colspan="2" align="center"><h2>לא נמצאו בקשות

@@ -241,7 +241,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	}
 	
 	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline){
-		String query = "select  * from  conferenceProposalGrading where date(deadline) =? order by deadline desc, sentForGradingDate";
+		String query = "select  * from  conferenceProposalGrading where date(deadline) =? order by deadline desc, sentForGradingDate desc";
 		logger.info(query + " " + deadline);
 		return getSimpleJdbcTemplate().query(query, gradingRowMapper,	deadline );
 	}
