@@ -1211,9 +1211,16 @@
 		       		</td>
 				</tr>
 				<tr>
+				    <c:if test="${admin || approver}">
 				    <td colspan="4" align="center">
 						<form:textarea htmlEscape="true" cssClass="green" path="approverEvaluation" cols="80" rows="3"/>
 					</td>
+					</c:if>
+					 <c:if test="${committee}">
+				    <td colspan="4" align="right">
+					 	<c:out value="${command.approverEvaluation}"></c:out>
+					</td>
+					 </c:if>
 				</tr>
 				</table>
 				</td>
@@ -1309,7 +1316,7 @@
 				</tr>	
 				</c:if>
 				
-				<c:if test="${!admin && !approver && !committee}">
+				<c:if test="${!admin && !approver}">
 						<form:hidden path="approverEvaluation"/>
 				</c:if>
 				<c:if test="${!admin}">

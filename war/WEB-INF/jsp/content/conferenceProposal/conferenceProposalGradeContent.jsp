@@ -186,7 +186,7 @@ $(document).ready(function() {
 
 <td align="right" bgcolor="#787669" height="20"><c:set
 		var="applicationName" value="מערכת אינטרנט הרשות למו\"פ" /> <c:set
-		var="pageName" value="רשימת ההצעות לכנסים" /> <%@ include
+		var="pageName" value="רשימת בקשות למימון לכנסים" /> <%@ include
 		file="/WEB-INF/jsp/include/locationMenu.jsp"%>
 
 </td>
@@ -212,7 +212,7 @@ $(document).ready(function() {
 								<table width="930" border="0" align="center" cellpadding="3"
 									dir="rtl">
 									<tr>
-										<td colspan="2" align="center"><h1>רשימת ההצעות
+										<td colspan="2" align="center"><h1>רשימת הבקשות
 												להתייחסות הדיקן	<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeTitle"/>
 												</h1></td>
 									</tr>
@@ -231,7 +231,7 @@ $(document).ready(function() {
 											<td width="350">נושא הכנס</td>
 											<td width="100">דירוג <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeHeader"/></td>
 											<td width="300">חוות דעת <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeOpinion"/></td>
-    										<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+    										<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
 											<td width="30"><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGrade"/></td>
 											</authz:authorize>
 										</tr>
@@ -259,7 +259,7 @@ $(document).ready(function() {
 														name="approverEvaluation${conferenceProposal.id}"
 														id="${conferenceProposal.id}" rows="3" cols="40">${conferenceProposal.approverEvaluation}</textarea>
 												</td>
-   												<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+   												<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
 												<td width="30">
 													<button class="grey buttonUp" id="${conferenceProposal.id}">
 														<span class="ui-icon ui-icon-arrowthick-1-n"></span>
@@ -300,8 +300,7 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td colspan="5" align="center">
-						<button id="buttonStopGrading" class="grey" /> שלח לוועדה את התייחסותך
-						</button>
+						<button id="buttonStopGrading" class="grey" /> שלח לוועדה את התייחסותך</button>
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogStopGrading"/>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button  class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		

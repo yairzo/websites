@@ -6,7 +6,7 @@
 
           <td align="right" bgcolor="#787669" height="20">
           		<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>
-          	        <c:set var="pageName" value="רשימת ההצעות לכנסים"/>
+          	        <c:set var="pageName" value="רשימת הבקשות למימון לכנסים"/>
        	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
 
           </td>
@@ -25,17 +25,17 @@
     	<table border="0" align="center" style="width: 95%; direction: rtl;" cellspacing="10">
     		<tr>
     			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-    			<td class="container" style="width: 20%;">
+    			<td class="container" style="width: 15%;">
     				<span style="text-align: center;"><h2> סינון הבקשות שתוצגנה ברשימה</h2></span>
     				<br/>
     				    לפי שם החוקר:
                		 <br/>    
-               		     <form:input cssStyle="width: 220px;" cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
+               		     <form:input cssStyle="width: 180px;" cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
                     
   				    <authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
 				  	<br/>
 				  	<br/>
-				  	<select style="width: 220px;" name="searchByApprover" id="searchByApprover" class="green"> 
+				  	<select style="width: 180px;" name="searchByApprover" id="searchByApprover" class="green"> 
       					<option value="0"/>בחר דיקן</option>
       				<c:forEach items="${deans}" var="deanPerson">
        					<c:set var="selected" value="false"/>
@@ -82,7 +82,7 @@
 				   </authz:authorize>
 				</td>
 				</authz:authorize>
-    			<td class="container" style="width: 80%; vertical-align: top;text-align: center;">
+    			<td class="container" style="width: 85%; vertical-align: top;text-align: center;">
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
     					<span><h2> רשימת הבקשות שלך</h2></span>
    					</authz:authorize>
@@ -208,6 +208,9 @@
 					<button class="grey confirmLink">הגשת בקשה למימון כנס</button>
       		        <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogNewConferenceProposal"/>
 					</authz:authorize>
+					<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+					<button class="grey" onclick="window.location='conferenceProposalsGrade.html';return false;">דירוג בקשות</button>
+ 					</authz:authorize>
 					</td>
 					<td align="left">
 					<button  class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		
@@ -228,11 +231,11 @@
     	<table align="center" style="width: 90%; direction: rtl;">
   	  		<tr>
   	  			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-  	  			<td style="width: 20%;">
+  	  			<td style="width: 15%;">
   	  				&nbsp;
   	  			</td>
   	  			</authz:authorize>
-                <td style="width: 80%;" align="center">
+                <td style="width: 85%;" align="center">
 					<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
                 </td>
             </tr>

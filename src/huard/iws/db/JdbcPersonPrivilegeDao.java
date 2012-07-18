@@ -84,8 +84,13 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 		}
 	}
 	public int getPrivilegeEnabled(int personId){
+		try{	
 			String query = "select distinct enabled from personPrivilege where personId = ?";
 			return getSimpleJdbcTemplate().queryForInt(query,personId);
+		}
+		catch(Exception e){
+			return 0;
+		}
 	}
 
 	public void deletePersonPrivilege(int privilege){

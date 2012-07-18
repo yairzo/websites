@@ -580,164 +580,78 @@ $(document).ready(function() {
     			return false;
                }
             });
-    	openHelp("","האם הנך מאשר/ת את ביטול הבקשה?");
+    	openHelp('','האם הנך מאשר/ת את ביטול הבקשה?');
         return false;
    	});	
 	
 	$("button.submitForGrading").click(function(){
-		var errors=false;
-		if(!$("#acceptTerms").attr('checked') && !"${admin}"){
-			errors = true;
-			$("#erroracceptTerms").html('<font color="red">יש לאשר קבלת תנאי ההגשה (לסמן את תיבת הסימון )<font color="red"><br>');
-		}
-		else{
-			$("#erroracceptTerms").html('');
-		}
-		if($("#deanSelect").val()=='0'){
-			errors = true;
-			$("#errordeanselect").html('<font color="red">יש לבחור מאשר לפני הגשה<font color="red"><br>');
-		}
-		else{
-			$("#errordeanselect").html('');
-		}
-		if($("#subject").val()==''){
-			errors = true;
-			$("#errorsubject").html('<font color="red">יש למלא שדה נושא הכנס<font color="red"><br>');
-		}
-		else{
-			$("#errorsubject").html('');
-		}
-		if($("#location").val()=='0'){
-			errors = true;
-			$("#errordetails").html('<font color="red">יש לבחור מיקום<font color="red"><br>');
-		}
-		else{
-			$("#errordetails").html('');
-		}
-		if($("#description").val()==''){
-			errors = true;
-			$("#errordescription").html('<font color="red">יש למלא שדה התוכן העיוני של הכנס וחשיבותו לתחום<font color="red"><br>');
-		}
-		else{
-			$("#errordescription").html('');
-		}
-		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
-		var countRegex=/^\d+$/;
-		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-		var phoneRegex = /^[\d]{2,3}-[\d]{7}$/;		
-		if($("#totalCost").val()=='0'){
-			errors = true;
-			$("#errortotalcost").html('<font color="red">יש להכניס ערך מספרי לשדה סכום<font color="red"><br>');
-		}
-		else{
-			$("#errortotalcost").html('');
-		}
-		if($("#supportSum").val()=='0'){
-			errors = true;
-			$("#errorsupportsum").html('<font color="red">יש להכניס ערך מספרי לשדה סכום הסיוע המבוקש<font color="red"><br>');
-		}
-		else{
-			$("#errorsupportsum").html('');
-		}
-		if(!countRegex.test($("#participants").val())){
-			errors = true;
-			$("#errorparticipants").html('<font color="red">יש להכניס ערך מספרי לשדה משתתפים<font color="red"><br>');
-		}
-		else{
-			$("#errorparticipants").html('');
-		}
-		/*if($("#organizingCompanyEmail").val()!='' && !emailRegex.test($("#organizingCompanyEmail").val())){
-			errors = true;
-			$("#errororganizingCompanyEmail").html('<font color="red">יש להזין כתובת אימייל חברה מארגנת תקנית<font color="red"><br>');
-		}
-		else{
-			$("#errororganizingCompanyEmail").html('');
-		}
-		if($("#contactPersonEmail").val()!='' && !emailRegex.test($("#contactPersonEmail").val())){
-			errors = true;
-			$("#errorcontactPersonEmail").html('<font color="red">יש להזין כתובת אימייל איש קשר תקנית<font color="red"><br>');
-		}
-		else{
-			$("#errorcontactPersonEmail").html('');
-		}
-		if($("#organizingCompanyPhone").val()!='' && !phoneRegex.test($("#organizingCompanyPhone").val())){
-			errors = true;
-			$("#errororganizingCompanyPhone").html('<font color="red">יש להזין מספר טלפון חברה מארגנת תקני<font color="red"><br>');
-		}
-		else{
-			$("#errororganizingCompanyPhone").html('');
-		}
-		if($("#organizingCompanyFax").val()!='' && !phoneRegex.test($("#organizingCompanyFax").val())){
-			errors = true;
-			$("#errororganizingCompanyFax").html('<font color="red">יש להזין פקס חברה מארגנת תקני<font color="red"><br>');
-		}
-		else{
-			$("#errororganizingCompanyFax").html('');
-		}*/
-		if($('.organizingContactPart').is(":visible") && $('#contactPerson').val()==''){
-			errors = true;
-			$("#errorcontactPersonName").html('<font color="red">יש להזין שם איש קשר במידה והארגון המנהלתי של הכנס ייערך ע"י איש קשר<font color="red"><br>');
-		}
-		else{
-			$("#errorcontactPersonName").html('');
-		}
-		if($("#contactPersonPhone").val()!='' && !phoneRegex.test($("#contactPersonPhone").val())){
-			errors = true;
-			$("#errorcontactPersonPhone").html('<font color="red">יש להזין מספר טלפון איש קשר תקני<font color="red"><br>');
-		}
-		else{
-			$("#errorcontactPersonPhone").html('');
-		}
-		if (errors){
-		   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		
+		if("${command.versionId > 0}"){
+			$("#genericDialog").dialog('option', 'buttons', {
+	        "לא" : function() {
+	            $(this).dialog("close");
+	            return false;
+	           },
+	        "כן" : function() {
+	            $(this).dialog("close");
+	            var errors = checkErrors();//validating fields
+	    		if (errors){
+	    		   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+	    			$("#genericDialog").dialog({ modal: false });
+	    			$("#genericDialog").dialog({ height: 200 });
+	    			$("#genericDialog").dialog({ width: 400 });
+	    			openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
+	    			return false;
+	    		}
+	    		else{
+	    	    	$("#genericDialog").dialog('option', 'buttons', {
+	    	            "לא" : function() {
+	    	                $(this).dialog("close");
+	    	                return false;
+	    	               },
+	    	            "כן" : function() {
+	    	                $(this).dialog("close");
+	    	    			var options = { 
+	    	    		   			success:    function() { 
+	    	    		   			   	window.location.reload(); 
+	    	    		    		} 
+	    	    				}; 
+	    	    				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
+	    	    				$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+	    	    				$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"submitted\"/>");
+	    	    				$("#form").ajaxSubmit(options);
+	    	    	    		return false;
+	    	               }
+	    	        });
+	    			openHelp('','האם ברצונך להגיש את הבקשה?');
+	    	        return false;
+	    		}
+	          }
+	   		});
 			$("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
-			openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
-			return false;
-		}
-		else{
-
-	    	$("#genericDialog").dialog('option', 'buttons', {
-	            "לא" : function() {
-	                $(this).dialog("close");
-	                return false;
-	               },
-	            "כן" : function() {
-	                $(this).dialog("close");
-	    			var options = { 
-	    		   			success:    function() { 
-	    		   			   	window.location.reload(); 
-	    		    		} 
-	    				}; 
-	    				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
-	    				$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-	    				$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"submitted\"/>");
-	    				$("#form").ajaxSubmit(options);
-	    	    		return false;
-	               }
-	        });
-	    	//var text = 'ידוע לי שקבלת תמיכה כספית בהוצאות ארגון הכנס ו/או אישור להקצאת אולם ללא תשלום או בתשלום חלקי ';
-			//text += 'מותנית בפרסום חסות האוניברסיטה בכל פרסומי הכנס ובהגשת מאזן תקציבי מפורט תוך חודשיים ממועד סיום הכנס.<br/> ';
-	    	//text += 'האם ברצונך להמשיך להגשה?';
-	    	var text ='האם ברצונך להגיש את הבקשה?';
+			var text ='אתה נמצא בגרסה ישנה של הבקשה. בלחיצה על כן תוגש הבקשה עם הנתונים של גרסה זו והיא תהפוך לגירסה העדכנית. האם להמשיך?';
 			openHelp('',text);
-	        return false;
+			return false;
 		}
     });
 	
 	
 	$("button.submit").click(function(){
 		var options = { 
+	       	url:       'editConferenceProposal.html' ,        
+	       	type:      'POST',
 	   		success:    function() { 
 	   		   	window.location.reload(); 
 	    	} 
 		};
-		$("#form").remove("input.test");
+		//$("#form").remove("input.test");
 		$("#form").append("<input type=\"hidden\" class=\"test\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$("#form").append("<input type=\"hidden\" class=\"test\" name=\"showMessage\" value=\"saved\"/>");
 		$("#form").ajaxSubmit(options);
     	return false;
+ 
     });
 	
 	
@@ -863,24 +777,28 @@ $(document).ready(function() {
    $("#dialogBudget").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 400 });
-		$("#genericDialog").dialog({ width: 500 });
+		$("#genericDialog").dialog({ height: 600 });
+		$("#genericDialog").dialog({ width: 600 });
 		var texts='<p>';
-		texts='על פי תקנות מס הכנסה <b>חל חיוב מס הכנסה על כיבוד</b>.';
-		texts +='התשלומים למס הכנסה יהיו על חשבון תקציב הכנס (בין אם הכיבוד הוזמן מגורם פנימי או מגורם חיצוני) וכלהלן:<br/>';
-		texts += '<b>18% - על כיבוד קל</b> (לא קשור למע"מ) - לכל מנה <b>בסכום של עד 27 ש"ח</b>.<br/>';
-		texts += '<b>90% - על כיבוד כגון ארוחה מלאה במזנון או בישיבה</b> - לכל מנה בסכום <b>העולה על 27 ש"ח לאדם</b>.<br/>';
-		texts += 'פטור מתשלום מס הכנסה על כיבוד יחול במקרים שלהן:<br/>';
-		texts += '1. כיבוד של אורחים מחו"ל ומארחיהם <b>בתנאי שהאירוח הוא במסגרת התפקיד</b>.<br/>';
-		texts += '2. כיבוד משתתפים בכנס בינלאומי <b>בתנאי ששליש מהם מחו"ל</b> - לצורך הסדרת הפטור, <br/>';
-		texts += '	יש לצרף לחשבונית המס רשימה מפורטת של שמות המשתתפים בציון המוסדות והארצות מהם הם באים ולציין את המספר הכולל של המשתתפים.<br/>';
-		texts += '3. כאשר משתתפי הכנס משלמים דמי השתתפות ומצוין במפורש שהתשלום כולל כיבוד.<br/>';
-		texts += '<b>ועדת הכנסים מעודדת שיתוף דור ההמשך של החוקרים (תלמידי מוסמך ודוקטורט) <br/>';
-		texts += 'בכנסים ותשקול בחיוב בקשה לתמיכה בכנס הכוללת סעיפים תקציביים המפרטים הוצאות הקשורות להשתתפות זו.<b>';
+   		texts +=' 1. התקצוב אמור לכסות את כל ההוצאות המתוכננות הנדרשות לביצוע הכנס, ברמה מכובדת אך, <u>כיאה למוסד ציבורי</u>.</br>';
+   		texts +='2. ועדת הכנסים מעודדת שיתוף של תלמידי מוסמך ודוקטוראט, בכנסים והיא תשקול בחיוב תמיכה בכנס שתקציבו כולל סעיפים המפרטים הוצאות הקשורות להשתתפות כזו.</br>';
+   		texts +='3. על פי תקנות מס הכנסה <u>חל חיוב במס הכנסה על כיבוד</u> המוגש במסגרת הכנס. התשלומים למס הכנסה, לפי הדין, יהיו <u>על חשבון תקציב הכנס</u> (בין אם הכיבוד הוזמן מגורם פנימי או מגורם חיצוני). כיום, שיעורי המס הם כדלהלן:</br>';
+   		texts +=' - על כיבוד קל – לכל מנה, בסכום של עד 27 ₪ - 18% (לא קשור למע"מ).</br>';
+   		texts +='- על כיבוד כגון ארוחה מלאה במזנון או בישיבה, לכל מנה, בסכום העולה על 27 ₪ לאדם – 90%.</br>';
+   		texts +='על מארגני הכנס, לברר (באגף הכספים), בעת תכנון הכנס, מהו השיעור המעודכן.</br>';
+   		texts +='פטור מתשלום מס הכנסה יחול במקרים אלה:</br>';
+  		texts +='- כיבוד של אורחים מחו"ל ומארחיהם, בתנאי שהאירוח הוא במסגרת התפקיד.</br>';
+   		texts +='- כיבוד משתתפים בכנס בינלאומי – בתנאי ששליש מהם מחו"ל.</br>';
+   		texts +='- כאשר משתתפי הכנס משלמים דמי השתתפות ומצויין בפירוש שהתשלום כולל כיבוד.</br>'; 
+   		texts +='לצורך הסדרת הפטור, יש לצרף לחשבונות המס רשימה מפורטת של המשתתפים, בציון המוסדות והארצות מהם הם באים ולציין את המספר הכולל של המשתתפים.</br>';
+   		texts +='4. יש לתכנן את הכנס כך <u>שההוצאות הצפויות תכוסנה ע"י ההכנסות הוודאיות</u>.</br>';
 		texts+='</p>';	    
-	    openHelp("#dialogBudget",texts);
+	    openHelp('',texts);
 	    return false;
 	   });
+   
+   
+    
    $("#dialogRooms").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
@@ -1078,9 +996,112 @@ function calcParticipants(){
 	totalParticipantsCounter = abroadCount + localCount;
 	$("#totalCount").html(abroadCount + localCount);
 	
-
-
 }
-
+function checkErrors(){
+	var errors=false;
+	if(!$("#acceptTerms").attr('checked') && !"${admin}"){
+		errors = true;
+		$("#erroracceptTerms").html('<font color="red">יש לאשר קבלת תנאי ההגשה (לסמן את תיבת הסימון )<font color="red"><br>');
+	}
+	else{
+		$("#erroracceptTerms").html('');
+	}
+	if($("#deanSelect").val()=='0'){
+		errors = true;
+		$("#errordeanselect").html('<font color="red">יש לבחור מאשר לפני הגשה<font color="red"><br>');
+	}
+	else{
+		$("#errordeanselect").html('');
+	}
+	if($("#subject").val()==''){
+		errors = true;
+		$("#errorsubject").html('<font color="red">יש למלא שדה נושא הכנס<font color="red"><br>');
+	}
+	else{
+		$("#errorsubject").html('');
+	}
+	if($("#location").val()=='0'){
+		errors = true;
+		$("#errordetails").html('<font color="red">יש לבחור מיקום<font color="red"><br>');
+	}
+	else{
+		$("#errordetails").html('');
+	}
+	if($("#description").val()==''){
+		errors = true;
+		$("#errordescription").html('<font color="red">יש למלא שדה התוכן העיוני של הכנס וחשיבותו לתחום<font color="red"><br>');
+	}
+	else{
+		$("#errordescription").html('');
+	}
+	var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
+	var countRegex=/^\d+$/;
+	var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	var phoneRegex = /^[\d]{2,3}-[\d]{7}$/;		
+	if($("#totalCost").val()=='0'){
+		errors = true;
+		$("#errortotalcost").html('<font color="red">יש להכניס ערך מספרי לשדה סכום<font color="red"><br>');
+	}
+	else{
+		$("#errortotalcost").html('');
+	}
+	if($("#supportSum").val()=='0'){
+		errors = true;
+		$("#errorsupportsum").html('<font color="red">יש להכניס ערך מספרי לשדה סכום הסיוע המבוקש<font color="red"><br>');
+	}
+	else{
+		$("#errorsupportsum").html('');
+	}
+	if(!countRegex.test($("#participants").val())){
+		errors = true;
+		$("#errorparticipants").html('<font color="red">יש להכניס ערך מספרי לשדה משתתפים<font color="red"><br>');
+	}
+	else{
+		$("#errorparticipants").html('');
+	}
+	/*if($("#organizingCompanyEmail").val()!='' && !emailRegex.test($("#organizingCompanyEmail").val())){
+		errors = true;
+		$("#errororganizingCompanyEmail").html('<font color="red">יש להזין כתובת אימייל חברה מארגנת תקנית<font color="red"><br>');
+	}
+	else{
+		$("#errororganizingCompanyEmail").html('');
+	}
+	if($("#contactPersonEmail").val()!='' && !emailRegex.test($("#contactPersonEmail").val())){
+		errors = true;
+		$("#errorcontactPersonEmail").html('<font color="red">יש להזין כתובת אימייל איש קשר תקנית<font color="red"><br>');
+	}
+	else{
+		$("#errorcontactPersonEmail").html('');
+	}
+	if($("#organizingCompanyPhone").val()!='' && !phoneRegex.test($("#organizingCompanyPhone").val())){
+		errors = true;
+		$("#errororganizingCompanyPhone").html('<font color="red">יש להזין מספר טלפון חברה מארגנת תקני<font color="red"><br>');
+	}
+	else{
+		$("#errororganizingCompanyPhone").html('');
+	}
+	if($("#organizingCompanyFax").val()!='' && !phoneRegex.test($("#organizingCompanyFax").val())){
+		errors = true;
+		$("#errororganizingCompanyFax").html('<font color="red">יש להזין פקס חברה מארגנת תקני<font color="red"><br>');
+	}
+	else{
+		$("#errororganizingCompanyFax").html('');
+	}*/
+	if($('.organizingContactPart').is(":visible") && $('#contactPerson').val()==''){
+		errors = true;
+		$("#errorcontactPersonName").html('<font color="red">יש להזין שם איש קשר במידה והארגון המנהלתי של הכנס ייערך ע"י איש קשר<font color="red"><br>');
+	}
+	else{
+		$("#errorcontactPersonName").html('');
+	}
+	if($("#contactPersonPhone").val()!='' && !phoneRegex.test($("#contactPersonPhone").val())){
+		errors = true;
+		$("#errorcontactPersonPhone").html('<font color="red">יש להזין מספר טלפון איש קשר תקני<font color="red"><br>');
+	}
+	else{
+		$("#errorcontactPersonPhone").html('');
+	}
+	return errors;
+}
 
 </script>
