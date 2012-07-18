@@ -28,7 +28,6 @@ $(document).ready(function() {
 	
 	
 	$(".calcSum").keyup(function(e) {
-		//alert("111");
 		calcParticipants();
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
@@ -169,7 +168,7 @@ $(document).ready(function() {
     });
 	
 	$('form').find('input:not([class*=submit],[class*=cancelSubmission],[class*=isInsideDeadline],[type=file],[type=button])').autoSave(function(){		
-		alert("saving...");
+		//alert("saving...");
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
