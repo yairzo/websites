@@ -883,4 +883,40 @@ public class ConferenceProposalBean {
 		this.companyAttachContentType = companyAttachContentType;
 	}
 
+	public int getSumFromAssociate(){
+		int sum=0;
+		try{
+			for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++)
+				if(!fromAssosiate.get(i).getSum().isEmpty())
+					sum += new Integer(fromAssosiate.get(i).getSum()).intValue();
+		}
+		catch(Exception e){
+			System.out.println("Exception trying to convert financial support sum to integer");
+		}
+		return sum;
+	}
+	public int getSumFromExternal(){
+		int sum=0;
+		try{
+		for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++)
+			if(!fromExternal.get(i).getSum().isEmpty())
+				sum += new Integer(fromExternal.get(i).getSum()).intValue();
+		}
+		catch(Exception e){
+			System.out.println("Exception trying to convert financial support sum to integer");
+		}
+		return sum;
+	}
+	public int getSumFromAdmitanceFee(){
+		int sum=0;
+		try{
+		for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++)
+			if(!fromAdmitanceFee.get(i).getSum().isEmpty())
+				sum += new Integer(fromAdmitanceFee.get(i).getSum()).intValue();
+		}
+		catch(Exception e){
+			System.out.println("Exception trying to convert financial support sum to integer");
+		}
+		return sum;
+	}
 }

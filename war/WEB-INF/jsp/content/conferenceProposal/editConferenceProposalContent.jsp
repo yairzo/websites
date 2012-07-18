@@ -440,10 +440,18 @@
 							<c:out value="${committee.instituteRole}"></c:out>
 						</td>
 						<td style="border: thin black dotted">
-							<c:out value="${committee.committeeRole}"></c:out>
+							<c:choose>
+							<c:when test="${committee.committeeRole == 1}">חבר</c:when>
+							<c:when test="${committee.committeeRole == 2}">יושב ראש</c:when>
+							<c:when test="${committee.committeeRole == 3}">לא שותף</c:when>
+							</c:choose>
 						</td>					
 						<td style="border: thin black dotted">
-							<c:out value="${committee.committeeRoleOrganizing}"></c:out>
+							<c:choose>
+							<c:when test="${committee.committeeRoleOrganizing == 1}">חבר</c:when>
+							<c:when test="${committee.committeeRoleOrganizing == 2}">יושב ראש</c:when>
+							<c:when test="${committee.committeeRoleOrganizing == 3}">לא שותף</c:when>
+							</c:choose>
 						</td>					
 						</tr>
 						</c:forEach>
@@ -1021,7 +1029,7 @@
 				<tr><td colspan="4"><span id="errortotalcost" dir="rtl"><p></p></span></td></tr>
 				
 				<tr><td>&nbsp;</td></tr>
-				<tr class="form">
+				<tr class="form">ם
 		       		<td colspan="4" align="right"><h3> הסיוע המבוקש מהועדה</h3></td>
 				</tr>
 				<tr>

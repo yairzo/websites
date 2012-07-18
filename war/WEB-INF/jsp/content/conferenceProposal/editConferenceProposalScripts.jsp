@@ -13,9 +13,12 @@ $(document).ready(function() {
 	hideExtraCommittee("admitanceFee");
 	hideExtraCommittee("assosiate");
 	hideExtraCommittee("external");
-	calcFee("fromExternal");
-	calcFee("fromAssosiate");
-	calcFee("fromAdmitanceFee");
+	if("${command.sumFromAssociate}">0)
+		$('#fromAssosiateCount').html("${command.sumFromAssociate}");
+	if("${command.sumFromExternal}">0)
+		$('#fromExternalCount').html("${command.sumFromExternal}");
+	if("${command.sumFromAdmitanceFee}">0)
+		$('#fromAdmitanceFeeCount').html("${command.sumFromAdmitanceFee}");
 	calcTotalFee();	
 	calcParticipants();
 	
