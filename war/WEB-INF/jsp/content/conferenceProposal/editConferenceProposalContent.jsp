@@ -1225,19 +1225,19 @@
 				</table>
 				</td>
 				</tr>
+		       	<c:if test="${fn:length(command.deadlineRemarks)>0}">
 				<tr>
 				<td colspan="4" style="border:1px #bca2a2 dotted">
 				<table width="980">
-		       	<c:if test="${fn:length(command.deadlineRemarks)>0}">
 				<tr>
 	   				<td colspan="4"> הערה כללית של הדיקן:&nbsp;&nbsp;
 	   				${command.deadlineRemarks}
 	   				</td>
 				</tr>
-				</c:if>
 				</table>
 				</td>
 				</tr>
+				</c:if>
 				</table>
 				</td>
 				</tr>
@@ -1376,11 +1376,13 @@
 				</c:if>
 				<c:if test="${!command.submitted && !command.deleted}">			
 					<c:if test="${!firstVersion}">	
-						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;">צפה בגרסה קודמת </button>&nbsp;&nbsp;		
+						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;">צפה בגרסה קודמת </button>
+						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogVersions"/>&nbsp;&nbsp;		
 					</c:if>
 					<c:if test="${!lastVersion}">			
 						<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${nextVersion}';return false;">צפה בגרסה הבאה </button>&nbsp;&nbsp;
 					</c:if>
+					
 				</c:if>
 				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		
 			</td>

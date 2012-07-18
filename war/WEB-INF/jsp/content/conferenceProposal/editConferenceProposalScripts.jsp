@@ -169,7 +169,7 @@ $(document).ready(function() {
     });
 	
 	$('form').find('input:not([class*=submit],[class*=cancelSubmission],[class*=isInsideDeadline],[type=file],[type=button])').autoSave(function(){		
-		//alert("saving...");
+		alert("saving...");
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
@@ -217,7 +217,7 @@ $(document).ready(function() {
 		
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 	    $('#form').ajaxSubmit();
-	});
+	}, {delay: 3000});
 	
 	$('.cancelSubmission').change(function(event){
 		if($('.cancelSubmission').is(":checked") && "${GradingFinished}"){
@@ -586,7 +586,7 @@ $(document).ready(function() {
 	
 	$("button.submitForGrading").click(function(){
 		
-		if("${command.versionId > 0}"){
+		if("${command.versionId}">0){
 			$("#genericDialog").dialog('option', 'buttons', {
 	        "לא" : function() {
 	            $(this).dialog("close");
@@ -622,7 +622,7 @@ $(document).ready(function() {
 	    	    				$("#form").ajaxSubmit(options);
 	    	    	    		return false;
 	    	               }
-	    	        });
+	    	         });
 	    			openHelp('','האם ברצונך להגיש את הבקשה?');
 	    	        return false;
 	    		}
@@ -635,23 +635,85 @@ $(document).ready(function() {
 			openHelp('',text);
 			return false;
 		}
+		else{//not version
+        	var errors = checkErrors();//validating fields
+			if (errors){
+		   		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+				$("#genericDialog").dialog({ modal: false });
+				$("#genericDialog").dialog({ height: 200 });
+				$("#genericDialog").dialog({ width: 400 });
+				openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
+				return false;
+			}
+			else{
+	    	   $("#genericDialog").dialog('option', 'buttons', {
+	           "לא" : function() {
+	                $(this).dialog("close");
+	                return false;
+	               },
+	           "כן" : function() {
+	                $(this).dialog("close");
+	    			var options = { 
+	    		   		success:    function() { 
+	    		   		window.location.reload(); 
+	    		        } 
+	    		    }; 
+	    			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"submitForGrading\"/>");
+	    			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+	    			$("#form").append("<input type=\"hidden\" name=\"showMessage\" value=\"submitted\"/>");
+	    			$("#form").ajaxSubmit(options);
+	    	    	return false;
+	            }
+	           });
+			   openHelp('','האם ברצונך להגיש את הבקשה?');
+	           return false;
+			 }//else no errors
+		}//else not version
+
     });
 	
 	
 	$("button.submit").click(function(){
+		if("${command.versionId}">0){
+			$("#genericDialog").dialog('option', 'buttons', {
+	        "לא" : function() {
+	            $(this).dialog("close");
+	            return false;
+	           },
+	        "כן" : function() {
+	            $(this).dialog("close");
+	    		var options = { 
+	    		       	url:       'editConferenceProposal.html' ,        
+	    		       	type:      'POST',
+	    		   		success:    function() { 
+	    		   		   	window.location.reload(); 
+	    		    	} 
+	    			};
+	    			$("#form").append("<input type=\"hidden\" class=\"test\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+	    			$("#form").append("<input type=\"hidden\" class=\"test\" name=\"showMessage\" value=\"saved\"/>");
+	    			$("#form").ajaxSubmit(options);
+	    	    	return false;
+	          }
+	   		});
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+			var text ='אתה נמצא בגרסה ישנה של הבקשה. בלחיצה על כן תשמר הבקשה עם הנתונים של גרסה זו והיא תהפוך לגירסה העדכנית. האם להמשיך?';
+			openHelp('',text);
+			return false;
+		}
 		var options = { 
-	       	url:       'editConferenceProposal.html' ,        
-	       	type:      'POST',
-	   		success:    function() { 
-	   		   	window.location.reload(); 
-	    	} 
+		       	url:       'editConferenceProposal.html' ,        
+		       	type:      'POST',
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
 		};
-		//$("#form").remove("input.test");
 		$("#form").append("<input type=\"hidden\" class=\"test\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$("#form").append("<input type=\"hidden\" class=\"test\" name=\"showMessage\" value=\"saved\"/>");
 		$("#form").ajaxSubmit(options);
-    	return false;
- 
+	    return false;
+
     });
 	
 	
@@ -853,7 +915,20 @@ $(document).ready(function() {
 		texts+='</p>';	    
 	    openHelp("#dialogApprover",texts);
 	    return false;
-	   });   
+	   });  
+   
+   $("#dialogVersions").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 300 });
+		$("#genericDialog").dialog({ width: 500 });
+		var texts='<p>';
+		texts+='כל שמירה של הטופס, כולל שמירות אוטומטיות שמתבצעות בעת עדכון ערכים בשדות הטופס, שומרת גרסה של הטופס.</br>';
+		texts+='ניתן לדפדף ולצפות בגרסאות הקודמות של הטופס. </br>באם תתבצע שמירה או הגשה מגרסה ישנה היא תדרוס את הגרסה העדכנית.</br>';
+		texts+='</p>';	    
+	    openHelp("#dialogVersions",texts);
+	    return false;
+	   });
    
     $("#genericDialog").click(function(e){
     	$("#genericDialog").dialog("close");
