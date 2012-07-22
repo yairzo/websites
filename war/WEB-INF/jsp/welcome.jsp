@@ -37,7 +37,10 @@ $(document).ready(function() {
             	window.location.href = targetUrl;
              }
     });
-	openHelp(this,"א. אני מצהיר בזאת שהנני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>ב. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.");
+   	var text = "א. קראתי את <a href='http://ard.huji.ac.il/docs/xxx.pdf' target='_blank'><u>אמות המידה</u></a> להחלטותיה של ועדת הכנסים.</br>";
+   	text+="ב. אני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>";
+   	text+="ג. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.";
+	openHelp(this,text);
    	return false;
    });	
 });

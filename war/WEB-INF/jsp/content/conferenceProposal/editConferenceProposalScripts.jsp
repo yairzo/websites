@@ -21,6 +21,7 @@ $(document).ready(function() {
 		$('#fromAdmitanceFeeCount').html("${command.sumFromAdmitanceFee}");
 	calcTotalFee();	
 	calcParticipants();
+	$("#allExpenses").html($('#totalCost').val());
 	
 	if($('#location').val()=='6')
 		$('#locationDetail').attr('readonly', false);
@@ -348,6 +349,7 @@ $(document).ready(function() {
 	
 	$('#totalCost').change(function(event){
 		event.preventDefault();
+		$("#allExpenses").html($('#totalCost').val());
 		var numberRegex=/^\d+$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
@@ -888,10 +890,11 @@ $(document).ready(function() {
    $("#dialogRoomsNopay").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 200 });
-		$("#genericDialog").dialog({ width: 400 });
+		$("#genericDialog").dialog({ height: 300 });
+		$("#genericDialog").dialog({ width: 600 });
 		var texts='<p>';
-		texts='סימון התיבה יציין בקשה לפטור מתשלום עבור אולם או חדר סמינרים המחויב בדרך כלל בדמי שימוש.';
+		texts='סימון התיבה יציין בקשה לפטור מתשלום עבור אולם או חדר סמינרים של האוניברסיטה, המחויב בדרך כלל בדמי שימוש.</br>';
+		texts+='החדרים/אולמות שועדת הכנסים מאשרת אינם בבית בלגיה, בית מאירסדורף ובית צרפת שהינם גופים מסחריים עצמאיים.'
 		texts+='</p>';	    
 	    openHelp("#dialogRoomsNopay",texts);
 	    return false;
@@ -1018,10 +1021,10 @@ function calcTotalFee(){
 	if(numberRegex.test($("#fromAdmitanceFeeCount").text()))
 		total+=Number($("#fromAdmitanceFeeCount").text());
 	$("#fromAllFeeCount").html(total);
-	var outgoing = 0;
+	var expenses = 0;
 	if($('#totalCost').val()!=''){
-		outgoing = Number($('#totalCost').val());
-		diff = total-outgoing;
+		expenses = Number($('#totalCost').val());
+		diff = total-expenses;
 		var text="";
 		if (diff<0){
 			diff=Math.abs(diff);

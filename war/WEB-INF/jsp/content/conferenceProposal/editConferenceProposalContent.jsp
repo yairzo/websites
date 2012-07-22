@@ -43,7 +43,7 @@
 				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"><p>text put here</p></div>
 				
                 <tr>
-                  <td colspan="4" align="center"><h1>בקשה לסיוע במימון לכנס</h1>
+                  <td colspan="4" align="center"><h1>בקשה מוועדת הכנסים, לסיוע במימון כנס בינ"ל (לפי <a href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>הוראת הנהלה 17-011</a>)</h1>
                   </td>
                 </tr>
 				<c:if test="${!command.isInsideDeadline && command.submitted}">			
@@ -999,25 +999,32 @@
 					</tr>
 					</table>
 					<br>&nbsp;
-					<table width="725" cellpadding="1" cellspacing="0" align="center">
+					<table width="775" cellpadding="1" cellspacing="0" align="center">
 				    <tr>
-						<td width="220" align="right">
-						סה"כ מכל המקורות:
+						<td width="300"  align="right">
+						סה"כ ההכנסות הצפויות:
 						</td>
-						<td width="500" style="border: 1px #bca2a2 dotted" align="right">
+						<td style="border: 1px #bca2a2 dotted" align="right">
 						<span id="fromAllFeeCount"></span>
 						</td>
-						<td></td>
+				    </tr>
+				    <tr><td>&nbsp;</td></tr>
+				    <tr>
+						<td align="right">
+						סה"כ ההוצאות הצפויות:
+						</td>
+						<td style="border: 1px #bca2a2 dotted" align="right">
+						<span id="allExpenses"></span>
+						</td>
 				    </tr>
 				    <tr><td>&nbsp;</td></tr>
 				    <tr>
 						<td>
-						ההפרש בין הוצאות להכנסות:
+						ההפרש בין הוצאות הצפויות להכנסות הצפויות:
 						</td>
 						<td style="border: 1px #bca2a2 dotted" align="right">
 						<span id="sumDifference"></span>
 						</td>
-						<td></td>
 				    </tr>
 				    </table>
 					<br>&nbsp;
@@ -1029,7 +1036,7 @@
 				<tr><td colspan="4"><span id="errortotalcost" dir="rtl"><p></p></span></td></tr>
 				
 				<tr><td>&nbsp;</td></tr>
-				<tr class="form">ם
+				<tr class="form">
 		       		<td colspan="4" align="right"><h3> הסיוע המבוקש מהועדה</h3></td>
 				</tr>
 				<tr>
