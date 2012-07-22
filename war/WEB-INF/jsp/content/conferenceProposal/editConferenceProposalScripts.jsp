@@ -350,6 +350,7 @@ $(document).ready(function() {
 	$('#totalCost').change(function(event){
 		event.preventDefault();
 		$("#allExpenses").html($('#totalCost').val());
+		calcDiff();
 		var numberRegex=/^\d+$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
@@ -1012,19 +1013,24 @@ function calcFee(feeType){
 }
 
 function calcTotalFee(){
-	var total=0;
+	var totalIncome=0;
 	var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 	if(numberRegex.test($("#fromExternalCount").text()))
-		total=total + Number($("#fromExternalCount").text());
+		totalIncome=totalIncome + Number($("#fromExternalCount").text());
 	if(numberRegex.test($("#fromAssosiateCount").text()))
-		total+= Number($("#fromAssosiateCount").text());
+		totalIncome+= Number($("#fromAssosiateCount").text());
 	if(numberRegex.test($("#fromAdmitanceFeeCount").text()))
-		total+=Number($("#fromAdmitanceFeeCount").text());
-	$("#fromAllFeeCount").html(total);
+		totalIncome+=Number($("#fromAdmitanceFeeCount").text());
+	$("#fromAllFeeCount").html(totalIncome);
+	calcDiff();
+}
+
+function calcDiff(){
 	var expenses = 0;
 	if($('#totalCost').val()!=''){
 		expenses = Number($('#totalCost').val());
-		diff = total-expenses;
+		incomes =  Number($("#fromAllFeeCount").html());
+		diff = incomes-expenses;
 		var text="";
 		if (diff<0){
 			diff=Math.abs(diff);
