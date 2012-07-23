@@ -35,6 +35,7 @@ $(document).ready(function() {
 
 	$('.saveCheckbox').click(function(){
 		var insideDeadlineCheckbox=$(this);
+		var cpid=$(this).attr("id");
 		if(insideDeadlineCheckbox.is(':checked')==false){
 	    	$("#genericDialog").dialog('option', 'buttons', {
 	            "לא" : function() {
@@ -44,7 +45,7 @@ $(document).ready(function() {
 	            "כן" : function() {
 	                $(this).dialog("close");
 	     		    var options = {
-	     		       	 	url:       'conferenceProposals.html?action=save&conferenceProposalId='+ this.id,        
+	     		       	 	url:       'conferenceProposals.html?action=save&conferenceProposalId='+ cpid,        
 	     		       	 	type:      'POST'
 	     		    };
 	     			$('#form').ajaxSubmit(options);
@@ -56,9 +57,8 @@ $(document).ready(function() {
 			openHelp(this,'ביטול סימון של בקשה שכבר דורגה על ידי הדיקן תוציא אותה מרשימת הבקשות לדיון ותבטל את דירוגה. האם להמשיך? ');
 		}
 		else{
-            $(this).dialog("close");
- 		    var options = {
- 		       	 	url:       'conferenceProposals.html?action=save&conferenceProposalId='+ this.id,        
+            var options = {
+ 		       	 	url:       'conferenceProposals.html?action=save&conferenceProposalId='+ cpid,        
  		       	 	type:      'POST'
  		    };
  			$('#form').ajaxSubmit(options);	              
