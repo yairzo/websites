@@ -47,8 +47,10 @@ $(document).ready(function() {
  		}
         </c:forEach>
 		if(errorFlag){
-	        var text = " לא מיצית את האפשרויות לרשום חוות דעת ו/או הערה כללית לועדה. האם, למרות זאת,ברצונך לשלוח את התייחסות לוועדה? ";
+	        var text = " לא מיצית את האפשרויות לרשום חוות דעת ו/או הערה כללית לועדה. האם, למרות זאת, ברצונך לשלוח את התייחסות לוועדה? ";
     	   	$("#genericDialog").dialog({ modal: true });
+    		$("#genericDialog").dialog({ height: 200 });
+    		$("#genericDialog").dialog({ width: 500 });
         	$("#genericDialog").dialog('option', 'buttons', {
                 "לא" : function() {
                     $(this).dialog("close");
@@ -83,7 +85,6 @@ $(document).ready(function() {
          autoOpen: false,
          show: 'fade',
          hide: 'fade',
-         width: 300,
          open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
    	 });
      $(".ui-dialog-titlebar").hide();
@@ -110,6 +111,8 @@ $(document).ready(function() {
       $("#dialogGrade").click(function(e) {
   		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
   		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
   		var texts='<p>';
   		texts+='ככל שהדירוג נמוך יותר - עדיפותה של הבקשה לתמיכה גבוהה יותר. ע"י לחיצה על החיצים תוכל/י לשנות את מיקום הבקשה (כלומר חשיבותה היחסי).';
   		texts+='</p>';	    
@@ -119,6 +122,8 @@ $(document).ready(function() {
       $("#dialogDeadlineRemarks").click(function(e) {
     		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
     		$("#genericDialog").dialog({ modal: false });
+    		$("#genericDialog").dialog({ height: 200 });
+    		$("#genericDialog").dialog({ width: 400 });
     		var texts='<p>';
     		texts+='כל מה שלדעת הדיקן רלוונטי לשיקולי הוועדה, בנוגע לבקשות שבהמלצתו';
     		texts+='</p>';	    
@@ -128,6 +133,8 @@ $(document).ready(function() {
       $("#dialogStopGrading").click(function(e) {
   		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
   		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
   		var texts='<p>';
   		texts+='לחיצה תשלח לרכז/ת הועדה מייל המודיע שהדיקן סיים את הדירוג. היא תופעל רק אם מולאו כל חוות הדעת.';
   		texts+='</p>';	    
@@ -137,8 +144,10 @@ $(document).ready(function() {
       $("#dialogGradeTitle").click(function(e) {
     		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
     		$("#genericDialog").dialog({ modal: false });
-    		var texts='<p>';
-    		texts+='באמצעות חלון זה, הדיקן מביע את התייחסותו לבקשות שמגישיהן הם מיחידתו. ע"י הקלקה על רשומה הבקשה תפתח לעיונך.';
+    		$("#genericDialog").dialog({ height: 300 });
+    		$("#genericDialog").dialog({ width: 500 });
+   		var texts='<p>';
+    		texts+='באמצעות חלון זה, הדיקן מביע את התייחסותו לבקשות שמגישיהן הם מיחידתו. ע"י הקלקה על רשומה הבקשה תפתח לעיונך. ';
     		texts+='ניתן לשנות את פרטי התייחסותך עד לשיגורה לוועדה.';
     		texts+='</p>';	    
     	    openHelp("#dialogGradeTitle",texts);
@@ -147,7 +156,9 @@ $(document).ready(function() {
       $("#dialogGradeHeader").click(function(e) {
   		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
   		$("#genericDialog").dialog({ modal: false });
-  		var texts='<p>';
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
+ 		var texts='<p>';
   		texts+='הדירוג משקף את החשיבות היחסית כאשר 1 = הכי חשובה למימון.';
   		texts+='</p>';	    
   	    openHelp("#dialogGradeHeader",texts);
@@ -156,6 +167,8 @@ $(document).ready(function() {
       $("#dialogGradeOpinion").click(function(e) {
     		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
     		$("#genericDialog").dialog({ modal: false });
+    		$("#genericDialog").dialog({ height: 200 });
+    		$("#genericDialog").dialog({ width: 400 });
     		var texts='<p>';
     		texts+='הקלד את דעתך לבקשה המסוימת ובין השאר: חשיבות הכנס והאפשרות לממשו וכד.';
     		texts+='</p>';	    

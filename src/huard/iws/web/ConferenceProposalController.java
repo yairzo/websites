@@ -330,15 +330,15 @@ public class ConferenceProposalController extends GeneralFormController{
 				model.put("creator",true);
 			}
 			//flag if grading process was finished - to warn in case someone clicks on un-submit
-			if(conferenceProposal.getApprover()!=null){
-				ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(conferenceProposal.getApprover().getId());
+			/*if(conferenceProposal.getApprover()!=null){
+				ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(conferenceProposal.getApprover().getId(),conferenceProposal.getDeadline());
 				if(conferenceProposalGrading.getFinishedGradingDate()>1000)
 					model.put("GradingFinished",true);
 				else
 					model.put("GradingFinished",false);
 			}else{
-				model.put("GradingFinished",true);
-			}
+				model.put("GradingFinished",false);
+			}*/
 			
 			return new ModelAndView ( this.getFormView(), model);
 		}

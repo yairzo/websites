@@ -1318,7 +1318,7 @@
 				</tr>
 				<tr>
 					<td colspan="4" align="center">
-						<textarea htmlEscape="true" class="green" name="newCommitteeRemarks" cols="80" rows="1"></textarea>
+						<textarea htmlEscape="true" class="green newCommitteeRemarks" name="newCommitteeRemarks" cols="80" rows="1"></textarea>
 					</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>

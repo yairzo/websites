@@ -212,7 +212,7 @@ $(document).ready(function() {
 	    $('#form').ajaxSubmit();
 	});
 	
-	$('form').find('textarea').autoSave(function(){
+	$('form').find('textarea:not([class*=newCommitteeRemarks])').autoSave(function(){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
@@ -222,7 +222,7 @@ $(document).ready(function() {
 	}, {delay: 3000});
 	
 	$('.cancelSubmission').change(function(event){
-		if($('.cancelSubmission').is(":checked") && "${GradingFinished}"){
+		if($('.cancelSubmission').is(":checked")){
 	    	$("#genericDialog").dialog('option', 'buttons', {
 	            "לא" : function() {
 	                $(this).dialog("close");
@@ -236,7 +236,7 @@ $(document).ready(function() {
 			$("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 300 });
-			openHelp(this,'בקשה זו כבר דורגה על ידי הדיקן לכנס הקרוב. החזרתה למצב טיוטה תוציא אותה מרשימת הבקשות לכנס ותבטל את דירוגה. האם להמשיך?');
+			openHelp(this,'ביטול סימון של בקשה שכבר דורגה על ידי הדיקן תוציא אותה מרשימת הבקשות לדיון ותבטל את דירוגה. האם להמשיך? ');
 		}
 	});
 	
