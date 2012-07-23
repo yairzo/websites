@@ -5,9 +5,8 @@ import huard.iws.bean.PersonBean;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.Faculty;
-import huard.iws.model.FinancialSupport;
-import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.ConferenceProposalListService;
+import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
@@ -19,7 +18,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -27,8 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -352,10 +348,8 @@ public class ConferenceProposalController extends GeneralFormController{
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
-		//System.out.println("0000000000 here" +isFormSubmission(request.getRequest()));
 		ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean();
 		logger.info("action : " + request.getParameter("action",""));
-		
 		
 		if ( isFormSubmission(request.getRequest()) || request.getParameter("action","").equals("new"))
 			return conferenceProposalBean;

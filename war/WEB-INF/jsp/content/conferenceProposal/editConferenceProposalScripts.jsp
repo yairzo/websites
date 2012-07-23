@@ -7,7 +7,6 @@ $(document).ready(function() {
 
 	$("#form").ajaxForm();
 
-
 	hideExtraCommittee("scientificCommittee");
 	hideExtraCommittee("operationalCommittee");
 	hideExtraCommittee("admitanceFee");
