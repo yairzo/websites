@@ -23,12 +23,18 @@ public class EnablePersonUserController extends GeneralController{
 		boolean personEnabled = personService.enablePersonPrivilege(md5);
 		model.put("userPersonBean", userPersonBean);
 		model.put("personEnabled", personEnabled);
+		
+		
 
 		logger.info("Person: " + personId +"with md5: " + md5 + " enabled ? " + personEnabled);
 
 		if (personEnabled){
-			model.put("id", personId);
+			// caller page i.e. redirect page
 			String callerPage = request.getParameter("cp", "welcome.html");
+			if (callerPage.equals("editConferenceProposal.html"))
+				model.put("id", 0);
+			else if (callerPage.equals("personPost.html"))
+				model.put("id", personId);
 			model.put("cp", callerPage);
 		}
 		return new ModelAndView ("enablePersonUser",model);

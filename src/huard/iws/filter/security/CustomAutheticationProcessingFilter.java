@@ -21,7 +21,7 @@ import org.springframework.context.ApplicationContext;
 
 public class CustomAutheticationProcessingFilter extends AuthenticationProcessingFilter{
 	private static final String SAVED_REQUEST_MANDATORY_USER_DETAILS_CHANGE =
-		"SAVED_REQUEST_MANDATORY_USER_DETAILS_CHANGE";
+			"SAVED_REQUEST_MANDATORY_USER_DETAILS_CHANGE";
 	private boolean alwaysUseDefaultTargetUrl = false;
 	private String imposedTargetUrl;
 
@@ -37,6 +37,18 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 		if (password == null || ! password.matches("^[a-zA-Z0-9]{4,9}$")) {
 			password = "";
 		}
+		
+		String moduleToSubscribe = request.getParameter("mts");
+		System.out.println("module to subscribe: " + moduleToSubscribe);
+		if (moduleToSubscribe == null)
+			moduleToSubscribe = "post";
+		String modulePrivilege = "";
+		if (moduleToSubscribe.equals("post"))
+			modulePrivilege = "ROLE_POST_READER";
+		else if (moduleToSubscribe.equals("conference"))
+			modulePrivilege = "ROLE_CONFERENCE_RESEARCHER";
+		else
+			modulePrivilege = "ROLE_POST_READER";
 
 		String encodedPassword = MD5Encoder.digest(password);
 
@@ -65,6 +77,7 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 		boolean disabledUser = (person != null && personService.isDisabled(person.getId()));
 		boolean yearsFirstLogin = (person != null && personService.isYearFirstLogin(person.getId()));
 		boolean authenticated = (person != null && personService.authenticate(person.getId(), encodedPassword));
+		boolean autoSubscribed = (person != null && personService.isAutoSubscribed(person.getId()));
 
 		if (!disabledUser && ((hujiAuthorized && newUser) || (yearsFirstLogin && authenticated))){
 
@@ -78,7 +91,7 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 					int personId = personService.insertPerson(person);
 					person.setId(personId);
 				}
-				personService.insertPersonPrivilege(person, "ROLE_POST_READER", false, encodedPassword);
+				personService.insertPersonPrivilege(person, modulePrivilege, false, encodedPassword);
 			}
 
 			// keep the current authorities
@@ -110,51 +123,61 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 
 			savedRequest = (SavedRequest) session.getAttribute("SAVED_REQUEST_MANDATORY_USER_DETAILS_CHANGE");
 
-	}
-	// in case it's not the first visit this year continue as usual
-	else {
-		setDetails(request, authRequest);
-		authRequest = (UsernamePasswordAuthenticationToken)this.getAuthenticationManager().authenticate(authRequest);
-	}
-	return authRequest;
-}
-
-
-
-/*
- *  If imposedTargetUrl is not null, that's were we would like to redirect
- *  otherwise take out the url from the request
- */
-protected String determineTargetUrl(HttpServletRequest request) {
-	// Don't attempt to obtain the url from the saved request if
-	// alwaysUsedefaultTargetUrl is set
-
-	String targetUrl;
-	if (imposedTargetUrl !=null){
-		targetUrl = imposedTargetUrl;
-		imposedTargetUrl=null;
-	}
-	else{
-		targetUrl = alwaysUseDefaultTargetUrl ? null : obtainFullRequestUrl(request);
+		}
+		else if (hujiAuthorized && autoSubscribed && !authenticated ){
+			// it's an existing user authorized by huji but not authenticated in this system
+			// that means her huji password was changed. in this case we save the new password
+			// we demand she was foremerly auto subscribed to avoid password change for manually subscribed 
+			// users that has a huji password and decided to put it instead of the manually set password.
+			System.out.println("I'm here !!!!!!!");
+			personService.updatePersonPrivilegePassword(person, encodedPassword);
+			setDetails(request, authRequest);
+			authRequest = (UsernamePasswordAuthenticationToken)this.getAuthenticationManager().authenticate(authRequest);			
+		}		
+		else {
+			// in case it's not the first visit this year continue as usual
+			setDetails(request, authRequest);
+			authRequest = (UsernamePasswordAuthenticationToken)this.getAuthenticationManager().authenticate(authRequest);
+		}
+		return authRequest;
 	}
 
-	if (targetUrl == null) {
-		targetUrl = getDefaultTargetUrl();
+
+
+	/*
+	 *  If imposedTargetUrl is not null, that's were we would like to redirect
+	 *  otherwise take out the url from the request
+	 */
+	protected String determineTargetUrl(HttpServletRequest request) {
+		// Don't attempt to obtain the url from the saved request if
+		// alwaysUsedefaultTargetUrl is set
+
+		String targetUrl;
+		if (imposedTargetUrl !=null){
+			targetUrl = imposedTargetUrl;
+			imposedTargetUrl=null;
+		}
+		else{
+			targetUrl = alwaysUseDefaultTargetUrl ? null : obtainFullRequestUrl(request);
+		}
+
+		if (targetUrl == null) {
+			targetUrl = getDefaultTargetUrl();
+		}
+
+		return targetUrl;
 	}
 
-	return targetUrl;
-}
+
+
+	public boolean isAlwaysUseDefaultTargetUrl() {
+		return alwaysUseDefaultTargetUrl;
+	}
 
 
 
-public boolean isAlwaysUseDefaultTargetUrl() {
-	return alwaysUseDefaultTargetUrl;
-}
-
-
-
-public void setAlwaysUseDefaultTargetUrl(boolean alwaysUseDefaultTargetUrl) {
-	this.alwaysUseDefaultTargetUrl = alwaysUseDefaultTargetUrl;
-}
+	public void setAlwaysUseDefaultTargetUrl(boolean alwaysUseDefaultTargetUrl) {
+		this.alwaysUseDefaultTargetUrl = alwaysUseDefaultTargetUrl;
+	}
 
 }

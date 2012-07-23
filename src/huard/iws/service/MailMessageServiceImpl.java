@@ -72,10 +72,23 @@ public class MailMessageServiceImpl implements MailMessageService{
 
 
 
-	public void createSubscriptionMail (PersonBean recipient, String md5){
+	public void createPostSubscriptionMail (PersonBean recipient, String md5){
 		String subject = messageService.getMessage(recipient.getPreferedLocaleId() + ".post.subscription.subject");
 
 		String message = messageService.getMessage(recipient.getPreferedLocaleId() + ".post.subscription.message",
+				new String[] {recipient.getPreferedLocaleDegreeFullName(),
+					configurationService.getConfigurationString("server"),	""+recipient.getId(), md5});
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("message", message);
+		model.put("language", LanguageUtils.getLanguagesMap().get(recipient.getPreferedLocaleId()));
+		String body = VelocityEngineUtils.mergeTemplateIntoString(
+		           velocityEngine, "simpleMailMessage.vm", model);
+		messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, subject, body, getCommonResources());
+	}
+	
+	public void createConferenceSubscriptionMail (PersonBean recipient, String md5){
+		String subject = messageService.getMessage(recipient.getPreferedLocaleId() + ".conference.subscription.subject");
+		String message = messageService.getMessage(recipient.getPreferedLocaleId() + ".conference.subscription.message",
 				new String[] {recipient.getPreferedLocaleDegreeFullName(),
 					configurationService.getConfigurationString("server"),	""+recipient.getId(), md5});
 		Map<String, Object> model = new HashMap<String, Object>();

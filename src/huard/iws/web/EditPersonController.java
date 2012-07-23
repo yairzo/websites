@@ -22,6 +22,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.GrantedAuthorityImpl;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -52,8 +54,12 @@ public class EditPersonController extends GeneralFormController {
 				personService.updatePerson(personBean.toPerson());
 				if (personBean.isSelfSubscriber()){
 					String md5 = MD5Encoder.digest(personBean.getId() + SysUtils.toTimestamp(System.currentTimeMillis()));
-					personService.updatePersonPrivilegeMD5(personBean.toPerson(), "ROLE_POST_READER", UPDATE_LAST_LOGIN, md5);
-					mailMessageService.createSubscriptionMail(personBean, md5);
+					String privilege = request.getParameter("singlePrivilege", "ROLE_POST_READER");
+					personService.updatePersonPrivilegeMD5(personBean.toPerson(), privilege, UPDATE_LAST_LOGIN, md5);
+					if (privilege.equals("ROLE_POST_READER"))
+						mailMessageService.createPostSubscriptionMail(personBean, md5);
+					else if (privilege.equals("ROLE_CONFERENCE_RESEARCHER"))
+						mailMessageService.createConferenceSubscriptionMail(personBean, md5);
 					String userMessage = messageService.getMessage("iw_IL.general.subscriptionMailSend");
 					request.getSession().setAttribute("userMessage", userMessage);
 					newModel.put("cp", "j_acegi_logout");
@@ -79,7 +85,6 @@ public class EditPersonController extends GeneralFormController {
 		return new ModelAndView(new RedirectView("person.html"),newModel);
 	}
 
-	@SuppressWarnings("unchecked")
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
@@ -122,6 +127,10 @@ public class EditPersonController extends GeneralFormController {
 		if (userPersonBean.isAuthorized("EDIT", "USER_DETAILS")){
 			if (! personService.isSubscribed(personBean.getId())){
 				personBean.setSelfSubscriber(true);
+				String privilege = personService.getSinglePrivilege(personBean.getId(), false);
+				GrantedAuthority [] grantedAuthorities = new GrantedAuthority[]{
+						new GrantedAuthorityImpl(privilege)	};
+				personBean.setPersonPriviliges(grantedAuthorities);
 			}
 			else{
 				personBean.setYearFirstVisit(true);

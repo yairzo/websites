@@ -22,7 +22,7 @@ public class HujiAuthorizationServiceImpl implements HujiAuthorizationService{
 			return true;
 		if (username.equals("00001006") && password.equals("123456"))
 			return true;
-		if (username.equals("00001007") && password.equals("123456"))
+		if (username.equals("00001007") && (password.equals("123456") || password.equals("xjxjxj")))
 			return true;
 		if (username.equals("00001008") && password.equals("123456"))
 			return true;

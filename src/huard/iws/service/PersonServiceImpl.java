@@ -73,6 +73,10 @@ public class PersonServiceImpl implements PersonService {
 	public void insertPersonPrivilege(Person person, String privilege, boolean updateLastLogin, String password){
 		personDao.insertPersonPrivilege(person, privilege, updateLastLogin, password);
 	}
+	
+	public void updatePersonPrivilegePassword(Person person, String encodedPassword){
+		personDao.updatePersonPrivilegePassowrd(person, encodedPassword);
+	}
 
 	public void updatePersonPrivilegeMD5(Person person, String privilege, boolean updateLastLogin, String md5){
 		personDao.updatePersonPrivilegeMD5(person, privilege, updateLastLogin, md5);
@@ -84,6 +88,14 @@ public class PersonServiceImpl implements PersonService {
 
 	public boolean isSubscribed(int personId){
 		return personDao.isSubscribed(personId, true);
+	}
+	
+	public String getSinglePrivilege(int personId, boolean enabled){
+		return personDao.getSinglePrivilege(personId, enabled);
+	}
+	
+	public boolean isAutoSubscribed(int personId){
+		return personDao.isAutoSubscribed(personId, true);
 	}
 
 	public boolean isDisabled(int personId){

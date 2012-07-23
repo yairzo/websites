@@ -38,6 +38,10 @@ public class LoginController extends GeneralController{
 		int loginError = request.getIntParameter("login_error", 0);
 
 		model.put("loginError", messageService.getMessage("iw_IL.general.login.loginError."+loginError));
+		
+		String moduleToSubscribe = request.getParameter("mts", "post");
+		
+		model.put("moduleToSubscribe", moduleToSubscribe);
 
 		return new ModelAndView("login",model);
 	}

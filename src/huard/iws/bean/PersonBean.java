@@ -512,6 +512,12 @@ public class PersonBean implements Serializable {
 	public List<String> getPrivileges() {
 		return privileges;
 	}
+	
+	public String getSinglePrivilege(){
+		if (privileges.size() == 0)
+			return "";
+		return privileges.get(0);
+	}
 
 	public void setPersonPriviliges(GrantedAuthority[] grantedAuthorities) {
 		privileges = new ArrayList<String>();

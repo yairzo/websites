@@ -19,6 +19,7 @@
             <form:form id="form" name="form" method="POST" action="person.html" commandName="command">
 				<form:hidden path="id"/>
 				<form:hidden path="selfSubscriber"/>
+				<input type="hidden" name="singlePrivilege" value="${command.singlePrivilege}"/>
 				<form:hidden path="yearFirstVisit"/>
 				<input type="hidden" name="cp" value="${cp}"/>
 

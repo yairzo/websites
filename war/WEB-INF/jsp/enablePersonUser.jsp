@@ -50,7 +50,7 @@
 		<tr>
 			<th align="right">
 				  הרישום הראשוני אושר.
-				 <a style="text-decoration: none" href="${cp}?id=${id}&cp=j_acegi_logout">לחצ/י כאן כדי להמשיך הלאה</a>
+				  <a style="text-decoration: none" href="${cp}?cp=j_acegi_logout<c:choose><c:when test="${id>0}">&id=${id}</c:when><c:otherwise>&action=new</c:otherwise></c:choose>">לחצ/י כאן כדי להמשיך הלאה</a>
 				 <br/>
 				 <br/>
 				 תדרש/י להקליד שוב את שם המשתמש והסיסמה.

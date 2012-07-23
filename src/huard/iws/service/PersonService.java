@@ -32,11 +32,17 @@ public interface PersonService {
 
 	public void insertPersonPrivilege(Person person, String privilege, boolean updateLastLogin, String md5);
 
+	public void updatePersonPrivilegePassword(Person person, String encodedPassword);
+	
 	public void updatePersonPrivilegeMD5(Person person, String privilege, boolean updateLastLogin,  String md5);
 
 	public boolean enablePersonPrivilege (String md5);
 
 	public boolean isSubscribed(int personId);
+	
+	public String getSinglePrivilege(int personId, boolean enabled);
+	
+	public boolean isAutoSubscribed(int personId);
 
 	public boolean isDisabled(int personId);
 

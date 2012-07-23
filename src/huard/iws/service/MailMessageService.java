@@ -17,7 +17,9 @@ import java.util.List;
 
 public interface MailMessageService {
 
-	public void createSubscriptionMail (PersonBean recipient, String md5);
+	public void createPostSubscriptionMail (PersonBean recipient, String md5);
+	
+	public void createConferenceSubscriptionMail (PersonBean recipient, String md5);
 
 	public void createSimpleProposalMail(PersonBean recipient, ProposalBean proposal,
 			String messageKey);

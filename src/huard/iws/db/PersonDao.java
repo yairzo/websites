@@ -42,9 +42,15 @@ public interface PersonDao {
 
 	public void insertPersonPrivilege(Person person, String priviledge, boolean updateLastLogin, String password);
 
+	public void updatePersonPrivilegePassowrd(Person person, String encodedPassword);
+	
 	public void updatePersonPrivilegeMD5(Person person, String privilege, boolean updateLastLogin, String md5);
 
 	public boolean isSubscribed(int personId, boolean enabled);
+	
+	public String getSinglePrivilege(int personId, boolean enabled);
+	
+	public boolean isAutoSubscribed(int personId, boolean enabled);
 
 	public boolean enablePersonPrivilege(String md5);
 

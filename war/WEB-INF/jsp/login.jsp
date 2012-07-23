@@ -26,6 +26,7 @@
   <tr>
     <td>
        <form method="POST" action="j_acegi_security_check">
+       	<input type="hidden" name="mts" value="${moduleToSubscribe}"/>
       <table width="700" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
         <tr>
           <td valign="top" align="center"><br>

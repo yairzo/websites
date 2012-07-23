@@ -383,6 +383,12 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 			query += ", lastLogin = now()";
 		getSimpleJdbcTemplate().update(query, person.getId(), privilege, password);
 	}
+	
+	public void updatePersonPrivilegePassowrd(Person person, String encodedPassword){
+		String query = "update personPrivilege set password = ?"
+			+ " where personId = ?";
+		getSimpleJdbcTemplate().update(query, encodedPassword, person.getId());
+	}
 
 	public void updatePersonPrivilegeMD5(Person person, String privilege, boolean updateLastLogin, String md5){
 		String query = "update personPrivilege set  subscriptionMd5 = ?";
@@ -400,6 +406,19 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 
 	public boolean isSubscribed(int personId, boolean enabled){
 		String query = "select count(*) from personPrivilege where personId = ? and enabled = " + (enabled ? 1: 0);
+		int  r = getSimpleJdbcTemplate().queryForInt(query, personId);
+		return r > 0;
+	}
+	
+	public String getSinglePrivilege(int personId, boolean enabled){
+		String query = "select privilege from personPrivilege where personId = ? and enabled = " + (enabled ? 1: 0) + " limit 1";
+		Class<String> string = null;
+		String privilege = getSimpleJdbcTemplate().queryForObject(query, string, personId);
+		return privilege;
+	}
+	
+	public boolean isAutoSubscribed(int personId, boolean enabled){
+		String query = "select count(*) from personPrivilege where personId = ? and subscriptionMd5!='' and enabled = " + (enabled ? 1: 0);
 		int  r = getSimpleJdbcTemplate().queryForInt(query, personId);
 		return r > 0;
 	}
