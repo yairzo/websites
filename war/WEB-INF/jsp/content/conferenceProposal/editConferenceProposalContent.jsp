@@ -43,7 +43,12 @@
 				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"><p>text put here</p></div>
 				
                 <tr>
-                  <td colspan="4" align="center"><h1>בקשה מוועדת הכנסים, לסיוע במימון כנס בינ"ל (לפי <a href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>הוראת הנהלה 17-011</a>)</h1>
+                  <td colspan="4" align="center">
+                  	<h1>בקשה מוועדת הכנסים (לפי 
+                  	<a href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>
+                  הוראת הנהלה 17-011</a>)
+                  לסיוע במימון כנס בינ"ל 
+                  </h1>
                   </td>
                 </tr>
 				<c:if test="${!command.isInsideDeadline && command.submitted}">			
@@ -196,7 +201,7 @@
       						<form:option value="3">בקמפוס בעין כרם</form:option>
       						<form:option value="4">בקמפוס ברחובות</form:option>
       						<form:option value="5">בקמפוס באילת</form:option>
-      						<form:option value="6">בעיר במקום אחר, פרט:</form:option>
+      						<form:option value="6">במקום אחר, פרט:</form:option>
         		    	</form:select>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">
@@ -207,11 +212,11 @@
 							<c:when test="${command.location == 3}">בקמפוס בעין כרם</c:when>
 							<c:when test="${command.location == 4}">בקמפוס ברחובות</c:when>
 							<c:when test="${command.location == 5}">בקמפוס באילת</c:when>
-							<c:when test="${command.location == 6}">בעיר במקום אחר</c:when>
+							<c:when test="${command.location == 6}">:במקום אחר</c:when>
 						</c:choose>
 					</c:if>
 					</td>
-					<td  style="border:1px #bca2a2 dotted">
+					<td class="locationDetails" style="border:1px #bca2a2 dotted; opacity: 0.3;">
 						פירוט מיקום:
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input htmlEscape="true" cssClass="green medium200" path="locationDetail" id="locationDetail" readonly="true"/>
@@ -1391,11 +1396,11 @@
 				</c:if>
 				<c:if test="${!command.submitted && !command.deleted}">			
 					<c:if test="${!firstVersion}">	
-						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;">צפה בגרסה קודמת </button>
+						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;"><font size="+1">&nbsp;&#x21B7;&nbsp;</font></button>
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogVersions"/>&nbsp;&nbsp;		
 					</c:if>
 					<c:if test="${!lastVersion}">			
-						<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${nextVersion}';return false;">צפה בגרסה הבאה </button>&nbsp;&nbsp;
+						<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${nextVersion}';return false;"><font size="+1">&nbsp;&#x21B6;&nbsp;</font></button>&nbsp;&nbsp;
 					</c:if>
 					
 				</c:if>

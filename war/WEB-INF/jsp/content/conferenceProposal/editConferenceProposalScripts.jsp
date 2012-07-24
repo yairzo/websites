@@ -22,12 +22,26 @@ $(document).ready(function() {
 	calcParticipants();
 	$("#allExpenses").html($('#totalCost').val());
 	
-	if($('#location').val()=='6')
+	if($('#location').val()=='6'){
+		$('td.locationDetails').css("opacity","1");
 		$('#locationDetail').attr('readonly', false);
+	}
 	else{
 		$('#locationDetail').attr('readonly', true);
 		$('#locationDetail').val('');
 	}
+	
+	$('#location').change(function(){
+		if($('#location').val()=='6'){
+			$('td.locationDetails').css("opacity","1");
+			$('#locationDetail').attr('readonly', false);
+		}
+		else{
+			$('td.locationDetails').css("opacity","0.3");
+			$('#locationDetail').attr('readonly', true);
+			$('#locationDetail').val('');
+		}
+	});
 	
 	
 	$(".calcSum").keyup(function(e) {
@@ -731,7 +745,7 @@ $(document).ready(function() {
      });
 		<c:if test="${userMessage!=null}">
 		var userMessage = "${userMessage}";
-		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");window.location.href = "conferenceProposals.html";} });
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
@@ -748,6 +762,15 @@ $(document).ready(function() {
     openHelp("#dialogInitiatingBody",' רשום את שמו של הגוף שיוזם את הכנס. גוף זה יכול שיהיה יחידה/מרכז בתוך האוניברסיטה או ישות מוגדרת מחוץ לאוניברסיטה או "קבוצת חוקרים" או "מגיש הבקשה".');
     return false;
    });
+   
+   $("#dialogStartEndDate").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
+	    openHelp("#dialogInitiatingBody",'לחיצה על השדה תפתח לוח שנה שיאפשר בחירת תאריך');
+	    return false;
+	   });
 
    $("#dialogDescription").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
@@ -845,10 +868,10 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 600 });
 		$("#genericDialog").dialog({ width: 600 });
-		var texts='<p>';
-   		texts +=' 1. התקצוב אמור לכסות את כל ההוצאות המתוכננות הנדרשות לביצוע הכנס, ברמה מכובדת אך, <u>כיאה למוסד ציבורי</u>.</br>';
-   		texts +='2. ועדת הכנסים מעודדת שיתוף של תלמידי מוסמך ודוקטוראט, בכנסים והיא תשקול בחיוב תמיכה בכנס שתקציבו כולל סעיפים המפרטים הוצאות הקשורות להשתתפות כזו.</br>';
-   		texts +='3. על פי תקנות מס הכנסה <u>חל חיוב במס הכנסה על כיבוד</u> המוגש במסגרת הכנס. התשלומים למס הכנסה, לפי הדין, יהיו <u>על חשבון תקציב הכנס</u> (בין אם הכיבוד הוזמן מגורם פנימי או מגורם חיצוני). כיום, שיעורי המס הם כדלהלן:</br>';
+		var texts='<p><ol>';
+   		texts +='<li>התקציב אמור לכסות את כל ההוצאות המתוכננות הנדרשות לביצוע הכנס, ברמה מכובדת אך, <u>כיאה למוסד ציבורי</u>.</li>';
+   		texts +='<li>ועדת הכנסים מעודדת שיתוף של תלמידי מוסמך ודוקטוראט, בכנסים והיא תשקול בחיוב תמיכה בכנס שתקציבו כולל סעיפים המפרטים הוצאות הקשורות להשתתפות כזו.</li>';
+   		texts +='<li>על פי תקנות מס הכנסה <u>חל חיוב במס הכנסה על כיבוד</u> המוגש במסגרת הכנס. התשלומים למס הכנסה, לפי הדין, יהיו <u>על חשבון תקציב הכנס</u> (בין אם הכיבוד הוזמן מגורם פנימי או מגורם חיצוני). כיום, שיעורי המס הם כדלהלן:</br>';
    		texts +=' - על כיבוד קל – לכל מנה, בסכום של עד 27 ₪ - 18% (לא קשור למע"מ).</br>';
    		texts +='- על כיבוד כגון ארוחה מלאה במזנון או בישיבה, לכל מנה, בסכום העולה על 27 ₪ לאדם – 90%.</br>';
    		texts +='על מארגני הכנס, לברר (באגף הכספים), בעת תכנון הכנס, מהו השיעור המעודכן.</br>';
@@ -856,9 +879,9 @@ $(document).ready(function() {
   		texts +='- כיבוד של אורחים מחו"ל ומארחיהם, בתנאי שהאירוח הוא במסגרת התפקיד.</br>';
    		texts +='- כיבוד משתתפים בכנס בינלאומי – בתנאי ששליש מהם מחו"ל.</br>';
    		texts +='- כאשר משתתפי הכנס משלמים דמי השתתפות ומצויין בפירוש שהתשלום כולל כיבוד.</br>'; 
-   		texts +='לצורך הסדרת הפטור, יש לצרף לחשבונות המס רשימה מפורטת של המשתתפים, בציון המוסדות והארצות מהם הם באים ולציין את המספר הכולל של המשתתפים.</br>';
-   		texts +='4. יש לתכנן את הכנס כך <u>שההוצאות הצפויות תכוסנה ע"י ההכנסות הוודאיות</u>.</br>';
-		texts+='</p>';	    
+   		texts +='לצורך הסדרת הפטור, יש לצרף לחשבונית המס רשימה מפורטת של המשתתפים, בציון המוסדות והארצות מהם הם באים ולציין את המספר הכולל של המשתתפים.</li>';
+   		texts +='<li>יש לתכנן את הכנס כך <u>שההוצאות הצפויות תכוסנה ע"י ההכנסות הוודאיות</u>.</li>';
+		texts+='</ol></p>';	    
 	    openHelp('',texts);
 	    return false;
 	   });

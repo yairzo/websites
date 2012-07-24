@@ -3,7 +3,6 @@ package huard.iws.web;
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.ConferenceProposal;
-import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.Faculty;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
