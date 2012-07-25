@@ -438,9 +438,10 @@ $(document).ready(function() {
 			return false;
 		</c:if>
 		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$("#attachmentsForm").append("<input type=\"hidden\" name=\"attachIndex\" value=\""+attachIndex+"\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"attachIndex\" id=\"attachIndex\" value=\""+attachIndex+"\"/>");
 		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
 		$('#attachmentsForm').ajaxSubmit();
+		$("#attachmentsForm #attachIndex").remove();
 		//var filename = $(this).attr("id");
 		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
 		//$(this).siblings('#fromAssosiateAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&assosiateId="+aIndex+"&attachFile=assosiateAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
@@ -454,9 +455,10 @@ $(document).ready(function() {
 			return false;
 		</c:if>
 		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$("#attachmentsForm").append("<input type=\"hidden\" name=\"attachIndex\" value=\""+attachIndex+"\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"attachIndex\" id=\"attachIndex\" value=\""+attachIndex+"\"/>");
 		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
 		$('#attachmentsForm').ajaxSubmit();
+		$("#attachmentsForm #attachIndex").remove();
 		//var filename = $(this).attr("id");
 		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
 		//$(this).siblings('#fromExternalAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&externalId="+aIndex+"&attachFile=externalAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
@@ -470,9 +472,10 @@ $(document).ready(function() {
 			return false;
 		</c:if>
 		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$("#attachmentsForm").append("<input type=\"hidden\" name=\"attachIndex\" value=\""+attachIndex+"\"/>");
+		$("#attachmentsForm").append("<input type=\"hidden\" name=\"attachIndex\" id=\"attachIndex\" value=\""+attachIndex+"\"/>");
 		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
 		$('#attachmentsForm').ajaxSubmit();
+		$("#attachmentsForm #attachIndex").remove();
 		//var filename = $(this).attr("id");
 		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
 		var aIndex =attachIndex;
