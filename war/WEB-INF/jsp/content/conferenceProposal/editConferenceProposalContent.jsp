@@ -1,7 +1,4 @@
 <%@ page  pageEncoding="UTF-8" %>
-
-
-
        	 <tr>
           		<td align="right" bgcolor="#787669" height="20">
            			<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>

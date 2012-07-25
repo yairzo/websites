@@ -182,40 +182,32 @@ public class ConferenceProposalListController extends GeneralFormController {
 			searchCommand.setListView(listView);			
 		}
 		if (isFormSubmission(request.getRequest())){
-			String whereClause = "";
+			String whereClause = "true";
 			ConferenceProposalSearchCreteria searchCreteria = new ConferenceProposalSearchCreteria();
 			int searchByApprover = request.getIntParameter("searchByApprover", 0);
 			if( searchByApprover > 0){
-				whereClause += " approverId=" + request.getIntParameter("searchByApprover", 0);
+				whereClause += " and approverId=" + request.getIntParameter("searchByApprover", 0);
 			}
 			int searchBySubmitted = request.getIntParameter("searchBySubmitted", 0);
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN")){
-				if(!whereClause.isEmpty())
-					whereClause += " and";
 				if(searchBySubmitted==3)
-					whereClause += " deleted = 1";
+					whereClause += " and deleted = 1";
 				else if (searchBySubmitted < 2)// 2 is all proposals
-					whereClause += " submitted =" + searchBySubmitted + " and deleted=0";
+					whereClause += " and submitted =" + searchBySubmitted + " and deleted=0";
 			}
 			else if (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")
 				|| userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE")){
-				if(!whereClause.isEmpty())
-					whereClause += " and";
-				whereClause += " submitted = 1";
+				whereClause += " and submitted = 1";
 			}
 			
 			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
 			int searchByDeadline = request.getIntParameter("searchByDeadline", 0);
 			if( searchByDeadline > 0){
-					if(!whereClause.isEmpty())
-						whereClause+=" and"; 
 					if(searchByDeadline==1)//for this conference meeting
-						whereClause += " isInsideDeadline = 1";
+						whereClause += " and isInsideDeadline = 1";
 					else if(searchByDeadline==2)//for next conference meeting
-						whereClause += " isInsideDeadline = 0";
-					if(!whereClause.isEmpty())
-						whereClause+=" and"; 
-					whereClause += " date(deadline)>'"+previousDeadline +"'";
+						whereClause += " and isInsideDeadline = 0";
+					whereClause += " and date(deadline)>'"+previousDeadline +"'";
 			}	
 			searchCreteria.setWhereClause(whereClause);
 			searchCreteria.setSearchByApprover(searchByApprover);
