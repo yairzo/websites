@@ -182,7 +182,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			searchCommand.setListView(listView);			
 		}
 		if (isFormSubmission(request.getRequest())){
-			String whereClause = "true";
+			String whereClause = " true";
 			ConferenceProposalSearchCreteria searchCreteria = new ConferenceProposalSearchCreteria();
 			int searchByApprover = request.getIntParameter("searchByApprover", 0);
 			if( searchByApprover > 0){
