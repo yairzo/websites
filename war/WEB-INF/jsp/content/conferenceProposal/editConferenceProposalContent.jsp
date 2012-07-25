@@ -1396,8 +1396,13 @@
 						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;"><font size="+1">&nbsp;&#x21B7;&nbsp;</font></button>
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogVersions"/>&nbsp;&nbsp;		
 					</c:if>
-					<c:if test="${!lastVersion}">			
-						<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${nextVersion}';return false;"><font size="+1">&nbsp;&#x21B6;&nbsp;</font></button>&nbsp;&nbsp;
+					<c:if test="${!lastVersion}">		
+						<c:if test="${nextVersionIsLast}">		
+							<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}';return false;"><font size="+1">&nbsp;&#x21B6;&nbsp;</font></button>&nbsp;&nbsp;
+						</c:if>
+						<c:if test="${!nextVersionIsLast}">		
+							<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${nextVersion}';return false;"><font size="+1">&nbsp;&#x21B6;&nbsp;</font></button>&nbsp;&nbsp;
+						</c:if>
 					</c:if>
 					
 				</c:if>

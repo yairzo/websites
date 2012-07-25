@@ -265,6 +265,10 @@ public class ConferenceProposalController extends GeneralFormController{
 		//System.out.println("22222222222 here");
 		model.put("previousVersion", conferenceProposalService.getPreviousVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
 		model.put("nextVersion", conferenceProposalService.getNextVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
+		if(conferenceProposalService.getLastVersion(request.getIntParameter("id", 0))==conferenceProposalService.getNextVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)))
+			model.put("nextVersionIsLast",true);
+		else
+			model.put("nextVersionIsLast",false);
 		model.put("firstVersion", request.getSession().getAttribute("firstVersion"));
 		model.put("lastVersion", request.getSession().getAttribute("lastVersion"));
 		// a list of possible proposal approvers

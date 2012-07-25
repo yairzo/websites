@@ -50,9 +50,17 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-		if(totalParticipantsCounter>1000){
-			 $(this).val('');
-			 openHelp('','נא להכניס ערך שאינו עולה על 1000');
+		var numberRegex=/^\d+$/;
+		if(!numberRegex.test($(this).val())){
+			 $(this).val('0');
+			 openHelp('','נא להכניס ערך מספרי שלם');
+			 calcParticipants();
+			 return false;
+		}
+		else if(totalParticipantsCounter>1000){
+			 $(this).val('0');
+			 openHelp('','כלל המשתתפים בכנס לא יעלה על 1000');
+			 calcParticipants();
 			 return false;
 		}
 	 });   
