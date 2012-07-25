@@ -45,7 +45,7 @@
                 <tr>
                   <td colspan="4" align="center">
                   	<h1>בקשה מוועדת הכנסים (לפי 
-                  	<a href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>
+                  	<a class='underline' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>
                   הוראת הנהלה 17-011</a>)
                   לסיוע במימון כנס בינ"ל 
                   </h1>

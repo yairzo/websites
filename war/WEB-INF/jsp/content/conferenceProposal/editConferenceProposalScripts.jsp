@@ -361,7 +361,7 @@ $(document).ready(function() {
 	});	
 	
 	$('#totalCost').change(function(event){
-		event.preventDefault();
+		//event.preventDefault();
 		$("#allExpenses").html($('#totalCost').val());
 		calcDiff();
 		var numberRegex=/^\d+$/;
@@ -374,7 +374,7 @@ $(document).ready(function() {
 			 openHelp(this,'נא להכניס ערך מספרי שלם לשדה זה');
 			 return false;
 		}
-		return false;
+		//return false;
 	});		
 	
 	$('.assosiate').change(function(event){
@@ -437,6 +437,7 @@ $(document).ready(function() {
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		//alert(attachIndex);
 		$("#attachmentsForm").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$("#attachmentsForm").append("<input type=\"hidden\" name=\"attachIndex\" id=\"attachIndex\" value=\""+attachIndex+"\"/>");
 		$("#attachmentsForm").append("<input type=\"hidden\" name=\"cpid\" id=\"cpid\" value=\"${command.id}\"/>");
@@ -539,16 +540,22 @@ $(document).ready(function() {
                 return false;
                },
             "כן" : function() {
-       	   		console.log("calc");
                 $(this).dialog("close");
-    	   		deleteButton.parents('tr.financialSupport').remove();
-    	   		calcFee("fromExternal");
-    	   		calcFee("fromAssosiate");
-    	   		calcFee("fromAdmitanceFee");
-     	   		calcTotalFee();
+                deleteButton.parents('tr.financialSupport').remove();
+    	   		//calcFee("fromExternal");
+    	   		//calcFee("fromAssosiate");
+    	   		//calcFee("fromAdmitanceFee");
+     	   		//calcTotalFee();
+     	   		var options = { 
+        		  		success:    function() { 
+        		   		   	window.location.reload(); 
+        		    	} 
+        			}; 
    				$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-   	   			$("#form").ajaxSubmit();
-    			return true;
+   				//$("#form #ajaxSubmit").remove(); 
+   	   			//$("#form").submit();
+   	   			$("#form").ajaxSubmit(options);
+    			return false;
                }
             });
 
