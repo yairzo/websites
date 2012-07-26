@@ -92,11 +92,6 @@ $(document).ready(function() {
 						</tr>
 					</table>
 					<table width="400" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
-						<tr>
-							<th align="right">
-								<a style="text-decoration: none" href="person.html?id=${userPersonBean.id}&cp=welcome.html">עדכון פרטים אישיים</a>
-							</th>
-						</tr>
 						<authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
 						<tr>
 							<th align="right">
@@ -210,6 +205,11 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="person.html?id=${userPersonBean.id}&cp=welcome.html">עדכון פרטים אישיים</a>
+							</th>
+						</tr>
 						<tr>
 							<td>
 								&nbsp;

@@ -34,7 +34,6 @@ public class ConferenceProposalController extends GeneralFormController{
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 	throws Exception{
-		//System.out.println("11111111111 here");
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
 		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		

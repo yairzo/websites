@@ -753,6 +753,10 @@
 				    <th style="border: 1px #bca2a2 dotted"> סכום (דולר)</th>
 				    <!-- <th style="border: 1px #bca2a2 dotted"> מטבע </th> -->
 				    <th style="border: 1px #bca2a2 dotted">אסמכתא</th>
+					<c:if test="${!readOnly && !command.submitted}">
+ 				    <th><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDeleteFinancialSupport"/>
+				    </th>
+					</c:if>
 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
@@ -1094,7 +1098,7 @@
 		       		<td style="border:1px #bca2a2 dotted">
 		       		מבוקש פטור מתשלום עבור אולם
 					<c:if test="${!readOnly && !command.submitted}">			
-						<form:checkbox cssClass="green" path="seminarRoom"/>
+						<form:checkbox cssClass="green" path="seminarRoom" id="seminarRoom"/>
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="seminarRoom"/>
@@ -1102,7 +1106,7 @@
 					</c:if>
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRoomsNopay"/>
 					</td>
-					<td style="border:1px #bca2a2 dotted">
+					<td style="border:1px #bca2a2 dotted" colspant="2" class="seminarRoomDetails">
 	   					ל:
 					<c:if test="${!readOnly && !command.submitted}">			
 	   					<form:input cssClass="green medium50" path="participants" id="participants"/>
@@ -1111,12 +1115,10 @@
 						<form:hidden path="participants"/>
 	   					${command.participants}
 					</c:if>
-					אנשים
-					</td>
-					<td style="border:1px #bca2a2 dotted">
+					אנשים. &nbsp;
 	   				  רצוי בקמפוס:
  					<c:if test="${!readOnly && !command.submitted}">			
-        				<form:select path="prefferedCampus" cssClass="green">
+        				<form:select path="prefferedCampus" cssClass="green" id="prefferedCampus">
       					<form:option value="0">בחר/י קמפוס</form:option>
       					<form:option value="1">גבעת רם</form:option>
       					<form:option value="2">הר הצופים</form:option>
@@ -1184,7 +1186,7 @@
         				<form:select id="deanSelect"  path="approverId" cssClass="green">
       					<form:option value="0">בחר/י דיקן ממליץ</form:option>
        					<c:forEach items="${deans}" var="deanPerson">
-	        				<form:option htmlEscape="true" value="${deanPerson.id}" ><c:out escapeXml="false" value="${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/></form:option>
+	        				<form:option htmlEscape="true" value="${deanPerson.id}"><c:out escapeXml="false" value="${deanPerson.title}"/></form:option>
        					</c:forEach>
        		        	</form:select>
 					</c:if>

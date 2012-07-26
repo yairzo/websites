@@ -514,7 +514,7 @@ public class PersonBean implements Serializable {
 	}
 	
 	public String getSinglePrivilege(){
-		if (privileges.size() == 0)
+		if (privileges==null || privileges.size() == 0)
 			return "";
 		return privileges.get(0);
 	}

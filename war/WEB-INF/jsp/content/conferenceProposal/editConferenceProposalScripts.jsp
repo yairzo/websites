@@ -43,7 +43,39 @@ $(document).ready(function() {
 		}
 	});
 	
+	if($('#seminarRoom').is(":checked")){
+		$('td.seminarRoomDetails').css("opacity","1");
+		$('#participants').attr('readonly', false);
+		$('#prefferedCampus').attr('readonly', false);
+	}
+	else{
+		$('td.seminarRoomDetails').css("opacity","0.3");
+		$('#participants').attr('readonly', true);
+		$('#participants').val('0');
+		$('#prefferedCampus').val('0');
+		jQuery('select#prefferedCampus option:not(:selected)').attr('disabled',true);
+	}
 	
+	$('#seminarRoom').change(function(){
+		if($('#seminarRoom').is(":checked")){
+			$('td.seminarRoomDetails').css("opacity","1");
+			$('#participants').attr('readonly', false);
+			$('#prefferedCampus').attr('readonly', false);
+		}
+		else{
+			$('td.seminarRoomDetails').css("opacity","0.3");
+			$('#participants').attr('readonly', true);
+			$('#participants').val('0');
+			$('#prefferedCampus').val('0');
+			jQuery('select#prefferedCampus option:not(:selected)').attr('disabled',true);
+		}
+	});
+	
+	$(".calcSum").focus(function(event){
+		if($(this).val()=='0')
+			$(this).val('');
+	});
+			
 	$(".calcSum").keyup(function(e) {
 		calcParticipants();
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
@@ -97,11 +129,13 @@ $(document).ready(function() {
        $('#attachmentsForm #programAttach').click();
        //$('input#programAttach').click();
 	});
+	
 	$("button.financialAttach").click(function(event){
 		event.preventDefault();
 	    $('#attachmentsForm #financialAttach').click();
        // $('input#financialAttach').click();
 	});
+	
 	$("button.companyAttach").click(function(event){
 		event.preventDefault();
 	    $('#attachmentsForm #companyAttach').click();
@@ -223,7 +257,7 @@ $(document).ready(function() {
 				calcFee("fromExternal");
 				calcTotalFee();
 		}
-	}, {delay: 3000});
+	}, {delay: 2000});
 	
 	$('form').find('select').change(function(){
 		<c:if test="${command.versionId > 0}">
@@ -283,8 +317,13 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$('#participants').focus(function(event){
+		if($(this).val()=='0')
+			$(this).val('');
+	});
+	
 	$('#participants').change(function(event){
-		event.preventDefault();
+		//event.preventDefault();
 		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
@@ -353,6 +392,11 @@ $(document).ready(function() {
 		return false;
 	});	
 	
+	$('#supportSum').focus(function(event){
+		if($(this).val()=='0')
+			$(this).val('');
+	});
+	
 	$('#supportSum').change(function(event){
 		event.preventDefault();
 		var numberRegex=/^\d+$/;
@@ -367,6 +411,12 @@ $(document).ready(function() {
 		}
 		return false;
 	});	
+	
+	
+	$('#totalCost').focus(function(event){
+		if($(this).val()=='0')
+			$(this).val('');
+	});
 	
 	$('#totalCost').change(function(event){
 		//event.preventDefault();
@@ -385,18 +435,35 @@ $(document).ready(function() {
 		//return false;
 	});		
 	
+	$('.assosiate').keypress(function(event){
+		if(event.keyCode == 13) {//pressed enter key
+			return false;//otherwise it opens file select
+		}
+	});
+
 	$('.assosiate').change(function(event){
-		event.preventDefault();
+		//event.preventDefault();
 		var row = $(this).closest('tr');
 		row.find('button.fromAssosiateAttach').show();
 	});
+	
+	$('.external').keypress(function(event){
+		if(event.keyCode == 13) {//pressed enter key
+			return false;//otherwise it opens file select
+		}
+	});
 	$('.external').change(function(event){
-		event.preventDefault();
+		//event.preventDefault();
 		var row = $(this).closest('tr');
 		row.find('button.fromExternalAttach').show();
 	});
+	$('.admitanceFee').keypress(function(event){
+		if(event.keyCode == 13) {//pressed enter key
+			return false;//otherwise it opens file select
+		}
+	});
 	$('.admitanceFee').change(function(event){
-		event.preventDefault();
+		//event.preventDefault();
 		var row = $(this).closest('tr');
 		row.find('button.fromAdmitanceFeeAttach').show();
 	});
@@ -550,21 +617,18 @@ $(document).ready(function() {
             "כן" : function() {
                 $(this).dialog("close");
                 deleteButton.parents('tr.financialSupport').remove();
-    	   		//calcFee("fromExternal");
-    	   		//calcFee("fromAssosiate");
-    	   		//calcFee("fromAdmitanceFee");
-     	   		//calcTotalFee();
-     	   		var options = { 
-        		  		success:    function() { 
+    	   		calcFee("fromExternal");
+    	   		calcFee("fromAssosiate");
+    	   		calcFee("fromAdmitanceFee");
+     	   		calcTotalFee();
+        		var options = { 
+        		   		success:    function() { 
         		   		   	window.location.reload(); 
         		    	} 
         			}; 
-   				$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-   				//$("#form #ajaxSubmit").remove(); 
-   	   			//$("#form").submit();
-   	   			$("#form").ajaxSubmit(options);
-    			return false;
-               }
+    	   		$("#form").ajaxSubmit(options);
+    	        return true;
+              }
             });
 
     	openHelp(this,"האם הנך מאשר את מחיקת שורת ההכנסה?");
@@ -973,6 +1037,14 @@ $(document).ready(function() {
 		texts+='ניתן לדפדף ולצפות בגרסאות הקודמות של הטופס. </br>באם תתבצע שמירה או הגשה מגרסה ישנה היא תדרוס את הגרסה העדכנית.</br>';
 		texts+='</p>';	    
 	    openHelp("#dialogVersions",texts);
+	    return false;
+	   });
+   $("#dialogDeleteFinancialSupport").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
+	    openHelp("#dialogDeleteFinancialSupport",'לחיצה על האיקס תמחק את שורת מקורות המימון המקבילה.');
 	    return false;
 	   });
    
