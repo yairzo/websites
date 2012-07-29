@@ -144,8 +144,8 @@ $(document).ready(function() {
       $("#dialogGradeTitle").click(function(e) {
     		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
     		$("#genericDialog").dialog({ modal: false });
-    		$("#genericDialog").dialog({ height: 300 });
-    		$("#genericDialog").dialog({ width: 500 });
+    		$("#genericDialog").dialog({ height: 200 });
+    		$("#genericDialog").dialog({ width: 400 });
    		var texts='<p>';
     		texts+='באמצעות חלון זה, הדיקן מביע את התייחסותו לבקשות שמגישיהן הם מיחידתו. ע"י הקלקה על רשומה הבקשה תפתח לעיונך. ';
     		texts+='ניתן לשנות את פרטי התייחסותך עד לשיגורה לוועדה.';

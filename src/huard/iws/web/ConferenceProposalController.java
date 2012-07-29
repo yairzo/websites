@@ -4,6 +4,7 @@ import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Faculty;
+import huard.iws.model.FinancialSupport;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
@@ -17,6 +18,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -24,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -39,7 +43,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		
 	
 		// this part saves the content type of the attachments
-		/*if (request.getRequest().getContentType().indexOf("multipart")!=-1){
+		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
 			Iterator fileNames = multipartRequest.getFileNames();
 			while (fileNames.hasNext()) {
@@ -62,7 +66,6 @@ public class ConferenceProposalController extends GeneralFormController{
 					conferenceProposalBean.setCompanyAttachContentType(file.getContentType());
 				}
 				else if (filename.startsWith("fromAssosiate")){
-					//We have to handle the binding, no auto binding here
 					String aIndex = filename.replaceFirst("^.*?\\[([\\d]+)\\].*?$","$1");
 					int index = Integer.parseInt(aIndex);
 					if (index < conferenceProposalBean.getFromAssosiate().size()){
@@ -73,7 +76,6 @@ public class ConferenceProposalController extends GeneralFormController{
 					}				
 				}
 				else if (filename.startsWith("fromExternal")){
-					//We have to handle the binding, no auto binding here
 					String aIndex = filename.replaceFirst("^.*?\\[([\\d]+)\\].*?$","$1");
 					int index = Integer.parseInt(aIndex);
 					if (index < conferenceProposalBean.getFromExternal().size()){
@@ -84,7 +86,6 @@ public class ConferenceProposalController extends GeneralFormController{
 					}				
 				}
 				else if (filename.startsWith("fromAdmitanceFee")){
-					//We have to handle the binding, no auto binding here
 					String aIndex = filename.replaceFirst("^.*?\\[([\\d]+)\\].*?$","$1");
 					int index = Integer.parseInt(aIndex);
 					if (index < conferenceProposalBean.getFromAdmitanceFee().size()){
@@ -95,7 +96,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					}				
 				}
 			}
-		}	*/
+		}	
 		
 		//if not added attachment don't override prev attachment
 		if(conferenceProposalBean.getGuestsAttach().length==0){
@@ -115,7 +116,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposalBean.setCompanyAttachContentType(origConferenceProposalBean.getCompanyAttachContentType());
 		}
 		for (int i = 0 ; i < conferenceProposalBean.getFromAssosiate().size(); i ++){
-			if (i < origConferenceProposalBean.getFromAssosiate().size()){
+			if (i < origConferenceProposalBean.getFromAssosiate().size() && conferenceProposalBean.getFromAssosiate().get(i).getReferenceFile().length==0){
 				byte [] file = origConferenceProposalBean.getFromAssosiate().get(i).getReferenceFile();
 				conferenceProposalBean.getFromAssosiate().get(i).setReferenceFile(file);
 				String contentType = origConferenceProposalBean.getFromAssosiate().get(i).getFileContentType();
@@ -123,7 +124,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}
 		for (int i = 0 ; i < conferenceProposalBean.getFromExternal().size(); i ++){
-			if (i < origConferenceProposalBean.getFromExternal().size()){
+			if (i < origConferenceProposalBean.getFromExternal().size() && conferenceProposalBean.getFromExternal().get(i).getReferenceFile().length==0){
 				byte [] file = origConferenceProposalBean.getFromExternal().get(i).getReferenceFile();
 				conferenceProposalBean.getFromExternal().get(i).setReferenceFile(file);
 				String contentType = origConferenceProposalBean.getFromExternal().get(i).getFileContentType();
@@ -131,7 +132,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}
 		for (int i = 0 ; i < conferenceProposalBean.getFromAdmitanceFee().size(); i ++){
-			if ( i < origConferenceProposalBean.getFromAdmitanceFee().size()){
+			if ( i < origConferenceProposalBean.getFromAdmitanceFee().size() && conferenceProposalBean.getFromAdmitanceFee().get(i).getReferenceFile().length==0){
 				byte [] file = origConferenceProposalBean.getFromAdmitanceFee().get(i).getReferenceFile();
 				conferenceProposalBean.getFromAdmitanceFee().get(i).setReferenceFile(file);
 				String contentType = origConferenceProposalBean.getFromAdmitanceFee().get(i).getFileContentType();

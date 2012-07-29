@@ -348,9 +348,17 @@
 						<td colspan="4">
 						רשימת מרצים ומוזמנים:<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGuestsAttach"/>						
 						</br>
+						<table>
+						<tr>
+						<td>
 						<c:if test="${!readOnly && !command.submitted}">
-						<button class="green guestsAttach">עיון ...</button>
+							<div style="display: block; width: 60px; height: 27px; overflow: hidden;">
+							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
+							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="guestsAttach" id="guestsAttach"/>
+							</div>
 						</c:if>
+						</td>
+						<td>
 						<span id="guestsAttachDiv">
 						<c:if test="${fn:length(command.guestsAttach)>0}">
 							<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&contentType=${command.guestsAttachContentType}&attachmentId=1"
@@ -358,20 +366,33 @@
 						</c:if>
 						</span>
 						</td>
+						</tr>
+						</table>
+						</td>
 					</tr>
 					<tr class="form">
 						<td colspan="4">
 						תוכנית הכנס:<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProgramAttach"/></br>
+						<table>
+						<tr>
+						<td>
 						<c:if test="${!readOnly && !command.submitted}">
-						<button class="green programAttach">עיון ...</button>  
-												
+							<div style="display: block; width: 60px; height: 27px; overflow: hidden;">
+							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
+							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="programAttach" id="programAttach"/>
+							</div>
 						</c:if>
+						</td>
+						<td>
 						<span id="programAttachDiv">
 						<c:if test="${fn:length(command.programAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&contentType=${command.programAttachContentType}&attachmentId=1"
 							target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית הכנס</a>
 						</c:if>
 						</span>
+						</td>
+						</tr>
+						</table>
 						</td>
 					</tr>
 				</table>
@@ -617,17 +638,30 @@
 					</c:if>
 	   				</td> -->
 	   				<td colspan="3" style="border:1px #bca2a2 dotted">
+	   				<table>
+					<tr>
+					<td>
 	   				הסכם חברה:
 	   				<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogCompany"/>
+	   				</td>
+	   				<td>
 	   					<c:if test="${!readOnly && !command.submitted}">
-						<button class="green companyAttach">עיון ...</button>  
+							<span style="display: block; width: 60px; height: 27px; overflow: hidden;">
+							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
+							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="companyAttach" id="companyAttach"/>
+							</span>
 						</c:if>
+					</td>
+					<td>
 						<span id="companyAttachDiv">
 						<c:if test="${fn:length(command.companyAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=companyAttach&contentType=${command.companyAttachContentType}&attachmentId=1"
 							target="_blank"><img src="image/attach.jpg"/>&nbsp;הסכם חברה</a>
 						</c:if>
 						</span>
+	   				</td>
+	   				</tr>
+	   				</table>
 	   				</td>
 				</tr>
 	            <tr>
@@ -730,16 +764,30 @@
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogTotalCost"/>
 	   				</td>
 					<td style="border:1px #bca2a2 dotted">
+					<table>
+					<tr>
+						<td>
+					
 				       תוכנית תקציבית:
+				       </td>
+				       <td>
 						<c:if test="${!readOnly && !command.submitted}">
-						<button class="green financialAttach">עיון ...</button> 
+							<div style="display: block; width: 60px; height: 27px; overflow: hidden;">
+							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
+							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="financialAttach" id="financialAttach"/>
+							</div>
 						</c:if>
+						</td>
+						<td>
 						<span id="financialAttachDiv">
 						<c:if test="${fn:length(command.financialAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&contentType=${command.financialAttachContentType}&attachmentId=1"
 							target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית תקציבית</a>
 						</c:if>
 						</span>
+						</td>
+						</tr>
+						</table>
 					</td>
 				</tr>				
 
@@ -805,15 +853,26 @@
 							</form:select>
 						</td>-->
 						<td width="250" style="border: 1px #bca2a2 dotted" align="center">
+						<table>
+						<tr>
+							<td>
 						 	<c:if test="${!readOnly && !command.submitted}">
-								<button align="left" class="green fromAssosiateAttach" id="${varStatus.index}" style="display: none;">עיון ...</button>
+							<span style="display: none; width: 60px; height: 26px; overflow: hidden;" class="fromAssosiateAttachFields">
+							<button class="green" style="width: 59px; height: 26px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
+							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" class="fromAssosiateAttachFile" name="fromAssosiate[${varStatus.index}].referenceFile" id="fromAssosiate[${varStatus.index}].referenceFile"/>
+							</span>
 							</c:if>
-							<span id="fromAssosiateAttachDiv${varStatus.index}" align="right">
+							</td>
+							<td>
+							<span id="fromAssosiateAttachDiv" align="right">
 							<c:if test="${fn:length(command.fromAssosiate[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&assosiateId=${varStatus.index}&attachFile=assosiateAttach&contentType=${command.fromAssosiate[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
 							</c:if>
 							</span>
+							</td>
+							</tr>
+						</table>
 						</td>
 						<td>
 							<c:set var="financialSupport" value="${command.fromAssosiate[varStatus.index]}"/>
@@ -887,15 +946,26 @@
 							</form:select>
 						</td>-->
 						<td width="250" style="border: 1px #bca2a2 dotted" align="center">
+						<table>
+						<tr>
+							<td>
 						 	<c:if test="${!readOnly && !command.submitted}">
-								<button align="left" class="green fromExternalAttach" id="${varStatus.index}" style="display: none;">עיון ...</button>
+							<span style="display: none; width: 60px; height: 26px; overflow: hidden;" class="fromExternalAttachFields">
+							<button class="green" style="width: 59px; height: 26px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
+							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" class="fromExternalAttachFile" name="fromExternal[${varStatus.index}].referenceFile" id="fromExternal[${varStatus.index}].referenceFile"/>
+							</span>
 							</c:if>
-							<span id="fromExternalAttachDiv${varStatus.index}" align="right">
+							</td>
+							<td>
+							<span id="fromExternalAttachDiv" align="right">
 							<c:if test="${fn:length(command.fromExternal[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&externalId=${varStatus.index}&attachFile=externalAttach&contentType=${command.fromExternal[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
 							</c:if>
 							</span>
+							</td>
+						</tr>
+						</table>
 						</td>
 						<td>
 							<c:set var="financialSupport" value="${command.fromExternal[varStatus.index]}"/>
@@ -976,15 +1046,26 @@
 							</form:select>
 						</td> -->
 						<td width="250" style="border: 1px #bca2a2 dotted" align="center">
+						<table>
+						<tr>
+							<td>
 						 	<c:if test="${!readOnly && !command.submitted}">
-								<button align="left" class="green fromAdmitanceFeeAttach" id="${varStatus.index}" style="display: none;">עיון ...</button>
+							<span style="display: none; width: 60px; height: 26px; overflow: hidden;" class="fromAdmitanceFeeAttachFields">
+							<button class="green" style="width: 59px; height: 26px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
+							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" class="fromAdmitanceFeeAttachFile" name="fromAdmitanceFee[${varStatus.index}].referenceFile" id="fromAdmitanceFee[${varStatus.index}].referenceFile"/>
+							</span>
 							</c:if>
-							<span id="fromAdmitanceFeeAttachDiv${varStatus.index}" align="right">
+							</td>
+							<td>
+							<span id="fromAdmitanceFeeAttachDiv" align="right">
 							<c:if test="${fn:length(command.fromAdmitanceFee[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&admitanceFeeId=${varStatus.index}&attachFile=admitanceFeeAttach&contentType=${command.fromAdmitanceFee[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
 							</c:if>
 							</span>
+							</td>
+						</tr>
+						</table>
 						</td>
 						<td>
 							<c:set var="financialSupport" value="${command.fromAdmitanceFee[varStatus.index]}"/>
@@ -1414,15 +1495,6 @@
 
     </table>
 </form:form>
-		<form:form id="attachmentsForm" name="attachmentsForm" method="POST" action="conferenceProposalAttachments.html" commandName="command" enctype="multipart/form-data">
-				<input style="width: 0px; height: 0px;" class="green" type="file" name="guestsAttach" id="guestsAttach"/>
-				<input style="width: 0px; height: 0px;" class="green" type="file" name="programAttach" id="programAttach"/>
-				<input style="width: 0px; height: 0px;" class="green" type="file" name="companyAttach" id="companyAttach"/>
-				<input style="width: 0px; height: 0px;" class="green" type="file" name="financialAttach" id="financialAttach"/>
-				<input style="width: 0px; height: 0px;" class="green" type="file" id="fromAdmitanceFeeAttachFile"  name="fromAdmitanceFeeAttachFile" />
-				<input style="width: 0px; height: 0px;" class="green" type="file" id="fromExternalAttachFile"  name="fromExternalAttachFile" />
-				<input style="width: 0px; height: 0px;" class="green" type="file" id="fromAssosiateAttachFile"  name="fromAssosiateAttachFile" />
-		</form:form>
     </td>
   </tr>
 
