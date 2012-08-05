@@ -36,5 +36,7 @@ public interface PersonListService {
 	public List<PersonBean> getPersons(String role);
 
 	public void prepareListView(ListView lv, SearchCreteria search);
+	
+	public List<Person> getConferenceResearchers(String [] orderingFields);
 
 }

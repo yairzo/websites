@@ -76,6 +76,7 @@ public class ConferenceProposal {
 	private String committeeRemarks;
 	private byte[] companyAttach;
 	private String companyAttachContentType;
+	private boolean acceptTerms;
 
 	public ConferenceProposal(){
 		this.id = 0;
@@ -140,6 +141,7 @@ public class ConferenceProposal {
 		this.committeeRemarks = "";
 		this.companyAttach = new byte[0];
 		this.companyAttachContentType= "";
+		this.acceptTerms=false;
 	}
 
 	
@@ -594,5 +596,13 @@ public class ConferenceProposal {
 	public void setCompanyAttachContentType(String companyAttachContentType) {
 		this.companyAttachContentType = companyAttachContentType;
 	}
+
+	public boolean getAcceptTerms() {
+		return acceptTerms;
+	}
+	public void setAcceptTerms(boolean acceptTerms) {
+		this.acceptTerms = acceptTerms;
+	}
+
 
 }

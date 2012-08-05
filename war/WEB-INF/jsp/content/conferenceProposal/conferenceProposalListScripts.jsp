@@ -25,6 +25,8 @@
 	}
 
 $(document).ready(function() {
+	$("#searchPhrase").autocomplete({ position: { my : "right top", at: "right bottom" }});
+
 	//alert($('input[name=searchBySubmitted]').val());
 	if($('input[name=searchBySubmitted]:checked').val()==1 || ${approver})
 		$('#searchByDeadlineSpan').show();
@@ -110,11 +112,11 @@ $(document).ready(function() {
     	cleanSearch();
     });
     
-    $.get('selectBoxFiller',{type:'person'},function(data){
+    $.get('selectBoxFiller',{type:'conference researchers'},function(data){
 		var persons = data.split(",,");
 		resetAutocomplete(persons)
 		$("#searchPhrase").focus();
-	});
+ 	});
     
     $("#searchByApprover").change(function(){
     	$("#searchPhrase").empty();
@@ -147,7 +149,7 @@ $(document).ready(function() {
 				height:250,
 				width: 400,
 				modal: true,
-				title: "שליחת בקשה לדירוג",
+				title: "שליחת בקשה לדירוג וחוות דעת",
 			
 				buttons: {
 					"סגור": function() {

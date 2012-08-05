@@ -95,11 +95,10 @@
         #set ($mailtoUrl = $mailtoUrl + "&body=\">")
 
 
-        #set ($replaceWith = "<span$1>")
+        #set ($replaceWith = "<div$1>")
 		#set ($postMessage = $post.message)
 		#set ($postMessage = $postMessage.replaceAll("<p(.*?)>", $replaceWith))
-		#set ($postMessage = $postMessage.replaceAll("</p>","</span><br/>"))
-		#set ($postMessage = $postMessage.replaceAll("</p>","</span><br/>"))
+		#set ($postMessage = $postMessage.replaceAll("</p>","</div>"))
 		#set ($postMessage = $postMessage.replaceAll(";;", $bulletImg))
 		#set ($postMessage = $postMessage.replaceAll("#@#", $attach))
 		#set ($postMessage = $postMessage.replaceAll("#mu#",$mailtoUrl))

@@ -32,11 +32,11 @@
                		 <br/>    
                		     <form:input cssStyle="width: 180px;" cssClass="green" id="searchPhrase" path="searchCreteria.searchPhrase"/>
                     
-  				    <authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
+  				    <authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_COMMITTEE">
 				  	<br/>
 				  	<br/>
 				  	<select style="width: 180px;" name="searchByApprover" id="searchByApprover" class="green"> 
-      					<option value="0"/>בחר דיקן</option>
+      					<option value="0"/>בחר דיקן/פקולטה</option>
       				<c:forEach items="${deans}" var="deanPerson">
        					<c:set var="selected" value="false"/>
        					<c:if test="${deanPerson.id==searchByApprover}">
@@ -45,7 +45,7 @@
 	        			<option value="${deanPerson.id}" 
 	        				<c:if test="${selected}">selected="selected"</c:if>
 	        			>
-	        				<c:out escapeXml="false" value="${deanPerson.degreeFullNameHebrew}"/> - <c:out escapeXml="false" value="${deanPerson.title}"/>
+	        				<c:out escapeXml="false" value="${deanPerson.title}"/>
 	        			</option>
 	        		</c:forEach>
        				</select>
@@ -68,7 +68,7 @@
   				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
   				   	 <input type="hidden" name="searchBySubmitted" value="1"/>
   				   </authz:authorize>
-  				   <authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+  				   <authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_COMMITTEE">
   				   <span id="searchByDeadlineSpan" style="display: none;">
   				   <br/>  				   
  				   		 לפי דיון:  				   
@@ -80,6 +80,9 @@
    				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="0" <c:if test="${searchByDeadline==0}">checked="checked"</c:if>/> כל הבקשות
 				  	</span>
 				   </authz:authorize>
+  				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE">
+  				   	 <input type="hidden" name="searchByDeadline" value="1"/>
+  				   </authz:authorize>
 				</td>
 				</authz:authorize>
     			<td class="container" style="width: 85%; vertical-align: top;text-align: center;">
@@ -117,7 +120,7 @@
  							<tbody>            			
  							<tr class="${cssClass}" style="height: 30px;">
 				  						<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-				  						<td>
+				  						<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
   											<a href="person.html?id=${conferenceProposal.researcher.id}">
   												<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
@@ -128,13 +131,13 @@
   											</authz:authorize>  											
   										</td>
   										</authz:authorize>
- 										<td>
+ 										<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
   											<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:choose><c:when test="${fn:length(conferenceProposal.subject)>0}"><c:out value="${conferenceProposal.subject}"></c:out></c:when><c:otherwise>ללא נושא</c:otherwise></c:choose></a>
   										</td>
- 										<td>
+ 										<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
    											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedFromDate}"/></a>
  										</td>
-  										<td>
+  										<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
  											<c:choose>
  											<c:when test="${conferenceProposal.approverId > 0}">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
@@ -151,7 +154,7 @@
   											</c:otherwise>
   											</c:choose>
   										</td>
-  										<td>
+  										<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
   											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">
   											<c:choose>
    											<c:when test="${conferenceProposal.deleted}">
@@ -170,7 +173,7 @@
   											</c:choose>
   											</a>
   										</td>
- 										<td>
+ 										<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
    											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.statusDate}"/></a>
  										</td>
  										<c:if test="${admin}">

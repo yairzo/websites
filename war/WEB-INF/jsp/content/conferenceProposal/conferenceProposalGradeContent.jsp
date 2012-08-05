@@ -1,6 +1,10 @@
 <%@ page pageEncoding="UTF-8"%>
 <script>
+
 $(document).ready(function() {
+	<c:if test="${GradingFinished && !admin}">
+		gradingFinished();
+	</c:if>
 
 	$("button.buttonEdit").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"edit\"/>");
@@ -20,6 +24,10 @@ $(document).ready(function() {
 	
 
 	$(".buttonUp").click(function(){
+		<c:if test="${GradingFinished && !admin}">
+			gradingFinished();
+			return false;
+		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"moveup\"/>");
 		var confId= this.id;
 		$("#form").append("<input type=\"hidden\" name=\"conferenceProposalId\" value=\""+confId +"\"/>");
@@ -28,6 +36,10 @@ $(document).ready(function() {
     });
 	
 	$(".buttonDown").click(function(){
+		<c:if test="${GradingFinished && !admin}">
+			gradingFinished();
+			return false;
+		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"movedown\"/>");
 		var confId= this.id;
 		$("#form").append("<input type=\"hidden\" name=\"conferenceProposalId\" value=\""+confId +"\"/>");
@@ -37,6 +49,11 @@ $(document).ready(function() {
 	
 
      $("#buttonStopGrading").click(function(){
+ 		<c:if test="${GradingFinished && !admin}">
+			gradingFinished();
+			return false;
+		</c:if>
+		
  		var errorFlag=false;
 		if($("#deadlineRemarks").val()=='' || $("#deadlineRemarks").val().length<6){
 			errorFlag=true;
@@ -187,7 +204,14 @@ $(document).ready(function() {
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 
-
+ function gradingFinished(){
+		$("#genericDialog").dialog({ modal: true });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		var text='הבקשות לדיון הקרוב כבר דורגו ונשלחו לוועדת הכנסים. לא ניתן לדרג אלא לאחר שרכז/ת הכנסים ישלח בקשה נוספת לדירוג.<br/>רכז/ת הכנסים יכול/ה לדרג בשמך.';
+		openHelp('',text);
+	}
 
 });
 
@@ -254,7 +278,7 @@ $(document).ready(function() {
 										<c:forEach items="${conferenceProposals}"
 											var="conferenceProposal" varStatus="varStatus">
 
-											<tr
+											<tr onClick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';"
 												class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 												<td width="150"><a
 													href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out
@@ -293,7 +317,7 @@ $(document).ready(function() {
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td colspan="5">הערת רכזת הועדה:&nbsp;
+					<td colspan="5">הערת רכזת הועדה לדיקן:&nbsp;
 						<c:out value="${adminDeadlineRemarks}" />
 					</td>
 				</tr>
@@ -313,7 +337,7 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td colspan="5" align="center">
-						<button id="buttonStopGrading" class="grey" /> שלח לוועדה את התייחסותך</button>
+						<button id="buttonStopGrading" class="grey"/> שלח לוועדה את התייחסותך</button>
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogStopGrading"/>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button  class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		

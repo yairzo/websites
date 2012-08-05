@@ -85,6 +85,7 @@ public class ConferenceProposalBean {
 	private String committeeRemarks;
 	private byte[] companyAttach;
 	private String companyAttachContentType;
+	private boolean acceptTerms;
 
 
 	public ConferenceProposalBean() {
@@ -176,7 +177,7 @@ public class ConferenceProposalBean {
 		this.committeeRemarks ="";
 		this.companyAttach = new byte[0];
 		this.companyAttachContentType = "";
-
+		this.acceptTerms =false;
 	}
 
 	public ConferenceProposalBean(ConferenceProposal conferenceProposal) {
@@ -284,7 +285,7 @@ public class ConferenceProposalBean {
 		this.committeeRemarks = conferenceProposal.getCommitteeRemarks();
 		this.companyAttach = conferenceProposal.getCompanyAttach();
 		this.companyAttachContentType = conferenceProposal.getCompanyAttachContentType();
-
+		this.acceptTerms =conferenceProposal.getAcceptTerms();
 		// System.out.println("beannnnnnnnnnnnnnnn:" + this.getSubject() +
 		// this.getApproverEvaluation() + this.getApproverId() +
 		// this.getDescription() + this.getLocation() + this.getLocationDetail()
@@ -357,6 +358,7 @@ public class ConferenceProposalBean {
 		conferenceProposal.setCommitteeRemarks(committeeRemarks);
 		conferenceProposal.setCompanyAttach(companyAttach);
 		conferenceProposal.setCompanyAttachContentType(companyAttachContentType);
+		conferenceProposal.setAcceptTerms(acceptTerms);
 		return conferenceProposal;
 	}
 
@@ -919,4 +921,13 @@ public class ConferenceProposalBean {
 		}
 		return sum;
 	}
+	
+	public boolean getAcceptTerms() {
+		return acceptTerms;
+	}
+	public void setAcceptTerms(boolean acceptTerms) {
+		this.acceptTerms = acceptTerms;
+	}
+
+
 }

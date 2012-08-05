@@ -201,6 +201,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			}
 			
 			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+
 			int searchByDeadline = request.getIntParameter("searchByDeadline", 0);
 			if( searchByDeadline > 0){
 					if(searchByDeadline==1)//for this conference meeting

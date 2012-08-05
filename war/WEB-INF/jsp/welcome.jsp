@@ -37,7 +37,7 @@ $(document).ready(function() {
             	window.location.href = targetUrl;
              }
     });
-   	var text = "א. קראתי את <a href='http://ard.huji.ac.il/docs/xxx.pdf' target='_blank'><u>אמות המידה</u></a> להחלטותיה של ועדת הכנסים.</br>";
+   	var text = "א. קראתי את <a href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'><u>אמות המידה</u></a> להחלטותיה של ועדת הכנסים.</br>";
    	text+="ב. אני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>";
    	text+="ג. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.";
 	openHelp(this,text);

@@ -114,9 +114,15 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			grader = request.getIntParameter("approverId",0);
 		else
 			grader = userPersonBean.getId();
-		ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(grader);
+		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+		ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(grader,deadline);
 		model.put("adminDeadlineRemarks",conferenceProposalGrading.getAdminSendRemark());
-		
+		if(conferenceProposalGrading.getFinishedGradingDate()>1000)
+			model.put("GradingFinished",true);
+		else
+			model.put("GradingFinished",false);
+		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN"))
+			model.put("admin", true);
 		return new ModelAndView (this.getFormView(), model);
 	}
 

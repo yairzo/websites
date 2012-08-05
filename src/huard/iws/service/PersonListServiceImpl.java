@@ -56,6 +56,11 @@ public class PersonListServiceImpl implements PersonListService{
 		Collections.sort(persons, new PersonComparator(orderFields));
 		return persons;
 	}
+	public List<Person> getConferenceResearchers(String [] orderFields){
+		List<Person> persons = personDao.getConferenceResearchers();
+		Collections.sort(persons, new PersonComparator(orderFields));
+		return persons;
+	}
 
 	public List<Person> getPersons(List<Integer> ids) {
 		return personDao.getPersons (ids);

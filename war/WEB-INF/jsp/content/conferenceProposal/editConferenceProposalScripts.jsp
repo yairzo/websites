@@ -21,50 +21,46 @@ $(document).ready(function() {
 	calcTotalFee();	
 	calcParticipants();
 	$("#allExpenses").html($('#totalCost').val());
-	
+
 	if($('#location').val()=='6'){
 		$('td.locationDetails').css("opacity","1");
-		$('#locationDetail').attr('readonly', false);
+		$('#locationDetail').prop("readonly", false);
 	}
 	else{
-		$('#locationDetail').attr('readonly', true);
+		$('#locationDetail').prop("readonly", true);
 		$('#locationDetail').val('');
 	}
 	
 	$('#location').change(function(){
 		if($('#location').val()=='6'){
 			$('td.locationDetails').css("opacity","1");
-			$('#locationDetail').attr('readonly', false);
+			$('#locationDetail').prop("readonly", false);
+			$('#locationDetail').focus();
 		}
 		else{
 			$('td.locationDetails').css("opacity","0.3");
-			$('#locationDetail').attr('readonly', true);
+			$('#locationDetail').prop("readonly", true);
 			$('#locationDetail').val('');
 		}
 	});
-	
-	if($('#seminarRoom').is(":checked")){
+
+	if(${command.seminarRoom}){
 		$('td.seminarRoomDetails').css("opacity","1");
-		$('#participants').attr('readonly', false);
-		$('#prefferedCampus').attr('readonly', false);
 	}
 	else{
-		$('td.seminarRoomDetails').css("opacity","0.3");
-		$('#participants').attr('readonly', true);
-		$('#participants').val('0');
-		$('#prefferedCampus').val('0');
+		$('#participants').prop("readonly", true);
 		jQuery('select#prefferedCampus option:not(:selected)').attr('disabled',true);
 	}
 	
 	$('#seminarRoom').change(function(){
 		if($('#seminarRoom').is(":checked")){
 			$('td.seminarRoomDetails').css("opacity","1");
-			$('#participants').attr('readonly', false);
-			$('#prefferedCampus').attr('readonly', false);
+			$('#participants').prop("readonly", false);
+			jQuery('select#prefferedCampus option:not(:selected)').attr('disabled',false);
 		}
 		else{
 			$('td.seminarRoomDetails').css("opacity","0.3");
-			$('#participants').attr('readonly', true);
+			$('#participants').prop("readonly", true);
 			$('#participants').val('0');
 			$('#prefferedCampus').val('0');
 			jQuery('select#prefferedCampus option:not(:selected)').attr('disabled',true);
@@ -109,14 +105,6 @@ $(document).ready(function() {
         var cfd = Date.parse(temp1);
         var date1 = new Date(cfd); 
         
-        var str2 = $("#endConfDate").val();
-        var dt2  = str2.substring(0,2); 
-        var mon2 = str2.substring(3,5); 
-        var yr2  = str2.substring(6,10); 
-        temp2 = mon2 +"/"+ dt2 +"/"+ yr2;
-        var ctd2 = Date.parse(temp2);
-        var date2 = new Date(ctd2);
-
         if(new Date()>date1){
       	  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
     	  $("#genericDialog").dialog({ modal: false });
@@ -124,14 +112,6 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ width: 400 });
       	  openHelp("#startConfDate","תאריך זה כבר עבר");
         }
-        else if(date1 > date2) {
-        	  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
-        	  $("#genericDialog").dialog({ modal: false });
-      		$("#genericDialog").dialog({ height: 200 });
-    		$("#genericDialog").dialog({ width: 400 });
-       	  openHelp("#endConfDate","תאריך סיום לפני תאריך התחלה");
-        } 
-
     }
 	});	
 	
@@ -201,18 +181,12 @@ $(document).ready(function() {
 				hideExtraCommittee("operationalCommittee");
 		if (elementClass.indexOf("admitanceFee")!=-1){
 				hideExtraCommittee("admitanceFee");
-				calcFee("fromAdmitanceFee");
-				calcTotalFee();
 		}
 		if (elementClass.indexOf("assosiate")!=-1){
 				hideExtraCommittee("assosiate");
-				calcFee("fromAssosiate");
-				calcTotalFee();
 		}
 		if (elementClass.indexOf("external")!=-1){
 				hideExtraCommittee("external");
-				calcFee("fromExternal");
-				calcTotalFee();
 		}
 	}, {delay: 2000});
 	
@@ -253,25 +227,29 @@ $(document).ready(function() {
 		}
 	});
 	
-	$('.fee').change(function(event){
-		event.preventDefault();
-
+	$('.fee').keyup(function(event){
+		//event.preventDefault();
 		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-		if(!numberRegex.test($(this).val())){
+		if(!numberRegex.test($(this).val()) && !$(this).val()==''){
 			 $(this).val('');
 			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
-			 return false;
+			 //return false;
 		}
 		else if(Number($(this).val())>150000){
 			 $(this).val('');
 			 openHelp(this,'נא להכניס ערך שאינו עולה על 150000');
-			 return false;
+			 //return false;
 		}
-		return false;
+		calcFee("fromAdmitanceFee");
+		calcFee("fromAssosiate");
+		calcFee("fromExternal");
+		calcTotalFee();
+
+		//return false;
 	});
 	
 	$('#participants').focus(function(event){
@@ -281,33 +259,6 @@ $(document).ready(function() {
 	
 	$('#participants').change(function(event){
 		//event.preventDefault();
-		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
-		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
-		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 200 });
-		$("#genericDialog").dialog({ width: 400 });
-		if(!numberRegex.test($(this).val())){
-			 $(this).val('');
-			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
-			 return false;
-		}
-		else if(totalParticipantsCounter>0 ){
-			if(Number($(this).val())>totalParticipantsCounter*1.05){
-			 $(this).val('');
-			 openHelp(this,'מספר האנשים באולם המבוקש לא יעלה על 5% ממספר המוזמנים לכנס');
-			 return false;
-			}
-		}
-		else if(Number($(this).val())>1000){
-			 $(this).val('');
-			 openHelp(this,'נא להכניס ערך שאינו עולה על 1000');
-			 return false;
-		}
-		return false;
-	});
-	
-	$('.participantsCheck').change(function(event){
-		event.preventDefault();
 		var numberRegex=/^\d+$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
@@ -319,9 +270,9 @@ $(document).ready(function() {
 			 return false;
 		}
 		else if(totalParticipantsCounter>0 ){
-			if(Number($(this).val())>totalParticipantsCounter){
+			if(Number($(this).val())>totalParticipantsCounter*1.05){
 			 $(this).val('0');
-			 openHelp(this,'נא להכניס ערך שאינו עולה על סך המשתתפים כפי שסוכמו בטבלת המשתתפים');
+			 openHelp(this,'מספר האנשים באולם המבוקש לא יעלה על 5% ממספר המוזמנים לכנס');
 			 return false;
 			}
 		}
@@ -330,6 +281,33 @@ $(document).ready(function() {
 			 openHelp(this,'נא להכניס ערך שאינו עולה על 1000');
 			 return false;
 		}
+		//return false;
+	});
+	
+	$('.sumPersonNum').keyup(function(event){
+		//event.preventDefault();
+		var numberRegex=/^\d+$/;
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
+		if(!numberRegex.test($(this).val()) && !$(this).val()=='' ){
+			 $(this).val('');
+			 openHelp(this,'נא להכניס ערך מספרי לשדה זה');
+			 //return false;
+		}
+		else if(totalParticipantsCounter>0 ){
+			if(Number($(this).val())>totalParticipantsCounter){
+			 $(this).val('');
+			 openHelp(this,'נא להכניס ערך שאינו עולה על סך המשתתפים כפי שסוכמו בטבלת המשתתפים');
+			 //return false;
+			}
+		}
+		else if(Number($(this).val())>1000){
+			 $(this).val('');
+			 openHelp(this,'נא להכניס ערך שאינו עולה על 1000');
+			 //return false;
+		}
 		
 		if($('.sumPerson', $(this).closest("tr")).val()!=''){
 				var t = Number($(this).val())* Number($('.sumPerson', $(this).closest("tr")).val());
@@ -337,16 +315,16 @@ $(document).ready(function() {
 				calcFee("fromAdmitanceFee");
 				calcTotalFee();
 		}
-		return false;
+		//return false;
 	});	
 	
-	$('.sumPerson').change(function(event){
-		event.preventDefault();
-		var t = Number($(this).val())* Number($('.participantsCheck', $(this).closest("tr")).val());
+	$('.sumPerson').keyup(function(event){
+		//event.preventDefault();
+		var t = Number($(this).val())* Number($('.sumPersonNum', $(this).closest("tr")).val());
 		$(".sumPersons", $(this).closest("tr")).val(t);
 		calcFee("fromAdmitanceFee");
 		calcTotalFee();
-		return false;
+		//return false;
 	});	
 	
 	$('#supportSum').focus(function(event){
@@ -355,7 +333,7 @@ $(document).ready(function() {
 	});
 	
 	$('#supportSum').change(function(event){
-		event.preventDefault();
+		//event.preventDefault();
 		var numberRegex=/^\d+$/;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
@@ -366,7 +344,7 @@ $(document).ready(function() {
 			 openHelp(this,'נא להכניס ערך מספרי שלם לשדה זה');
 			 return false;
 		}
-		return false;
+		//return false;
 	});	
 	
 	
@@ -392,77 +370,188 @@ $(document).ready(function() {
 		//return false;
 	});		
 	
+	
 	$('#guestsAttach').change(function(event){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit(options);
+		//$('#guestsAttachDiv').html();	
+	});	
+	$('#deleteGuestsAttach').click(function(event){
+		event.preventDefault();
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		$("#form").append("<input type=\"hidden\" name=\"deleteGuestsAttach\" value=\"true\"/>");
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit();
-		$('#guestsAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&attachmentId=1' target='_blank'>רשימת מרצים ומוזמנים</a>");
-		
-	});	
+		$('#guestsAttachDiv').html('');
+	});
 	
 	$('#programAttach').change(function(){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit(options);
+		//$('#programAttachDiv').html('<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&attachmentId=1 target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית הכנס</a>&nbsp;&nbsp;<a href="" id="deleteProgramAttach">מחק</a>');
+	});	
+	
+	$('#deleteProgramAttach').click(function(event){
+		event.preventDefault();
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		$("#form").append("<input type=\"hidden\" name=\"deleteProgramAttach\" value=\"true\"/>");
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit();
-		$('#programAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&attachmentId=1' target='_blank'>תוכנית הכנס</a>");		
-	});	
+		$('#programAttachDiv').html('');
+	});
 	
 	$('#financialAttach').change(function(){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit(options);
+		$('#financialAttachDiv').html('<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&contentType=${command.financialAttachContentType}&attachmentId=1 target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית תקציבית</a>&nbsp;&nbsp;<a href="" id="deleteFinancialAttach">מחק</a>');
+	});	
+	$('#deleteFinancialAttach').click(function(event){
+		event.preventDefault();
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		$("#form").append("<input type=\"hidden\" name=\"deleteFinancialAttach\" value=\"true\"/>");
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit();
-		$('#financialAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&attachmentId=1' target='_blank'>תוכנית תקציבית</a>");
-	});	
-	
+		$('#financialAttachDiv').html('');
+	});
+		
 	$('#companyAttach').change(function(event){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
-		$('#companyAttachDiv').html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&attachFile=companyAttach&attachmentId=1' target='_blank'>הסכם חברה</a>");
+		$('#form').ajaxSubmit(options);
+		//$('#companyAttachDiv').html('');
 		
 	});	
+	$('#deleteCompanyAttach').click(function(event){
+		event.preventDefault();
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		$("#form").append("<input type=\"hidden\" name=\"deleteCompanyAttach\" value=\"true\"/>");
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit();
+		$('#companyAttachDiv').html('');
+	});
 	
 	$('.fromAssosiateAttachFile').change(function(event){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		$("#form").ajaxSubmit(options);
 		var filename = $(this).attr("id");
 		var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		$('#fromAssosiateAttachDiv', $(this).closest("tr")).html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&assosiateId="+aIndex+"&attachFile=assosiateAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
- 	});	
+		$("#fromAssosiateAttachDiv", $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&assosiateId="+aIndex+"&attachFile=assosiateAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromAssosiateAttachFile\" id=\""+aIndex+"\">מחק</a>");
+	});	
+	$('.deleteFromAssosiateAttachFile').click(function(event){
+		event.preventDefault();
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		//row index to delete file
+		var i=$(this).attr("id");
+		$("#form").append("<input type=\"hidden\" name=\"deleteAssosiateFileRowId\" value=\""+i+"\" />");
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit();
+		$('#fromAssosiateAttachDiv', $(this).closest("tr")).html('');
+	});
 
 	$('.fromExternalAttachFile').change(function(event){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		$('#form').ajaxSubmit(options);
 		var filename = $(this).attr("id");
 		var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		$('#fromExternalAttachDiv', $(this).closest("tr")).html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&externalId="+aIndex+"&attachFile=externalAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
+		$('#fromExternalAttachDiv', $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&externalId="+aIndex+"&attachFile=externalAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromExternalAttachFile\" id=\""+aIndex+"\">מחק</a>");
 	});	
+	$('.deleteFromExternalAttachFile').click(function(event){
+		event.preventDefault();
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		//row index to delete file
+		var i=$(this).attr("id");
+		$("#form").append("<input type=\"hidden\" name=\"deleteExternalFileRowId\" value=\""+i+"\" />");
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit();
+		$('#fromExternalAttachDiv', $(this).closest("tr")).html('');
+	});
 	
 	$('.fromAdmitanceFeeAttachFile').change(function(event){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		$('#form').ajaxSubmit(options);
 		var filename = $(this).attr("id");
 		var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		$('#fromAdmitanceFeeAttachDiv', $(this).closest("tr")).html("<img src='image/attach.jpg'/><a href='fileViewer?conferenceProposalId=${command.id}&admitanceFeeId="+aIndex+"&attachFile=admitanceFeeAttach&attachmentId=1' target='_blank'>אסמכתא</a>");
+		$('#fromAdmitanceFeeAttachDiv', $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&admitanceFeeId="+aIndex+"&attachFile=admitanceFeeAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromAdmitanceFeeAttachFile\" id=\""+aIndex+"\">מחק</a>");
 	});	
-
+	$('.deleteFromAdmitanceFeeAttachFile').click(function(event){
+		event.preventDefault();
+		<c:if test="${command.versionId > 0}">
+			return false;
+		</c:if>
+		//row index to delete file
+		var i=$(this).attr("id");
+		$("#form").append("<input type=\"hidden\" name=\"deleteAdmitanceFeeFileRowId\" value=\""+i+"\" />");
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit();
+		$('#fromAdmitanceFeeAttachDiv', $(this).closest("tr")).html('');
+	});
 	
 	if(${command.organizingCompany}){
 		$('.organizingCompanyPart').show();
@@ -1045,8 +1134,10 @@ function calcDiff(){
 			diff=Math.abs(diff);
 			text = "<font color='red'>" + diff + "&nbsp;&nbsp;סכום ההכנסות המתוכננות קטן מסכום ההוצאות המתוכננות</font>";
 		}
+		else if(diff>0)
+			text= diff + "&nbsp;&nbsp;סכום ההכנסות המתוכננות גבוה מסכום ההוצאות המתוכננות";
 		else
-			text= diff;
+			text= diff;	
 		$("#sumDifference").html(text);
 	}
 }

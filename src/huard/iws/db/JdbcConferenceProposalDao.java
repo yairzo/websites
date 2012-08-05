@@ -274,12 +274,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		}
     };	
     
-	public ConferenceProposalGrading getApproverlastGrading(int approverId){
+	public ConferenceProposalGrading getApproverlastGrading(int approverId,String deadline){
 		ConferenceProposalGrading conferenceProposalGrading = new ConferenceProposalGrading();
 		try{
-			String query = "select  * from  conferenceProposalGrading where approverId =? order by id desc limit 1 ";
+			String query = "select  * from  conferenceProposalGrading where approverId =? and date(deadline)=? order by id desc limit 1 ";
 			conferenceProposalGrading =
-					getSimpleJdbcTemplate().queryForObject(query, gradingRowMapper,	approverId );
+					getSimpleJdbcTemplate().queryForObject(query, gradingRowMapper,	approverId,deadline );
 			return conferenceProposalGrading;
 		}
 		catch( Exception e){
@@ -416,6 +416,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setDeadlineRemarks(rs.getString("deadlineRemarks"));
 			conferenceProposal.setIsInsideDeadline(rs.getBoolean("isInsideDeadline"));
 			conferenceProposal.setCommitteeRemarks(rs.getString("committeeRemarks"));
+			conferenceProposal.setAcceptTerms(rs.getBoolean("acceptTerms"));
             return conferenceProposal;
         }
 	};
@@ -498,6 +499,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setDeadlineRemarks(rs.getString("deadlineRemarks"));
 			conferenceProposal.setIsInsideDeadline(rs.getBoolean("isInsideDeadline"));
 			conferenceProposal.setCommitteeRemarks(rs.getString("committeeRemarks"));
+			conferenceProposal.setAcceptTerms(rs.getBoolean("acceptTerms"));
             return conferenceProposal;
         }
 	};
@@ -610,6 +612,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", deadlineRemarks= ?" + 
 				", isInsideDeadline= ?" + 
 				", committeeRemarks= ?" +
+				", acceptTerms= ?" +
 				" where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -668,6 +671,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getDeadlineRemarks(),
 				conferenceProposal.getIsInsideDeadline(),
 				conferenceProposal.getCommitteeRemarks(),
+				conferenceProposal.getAcceptTerms(),
 				conferenceProposal.getId());
 		
 		insertCommittees(conferenceProposal);		
@@ -730,6 +734,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", deadlineRemarks= ?" + 
 				", isInsideDeadline= ?" + 
 				", committeeRemarks= ?" +
+				", acceptTerms= ?" +
 				";";
 
 		logger.info(query);
@@ -787,7 +792,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				new java.sql.Timestamp(conferenceProposal.getDeadline()),
 				conferenceProposal.getDeadlineRemarks(),
 				conferenceProposal.getIsInsideDeadline(),
-				conferenceProposal.getCommitteeRemarks());
+				conferenceProposal.getCommitteeRemarks(),
+				conferenceProposal.getAcceptTerms());
 	}
 
 

@@ -63,5 +63,7 @@ public interface PersonDao {
 	public Map<Integer, Timestamp> getPersonsLastLogins();
 	
 	public int countPerson();
+	
+	public List<Person> getConferenceResearchers();
 
 }

@@ -99,24 +99,25 @@ public class ConferenceProposalController extends GeneralFormController{
 		}	
 		
 		//if not added attachment don't override prev attachment
-		if(conferenceProposalBean.getGuestsAttach().length==0){
+		if(conferenceProposalBean.getGuestsAttach().length==0 && !request.getBooleanParameter("deleteGuestsAttach", false)){
 			conferenceProposalBean.setGuestsAttach(origConferenceProposalBean.getGuestsAttach());
 			conferenceProposalBean.setGuestsAttachContentType(origConferenceProposalBean.getGuestsAttachContentType());
 		}
-		if(conferenceProposalBean.getProgramAttach().length==0){
+		if(conferenceProposalBean.getProgramAttach().length==0 && !request.getBooleanParameter("deleteProgramAttach", false)){
 			conferenceProposalBean.setProgramAttach(origConferenceProposalBean.getProgramAttach());
 			conferenceProposalBean.setProgramAttachContentType(origConferenceProposalBean.getProgramAttachContentType());
 		}
-		if(conferenceProposalBean.getFinancialAttach().length==0){
+		if(conferenceProposalBean.getFinancialAttach().length==0 && !request.getBooleanParameter("deleteFinancialAttach", false)){
 			conferenceProposalBean.setFinancialAttach(origConferenceProposalBean.getFinancialAttach());
 			conferenceProposalBean.setFinancialAttachContentType(origConferenceProposalBean.getFinancialAttachContentType());
 		}		
-		if(conferenceProposalBean.getCompanyAttach().length==0){
+		if(conferenceProposalBean.getCompanyAttach().length==0 && !request.getBooleanParameter("deleteCompanyAttach", false)){
 			conferenceProposalBean.setCompanyAttach(origConferenceProposalBean.getCompanyAttach());
 			conferenceProposalBean.setCompanyAttachContentType(origConferenceProposalBean.getCompanyAttachContentType());
 		}
+		System.out.println("1111111111 deleteAssosiateFileRowId:"+request.getIntParameter("deleteAssosiateFileRowId",-1));
 		for (int i = 0 ; i < conferenceProposalBean.getFromAssosiate().size(); i ++){
-			if (i < origConferenceProposalBean.getFromAssosiate().size() && conferenceProposalBean.getFromAssosiate().get(i).getReferenceFile().length==0){
+			if (i < origConferenceProposalBean.getFromAssosiate().size() && conferenceProposalBean.getFromAssosiate().get(i).getReferenceFile().length==0 &&  i!= request.getIntParameter("deleteAssosiateFileRowId",-1)){
 				byte [] file = origConferenceProposalBean.getFromAssosiate().get(i).getReferenceFile();
 				conferenceProposalBean.getFromAssosiate().get(i).setReferenceFile(file);
 				String contentType = origConferenceProposalBean.getFromAssosiate().get(i).getFileContentType();
@@ -124,7 +125,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}
 		for (int i = 0 ; i < conferenceProposalBean.getFromExternal().size(); i ++){
-			if (i < origConferenceProposalBean.getFromExternal().size() && conferenceProposalBean.getFromExternal().get(i).getReferenceFile().length==0){
+			if (i < origConferenceProposalBean.getFromExternal().size() && conferenceProposalBean.getFromExternal().get(i).getReferenceFile().length==0 &&  i!= request.getIntParameter("deleteExternalFileRowId",-1)){
 				byte [] file = origConferenceProposalBean.getFromExternal().get(i).getReferenceFile();
 				conferenceProposalBean.getFromExternal().get(i).setReferenceFile(file);
 				String contentType = origConferenceProposalBean.getFromExternal().get(i).getFileContentType();
@@ -132,7 +133,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}
 		for (int i = 0 ; i < conferenceProposalBean.getFromAdmitanceFee().size(); i ++){
-			if ( i < origConferenceProposalBean.getFromAdmitanceFee().size() && conferenceProposalBean.getFromAdmitanceFee().get(i).getReferenceFile().length==0){
+			if ( i < origConferenceProposalBean.getFromAdmitanceFee().size() && conferenceProposalBean.getFromAdmitanceFee().get(i).getReferenceFile().length==0 &&  i!= request.getIntParameter("deleteAdmitanceFeeFileRowId",-1)){
 				byte [] file = origConferenceProposalBean.getFromAdmitanceFee().get(i).getReferenceFile();
 				conferenceProposalBean.getFromAdmitanceFee().get(i).setReferenceFile(file);
 				String contentType = origConferenceProposalBean.getFromAdmitanceFee().get(i).getFileContentType();

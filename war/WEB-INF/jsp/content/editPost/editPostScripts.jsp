@@ -30,48 +30,23 @@
 	function ShowCKEDITOR()
 	{
 		currentEditor = "ckeditor";
-		//$('textarea:tinymce').tinymce().remove();
+		
 		var config=	{
-			uiColor:'#F4EEE4',
+				
+			toolbar_Full: [ ['Source','-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-', 'Find','Replace','-','SelectAll','RemoveFormat' ],
+			                [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-','Outdent','Indent','-',
+			              	'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl', '-','Link','Unlink'],
+			              	['Table','HorizontalRule','SpecialChar'],
+			              	[ 'Styles','Format','Font','FontSize' ],[ 'TextColor','BGColor' ],[ 'Maximize', 'ShowBlocks','-','About' ]],
+           
+            uiColor:'#F4EEE4',
 			contentsCss:'js/ckeditor/_samples/assets/output_xhtml.css',
 			height:"190", width:"700",
-			//coreStyles_bold : { element : 'span', attributes : {'class': 'Bold'} },
-			//coreStyles_italic : { element : 'span', attributes : {'class': 'Italic'}},
-			//coreStyles_underline : { element : 'span', attributes : {'class': 'Underline'}},
-			//coreStyles_strike : { element : 'span', attributes : {'class': 'StrikeThrough'}, overrides : 'strike' },
-			//coreStyles_subscript : { element : 'span', attributes : {'class': 'Subscript'}, overrides : 'sub' },
-			//coreStyles_superscript : { element : 'span', attributes : {'class': 'Superscript'}, overrides : 'sup' },
-			/*font_names : 'Comic Sans MS/FontComic;Courier New/FontCourier;Times New Roman/FontTimes',
-			font_style :
-			{
-			element : 'span',
-			attributes : { 'class' : '#(family)' },
-			overrides : [ { element : 'span', attributes : { 'class' : /^Font(?:Comic|Courier|Times)$/ } } ]
-			},*/
+
 			fontSize_sizes : '10/10px;12/12px;14/14px;16/16px;24/24px;48/48px;',
-			/*fontSize_sizes : 'Smaller/FontSmaller;Larger/FontLarger;8pt/FontSmall;14pt/FontBig;Double Size/FontDouble',
-			fontSize_style :
-			{
-			element : 'span',
-			attributes : { 'class' : '#(size)' },
-			overrides : [ { element : 'span', attributes : { 'class' : /^Font(?:Smaller|Larger|Small|Big|Double)$/ } } ]
-			},*/
+
 			colorButton_enableMore : false,
-			colorButton_colors : 'FontColor1/FF9900,FontColor2/0066CC,FontColor3/F00',
-			colorButton_foreStyle :
-			{
-			element : 'span',
-			attributes : { 'class' : '#(color)' },
-			overrides : [ { element : 'span', attributes : { 'class' : /^FontColor(?:1|2|3)$/ } } ]
-			},
-			colorButton_backStyle :
-			{
-			element : 'span',
-			attributes : { 'class' : '#(color)BG' },
-			overrides : [ { element : 'span', attributes : { 'class' : /^FontColor(?:1|2|3)BG$/ } } ]
-			},
-			indentClasses : ['Indent1', 'Indent2', 'Indent3'],
-			justifyClasses : [ 'AlignLeft', 'AlignCenter', 'AlignRight', 'AlignJustify' ],
+
 			stylesSet :
 			[
 			{ name : 'Strong Emphasis', element : 'strong' },

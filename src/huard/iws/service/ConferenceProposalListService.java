@@ -29,7 +29,7 @@ public interface ConferenceProposalListService {
 
 	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline);
 	
-	public ConferenceProposalGrading getApproverlastGrading(int approverId);
+	public ConferenceProposalGrading getApproverlastGrading(int approverId,String deadline);
 
 
 }

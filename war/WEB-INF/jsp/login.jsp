@@ -40,7 +40,7 @@
 						שם משתמש:
 					</th>
 					<th align="right">
-					 	<input class="green" type="text" name="j_username">
+					 	<input class="green medium200" type="text" name="j_username">
 					</th>
 				</tr>
 				<tr>
@@ -53,7 +53,7 @@
 						סיסמה:
 					</th>
 					<th align="right">
-						<input class="green" type="password" name="j_password">
+						<input class="green medium200" type="password" name="j_password">
 					</th>
 				</tr>
 				<tr>

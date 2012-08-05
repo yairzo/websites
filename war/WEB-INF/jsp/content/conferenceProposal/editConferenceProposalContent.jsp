@@ -41,10 +41,9 @@
 				
                 <tr>
                   <td colspan="4" align="center">
-                  	<h1>בקשה מוועדת הכנסים (לפי 
-                  	<a class='underline' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>
-                  הוראת הנהלה 17-011</a>)
-                  לסיוע במימון כנס בינ"ל 
+                  	<h1>בקשה מוועדת הכנסים לסיוע במימון כנס בינ"ל <br/>
+                   	<a class='underline' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>
+                  (לפי הוראת הנהלה 17-011)</a>
                   </h1>
                   </td>
                 </tr>
@@ -64,8 +63,11 @@
 				</tr>
 
                 <tr class="form">
-					<td colspan="4" align="right"><h3> פרטי המבקש <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProposer"/></h3>
-					</td>
+					<td colspan="4" align="right"><h3> פרטי המבקש 
+					<c:if test="${!readOnly && !command.submitted}">
+					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProposer"/>
+					</c:if>
+					</h3></td>
 				</tr>
                 <tr class="form">
                 <td colspan="4">
@@ -90,8 +92,8 @@
 						${command.researcher.phone } 
 					</td>
 					<td style="border:1px #bca2a2 dotted">
-						 פקס:
-						${command.researcher.fax } 
+						 ת.ז.:
+						${command.researcher.civilId } 
 					</td>
 					<td  style="border:1px #bca2a2 dotted" nowrap>
 						 דואר אלקטרוני:
@@ -128,7 +130,10 @@
 						</c:choose>
 					</c:if>
 					</td>
-					<td style="border:1px #bca2a2 dotted">&nbsp;</td>
+					<td  style="border:1px #bca2a2 dotted" nowrap>
+						 טלפון נייד:
+						${command.researcher.cellPhone } 
+					</td>
 				</tr>
 				</table>
 				</td>
@@ -213,7 +218,7 @@
 						</c:choose>
 					</c:if>
 					</td>
-					<td class="locationDetails" style="border:1px #bca2a2 dotted; opacity: 0.3;">
+					<td class="locationDetails" style="border:1px #bca2a2 dotted; opacity: 0.3;filter: alpha(opacity=30);">
 						פירוט מיקום:
 					<c:if test="${!readOnly && !command.submitted}">
 						<form:input htmlEscape="true" cssClass="green medium200" path="locationDetail" id="locationDetail" readonly="true"/>
@@ -231,8 +236,9 @@
 				<tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					   מספר משתתפים:	
+					   <c:if test="${!readOnly && !command.submitted}">
 					   <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogParticipants"/>						
-					   
+					   </c:if>
 				       <table style="border: 1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 				       <tr>
 				       <td style="border: 1px #bca2a2 dotted">&nbsp;</td>
@@ -346,7 +352,10 @@
 				<table align="center">
 					<tr class="form">
 						<td colspan="4">
-						רשימת מרצים ומוזמנים:<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGuestsAttach"/>						
+						רשימת מרצים ומוזמנים:
+						<c:if test="${!readOnly && !command.submitted}">
+						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGuestsAttach"/>						
+						</c:if>
 						</br>
 						<table>
 						<tr>
@@ -363,6 +372,9 @@
 						<c:if test="${fn:length(command.guestsAttach)>0}">
 							<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&contentType=${command.guestsAttachContentType}&attachmentId=1"
 								target="_blank"><img src="image/attach.jpg"/>&nbsp;רשימת מרצים ומוזמנים</a>
+							<c:if test="${!readOnly && !command.submitted}">
+								&nbsp;&nbsp;<a href="" id="deleteGuestsAttach">מחק</a>
+							</c:if>
 						</c:if>
 						</span>
 						</td>
@@ -372,7 +384,11 @@
 					</tr>
 					<tr class="form">
 						<td colspan="4">
-						תוכנית הכנס:<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProgramAttach"/></br>
+						תוכנית הכנס:
+						<c:if test="${!readOnly && !command.submitted}">
+						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProgramAttach"/>
+						</c:if>
+						</br>
 						<table>
 						<tr>
 						<td>
@@ -388,6 +404,9 @@
 						<c:if test="${fn:length(command.programAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&contentType=${command.programAttachContentType}&attachmentId=1"
 							target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית הכנס</a>
+							<c:if test="${!readOnly && !command.submitted}">
+								&nbsp;&nbsp;<a href="" id="deleteProgramAttach">מחק</a>
+							</c:if>
 						</c:if>
 						</span>
 						</td>
@@ -405,7 +424,9 @@
 				<tr>
 					<td colspan="4"> 
 						${compulsoryFieldSign}התוכן העיוני של הכנס וחשיבותו לתחום:
+						<c:if test="${!readOnly && !command.submitted}">
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDescription"/>
+						</c:if>
 					</td>
 				</tr>
 				<tr class="form">
@@ -439,8 +460,9 @@
 				<tr>
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 					ועדה מדעית/מארגנת:
+					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogCommittee"/>
-					
+					</c:if>
  					<table width="725"  cellpadding="1" cellspacing="0" align="center">
 				    <tr>
 				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
@@ -453,23 +475,23 @@
  					<c:when test="${readOnly || command.submitted}">
            				<c:forEach items="${command.scientificCommittees}" var="committee">
 						<tr>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:out value="${committee.name}"></c:out>
 						</td>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:out value="${committee.institute}"></c:out>
 						</td>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:out value="${committee.instituteRole}"></c:out>
 						</td>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:choose>
 							<c:when test="${committee.committeeRole == 1}">חבר</c:when>
 							<c:when test="${committee.committeeRole == 2}">יושב ראש</c:when>
 							<c:when test="${committee.committeeRole == 3}">לא שותף</c:when>
 							</c:choose>
 						</td>					
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:choose>
 							<c:when test="${committee.committeeRoleOrganizing == 1}">חבר</c:when>
 							<c:when test="${committee.committeeRoleOrganizing == 2}">יושב ראש</c:when>
@@ -531,16 +553,16 @@
  					<c:when test="${readOnly || command.submitted}">
            				<c:forEach items="${command.operationalCommittees}" var="committee">
 						<tr>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:out value="${committee.name}"></c:out>
 						</td>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:out value="${committee.institute}"></c:out>
 						</td>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:out value="${committee.instituteRole}"></c:out>
 						</td>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:out value="${committee.committeeRole}"></c:out>
 						</td>					
 						</tr>
@@ -642,7 +664,9 @@
 					<tr>
 					<td>
 	   				הסכם חברה:
+	   				<c:if test="${!readOnly && !command.submitted}">
 	   				<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogCompany"/>
+	   				</c:if>
 	   				</td>
 	   				<td>
 	   					<c:if test="${!readOnly && !command.submitted}">
@@ -657,6 +681,9 @@
 						<c:if test="${fn:length(command.companyAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=companyAttach&contentType=${command.companyAttachContentType}&attachmentId=1"
 							target="_blank"><img src="image/attach.jpg"/>&nbsp;הסכם חברה</a>
+							<c:if test="${!readOnly && !command.submitted}">
+								&nbsp;&nbsp;<a href="" id="deleteCompanyAttach">מחק</a>
+							</c:if>
 						</c:if>
 						</span>
 	   				</td>
@@ -728,7 +755,11 @@
 				<tr><td>&nbsp;</td></tr>
 				
 	            <tr class="form">
-		       		<td colspan="4" align="right"><h3>תקציב הכנס <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogBudget"/></h3>
+		       		<td colspan="4" align="right"><h3>תקציב הכנס 
+		       		<c:if test="${!readOnly && !command.submitted}">
+		       		<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogBudget"/>
+		       		</c:if>
+		       		</h3>
 		       		</td>
 				</tr>
 	            <tr class="form">
@@ -760,8 +791,9 @@
 							<c:when test="${command.totalCostCurrency == 2}">דולר</c:when>
 						</c:choose>
 					</c:if>-->
-					
+					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogTotalCost"/>
+	   				</c:if>
 	   				</td>
 					<td style="border:1px #bca2a2 dotted">
 					<table>
@@ -783,6 +815,9 @@
 						<c:if test="${fn:length(command.financialAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&contentType=${command.financialAttachContentType}&attachmentId=1"
 							target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית תקציבית</a>
+							<c:if test="${!readOnly && !command.submitted}">
+								&nbsp;&nbsp;<a href="" id="deleteFinancialAttach">מחק</a>
+							</c:if>
 						</c:if>
 						</span>
 						</td>
@@ -802,7 +837,10 @@
 				    <!-- <th style="border: 1px #bca2a2 dotted"> מטבע </th> -->
 				    <th style="border: 1px #bca2a2 dotted">אסמכתא</th>
 					<c:if test="${!readOnly && !command.submitted}">
- 				    <th><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDeleteFinancialSupport"/>
+ 				    <th>
+ 				    <c:if test="${!readOnly && !command.submitted}">
+ 				    <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDeleteFinancialSupport"/>
+				    </c:if>
 				    </th>
 					</c:if>
 					</tr>
@@ -810,13 +848,13 @@
  					<c:when test="${readOnly || command.submitted}">
            				<c:forEach items="${command.fromAssosiate}" var="fromAssosiate" varStatus="varStatus">
 						<tr>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:out value="${fromAssosiate.name}"></c:out>
 						</td>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 							<c:out value="${fromAssosiate.sum}"></c:out>
 						</td>
-						<td style="border: thin black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<c:if test="${fn:length(fromAssosiate.referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&assosiateId=${varStatus.index}&attachFile=assosiateAttach&contentType=${fromAssosiate.fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
@@ -825,7 +863,7 @@
 							</c:if>
 						</td>
 						
-						<!--  <td style="border: thin black dotted">
+						<!--  <td style="border: 1px #bca2a2 dotted">
 							<c:if test="${fromAssosiate.currency==1}">שקל</c:if>
 							<c:if test="${fromAssosiate.currency==2}">דולר</c:if>
 						</td>-->
@@ -868,6 +906,9 @@
 							<c:if test="${fn:length(command.fromAssosiate[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&assosiateId=${varStatus.index}&attachFile=assosiateAttach&contentType=${command.fromAssosiate[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
+								<c:if test="${!readOnly && !command.submitted}">
+									&nbsp;<a href="" class="deleteFromAssosiateAttachFile" id="${varStatus.index}">מחק</a>
+								</c:if>
 							</c:if>
 							</span>
 							</td>
@@ -888,7 +929,7 @@
 						סה"כ משותפים לארגון
 						</td>
 						<td width="150" style="border: 1px #bca2a2 dotted" align="right">
-						<span id="fromAssosiateCount"></span>
+						<span id="fromAssosiateCount">&nbsp;</span>
 						</td>
 						<td style="border: 1px #bca2a2 dotted">&nbsp;</td>
 					</tr>
@@ -905,17 +946,17 @@
  					<c:when test="${readOnly || command.submitted}">
            			<c:forEach items="${command.fromExternal}" var="fromExternal" varStatus="varStatus">
 						<tr>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 						<c:out value="${fromExternal.name}"></c:out>
 						</td>
-						<td style="border: thin black dotted">
+						<td style="border: 1px #bca2a2 dotted">
 						<c:out value="${fromExternal.sum}"></c:out>
 						</td>
-						<!--  <td style="border: thin black dotted">
+						<!--  <td style="border: 1px #bca2a2 dotted">
 						<c:if test="${fromExternal.currency==1}">שקל</c:if>
 						<c:if test="${fromExternal.currency==2}">דולר</c:if>
 						</td>-->
-						<td style="border: thin black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<c:if test="${fn:length(fromExternal.referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&externalId=${varStatus.index}&attachFile=externalAttach&contentType=${fromExternal.fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
@@ -961,6 +1002,9 @@
 							<c:if test="${fn:length(command.fromExternal[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&externalId=${varStatus.index}&attachFile=externalAttach&contentType=${command.fromExternal[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
+								<c:if test="${!readOnly && !command.submitted}">
+									&nbsp;<a href="" class="deleteFromExternalAttachFile" id="${varStatus.index}">מחק</a>
+								</c:if>
 							</c:if>
 							</span>
 							</td>
@@ -980,7 +1024,7 @@
 						סה"כ מממנים חיצוניים
 						</td>
 						<td width="150" style="border: 1px #bca2a2 dotted" align="right">
-						<span id="fromExternalCount"></span>
+						<span id="fromExternalCount">&nbsp;</span>
 						</td>
 						<td style="border: 1px #bca2a2 dotted">&nbsp;</td>
 					</tr>
@@ -1012,7 +1056,7 @@
 						<c:if test="${fromAdmitanceFee.currency==1}">שקל</c:if>
 						<c:if test="${fromAdmitanceFee.currency==2}">דולר</c:if>
 						</td> -->
-						<td style="border: thin black dotted" align="center">
+						<td style="border: 1px #bca2a2 dotted" align="center">
 							<c:if test="${fn:length(fromAdmitanceFee.referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&admitanceFeeId=${varStatus.index}&attachFile=admitanceFeeAttach&contentType=${fromAdmitanceFee.fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
@@ -1033,7 +1077,7 @@
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee fee sumPerson" path="fromAdmitanceFee[${varStatus.index}].sumPerson"/>
 						</td>
 						<td width="200" style="border: 1px #bca2a2 dotted" align="center">
-							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee participantsCheck" path="fromAdmitanceFee[${varStatus.index}].name"/>
+							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee sumPersonNum" path="fromAdmitanceFee[${varStatus.index}].name"/>
 						</td>
 						<td width="150" style="border: 1px #bca2a2 dotted" align="center">
 							<form:input htmlEscape="true" cssClass="greennoborder fillWidth admitanceFee fee sumPersons" path="fromAdmitanceFee[${varStatus.index}].sum"/>
@@ -1061,6 +1105,9 @@
 							<c:if test="${fn:length(command.fromAdmitanceFee[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&admitanceFeeId=${varStatus.index}&attachFile=admitanceFeeAttach&contentType=${command.fromAdmitanceFee[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
+								<c:if test="${!readOnly && !command.submitted}">
+									&nbsp;<a href="" class="deleteFromAdmitanceFeeAttachFile" id="${varStatus.index}">מחק</a>
+								</c:if>
 							</c:if>
 							</span>
 							</td>
@@ -1080,7 +1127,7 @@
 						סה"כ מדמי הרשמה
 						</td>
 						<td style="border: 1px #bca2a2 dotted" align="right">
-						<span id="fromAdmitanceFeeCount"></span>
+						<span id="fromAdmitanceFeeCount">&nbsp;</span>
 						</td>
 						<td style="border: 1px #bca2a2 dotted">&nbsp;</td>
 					</tr>
@@ -1140,7 +1187,9 @@
 						<input type="checkbox" disabled="disabled" value="" <c:if test="${command.auditorium}" > checked </c:if> />
 					</c:if>
 					&nbsp;&nbsp;
+					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogInternational"/>
+					</c:if>
 					</td>
 				</tr>
 	            <tr class="form">
@@ -1154,7 +1203,9 @@
  						${command.supportSum}
 					</c:if>
 					דולר
+					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogSupportSum"/>
+					</c:if>
 					</td>
 					<!-- <td style="border:1px #bca2a2 dotted">
 	   				מטבע:
@@ -1183,21 +1234,26 @@
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="seminarRoom"/>
-						<input type="checkbox" disabled="disabled" value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
+						<input type="checkbox" disabled="disabled"  value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
 					</c:if>
+					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRoomsNopay"/>
+					</c:if>
 					</td>
-					<td style="border:1px #bca2a2 dotted" colspant="2" class="seminarRoomDetails">
-	   					ל:
+					<td style="border:1px #bca2a2 dotted; opacity:0.3;filter: alpha(opacity=30);" colspant="2" class="seminarRoomDetails">
 					<c:if test="${!readOnly && !command.submitted}">			
+	   					ל:
 	   					<form:input cssClass="green medium50" path="participants" id="participants"/>
+						אנשים. &nbsp;
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="participants"/>
+						<c:if test="${command.seminarRoom}">
+	   					ל:
 	   					${command.participants}
+						אנשים. &nbsp;
+	   					</c:if>
 					</c:if>
-					אנשים. &nbsp;
-	   				  רצוי בקמפוס:
  					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select path="prefferedCampus" cssClass="green" id="prefferedCampus">
       					<form:option value="0">בחר/י קמפוס</form:option>
@@ -1209,14 +1265,19 @@
 					</c:if>
 					<c:if test="${readOnly || command.submitted}">			
 						<form:hidden path="prefferedCampus"/>
+						<c:if test="${command.seminarRoom}">
+	   				    רצוי בקמפוס:
 						<c:choose>
 							<c:when test="${command.prefferedCampus == 1}">גבעת רם</c:when>
 							<c:when test="${command.prefferedCampus == 2}">הר הצופים</c:when>
 							<c:when test="${command.prefferedCampus == 3}">עין כרם</c:when>
 							<c:when test="${command.prefferedCampus == 4}">רחובות</c:when>
 						</c:choose>
+	   					</c:if>
 					</c:if>
+ 					<c:if test="${!readOnly && !command.submitted}">
  					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRooms2"/>
+       				</c:if>
        				</td>
 				</tr>	
 				</table>
@@ -1242,7 +1303,9 @@
 				<tr>
 					<td colspan="4">
 					הערות מגיש הבקשה לועדה:
+					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRemarks"/>
+					</c:if>
 					</td>
 				</tr>
 				<tr>
@@ -1262,7 +1325,9 @@
 	            <tr id="deanApproval" class="form">
 		       		<td colspan="4">
 	   				${compulsoryFieldSign}הדיקן הממליץ:
+					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogApprover"/>
+					</c:if>
 					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select id="deanSelect"  path="approverId" cssClass="green">
       					<form:option value="0">בחר/י דיקן ממליץ</form:option>
@@ -1403,7 +1468,7 @@
 				</tr>
 				<tr>
 					<td colspan="4" align="center">
-						<textarea htmlEscape="true" class="green newCommitteeRemarks" name="newCommitteeRemarks" cols="80" rows="1"></textarea>
+						<textarea htmlEscape="true" class="green newCommitteeRemarks" name="newCommitteeRemarks" cols="80" rows="3"></textarea>
 					</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
@@ -1440,7 +1505,7 @@
 					<td colspan="4">
 					<table width="100%">
 					<tr><td>
-				   		<input type="checkbox" class="green" name="acceptTerms" id="acceptTerms"/>
+		       		    <form:checkbox cssClass="green" path="acceptTerms" id="acceptTerms"/>
 						</td>
 						<td>
  				   		 ידוע לי שקבלת תמיכה כספית בהוצאות ארגון הכנס ו/או אישור להקצאת אולם ללא תשלום או בתשלום חלקי מותנית בפרסום <br/>
@@ -1453,6 +1518,9 @@
 					<td colspan="4"><div id="erroracceptTerms" dir="rtl"><p></p></div>
 					</td>
 				</tr>
+				</c:if>
+				<c:if test="${!creator || command.submitted}">
+					<form:hidden path="acceptTerms"/>
 				</c:if>
 				<tr><td>&nbsp;</td></tr>
 		
@@ -1474,7 +1542,7 @@
 						<button class="grey delete" title="ביטול הבקשה" onclick="">ביטול הבקשה</button>&nbsp;&nbsp;
 					</c:if>
 				</c:if>
-				<c:if test="${!command.submitted && !command.deleted}">			
+				<c:if test="${!readonly && !command.submitted && !command.deleted}">			
 					<c:if test="${!firstVersion}">	
 						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;"><font size="+1">&nbsp;&#x21B7;&nbsp;</font></button>
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogVersions"/>&nbsp;&nbsp;		
@@ -1489,7 +1557,8 @@
 					</c:if>
 					
 				</c:if>
-				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		
+				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>&nbsp;&nbsp;		
+				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה לעמוד קודם </button>		
 			</td>
 		</tr>
 
