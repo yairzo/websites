@@ -280,7 +280,10 @@ public class ConferenceProposalController extends GeneralFormController{
 		// if new proposal Create a new proposal and write it to db
 		if (request.getParameter("action", "").equals("new")){
 			ConferenceProposal conferenceProposal= new ConferenceProposal();
-			conferenceProposal.setPersonId(userPersonBean.getId());
+			if(request.getIntParameter("researcherId",0)>0)
+				conferenceProposal.setPersonId(request.getIntParameter("searchResearcher",0));
+			else
+				conferenceProposal.setPersonId(userPersonBean.getId());
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
 			logger.info("Deadline on new proposal: " + deadline);
 			conferenceProposal.setDeadline(DateUtils.parseDate(deadline, "yyyy-MM-dd"));
@@ -317,32 +320,23 @@ public class ConferenceProposalController extends GeneralFormController{
 			model.put("maxGrade",conferenceProposalService.getMaxGrade(conferenceProposal.getApproverId(),prevdeadline));
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")){
 				if(conferenceProposal.getResearcher().getId()==userPersonBean.getId())
-					model.put("creator",true);
+					model.put("researcher",true);
 				else model.put("approver", true);
 			}
 			else if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN")){
-				if(conferenceProposal.getResearcher().getId()==userPersonBean.getId())
-					model.put("creator",true);
-				else model.put("admin", true);
+				//if(conferenceProposal.getResearcher().getId()==userPersonBean.getId())
+				//	model.put("researcher",true);
+				//else 
+				model.put("admin", true);
 			}
 			else if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE")){
 				if(conferenceProposal.getResearcher().getId()==userPersonBean.getId())
-					model.put("creator",true);
+					model.put("researcher",true);
 				else model.put("committee", true);
 			}
 			else if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER")){
-				model.put("creator",true);
+				model.put("researcher",true);
 			}
-			//flag if grading process was finished - to warn in case someone clicks on un-submit
-			/*if(conferenceProposal.getApprover()!=null){
-				ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(conferenceProposal.getApprover().getId(),conferenceProposal.getDeadline());
-				if(conferenceProposalGrading.getFinishedGradingDate()>1000)
-					model.put("GradingFinished",true);
-				else
-					model.put("GradingFinished",false);
-			}else{
-				model.put("GradingFinished",false);
-			}*/
 			
 			return new ModelAndView ( this.getFormView(), model);
 		}

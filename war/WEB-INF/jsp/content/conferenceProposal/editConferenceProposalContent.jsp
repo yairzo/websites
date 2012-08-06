@@ -1500,7 +1500,7 @@
 				   	</td>
 				</tr>
 				</c:if>
-				<c:if test="${creator && !command.submitted}">
+				<c:if test="${(researcher || admin) && !command.submitted}">
 				<tr class="form">
 					<td colspan="4">
 					<table width="100%">
@@ -1519,7 +1519,7 @@
 					</td>
 				</tr>
 				</c:if>
-				<c:if test="${!creator || command.submitted}">
+				<c:if test="${(!researcher && !admin) || command.submitted}">
 					<form:hidden path="acceptTerms"/>
 				</c:if>
 				<tr><td>&nbsp;</td></tr>
@@ -1527,14 +1527,14 @@
 		<tr class="form">
 			<td colspan="4" align="center">
 				<c:if test="${!command.deleted}">				
-					<c:if test="${creator && !command.submitted}">				
+					<c:if test="${researcher && !command.submitted}">				
 						<button title="שמירת פרטי ההצעה" class="grey submit" > שמירה </button>&nbsp;&nbsp;
 					</c:if>
-					<c:if test="${!creator}">				
+					<c:if test="${!researcher}">				
 						<button title="שמירת פרטי ההצעה" class="grey submit" > שמירה </button>&nbsp;&nbsp;
 					</c:if>
 				</c:if>
-				<c:if test="${creator || admin}">				
+				<c:if test="${researcher || admin}">				
 					<c:if test="${!command.submitted && !command.deleted}">
 						<button class="grey submitForGrading" title="שליחת ההצעה לדיקן" onclick="">הגשה</button>&nbsp;&nbsp;
 					</c:if>

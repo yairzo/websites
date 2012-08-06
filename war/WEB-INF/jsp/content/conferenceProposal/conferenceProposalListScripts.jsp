@@ -27,13 +27,13 @@
 $(document).ready(function() {
 	$("#searchPhrase").autocomplete({ position: { my : "right top", at: "right bottom" }});
 
+	
 	//alert($('input[name=searchBySubmitted]').val());
 	if($('input[name=searchBySubmitted]:checked').val()==1 || ${approver})
 		$('#searchByDeadlineSpan').show();
-	else{
+	else
 		$('#searchByDeadlineSpan').hide();
-   		$('input[name=searchByDeadline]:checked').val(0);
-	}
+	
 
 	$('.saveCheckbox').click(function(){
 		var insideDeadlineCheckbox=$(this);
@@ -125,16 +125,22 @@ $(document).ready(function() {
     });
     
     $('.searchBySubmitted').click(function(){
-    	if($('input[name=searchBySubmitted]:checked').val()==1 || ${approver})
+    	if($('input[name=searchBySubmitted]:checked').val()==1 || ${approver}){
+			$('input[name=searchByDeadline]:checked').val(1);
     		$('#searchByDeadlineSpan').show();
-    	else{
-    		$('#searchByDeadlineSpan').hide();
-    		$('input[name=searchByDeadline]:checked').val(0);
     	}
-
+   		else{
+    		//$('input[name=searchByDeadline]:checked').val(0);
+    		$('#searchByDeadlineSpan').hide();
+    	}
+    	//each new search should start at page 1
+		$("input#listViewPage").remove();
+		$("form#form").append('<input type=\"hidden\" name=\"listView.page\" value=\"1\"/>');
+	
     	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
 		$("#form").submit();
     });
+    
     $('.searchByDeadline').click(function(){
     	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
 		$("#form").submit();
@@ -200,13 +206,7 @@ $(document).ready(function() {
  
 
   function openHelp(name,mytext){
-    /* linkOffset = $(name).position();
-     linkWidth = $(name).width();
-     linkHeight = $(name).height();
-     scrolltop = $(window).scrollTop();
-     $("#genericDialog").dialog("option", "position", [(linkOffset.left - 600/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
-    */ 
-    $("#genericDialog").html(mytext).dialog("open");
+     $("#genericDialog").html(mytext).dialog("open");
   } 
   	
   $(".confirmLink").click(function(e){

@@ -4,7 +4,29 @@
 <%@ include file="/WEB-INF/jsp/content/conferenceProposal/conferenceProposalStyle.jsp" %>
 <script>
 $(document).ready(function() {
-	
+   	$.get('selectBoxFiller',{type:'all conference researchers'},function(data){
+		//var persons = data.split(",,");
+		resetAutocomplete(data)
+		$("#searchResearcher").focus();
+   	});
+	function resetAutocomplete(persons){		
+		alert(persons);
+		$("#searchResearcher").autocomplete( 
+			{source: persons ,
+			 minLength: 2,
+			 highlight: true,
+			 select: function(event, ui) {
+				$("#searchResearcher").val(ui.item.label);
+				//alert(ui.item.value);
+				event.preventDefault();					
+			 }
+		    }
+		);
+	}
+    $("#searchResearcher").click(function(){
+    	$("input#searchResearcher").val('');
+    });
+  
   $("#genericDialog").dialog({
       autoOpen: false,
       show: 'fade',
@@ -15,15 +37,20 @@ $(document).ready(function() {
       title: "מערכת הכנסים"
  });
  
+  $("#conferenceProposalResearcherDialog").dialog({
+      autoOpen: false,
+      show: 'fade',
+      hide: 'fade',
+      modal: true,
+      width: 400,
+      height:250,
+      title: "מערכת הכנסים"
+ });
+ 
   
  
   function openHelp(name,mytext){
-    /* linkOffset = $(name).position();
-     linkWidth = $(name).width();
-     linkHeight = $(name).height();
-     scrolltop = $(window).scrollTop();
-     $("#genericDialog").dialog("option", "position", [(linkOffset.left - 400/2) + linkWidth/2, linkOffset.top + linkHeight - scrolltop]);
-     */$("#genericDialog").html(mytext).dialog("open");
+    $("#genericDialog").html(mytext).dialog("open");
   } 
 
   $(".confirmLink").click(function(e){
@@ -43,6 +70,22 @@ $(document).ready(function() {
 	openHelp(this,text);
    	return false;
    });	
+  
+  	$(".chooseResearcher").click(function(e){
+			e.preventDefault();
+			var targetUrl = $(this).attr("href");
+		   	$("#conferenceProposalResearcherDialog").dialog('option', 'buttons', {
+		            "בטל" : function() {
+		                $(this).dialog("close");
+		             },
+		            "המשך" : function() {
+		            	window.location.href = targetUrl;
+		             }
+		    });
+		   	$("#conferenceProposalResearcherDialog").dialog("open");
+		   	return false;
+	});	
+  
 });
 </script>
 <tr>
@@ -51,6 +94,10 @@ $(document).ready(function() {
 
 	<div id="genericDialog" title="" style="display:none" dir="rtl">
 		<p>text put here</p>
+	</div>
+	
+	<div id="conferenceProposalResearcherDialog" title="" style="display:none" dir="rtl">
+		<p>בחר/י את החוקר שבשמו תרצה/י לפתוח בקשה למימון כנס:<br><br><input type="text" style="width: 180px;" class="green" id="searchResearcher" /></p>
 	</div>
 
 	<td>
@@ -171,17 +218,19 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
+						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER">
 						<tr>
 						  <th align="right">
 								<a style="text-decoration: none" href="editConferenceProposal.html?action=new" class="confirmLink">הגשת בקשה למימון כנס</a>
 							</th>
 						</tr>
-						<!--<tr>
-							<th align="right">
-								<a style="text-decoration: none" href="conferenceProposalAffirmation.html">הגשת בקשה למימון כנס</a>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
+						<tr>
+						  <th align="right">
+								<a style="text-decoration: none" href="editConferenceProposal.html?action=new" class="chooseResearcher">הגשת בקשה למימון כנס</a>
 							</th>
-						</tr>-->
+						</tr>
 						</authz:authorize>
 
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_COMMITTEE">

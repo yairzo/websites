@@ -1185,7 +1185,7 @@ function calcParticipants(){
 }
 function checkErrors(){
 	var errors=false;
-	if(!$("#acceptTerms").attr('checked') && !"${admin}"){
+	if(!$("#acceptTerms").attr('checked')){
 		errors = true;
 		$("#erroracceptTerms").html('<font color="red">יש לאשר קבלת תנאי ההגשה (לסמן את תיבת הסימון )<font color="red"><br>');
 	}
