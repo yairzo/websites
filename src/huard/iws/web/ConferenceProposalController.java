@@ -280,8 +280,9 @@ public class ConferenceProposalController extends GeneralFormController{
 		// if new proposal Create a new proposal and write it to db
 		if (request.getParameter("action", "").equals("new")){
 			ConferenceProposal conferenceProposal= new ConferenceProposal();
+			System.out.println("1111111111111111111111" + request.getIntParameter("researcherId",0));
 			if(request.getIntParameter("researcherId",0)>0)
-				conferenceProposal.setPersonId(request.getIntParameter("searchResearcher",0));
+				conferenceProposal.setPersonId(request.getIntParameter("researcherId",0));
 			else
 				conferenceProposal.setPersonId(userPersonBean.getId());
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
