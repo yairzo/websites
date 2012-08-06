@@ -3,28 +3,29 @@
 <%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 <%@ include file="/WEB-INF/jsp/content/conferenceProposal/conferenceProposalStyle.jsp" %>
 <script>
+
+function resetAutocomplete(){		
+	$("#searchResearcher").autocomplete( 
+		{source: "/iws/selectBoxFiller?type=all%20conference%20researchers",
+		 minLength: 2,
+		 highlight: true,
+		 select: function(event, ui) {
+			$("#searchResearcher").val(ui.item.label);
+			//alert(ui.item.value);
+			event.preventDefault();					
+		 }
+	    }
+	);
+}
+
+
 $(document).ready(function() {
-   	$.get('selectBoxFiller',{type:'all conference researchers'},function(data){
-		//var persons = data.split(",,");
-		resetAutocomplete(data)
-		$("#searchResearcher").focus();
-   	});
-	function resetAutocomplete(persons){		
-		alert(persons);
-		$("#searchResearcher").autocomplete( 
-			{source: persons ,
-			 minLength: 2,
-			 highlight: true,
-			 select: function(event, ui) {
-				$("#searchResearcher").val(ui.item.label);
-				//alert(ui.item.value);
-				event.preventDefault();					
-			 }
-		    }
-		);
-	}
+   	
+	resetAutocomplete();
+	
     $("#searchResearcher").click(function(){
     	$("input#searchResearcher").val('');
+    	resetAutocomplete();
     });
   
   $("#genericDialog").dialog({
