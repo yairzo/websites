@@ -6,12 +6,13 @@
 
 function resetAutocomplete(){		
 	$("#searchResearcher").autocomplete( 
-		{
-		 source: "selectBoxFiller?type=all%20conference%20researchers",
+		{source: "/iws/personsHelper.html?role=ROLE_CONFERENCE_RESEARCHER",
 		 minLength: 2,
+		 highlight: true,
 		 select: function(event, ui) {
 			$("#searchResearcher").val(ui.item.label);
-			$("#form").append("<input type=\"hidden\" name=\"researcherId\"  id=\"researcherId\" value=\""+ui.item.id+"\"/>");
+			window.location='/iws/editConferenceProposal.html?action=new&researcherId='+ui.item.id
+			event.preventDefault();					
 		 }
 	    }
 	);
@@ -24,6 +25,7 @@ $(document).ready(function() {
 	
     $("#searchResearcher").click(function(){
     	$("input#searchResearcher").val('');
+    	resetAutocomplete();
     });
   
   $("#genericDialog").dialog({
@@ -71,14 +73,14 @@ $(document).ready(function() {
    });	
   
   	$(".chooseResearcher").click(function(e){
+			e.preventDefault();
 			var targetUrl = $(this).attr("href");
 		   	$("#conferenceProposalResearcherDialog").dialog('option', 'buttons', {
 		            "בטל" : function() {
 		                $(this).dialog("close");
 		             },
 		            "המשך" : function() {
-		            	$(this).dialog("close");
-		            	window.location.href = targetUrl+"&researcherId="+$("#researcherId").val();
+		            	window.location.href = targetUrl;
 		             }
 		    });
 		   	$("#conferenceProposalResearcherDialog").dialog("open");
@@ -87,8 +89,6 @@ $(document).ready(function() {
   
 });
 </script>
- <form id="form" name="form" method="POST"></form>
-
 <tr>
 	<td align="right" bgcolor="#787669" height="20">
 	<table width="100%" border="0" dir="rtl">

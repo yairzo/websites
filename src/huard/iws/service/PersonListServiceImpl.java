@@ -140,6 +140,18 @@ public class PersonListServiceImpl implements PersonListService{
 		}
 		return personBeans;
 	}
+	
+	public List<Person> getFilteredPersons (String [] orderingFields, String term, String role){
+		List<Person> persons = personDao.getPersons(role);
+		List<Person> filteredPersons = new ArrayList<Person>();
+		for (Person person: persons){
+			PersonBean personBean = new PersonBean(person);
+			if (personBean.getFullNameHebrew().contains(term))
+				filteredPersons.add(person);
+		}
+		return filteredPersons;
+	}
+
 
 
 
@@ -188,12 +200,4 @@ public class PersonListServiceImpl implements PersonListService{
 			return 0;
 		}
 	}
-
-
-
-
-
-
-
-
 }

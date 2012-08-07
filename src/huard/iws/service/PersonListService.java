@@ -38,5 +38,7 @@ public interface PersonListService {
 	public void prepareListView(ListView lv, SearchCreteria search);
 	
 	public List<Person> getConferenceResearchers(String [] orderingFields);
+	
+	public List<Person> getFilteredPersons (String [] orderingFields, String term, String role);
 
 }

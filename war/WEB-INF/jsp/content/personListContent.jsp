@@ -70,24 +70,11 @@ $(document).ready(function() {
  		var persons = data.split(",,");
  		resetAutocomplete(persons)
  		$("#searchPhrase").focus();
- 	});
-    
-    
-    
-    
-    
-    
+ 	});   
 
 });
 
-
-
-
-
-
 </script>
-
-
 
           <td align="right" bgcolor="#787669" height="20">
           		<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>

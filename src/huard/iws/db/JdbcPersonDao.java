@@ -374,8 +374,8 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		return persons;
     }
 	public List<Person> getPersons(String role) {
-		String query = "select * from  p person, ppr personPrivilege " +
-				"where p.id = ppr.personId and ppr.privilege = ? order by firstNameHebrew;";
+		String query = "select * from person inner join personPrivilege " +
+				"on person.id = personPrivilege.personId where personPrivilege.privilege = ? order by firstNameHebrew;";
 		List<Person> persons =
 			getSimpleJdbcTemplate().query(query, getPersonRowMapper(), role);
 		applyPersonSubjectIds(persons);

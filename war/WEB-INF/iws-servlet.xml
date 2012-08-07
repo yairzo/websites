@@ -483,6 +483,12 @@
             <ref bean="recordProtectService"/>
         </property>
      </bean>
+     
+     <bean id="personListHelperController" class="huard.iws.web.PersonListHelperController" parent="generalController">
+     	<property name="personListService">
+            <ref bean="personListService"/>
+        </property>
+     </bean>
 
     <bean id="editPersonController" class="huard.iws.web.EditPersonController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
@@ -847,6 +853,7 @@
         <property name="mappings">
             <props>
                 <prop key="/persons.html">personListController</prop>
+                <prop key="/personsHelper.html">personListHelperController</prop>
                 <prop key="/person.html">editPersonController</prop>
                 <prop key="/deletePerson.html">deletePersonController</prop>
 				<prop key="/personAttribution.html">editPersonAttributionController</prop>
