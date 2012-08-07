@@ -26,7 +26,7 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 	private String imposedTargetUrl;
 
 	public Authentication attemptAuthentication(HttpServletRequest request) throws AuthenticationException {
-
+		
 		String username = obtainUsername(request);
 		String password = obtainPassword(request);
 
@@ -41,14 +41,17 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 		String moduleToSubscribe = request.getParameter("mts");
 		System.out.println("module to subscribe: " + moduleToSubscribe);
 		if (moduleToSubscribe == null)
-			moduleToSubscribe = "post";
+			moduleToSubscribe = "";
 		String modulePrivilege = "";
-		if (moduleToSubscribe.equals("post"))
-			modulePrivilege = "ROLE_POST_READER";
-		else if (moduleToSubscribe.equals("conference"))
+		//authenticationFailureUrl = authenticationFailureUrl.replaceAll("&tc=[\\d]+&mts=.*?", "");
+		if (moduleToSubscribe.equals("post")){
+			modulePrivilege = "ROLE_POST_READER";			
+			setAuthenticationFailureUrl("/welcome.html?login_error=1&tc=1");
+		}
+		else if (moduleToSubscribe.equals("conference")){
 			modulePrivilege = "ROLE_CONFERENCE_RESEARCHER";
-		else
-			modulePrivilege = "ROLE_POST_READER";
+			setAuthenticationFailureUrl("/editConferenceProposal.html?login_error=1");
+		}		
 
 		String encodedPassword = MD5Encoder.digest(password);
 
@@ -129,7 +132,6 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 			// that means her huji password was changed. in this case we save the new password
 			// we demand she was foremerly auto subscribed to avoid password change for manually subscribed 
 			// users that has a huji password and decided to put it instead of the manually set password.
-			System.out.println("I'm here !!!!!!!");
 			personService.updatePersonPrivilegePassword(person, encodedPassword);
 			setDetails(request, authRequest);
 			authRequest = (UsernamePasswordAuthenticationToken)this.getAuthenticationManager().authenticate(authRequest);			

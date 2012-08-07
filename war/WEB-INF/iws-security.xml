@@ -12,9 +12,6 @@
   		</property>
 	</bean>
 
-
-
-
 	<bean id="httpSessionIntegrationFilter"
 		class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
 
@@ -60,7 +57,7 @@
       		ref="authenticationEntryPoint" />
 		<property name="accessDeniedHandler">
 			<bean class="org.acegisecurity.ui.AccessDeniedHandlerImpl" lazy-init="default" autowire="default" dependency-check="default">
-				<property name="errorPage" value="/login.html?login_error=2" />
+				<property name="errorPage" value="/login.html" />
 			</bean>
 		</property>
 	</bean>

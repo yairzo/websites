@@ -33,7 +33,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 public class ConferenceProposalController extends GeneralFormController{
-
 	
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
@@ -263,22 +262,11 @@ public class ConferenceProposalController extends GeneralFormController{
 	
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception	{
-		//System.out.println("22222222222 here");
-		model.put("previousVersion", conferenceProposalService.getPreviousVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
-		model.put("nextVersion", conferenceProposalService.getNextVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)));
-		if(conferenceProposalService.getLastVersion(request.getIntParameter("id", 0))==conferenceProposalService.getNextVersion(request.getIntParameter("id", 0),request.getIntParameter("version", 0)))
-			model.put("nextVersionIsLast",true);
-		else
-			model.put("nextVersionIsLast",false);
-		model.put("firstVersion", request.getSession().getAttribute("firstVersion"));
-		model.put("lastVersion", request.getSession().getAttribute("lastVersion"));
-		// a list of possible proposal approvers
-		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
-		//get faculty name by user facultyId
-		Faculty faculty = facultyService.getFaculty(userPersonBean.getFacultyId());
-		model.put("faculty", faculty.getNameHebrew());
+		
+		int id = request.getIntParameter("id", 0);
+		
 		// if new proposal Create a new proposal and write it to db
-		if (request.getParameter("action", "").equals("new")){
+		if (request.getParameter("action", "").equals("new") || id == 0){
 			ConferenceProposal conferenceProposal= new ConferenceProposal();
 			int researcherId = request.getIntParameter("researcherId", userPersonBean.getId());
 			conferenceProposal.setPersonId(researcherId);
@@ -293,6 +281,20 @@ public class ConferenceProposalController extends GeneralFormController{
 			return new ModelAndView ( new RedirectView("editConferenceProposal.html"), newModel);
 		}
 		else{//show edit
+			model.put("previousVersion", conferenceProposalService.getPreviousVersion(id, request.getIntParameter("version", 0)));
+			model.put("nextVersion", conferenceProposalService.getNextVersion(id, request.getIntParameter("version", 0)));
+			
+			if(conferenceProposalService.getLastVersion(id) == conferenceProposalService.getNextVersion(id, request.getIntParameter("version", 0)))
+				model.put("nextVersionIsLast",true);
+			else
+				model.put("nextVersionIsLast",false);
+			model.put("firstVersion", request.getSession().getAttribute("firstVersion"));
+			model.put("lastVersion", request.getSession().getAttribute("lastVersion"));
+			// a list of possible proposal approvers
+			model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
+			//get faculty name by user facultyId
+			Faculty faculty = facultyService.getFaculty(userPersonBean.getFacultyId());
+			model.put("faculty", faculty.getNameHebrew());
 			ConferenceProposalBean conferenceProposal = (ConferenceProposalBean) model.get("command");
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER") && conferenceProposal.getResearcher().getId()!=userPersonBean.getId()){
 				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
@@ -348,11 +350,14 @@ public class ConferenceProposalController extends GeneralFormController{
 		ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean();
 		logger.info("action : " + request.getParameter("action",""));
 		
-		if ( isFormSubmission(request.getRequest()) || request.getParameter("action","").equals("new"))
-			return conferenceProposalBean;
-		
 		int id = request.getIntParameter("id", 0);
 		logger.info("id: " + id);
+		
+		if ( isFormSubmission(request.getRequest()) 
+				|| request.getParameter("action","").equals("new")
+				|| id == 0)
+			return conferenceProposalBean;
+		
 		int version = request.getIntParameter("version",0);
 		request.getSession().setAttribute("firstVersion", false);
 		request.getSession().setAttribute("lastVersion", false);
