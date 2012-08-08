@@ -515,7 +515,9 @@
         <property name="messageService">
         	<ref bean="messageService"/>
         </property>
-
+       <property name="personPrivilegeService">
+            <ref bean="personPrivilegeService"/>
+        </property>
      </bean>
 
      <bean id="editProposalValidator" class="huard.iws.web.validate.EditProposalValidator">

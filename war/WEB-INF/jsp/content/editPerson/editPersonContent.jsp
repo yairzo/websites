@@ -22,6 +22,7 @@
 				<input type="hidden" name="singlePrivilege" value="${command.singlePrivilege}"/>
 				<form:hidden path="yearFirstVisit"/>
 				<input type="hidden" name="cp" value="${cp}"/>
+				<input type="hidden" name="tc" value="${tc}"/>
 
               <table width="600" border="0" align="center" cellpadding="2" cellspacing="0">
 				<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"/>
@@ -113,6 +114,7 @@
 						<font color="red"><form:errors cssClass="errors" path="degreeHebrew"/></font>
 					</td>
 				</tr>
+				<c:if test="${tc!=2}">
 				<tr class="form">
 					<td>${compulsoryFieldSign}
 						שם פרטי באנגלית:
@@ -160,6 +162,7 @@
 						<font color="red"><form:errors cssClass="errors" path="degreeEnglish"/></font>
 					</td>
 				</tr>
+				</c:if>
 				<tr class="form">
 						<td>${compulsoryFieldSign}
 							דואל:
@@ -187,7 +190,7 @@
 					</td>
 				</tr>
 						<tr class="form">
-						<td>
+						<td><c:if test="${tc==2}">${compulsoryFieldSign}</c:if>
 							סלולרי:
 						</td>
 						<td>
@@ -199,6 +202,7 @@
 						<font color="red"><form:errors cssClass="errors" path="cellPhone"/></font>
 					</td>
 				</tr>
+				<c:if test="${tc!=2}">
 				<tr class="form">
 						<td>
 						 פקס <br/> (מספר מלא. לדוגמא: 02-6580000)
@@ -212,6 +216,7 @@
 						<font color="red"><form:errors cssClass="errors" path="fax"/></font>
 					</td>
 				</tr>
+				</c:if>
 				<tr class="form">
 						<td>${compulsoryFieldSign}
 							מחלקה:
@@ -243,6 +248,7 @@
 						<font color="red"><form:errors cssClass="errors" path="facultyId"/></font>
 					</td>
 				</tr>
+				<c:if test="${tc!=2}">
 				<tr class="form">
 						<td>${compulsoryFieldSign}
 						קמפוס:
@@ -292,6 +298,7 @@
 						<font color="red"><form:errors cssClass="errors" path="websiteUrl"/></font>
 					</td>
 				</tr>
+				</c:if>
 				<authz:authorize ifNotGranted="ROLE_EDIT_USER_DETAILS">
 					<tr class="form">
 						<td>
@@ -333,6 +340,7 @@
 						</td>
 					</tr>
 				</authz:authorize>
+				<c:if test="${tc!=2}">
 				<tr class="form">
 					<td>
 						שפה מועדפת לתכתובת:
@@ -351,6 +359,7 @@
 						<font color="red"><form:errors cssClass="errors" path="preferedLocaleId"/></font>
 					</td>
 				</tr>
+				</c:if>
 				<tr>
 					<td colspan="2">&nbsp;</td>
 				</tr>

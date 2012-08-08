@@ -29,6 +29,12 @@ public class EditPersonValidator implements Validator {
 		if (! personBean.getPhone().trim().matches("^[\\d]{2,3}-[\\d]{7}$")){
 			errors.rejectValue("phone", "iw_IL.invalid.phone");
 		}
+		if( personBean.isAuthorized("ROLE_CONFERENCE_RESEARCHER")){
+			ValidationUtils.rejectIfEmpty(errors, "cellPhone", "iw_IL.required.cellPhone");
+			if (! personBean.getPhone().trim().matches("^[\\d]{2,3}-[\\d]{7}$")){
+				errors.rejectValue("cellPhone", "iw_IL.invalid.cellPhone");
+			}
+		}
 		if (personBean.getFacultyId() == 0){
 			errors.rejectValue("facultyId", "iw_IL.required.facultyId");
 		}

@@ -184,7 +184,7 @@ $(document).ready(function() {
 					}
 				}
 			});
-     	  	$("#dialog-confirm").text("את/ה עומד/ת לשלוח בקשה לדירוג במייל לדיקן. האם את/ה מאשר/ת ?").dialog("open");
+     	  	$("#dialog-confirm").text("את/ה עומד/ת לשלוח בקשה לדירוג חוות דעת במייל לדיקן. האם את/ה מאשר/ת ?").dialog("open");
     	}
     	event.preventDefault();
     	return false;

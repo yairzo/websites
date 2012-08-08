@@ -10,6 +10,7 @@ import huard.iws.service.ListService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
 import huard.iws.service.PersonAttributionListService;
+import huard.iws.service.PersonPrivilegeService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.MD5Encoder;
 import huard.iws.util.RequestWrapper;
@@ -89,6 +90,7 @@ public class EditPersonController extends GeneralFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
+		
 		int id = request.getIntParameter("id", 0);
 		if ( userPersonBean.getId() != id && ! userPersonBean.isAuthorized("ADMIN"))
 			return new ModelAndView(new RedirectView("accessDenied.html"));
@@ -111,6 +113,12 @@ public class EditPersonController extends GeneralFormController {
 
 		String callerPage = request.getParameter("cp", "persons.html");
 		model.put("cp", callerPage);
+		
+		if(request.getParameter("tc", "").equals("2")){
+			personPrivilegeService.insertPersonPrivilege(userPersonBean.getId(),"ROLE_CONFERENCE_RESEARCHER","","1");
+			model.put("tc", request.getParameter("tc", ""));
+		}
+
 
 		LanguageUtils.applyLanguage(model, request, response, "iw_IL");
 		return new ModelAndView ( "editPerson", model);
@@ -137,6 +145,14 @@ public class EditPersonController extends GeneralFormController {
 			}
 		}
 		return personBean;
+	}
+
+	private PersonPrivilegeService personPrivilegeService;
+
+
+	public void setPersonPrivilegeService(
+			PersonPrivilegeService personPrivilegeService) {
+		this.personPrivilegeService = personPrivilegeService;
 	}
 
 	private PersonAttributionListService personAttributionListService;
