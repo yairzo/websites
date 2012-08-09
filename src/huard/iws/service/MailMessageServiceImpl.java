@@ -132,7 +132,11 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("recipient", recipient.getDegreeFullNameHebrew());
 		//to
 		String [] to = new String[1];
-		to[0] = recipient.getEmail();
+		Boolean isSendToApprover = Boolean.parseBoolean(configurationService.getConfigurationString("sendMailsToConferenceApprovers"));
+		if (isSendToApprover)
+			to[0] = recipient.getEmail();
+		else
+			to[0] = CONFERENCE_PROPOSAL_MAIL_ADDRESS;
 		//cc
 		List<Person> ccPersons = new ArrayList<Person>();
 		for (PersonBean personBean : personListService.getPersonsList(configurationService.getConfigurationInt("conferenceProposalAdminListId"))){
