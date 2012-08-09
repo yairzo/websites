@@ -31,10 +31,22 @@
 			$(parent).children("td").children("img.partly").hide();
 			$(parent).children("td").children("img.v").show();
 
-		}
+			  $("#dialogRooms").click(function(e) {
+					$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+					$("#genericDialog").dialog({ modal: false });
+					$("#genericDialog").dialog({ height: 200 });
+					$("#genericDialog").dialog({ width: 400 });
+					var texts='<p>';
+					texts='החדרים/אולמות שועדת הכנסים מאשרת אינם בבית בלגיה, בית מאירסדורף ובית צרפת שהנם גופים מסחריים עצמאיים.';
+					texts+='</p>';	    
+				    openHelp("#dialogRooms",texts);
+				    return false;
+				   });
+	}
 		else{
 			$(parent).children("td").children("img.partly").hide();
-			$(parent).children("td").children("img.v").hide();
+			<%@ page  pageEncoding="UTF-8" %>
+$(parent).children("td").children("img.v").hide();
 			$(parent).children("td").children("img.empty").show();
 
 		}
@@ -96,8 +108,8 @@ $(document).ready(function() {
 			return submission;
 		});
 
-	$.alerts.okButton = 'אישור';
-	$.alerts.cancelButton = 'ביטול';
+	$.alerts.okButton = '×××©××¨';
+	$.alerts.cancelButton = '×××××';
 
 
 	<c:if test="${userMessage!=null}">
@@ -219,6 +231,34 @@ $(document).ready(function() {
 				var value = $('input#email').val();
 				$('input#email').attr("value", $.trim(value));
 			});
+			
+			   
+		     $("#genericDialog").dialog({
+		           autoOpen: false,
+		           show: 'fade',
+		           hide: 'fade',
+		           modal: true,
+		           open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
+		     });
+		     $(".ui-dialog-titlebar").hide();
+		     
+			$("#dialogDetails").click(function(e) {
+					$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+					$("#genericDialog").dialog({ modal: false });
+					$("#genericDialog").dialog({ height: 300 });
+					$("#genericDialog").dialog({ width: 400 });
+					var text='<p>';
+					text='חוקר/ת יקרים,<br>';
+					text+='השימוש במערכת זו מצריך רישום חד פעמי בבסיס הנתונים שלה כמפורט להלן:<br>';
+					text+='מלא/י נא את הפרטים ולחצ/י על "שמור".<br>';
+					text+='באופן מיידי תישלח הודעת אישור לתיבת הדוא"ל שלך.<br>';
+					text+='בלחיצה על הקישורית שבהודעה תיכנס/י למערכת לשם הגשת בקשתך לוועדת הכנסים.<br>'; 
+					text+='במקרה של קושי תוכל להעזר ב<a style="text-decoration: underline;" href="mailto:mop@ard.huji.ac.il">רשות למו"פ</a>.';
+					text+='</p>';	
+					$("#genericDialog").dialog("option", "position", "center");
+				    $("#genericDialog").html(text).dialog("open");
+				    return false;
+			 });
 
 });
 

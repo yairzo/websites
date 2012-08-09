@@ -40,11 +40,14 @@
 				<form:hidden path="yearFirstVisit"/>
 				<input type="hidden" name="cp" value="${cp}"/>
 				<input type="hidden" name="tc" value="${tc}"/>
+				
+				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"></div>
 
               <table width="600" border="0" align="center" cellpadding="2" cellspacing="0">
 				<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"/>
 
 				<authz:authorize ifAnyGranted="ROLE_EDIT_USER_DETAILS">
+				<c:if test="${!isConference}">
 				<tr>
 				<td colspan="3">
 
@@ -54,10 +57,13 @@
 
        			</td>
        			</tr>
+       			</c:if>
        			</authz:authorize>
 
                 <tr>
-                  <td colspan="2" align="center"><h1><fmt:message key="iw_IL.eqfSystem.editPerson.title"/></h1>
+                  <td colspan="2" align="center"><h1><fmt:message key="iw_IL.eqfSystem.editPerson.title"/>
+ 					<c:if test="${isConference}"><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDetails"/></c:if>
+                  </h1>
                   </td>
                 </tr>
                 <tr class="form">
