@@ -115,9 +115,7 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 			imposedTargetUrl = "/person.html";
 			if (person != null)
 				imposedTargetUrl += "?id="+person.getId();
-			if (moduleToSubscribe.equals("conference"))
-				imposedTargetUrl += "&tc=2";
-				
+							
 			// save the curent request in the session so we'll know
 			// to what url to redirect the user after she edit's her personal details
 

@@ -3,7 +3,6 @@ package huard.iws.bean;
 import huard.iws.model.Person;
 import huard.iws.model.PersonListAttribution;
 import huard.iws.util.MD5Encoder;
-import huard.iws.web.EditPostController;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

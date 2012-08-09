@@ -216,8 +216,8 @@ $(document).ready(function() {
 
 
 			$('input#email').blur(function(){
-				var value = $('input#email').attr("id");
-				$('input#email').attr("value", JQuery.trim(value));
+				var value = $('input#email').val();
+				$('input#email').attr("value", $.trim(value));
 			});
 
 });

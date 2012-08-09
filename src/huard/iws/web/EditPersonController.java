@@ -88,9 +88,7 @@ public class EditPersonController extends GeneralFormController {
 
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
-	{
-
-		
+	{		
 		int id = request.getIntParameter("id", 0);
 		if ( userPersonBean.getId() != id && ! userPersonBean.isAuthorized("ADMIN"))
 			return new ModelAndView(new RedirectView("accessDenied.html"));
@@ -114,12 +112,6 @@ public class EditPersonController extends GeneralFormController {
 		String callerPage = request.getParameter("cp", "persons.html");
 		model.put("cp", callerPage);
 		
-		if(request.getParameter("tc", "").equals("2")){
-			personPrivilegeService.insertPersonPrivilege(userPersonBean.getId(),"ROLE_CONFERENCE_RESEARCHER","","1");
-			model.put("tc", request.getParameter("tc", ""));
-		}
-
-
 		LanguageUtils.applyLanguage(model, request, response, "iw_IL");
 		return new ModelAndView ( "editPerson", model);
 	}

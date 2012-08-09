@@ -17,9 +17,11 @@ public class EditPersonValidator implements Validator {
 		ValidationUtils.rejectIfEmpty(errors, "firstNameHebrew", "iw_IL.required.firstNameHebrew");
 		ValidationUtils.rejectIfEmpty(errors, "lastNameHebrew", "iw_IL.required.lastNameHebrew");
 		ValidationUtils.rejectIfEmpty(errors, "degreeHebrew", "iw_IL.required.degreeHebrew");
-		ValidationUtils.rejectIfEmpty(errors, "firstNameEnglish", "iw_IL.required.firstNameEnglish");
-		ValidationUtils.rejectIfEmpty(errors, "lastNameEnglish", "iw_IL.required.lastNameEnglish");
-		ValidationUtils.rejectIfEmpty(errors, "degreeEnglish", "iw_IL.required.degreeEnglish");
+		if (!personBean.isOnlyAuthorized("CONFERENCE","RESEARCHER")){
+			ValidationUtils.rejectIfEmpty(errors, "firstNameEnglish", "iw_IL.required.firstNameEnglish");
+			ValidationUtils.rejectIfEmpty(errors, "lastNameEnglish", "iw_IL.required.lastNameEnglish");
+			ValidationUtils.rejectIfEmpty(errors, "degreeEnglish", "iw_IL.required.degreeEnglish");
+		}
 		if (! personBean.getEmail().isEmpty() && ! personBean.getEmail().matches("^[_a-zA-Z0-9-&\\+=]+(\\.[_a-zA-Z0-9-]+)*@[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)+$")){
 			errors.rejectValue("email", "iw_IL.invalid.email");
 		}
@@ -38,17 +40,19 @@ public class EditPersonValidator implements Validator {
 		if (personBean.getFacultyId() == 0){
 			errors.rejectValue("facultyId", "iw_IL.required.facultyId");
 		}
-		if (personBean.getCampusId() == 0){
-			errors.rejectValue("campusId", "iw_IL.required.campusId");
+		if (!personBean.isOnlyAuthorized("CONFERENCE","RESEARCHER")){
+			if (personBean.getCampusId() == 0){
+				errors.rejectValue("campusId", "iw_IL.required.campusId");
+			}
 		}
 
 		ValidationUtils.rejectIfEmpty(errors, "department", "iw_IL.required.department");
-		ValidationUtils.rejectIfEmpty(errors, "academicTitle", "iw_IL.required.academicTitle");
+		if (!personBean.isOnlyAuthorized("CONFERENCE","RESEARCHER")){
+			ValidationUtils.rejectIfEmpty(errors, "academicTitle", "iw_IL.required.academicTitle");
+		}
 
 		if (!personBean.getCivilId().isEmpty() && ! personBean.getCivilId().trim().matches("\\d{8}")){
 			errors.rejectValue("civilId", "iw_IL.invalid.civilId");
 		}
 	}
-
-
 }

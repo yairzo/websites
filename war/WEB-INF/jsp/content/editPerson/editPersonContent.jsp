@@ -13,6 +13,23 @@
   </tr>
   <tr>
     <td>
+      <c:choose>
+      <c:when test="${command.singlePrivilege == 'ROLE_CONFERENCE_RESEARCHER'}">	
+      	<c:set var="isConference" value="true"/>
+      </c:when>
+      <c:when test="${command.singlePrivilege == 'ROLE_POST_RESEARCHER'}">	
+      	<c:set var="isPost" value="true"/>
+      </c:when>
+      <c:otherwise>
+      	<authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
+      		<c:set var="isAdmin" value="true"/>
+        </authz:authorize>
+        <authz:authorize ifNotGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
+      		<c:set var="isSelfEdit" value="true"/>
+        </authz:authorize>
+      </c:otherwise>
+      </c:choose>     
+      
       <table width="700" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468" dir="rtl">
         <tr>
           <td valign="top" align="center"><br>
@@ -47,17 +64,16 @@
 						<td>
 							תעודת זהות:
 						</td>
-						<authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
-							<td>
-								<form:input  cssClass="green" path="civilId"/>
-							</td>
-
-						</authz:authorize>
-						<authz:authorize ifNotGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
-							<td>
-							 	${command.civilId}
-							 </td>
-						</authz:authorize>
+						<td>
+							<c:choose>
+							<c:when test="${isAdmin}">
+								<form:input cssClass="green" path="civilId"/>
+							</c:when>
+							<c:otherwise>
+								${command.civilId}	
+							</c:otherwise>
+							</c:choose>
+						</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -66,7 +82,7 @@
 				</tr>
 
                 <tr class="form">
-					<td width="250">${compulsoryFieldSign}
+					<td width="250"><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 						שם פרטי בעברית:
 					</td>
 					<td width="120">
@@ -79,7 +95,7 @@
 					</td>
 				</tr>
 				<tr class="form">
-					<td>${compulsoryFieldSign}
+					<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 						שם משפחה בעברית:
 					</td>
 					<td>
@@ -93,7 +109,7 @@
 				</tr>
 
 				<tr class="form">
-					<td>${compulsoryFieldSign}
+					<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 						תואר אקדמי:
 					</td>
 					<td>
@@ -114,9 +130,10 @@
 						<font color="red"><form:errors cssClass="errors" path="degreeHebrew"/></font>
 					</td>
 				</tr>
-				<c:if test="${tc!=2}">
+				<c:choose>
+				<c:when test="${!isConference}">
 				<tr class="form">
-					<td>${compulsoryFieldSign}
+					<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 						שם פרטי באנגלית:
 					</td>
 					<td>
@@ -129,7 +146,7 @@
 					</td>
 				</tr>
 				<tr class="form">
-					<td>${compulsoryFieldSign}
+					<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 						שם משפחה באנגלית:
 					</td>
 					<td>
@@ -143,7 +160,7 @@
 				</tr>
 
 				<tr class="form">
-					<td>${compulsoryFieldSign}
+					<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 						תואר באנגלית:
 					</td>
 					<td>
@@ -162,9 +179,15 @@
 						<font color="red"><form:errors cssClass="errors" path="degreeEnglish"/></font>
 					</td>
 				</tr>
-				</c:if>
+				</c:when>
+				<c:otherwise>
+					<form:hidden path="firstNameEnglish"/>
+					<form:hidden path="lastNameEnglish"/>
+					<form:hidden path="degreeEnglish"/>
+				</c:otherwise>
+				</c:choose>
 				<tr class="form">
-						<td>${compulsoryFieldSign}
+						<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 							דואל:
 						</td>
 						<td>
@@ -177,8 +200,8 @@
 					</td>
 				</tr>
                 <tr class="form">
-						<td>${compulsoryFieldSign}
-							טלפון  <br/>(מספר מלא. לדוגמא: 02-6580000)
+						<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
+							טלפון
 						</td>
 						<td>
 							<form:input  cssClass="green" path="phone" size="11"/>
@@ -190,8 +213,8 @@
 					</td>
 				</tr>
 						<tr class="form">
-						<td><c:if test="${tc==2}">${compulsoryFieldSign}</c:if>
-							סלולרי:
+						<td><c:if test="${isConference}">${compulsoryFieldSign}</c:if>
+							סלולרי: 
 						</td>
 						<td>
 							<form:input  cssClass="green" path="cellPhone"/>
@@ -202,10 +225,11 @@
 						<font color="red"><form:errors cssClass="errors" path="cellPhone"/></font>
 					</td>
 				</tr>
-				<c:if test="${tc!=2}">
+				<c:choose>
+				<c:when test="${!isConference}">
 				<tr class="form">
 						<td>
-						 פקס <br/> (מספר מלא. לדוגמא: 02-6580000)
+						 פקס
 						</td>
 						<td>
 							<form:input  cssClass="green" path="fax" size="11"/>
@@ -216,9 +240,13 @@
 						<font color="red"><form:errors cssClass="errors" path="fax"/></font>
 					</td>
 				</tr>
-				</c:if>
+				</c:when>
+				<c:otherwise>
+					<form:hidden path="fax"/>
+				</c:otherwise>
+				</c:choose>
 				<tr class="form">
-						<td>${compulsoryFieldSign}
+						<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 							מחלקה:
 						</td>
 						<td>
@@ -231,7 +259,7 @@
 					</td>
 				</tr>
 				<tr class="form">
-						<td>${compulsoryFieldSign}
+						<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 							פקולטה / ביה"ס:
 						</td>
 						<td>
@@ -248,9 +276,10 @@
 						<font color="red"><form:errors cssClass="errors" path="facultyId"/></font>
 					</td>
 				</tr>
-				<c:if test="${tc!=2}">
+				<c:choose>
+				<c:when test="${!isConference}">
 				<tr class="form">
-						<td>${compulsoryFieldSign}
+						<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 						קמפוס:
 						</td>
 						<td>
@@ -273,7 +302,7 @@
 					</td>
 				</tr>
 				<tr class="form">
-						<td>${compulsoryFieldSign}
+						<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
 						תפקיד באוניברסיטה:
 						</td>
 						<td>
@@ -298,8 +327,15 @@
 						<font color="red"><form:errors cssClass="errors" path="websiteUrl"/></font>
 					</td>
 				</tr>
-				</c:if>
-				<authz:authorize ifNotGranted="ROLE_EDIT_USER_DETAILS">
+				</c:when>
+				<c:otherwise>
+					<form:hidden path="campusId"/>
+					<form:hidden path="academicTitle"/>
+					<form:hidden path="websiteUrl"/>					
+				</c:otherwise>
+				</c:choose>
+				<c:choose>
+				<c:when test="${isAdmin}">
 					<tr class="form">
 						<td>
 							כתובת:
@@ -339,8 +375,15 @@
 							<font color="red"><form:errors cssClass="errors" path="roomNumber"/></font>
 						</td>
 					</tr>
-				</authz:authorize>
-				<c:if test="${tc!=2}">
+				</c:when>
+				<c:otherwise>
+					<form:hidden path="address"/>
+					<form:hidden path="homePhone"/>
+					<form:hidden path="roomNumber"/>
+				</c:otherwise>
+				</c:choose>
+				<c:choose>
+				<c:when test="${!isConference}">
 				<tr class="form">
 					<td>
 						שפה מועדפת לתכתובת:
@@ -359,7 +402,11 @@
 						<font color="red"><form:errors cssClass="errors" path="preferedLocaleId"/></font>
 					</td>
 				</tr>
-				</c:if>
+				</c:when>
+				<c:otherwise>
+					<form:hidden path="preferedLocaleId"/>
+				</c:otherwise>
+				</c:choose>
 				<tr>
 					<td colspan="2">&nbsp;</td>
 				</tr>
@@ -470,6 +517,13 @@
 
 </table>
 <%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
+
+<spring:bind path="command.*">
+    <c:forEach items="${status.errorMessages}" var="error">
+        <font color="red">Error code: <c:out value="${error}"/></font>
+        <br><br>
+    </c:forEach>
+</spring:bind>
 
 
 </body>
