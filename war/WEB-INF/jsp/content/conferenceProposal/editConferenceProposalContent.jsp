@@ -1557,8 +1557,8 @@
 					</c:if>
 					
 				</c:if>
-				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>&nbsp;&nbsp;		
-				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה לעמוד קודם </button>		
+				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
+				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה למסך קודם </button>		
 			</td>
 		</tr>
 

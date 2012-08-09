@@ -891,9 +891,11 @@ $(document).ready(function() {
    $("#dialogProposer").click(function(e) {
 		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		  $("#genericDialog").dialog({ modal: false });
-			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ height: 250 });
 			$("#genericDialog").dialog({ width: 400 });
-		  openHelp("#dialogProposer","המבקש מייצג את מארגני הכנס בהליך בקשה זה");
+			var text ='המבקש מייצג את מארגני הכנס בהליך בקשה זה והוא אחראי לנכונות הפרטים בטופס.<br>';
+			text+='פרטיו האישיים של המבקש מועתקים לתוך הטופס באופן אוטומטי מתוך בסיס הנתונים של המערכת.';
+		  openHelp("#dialogProposer",text);
 		  return false;
 	   }); 
    $("#dialogSupportSum").click(function(e) {
