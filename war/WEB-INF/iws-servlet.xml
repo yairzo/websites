@@ -878,7 +878,7 @@
 				<prop key="/proposal.html">editProposalController</prop>
 				<prop key="/proposals.html">proposalListController</prop>
 				<prop key="/conferenceProposalAffirmation.html">urlFilenameViewController</prop>
-				<prop key="/editConferenceProposal.html">conferenceProposalController</prop>
+				<prop key="/conferenceProposal.html">conferenceProposalController</prop>
 				<prop key="/conferenceProposalAttachments.html">conferenceProposalAttachmentsController</prop>
 				<prop key="/conferenceProposals.html">conferenceProposalListController</prop>
 				<prop key="/conferenceProposalsGrade.html">conferenceProposalGradeController</prop>

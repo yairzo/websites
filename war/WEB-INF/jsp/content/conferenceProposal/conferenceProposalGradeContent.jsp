@@ -278,19 +278,19 @@ $(document).ready(function() {
 										<c:forEach items="${conferenceProposals}"
 											var="conferenceProposal" varStatus="varStatus">
 
-											<tr onClick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';"
+											<tr onClick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';"
 												class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 												<td width="150"><a
-													href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out
+													href="conferenceProposal.html?id=${conferenceProposal.id}"><c:out
 															value="${conferenceProposal.researcher.firstNameHebrew}" />&nbsp;<c:out
 															value="${conferenceProposal.researcher.lastNameHebrew}" /></a>
 												</td>
 												<td width="350"><a
-													href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out
+													href="conferenceProposal.html?id=${conferenceProposal.id}"><c:out
 															value="${conferenceProposal.subject}" />
 												</a></td>
 												<td width="100" align="right">&nbsp;&nbsp;<a
-													href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:out
+													href="conferenceProposal.html?id=${conferenceProposal.id}"><c:out
 														value="${conferenceProposal.grade}" /></a></td>
 												<td width="300"><textarea class="green saveclass evaluation"
 														name="approverEvaluation${conferenceProposal.id}"

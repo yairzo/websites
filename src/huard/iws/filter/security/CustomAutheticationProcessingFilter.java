@@ -50,7 +50,7 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 		}
 		else if (moduleToSubscribe.equals("conference")){
 			modulePrivilege = "ROLE_CONFERENCE_RESEARCHER";
-			setAuthenticationFailureUrl("/editConferenceProposal.html?login_error=1");
+			setAuthenticationFailureUrl("/conferenceProposal.html?login_error=1");
 		}		
 
 		String encodedPassword = MD5Encoder.digest(password);

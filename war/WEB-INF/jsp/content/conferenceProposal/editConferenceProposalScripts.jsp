@@ -169,7 +169,7 @@ $(document).ready(function() {
 			return false;
 		</c:if>
 		var options = {
-	       	 	url:       'editConferenceProposal.html' ,        
+	       	 	url:       'conferenceProposal.html' ,        
 	       	 	type:      'POST'
      	};
 		var elementClass = $(this).attr('class');
@@ -769,7 +769,7 @@ $(document).ready(function() {
 	        "כן" : function() {
 	            $(this).dialog("close");
 	    		var options = { 
-	    		       	url:       'editConferenceProposal.html' ,        
+	    		       	url:       'conferenceProposal.html' ,        
 	    		       	type:      'POST',
 	    		   		success:    function() { 
 	    		   		   	window.location.reload(); 
@@ -789,7 +789,7 @@ $(document).ready(function() {
 			return false;
 		}
 		var options = { 
-		       	url:       'editConferenceProposal.html' ,        
+		       	url:       'conferenceProposal.html' ,        
 		       	type:      'POST',
 		   		success:    function() { 
 		   		   	window.location.reload(); 

@@ -38,7 +38,7 @@ public class LoginController extends GeneralController{
 		int titleCode = request.getIntParameter("tc", 0);
 
 		String requestURI = (String)request.getRequest().getAttribute("javax.servlet.forward.request_uri"); 
-		if (requestURI != null && requestURI.contains("editConferenceProposal")){
+		if (requestURI != null && requestURI.contains("conferenceProposal")){
 			model.put("moduleToSubscribe", "conference");
 			titleCode = 2;
 		}

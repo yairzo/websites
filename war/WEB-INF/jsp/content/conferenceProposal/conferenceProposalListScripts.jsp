@@ -217,7 +217,7 @@ $(document).ready(function() {
                     $(this).dialog("close");
                  },
                 "המשך להגשת הבקשה" : function() {
-                	window.location.href = "editConferenceProposal.html?action=new";
+                	window.location.href = "conferenceProposal.html?action=new";
                  }
         });
        	var text = "א. קראתי את <a href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'><u>אמות המידה</u></a> להחלטותיה של ועדת הכנסים.</br>";

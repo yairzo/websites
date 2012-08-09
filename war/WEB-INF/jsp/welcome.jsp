@@ -11,7 +11,7 @@ function resetAutocomplete(){
 		 highlight: true,
 		 select: function(event, ui) {
 			$("#searchResearcher").val(ui.item.label);
-			window.location='/iws/editConferenceProposal.html?action=new&researcherId='+ui.item.id
+			window.location='/iws/conferenceproposal.html?action=new&researcherId='+ui.item.id
 			event.preventDefault();					
 		 }
 	    }
@@ -222,14 +222,14 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER">
 						<tr>
 						  <th align="right">
-								<a style="text-decoration: none" href="editConferenceProposal.html?action=new" class="confirmLink">הגשת בקשה למימון כנס</a>
+								<a style="text-decoration: none" href="conferenceproposal.html?action=new" class="confirmLink">הגשת בקשה למימון כנס</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
 						<tr>
 						  <th align="right">
-								<a style="text-decoration: none" href="editConferenceProposal.html?action=new" class="chooseResearcher">הגשת בקשה למימון כנס</a>
+								<a style="text-decoration: none" href="conferenceproposal.html?action=new" class="chooseResearcher">הגשת בקשה למימון כנס</a>
 							</th>
 						</tr>
 						</authz:authorize>

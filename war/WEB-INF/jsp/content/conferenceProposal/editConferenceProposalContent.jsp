@@ -15,7 +15,7 @@
       <table width="1000" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bca2a2" dir="rtl">
         <tr>
           <td valign="top" align="center"><br>
-            <form:form id="form" name="form" method="POST" action="editConferenceProposal.html" commandName="command" enctype="multipart/form-data">
+            <form:form id="form" name="form" method="POST" action="conferenceProposal.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
  			<form:hidden path="internalId"/>
  			<form:hidden path="versionId"/>
@@ -1544,15 +1544,15 @@
 				</c:if>
 				<c:if test="${!readonly && !command.submitted && !command.deleted}">			
 					<c:if test="${!firstVersion}">	
-						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;"><font size="+1">&nbsp;&#x21B7;&nbsp;</font></button>
+						<button class="grey" title="הצגת גרסה קודמת של ההצעה" onclick="window.location='conferenceProposal.html?id=${command.id}&version=${previousVersion}';return false;"><font size="+1">&nbsp;&#x21B7;&nbsp;</font></button>
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogVersions"/>&nbsp;&nbsp;		
 					</c:if>
 					<c:if test="${!lastVersion}">		
 						<c:if test="${nextVersionIsLast}">		
-							<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}';return false;"><font size="+1">&nbsp;&#x21B6;&nbsp;</font></button>&nbsp;&nbsp;
+							<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='conferenceProposal.html?id=${command.id}';return false;"><font size="+1">&nbsp;&#x21B6;&nbsp;</font></button>&nbsp;&nbsp;
 						</c:if>
 						<c:if test="${!nextVersionIsLast}">		
-							<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='editConferenceProposal.html?id=${command.id}&version=${nextVersion}';return false;"><font size="+1">&nbsp;&#x21B6;&nbsp;</font></button>&nbsp;&nbsp;
+							<button class="grey" title="הצגת גרסה הבאה של ההצעה" onclick="window.location='conferenceProposal.html?id=${command.id}&version=${nextVersion}';return false;"><font size="+1">&nbsp;&#x21B6;&nbsp;</font></button>&nbsp;&nbsp;
 						</c:if>
 					</c:if>
 					

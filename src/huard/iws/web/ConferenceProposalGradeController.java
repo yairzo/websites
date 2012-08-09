@@ -65,7 +65,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		/*if (action.equals("edit") && gradeCommand.getConferenceProposalId()>0){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
 			newModel.put("id",gradeCommand.getConferenceProposalId());
-			return new ModelAndView( new RedirectView("editConferenceProposal.html"),newModel);
+			return new ModelAndView( new RedirectView("conferenceProposal.html"),newModel);
 		}*/
 		if (action.equals("stopGrading")){
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");

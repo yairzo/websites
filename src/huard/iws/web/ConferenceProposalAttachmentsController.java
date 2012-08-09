@@ -109,7 +109,7 @@ public class ConferenceProposalAttachmentsController extends GeneralFormControll
 			
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", conferenceProposalBean.getId())	;
-		return new ModelAndView(new RedirectView("editConferenceProposal.html"), newModel);
+		return new ModelAndView(new RedirectView("conferenceProposal.html"), newModel);
 	}
 	
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,

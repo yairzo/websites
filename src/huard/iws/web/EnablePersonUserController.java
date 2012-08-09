@@ -31,7 +31,7 @@ public class EnablePersonUserController extends GeneralController{
 		if (personEnabled){
 			// caller page i.e. redirect page
 			String callerPage = request.getParameter("cp", "welcome.html");
-			if (callerPage.equals("editConferenceProposal.html"))
+			if (callerPage.equals("conferenceProposal.html"))
 				model.put("id", 0);
 			else if (callerPage.equals("personPost.html"))
 				model.put("id", personId);

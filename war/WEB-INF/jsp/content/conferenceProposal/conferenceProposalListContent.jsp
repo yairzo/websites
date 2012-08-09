@@ -120,7 +120,7 @@
  							<tbody>            			
  							<tr class="${cssClass}" style="height: 30px;">
 				  						<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-				  						<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
+				  						<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
   											<a href="person.html?id=${conferenceProposal.researcher.id}">
   												<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
@@ -131,13 +131,13 @@
   											</authz:authorize>  											
   										</td>
   										</authz:authorize>
- 										<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
-  											<a href="editConferenceProposal.html?id=${conferenceProposal.id}"><c:choose><c:when test="${fn:length(conferenceProposal.subject)>0}"><c:out value="${conferenceProposal.subject}"></c:out></c:when><c:otherwise>ללא נושא</c:otherwise></c:choose></a>
+ 										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
+  											<a href="conferenceProposal.html?id=${conferenceProposal.id}"><c:choose><c:when test="${fn:length(conferenceProposal.subject)>0}"><c:out value="${conferenceProposal.subject}"></c:out></c:when><c:otherwise>ללא נושא</c:otherwise></c:choose></a>
   										</td>
- 										<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
-   											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedFromDate}"/></a>
+ 										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
+   											<a href="conferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedFromDate}"/></a>
  										</td>
-  										<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
+  										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
  											<c:choose>
  											<c:when test="${conferenceProposal.approverId > 0}">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
@@ -154,8 +154,8 @@
   											</c:otherwise>
   											</c:choose>
   										</td>
-  										<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
-  											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">
+  										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
+  											<a href="conferenceProposal.html?id=${conferenceProposal.id}">
   											<c:choose>
    											<c:when test="${conferenceProposal.deleted}">
   												בוטלה
@@ -173,8 +173,8 @@
   											</c:choose>
   											</a>
   										</td>
- 										<td onclick="document.location='editConferenceProposal.html?id=${conferenceProposal.id}';">
-   											<a href="editConferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.statusDate}"/></a>
+ 										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
+   											<a href="conferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.statusDate}"/></a>
  										</td>
  										<c:if test="${admin}">
   										<td style="text-align:center;">

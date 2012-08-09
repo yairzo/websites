@@ -30,7 +30,7 @@
                 	</tr>
                 	<tr>
                 		<th>
-                				<a href="editConferenceProposal.html?action=new">המשך להצעה חדשה</a>
+                				<a href="conferenceProposal.html?action=new">המשך להצעה חדשה</a>
                 		</th>
                 		<th>
                 				<a href="javascript:back()">בטל</a>

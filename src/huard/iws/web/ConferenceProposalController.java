@@ -257,7 +257,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", conferenceProposalBean.getId())	;
-		return new ModelAndView(new RedirectView("editConferenceProposal.html"), newModel);
+		return new ModelAndView(new RedirectView("conferenceProposal.html"), newModel);
 	}
 	
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
@@ -278,7 +278,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			logger.info("conferenceProposalId " + conferenceProposalId);
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",conferenceProposalId);
-			return new ModelAndView ( new RedirectView("editConferenceProposal.html"), newModel);
+			return new ModelAndView ( new RedirectView("conferenceProposal.html"), newModel);
 		}
 		else{//show edit
 			model.put("previousVersion", conferenceProposalService.getPreviousVersion(id, request.getIntParameter("version", 0)));
