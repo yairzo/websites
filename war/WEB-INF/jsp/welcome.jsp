@@ -34,7 +34,7 @@ $(document).ready(function() {
       hide: 'fade',
       modal: true,
       width: 600,
-      height:300,
+      height:350,
       title: "מערכת הכנסים"
  });
  
@@ -44,7 +44,7 @@ $(document).ready(function() {
       hide: 'fade',
       modal: true,
       width: 400,
-      height:250,
+      height:300,
       title: "מערכת הכנסים"
  });
  
@@ -65,6 +65,7 @@ $(document).ready(function() {
             	window.location.href = targetUrl;
              }
     });
+
    	var text = "א. קראתי את <a href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'><u>אמות המידה</u></a> להחלטותיה של ועדת הכנסים.</br>";
    	text+="ב. אני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>";
    	text+="ג. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.";

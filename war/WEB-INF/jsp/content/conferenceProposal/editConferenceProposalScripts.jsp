@@ -179,17 +179,24 @@ $(document).ready(function() {
 	    		hideExtraCommittee("scientificCommittee");
 		if (elementClass.indexOf("operationalCommittee")!=-1)
 				hideExtraCommittee("operationalCommittee");
-		if (elementClass.indexOf("admitanceFee")!=-1){
-				hideExtraCommittee("admitanceFee");
-		}
-		if (elementClass.indexOf("assosiate")!=-1){
-				hideExtraCommittee("assosiate");
-		}
-		if (elementClass.indexOf("external")!=-1){
-				hideExtraCommittee("external");
-		}
+		//if (elementClass.indexOf("admitanceFee")!=-1)
+		//		hideExtraCommittee("admitanceFee");
+		//if (elementClass.indexOf("assosiate")!=-1)
+		//		hideExtraCommittee("assosiate");
+		//if (elementClass.indexOf("external")!=-1)
+		//		hideExtraCommittee("external");
 	}, {delay: 2000});
-	
+
+	$('.admitanceFee').keyup(function(event){
+		hideExtraCommittee("admitanceFee");
+	});
+	$('.assosiate').keyup(function(event){
+		hideExtraCommittee("assosiate");
+	});
+	$('.external').keyup(function(event){
+		hideExtraCommittee("external");
+	});
+
 	$('form').find('select').change(function(){
 		<c:if test="${command.versionId > 0}">
 			return false;
@@ -207,6 +214,7 @@ $(document).ready(function() {
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 	    $('#form').ajaxSubmit();
 	}, {delay: 3000});
+	
 	
 	$('.cancelSubmission').change(function(event){
 		if($('.cancelSubmission').is(":checked")){

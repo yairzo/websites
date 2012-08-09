@@ -220,6 +220,10 @@ $(document).ready(function() {
                 	window.location.href = "conferenceProposal.html?action=new";
                  }
         });
+    	$("#genericDialog").dialog({ modal: false });
+    	$("#genericDialog").dialog({ height: 350 });
+    	$("#genericDialog").dialog({ width: 600 });
+
        	var text = "א. קראתי את <a href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'><u>אמות המידה</u></a> להחלטותיה של ועדת הכנסים.</br>";
        	text+="ב. אני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>";
        	text+="ג. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.";
