@@ -582,15 +582,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#location").change(function(e){
-		if($('#location').val()=='6')
-			$('#locationDetail').attr('readonly', false);
-		else{
-			$('#locationDetail').attr('readonly', true);
-			$('#locationDetail').val('');
-		}
-	});
-
 	/*$('#company').click(function(){	
 		if($('#company').attr('checked'))
 			$('.organizingCompanyPart').show();

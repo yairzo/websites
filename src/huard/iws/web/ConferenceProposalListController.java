@@ -88,9 +88,6 @@ public class ConferenceProposalListController extends GeneralFormController {
 		//recordProtectService.freeRecordsByUsername(userPersonBean.getUsername());
 
 		ConferenceProposalListCommand searchCommand = (ConferenceProposalListCommand) model.get("command");
-
-		logger.info("Show form search command: " + searchCommand.getSearchCreteria().getWhereClause());
-		logger.info("Show form search command: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(searchCommand.getListView(), searchCommand.getSearchCreteria(),userPersonBean,false);
 		List<ConferenceProposalBean> conferenceProposalBeans = new ArrayList<ConferenceProposalBean>();
 

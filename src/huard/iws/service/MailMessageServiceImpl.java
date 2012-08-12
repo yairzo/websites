@@ -171,8 +171,13 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);
-		System.out.println(body);
-		messageService.sendMail(recipient.getEmail(), CONFERENCE_PROPOSAL_MAIL_ADDRESS, subject, body, getCommonResources());
+		Boolean isSendToApprover = Boolean.parseBoolean(configurationService.getConfigurationString("sendMailsToConferenceApprovers"));
+		String to;
+		if (isSendToApprover)
+			to = recipient.getEmail();
+		else
+			to = CONFERENCE_PROPOSAL_MAIL_ADDRESS;
+		messageService.sendMail(to, CONFERENCE_PROPOSAL_MAIL_ADDRESS, subject, body, getCommonResources());
 	}
 
 	
