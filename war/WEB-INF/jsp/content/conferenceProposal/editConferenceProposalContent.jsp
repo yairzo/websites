@@ -22,7 +22,7 @@
  			<form:hidden path="versionId"/>
  			<form:hidden path="personId"/>
  			<form:hidden path="deadline"/>
-			
+ 			<form:hidden path="creatorId"/>
  			
 			<c:if test="${approver || committee || printcp}">
  				<c:set var="readOnly" value="true"/>
@@ -52,6 +52,10 @@
                   	<h1>בקשה לתמיכה בכנס מדעי בינלאומי <br/>
                    	<a class='underline' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>
                   	(לפי הוראת הנהלה 17-011)</a>
+                  	<br>
+ 					<c:if test="${!readOnly && !command.submitted}">
+                  		<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRequest"/>
+                  	</c:if>
                   	</h1>
                   	</td>
                  	 <td align="left">טופס 050, אוגוסט 2012</td>
@@ -59,13 +63,7 @@
                  	 </table>
                  	</td>
                 </tr>
- 				<c:if test="${!readOnly && !command.submitted}">
-				 <tr>
-				 	<td colspan="4" align="center">
-      					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRequest"/>
-                    </td>
-                 </tr>
-                 </c:if>
+ 
 				<c:if test="${!command.isInsideDeadline && command.submitted}">			
                 <tr class="form">
 					<td colspan="4" align="right">
@@ -89,6 +87,9 @@
 					<td width="300" style="border:1px #bca2a2 dotted">
 						 שם חוקר:
 						${command.researcher.degreeHebrew } ${command.researcher.firstNameHebrew } ${command.researcher.lastNameHebrew }
+					<c:if test="${admin && command.creatorId!=command.researcher.id && command.creatorId!=0}">
+					&nbsp;(נוצר ע"י רכז/ת כנסים) 
+					</c:if>
 					</td>
 					<td width="300" style="border:1px #bca2a2 dotted">
 						 מחלקה:

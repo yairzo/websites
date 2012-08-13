@@ -1029,7 +1029,7 @@ $(document).ready(function() {
    $("#dialogRequest").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 300 });
+		$("#genericDialog").dialog({ height: 400 });
 		$("#genericDialog").dialog({ width: 400 });
 		var texts='<p>';
 		texts+='א. העזר/י בהסברים - הוראותיהם מחייבות!</br>';

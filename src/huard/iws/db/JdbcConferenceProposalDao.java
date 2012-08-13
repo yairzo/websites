@@ -417,6 +417,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setIsInsideDeadline(rs.getBoolean("isInsideDeadline"));
 			conferenceProposal.setCommitteeRemarks(rs.getString("committeeRemarks"));
 			conferenceProposal.setAcceptTerms(rs.getBoolean("acceptTerms"));
+			conferenceProposal.setCreatorId(rs.getInt("creatorId"));
             return conferenceProposal;
         }
 	};
@@ -500,6 +501,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setIsInsideDeadline(rs.getBoolean("isInsideDeadline"));
 			conferenceProposal.setCommitteeRemarks(rs.getString("committeeRemarks"));
 			conferenceProposal.setAcceptTerms(rs.getBoolean("acceptTerms"));
+			conferenceProposal.setCreatorId(rs.getInt("creatorId"));
             return conferenceProposal;
         }
 	};
@@ -519,10 +521,11 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			internalId=internalYear+1;
 		//System.out.println(internalId);
 		
-		final String queryS1 = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?,auditorium=1;";
+		final String queryS1 = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?,auditorium=1, creatorId=?;";
 		logger.info(queryS1);
 		final int personId = conferenceProposal.getPersonId();
 		final long deadline = conferenceProposal.getDeadline();
+		final int creatorId= conferenceProposal.getCreatorId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -532,12 +535,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		            ps.setInt(1, personId);
 		            ps.setTimestamp(2, new java.sql.Timestamp(deadline));
 		            ps.setInt(3, internalId);
+		            ps.setInt(4, creatorId);
 		            return ps;
 		        }
 		    },
 		    keyHolder);
 		final int key=keyHolder.getKey().intValue();
-		final String queryS2 = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?;";
+		final String queryS2 = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?, creatorId=?;";
 		logger.info(queryS2);
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -548,6 +552,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		            ps.setInt(2, personId);
 		            ps.setTimestamp(3, new java.sql.Timestamp(deadline));
 		            ps.setInt(4, internalId);
+		            ps.setInt(5, creatorId);
 		            return ps;
 		        }
 		    });

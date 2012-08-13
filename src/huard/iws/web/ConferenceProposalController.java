@@ -270,7 +270,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			ConferenceProposal conferenceProposal= new ConferenceProposal();
 			int researcherId = request.getIntParameter("researcherId", userPersonBean.getId());
 			conferenceProposal.setPersonId(researcherId);
-			
+			conferenceProposal.setCreatorId(userPersonBean.getId());
 			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
 			logger.info("Deadline on new proposal: " + deadline);
 			conferenceProposal.setDeadline(DateUtils.parseDate(deadline, "yyyy-MM-dd"));

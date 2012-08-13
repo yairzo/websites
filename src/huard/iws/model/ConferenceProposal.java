@@ -13,14 +13,6 @@ public class ConferenceProposal {
 	private int grade;
 	private String description;
 	private int versionId;
-	/*private String degreeHebrew;
-	private String firstNameHebrew;
-	private String lastNameHebrew;
-	private String department;
-	private int facultyId;
-	private String phone;
-	private String fax;
-	private String email;*/
 	private String subject;
 	private long fromDate;
 	private long toDate;
@@ -38,7 +30,6 @@ public class ConferenceProposal {
 	private String  programAttachContentType;
 	private byte [] financialAttach;
 	private String  financialAttachContentType;
-
 	private String initiatingBody;
 	private int initiatingBodyRole;
 	private long openDate;
@@ -77,6 +68,7 @@ public class ConferenceProposal {
 	private byte[] companyAttach;
 	private String companyAttachContentType;
 	private boolean acceptTerms;
+	private int creatorId;
 
 	public ConferenceProposal(){
 		this.id = 0;
@@ -142,6 +134,7 @@ public class ConferenceProposal {
 		this.companyAttach = new byte[0];
 		this.companyAttachContentType= "";
 		this.acceptTerms=false;
+		this.creatorId=0;
 	}
 
 	
@@ -602,6 +595,13 @@ public class ConferenceProposal {
 	}
 	public void setAcceptTerms(boolean acceptTerms) {
 		this.acceptTerms = acceptTerms;
+	}
+
+	public int getCreatorId() {
+		return creatorId;
+	}
+	public void setCreatorId(int creatorId) {
+		this.creatorId = creatorId;
 	}
 
 

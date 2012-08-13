@@ -25,11 +25,6 @@ public class ConferenceProposalBean {
 	private int grade;
 	private String description;
 	private int versionId;
-	/*
-	 * private String degreeHebrew; private String firstNameHebrew; private
-	 * String lastNameHebrew; private String department; private int facultyId;
-	 * private String phone; private String fax; private String email;
-	 */
 	private String subject;
 	private long fromDate;
 	private long toDate;
@@ -47,7 +42,6 @@ public class ConferenceProposalBean {
 	private String programAttachContentType;
 	private byte[] financialAttach;
 	private String financialAttachContentType;
-
 	private String initiatingBody;
 	private int initiatingBodyRole;
 	private long openDate;
@@ -86,7 +80,7 @@ public class ConferenceProposalBean {
 	private byte[] companyAttach;
 	private String companyAttachContentType;
 	private boolean acceptTerms;
-
+	private int creatorId;
 
 	public ConferenceProposalBean() {
 		this.id = 0;
@@ -167,7 +161,6 @@ public class ConferenceProposalBean {
 		this.fromAdmitanceFee = new ArrayList<FinancialSupport>();
 		for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++){
 			FinancialSupport financialSupport = new FinancialSupport();
-			//financialSupport.setName("דמי הרשמה");
 			financialSupport.setType(FinancialSupport.TYPE_ADMITANCEFEE);
 			fromAdmitanceFee.add(financialSupport);
 		}
@@ -178,6 +171,7 @@ public class ConferenceProposalBean {
 		this.companyAttach = new byte[0];
 		this.companyAttachContentType = "";
 		this.acceptTerms =false;
+		this.creatorId=0;
 	}
 
 	public ConferenceProposalBean(ConferenceProposal conferenceProposal) {
@@ -273,12 +267,9 @@ public class ConferenceProposalBean {
 		for (int i=fromAdmitanceFee.size(); i< MAX_NUM_FINANCIAL_SUPPORT; i++){
 			FinancialSupport financialSupport = new FinancialSupport();
 			financialSupport.setConferenceProposalId(conferenceProposal.getId());
-			//financialSupport.setName("דמי הרשמה");
 			financialSupport.setType(FinancialSupport.TYPE_ADMITANCEFEE);
 			fromAdmitanceFee.add(financialSupport);
 		}
-		
-		
 		this.deleted = conferenceProposal.getDeleted();
 		this.deadlineRemarks = conferenceProposal.getDeadlineRemarks();
 		this.isInsideDeadline =conferenceProposal.getIsInsideDeadline();
@@ -286,6 +277,7 @@ public class ConferenceProposalBean {
 		this.companyAttach = conferenceProposal.getCompanyAttach();
 		this.companyAttachContentType = conferenceProposal.getCompanyAttachContentType();
 		this.acceptTerms =conferenceProposal.getAcceptTerms();
+		this.creatorId = conferenceProposal.getCreatorId();
 		// System.out.println("beannnnnnnnnnnnnnnn:" + this.getSubject() +
 		// this.getApproverEvaluation() + this.getApproverId() +
 		// this.getDescription() + this.getLocation() + this.getLocationDetail()
@@ -359,6 +351,7 @@ public class ConferenceProposalBean {
 		conferenceProposal.setCompanyAttach(companyAttach);
 		conferenceProposal.setCompanyAttachContentType(companyAttachContentType);
 		conferenceProposal.setAcceptTerms(acceptTerms);
+		conferenceProposal.setCreatorId(creatorId);
 		return conferenceProposal;
 	}
 
@@ -927,6 +920,13 @@ public class ConferenceProposalBean {
 	}
 	public void setAcceptTerms(boolean acceptTerms) {
 		this.acceptTerms = acceptTerms;
+	}
+
+	public int getCreatorId() {
+		return creatorId;
+	}
+	public void setCreatorId(int creatorId) {
+		this.creatorId = creatorId;
 	}
 
 
