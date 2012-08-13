@@ -1,12 +1,13 @@
 <%@ page  pageEncoding="UTF-8" %>
+     	<c:if test="${!printcp}">
        	 <tr>
           		<td align="right" bgcolor="#787669" height="20">
            			<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>
           	        <c:set var="pageName" value="בקשה למימון כנס"/>
        	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
-    	      	 </td>
+     	      	 </td>
          </tr>
-
+		</c:if>
 		</table>
     </td>
   </tr>
@@ -23,10 +24,10 @@
  			<form:hidden path="deadline"/>
 			
  			
-			<c:if test="${approver || committee}">
+			<c:if test="${approver || committee || printcp}">
  				<c:set var="readOnly" value="true"/>
  			</c:if>
-			<c:if test="${!approver && !committee}">
+			<c:if test="${!approver && !committee && !printcp}">
 				<c:set var="readOnly" value="false"/>
  			</c:if>
  			
@@ -40,13 +41,31 @@
 				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"><p>text put here</p></div>
 				
                 <tr>
-                  <td colspan="4" align="center">
-                  	<h1>בקשה מוועדת הכנסים לסיוע במימון כנס בינ"ל <br/>
+                  <td colspan="4">
+                	<table width="1000" cellpadding="2" cellspacing="0" align="center">
+                	<tr>
+                	<td align="right">
+                  	 זיהוי הבקשה במערכת:
+					${internalIdString}
+                  	</td>
+                 	 <td colspan="2" align="center">
+                  	<h1>בקשה לתמיכה בכנס מדעי בינלאומי <br/>
                    	<a class='underline' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>
-                  (לפי הוראת הנהלה 17-011)</a>
-                  </h1>
-                  </td>
+                  	(לפי הוראת הנהלה 17-011)</a>
+                  	</h1>
+                  	</td>
+                 	 <td align="left">טופס 050, אוגוסט 2012</td>
+                 	 </tr>
+                 	 </table>
+                 	</td>
                 </tr>
+ 				<c:if test="${!readOnly && !command.submitted}">
+				 <tr>
+				 	<td colspan="4" align="center">
+      					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRequest"/>
+                    </td>
+                 </tr>
+                 </c:if>
 				<c:if test="${!command.isInsideDeadline && command.submitted}">			
                 <tr class="form">
 					<td colspan="4" align="right">
@@ -55,13 +74,7 @@
 				</tr>
 				</c:if>
                 
-                <tr class="form">
-					<td colspan="4">
-					מספר הזיהוי הפנימי של הבקשה:
-					${internalIdString}
-					</td>
-				</tr>
-
+ 
                 <tr class="form">
 					<td colspan="4" align="right"><h3> פרטי המבקש 
 					<c:if test="${!readOnly && !command.submitted}">
@@ -754,7 +767,7 @@
 				
 				<tr><td>&nbsp;</td></tr>
 				
-	            <tr class="form">
+	            <tr class="form" style="page-break-before:always">
 		       		<td colspan="4" align="right"><h3>תקציב הכנס 
 		       		<c:if test="${!readOnly && !command.submitted}">
 		       		<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogBudget"/>
@@ -1376,12 +1389,12 @@
 		       		</td>
 				</tr>
 				<tr>
-				    <c:if test="${admin || approver}">
+				    <c:if test="${(admin || approver) && !printcp}">
 				    <td colspan="4" align="center">
 						<form:textarea htmlEscape="true" cssClass="green" path="approverEvaluation" cols="80" rows="3"/>
 					</td>
 					</c:if>
-					 <c:if test="${committee}">
+					 <c:if test="${committee || printcp}">
 				    <td colspan="4" align="right">
 					 	<c:out value="${command.approverEvaluation}"></c:out>
 					</td>
@@ -1424,7 +1437,12 @@
 				</tr>
 				<tr>
 					<td colspan="4" align="center">
+						<c:if test="${!printcp}">
 						<form:textarea htmlEscape="true" cssClass="green" path="adminRemarks" cols="80" rows="3"/>
+						</c:if>
+						<c:if test="${printcp}">
+						${command.adminRemarks}
+						</c:if>
 					</td>
 				</tr>
 				</table>
@@ -1452,9 +1470,16 @@
 				</tr>
 				<c:if test="${admin}">
  				<tr>
+					<c:if test="${!printcp}">
 	   				<td colspan="4" align="center">
 						<form:textarea htmlEscape="true" cssClass="green" path="committeeRemarks" cols="80" rows="3"/>
 	   				</td>
+					</c:if>
+					<c:if test="${printcp}">
+	   				<td colspan="4">
+						${committeeRemarksWithLineBreaks}
+	   				</td>
+					</c:if>
 				</tr>
 				</c:if>
 				<c:if test="${committee}">
@@ -1463,6 +1488,7 @@
 	   				${committeeRemarksWithLineBreaks}
 	   				</td>
 				</tr>
+				<c:if test="${!printcp}">
 				<tr>
 					<td>הוסף הערה:</td>
 				</tr>
@@ -1471,6 +1497,7 @@
 						<textarea htmlEscape="true" class="green newCommitteeRemarks" name="newCommitteeRemarks" cols="80" rows="3"></textarea>
 					</td>
 				</tr>
+				</c:if>
 				<tr><td>&nbsp;</td></tr>
 				</c:if>
 				</table>
@@ -1489,6 +1516,7 @@
 						<form:hidden path="committeeRemarks"/>
 				</c:if>
 				
+      	<c:if test="${!printcp}">
 				
 				<c:if test="${admin && command.submitted}">
 				<tr class="form">
@@ -1559,9 +1587,10 @@
 				</c:if>
 				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה למסך קודם </button>		
+				<button class="grey" title="גרסת הדפסה"  onclick="window.location='conferenceProposal.html?id=${command.id}&p=1';return false;">גרסת הדפסה </button>		
 			</td>
 		</tr>
-
+</c:if>
     </table>
 </form:form>
     </td>

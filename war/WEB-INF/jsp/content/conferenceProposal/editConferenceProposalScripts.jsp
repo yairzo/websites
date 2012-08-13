@@ -1026,6 +1026,20 @@ $(document).ready(function() {
 	    openHelp("#dialogVersions",texts);
 	    return false;
 	   });
+   $("#dialogRequest").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 300 });
+		$("#genericDialog").dialog({ width: 400 });
+		var texts='<p>';
+		texts+='א. העזר/י בהסברים - הוראותיהם מחייבות!</br>';
+		texts+='ב. שדות החובה מסומנים בכוכבית. מילוי שדות הרשות יגדיל את הסיכוי לזכות בתמיכה המבוקשת.</br>';
+		texts+='ג. במקרה של קושי במילוי הטופס ביכולתך לקבל סיוע ברשות למו"פ 86625/6</br>';
+		texts+='ד. במקרה שברצונך להבהיר את מה שמילאת בשדה מסוים, הנך יכול/ה לעשות זאת בשדה "הערות מגיש הבקשה לוועדה" בחלקו התחתון של הטופס.</br>';
+		texts+='</p>';	    
+	    openHelp("#dialogRequest",texts);
+	    return false;
+	   });
    $("#dialogDeleteFinancialSupport").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });

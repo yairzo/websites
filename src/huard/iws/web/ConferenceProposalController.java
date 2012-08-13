@@ -339,6 +339,9 @@ public class ConferenceProposalController extends GeneralFormController{
 				model.put("researcher",true);
 			}
 			
+			int printEdition = request.getIntParameter("p", 0);
+			model.put("printcp", printEdition == 1);
+			
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		

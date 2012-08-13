@@ -224,9 +224,9 @@ $(document).ready(function() {
     	$("#genericDialog").dialog({ height: 350 });
     	$("#genericDialog").dialog({ width: 600 });
 
-       	var text = "א. קראתי את <a href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'><u>אמות המידה</u></a> להחלטותיה של ועדת הכנסים.</br>";
-       	text+="ב. אני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>";
-       	text+="ג. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.";
+       	var text ="א. אני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>";
+       	text+="ב. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.<br/>";
+    	text+="ג. אמלא את טופס הבקשה בהתאם ל <a href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'><u>הוראות הנהלה מספר 17-011 לאמות המידה</u></a> של הועדה ולהנחיות (המסומנות ב <img src='image/questionmark.png' width='25' height='25'>) שבגוף הטופס.</br> ";
     	openHelp(this,text);
        	return false;
        }); 

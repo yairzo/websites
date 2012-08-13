@@ -102,10 +102,18 @@
 			<area shape="rect" coords="4,63,277,94" href="http://ard.huji.ac.il/huard/main.jsp?lang=eng" alt="Authority for Research and Development" />
 			<area shape="rect" coords="428,75,693,95" href="http://ard.huji.ac.il/huard/main.jsp?lang=heb" alt="Authority for Research and Development" />
 		</map>
+ 	<c:choose>
+    	<c:when test="${printcp}">
+      		<c:set var="backgroundWidth" value="1000"/>
+      	</c:when>
+      	<c:otherwise>
+      		<c:set var="backgroundWidth" value="100%"/>
+      	</c:otherwise>
+     </c:choose>
 
-<table width="100%" border="0">
+<table width="${backgroundWidth}" border="0" align="center">
   <tr>
-    <td <c:if test="${!iframeView && !print}">background="image/bg.jpg"</c:if>>
+    <td <c:if test="${!iframeView && !print}">background="image/bg.jpg" </c:if>>
       <table width="700" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
           <td valign="top" align="center"><c:if test="${!iframeView || !ajaxView}"><img src="image/header.jpg" width="700" height="97" border="0" useMap="#Map"></c:if></td>
