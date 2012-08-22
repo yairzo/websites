@@ -1,5 +1,6 @@
 <%@ page  pageEncoding="UTF-8" %>
-     	<c:if test="${!printcp}">
+ 
+		<c:if test="${!printcp}">
        	 <tr>
           		<td align="right" bgcolor="#787669" height="20">
            			<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>
@@ -39,11 +40,10 @@
             <table border="0" align="center" cellpadding="2" cellspacing="0">
 
 				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"><p>text put here</p></div>
-				
                 <tr>
                   <td colspan="4">
                 	<table width="1000" cellpadding="2" cellspacing="0" align="center">
-                	<tr>
+                	<tr VALIGN="TOP">
                 	<td align="right">
                   	 זיהוי הבקשה במערכת:
 					${internalIdString}
@@ -53,16 +53,17 @@
                    	<a class='underline' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>
                   	(לפי הוראת הנהלה 17-011)</a>
                   	<br>
- 					<c:if test="${!readOnly && !command.submitted}">
-                  		<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRequest"/>
-                  	</c:if>
                   	</h1>
+ 					<c:if test="${!readOnly && !command.submitted}">התחל בזה:
+                  		<img src="image/questionmark.png" align="top" title="הסבר על העזרה" width="25" height="25" id="dialogRequest"/>
+                  	</c:if>
                   	</td>
                  	 <td align="left">טופס 050, אוגוסט 2012</td>
                  	 </tr>
                  	 </table>
                  	</td>
                 </tr>
+ 
  
 				<c:if test="${!command.isInsideDeadline && command.submitted}">			
                 <tr class="form">
@@ -128,7 +129,7 @@
 					</td>
 					
 					<td style="border:1px #bca2a2 dotted" nowrap>
-						 תפקיד המבקש בגוף היוזם:
+						 תפקיד המבקש, בגוף היוזם:
 					<c:if test="${!readOnly && !command.submitted}">
        					<form:select path="initiatingBodyRole" cssClass="green" >
       						<form:option value="0">בחר/י תפקיד</form:option>
@@ -473,7 +474,7 @@
 				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 				<tr>
 					<td colspan="4" style="border:1px #bca2a2 dotted">
-					ועדה מדעית/מארגנת:
+					ועדה מדעית/מבצעת:
 					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogCommittee"/>
 					</c:if>
@@ -841,23 +842,30 @@
 				</tr>				
 
 				<tr>
-					<td colspan="4" style="border:1px #bca2a2 dotted">
-	           		פירוט מקורות המימון<br>
-					משותפים לארגון:
-					<table width="775" cellpadding="1" cellspacing="0" align="center">
+					<td colspan="4" style="border:1px #bca2a2 dotted" >
+	           		פירוט מקורות המימון 				    
+	           		<c:if test="${!readOnly && !command.submitted}">
+ 				    <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogFinancialSupport"/>
+				    </c:if>
+	           		<br>
+	           		<table width="110" cellpadding="0" cellspacing="0" align="right">
+	           		<tr>
+	           		<td>	           		
+					משותפים לארגון:<br>
+					<c:if test="${!readOnly && !command.submitted}">
+					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogAssosiate"/>
+					</c:if>
+					
+					</td>
+					</tr>
+					</table>
+					<table width="775" cellpadding="1" cellspacing="0" >
  				    <tr>
 				    <th style="border: 1px #bca2a2 dotted"> שם השותף </th> 
 				    <th style="border: 1px #bca2a2 dotted"> סכום (דולר)</th>
 				    <!-- <th style="border: 1px #bca2a2 dotted"> מטבע </th> -->
 				    <th style="border: 1px #bca2a2 dotted">אסמכתא</th>
-					<c:if test="${!readOnly && !command.submitted}">
- 				    <th>
- 				    <c:if test="${!readOnly && !command.submitted}">
- 				    <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDeleteFinancialSupport"/>
-				    </c:if>
-				    </th>
-					</c:if>
-					</tr>
+ 					</tr>
 					<c:choose>
  					<c:when test="${readOnly || command.submitted}">
            				<c:forEach items="${command.fromAssosiate}" var="fromAssosiate" varStatus="varStatus">
@@ -909,7 +917,7 @@
 						<tr>
 							<td>
 						 	<c:if test="${!readOnly && !command.submitted}">
-							<span style="display: none; width: 60px; height: 26px; overflow: hidden;" class="fromAssosiateAttachFields">
+							<span style="display: block; width: 60px; height: 26px; overflow: hidden;" class="fromAssosiateAttachFields">
 							<button class="green" style="width: 59px; height: 26px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" class="fromAssosiateAttachFile" name="fromAssosiate[${varStatus.index}].referenceFile" id="fromAssosiate[${varStatus.index}].referenceFile"/>
 							</span>
@@ -948,8 +956,18 @@
 						<td style="border: 1px #bca2a2 dotted">&nbsp;</td>
 					</tr>
 					</table>
-					<br>ממממן חיצוני:
-					<table width="775" cellpadding="1" cellspacing="0" align="center">
+					<br>
+					<table width="110" cellpadding="0" cellspacing="0" align="right">
+	           		<tr>
+	           		<td>	           		
+					ממממן חיצוני:<br>
+					<c:if test="${!readOnly && !command.submitted}">
+					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogExternal"/>
+					</c:if>
+					</td>
+					</tr>
+					</table>
+					<table width="775" cellpadding="1" cellspacing="0">
 				    <tr>
 				    <th style="border: 1px #bca2a2 dotted"> שם המממן </th> 
 				    <th style="border: 1px #bca2a2 dotted"> סכום (דולר)</th>
@@ -1005,7 +1023,7 @@
 						<tr>
 							<td>
 						 	<c:if test="${!readOnly && !command.submitted}">
-							<span style="display: none; width: 60px; height: 26px; overflow: hidden;" class="fromExternalAttachFields">
+							<span style="display: block; width: 60px; height: 26px; overflow: hidden;" class="fromExternalAttachFields">
 							<button class="green" style="width: 59px; height: 26px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" class="fromExternalAttachFile" name="fromExternal[${varStatus.index}].referenceFile" id="fromExternal[${varStatus.index}].referenceFile"/>
 							</span>
@@ -1044,8 +1062,18 @@
 					</tr>
 					
 					</table>
-					<br>מדמי הרשמה:
-					<table width="775" cellpadding="1" cellspacing="0" align="center">
+					<br>
+					<table width="110" cellpadding="0" cellspacing="0" align="right">
+	           		<tr>
+	           		<td>	           		
+					מדמי הרשמה:<br>
+					<c:if test="${!readOnly && !command.submitted}">
+					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogAdmitanceFee"/>
+					</c:if>
+					</td>
+					</tr>
+					</table>
+					<table width="775" cellpadding="1" cellspacing="0">
 				    <tr>
 				    <th style="border: 1px #bca2a2 dotted"> סכום למשתתף (דולר)</th>
 				    <th style="border: 1px #bca2a2 dotted"> מספר המשלמים</th>
@@ -1108,7 +1136,7 @@
 						<tr>
 							<td>
 						 	<c:if test="${!readOnly && !command.submitted}">
-							<span style="display: none; width: 60px; height: 26px; overflow: hidden;" class="fromAdmitanceFeeAttachFields">
+							<span style="display: block; width: 60px; height: 26px; overflow: hidden;" class="fromAdmitanceFeeAttachFields">
 							<button class="green" style="width: 59px; height: 26px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" class="fromAdmitanceFeeAttachFile" name="fromAdmitanceFee[${varStatus.index}].referenceFile" id="fromAdmitanceFee[${varStatus.index}].referenceFile"/>
 							</span>

@@ -172,13 +172,13 @@ $(document).ready(function() {
 	       	 	url:       'conferenceProposal.html' ,        
 	       	 	type:      'POST'
      	};
-		var elementClass = $(this).attr('class');
+		//var elementClass = $(this).attr('class');
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit(options);
-		if (elementClass.indexOf("scientificCommittee")!=-1)
-	    		hideExtraCommittee("scientificCommittee");
-		if (elementClass.indexOf("operationalCommittee")!=-1)
-				hideExtraCommittee("operationalCommittee");
+		//if (elementClass.indexOf("scientificCommittee")!=-1)
+	    //		hideExtraCommittee("scientificCommittee");
+		//if (elementClass.indexOf("operationalCommittee")!=-1)
+		//		hideExtraCommittee("operationalCommittee");
 		//if (elementClass.indexOf("admitanceFee")!=-1)
 		//		hideExtraCommittee("admitanceFee");
 		//if (elementClass.indexOf("assosiate")!=-1)
@@ -195,6 +195,9 @@ $(document).ready(function() {
 	});
 	$('.external').keyup(function(event){
 		hideExtraCommittee("external");
+	});
+	$('.scientificCommittee').keyup(function(event){
+		hideExtraCommittee("scientificCommittee");
 	});
 
 	$('form').find('select').change(function(){
@@ -488,21 +491,26 @@ $(document).ready(function() {
 			}; 
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$("#form").ajaxSubmit(options);
-		var filename = $(this).attr("id");
-		var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		$("#fromAssosiateAttachDiv", $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&assosiateId="+aIndex+"&attachFile=assosiateAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromAssosiateAttachFile\" id=\""+aIndex+"\">מחק</a>");
+		//var filename = $(this).attr("id");
+		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
+		//$("#fromAssosiateAttachDiv", $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&assosiateId="+aIndex+"&attachFile=assosiateAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromAssosiateAttachFile\" id=\""+aIndex+"\">מחק</a>");
 	});	
 	$('.deleteFromAssosiateAttachFile').click(function(event){
 		event.preventDefault();
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
 		//row index to delete file
 		var i=$(this).attr("id");
 		$("#form").append("<input type=\"hidden\" name=\"deleteAssosiateFileRowId\" value=\""+i+"\" />");
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
-		$('#fromAssosiateAttachDiv', $(this).closest("tr")).html('');
+		$('#form').ajaxSubmit(options);
+		//$('#fromAssosiateAttachDiv', $(this).closest("tr")).html('');
 	});
 
 	$('.fromExternalAttachFile').change(function(event){
@@ -516,21 +524,26 @@ $(document).ready(function() {
 			}; 
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit(options);
-		var filename = $(this).attr("id");
-		var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		$('#fromExternalAttachDiv', $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&externalId="+aIndex+"&attachFile=externalAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromExternalAttachFile\" id=\""+aIndex+"\">מחק</a>");
+		//var filename = $(this).attr("id");
+		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
+		//$('#fromExternalAttachDiv', $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&externalId="+aIndex+"&attachFile=externalAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromExternalAttachFile\" id=\""+aIndex+"\">מחק</a>");
 	});	
 	$('.deleteFromExternalAttachFile').click(function(event){
 		event.preventDefault();
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
 		//row index to delete file
 		var i=$(this).attr("id");
 		$("#form").append("<input type=\"hidden\" name=\"deleteExternalFileRowId\" value=\""+i+"\" />");
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
-		$('#fromExternalAttachDiv', $(this).closest("tr")).html('');
+		$('#form').ajaxSubmit(options);
+		//$('#fromExternalAttachDiv', $(this).closest("tr")).html('');
 	});
 	
 	$('.fromAdmitanceFeeAttachFile').change(function(event){
@@ -544,21 +557,26 @@ $(document).ready(function() {
 			}; 
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit(options);
-		var filename = $(this).attr("id");
-		var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		$('#fromAdmitanceFeeAttachDiv', $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&admitanceFeeId="+aIndex+"&attachFile=admitanceFeeAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromAdmitanceFeeAttachFile\" id=\""+aIndex+"\">מחק</a>");
+		//var filename = $(this).attr("id");
+		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
+		//$('#fromAdmitanceFeeAttachDiv', $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&admitanceFeeId="+aIndex+"&attachFile=admitanceFeeAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromAdmitanceFeeAttachFile\" id=\""+aIndex+"\">מחק</a>");
 	});	
 	$('.deleteFromAdmitanceFeeAttachFile').click(function(event){
 		event.preventDefault();
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
 		//row index to delete file
 		var i=$(this).attr("id");
 		$("#form").append("<input type=\"hidden\" name=\"deleteAdmitanceFeeFileRowId\" value=\""+i+"\" />");
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
-		$('#fromAdmitanceFeeAttachDiv', $(this).closest("tr")).html('');
+		$('#form').ajaxSubmit(options);
+		//$('#fromAdmitanceFeeAttachDiv', $(this).closest("tr")).html('');
 	});
 	
 	if(${command.organizingCompany}){
@@ -858,13 +876,14 @@ $(document).ready(function() {
    $("#dialogCommittee").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 400 });
+		$("#genericDialog").dialog({ height: 450 });
 		$("#genericDialog").dialog({ width: 400 });
 		var text ='תוכן חלק זה נועד להמחיש את האיכות האקדמית של הכנס, את רמת ארגונו ואת מידת "בין-לאומיותו".</br>';
 		text+='	ועדה מדעית = מי שעוסק בקביעת התוכן האקדמי</br>';
 		text+='ועדה מארגנת = מי שעוסק בקביעת מתכונת ביצוע הכנס, מרציו ומשתתפיו </br>';
-		text+='מוסד = המוסד/ארגון אליו שייך הנקוב ברשומה</br>';
-		text+='נא מלא הפרטים עד 10 רשומות</br></br>';
+		text+='מוסד = המוסד/ארגון אליו שייך הנקוב ברשומה</br></br>';
+		text+='נא מלא הפרטים עד 10 רשומות</br>';
+		text+='הקלדה ברשומה תפתח את הרשומה העוקבת<br>';
 		text+='לחיצה על ה X מאפשרת מחיקת הרשומה';
 	    openHelp("#dialogCommittee",text);
 	    return false;
@@ -1031,12 +1050,12 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 400 });
 		$("#genericDialog").dialog({ width: 400 });
-		var texts='<p>';
-		texts+='א. העזר/י בהסברים - הוראותיהם מחייבות!</br>';
-		texts+='ב. שדות החובה מסומנים בכוכבית. מילוי שדות הרשות יגדיל את הסיכוי לזכות בתמיכה המבוקשת.</br>';
-		texts+='ג. במקרה של קושי במילוי הטופס ביכולתך לקבל סיוע ברשות למו"פ 86625/6</br>';
-		texts+='ד. במקרה שברצונך להבהיר את מה שמילאת בשדה מסוים, הנך יכול/ה לעשות זאת בשדה "הערות מגיש הבקשה לוועדה" בחלקו התחתון של הטופס.</br>';
-		texts+='</p>';	    
+		var texts='<p><ol>';
+		texts+='<li> העזר/י בהסברים - הוראותיהם מחייבות!</li>';
+		texts+='<li> שדות החובה מסומנים בכוכבית. מילוי שדות הרשות יגדיל את הסיכוי לזכות בתמיכה המבוקשת.</li>';
+		texts+='<li> במקרה של קושי במילוי הטופס ביכולתך לקבל סיוע ברשות למו"פ 86625/6</li>';
+		texts+='<li> במקרה שברצונך להבהיר את מה שמילאת בשדה מסוים, הנך יכול/ה לעשות זאת בשדה "הערות מגיש הבקשה לוועדה" בחלקו התחתון של הטופס.</li>';
+		texts+='</ol></p>';	    
 	    openHelp("#dialogRequest",texts);
 	    return false;
 	   });
@@ -1046,6 +1065,65 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
 	    openHelp("#dialogDeleteFinancialSupport",'לחיצה על האיקס תמחק את שורת מקורות המימון המקבילה.');
+	    return false;
+	   });
+   
+   $("#dialogFinancialSupport").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 400 });
+		$("#genericDialog").dialog({ width: 400 });
+		var texts='';
+		texts+='בחלק זה יש להציג את מקורות המימון האמורים לכסות את הוצאות הכנס המתוכננות (ללא השתתפות הוועדה).<br>';
+		texts+='הזנת הנתונים נעשית לפי הקטגוריות הבאות (המוסברות בהמשך):<br>';
+		texts+='1. משותפים לארגון הכנס<br>';
+		texts+='2. ממממנים חיצוניים<br>';
+		texts+='3. מדמי הרשמה<br>';
+		texts +='המערכת מסכמת, באופן אוטומטי, את הסכומים המשניים בכל קטגוריה, ומציגה את המספרים המצרפיים בהמשך.';
+	    openHelp("#dialogFinancialSupport",texts);
+	    return false;
+	   });
+
+   $("#dialogAdmitanceFee").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 400 });
+		$("#genericDialog").dialog({ width: 400 });
+		var texts='';
+		texts+='מדמי ההרשמה; זאת אומרת מדמי ההרשמה הנגבים באופן מסודר ורשמי מהמשתתפים או מקבוצה מוגדרת מתוכם.<br>';
+		texts+='הקלדה ברשומה תפתח את הרשומה העוקבת.<br>';
+		texts+='לחיצה על X מאפשרת את מחיקת הרשומה.<br>';
+		texts +='הקובץ שיצורף כאסמכתא יציג את ההודעה על דמי ההרשמה.';
+	    openHelp("#dialogAdmitanceFee",texts);
+	    return false;
+	   });
+
+   $("#dialogExternal").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 400 });
+		$("#genericDialog").dialog({ width: 400 });
+		var texts='';
+		texts+='המממנים החיצוניים הם גופים ו/או תורמים המתחייבים (באופן רשמי) להשתתף במימון הכנס. ';
+		texts+='ראויים במיוחד לציון מממנים תחרותיים (כגון:ISF,BSF,GIF) המוכנים לתמוך בכנס, לאחר שיפוט מקצועי של רמתו המדעית. ';
+		texts+='הקלדה ברשומה תפתח את הרשומה העוקבת. <br>';
+		texts+='לחיצה על X מאפשרת את מחיקת הרשומה.<br>';
+		texts +='הקובץ שיצורף כאסמכתא יעיד על מחויבות המממן החיצוני להשתתף במימון.';
+	    openHelp("#dialogExternal",texts);
+	    return false;
+	   });
+ 
+   $("#dialogAssosiate").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 400 });
+		$("#genericDialog").dialog({ width: 400 });
+		var texts='';
+		texts+='השותפים לארגון הם: חוקרים, או יחידות, או גופים השותפים לתכנון ו/או לביצוע תוכנית הכנס.<br>';
+		texts+='הקלדה ברשומה תפתח את הרשומה העוקבת.<br>';
+		texts+='לחיצה על X מאפשרת את מחיקת הרשומה.<br>';
+		texts +='הקובץ שיצורף כאסמכתא יעיד על מחויבות השותף להשתתף במימון.';
+	    openHelp("#dialogAssosiate",texts);
 	    return false;
 	   });
    
@@ -1097,9 +1175,9 @@ function hideExtraCommittee(trCssClass){
 		row.find('input').each(function(){
 			if ($(this).val()!=""){
 				row.show();
-				row.find('span.fromAssosiateAttachFields').css('display','block');
-				row.find('span.fromExternalAttachFields').css('display','block');
-				row.find('span.fromAdmitanceFeeAttachFields').css('display','block');
+				//row.find('span.fromAssosiateAttachFields').css('display','block');
+				//row.find('span.fromExternalAttachFields').css('display','block');
+				//row.find('span.fromAdmitanceFeeAttachFields').css('display','block');
 				allInputsEmpty = false;
 			}
 		});
