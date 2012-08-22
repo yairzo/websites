@@ -151,18 +151,19 @@
 	var formExit=true;
 
 	window.onunload = function() {
-		if (formExit){
-			var checkedSubject=false;
-			$('input.subSubject').each(function(){
-				if (this.checked){
-					checkedSubject=true;
-				}
-			});
-			if ($('.messageSubject').val()==''  && $('.callOfProposal').val()=='' && $('.message').val()=='' && checkedSubject==false){
-		 		$('form#form').append('<input type="hidden" name="deletePost" value="true"/>');
-				$('form#form').submit();
- 			}
+		if (formExit && $('.messageSubject').val()==''  && $('.message').val()==''){
+			//alert('הודעה ללא נושא ותוכן תמחק');
+	 		$('form#form').append('<input type="hidden" name="deletePost" value="true"/>');
+			$('form#form').submit();
+	        return false;
+
 		}
+		else{
+			$('form#form').append('<input type="hidden" name="action" value="save"/>');
+			$('form#form').ajaxSubmit();
+			return false;
+		}
+		formExit=true;
 	};
 
 
@@ -222,12 +223,25 @@
 			if ($("input.callOfProposal").val() == "") return;
 			var callOfProposalTitle = $("input.callOfProposal").val();
 			var id = callOfProposalTitle.replace(/.+ - /,"");
-			$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposal&id="+id, function(data){
-				$("textarea.tinymce").val('<p dir="${lang.dir}"> ' + data + ' </p>');				
-			});
-			$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposalTitle&id="+id, function(data){
-				$("input.messageSubject").val(data);
-			});
+			$.get('selectBoxFiller',{type:'callOfProposal',localeId:'${command.localeId}'},function(data){
+				var cplist=data.split(",,");
+				var valid=false;
+				for (var j=0; j<cplist.length; j++) {
+        			if (cplist[j].substring(cplist[j].length-(id.length+2))=="- "+id){
+        				valid=true;
+    					$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposal&id="+id, function(data){
+    						$("textarea.tinymce").val('<p dir="${lang.dir}"> ' + data + ' </p>');				
+    					});
+    					$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposalTitle&id="+id, function(data){
+    						$("input.messageSubject").val(data);
+    					});
+       				}
+    			}
+				if (!valid){
+					$("textarea.tinymce").val('');
+					$("input.messageSubject").val('');
+				}
+	          });
 			return false;
 		});
 

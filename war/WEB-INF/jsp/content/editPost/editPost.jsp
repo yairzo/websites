@@ -131,11 +131,7 @@
 										href="http://${server}/iws/fileViewer?postId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}&md5=${command.md5}"
 										target="_blank">${attachment.title}</a></td>
 									<td>
-<<<<<<< .mine
-										<button class="addAttachEditor grey"><fmt:message key="${lang.localeId}.post.addAttachEditor"/></button>
-=======
-										<button class="addAttachEditor grey" onclick=""><fmt:message key="${lang.localeId}.post.addAttachEditor"/></button>
->>>>>>> .r501
+									<button class="addAttachEditor grey" onclick=""><fmt:message key="${lang.localeId}.post.addAttachEditor"/></button>
 								</tr>
 							</c:forEach>
 						</table>

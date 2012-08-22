@@ -103,7 +103,7 @@ public class DateUtils {
 		dfs.setMonths(getMonthsNames(localeId));
 		String format = "d בMMMM, yyyy בשעה kk:00";
 		if (localeId.equals("en_US"))
-			format = "MMMM, d yyyy 'at' kk:00";
+			format = "MMMM d, yyyy 'at' kk:00";
 		SimpleDateFormat sdf = new SimpleDateFormat(format, dfs);
 		Date sendTime = new Date(timeMillis);
 		return sdf.format(sendTime);

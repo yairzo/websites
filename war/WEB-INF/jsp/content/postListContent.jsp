@@ -213,7 +213,7 @@ $(document).ready(function() {
              <tbody>
   				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
   				<td width="300" align="right">
-  				<authz:authorize ifNotGranted="ROLE_POST_READER">
+  				<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR">
  			  	<form:radiobutton path="postId" value="${post.id}"/>
 				</authz:authorize>
 				<a href="post.html?id=${post.id}"><c:choose><c:when test="${fn:length(post.messageSubject)>0}"><c:out value="${post.messageSubject}"></c:out></c:when><c:otherwise>ללא כותרת</c:otherwise></c:choose></a>

@@ -39,6 +39,8 @@ public class ObjectQuery extends HttpServlet{
 
 		String aId;
 		if ( ( aId = request.getParameter("id")) == null) return;
+		if ( !(request.getParameter("id")).matches("^(?!^0)\\d{1,9}$")) return;
+		
 		int id = 0;
 		id  = Integer.parseInt(aId);
 		if (id == 0) return;
