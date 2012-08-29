@@ -212,27 +212,6 @@ $(document).ready(function() {
      $("#genericDialog").html(mytext).dialog("open");
   } 
   	
-  $(".confirmLink").click(function(e){
-    	e.preventDefault();
-    	var targetUrl = $(this).attr("href");
-       	$("#genericDialog").dialog('option', 'buttons', {
-                "בטל" : function() {
-                    $(this).dialog("close");
-                 },
-                "המשך להגשת הבקשה" : function() {
-                	window.location.href = "conferenceProposal.html?action=new";
-                 }
-        });
-    	$("#genericDialog").dialog({ modal: false });
-    	$("#genericDialog").dialog({ height: 350 });
-    	$("#genericDialog").dialog({ width: 600 });
-
-       	var text ="א. אני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>";
-       	text+="ב. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.<br/>";
-    	text+="ג. אמלא את טופס הבקשה בהתאם ל <a href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'><u>הוראות הנהלה מספר 17-011 לאמות המידה</u></a> של הועדה ולהנחיות (המסומנות ב <img src='image/questionmark.png' width='25' height='25'>) שבגוף הטופס.</br> ";
-    	openHelp(this,text);
-       	return false;
-       }); 
   
   $("#dialogNewConferenceProposal").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });

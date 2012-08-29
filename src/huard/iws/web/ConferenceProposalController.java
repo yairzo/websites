@@ -235,6 +235,10 @@ public class ConferenceProposalController extends GeneralFormController{
 
 			}
 		}
+		if (action.equals("deleteForever")){// new requests when researcher does not sign declaration
+			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxx"+conferenceProposalBean.getId());
+			conferenceProposalService.deleteConferenceProposal(conferenceProposalBean.getId());
+		}
 		
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
 		if(request.getParameter("showMessage", "").equals("saved")){
@@ -278,6 +282,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			logger.info("conferenceProposalId " + conferenceProposalId);
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",conferenceProposalId);
+			request.getSession().setAttribute("researcherDeclaration", true);
 			return new ModelAndView ( new RedirectView("conferenceProposal.html"), newModel);
 		}
 		else{//show edit
@@ -342,6 +347,8 @@ public class ConferenceProposalController extends GeneralFormController{
 			int printEdition = request.getIntParameter("p", 0);
 			model.put("printcp", printEdition == 1);
 			
+			model.put("researcherDeclaration",request.getSession().getAttribute("researcherDeclaration"));
+			request.getSession().setAttribute("researcherDeclaration", false);//clear
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		

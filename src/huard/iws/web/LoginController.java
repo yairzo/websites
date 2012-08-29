@@ -50,6 +50,8 @@ public class LoginController extends GeneralController{
 		
 		model.put("titleCode", titleCode);
 		
+		model.put("username", messageService.getMessage("iw_IL.general.login.username."+titleCode));
+
 		model.put("usernameInstructions", messageService.getMessage("iw_IL.general.login.usernameInstructions."+titleCode));
 
 		model.put("passwordInstructions", messageService.getMessage("iw_IL.general.login.passwordInstructions."+titleCode));

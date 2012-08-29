@@ -208,7 +208,7 @@
 				<tr>
 					<td align="right">
 					<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
-					<button class="grey confirmLink">הגשת בקשה למימון כנס</button>
+					<button class="grey" onclick="window.location='conferenceProposal.html?action=new';return false;">הגשת בקשה למימון כנס</button>
       		        <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogNewConferenceProposal"/>
 					</authz:authorize>
 					<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">

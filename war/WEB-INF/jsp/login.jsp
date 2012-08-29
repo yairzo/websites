@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
 					<th align="right">
-						שם משתמש:
+						${username}
 					</th>
 					<th align="right">
 					 	<input class="green medium200" type="text" name="j_username">

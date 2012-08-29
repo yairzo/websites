@@ -484,7 +484,7 @@
 				    <th style="border: 1px #bca2a2 dotted"> מוסד </th>
 				    <th style="border: 1px #bca2a2 dotted"> תפקיד במוסד </th>
 				    <th style="border: 1px #bca2a2 dotted"> תפקיד בועדה המדעית </th>
-				    <th style="border: 1px #bca2a2 dotted"> תפקיד בועדה המארגנת </th>
+				    <th style="border: 1px #bca2a2 dotted"> תפקיד בועדה המבצעת </th>
 					</tr>
  					<c:choose>
  					<c:when test="${readOnly || command.submitted}">

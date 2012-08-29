@@ -1,4 +1,5 @@
 <%@ page  pageEncoding="UTF-8" %>
+
 <script type="text/javascript" src="js/jquery.autosave.js"></script>
 <script>
 
@@ -836,7 +837,36 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ width: 400 });
 		openHelp('',userMessage);
 		</c:if>
-    
+
+		<c:if test="${researcherDeclaration}">
+	   		$("#genericDialog").dialog('option', 'buttons', {
+            "בטל" : function() {
+	    		var options = { 
+	    		   		success:    function() { 
+	    		   		   	window.location.href='welcome.html'; 
+	    		    	} 
+	    			};
+
+   	      		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteForever\"/>");
+     			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+     			$("#form").ajaxSubmit(options);
+            	//window.location.href = "welcome.html";
+     			//return false;
+             },
+            "המשך" : function() {
+            	$(this).dialog("close");
+             }
+    		});
+			$("#genericDialog").dialog({ modal: true });
+	   		$("#genericDialog").dialog({ height: 450 });
+	   		$("#genericDialog").dialog({ width: 600 });
+  			var text ="<ol><li> אני חוקר/ת במסלול הרגיל ובשירות פעיל.</li><br/>";
+   			text+="<li> איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.</li><br/>";
+			text+="<li> אמלא את טופס הבקשה בהתאם ל<a href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'><u>הוראות הנהלה מספר 17-011 לאמות המידה</u></a> של הועדה ולהנחיות (המסומנות ב <img src='image/questionmark.png' width='25' height='25'>) שבגוף הטופס.</li></br> ";
+			text+="</ol>";
+			openHelp('',text);
+		</c:if>
+
    $(".ui-dialog-titlebar").hide();
    
    $("#dialogInitiatingBody").click(function(e) {
@@ -880,7 +910,7 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ width: 400 });
 		var text ='תוכן חלק זה נועד להמחיש את האיכות האקדמית של הכנס, את רמת ארגונו ואת מידת "בין-לאומיותו".</br>';
 		text+='	ועדה מדעית = מי שעוסק בקביעת התוכן האקדמי</br>';
-		text+='ועדה מארגנת = מי שעוסק בקביעת מתכונת ביצוע הכנס, מרציו ומשתתפיו </br>';
+		text+='ועדה מבצעת = מי שעוסק בקביעת מתכונת ביצוע הכנס, מרציו ומשתתפיו </br>';
 		text+='מוסד = המוסד/ארגון אליו שייך הנקוב ברשומה</br></br>';
 		text+='נא מלא הפרטים עד 10 רשומות</br>';
 		text+='הקלדה ברשומה תפתח את הרשומה העוקבת<br>';
@@ -1105,7 +1135,7 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ width: 400 });
 		var texts='';
 		texts+='המממנים החיצוניים הם גופים ו/או תורמים המתחייבים (באופן רשמי) להשתתף במימון הכנס. ';
-		texts+='ראויים במיוחד לציון מממנים תחרותיים (כגון:ISF,BSF,GIF) המוכנים לתמוך בכנס, לאחר שיפוט מקצועי של רמתו המדעית. ';
+		texts+='ראויים במיוחד לציון מממנים תחרותיים (כגון:ISF,BSF,GIF) המוכנים לתמוך בכנס, לאחר שיפוט מקצועי של רמתו המדעית.<br> ';
 		texts+='הקלדה ברשומה תפתח את הרשומה העוקבת. <br>';
 		texts+='לחיצה על X מאפשרת את מחיקת הרשומה.<br>';
 		texts +='הקובץ שיצורף כאסמכתא יעיד על מחויבות המממן החיצוני להשתתף במימון.';
@@ -1127,9 +1157,6 @@ $(document).ready(function() {
 	    return false;
 	   });
    
-    $("#genericDialog").click(function(e){
-    	$("#genericDialog").dialog("close");
-    });    
     
     $(window).scroll(function() {
     	if (fieldname=="") 

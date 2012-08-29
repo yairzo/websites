@@ -28,16 +28,7 @@ $(document).ready(function() {
     	resetAutocomplete();
     });
   
-  $("#genericDialog").dialog({
-      autoOpen: false,
-      show: 'fade',
-      hide: 'fade',
-      modal: true,
-      width: 600,
-      height:350,
-      title: "מערכת הכנסים"
- });
- 
+
   $("#conferenceProposalResearcherDialog").dialog({
       autoOpen: false,
       show: 'fade',
@@ -50,28 +41,7 @@ $(document).ready(function() {
  
   
  
-  function openHelp(name,mytext){
-    $("#genericDialog").html(mytext).dialog("open");
-  } 
 
-  $(".confirmLink").click(function(e){
-	e.preventDefault();
-	var targetUrl = $(this).attr("href");
-   	$("#genericDialog").dialog('option', 'buttons', {
-            "בטל" : function() {
-                $(this).dialog("close");
-             },
-            "המשך" : function() {
-            	window.location.href = targetUrl;
-             }
-    });
-
-   	var text ="א. אני חוקר/ת במסלול הרגיל ובשירות פעיל.<br/>";
-   	text+="ב. איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.<br/>";
-	text+="ג. אמלא את טופס הבקשה בהתאם ל <a href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'><u>הוראות הנהלה מספר 17-011 לאמות המידה</u></a> של הועדה ולהנחיות (המסומנות ב <img src='image/questionmark.png' width='25' height='25'>) שבגוף הטופס.</br> ";
-	openHelp(this,text);
-   	return false;
-   });	
   
   	$(".chooseResearcher").click(function(e){
 			e.preventDefault();
@@ -94,9 +64,6 @@ $(document).ready(function() {
 	<td align="right" bgcolor="#787669" height="20">
 	<table width="100%" border="0" dir="rtl">
 
-	<div id="genericDialog" title="" style="display:none" dir="rtl">
-		<p>text put here</p>
-	</div>
 	
 	<div id="conferenceProposalResearcherDialog" title="" style="display:none" dir="rtl">
 		<p>בחר/י את החוקר שבשמו תרצה/י לפתוח בקשה למימון כנס:<br><br><input type="text" style="width: 180px;" class="green" id="searchResearcher" /></p>
@@ -223,7 +190,7 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER">
 						<tr>
 						  <th align="right">
-								<a style="text-decoration: none" href="conferenceProposal.html?action=new" class="confirmLink">הגשת בקשה למימון כנס</a>
+								<a style="text-decoration: none" href="conferenceProposal.html?action=new">הגשת בקשה למימון כנס</a>
 							</th>
 						</tr>
 						</authz:authorize>

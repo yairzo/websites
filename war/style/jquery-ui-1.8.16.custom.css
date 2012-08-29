@@ -348,7 +348,7 @@
 
 
 /* workarounds */
-* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+* html .ui-autocomplete { width:350px; } /* without this, the menu expands to 100% of parent in IE6 */
 
 /*
  * jQuery UI Menu 1.8.16
