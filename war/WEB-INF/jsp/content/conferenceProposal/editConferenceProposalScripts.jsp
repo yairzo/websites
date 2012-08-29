@@ -1340,13 +1340,13 @@ function checkErrors(){
 	else{
 		$("#errordescription").html('');
 	}
-	var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
-	var countRegex=/^\d+$/;
-	var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	//var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
+	var numberRegex=/^\d+$/;
+	//var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 	var phoneRegex = /^[\d]{2,3}-[\d]{7}$/;		
 	if($("#totalCost").val()=='0'){
 		errors = true;
-		$("#errortotalcost").html('<font color="red">יש להכניס ערך מספרי לשדה סכום<font color="red"><br>');
+		$("#errortotalcost").html('<font color="red">יש להכניס ערך מספרי לשדה סה"כ ההוצאות לארגון הכנס<font color="red"><br>');
 	}
 	else{
 		$("#errortotalcost").html('');
@@ -1358,41 +1358,48 @@ function checkErrors(){
 	else{
 		$("#errorsupportsum").html('');
 	}
-	if(!countRegex.test($("#participants").val())){
+	if(!numberRegex.test($("#participants").val())){
 		errors = true;
 		$("#errorparticipants").html('<font color="red">יש להכניס ערך מספרי לשדה משתתפים<font color="red"><br>');
 	}
 	else{
 		$("#errorparticipants").html('');
 	}
-	/*if($("#organizingCompanyEmail").val()!='' && !emailRegex.test($("#organizingCompanyEmail").val())){
+	if($("#totalCount").html()=='0'){
 		errors = true;
-		$("#errororganizingCompanyEmail").html('<font color="red">יש להזין כתובת אימייל חברה מארגנת תקנית<font color="red"><br>');
+		$("#errorTotalCount").html('<font color="red">יש להכניס ערכים לטבלת המשתתפים<font color="red"><br>');
 	}
 	else{
-		$("#errororganizingCompanyEmail").html('');
+		$("#errorTotalCount").html('');
 	}
-	if($("#contactPersonEmail").val()!='' && !emailRegex.test($("#contactPersonEmail").val())){
+	if($("#fromAllFeeCount").html()=='0'){
 		errors = true;
-		$("#errorcontactPersonEmail").html('<font color="red">יש להזין כתובת אימייל איש קשר תקנית<font color="red"><br>');
+		$("#errorTotalIncome").html('<font color="red">יש להכניס סכומים להכנסות הצפויות<font color="red"><br>');
 	}
 	else{
-		$("#errorcontactPersonEmail").html('');
+		$("#errorTotalIncome").html('');
 	}
-	if($("#organizingCompanyPhone").val()!='' && !phoneRegex.test($("#organizingCompanyPhone").val())){
+   	var str1 = $("#startConfDate").val();
+    var str2 = $("#endConfDate").val();
+    var dt1  = str1.substring(0,2); 
+    var mon1 = str1.substring(3,5); 
+    var yr1  = str1.substring(6,10);  
+    var dt2  = str2.substring(0,2); 
+    var mon2 = str2.substring(3,5); 
+    var yr2  = str2.substring(6,10); 
+    temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
+    temp2 = mon2 +"/"+ dt2 +"/"+ yr2;
+    var cfd = Date.parse(temp1);
+    var ctd2 = Date.parse(temp2);
+    var date1 = new Date(cfd); 
+    var date2 = new Date(ctd2);
+  	if(date1 > date2) {
 		errors = true;
-		$("#errororganizingCompanyPhone").html('<font color="red">יש להזין מספר טלפון חברה מארגנת תקני<font color="red"><br>');
-	}
-	else{
-		$("#errororganizingCompanyPhone").html('');
-	}
-	if($("#organizingCompanyFax").val()!='' && !phoneRegex.test($("#organizingCompanyFax").val())){
-		errors = true;
-		$("#errororganizingCompanyFax").html('<font color="red">יש להזין פקס חברה מארגנת תקני<font color="red"><br>');
-	}
-	else{
-		$("#errororganizingCompanyFax").html('');
-	}*/
+		$("#errorDate").html('<font color="red">תאריך הסיום לא יכול להיות לפני תאריך ההתחלה<font color="red"><br>');
+  	}
+  	else{
+		$("#errorDate").html('');
+  	}
 	if($('.organizingContactPart').is(":visible") && $('#contactPerson').val()==''){
 		errors = true;
 		$("#errorcontactPersonName").html('<font color="red">יש להזין שם איש קשר במידה והארגון המנהלתי של הכנס ייערך ע"י איש קשר<font color="red"><br>');

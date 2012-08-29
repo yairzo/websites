@@ -245,7 +245,9 @@
 					</td>
 				</tr>
 				<tr>
-				<td colspan="4"><div id="errordetails" title="שגיאה" dir="rtl"><p></p></div>
+				<td colspan="4">
+				<div id="errorDate" title="שגיאה" dir="rtl"><p></p></div>
+				<div id="errordetails" title="שגיאה" dir="rtl"><p></p></div>
 				</td>
 				</tr>
 				<tr class="form">
@@ -360,7 +362,9 @@
 						</td>
 						</tr>
 						</table>
-						<br>
+						<table>
+						<tr><td><div id="errorTotalCount" dir="rtl"><p></p></div></td></tr>
+						</table>
  				    </td>
 
 				<td style="border:1px #bca2a2 dotted">
@@ -809,6 +813,8 @@
 					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogTotalCost"/>
 	   				</c:if>
+	   				<br><span id="errortotalcost" dir="rtl"><p></p></span>
+	   				
 	   				</td>
 					<td style="border:1px #bca2a2 dotted">
 					<table>
@@ -837,6 +843,7 @@
 						</span>
 						</td>
 						</tr>
+						
 						</table>
 					</td>
 				</tr>				
@@ -1174,8 +1181,9 @@
 						<td style="border: 1px #bca2a2 dotted">&nbsp;</td>
 					</tr>
 					</table>
-					<br>&nbsp;
+					
 					<table width="775" cellpadding="1" cellspacing="0" align="center">
+					<tr><td><span id="errorTotalIncome" dir="rtl"><p></p></span></td></tr>
 				    <tr>
 						<td width="300"  align="right">
 						סה"כ ההכנסות הצפויות:
@@ -1209,7 +1217,6 @@
 				</table>
 				</td>
 				</tr>
-				<tr><td colspan="4"><span id="errortotalcost" dir="rtl"><p></p></span></td></tr>
 				
 				<tr><td>&nbsp;</td></tr>
 				<tr class="form">
