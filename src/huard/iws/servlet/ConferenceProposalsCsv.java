@@ -174,7 +174,13 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append('~');
 			b.append(formatter.format(conferenceProposalBean.getOpenDate()));
 			b.append('~');
-			b.append(conferenceProposalBean.getSubject());
+			String subject = " ";
+			if (!conferenceProposalBean.getSubject().equals("")){
+				subject = conferenceProposalBean.getSubject().trim();
+				subject = subject.replace('\n', ' ');
+				subject = subject.trim().replaceAll("\\s+", " ");
+			}
+			b.append(subject);
 			b.append('~');
 			String desc = " ";
 			if (!conferenceProposalBean.getDescription().equals("")){
