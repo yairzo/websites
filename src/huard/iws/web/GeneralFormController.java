@@ -3,6 +3,7 @@ package huard.iws.web;
 import huard.iws.bean.PersonBean;
 import huard.iws.service.ConfigurationService;
 import huard.iws.service.PersonService;
+import huard.iws.service.PersonPrivilegeService;
 import huard.iws.service.UserMessageService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
@@ -66,6 +67,7 @@ public abstract class GeneralFormController extends SimpleFormController
 		{
 			RequestWrapper requestWrapper = new RequestWrapper( request);
 			PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+			personPrivilegeService.updateLastAction(userPersonBean);
 			Object command = errors.getTarget();
 			Map<String, Object> model = errors.getModel();
 			model.put("command", command);
@@ -165,6 +167,12 @@ public abstract class GeneralFormController extends SimpleFormController
 		}
 
 
+		protected PersonPrivilegeService personPrivilegeService;
+
+		public void setPersonPrivilegeService(PersonPrivilegeService personPrivilegeService) {
+			this.personPrivilegeService = personPrivilegeService;
+		}
+		
 		protected PersonService personService;
 
 		public void setPersonService(PersonService personService) {

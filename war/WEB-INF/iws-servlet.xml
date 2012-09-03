@@ -94,6 +94,16 @@
         </property>
      </bean>
      
+	<bean id="activePersonsController" class="huard.iws.web.ActivePersonsController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.ActivePersonsController$ActivePersonsControllerCommand</value></property>
+        <property name="formView"><value>activePersonsList</value></property>
+        <property name="successView"><value>active.html</value></property>
+   		<property name="personService">
+            <ref bean="personService"/>
+        </property>
+     </bean>
+     
 	<bean id="approvePostController" class="huard.iws.web.ApprovePostController" parent="generalController">
 		<property name="postService">
             <ref bean="postService"/>
@@ -436,6 +446,9 @@
     	<property name="personService">
             <ref bean="personService"/>
         </property>
+  		<property name="personPrivilegeService">
+            <ref bean="personPrivilegeService"/>
+        </property>
         <property name="userMessageService">
             <ref bean="userMessageService"/>
         </property>
@@ -515,10 +528,7 @@
         <property name="messageService">
         	<ref bean="messageService"/>
         </property>
-       <property name="personPrivilegeService">
-            <ref bean="personPrivilegeService"/>
-        </property>
-     </bean>
+      </bean>
 
      <bean id="editProposalValidator" class="huard.iws.web.validate.EditProposalValidator">
      	<property name="proposalService">
@@ -588,10 +598,7 @@
         <property name="commandClass"><value>huard.iws.bean.PersonBean</value></property>
         <property name="formView"><value>editPersonPrivilege</value></property>
         <property name="successView"><value>personPrivilege.html</value></property>
-        <property name="personPrivilegeService">
-            <ref bean="personPrivilegeService"/>
-        </property>
-    </bean>
+     </bean>
 
 	<bean id="conferenceProposalController" class="huard.iws.web.ConferenceProposalController" parent="generalFormController">
     	<property name="commandName"><value>command</value></property>
@@ -897,6 +904,7 @@
 				<prop key="/approvePost.html">approvePostController</prop>
 				<prop key="/posts.html">postListController</prop>
 				<prop key="/urls.html">urlsListController</prop>
+				<prop key="/active.html">activePersonsController</prop>
 				<prop key="/organizationUnits.html">organizationUnitListController</prop>
 				<prop key="/organizationUnit.html">editOrganizationUnitController</prop>
 				<prop key="/organizationUnitAttribution.html">editOrganizationUnitAttributionController</prop>

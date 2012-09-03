@@ -377,6 +377,13 @@ public class ConferenceProposalBean {
 				personService.getPerson(this.personId));
 		return researcher;
 	}
+	public PersonBean getCreator() {
+		PersonService personService = (PersonService) ApplicationContextProvider
+				.getContext().getBean("personService");
+		PersonBean creator = new PersonBean(
+				personService.getPerson(this.creatorId));
+		return creator;
+	}
 	public PersonBean getApprover() {
 		PersonService personService = (PersonService) ApplicationContextProvider
 				.getContext().getBean("personService");

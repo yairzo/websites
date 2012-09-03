@@ -32,7 +32,9 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		try {
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType ("application/octet-stream");
+			//response.setContentType ("text/plain");
 			response.setHeader("Content-disposition","attachment; filename=proposals.csv");
+			//response.setHeader("Content-disposition","attachment; filename=proposals.odt");
 			
 			RequestWrapper requestWrapper = new RequestWrapper(request);
 			String prevdeadline = requestWrapper.getParameter("prevdeadline", "");
@@ -79,6 +81,8 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append(',');
 		b.append("researcher name");
 		b.append(',');
+		b.append("created by");
+		b.append(',');
 		b.append("approver name");
 		b.append(',');
 		b.append("from Date");
@@ -105,17 +109,17 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append(',');
 		b.append("initiating Body Role");
 		b.append(',');
-		b.append("total cost");
+		b.append("total expenses");
 		b.append(',');
-		b.append("total cost currency");
+		b.append("total expenses currency");
 		b.append(',');
-		b.append("support sum");
+		b.append("requested support sum");
 		b.append(',');
-		b.append("support sum currency");
+		b.append("requested support sum currency");
 		b.append(',');
-		b.append("auditorium");
+		b.append("international flag");
 		b.append(',');
-		b.append("seminar room");
+		b.append("free room flag");
 		b.append(',');
 		b.append("no. participants");
 		b.append(',');
@@ -123,12 +127,12 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append(',');
 		b.append("organizing company name");
 		b.append(',');
-		b.append("organizing company phone");
+		/*b.append("organizing company phone");
 		b.append(',');
 		b.append("organizing company fax");
 		b.append(',');
 		b.append("organizing company email");
-		b.append(',');
+		b.append(',');*/
 		b.append("contact person name");
 		b.append(',');
 		b.append("contact person role");
@@ -173,16 +177,20 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(formatter.format(conferenceProposalBean.getOpenDate()));
 			b.append(',');
 			String subject = " ";
-			if (!conferenceProposalBean.getSubject().equals(""));
+			if (!conferenceProposalBean.getSubject().equals(""))
 			subject = conferenceProposalBean.getSubject().replace(",", " ").trim();
 			b.append(subject);
 			b.append(',');
 			String desc = " ";
-			if (!conferenceProposalBean.getDescription().equals(""));
+			if (!conferenceProposalBean.getDescription().equals("")){
 				desc = conferenceProposalBean.getDescription().replace(",", " ").trim();
+				desc = desc.trim().replaceAll("\\s+", " ");
+			}
 			b.append(desc);
 			b.append(',');
 			b.append(conferenceProposalBean.getResearcher().getDegreeFullNameHebrew());
+			b.append(',');
+			b.append(conferenceProposalBean.getCreator().getDegreeFullNameHebrew());
 			b.append(',');
 			if(	conferenceProposalBean.getApproverId()==0)
 				b.append(" ");
@@ -201,11 +209,17 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(',');
 			String location="";
 			if(conferenceProposalBean.getLocation().equals("1"))
-				location = "אוניברסיטה";
+				location = "בקמפוס בהר הצופים";
 			else if(conferenceProposalBean.getLocation().equals("2"))
-				location = "ירושלים";
-			else
-				location = "אחר";
+				location = "בקמפוס בגבעת רם";
+			else if(conferenceProposalBean.getLocation().equals("3"))
+				location = "בקמפוס בעין כרם";
+			else if(conferenceProposalBean.getLocation().equals("4"))
+				location = "בקמפוס ברחובות";
+			else if(conferenceProposalBean.getLocation().equals("5"))
+				location = "בקמפוס באילת";
+			else if(conferenceProposalBean.getLocation().equals("6"))
+				location = "במקום אחר";
 			b.append(location);
 			b.append(',');
 			if(conferenceProposalBean.getLocationDetail().equals(""))
@@ -232,15 +246,9 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(',');
 			String initiatingBodyRole="";
 			if(conferenceProposalBean.getInitiatingBodyRole()==1)
-				initiatingBodyRole = "מנהל גוף";
+				initiatingBodyRole = "ראש/מנהל הגוף";
 			else if(conferenceProposalBean.getInitiatingBodyRole()==2)
-				initiatingBodyRole = "עובד בגוף";
-			else if(conferenceProposalBean.getInitiatingBodyRole()==3)
-				initiatingBodyRole = "ראש הגוף";
-			else if(conferenceProposalBean.getInitiatingBodyRole()==4)
-				initiatingBodyRole = "חבר בגוף";
-			else if(conferenceProposalBean.getInitiatingBodyRole()==5)
-				initiatingBodyRole = "חבר ניהולי";
+				initiatingBodyRole = "עובד/חבר בגוף";
 			b.append(initiatingBodyRole);
 			b.append(',');
 			b.append(conferenceProposalBean.getTotalCost());
@@ -273,7 +281,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			else
 				b.append(conferenceProposalBean.getOrganizingCompanyName());
 			b.append(',');
-			if(conferenceProposalBean.getOrganizingCompanyPhone().equals(""))
+			/*if(conferenceProposalBean.getOrganizingCompanyPhone().equals(""))
 				b.append(" ");
 			else
 				b.append(conferenceProposalBean.getOrganizingCompanyPhone());
@@ -287,7 +295,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				b.append(" ");
 			else
 				b.append(conferenceProposalBean.getOrganizingCompanyEmail());
-			b.append(',');
+			b.append(',');*/
 			if(conferenceProposalBean.getContactPerson().equals(""))
 				b.append(" ");
 			else
@@ -333,8 +341,11 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(conferenceProposalBean.getGrade());
 			b.append(',');
 			String adminRemarks = " ";
-			if (!conferenceProposalBean.getAdminRemarks().equals(""));
+			if (!conferenceProposalBean.getAdminRemarks().equals("")){
 				adminRemarks = conferenceProposalBean.getAdminRemarks().replace(",", " ").trim();
+				adminRemarks = adminRemarks.replace('\n', ' ');
+				adminRemarks = adminRemarks.trim().replaceAll("\\s+", " ");
+			}
 			b.append(adminRemarks);
 			b.append(',');
 			if(conferenceProposalBean.getDeadline()>1000)
@@ -350,8 +361,12 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(conferenceProposalBean.getIsInsideDeadline());
 			b.append(',');
 			String committeeRemarks = " ";
-			if (!conferenceProposalBean.getCommitteeRemarks().equals(""));
-				committeeRemarks = conferenceProposalBean.getCommitteeRemarks().replace(",", " ").trim();
+			if (!conferenceProposalBean.getCommitteeRemarks().equals("")){
+				committeeRemarks = conferenceProposalBean.getCommitteeRemarks().replace(',', ' ').trim();
+				committeeRemarks = committeeRemarks.replace('\n', ' ');
+				committeeRemarks = committeeRemarks.trim().replaceAll("\\s+", " ");
+
+			}
 			b.append(committeeRemarks);
 			b.append('\n');
 			bean = ApplicationContextProvider.getContext().getBean("conferenceProposalService");
@@ -367,8 +382,6 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append(financialSupport.getName());
 					b.append(',');
 					b.append(financialSupport.getSum());
-					b.append(',');
-					b.append(financialSupport.getCurrency().equals("1")?"שקל":"דולר");
 					b.append('\n');
 				}
 			}
@@ -377,13 +390,11 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				if (!financialSupport.isEmpty()){
 					b.append(conferenceProposalBean.getId());
 					b.append(',');
-					b.append("הכנסות מגוף חיצוני");
+					b.append("הכנסות ממממן חיצוני");
 					b.append(',');
 					b.append(financialSupport.getName());
 					b.append(',');
 					b.append(financialSupport.getSum());
-					b.append(',');
-					b.append(financialSupport.getCurrency().equals("1")?"שקל":"דולר");
 					b.append('\n');
 				}
 			}
@@ -392,13 +403,13 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				if (!financialSupport.isEmpty()){
 					b.append(conferenceProposalBean.getId());
 					b.append(',');
-					b.append("הכנסות מדמי רישום");
+					b.append("הכנסות מדמי הרשמה");
+					b.append(',');
+					b.append(financialSupport.getSumPerson());
 					b.append(',');
 					b.append(financialSupport.getName());
 					b.append(',');
 					b.append(financialSupport.getSum());
-					b.append(',');
-					b.append(financialSupport.getCurrency().equals("1")?"שקל":"דולר");
 					b.append('\n');
 				}
 			}
@@ -407,7 +418,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				if (!committee.isEmpty()){
 					b.append(conferenceProposalBean.getId());
 					b.append(',');
-					b.append("ועדה מדעית");
+					b.append("ועדה");
 					b.append(',');
 					b.append(committee.getName());
 					b.append(',');
@@ -415,24 +426,23 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append(',');
 					b.append(committee.getInstituteRole());
 					b.append(',');
-					b.append(committee.getCommitteeRole());
-					b.append('\n');
-				}
-			}
-			List<Committee> OperationalCommittees = cp.getOperationalCommittees();
-			for (Committee committee: OperationalCommittees){
-				if (!committee.isEmpty()){
-					b.append(conferenceProposalBean.getId());
+					String committeeRole="";
+					if(committee.getCommitteeRole().equals("1"))
+						committeeRole = "חבר";
+					else if(committee.getCommitteeRole().equals("2"))
+						committeeRole = "יושב ראש";
+					else if(committee.getCommitteeRole().equals("3"))
+						committeeRole = "לא שותף";
+					b.append(committeeRole);
 					b.append(',');
-					b.append("ועדה מבצעת");
-					b.append(',');
-					b.append(committee.getName());
-					b.append(',');
-					b.append(committee.getInstitute());
-					b.append(',');
-					b.append(committee.getInstituteRole());
-					b.append(',');
-					b.append(committee.getCommitteeRole());
+					String committeeRoleOrganizing="";
+					if(committee.getCommitteeRoleOrganizing().equals("1"))
+						committeeRoleOrganizing = "חבר";
+					else if(committee.getCommitteeRoleOrganizing().equals("2"))
+						committeeRoleOrganizing = "יושב ראש";
+					else if(committee.getCommitteeRoleOrganizing().equals("3"))
+						committeeRoleOrganizing = "לא שותף";
+					b.append(committeeRoleOrganizing);
 					b.append('\n');
 				}
 			}

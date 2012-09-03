@@ -1,5 +1,6 @@
 package huard.iws.db;
 
+import huard.iws.bean.PersonBean;
 import huard.iws.model.PersonPrivilege;
 import huard.iws.model.Privilege;
 
@@ -98,4 +99,18 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 		getSimpleJdbcTemplate().update(query, privilege);
 	}
 	
+	public void updateLastAction(PersonBean person){
+		String query = "update personPrivilege set lastAction=now()  where personId=?";
+		getSimpleJdbcTemplate().update(query, person.getId());
+	}	
+	public List<Integer> getActivePersons(){
+		String query = "select personId from personPrivilege where lastAction >= DATE_SUB(NOW(),INTERVAL 30 MINUTE)  group by personId";
+		List<Integer> personIds = getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
+			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
+				Integer personId = new Integer(rs.getInt("personId"));
+				return personId;
+			}
+		});
+		return personIds;
+	}
 }

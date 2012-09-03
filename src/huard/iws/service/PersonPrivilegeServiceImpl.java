@@ -1,7 +1,7 @@
 package huard.iws.service;
 
 import java.util.List;
-
+import huard.iws.bean.PersonBean;
 import huard.iws.db.PersonPrivilegeDao;
 import huard.iws.model.PersonPrivilege;
 import huard.iws.model.Privilege;
@@ -34,7 +34,14 @@ public class PersonPrivilegeServiceImpl implements PersonPrivilegeService{
 	public void deletePersonPrivilege(int privilege){
 		personPrivilegeDao.deletePersonPrivilege(privilege);
 	}
+	
+	public void updateLastAction(PersonBean userPersonBean){
+		personPrivilegeDao.updateLastAction(userPersonBean);
+	}
 
+	public List<Integer> getActivePersons (){
+		return personPrivilegeDao.getActivePersons();
+	}
 
 	PersonPrivilegeDao personPrivilegeDao;
 

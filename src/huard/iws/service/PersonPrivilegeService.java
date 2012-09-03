@@ -4,6 +4,7 @@ import java.util.List;
 
 import huard.iws.model.PersonPrivilege;
 import huard.iws.model.Privilege;
+import huard.iws.bean.PersonBean;
 
 public interface PersonPrivilegeService {
 
@@ -20,4 +21,10 @@ public interface PersonPrivilegeService {
 	public int getPrivilegeEnabled(int personId);
 	
 	public void deletePersonPrivilege(int privilege);
+	
+	public void updateLastAction(PersonBean person);
+	
+	public List<Integer> getActivePersons ();
+
+
 }

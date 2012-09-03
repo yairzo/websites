@@ -42,7 +42,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public List<FinancialSupport> getSupportFromAssosiate(int conferenceProposalId){
 		String query = "select * from financialSupport where conferenceProposalId=? and type=1";
-		logger.info(query);
+		//logger.info(query);
 		List<FinancialSupport> supportFromAssosiate =
 			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
 		return supportFromAssosiate;
@@ -50,7 +50,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 	public List<FinancialSupport> getSupportFromExternal(int conferenceProposalId){
 		String query = "select * from financialSupport where conferenceProposalId=? and type=2";
-		logger.info(query);
+		//logger.info(query);
 		List<FinancialSupport> supportFromExternal =
 			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
 		return supportFromExternal;
@@ -58,7 +58,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public List<FinancialSupport> getSupportFromAdmitanceFee(int conferenceProposalId){
 		String query = "select * from financialSupport where conferenceProposalId=? and type=3";
-		logger.info(query);
+		//logger.info(query);
 		List<FinancialSupport> supportFromAdmitanceFee =
 			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
 		return supportFromAdmitanceFee;
@@ -66,7 +66,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public List<Committee> getScientificCommittees(int conferenceProposalId){
 		String query = "select * from committee where conferenceProposalId=? and type=1";
-		logger.info(query);
+		//logger.info(query);
 		List<Committee> scientificCommittees =
 			getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
 		return scientificCommittees;
@@ -74,7 +74,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	
 	public List<Committee> getOperationalCommittees(int conferenceProposalId){
 		String query = "select * from committee where conferenceProposalId=? and type=2";
-		logger.info(query);
+		//logger.info(query);
 		List<Committee> operationalCommittees =
 			getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
 		return operationalCommittees;

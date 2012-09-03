@@ -222,6 +222,11 @@ $(document).ready(function() {
 								<a style="text-decoration: none" href="urls.html">צפייה בקישורים </a>
 							</th>
 						</tr>
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="active.html">צפייה במשתמשים הפעילים </a>
+							</th>
+						</tr>
 						</authz:authorize>
 						<tr>
 							<th align="right">

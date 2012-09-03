@@ -1,4 +1,5 @@
 package huard.iws.db;
+import huard.iws.bean.PersonBean;
 
 import java.util.List;
 
@@ -21,5 +22,8 @@ public interface PersonPrivilegeDao {
 
 	public void deletePersonPrivilege(int privilege);
 
+	public void updateLastAction(PersonBean personId);
+	
+	public List<Integer> getActivePersons ();
 
 }

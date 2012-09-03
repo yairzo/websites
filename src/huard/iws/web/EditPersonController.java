@@ -139,13 +139,6 @@ public class EditPersonController extends GeneralFormController {
 		return personBean;
 	}
 
-	private PersonPrivilegeService personPrivilegeService;
-
-
-	public void setPersonPrivilegeService(
-			PersonPrivilegeService personPrivilegeService) {
-		this.personPrivilegeService = personPrivilegeService;
-	}
 
 	private PersonAttributionListService personAttributionListService;
 
