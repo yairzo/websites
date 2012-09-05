@@ -892,7 +892,7 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-	    openHelp("#dialogDescription",'הקלד או הדבק עד 500 תווים');
+	    openHelp("#dialogDescription",'הקלד או הדבק עד 1000 תווים');
 	    return false;
 	});
    $("#dialogTotalCost").click(function(e) {
@@ -1170,14 +1170,14 @@ $(document).ready(function() {
 function textlimiter(){
 	var tex = document.form.description.value;
 	var len = tex.length;
-	if(len > 500){
-	    tex = tex.substring(0,500);
+	if(len > 1000){
+	    tex = tex.substring(0,1000);
 	    document.form.description.value =tex;
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-		openHelp("","שדה התוכן העיוני מוגבל ל 500 תווים");
+		openHelp("","שדה התוכן העיוני מוגבל ל 1000 תווים");
 	}
     return false;
 }

@@ -1,13 +1,12 @@
 package huard.iws.service;
 
-import huard.iws.bean.OrganizationUnitBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.db.PagesWordsIndexerDao;
 import huard.iws.model.AList;
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.Desk;
-import huard.iws.model.TextualPage;
 import huard.iws.model.OrganizationUnit;
+import huard.iws.model.TextualPage;
 import huard.iws.util.WordsTokenizer;
 
 import java.util.ArrayList;

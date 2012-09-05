@@ -718,7 +718,7 @@
 
 
 	<aop:config>
-		<aop:aspect  ref="recordProtectService">
+		<aop:aspect ref="recordProtectService">
 			<aop:before
 			      arg-names="type,id,username"
 			      method="setRecordBusy"
