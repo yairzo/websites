@@ -297,9 +297,6 @@ public class ConferenceProposalController extends GeneralFormController{
 			model.put("lastVersion", request.getSession().getAttribute("lastVersion"));
 			// a list of possible proposal approvers
 			model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
-			//get faculty name by user facultyId
-			Faculty faculty = facultyService.getFaculty(userPersonBean.getFacultyId());
-			model.put("faculty", faculty.getNameHebrew());
 			ConferenceProposalBean conferenceProposal = (ConferenceProposalBean) model.get("command");
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER") && conferenceProposal.getResearcher().getId()!=userPersonBean.getId()){
 				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
@@ -308,6 +305,9 @@ public class ConferenceProposalController extends GeneralFormController{
 				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
 			}
 			logger.info("Conference proposal scientific committee: " + conferenceProposal.getScientificCommittees().size());
+			//get faculty name by user facultyId
+			Faculty faculty = facultyService.getFaculty(conferenceProposal.getResearcher().getFacultyId());
+			model.put("faculty", faculty.getNameHebrew());
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date fromDate = new Date(conferenceProposal.getFromDate());

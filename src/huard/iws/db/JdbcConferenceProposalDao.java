@@ -818,7 +818,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
     }
 	
 	public List<ConferenceProposal> getConferenceProposalsByDate(String prevdeadline) {
-		String query = "select * from conferenceProposal where deleted=0 and date(deadline)> '" + prevdeadline +"' order by id";
+		String query = "select * from conferenceProposal where submitted =1 and deleted=0 and isInsideDeadline = 1 and date(deadline)> '" + prevdeadline +"' order by id";
 		logger.info(query);
 		List<ConferenceProposal> conferenceProposals =
 			getSimpleJdbcTemplate().query(query, rowMapper);

@@ -7,6 +7,7 @@ import huard.iws.model.Committee;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.ConfigurationService;
+import huard.iws.service.FacultyService;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.RequestWrapper;
@@ -16,6 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -38,11 +40,11 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			response.setHeader("Content-disposition","attachment; filename=proposals.csv");
 			//response.setHeader("Content-disposition","attachment; filename=proposals.odt");
 			
-			RequestWrapper requestWrapper = new RequestWrapper(request);
 			Object obj = ApplicationContextProvider.getContext().getBean("configurationService");
 			ConfigurationService configurationService = (ConfigurationService)obj;
 			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-			StringBuffer cpb = generateCsvFileBuffer(prevdeadline);
+			String server = configurationService.getConfigurationString("server");
+			StringBuffer cpb = generateCsvFileBuffer(prevdeadline,server);
 
 			String cps = cpb.toString();
 			byte[] file = cps.getBytes();
@@ -69,25 +71,37 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		doGet(req, res);
 	}
 
-	private static StringBuffer generateCsvFileBuffer(String prevdeadline) {
+	private static StringBuffer generateCsvFileBuffer(String prevdeadline, String server) {
 		StringBuffer b = new StringBuffer();
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
+		b.append("line type");
+		b.append('~');
 		b.append("id");
 		b.append('~');
 		b.append("internal no.");
 		b.append('~');
 		b.append("open date");
 		b.append('~');
-		b.append("subject");
-		b.append('~');
-		b.append("description");
-		b.append('~');
 		b.append("researcher name");
 		b.append('~');
-		b.append("created by");
+		b.append("researcher department");
 		b.append('~');
-		b.append("approver name");
+		b.append("researcher faculty");
+		b.append('~');
+		b.append("researcher phone");
+		b.append('~');
+		b.append("researcher civilId");
+		b.append('~');
+		b.append("researcher email");
+		b.append('~');
+		b.append("initiating body");
+		b.append('~');
+		b.append("initiating body role");
+		b.append('~');
+		b.append("researcher cell phone");
+		b.append('~');
+		b.append("subject");
 		b.append('~');
 		b.append("from Date");
 		b.append('~');
@@ -109,27 +123,15 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append('~');
 		b.append("no. of audience guests");
 		b.append('~');
-		b.append("initiating Body");
+		b.append("guests file");
 		b.append('~');
-		b.append("initiating Body Role");
+		b.append("program file");
 		b.append('~');
-		b.append("total expenses");
-		b.append('~');
-		b.append("total expenses currency");
-		b.append('~');
-		b.append("requested support sum");
-		b.append('~');
-		b.append("requested support sum currency");
-		b.append('~');
-		b.append("international flag");
-		b.append('~');
-		b.append("free room flag");
-		b.append('~');
-		b.append("no. participants");
-		b.append('~');
-		b.append("preffered campus");
+		b.append("description");
 		b.append('~');
 		b.append("organizing company name");
+		b.append('~');
+		b.append("organizing company file");
 		b.append('~');
 		b.append("contact person name");
 		b.append('~');
@@ -137,21 +139,44 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append('~');
 		b.append("contact person phone");
 		b.append('~');
-		b.append("contact person fax");
-		b.append('~');
 		b.append("contact person email");
 		b.append('~');
+		b.append("total cost");
+		b.append('~');
+		b.append("total cost currency");
+		b.append('~');
+		b.append("budget file");
+		b.append('~');
+		b.append("international flag");
+		b.append('~');
+		b.append("requested support sum");
+		b.append('~');
+		b.append("requested support sum currency");
+		b.append('~');
+		b.append("free room flag");
+		b.append('~');
+		b.append("no. participants");
+		b.append('~');
+		b.append("preffered campus");
+		b.append('~');
 		b.append("remarks");
+		b.append('~');
+		b.append("approver name");
+		b.append('~');
+		b.append("grade");
+		b.append('~');
+		b.append("out of");
+		b.append('~');
+		b.append("approver evaluation");
+		b.append('~');
+		b.append("admin remarks");
+		b.append('~');
+
+		/*b.append("created by");
 		b.append('~');
 		b.append("submitted");
 		b.append('~');
 		b.append("submission date");
-		b.append('~');
-		b.append("Approver evaluation");
-		b.append('~');
-		b.append("Grade");
-		b.append('~');
-		b.append("admin remarks");
 		b.append('~');
 		b.append("deadline");
 		b.append('~');
@@ -159,7 +184,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append('~');
 		b.append("is inside current deadline");
 		b.append('~');
-		b.append("committee remarks");
+		b.append("committee remarks");*/
 		b.append('\n');
 
 		// get data
@@ -168,11 +193,40 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsByDate(prevdeadline);
 		for (ConferenceProposal conferenceProposal : conferenceProposals) {
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
+			b.append("1");
+			b.append('~');
 			b.append(conferenceProposalBean.getId());
 			b.append('~');
 			b.append(conferenceProposalBean.getInternalId());
 			b.append('~');
 			b.append(formatter.format(conferenceProposalBean.getOpenDate()));
+			b.append('~');
+			b.append(conferenceProposalBean.getResearcher().getDegreeFullNameHebrew());
+			b.append('~');
+			b.append(conferenceProposalBean.getResearcher().getDepartment());
+			b.append('~');
+			FacultyService facultyService = (FacultyService)ApplicationContextProvider.getContext().getBean("facultyService");
+			b.append(facultyService.getFaculty(conferenceProposalBean.getResearcher().getFacultyId()).getNameHebrew());
+			b.append('~');
+			b.append(conferenceProposalBean.getResearcher().getPhone());
+			b.append('~');
+			b.append(conferenceProposalBean.getResearcher().getCivilId());
+			b.append('~');
+			b.append(conferenceProposalBean.getResearcher().getEmail());
+			b.append('~');
+			if(conferenceProposalBean.getInitiatingBody().equals(""))
+				b.append(" ");
+			else
+				b.append(conferenceProposalBean.getInitiatingBody());
+			b.append('~');
+			String initiatingBodyRole="";
+			if(conferenceProposalBean.getInitiatingBodyRole()==1)
+				initiatingBodyRole = "ראש/מנהל הגוף";
+			else if(conferenceProposalBean.getInitiatingBodyRole()==2)
+				initiatingBodyRole = "עובד/חבר בגוף";
+			b.append(initiatingBodyRole);
+			b.append('~');
+			b.append(conferenceProposalBean.getResearcher().getCellPhone());
 			b.append('~');
 			String subject = " ";
 			if (!conferenceProposalBean.getSubject().equals("")){
@@ -181,23 +235,6 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				subject = subject.trim().replaceAll("\\s+", " ");
 			}
 			b.append(subject);
-			b.append('~');
-			String desc = " ";
-			if (!conferenceProposalBean.getDescription().equals("")){
-				desc = conferenceProposalBean.getDescription().trim();
-				desc = desc.replace('\n', ' ');
-				desc = desc.trim().replaceAll("\\s+", " ");
-			}
-			b.append(desc);
-			b.append('~');
-			b.append(conferenceProposalBean.getResearcher().getDegreeFullNameHebrew());
-			b.append('~');
-			b.append(conferenceProposalBean.getCreator().getDegreeFullNameHebrew());
-			b.append('~');
-			if(	conferenceProposalBean.getApproverId()==0)
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getApprover().getDegreeFullNameHebrew());
 			b.append('~');
 			if(conferenceProposalBean.getFromDate()>1000)
 				b.append(formatter.format(conferenceProposalBean.getFromDate()));
@@ -241,27 +278,68 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append('~');
 			b.append(conferenceProposalBean.getForeignGuests());
 			b.append('~');
-			if(conferenceProposalBean.getInitiatingBody().equals(""))
+			if(conferenceProposalBean.getGuestsAttach().length>0)
+				b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=guestsAttach&attachmentId=1");
+			else 
+				b.append(" ");
+			b.append('~');
+			if(conferenceProposalBean.getProgramAttach().length>0)
+				b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=programAttach&attachmentId=1");
+			else 
+				b.append(" ");
+			b.append('~');
+			String desc = " ";
+			if (!conferenceProposalBean.getDescription().equals("")){
+				desc = conferenceProposalBean.getDescription().trim();
+				desc = desc.replace('\n', ' ');
+				desc = desc.trim().replaceAll("\\s+", " ");
+			}
+			b.append(desc);
+			b.append('~');
+			if(conferenceProposalBean.getOrganizingCompanyName().equals(""))
 				b.append(" ");
 			else
-				b.append(conferenceProposalBean.getInitiatingBody());
+				b.append(conferenceProposalBean.getOrganizingCompanyName());
 			b.append('~');
-			String initiatingBodyRole="";
-			if(conferenceProposalBean.getInitiatingBodyRole()==1)
-				initiatingBodyRole = "ראש/מנהל הגוף";
-			else if(conferenceProposalBean.getInitiatingBodyRole()==2)
-				initiatingBodyRole = "עובד/חבר בגוף";
-			b.append(initiatingBodyRole);
+			if(conferenceProposalBean.getCompanyAttach().length>0)
+				b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=companyAttach&attachmentId=1");
+			else 
+				b.append(" ");
+			b.append('~');
+			if(conferenceProposalBean.getContactPerson().equals(""))
+				b.append(" ");
+			else
+				b.append(conferenceProposalBean.getContactPerson());
+			b.append('~');
+			if(conferenceProposalBean.getContactPersonRole().equals(""))
+				b.append(" ");
+			else
+				b.append(conferenceProposalBean.getContactPersonRole());
+			b.append('~');
+			if(conferenceProposalBean.getContactPersonPhone().equals(""))
+				b.append(" ");
+			else
+				b.append(conferenceProposalBean.getContactPersonPhone());
+			b.append('~');
+			if(conferenceProposalBean.getContactPersonEmail().equals(""))
+				b.append(" ");
+			else
+				b.append(conferenceProposalBean.getContactPersonEmail());
 			b.append('~');
 			b.append(conferenceProposalBean.getTotalCost());
 			b.append('~');
 			b.append("דולר");
 			b.append('~');
+			if(conferenceProposalBean.getFinancialAttach().length>0)
+				b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=financialAttach&attachmentId=1");
+			else 
+				b.append(" ");
+			b.append('~');
+			b.append(conferenceProposalBean.getAuditorium());
+			b.append('~');
 			b.append(conferenceProposalBean.getSupportSum());
 			b.append('~');
 			b.append("דולר");
-			b.append('~');
-			b.append(conferenceProposalBean.getAuditorium());
 			b.append('~');
 			b.append(conferenceProposalBean.getSeminarRoom());
 			b.append('~');
@@ -278,69 +356,27 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				prefferedCampus = "רחובות";
 			b.append(prefferedCampus);
 			b.append('~');
-			if(conferenceProposalBean.getOrganizingCompanyName().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getOrganizingCompanyName());
-			b.append('~');
-			/*if(conferenceProposalBean.getOrganizingCompanyPhone().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getOrganizingCompanyPhone());
-			b.append('~');
-			if(conferenceProposalBean.getOrganizingCompanyFax().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getOrganizingCompanyFax());
-			b.append('~');
-			if(conferenceProposalBean.getOrganizingCompanyEmail().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getOrganizingCompanyEmail());
-			b.append('~');*/
-			if(conferenceProposalBean.getContactPerson().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getContactPerson());
-			b.append('~');
-			if(conferenceProposalBean.getContactPersonRole().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getContactPersonRole());
-			b.append('~');
-			if(conferenceProposalBean.getContactPersonPhone().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getContactPersonPhone());
-			b.append('~');
-			if(conferenceProposalBean.getContactPersonFax().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getContactPersonFax());
-			b.append('~');
-			if(conferenceProposalBean.getContactPersonEmail().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getContactPersonEmail());
-			b.append('~');
 			if(conferenceProposalBean.getRemarks().equals(""))
 				b.append(" ");
 			else
 				b.append(conferenceProposalBean.getRemarks().trim());
 			b.append('~');
-			b.append(conferenceProposalBean.getSubmitted());
-			b.append('~');
-			if(conferenceProposalBean.getSubmissionDate()>1000)
-				b.append(formatter.format(conferenceProposalBean.getSubmissionDate()));
-			else
+			if(	conferenceProposalBean.getApproverId()==0)
 				b.append(" ");
+			else
+				b.append(conferenceProposalBean.getApprover().getDegreeFullNameHebrew());
+			b.append('~');
+			b.append(conferenceProposalBean.getGrade());
+			b.append('~');
+			bean = ApplicationContextProvider.getContext().getBean("conferenceProposalService");
+			ConferenceProposalService conferenceProposalService = (ConferenceProposalService) bean;
+			int max = conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(),prevdeadline);
+			b.append(max);
 			b.append('~');
 			if(conferenceProposalBean.getApproverEvaluation().equals(""))
 				b.append(" ");
 			else
 				b.append(conferenceProposalBean.getApproverEvaluation().trim());
-			b.append('~');
-			b.append(conferenceProposalBean.getGrade());
 			b.append('~');
 			String adminRemarks = " ";
 			if (!conferenceProposalBean.getAdminRemarks().equals("")){
@@ -349,6 +385,17 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				adminRemarks = adminRemarks.trim().replaceAll("\\s+", " ");
 			}
 			b.append(adminRemarks);
+			b.append('~');
+
+			/*
+			b.append(conferenceProposalBean.getCreator().getDegreeFullNameHebrew());
+			b.append('~');
+			b.append(conferenceProposalBean.getSubmitted());
+			b.append('~');
+			if(conferenceProposalBean.getSubmissionDate()>1000)
+				b.append(formatter.format(conferenceProposalBean.getSubmissionDate()));
+			else
+				b.append(" ");
 			b.append('~');
 			if(conferenceProposalBean.getDeadline()>1000)
 				b.append(formatter.format(conferenceProposalBean.getDeadline()));
@@ -362,65 +409,20 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append('~');
 			b.append(conferenceProposalBean.getIsInsideDeadline());
 			b.append('~');
-			String committeeRemarks = " ";
-			if (!conferenceProposalBean.getCommitteeRemarks().equals("")){
-				committeeRemarks = conferenceProposalBean.getCommitteeRemarks().trim();
-				committeeRemarks = committeeRemarks.replace('\n', ' ');
-				committeeRemarks = committeeRemarks.trim().replaceAll("\\s+", " ");
-
-			}
-			b.append(committeeRemarks);
+			 */
 			b.append('\n');
-			bean = ApplicationContextProvider.getContext().getBean("conferenceProposalService");
-			ConferenceProposalService conferenceProposalService = (ConferenceProposalService) bean;
+			
 			ConferenceProposalBean cp = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
-			List<FinancialSupport> fromAssosiates = cp.getFromAssosiate();
-			for(FinancialSupport financialSupport: fromAssosiates){
-				if (!financialSupport.isEmpty()){
-					b.append(conferenceProposalBean.getId());
-					b.append('~');
-					b.append("הכנסות משותפים");
-					b.append('~');
-					b.append(financialSupport.getName());
-					b.append('~');
-					b.append(financialSupport.getSum());
-					b.append('\n');
-				}
-			}
-			List<FinancialSupport> fromExternals = cp.getFromExternal();
-			for(FinancialSupport financialSupport: fromExternals){
-				if (!financialSupport.isEmpty()){
-					b.append(conferenceProposalBean.getId());
-					b.append('~');
-					b.append("הכנסות ממממן חיצוני");
-					b.append('~');
-					b.append(financialSupport.getName());
-					b.append('~');
-					b.append(financialSupport.getSum());
-					b.append('\n');
-				}
-			}
-			List<FinancialSupport> fromAdmitanceFee = cp.getFromAdmitanceFee();
-			for(FinancialSupport financialSupport: fromAdmitanceFee){
-				if (!financialSupport.isEmpty()){
-					b.append(conferenceProposalBean.getId());
-					b.append('~');
-					b.append("הכנסות מדמי הרשמה");
-					b.append('~');
-					b.append(financialSupport.getSumPerson());
-					b.append('~');
-					b.append(financialSupport.getName());
-					b.append('~');
-					b.append(financialSupport.getSum());
-					b.append('\n');
-				}
-			}
 			List<Committee> ScientificCommittees = cp.getScientificCommittees();
 			for (Committee committee: ScientificCommittees){
 				if (!committee.isEmpty()){
+					b.append("2");
+					b.append('~');
 					b.append(conferenceProposalBean.getId());
 					b.append('~');
-					b.append("ועדה");
+					b.append(conferenceProposalBean.getInternalId());
+					b.append('~');
+					b.append(conferenceProposalBean.getOpenDate());
 					b.append('~');
 					b.append(committee.getName());
 					b.append('~');
@@ -445,6 +447,118 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					else if(committee.getCommitteeRoleOrganizing().equals("3"))
 						committeeRoleOrganizing = "לא שותף";
 					b.append(committeeRoleOrganizing);
+					b.append('\n');
+				}
+			}
+			List<FinancialSupport> fromAssosiates = cp.getFromAssosiate();
+			int j=0;
+			for(FinancialSupport financialSupport: fromAssosiates){
+				if (!financialSupport.isEmpty()){
+					b.append("3");
+					b.append('~');
+					b.append(conferenceProposalBean.getId());
+					b.append('~');
+					b.append(conferenceProposalBean.getInternalId());
+					b.append('~');
+					b.append(conferenceProposalBean.getOpenDate());
+					b.append('~');
+					b.append("הכנסות משותפים");
+					b.append('~');
+					b.append(financialSupport.getName());
+					b.append('~');
+					b.append(" ");
+					b.append('~');
+					b.append(" ");
+					b.append('~');
+					b.append(financialSupport.getSum());
+					b.append('~');
+					if(financialSupport.getReferenceFile().length>0)
+						b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&assosiateId=" +j +"&attachFile=assosiateAttach&attachmentId=1");
+					else
+						b.append("  ");
+					b.append('\n');
+					j++;
+				}
+			}
+			List<FinancialSupport> fromExternals = cp.getFromExternal();
+			j=0;
+			for(FinancialSupport financialSupport: fromExternals){
+				if (!financialSupport.isEmpty()){
+					b.append("3");
+					b.append('~');
+					b.append(conferenceProposalBean.getId());
+					b.append('~');
+					b.append(conferenceProposalBean.getInternalId());
+					b.append('~');
+					b.append(conferenceProposalBean.getOpenDate());
+					b.append('~');
+					b.append("הכנסות ממממן חיצוני");
+					b.append('~');
+					b.append(financialSupport.getName());
+					b.append('~');
+					b.append(" ");
+					b.append('~');
+					b.append(" ");
+					b.append('~');
+					b.append(financialSupport.getSum());
+					b.append('~');
+					if(financialSupport.getReferenceFile().length>0)
+						b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&externalId=" +j +"&attachFile=externalAttach&attachmentId=1");
+					else
+						b.append("  ");
+					b.append('\n');
+					j++;
+				}
+			}
+			List<FinancialSupport> fromAdmitanceFee = cp.getFromAdmitanceFee();
+			j=0;
+			for(FinancialSupport financialSupport: fromAdmitanceFee){
+				if (!financialSupport.isEmpty()){
+					b.append("3");
+					b.append('~');
+					b.append(conferenceProposalBean.getId());
+					b.append('~');
+					b.append(conferenceProposalBean.getInternalId());
+					b.append('~');
+					b.append(conferenceProposalBean.getOpenDate());
+					b.append('~');
+					b.append("הכנסות מדמי הרשמה");
+					b.append('~');
+					b.append("הכנסות מדמי הרשמה");
+					b.append('~');
+					b.append(financialSupport.getSumPerson());
+					b.append('~');
+					b.append(financialSupport.getName());
+					b.append('~');
+					b.append(financialSupport.getSum());
+					b.append('~');
+					if(financialSupport.getReferenceFile().length>0)
+						b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&admitanceFeeId=" +j +"&attachFile=admitanceFeeAttach&attachmentId=1");
+					else
+						b.append("  ");
+					b.append('\n');
+					j++;
+				}
+			}
+			if (!conferenceProposalBean.getCommitteeRemarks().equals("")){
+				StringTokenizer tk = new StringTokenizer(conferenceProposalBean.getCommitteeRemarks(),"\n");
+				while (tk.hasMoreTokens()){
+					String committeeRemarks=tk.nextToken();
+					committeeRemarks = committeeRemarks.trim().replaceAll("\\s+", " ");
+					b.append("4");
+					b.append('~');
+					b.append(conferenceProposalBean.getId());
+					b.append('~');
+					b.append(conferenceProposalBean.getInternalId());
+					b.append('~');
+					b.append(conferenceProposalBean.getOpenDate());
+					b.append('~');
+					b.append(committeeRemarks.substring(0,committeeRemarks.indexOf(",")));
+					b.append('~');
+					b.append(committeeRemarks.substring(committeeRemarks.indexOf(",")+1,committeeRemarks.indexOf("-")));
+					b.append('~');
+					b.append(committeeRemarks.substring(committeeRemarks.indexOf("-")+1));
+					b.append('~');
 					b.append('\n');
 				}
 			}
