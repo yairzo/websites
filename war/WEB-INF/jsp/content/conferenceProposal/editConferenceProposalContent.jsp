@@ -292,13 +292,13 @@
 						</c:if>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium100 calcSum" path="audienceLecturers" />
+							<form:input cssClass="greennoborder medium100 calcSum" path="foreignAudience" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
 						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="audienceLecturers"/>
-							${command.audienceLecturers}
+							${command.foreignAudience}
 						</td>
 						</c:if>						
 						<td style="border: 1px #bca2a2 dotted"><span id="abroadCount"></span>
@@ -332,12 +332,12 @@
 						</c:if>
 						<c:if test="${!readOnly && !command.submitted}">
 						<td style="border: 1px #bca2a2 dotted">
-							<form:input cssClass="greennoborder medium100 calcSum" path="audienceGuests" />
+							<form:input cssClass="greennoborder medium100 calcSum" path="localAudience" />
 						</td>
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
 						<td width="100" style="border: 1px #bca2a2 dotted">
-							<form:hidden path="audienceGuests"/>
+							<form:hidden path="localAudience"/>
 							${command.audienceGuests}
 						</td>
 						</c:if>						
@@ -1624,6 +1624,12 @@
 				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה למסך קודם </button>		
 				<button class="grey" title="גרסת הדפסה"  onclick="window.location='conferenceProposal.html?id=${command.id}&p=1';return false;">גרסת הדפסה </button>		
+				<spring:bind path="command.*">
+    				<c:forEach items="${status.errorMessages}" var="error">
+        				<font color="red">Error code: <c:out value="${error}"/></font>
+        				<br><br>
+    				</c:forEach>
+				</spring:bind>
 			</td>
 		</tr>
 </c:if>
@@ -1633,6 +1639,7 @@
   </tr>
 
 </table>
+
 
 
 </body>

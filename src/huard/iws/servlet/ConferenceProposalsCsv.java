@@ -233,13 +233,13 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append('~');
 			b.append(conferenceProposalBean.getLocalLecturers());
 			b.append('~');
-			b.append(conferenceProposalBean.getAudienceLecturers());
+			b.append(conferenceProposalBean.getForeignAudience());
 			b.append('~');
 			b.append(conferenceProposalBean.getForeignGuests());
 			b.append('~');
 			b.append(conferenceProposalBean.getLocalGuests());
 			b.append('~');
-			b.append(conferenceProposalBean.getAudienceGuests());
+			b.append(conferenceProposalBean.getForeignGuests());
 			b.append('~');
 			if(conferenceProposalBean.getInitiatingBody().equals(""))
 				b.append(" ");

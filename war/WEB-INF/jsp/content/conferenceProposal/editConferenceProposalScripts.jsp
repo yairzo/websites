@@ -1274,25 +1274,44 @@ function calcParticipants(){
 		abroadCount+=Number(document.form.foreignLecturers.value);
 		lecturersCount+=Number(document.form.foreignLecturers.value);
 	}
+	else{
+		document.form.foreignLecturers.value = 0;
+	}
 	if(countRegex.test(document.form.foreignGuests.value)){
 		abroadCount+=Number(document.form.foreignGuests.value);
 		guestCount+=Number(document.form.foreignGuests.value);
 	}
-	if(countRegex.test(document.form.audienceLecturers.value)){
-		abroadCount+=Number(document.form.audienceLecturers.value);
-		otherCount+=Number(document.form.audienceLecturers.value);
+	else{
+		document.form.foreignGuests.value = 0;
+	}
+	if(countRegex.test(document.form.foreignAudience.value)){
+		abroadCount+=Number(document.form.foreignAudience.value);
+		otherCount+=Number(document.form.foreignAudience.value);
+	}
+	else{
+		document.form.foreignAudience.value = 0;
 	}
 	if(countRegex.test(document.form.localLecturers.value)){
 		localCount+=Number(document.form.localLecturers.value);
 		lecturersCount+=Number(document.form.localLecturers.value);
 	}
+	else{
+		document.form.localLecturers.value = 0;
+	}
+	
 	if(countRegex.test(document.form.localGuests.value)){
 		localCount+=Number(document.form.localGuests.value);
 		guestCount+=Number(document.form.localGuests.value);
 	}
-	if(countRegex.test(document.form.audienceGuests.value)){
-		localCount+=Number(document.form.audienceGuests.value);
-		otherCount+=Number(document.form.audienceGuests.value);
+	else{
+		document.form.localGuests.value = 0;
+	}
+	if(countRegex.test(document.form.localAudience.value)){
+		localCount+=Number(document.form.localAudience.value);
+		otherCount+=Number(document.form.localAudience.value);
+	}
+	else{
+		document.form.localAudience.value = 0;
 	}
 	$("#abroadCount").html(abroadCount);
 	$("#localCount").html(localCount);

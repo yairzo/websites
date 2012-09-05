@@ -359,13 +359,14 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				toDate = aToDate.getTime();
 			conferenceProposal.setToDate(toDate);
 			conferenceProposal.setLocation(rs.getString("location"));
-			conferenceProposal.setLocationDetail(rs.getString("locationDetails"));
-			conferenceProposal.setAudienceGuests(rs.getString("audienceGuests"));
-			conferenceProposal.setAudienceLecturers(rs.getString("audienceLecturers"));
-			conferenceProposal.setForeignGuests(rs.getString("foreignGuests"));
-			conferenceProposal.setForeignLecturers(rs.getString("foreignLecturers"));
-			conferenceProposal.setLocalGuests(rs.getString("localGuests"));
-			conferenceProposal.setLocalLecturers(rs.getString("localLecturers"));
+			conferenceProposal.setLocationDetail(rs.getString("locationDetails"));			
+			conferenceProposal.setForeignLecturers(rs.getInt("foreignLecturers"));
+			conferenceProposal.setLocalLecturers(rs.getInt("localLecturers"));
+			conferenceProposal.setForeignGuests(rs.getInt("foreignGuests"));
+			conferenceProposal.setLocalGuests(rs.getInt("localGuests"));
+			conferenceProposal.setForeignAudience(rs.getInt("foreignAudience"));
+			conferenceProposal.setLocalAudience(rs.getInt("localAudience"));
+			
 			conferenceProposal.setGuestsAttach(rs.getBytes("guestsAttach"));
 			conferenceProposal.setGuestsAttachContentType(rs.getString("guestsAttachContentType"));
 			conferenceProposal.setProgramAttach(rs.getBytes("programAttach"));
@@ -445,12 +446,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setLocation(rs.getString("location"));
 			conferenceProposal.setVersionId(rs.getInt("id"));
 			conferenceProposal.setLocationDetail(rs.getString("locationDetails"));
-			conferenceProposal.setAudienceGuests(rs.getString("audienceGuests"));
-			conferenceProposal.setAudienceLecturers(rs.getString("audienceLecturers"));
-			conferenceProposal.setForeignGuests(rs.getString("foreignGuests"));
-			conferenceProposal.setForeignLecturers(rs.getString("foreignLecturers"));
-			conferenceProposal.setLocalGuests(rs.getString("localGuests"));
-			conferenceProposal.setLocalLecturers(rs.getString("localLecturers"));
+			conferenceProposal.setForeignLecturers(rs.getInt("foreignLecturers"));
+			conferenceProposal.setLocalLecturers(rs.getInt("localLecturers"));
+			conferenceProposal.setForeignGuests(rs.getInt("foreignGuests"));
+			conferenceProposal.setLocalGuests(rs.getInt("localGuests"));
+			conferenceProposal.setForeignAudience(rs.getInt("foreignAudience"));
+			conferenceProposal.setLocalAudience(rs.getInt("localAudience"));
 			conferenceProposal.setGuestsAttach(rs.getBytes("guestsAttach"));
 			conferenceProposal.setGuestsAttachContentType(rs.getString("guestsAttachContentType"));
 			conferenceProposal.setProgramAttach(rs.getBytes("programAttach"));
@@ -575,10 +576,10 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", locationDetails = ?" + 
 				", foreignLecturers = ?" + 
 				", localLecturers = ?" + 
-				", audienceLecturers = ?" + 
 				", foreignGuests = ?" + 
 				", localGuests = ?" + 
-				", audienceGuests = ?" + 
+				", foreignAudience = ?" + 
+				", localAudience = ?" + 
 				", guestsAttach = ?" + 
 				", guestsAttachContentType = ?" + 
 				", programAttach = ?" + 
@@ -634,10 +635,10 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getLocationDetail(),
 				conferenceProposal.getForeignLecturers(),
 				conferenceProposal.getLocalLecturers(),
-				conferenceProposal.getAudienceLecturers(),
 				conferenceProposal.getForeignGuests(),
 				conferenceProposal.getLocalGuests(),
-				conferenceProposal.getAudienceGuests(),
+				conferenceProposal.getForeignAudience(),
+				conferenceProposal.getLocalAudience(),
 				conferenceProposal.getGuestsAttach(),
 				conferenceProposal.getGuestsAttachContentType(),
 				conferenceProposal.getProgramAttach(),
@@ -698,10 +699,10 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", locationDetails = ?" +
 				", foreignLecturers = ?" + 
 				", localLecturers = ?" + 
-				", audienceLecturers = ?" + 
 				", foreignGuests = ?" + 
 				", localGuests = ?" + 
-				", audienceGuests = ?" + 
+				", foreignAudience = ?" + 
+				", localAudience = ?" + 
 				", guestsAttach = ?" + 
 				", guestsAttachContentType = ?" + 
 				", programAttach = ?" + 
@@ -757,10 +758,10 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getLocationDetail(),
 				conferenceProposal.getForeignLecturers(),
 				conferenceProposal.getLocalLecturers(),
-				conferenceProposal.getAudienceLecturers(),
 				conferenceProposal.getForeignGuests(),
 				conferenceProposal.getLocalGuests(),
-				conferenceProposal.getAudienceGuests(),
+				conferenceProposal.getForeignAudience(),
+				conferenceProposal.getLocalAudience(),
 				conferenceProposal.getGuestsAttach(),
 				conferenceProposal.getGuestsAttachContentType(),
 				conferenceProposal.getProgramAttach(),
