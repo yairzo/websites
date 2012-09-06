@@ -297,7 +297,7 @@
 						</c:if>
 						<c:if test="${readOnly || command.submitted}">
 						<td width="100" style="border: 1px #bca2a2 dotted">
-							<form:hidden path="audienceLecturers"/>
+							<form:hidden path="foreignAudience"/>
 							${command.foreignAudience}
 						</td>
 						</c:if>						
@@ -338,7 +338,7 @@
 						<c:if test="${readOnly || command.submitted}">
 						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="localAudience"/>
-							${command.audienceGuests}
+							${command.localAudience}
 						</td>
 						</c:if>						
 						<td style="border: 1px #bca2a2 dotted"><span id="localCount"></span>
