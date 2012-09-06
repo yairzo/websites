@@ -5,6 +5,7 @@ import huard.iws.service.ConfigurationService;
 import huard.iws.service.PersonService;
 import huard.iws.service.PersonPrivilegeService;
 import huard.iws.service.UserMessageService;
+import huard.iws.service.MessageService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
@@ -92,9 +93,20 @@ public abstract class GeneralFormController extends SimpleFormController
 
 			LanguageUtils.applyLanguage(model, requestWrapper, response, userPersonBean.getPreferedLocaleId());
 
+			String showPopup =  configurationService.getConfigurationString("showPopup");
+			if(showPopup.equals("yes")){
+				String popupMessage = messageService.getMessage("iw_IL.general.popup");
+				model.put("popupMessage", popupMessage);
+			}
+			else{
+				model.put("popupMessage", "");
+			}
+
+			
 			ModelAndView modelAndView = onShowForm(requestWrapper, response, userPersonBean, model);
 			if (modelAndView != null)
 				return modelAndView;
+			
 
 			return super.showForm(request, response, errors);
 		}
@@ -183,6 +195,12 @@ public abstract class GeneralFormController extends SimpleFormController
 
 		public void setUserMessageService(UserMessageService userMessageService) {
 			this.userMessageService = userMessageService;
+		}
+		
+		protected MessageService messageService;
+
+		public void setMessageService(MessageService messageService) {
+			this.messageService = messageService;
 		}
 
 		protected ConfigurationService configurationService;

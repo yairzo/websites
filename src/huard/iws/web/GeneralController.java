@@ -1,6 +1,9 @@
 package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
+import huard.iws.service.ConfigurationService;
+import huard.iws.service.MessageService;
+import huard.iws.service.PersonPrivilegeService;
 import huard.iws.service.PersonService;
 import huard.iws.service.UserMessageService;
 import huard.iws.util.DateUtils;
@@ -27,6 +30,7 @@ public abstract class GeneralController extends AbstractController{
 		RequestWrapper requestWrapper = new RequestWrapper( request );
 		Map<String, Object> model = new HashMap<String, Object>();
 		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		personPrivilegeService.updateLastAction(userPersonBean);
 		model.put("userPersonBean", userPersonBean);
 		String userMessage;
 		if ((userMessage = userMessageService.getSessionUserMessage(request))!=null){
@@ -37,6 +41,15 @@ public abstract class GeneralController extends AbstractController{
 
 		String lastUpdate = calculateLastUpdate(requestWrapper);
 		model.put("lastUpdate", lastUpdate);
+
+		String showPopup =  configurationService.getConfigurationString("showPopup");
+		if(showPopup.equals("yes")){
+			String popupMessage = messageService.getMessage("iw_IL.general.popup");
+			model.put("popupMessage", popupMessage);
+		}
+		else{
+			model.put("popupMessage", "");
+		}
 
 		return handleRequest(requestWrapper, response, model, userPersonBean);
 	}
@@ -73,10 +86,28 @@ public abstract class GeneralController extends AbstractController{
 	public void setPersonService(PersonService personService) {
 		this.personService = personService;
 	}
+	protected PersonPrivilegeService personPrivilegeService;
+
+	public void setPersonPrivilegeService(PersonPrivilegeService personPrivilegeService) {
+		this.personPrivilegeService = personPrivilegeService;
+	}
 
 	protected UserMessageService userMessageService;
 
 	public void setUserMessageService(UserMessageService userMessageService) {
 		this.userMessageService = userMessageService;
 	}
+	
+	protected MessageService messageService;
+
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
+	}
+	
+	protected ConfigurationService configurationService;
+
+	public void setConfigurationService(ConfigurationService configurationService) {
+		this.configurationService = configurationService;
+	}
+
 }

@@ -62,9 +62,5 @@ public class LoginController extends GeneralController{
 	}
 
 
-	private MessageService messageService;
 
-	public void setMessageService(MessageService messageService) {
-		this.messageService = messageService;
-	}
 }

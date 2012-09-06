@@ -114,7 +114,6 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposalBean.setCompanyAttach(origConferenceProposalBean.getCompanyAttach());
 			conferenceProposalBean.setCompanyAttachContentType(origConferenceProposalBean.getCompanyAttachContentType());
 		}
-		System.out.println("1111111111 deleteAssosiateFileRowId:"+request.getIntParameter("deleteAssosiateFileRowId",-1));
 		for (int i = 0 ; i < conferenceProposalBean.getFromAssosiate().size(); i ++){
 			if (i < origConferenceProposalBean.getFromAssosiate().size() && conferenceProposalBean.getFromAssosiate().get(i).getReferenceFile().length==0 &&  i!= request.getIntParameter("deleteAssosiateFileRowId",-1)){
 				byte [] file = origConferenceProposalBean.getFromAssosiate().get(i).getReferenceFile();
@@ -236,7 +235,6 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 		}
 		if (action.equals("deleteForever")){// new requests when researcher does not sign declaration
-			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxx"+conferenceProposalBean.getId());
 			conferenceProposalService.deleteConferenceProposal(conferenceProposalBean.getId());
 		}
 		
@@ -420,13 +418,6 @@ public class ConferenceProposalController extends GeneralFormController{
 
 	public void setFacultyService(FacultyService facultyService) {
 		this.facultyService = facultyService;
-	}
-	
-
-	private MessageService messageService;
-
-	public void setMessageService(MessageService messageService) {
-		this.messageService = messageService;
 	}
 
 	private MailMessageService mailMessageService;

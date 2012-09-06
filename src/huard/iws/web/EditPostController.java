@@ -212,10 +212,5 @@ public class EditPostController extends GeneralFormController {
 		this.sendPostService = sendPostService;
 	}
 	
-	private MessageService messageService;
-
-	public void setMessageService(MessageService messageService) {
-		this.messageService = messageService;
-	}
 
 }

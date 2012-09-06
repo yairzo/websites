@@ -31,16 +31,7 @@
               </table>
 
 				<table width="800" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
-               <tr>
-                  <td colspan="4"><img src="image/hr.gif" width="800" height="10"></td>
-                </tr>
-
-    		<tr>
-    			<td colspan="4">
-    				<span style="text-align: center;"><h2>משתמשים פעילים</h2></span>
-    			</td>
-    		</tr>
-
+     
    			<c:choose>
     		<c:when test="${fn:length(activePersons) > 0}">
 			<c:forEach items="${activePersons}" var="person" varStatus="varStatus">

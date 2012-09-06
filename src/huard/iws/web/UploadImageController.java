@@ -83,11 +83,5 @@ public class UploadImageController extends GeneralFormController {
 			PageBodyImageService pageBodyImageService) {
 		this.pageBodyImageService = pageBodyImageService;
 	}
-	private MessageService messageService;
-
-	public void setMessageService(MessageService messageService) {
-		this.messageService = messageService;
-	}
-
 
 }

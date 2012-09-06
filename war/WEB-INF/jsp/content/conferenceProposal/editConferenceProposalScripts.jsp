@@ -862,7 +862,7 @@ $(document).ready(function() {
 	   		$("#genericDialog").dialog({ width: 600 });
   			var text ="<ol><li> אני חוקר/ת במסלול הרגיל ובשירות פעיל.</li><br/>";
    			text+="<li> איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.</li><br/>";
-			text+="<li> אמלא את טופס הבקשה בהתאם ל<a href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'><u>הוראות הנהלה מספר 17-011 לאמות המידה</u></a> של הועדה ולהנחיות (המסומנות ב <img src='image/questionmark.png' width='25' height='25'>) שבגוף הטופס.</li></br> ";
+			text+="<li> אמלא את טופס הבקשה בהתאם ל<a style='text-decoration:underline;color:#0000FF' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>הוראות הנהלה מספר 17-011</a> , <a style='text-decoration:underline;color:#0000FF' href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'>לאמות המידה</a> של הועדה ולהנחיות (המסומנות ב <img src='image/questionmark.png' width='25' height='25'>) שבגוף הטופס.</li></br> ";
 			text+="</ol>";
 			openHelp('',text);
 		</c:if>
@@ -1333,7 +1333,7 @@ function checkErrors(){
 	}
 	if($("#deanSelect").val()=='0'){
 		errors = true;
-		$("#errordeanselect").html('<font color="red">יש לבחור מאשר לפני הגשה<font color="red"><br>');
+		$("#errordeanselect").html('<font color="red">יש לבחור ממליץ לפני הגשה<font color="red"><br>');
 	}
 	else{
 		$("#errordeanselect").html('');
@@ -1362,7 +1362,7 @@ function checkErrors(){
 	//var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 	var numberRegex=/^\d+$/;
 	//var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-	var phoneRegex = /^[\d]{2,3}-[\d]{7}$/;		
+	var phoneRegex = /^[\d]{2,3}-?[\d]{7}$/;		
 	if($("#totalCost").val()=='0'){
 		errors = true;
 		$("#errortotalcost").html('<font color="red">יש להכניס ערך מספרי לשדה סה"כ ההוצאות לארגון הכנס<font color="red"><br>');

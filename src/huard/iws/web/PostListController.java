@@ -200,10 +200,4 @@ public class PostListController extends GeneralFormController {
 		this.postService = postService;
 	}
 	
-	private MessageService messageService;
-
-	public void setMessageService(MessageService messageService) {
-		this.messageService = messageService;
-	}
-
 }

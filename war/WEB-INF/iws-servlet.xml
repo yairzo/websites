@@ -14,9 +14,9 @@
 	</bean> -->
 
 	<bean id="loginController" class="huard.iws.web.LoginController" parent="generalController">
-		<property name="messageService">
+		<!--<property name="messageService">
             <ref bean="messageService"/>
-        </property>
+        </property> -->
      </bean>
 
 	<bean id="viewMessageController" class="huard.iws.web.ViewMessageController" parent="generalController"/>
@@ -76,9 +76,9 @@
         <property name="commandClass"><value>huard.iws.web.PostListController$PostListControllerCommand</value></property>
         <property name="formView"><value>postList</value></property>
         <property name="successView"><value>posts.html</value></property>
-    	<property name="messageService">
+    	<!--<property name="messageService">
             <ref bean="messageService"/>
-        </property>
+        </property> -->
     	<property name="postService">
             <ref bean="postService"/>
         </property>
@@ -110,7 +110,7 @@
         </property>
         <property name="mailMessageService">
             <ref bean="mailMessageService"/>
-        </property>
+        </property> 
       </bean>
 
       <bean id="enablePersonUserController" class="huard.iws.web.EnablePersonUserController" parent="generalController">
@@ -179,9 +179,9 @@
         <property name="sendPostService">
             <ref bean="sendPostService"/>
         </property>
-       <property name="messageService">
+       <!--<property name="messageService">
             <ref bean="messageService"/>
-        </property>
+        </property>-->
       </bean>
 
 	<bean id="proposalStateHistoryController" class="huard.iws.web.ProposalStateHistoryController"
@@ -206,9 +206,9 @@
         <property name="mailMessageService">
             <ref bean="mailMessageService"/>
         </property>
-        <property name="messageService">
+        <!--<property name="messageService">
             <ref bean="messageService"/>
-        </property>
+        </property>-->
     </bean>
 
 	<bean id="applicationContextProvider" class="huard.iws.util.ApplicationContextProvider"/>
@@ -452,6 +452,9 @@
         <property name="userMessageService">
             <ref bean="userMessageService"/>
         </property>
+        <property name="messageService">
+            <ref bean="messageService"/>
+        </property>
         <property name="configurationService">
             <ref bean="configurationService"/>
         </property>
@@ -461,8 +464,17 @@
     	<property name="personService">
             <ref bean="personService"/>
         </property>
+    	<property name="personPrivilegeService">
+            <ref bean="personPrivilegeService"/>
+        </property>
         <property name="userMessageService">
             <ref bean="userMessageService"/>
+        </property>
+        <property name="messageService">
+            <ref bean="messageService"/>
+        </property>
+       <property name="configurationService">
+            <ref bean="configurationService"/>
         </property>
      </bean>
 

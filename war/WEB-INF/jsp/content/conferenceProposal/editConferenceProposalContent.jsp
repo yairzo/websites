@@ -375,7 +375,6 @@
 						<c:if test="${!readOnly && !command.submitted}">
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGuestsAttach"/>						
 						</c:if>
-						</br>
 						<table>
 						<tr>
 						<td>
@@ -407,7 +406,6 @@
 						<c:if test="${!readOnly && !command.submitted}">
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProgramAttach"/>
 						</c:if>
-						</br>
 						<table>
 						<tr>
 						<td>

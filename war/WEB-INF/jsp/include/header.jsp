@@ -85,11 +85,30 @@
 		//	alert(scrollTopPos);
 			 document.body.scrollTop = scrollTopPos;
 		}
+		
+		$(document).ready(function() {
+	    	$("#popupDialog").dialog({
+	           autoOpen: false,
+	           show: 'fade',
+	           hide: 'fade',
+	           open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
+	    	 });
+			 $(".ui-dialog-titlebar").hide();
+			<c:if test="${popupMessage!=null && popupMessage!=''}">
+				var userMessage = "${popupMessage}";
+				$("#popupDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+				$("#popupDialog").dialog({ modal: false });
+    			$("#popupDialog").dialog("option", "position", "center");
+	    		$("#popupDialog").html(userMessage).dialog("open");
+				</c:if>
+		});
+
 	</script>
 
 
 
 </head>
+
 
 <body leftmargin="0" topmargin="0" marginheight="0"
 	<c:choose>
@@ -97,6 +116,7 @@
 		<c:otherwise> onload="moveToScrollTop()" </c:otherwise>
 	</c:choose>
 	onbeforeunload="getScrollTop()">
+
 
 	<map name="Map" id="Map"><area shape="rect" coords="469,28,695,74" href="http://huji.ac.il" alt="huji.ac.il" />
 			<area shape="rect" coords="4,63,277,94" href="http://ard.huji.ac.il/huard/main.jsp?lang=eng" alt="Authority for Research and Development" />
@@ -112,7 +132,8 @@
      </c:choose>
 
 <table width="${backgroundWidth}" border="0" align="center">
-  <tr>
+<div id="popupDialog" title="עזרה" style="display:none" dir="rtl"><p></p></div>
+   <tr>
     <td <c:if test="${!iframeView && !print}">background="image/bg.jpg" </c:if>>
       <table width="700" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
