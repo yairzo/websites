@@ -900,7 +900,7 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-	    openHelp("#dialogTotalCost",'יש לרשום את סה"כ ההוצאות הצפויות לארגון הכנס ולביצועו. אין לכלול את הסכום המבוקש מהוועדה. הערך יהיה בדולר ע"פ השער היציג בעת מילוי הטופס. ');
+	    openHelp("#dialogTotalCost",'יש לרשום את סה"כ ההוצאות הצפויות לארגון הכנס ולביצועו. הסכום יהיה נקוב בדולר אמריקאי. אין לכלול בסכום זה את ההוצאות המותנות בתמיכת הוועדה. ');
 	    return false;
 	});   
    $("#dialogCommittee").click(function(e) {
