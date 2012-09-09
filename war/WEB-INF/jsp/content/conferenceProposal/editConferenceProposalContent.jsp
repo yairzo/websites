@@ -1183,7 +1183,7 @@
 					<table width="775" cellpadding="1" cellspacing="0" align="center">
 					<tr><td><span id="errorTotalIncome" dir="rtl"><p></p></span></td></tr>
 				    <tr>
-						<td width="300"  align="right">
+						<td width="350"  align="right">
 						סה"כ ההכנסות הצפויות:
 						</td>
 						<td style="border: 1px #bca2a2 dotted" align="right">
@@ -1202,6 +1202,7 @@
 				    <tr><td>&nbsp;</td></tr>
 				    <tr>
 						<td>
+						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogSumDiff"/>
 						ההפרש בין הוצאות הצפויות להכנסות הצפויות:
 						</td>
 						<td style="border: 1px #bca2a2 dotted" align="right">

@@ -970,6 +970,17 @@ $(document).ready(function() {
 		  openHelp("#dialogProgramAttach","יש לצרף את תוכנית הכנס (ובמידת ההכרח רק תוכנית ראשונית)");
 		  return false;
 	   });   
+   $("#dialogSumDiff").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
+		var texts='<p>';
+		texts='אם ההפרש שונה מ - 0, זה סימן שהתכנון הכספי של הכנס אינו מאוזן. אפשר לתקן זאת ע"י עדכון הנתונים; בסכום ההוצאות או בסכומי ההכנסות, או בשניהם. ';
+		texts+='</p>';	    
+	    openHelp("#dialogSumDiff",texts);
+	    return false;
+	   });     
    $("#dialogInternational").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
