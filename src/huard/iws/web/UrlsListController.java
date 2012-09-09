@@ -3,7 +3,6 @@ package huard.iws.web;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.PageUrlBean;
 import huard.iws.model.PageUrl;
-import huard.iws.service.PersonService;
 import huard.iws.service.UrlsCheckerService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
@@ -143,16 +142,6 @@ public class UrlsListController extends GeneralFormController {
 		}
 
 
-	}
-
-	private PersonService personService;
-
-	public PersonService getPersonService() {
-		return personService;
-	}
-
-	public void setPersonService(PersonService personService) {
-		this.personService = personService;
 	}
 
 	private UrlsCheckerService urlsCheckerService;

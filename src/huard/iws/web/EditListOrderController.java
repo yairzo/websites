@@ -7,7 +7,6 @@ import huard.iws.model.PersonListAttribution;
 import huard.iws.service.ListService;
 import huard.iws.service.PersonAttributionListService;
 import huard.iws.service.PersonAttributionService;
-import huard.iws.service.PersonService;
 import huard.iws.util.RequestWrapper;
 
 import java.util.ArrayList;
@@ -80,12 +79,6 @@ public class EditListOrderController extends GeneralFormController {
 	private ListService listService;
 	public void setListService(ListService listService) {
 		this.listService = listService;
-	}
-
-	private PersonService personService;
-
-	public void setPersonService(PersonService personService) {
-		this.personService = personService;
 	}
 
 	private PersonAttributionService personAttributionService;

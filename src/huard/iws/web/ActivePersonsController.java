@@ -1,8 +1,6 @@
 package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
-import huard.iws.service.PersonService;
-import huard.iws.service.PersonPrivilegeService;
 import huard.iws.model.Person;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
@@ -63,18 +61,6 @@ public class ActivePersonsController extends GeneralFormController {
 		public void setListView(ListView listView) {
 			this.listView = listView;
 		}
-
-
-	}
-
-	private PersonService personService;
-
-	public PersonService getPersonService() {
-		return personService;
-	}
-
-	public void setPersonService(PersonService personService) {
-		this.personService = personService;
 	}
 
 }

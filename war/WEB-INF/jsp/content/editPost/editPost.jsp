@@ -74,7 +74,7 @@
 							<font color="red">*</font><fmt:message key="${lang.localeId}.post.subject"/>
 						</td>
 						<td>
-							<form:input size="40" path="messageSubject" cssClass="green messageSubject"/>
+							<form:input htmlEscape="true" size="40" path="messageSubject" cssClass="green messageSubject"/>
 						</td>
 				</tr>
 

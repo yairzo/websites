@@ -1,6 +1,7 @@
 package huard.iws.servlet;
 
 import huard.iws.bean.ConferenceProposalBean;
+import huard.iws.bean.PersonBean;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.FinancialSupport;
 import huard.iws.model.Committee;
@@ -11,6 +12,7 @@ import huard.iws.service.FacultyService;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.RequestWrapper;
+import huard.iws.util.UserPersonUtils;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -24,14 +26,31 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.ApplicationContext;
+
 import java.io.*;
 public class ConferenceProposalsCsv extends HttpServlet {
 	private static final long serialVersionUID = -1;
 
 	// private static final Logger logger = Logger.getLogger(ImageViewer.class);
+	
+	private boolean isAuthorized(HttpServletRequest request){
+		ApplicationContext context = ApplicationContextProvider.getContext();
+		Object obj = context.getBean("personService");
+		PersonService personService = (PersonService)obj;
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		if (userPersonBean.isAuthorized("WEBSITE", "ADMIN")) 
+			return true;
+		else
+			return false;
+	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		if (! isAuthorized(request)) return;
+
 		ServletOutputStream out = null;
 		try {
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -422,7 +441,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append('~');
 					b.append(conferenceProposalBean.getInternalId());
 					b.append('~');
-					b.append(conferenceProposalBean.getOpenDate());
+					b.append(formatter.format(conferenceProposalBean.getOpenDate()));
 					b.append('~');
 					b.append(committee.getName());
 					b.append('~');
@@ -460,7 +479,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append('~');
 					b.append(conferenceProposalBean.getInternalId());
 					b.append('~');
-					b.append(conferenceProposalBean.getOpenDate());
+					b.append(formatter.format(conferenceProposalBean.getOpenDate()));
 					b.append('~');
 					b.append("הכנסות משותפים");
 					b.append('~');
@@ -490,7 +509,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append('~');
 					b.append(conferenceProposalBean.getInternalId());
 					b.append('~');
-					b.append(conferenceProposalBean.getOpenDate());
+					b.append(formatter.format(conferenceProposalBean.getOpenDate()));
 					b.append('~');
 					b.append("הכנסות ממממן חיצוני");
 					b.append('~');
@@ -520,7 +539,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append('~');
 					b.append(conferenceProposalBean.getInternalId());
 					b.append('~');
-					b.append(conferenceProposalBean.getOpenDate());
+					b.append(formatter.format(conferenceProposalBean.getOpenDate()));
 					b.append('~');
 					b.append("הכנסות מדמי הרשמה");
 					b.append('~');
@@ -551,7 +570,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append('~');
 					b.append(conferenceProposalBean.getInternalId());
 					b.append('~');
-					b.append(conferenceProposalBean.getOpenDate());
+					b.append(formatter.format(conferenceProposalBean.getOpenDate()));
 					b.append('~');
 					b.append(committeeRemarks.substring(0,committeeRemarks.indexOf(",")));
 					b.append('~');
