@@ -74,7 +74,6 @@ $(document).ready(function() {
 	});
 			
 	$(".calcSum").keyup(function(e) {
-		calcParticipants();
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
@@ -86,14 +85,17 @@ $(document).ready(function() {
 			 calcParticipants();
 			 return false;
 		}
-		else if(totalParticipantsCounter>1000){
+		calcParticipants();
+		if(totalParticipantsCounter>1000){
 			 $(this).val('0');
 			 openHelp('','כלל המשתתפים בכנס לא יעלה על 1000');
 			 calcParticipants();
 			 return false;
 		}
 	 });   
-	
+	$(".calcSum").blur(function(e) {
+		calcParticipants();
+	});	
 
 
 	
