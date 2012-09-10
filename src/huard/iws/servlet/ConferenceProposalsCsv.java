@@ -2,22 +2,20 @@ package huard.iws.servlet;
 
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.bean.PersonBean;
+import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.FinancialSupport;
-import huard.iws.model.Committee;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.ConfigurationService;
 import huard.iws.service.FacultyService;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
-import huard.iws.util.RequestWrapper;
 import huard.iws.util.UserPersonUtils;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -28,8 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationContext;
-
-import java.io.*;
 public class ConferenceProposalsCsv extends HttpServlet {
 	private static final long serialVersionUID = -1;
 
@@ -39,6 +35,11 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		ApplicationContext context = ApplicationContextProvider.getContext();
 		Object obj = context.getBean("personService");
 		PersonService personService = (PersonService)obj;
+		Object obj1 = context.getBean("configurationService");
+		ConfigurationService configurationService = (ConfigurationService)obj1;
+		String password = request.getParameter("password");
+		if (password != null && password.equals(configurationService.getConfigurationString("conferenceProposalCsvPassword")))
+			return true;
 		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
 		if (userPersonBean.isAuthorized("WEBSITE", "ADMIN")) 
 			return true;

@@ -2,10 +2,10 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.service.ConfigurationService;
-import huard.iws.service.PersonService;
-import huard.iws.service.PersonPrivilegeService;
-import huard.iws.service.UserMessageService;
 import huard.iws.service.MessageService;
+import huard.iws.service.PersonPrivilegeService;
+import huard.iws.service.PersonService;
+import huard.iws.service.UserMessageService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
@@ -71,6 +73,12 @@ public abstract class GeneralFormController extends SimpleFormController
 			personPrivilegeService.updateLastAction(userPersonBean);
 			Object command = errors.getTarget();
 			Map<String, Object> model = errors.getModel();
+			List<FieldError> errorsList = errors.getBindingResult().getFieldErrors();
+		    for (FieldError error : errorsList ) {
+		        System.out.println (error.getObjectName() + " - " + error.getDefaultMessage());
+		    }
+
+			
 			model.put("command", command);
 			model.put("userPersonBean", userPersonBean);
 			model.put("validationErrors", errors.hasErrors());

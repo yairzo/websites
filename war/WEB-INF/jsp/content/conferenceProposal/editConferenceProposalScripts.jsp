@@ -91,7 +91,7 @@ $(document).ready(function() {
 			 openHelp('','כלל המשתתפים בכנס לא יעלה על 1000');
 			 calcParticipants();
 			 return false;
-		}
+		}		
 	 });   
 	$(".calcSum").blur(function(e) {
 		calcParticipants();

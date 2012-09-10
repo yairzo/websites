@@ -1623,17 +1623,11 @@
 				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה למסך קודם </button>		
 				<button class="grey" title="גרסת הדפסה"  onclick="window.location='conferenceProposal.html?id=${command.id}&p=1';return false;">גרסת הדפסה </button>		
-				<spring:bind path="command.*">
-    				<c:forEach items="${status.errorMessages}" var="error">
-        				<font color="red">Error code: <c:out value="${error}"/></font>
-        				<br><br>
-    				</c:forEach>
-				</spring:bind>
 			</td>
 		</tr>
 </c:if>
     </table>
-</form:form>
+   </form:form>
     </td>
   </tr>
 
