@@ -161,7 +161,6 @@
 
 
 	$(document).ready(function() {
-		alert('${command.messageSubject}');
 		$(".callOfProposal").autocomplete({ position: { my : "right top", at: "right bottom" }});
 		$(".callOfProposal").autocomplete ("widget").css("width",'auto');  
 		ShowCKEDITOR();
