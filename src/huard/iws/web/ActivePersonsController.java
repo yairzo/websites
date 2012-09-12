@@ -1,7 +1,7 @@
 package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
-import huard.iws.model.Person;
+import huard.iws.model.PersonPrivilege;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 
@@ -35,14 +35,8 @@ public class ActivePersonsController extends GeneralFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
-		List<Integer> personids = personPrivilegeService.getActivePersons();
-		List<PersonBean> persons =  new ArrayList<PersonBean>();
-		for (int i=0;i<personids.size();i++){
-			Person person = personService.getPerson(personids.get(i));
-			persons.add(new PersonBean(person));
-		}
-			
-		model.put("activePersons", persons);
+		List<PersonPrivilege> personsPrivileges =  personPrivilegeService.getActivePersons();
+		model.put("activePersons", personsPrivileges);
 		return new ModelAndView ("activePersonsList",model);
 	}
 

@@ -24,6 +24,6 @@ public interface PersonPrivilegeDao {
 
 	public void updateLastAction(PersonBean personId);
 	
-	public List<Integer> getActivePersons ();
+	public List<PersonPrivilege> getActivePersons ();
 
 }

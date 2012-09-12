@@ -6,6 +6,7 @@ import huard.iws.model.Privilege;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -40,7 +41,12 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 		personPrivilege.setPassword(rs.getString("password"));
 		personPrivilege.setPrivilege(rs.getString("privilege"));
 		personPrivilege.setSubscriptionMd5(rs.getString("subscriptionMd5"));
-        return personPrivilege;
+		long lastAction = 0;
+		Timestamp alastAction = rs.getTimestamp("lastAction");
+		if (alastAction != null)
+			lastAction = alastAction.getTime();
+		personPrivilege.setLastAction(lastAction);
+       return personPrivilege;
     }
 	};
 	ParameterizedRowMapper<Privilege> rowMapperPrivilege = new ParameterizedRowMapper<Privilege>(){
@@ -103,14 +109,9 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 		String query = "update personPrivilege set lastAction=now()  where personId=?";
 		getSimpleJdbcTemplate().update(query, person.getId());
 	}	
-	public List<Integer> getActivePersons(){
-		String query = "select personId from personPrivilege where lastAction >= DATE_SUB(NOW(),INTERVAL 30 MINUTE)  group by personId";
-		List<Integer> personIds = getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
-			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
-				Integer personId = new Integer(rs.getInt("personId"));
-				return personId;
-			}
-		});
-		return personIds;
+	public List<PersonPrivilege> getActivePersons(){
+		String query = "select * from personPrivilege where lastAction >= DATE_SUB(NOW(),INTERVAL 30 MINUTE)  group by personId";
+		List<PersonPrivilege> persons = getSimpleJdbcTemplate().query(query, rowMapper);
+		return persons;
 	}
 }

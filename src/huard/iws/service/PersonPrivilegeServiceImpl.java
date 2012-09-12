@@ -39,7 +39,7 @@ public class PersonPrivilegeServiceImpl implements PersonPrivilegeService{
 		personPrivilegeDao.updateLastAction(userPersonBean);
 	}
 
-	public List<Integer> getActivePersons (){
+	public List<PersonPrivilege> getActivePersons (){
 		return personPrivilegeDao.getActivePersons();
 	}
 

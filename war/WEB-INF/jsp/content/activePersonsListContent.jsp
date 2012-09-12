@@ -38,10 +38,10 @@
              <tbody>
   				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 				<td align="right">
-				<c:out value="${person.degreeFullName}"></c:out>
+				<c:out value="${person.fullName}"></c:out>
   				</td>
   				<td align="right">
-				<c:out value="${person.email}"></c:out>
+				<c:out value="${person.formattedLastAction}"></c:out>
 				</td>
    	  			</tr>
   	  		</tbody>

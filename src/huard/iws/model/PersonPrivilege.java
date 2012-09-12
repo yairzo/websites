@@ -1,5 +1,12 @@
 package huard.iws.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import huard.iws.bean.PersonBean;
+import huard.iws.service.PersonService;
+import huard.iws.util.ApplicationContextProvider;
+
 public class PersonPrivilege {
 	private int id;
 	private int personId;
@@ -51,5 +58,18 @@ public class PersonPrivilege {
 	public void setLastAction(long lastAction) {
 		this.lastAction = lastAction;
 	}
+	public String getFullName() {
+		PersonService personService = (PersonService) ApplicationContextProvider
+				.getContext().getBean("personService");
+		PersonBean person = new PersonBean(
+				personService.getPerson(this.personId));
+		return person.getDegreeFullNameHebrew();
+	}
+
+		public String getFormattedLastAction() {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+			Date lastAction = new Date(this.lastAction);
+			return formatter.format(lastAction);
+		}
 
 }

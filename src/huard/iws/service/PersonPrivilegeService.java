@@ -24,7 +24,7 @@ public interface PersonPrivilegeService {
 	
 	public void updateLastAction(PersonBean person);
 	
-	public List<Integer> getActivePersons ();
+	public List<PersonPrivilege> getActivePersons ();
 
 
 }
