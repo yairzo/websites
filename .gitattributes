@@ -51,6 +51,7 @@ src/huard/iws/web/ConferenceProposalAttachmentsController.java svn_mime_002dtype
 src/huard/iws/web/ConferenceProposalController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ConferenceProposalGradeController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ConferenceProposalListController.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/web/EditCallOfProposalController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/EditPersonPrivilegeController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ImageActionsController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/PersonListHelperController.java svn_mime_002dtype=text%2Fplain
@@ -74,6 +75,9 @@ war/WEB-INF/jsp/content/editPerson/editPersonPrivilegeContent.jsp svn_mime_002dt
 war/WEB-INF/jsp/content/uploadImage/uploadImageContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/uploadImage/uploadImageScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/urlsListContent.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/content/website/editCallOfProposalContent.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/content/website/editCallOfProposalScripts.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/editCallOfProposal.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/editConferenceProposal.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/editPersonPrivilege.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/personListHelper.jsp svn_mime_002dtype=text%2Fplain

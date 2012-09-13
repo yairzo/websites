@@ -100,6 +100,16 @@
         <property name="formView"><value>activePersonsList</value></property>
         <property name="successView"><value>active.html</value></property>
      </bean>
+	
+	<bean id="editCallOfProposalController" class="huard.iws.web.EditCallOfProposalController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.EditCallOfProposalController$CallOfProposalCommand</value></property>
+        <property name="formView"><value>editCallOfProposal</value></property>
+        <property name="successView"><value>callOfProposal.html</value></property>
+     	<property name="subjectService">
+            <ref bean="subjectService"/>
+        </property>
+     </bean>
      
 	<bean id="approvePostController" class="huard.iws.web.ApprovePostController" parent="generalController">
 		<property name="postService">
@@ -924,6 +934,7 @@
 				<prop key="/error404.html">urlFilenameViewController</prop>
 				<prop key="/error500.html">urlFilenameViewController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>
+				<prop key="/callOfProposal.html">editCallOfProposalController</prop>
             </props>
         </property>
     </bean>
