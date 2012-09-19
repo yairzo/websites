@@ -167,7 +167,7 @@ $(document).ready(function() {
 	$(".editor").click(function(){
 		$(this).ckeditor(config);
 	});
-	
+	$(".editoropen").ckeditor(config);
     
 });
 var fieldname=""; 

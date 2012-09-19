@@ -38,7 +38,7 @@
  
  
                 <tr class="form">
-					<td colspan="4" align="right"><h3> פרטי קול קורא מספר: 2471
+					<td colspan="4" align="right"><h3> פרטי קול קורא מספר: 255
 					</h3></td>
 				</tr>
                 <tr class="form">
@@ -47,11 +47,15 @@
                 <tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 						 כותרת:
-					 מלגות אהרון ואפרים קציר בתחומי מדעי הטבע וההנדסה 
+					 ESF Exploratory Workshops 2008 
 					</td>
 				</tr>
 				<tr class="form">
-					<td width="300" style="border:1px #bca2a2 dotted">
+					<td  width="300" style="border:1px #bca2a2 dotted" nowrap>
+						בעל המסמך:
+						יאיר זוהר
+					</td>
+					<td  width="300" style="border:1px #bca2a2 dotted">
 						 תאריך פרסום:
 						<input type="text" class="green date medium100" value="16/11/11"/>
 					</td>
@@ -61,10 +65,6 @@
 						<input type="checkbox"/>
 						 כל השנה
  					</td>
-					<td  style="border:1px #bca2a2 dotted" nowrap>
-						בעל המסמך:
-						יאיר זוהר
-					</td>
 				</tr>
 				<tr class="form">
 					<td width="300" style="border:1px #bca2a2 dotted">
@@ -248,7 +248,7 @@
 					<table width="950">
   					<tr>
 					<td colspan="3">
-      					טפסים:<br>
+      					טפסים אינטרנטיים:<br>
  					</td>
 					</tr>				
  					<tr>
@@ -260,9 +260,32 @@
 						</textarea>
  					</td>
  					</tr>
- 					</table>
+  					</table>
  					</td>
 				</tr>	
+				<tr>
+					<td colspan="4" style="border:1px #bca2a2 dotted">
+					<table width="950">
+					<tr>
+					<td colspan="3">
+					קבצים:
+					<table width="800" align="center">
+					<tr>
+					<td>
+						<a style="text-decoration:underline" href="fileViewer?conferenceProposalId=70&attachFile=guestsAttach&contentType=application/vnd.oasis.opendocument.spreadsheet&attachmentId=1"
+								target="_blank">טופס הרשמה מספר 1123</a><br><br>						
+						<div style="display: block; width: 60px; height: 27px; overflow: hidden;">
+							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">הוסף קובץ...</a></button>
+							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="formAttach" id="formAttach"/>
+						</div>
+					</td>
+					</tr>
+					</table>
+ 					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+ 				</tr>
 				<tr>
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 					<table width="950">

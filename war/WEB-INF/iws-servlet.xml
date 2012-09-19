@@ -93,6 +93,12 @@
             <ref bean="urlsCheckerService"/>
         </property>
      </bean>
+	<bean id="pageListController" class="huard.iws.web.PageListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.PageListController$PageListControllerCommand</value></property>
+        <property name="formView"><value>pageList</value></property>
+        <property name="successView"><value>pages.html</value></property>
+      </bean>
      
 	<bean id="activePersonsController" class="huard.iws.web.ActivePersonsController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
@@ -109,6 +115,13 @@
      	<property name="subjectService">
             <ref bean="subjectService"/>
         </property>
+     </bean>
+     
+	<bean id="editTextualPageController" class="huard.iws.web.EditTextualPageController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.EditTextualPageController$TextualPageCommand</value></property>
+        <property name="formView"><value>editTextualPage</value></property>
+        <property name="successView"><value>textualPage.html</value></property>
      </bean>
      
 	<bean id="approvePostController" class="huard.iws.web.ApprovePostController" parent="generalController">
@@ -935,6 +948,8 @@
 				<prop key="/error500.html">urlFilenameViewController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>
 				<prop key="/callOfProposal.html">editCallOfProposalController</prop>
+				<prop key="/textualPage.html">editTextualPageController</prop>
+				<prop key="/pages.html">pageListController</prop>
             </props>
         </property>
     </bean>
