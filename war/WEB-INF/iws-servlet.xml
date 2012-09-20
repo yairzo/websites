@@ -960,5 +960,11 @@
         <property name="suffix"><value>.jsp</value></property>
 
     </bean>
-
+    
+	<bean id="startUpService" class="huard.iws.service.StartUpService" 
+		init-method="init">
+    	<property name="personPrivilegeDao">
+            <ref bean="personPrivilegeDao"/>
+        </property>
+ 	</bean>
 </beans>

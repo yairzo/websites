@@ -26,4 +26,5 @@ public interface PersonPrivilegeDao {
 	
 	public List<PersonPrivilege> getActivePersons ();
 
+	public void clearLastActionTime();
 }

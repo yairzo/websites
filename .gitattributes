@@ -39,6 +39,7 @@ src/huard/iws/service/ParseOrganizationUnitFileService.java svn_mime_002dtype=te
 src/huard/iws/service/ParseOrganizationUnitFileServiceImpl.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/service/PersonPrivilegeService.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/service/PersonPrivilegeServiceImpl.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/service/StartUpService.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/service/UrlsCheckerService.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/service/UrlsCheckerServiceImpl.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/servlet/ConferenceProposalsCsv.java svn_mime_002dtype=text%2Fplain

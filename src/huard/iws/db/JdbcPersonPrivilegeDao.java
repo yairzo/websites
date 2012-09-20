@@ -114,4 +114,9 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 		List<PersonPrivilege> persons = getSimpleJdbcTemplate().query(query, rowMapper);
 		return persons;
 	}
+	public void clearLastActionTime(){
+		String query = "update personPrivilege set lastAction='0000-00-00 00:00:00'";
+		getSimpleJdbcTemplate().update(query);
+	}	
+
 }
