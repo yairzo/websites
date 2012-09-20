@@ -24,7 +24,7 @@
         <input type="hidden" name="searchCreteria.roleFilter" value="${command.searchCreteria.roleFilter}"/>
     	<table border="0" align="center" style="width: 95%; direction: rtl;" cellspacing="10">
     		<tr>
-    			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+     			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
     			<td class="container" style="width: 15%;">
     				<span style="text-align: center;"><h2> סינון הבקשות שתוצגנה ברשימה</h2></span>
     				<br/>
@@ -87,7 +87,7 @@
 				</authz:authorize>
     			<td class="container" style="width: 85%; vertical-align: top;text-align: center;">
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
-    					<span><h2> רשימת הבקשות שלך</h2></span>
+              			<h1>מערכת הכנסים: אלה הן הבקשות שלך, הרשומות כבר במערכת <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogList"/></h1> 
    					</authz:authorize>
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
     					<span><h2> רשימת הבקשות של חוקרים ביחידה:<c:out escapeXml="false" value="${myFaculty}"></c:out></h2> </span>
@@ -96,25 +96,25 @@
     					<span><h2> רשימת הבקשות </h2></span>
    					</authz:authorize>
     				<table style="width: 100%;">
-    				<c:choose>
-    				<c:when test="${fn:length(conferenceProposals) > 0}">
-              			<thead>
+             			<thead>
   							<tr>
 				  					<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
-		  							<td style="font-weight: bold;width:140;align:right;">החוקר המבקש</td>
+		  							<td style="font-weight: bold;width:15%;">החוקר המבקש</td>
   									</authz:authorize>
-			  						<td style="font-weight: bold;width:250;align:center;">שם הכנס</td>
-			  						<td style="font-weight: bold;width:60;align:center;">תאריך הכנס</td>
-			  						<td style="font-weight: bold;width:140;align:center;">הדיקן המתייחס</td>
- 			  						<td style="font-weight: bold;width:50;align:center;">סטטוס</td>
- 			  						<td style="font-weight: bold;width:60;align:center;">תאריך הסטטוס</td>
+			  						<td style="font-weight: bold;width:60%;">שם הכנס</td>
+			  						<td style="font-weight: bold;width:10%; text-align:center">תאריך הכנס</td>
+			  						<td style="font-weight: bold;width:15%;">הדיקן המתייחס</td>
+ 			  						<td style="font-weight: bold;width:5%;text-align:center">סטטוס</td>
+ 			  						<td style="font-weight: bold;width:10%;text-align:center">תאריך הסטטוס</td>
    									<c:if test="${ admin}">
-   									<td style="font-weight: bold;width:20;align:center;">לדיון הקרוב</td>
+   									<td style="font-weight: bold;width:5%;">לדיון הקרוב</td>
  			  						</c:if>
  			  						
     	  					</tr>
    	  					</thead>
-    				
+    				<c:choose>
+    				<c:when test="${fn:length(conferenceProposals) > 0}">
+     				
     				<c:forEach items="${conferenceProposals}" var="conferenceProposal" varStatus="varStatus">
              			<c:choose><c:when test="${varStatus.index%2==0}"><c:set var="cssClass" value="darker"/></c:when><c:otherwise><c:set var="cssClass" value="brighter"/></c:otherwise></c:choose>
  							<tbody>            			
@@ -134,7 +134,7 @@
  										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
   											<a href="conferenceProposal.html?id=${conferenceProposal.id}"><c:choose><c:when test="${fn:length(conferenceProposal.subject)>0}"><c:out value="${conferenceProposal.subject}"></c:out></c:when><c:otherwise>ללא נושא</c:otherwise></c:choose></a>
   										</td>
- 										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
+ 										<td style="text-align:center" onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
    											<a href="conferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedFromDate}"/></a>
  										</td>
   										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
@@ -154,7 +154,7 @@
   											</c:otherwise>
   											</c:choose>
   										</td>
-  										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
+  										<td style="text-align:center" onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
   											<a href="conferenceProposal.html?id=${conferenceProposal.id}">
   											<c:choose>
    											<c:when test="${conferenceProposal.deleted}">
@@ -173,7 +173,7 @@
   											</c:choose>
   											</a>
   										</td>
- 										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
+ 										<td style="text-align:center" onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
    											<a href="conferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.statusDate}"/></a>
  										</td>
  										<c:if test="${admin}">

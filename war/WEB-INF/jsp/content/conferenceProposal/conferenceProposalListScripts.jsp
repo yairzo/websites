@@ -222,7 +222,15 @@ $(document).ready(function() {
 	    openHelp("#dialogNewConferenceProposal",text);
 	    return false;
 	   });
-   
+  
+  $("#dialogList").click(function(e) {
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 400 });
+		var text="הקש על בקשה שבה ברצונך לעיין או שאותה ברצונך לעדכן (העדכון אפשרי רק אם  היא עדיין בסטטוס טיוטה)";
+	    openHelp("#dialogList",text);
+	    return false;
+	   });   
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 });
 </script>
