@@ -3,7 +3,7 @@
 		<c:if test="${!printcp}">
        	 <tr>
           		<td align="right" bgcolor="#787669" height="20">
-           			<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>
+           			<c:set var="applicationName" value="הרשות למו\"פ"/>
           	        <c:set var="pageName" value="בקשה למימון כנס"/>
        	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
      	      	 </td>

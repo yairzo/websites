@@ -5,7 +5,8 @@
 	</div>
 
           <td align="right" bgcolor="#787669" height="20">
-          		<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>
+          		<c:set
+		var="applicationName" value="הרשות למו\"פ" />
           	        <c:set var="pageName" value="רשימת הבקשות למימון לכנסים"/>
        	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
 
