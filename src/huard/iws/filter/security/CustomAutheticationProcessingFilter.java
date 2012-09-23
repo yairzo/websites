@@ -44,14 +44,14 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 			moduleToSubscribe = "";
 		String modulePrivilege = "";
 		//authenticationFailureUrl = authenticationFailureUrl.replaceAll("&tc=[\\d]+&mts=.*?", "");
-		/*if (moduleToSubscribe.equals("post")){
+		if (moduleToSubscribe.equals("post")){
 			modulePrivilege = "ROLE_POST_READER";			
-			setAuthenticationFailureUrl("/welcome.html?login_error=1&tc=1");
+			//modulePrivilege.setAuthenticationFailureUrl("/welcome.html?login_error=1&tc=1");
 		}
 		else if (moduleToSubscribe.equals("conference")){
 			modulePrivilege = "ROLE_CONFERENCE_RESEARCHER";
-			setAuthenticationFailureUrl("/conferenceProposal.html?login_error=1");
-		}*/		
+			//setAuthenticationFailureUrl("/conferenceProposal.html?login_error=1");
+		}		
 		setAuthenticationFailureUrl("/login.html?login_error=1&tc="+request.getSession().getAttribute("titleCode"));
 		
 		String encodedPassword = MD5Encoder.digest(password);
