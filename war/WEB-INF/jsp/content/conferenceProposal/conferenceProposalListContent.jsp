@@ -87,7 +87,7 @@
 				</authz:authorize>
     			<td class="container" style="width: 85%; vertical-align: top;text-align: center;">
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
-              			<h1>מערכת הכנסים: אלה הן הבקשות שלך, הרשומות כבר במערכת <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogList"/></h1> 
+              			<h1>הבקשות שלך <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogList"/></h1> 
    					</authz:authorize>
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
     					<span><h2> רשימת הבקשות של חוקרים ביחידה:<c:out escapeXml="false" value="${myFaculty}"></c:out></h2> </span>
@@ -207,10 +207,6 @@
 				<table width="100%">	
 				<tr>
 					<td align="right">
-					<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
-					<button class="grey" onclick="window.location='conferenceProposal.html?action=new';return false;">הגשת בקשה חדשה למימון כנס</button>
-      		        <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogNewConferenceProposal"/>
-					</authz:authorize>
 					<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
 					<button class="grey" onclick="window.location='conferenceProposalsGrade.html';return false;">דירוג בקשות</button>
  					</authz:authorize>
