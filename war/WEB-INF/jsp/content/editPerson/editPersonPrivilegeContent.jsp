@@ -19,7 +19,23 @@
 		});
 		 $(".ui-dialog-titlebar").hide();
 		$('.select').click(function(){
-				if($('#password').val()==''){
+				if($('#password').val()!='' && "${hasPassword}"){// might be changing previous password
+			    	$("#genericDialog").dialog('option', 'buttons', {
+			            "ביטול" : function() {
+			                $(this).dialog("close");
+			                return false;
+			               },
+			            "אישור" : function() {
+			                $(this).dialog("close");
+			                addPriveleges();
+			               }
+			            });
+					$("#genericDialog").dialog({ modal: false });
+		    	   	$("#genericDialog").dialog("option", "position", "center");
+		    	    $("#genericDialog").text("יש לשים לב כי אישור פעולה זו תדרוס סיסמה קודמת שקימת במערכת").dialog("open");
+					return false;
+				}
+				else if($('#password').val()=='' && !"${hasPassword}"){
 					$("#genericDialog").dialog("option", "buttons", {"סגור" : function() {  $(this).dialog("close");} });
 					$("#genericDialog").dialog({ modal: false });
 		    	   	$("#genericDialog").dialog("option", "position", "center");
@@ -82,7 +98,7 @@
 				<tr class="form">
 					<td align="right" >
 						סיסמה:
-						<input class="green" type="password" name="password" id="password" value="${password}">
+						<input class="green" name="password" id="password" value="">
 					</td>
 					<td align="right" >
 						פעיל:

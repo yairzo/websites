@@ -38,7 +38,7 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 		if (action.equals("insert")){//add from allPrivilegesSelected values to personPrivilege table
 			String password = request.getParameter("password","");
 			String encodedPassword = "";
-			if(!password.isEmpty()&& !password.equals("11111111"))
+			if(!password.isEmpty())
 				encodedPassword=MD5Encoder.digest(password);
 			String enabled = request.getParameter("enabled","");
 			String vals = request.getParameter("vals", "");
@@ -63,7 +63,7 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 		if (action.equals("save")){//save just password, enabled
 			String password = request.getParameter("password","");
 			String encodedPassword = "";
-			if(!password.isEmpty()&& !password.equals("11111111"))
+			if(!password.isEmpty())
 				encodedPassword=MD5Encoder.digest(password);
 			String enabled = request.getParameter("enabled","");
 			personPrivilegeService.updatePersonPrivilege(personBean.getId(),encodedPassword,enabled);
@@ -73,7 +73,7 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 		return new ModelAndView( new RedirectView(getSuccessView()), newModel);
 	}
 
-
+	
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
@@ -106,10 +106,8 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 		
 		model.put("personName", personBean.getDegreeFullNameHebrew());
 		
-		if(personPrivilegeService.getPrivilegePassword(personBean.getId()).isEmpty())
-			model.put("password", "");
-		else
-			model.put("password", "11111111");
+		if(!personPrivilegeService.getPrivilegePassword(personBean.getId()).isEmpty())
+			model.put("hasPassword", true);
 		
 		model.put("enabled",personPrivilegeService.getPrivilegeEnabled(personBean.getId()));
 		
