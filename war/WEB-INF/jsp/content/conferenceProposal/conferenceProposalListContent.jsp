@@ -5,8 +5,7 @@
 	</div>
 
           <td align="right" bgcolor="#787669" height="20">
-          		<c:set
-		var="applicationName" value="הרשות למו\"פ" />
+          		<c:set var="applicationName" value="הרשות למו\"פ"/>
           	        <c:set var="pageName" value="רשימת הבקשות למימון לכנסים"/>
        	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
 
@@ -209,7 +208,7 @@
 				<tr>
 					<td align="right">
 					<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
-					<button class="grey" onclick="window.location='conferenceProposal.html?action=new';return false;">הגשת בקשה למימון כנס</button>
+					<button class="grey" onclick="window.location='conferenceProposal.html?action=new';return false;">הגשת בקשה חדשה למימון כנס</button>
       		        <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogNewConferenceProposal"/>
 					</authz:authorize>
 					<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">

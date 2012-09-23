@@ -69,12 +69,7 @@ $(document).ready(function() {
 	</div>
 
 	<td>
-		<authz:authorize ifAnyGranted="ROLE_POST_READER">
-		<p class="white">מערכת דיוור ישיר הרשות למו"פ > כניסה</p>
-		</authz:authorize>
-		<authz:authorize ifNotGranted="ROLE_POST_READER">
-		<p class="white">מערכת משולבת הרשות למו"פ > כניסה</p>
-		</authz:authorize>
+		<p class="white">הרשות למו"פ > תפריט ראשי</p>		
 	</td>
 	<td>
 		<p class="white">משתמש: <c:out value="${userPersonBean.degreeFullNameHebrew}"/></p>

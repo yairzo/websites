@@ -30,8 +30,6 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 			getSimpleJdbcTemplate().query(query,rowMapperPrivilege);
 		return privileges;
 	}
-	
-
 
 	ParameterizedRowMapper<PersonPrivilege> rowMapper = new ParameterizedRowMapper<PersonPrivilege>(){
 	public PersonPrivilege mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -41,11 +39,8 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 		personPrivilege.setPassword(rs.getString("password"));
 		personPrivilege.setPrivilege(rs.getString("privilege"));
 		personPrivilege.setSubscriptionMd5(rs.getString("subscriptionMd5"));
-		long lastAction = 0;
-		Timestamp alastAction = rs.getTimestamp("lastAction");
-		if (alastAction != null)
-			lastAction = alastAction.getTime();
-		personPrivilege.setLastAction(lastAction);
+		Timestamp lastAction = rs.getTimestamp("lastAction");
+		personPrivilege.setLastAction(lastAction != null ? lastAction.getTime() : 0);
        return personPrivilege;
     }
 	};
@@ -60,7 +55,7 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 
 	public void insertPersonPrivilege(int personId, String privilege, String password, String enabled){
 		if(password.isEmpty()){
-			String query = "select distinct password from personPrivilege where personId = ? limit 1";
+			String query = "select password from personPrivilege where personId = ? limit 1";
 			password = getSimpleJdbcTemplate().queryForObject(query,String.class,personId);
 		}
 		String query = "insert ignore personPrivilege set personId = ?, privilege = ?,password=?";
