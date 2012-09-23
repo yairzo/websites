@@ -69,7 +69,15 @@ $(document).ready(function() {
 	</div>
 
 	<td>
+		<c:if test="${titleCode==2}">
+		<p class="white">הרשות למו"פ > מערכת כנסים</p>
+		</c:if>
+		<c:if test="${titleCode==1}">
 		<p class="white">הרשות למו"פ > תפריט ראשי</p>		
+		</c:if>
+		<c:if test="${titleCode==0}">
+		<p class="white">הרשות למו"פ > תפריט ראשי</p>		
+		</c:if>							
 	</td>
 	<td>
 		<p class="white">משתמש: <c:out value="${userPersonBean.degreeFullNameHebrew}"/></p>
@@ -91,14 +99,18 @@ $(document).ready(function() {
 				<td valign="top" align="center"><br>
 					<table width="400" border="0" align="center" cellpadding="3" dir="rtl">
 						<tr>
-							<authz:authorize ifAnyGranted="ROLE_POST_READER">
+						<c:if test="${titleCode==2}">
+							<td colspan="2" align="center"><h1>מערכת נכסים</h1>
+							</td>
+						</c:if>
+						<c:if test="${titleCode==1}">
 							<td colspan="2" align="center"><h1>מערכת דיוור ישיר - הרשות למו"פ</h1>
 							</td>
-							</authz:authorize>
-							<authz:authorize ifNotGranted="ROLE_POST_READER">
+						</c:if>
+						<c:if test="${titleCode==0}">
 							<td colspan="2" align="center"><h1>מערכת משולבת - הרשות למו"פ</h1>
 							</td>
-							</authz:authorize>
+						</c:if>							
 						</tr>
 					</table>
 					<table width="400" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">

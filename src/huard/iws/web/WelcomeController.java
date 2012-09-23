@@ -18,6 +18,8 @@ public class WelcomeController extends GeneralController{
 			Map<String, Object> model, PersonBean userPersonBean){
 
 		LanguageUtils.applyLanguage(model, request, response, "iw_IL");
+		
+		model.put("titleCode", request.getSession().getAttribute("titleCode"));
 
 		if (UserPersonUtils.isNeedEditDetails(request)){
 			model.put("id", userPersonBean.getId());

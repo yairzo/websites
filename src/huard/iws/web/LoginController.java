@@ -8,6 +8,7 @@ import huard.iws.util.RequestWrapper;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -45,7 +46,9 @@ public class LoginController extends GeneralController{
 		else if (titleCode == 1){
 			model.put("moduleToSubscribe", "post");
 		}
-		
+
+		request.getSession().setAttribute("titleCode", titleCode);
+
 		model.put("title", messageService.getMessage("iw_IL.general.login.title."+titleCode));
 		
 		model.put("titleCode", titleCode);
