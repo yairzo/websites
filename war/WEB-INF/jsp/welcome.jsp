@@ -117,6 +117,7 @@ $(document).ready(function() {
 						</tr>
 					</table>
 					<table width="400" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+						<c:if test="${titleCode!=2}">
 						<authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
 						<tr>
 							<th align="right">
@@ -196,6 +197,21 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN">
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="urls.html">צפייה בקישורים </a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="active.html">צפייה במשתמשים הפעילים </a>
+							</th>
+						</tr>
+						</authz:authorize>
+						
+						</c:if><!-- end > not title code 2 (not conference proposal) -->
+						
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 						<tr>
 						  <th align="right">
@@ -229,18 +245,6 @@ $(document).ready(function() {
 						<tr>
 							<th align="right">
 								<a style="text-decoration: none" href="conferenceProposalsGrade.html">דירוג בקשות לתמיכה בכנס מדעי</a>
-							</th>
-						</tr>
-						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN">
-						<tr>
-							<th align="right">
-								<a style="text-decoration: none" href="urls.html">צפייה בקישורים </a>
-							</th>
-						</tr>
-						<tr>
-							<th align="right">
-								<a style="text-decoration: none" href="active.html">צפייה במשתמשים הפעילים </a>
 							</th>
 						</tr>
 						</authz:authorize>

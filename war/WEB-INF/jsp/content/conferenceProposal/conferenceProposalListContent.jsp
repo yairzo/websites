@@ -209,9 +209,11 @@
 				<table width="100%">	
 				<tr>
 					<td align="right">
+				  	<c:if test="${!self}">
 					<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
 					<button class="grey" onclick="window.location='conferenceProposalsGrade.html';return false;">דירוג בקשות</button>
  					</authz:authorize>
+ 					</c:if>
 					</td>
 					<td align="left">
 					<button  class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		
