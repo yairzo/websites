@@ -97,13 +97,22 @@ $(document).ready(function() {
 		<table width="700" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468" dir="rtl">
 			<tr>
 				<td valign="top" align="center"><br>
-					<table width="400" border="0" align="center" cellpadding="3" dir="rtl">
+					<table width="<c:choose><c:when test="${titleCode==2}">600</c:when><c:otherwise>400</c:otherwise></c:choose>" border="0" align="center" cellpadding="3" dir="rtl">
 						<tr>
 						<c:if test="${titleCode==2}">
 							<td colspan="2" align="center">
-							<h1>
-							מערכת כנסים
-							</h1>
+							<h1>מערכת כנסים</h1>
+							<h2>
+							<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+							מסך כניסה לדיקן
+							</authz:authorize>
+							<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE">
+							מסך כניסה כחבר או יו"ר ועדת כנסים
+							</authz:authorize>
+							<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
+							מסך כניסה לחוקר, מגיש הבקשה
+							</authz:authorize>
+							</h2>
 							</td>
 						</c:if>
 						<c:if test="${titleCode==1}">
@@ -116,7 +125,7 @@ $(document).ready(function() {
 						</c:if>							
 						</tr>
 					</table>
-					<table width="400" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+					<table width="<c:choose><c:when test="${titleCode==2}">600</c:when><c:otherwise>400</c:otherwise></c:choose>" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
 						<c:if test="${titleCode!=2}">
 						<authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
 						<tr>
@@ -125,7 +134,7 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						<tr>
-							<th  align="right">
+							<th align="right">
 								<a  style="text-decoration: none" href="lists.html">מערכת רשימות - טיפול במאגר הרשימות</a>
 							</th>
 						</tr>
@@ -211,12 +220,75 @@ $(document).ready(function() {
 						</authz:authorize>
 						
 						</c:if><!-- end > not title code 2 (not conference proposal) -->
+
+						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
+						<tr>						
+							<th align="right">
+								בחר את התפקיד שבמסגרתו ברצונך להיכנס למערכת:
+							</th>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						</authz:authorize>
+						<authz:authorize ifNotGranted="ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_COMMITTEE">
+						<tr>
+							<th align="right">
+								בחר את הפעולה שברצונך לבצע במערכת:
+							</th>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						</authz:authorize>
+
+						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE">
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="conferenceProposals.html">כחבר בועדת כנסים - ניתן לצפות בבקשות שטרם נדונו ולרשום הערות לגביהן</a>
+							</th>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="conferenceProposalsGrade.html">כדיקן - צפייה/כתיבת חוות דעת ודירוג הבקשות שהוגשו על ידי חוקרי יחידתך לדיון הקרוב</a>
+							</th>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="conferenceProposals.html">כדיקן - צפייה בכלל הבקשות שהוגשו על ידי חוקרי יחידתך</a>
+							</th>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
+						<tr>
+							<th align="right">
+								<a style="text-decoration: none" href="conferenceProposals.html">צפייה בבקשות לתמיכה בכנס מדעי</a>
+							</th>
+						</tr>
+						</authz:authorize>
 						
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 						<tr>
 						  <th align="right">
-								<a style="text-decoration: none" href="conferenceProposal.html?action=new">פתיחת בקשה חדשה, לתמיכה בכנס מדעי, בינ"ל</a>
+								<a style="text-decoration: none" href="conferenceProposal.html?action=new">
+								<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE,ROLE_CONFERENCE_APPROVER">כחוקר - </authz:authorize>
+								פתיחת בקשה חדשה, לתמיכה בכנס מדעי, בינ"ל
+								</a>
 							</th>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
@@ -226,28 +298,19 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
-
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 						<tr>
 							<th align="right">
-								<a style="text-decoration: none" href="conferenceProposals.html?type=self">צפייה בבקשות קודמות שלך במערכת</a>
+								<a style="text-decoration: none" href="conferenceProposals.html?type=self">
+								<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE,ROLE_CONFERENCE_APPROVER">כחוקר - </authz:authorize>
+								צפייה בבקשות קודמות שלך במערכת (ואפשרות לעדכן בקשה שטרם מסרת לוועדה או שהוחזרה אליך לתיקון)</a>
 							</th>
 						</tr>
-						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_COMMITTEE">
 						<tr>
-							<th align="right">
-								<a style="text-decoration: none" href="conferenceProposals.html">צפייה בבקשות לתמיכה בכנס מדעי</a>
-							</th>
+							<td>&nbsp;</td>
 						</tr>
 						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
-						<tr>
-							<th align="right">
-								<a style="text-decoration: none" href="conferenceProposalsGrade.html">דירוג בקשות לתמיכה בכנס מדעי</a>
-							</th>
-						</tr>
-						</authz:authorize>
+					
 						<tr>
 							<th align="right">
 								<a style="text-decoration: none" href="person.html?id=${userPersonBean.id}&cp=welcome.html">עדכון פרטיך האישיים</a>
