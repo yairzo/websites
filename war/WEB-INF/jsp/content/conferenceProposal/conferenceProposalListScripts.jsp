@@ -1,16 +1,30 @@
 <%@ page pageEncoding="UTF-8"%>
+<style>
+	.ui-autocomplete {
+		direction: rtl;
+	}
+	
+	.ui-autocomplete li {
+		list-style-type: none;
+	}
+
+</style>
 <script>
-function resetAutocomplete(){		
+function resetAutocomplete(persons){		
 	$("#searchPhrase").autocomplete( 
-		{source: "/iws/personsHelper.html?role=ROLE_CONFERENCE_RESEARCHER",
-		 minLength: 2,
-		 highlight: true,
-		 select: function(event, ui) {
-			$("#searchPhrase").val(ui.item.label);
-			window.location='/iws/conferenceProposal.html?action=new&researcherId='+ui.item.id
-			event.preventDefault();					
-		 }
-	    }
+			{source: persons,
+			 minLength: 2,
+			 highlight: true,
+			 select: function(event, ui) {
+				 
+				$("input#listViewPage").remove();
+				$("input#orderBy").remove();
+				$("#searchPhrase").val(ui.item.value);
+				event.preventDefault();					
+				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+				$("#form").submit();				 
+			 }
+		    }
 	);
 }
 
@@ -22,14 +36,8 @@ function resetAutocomplete(){
 	}
 
 $(document).ready(function() {
-	resetAutocomplete();	
 	
 	$("#searchPhrase").autocomplete({ position: { my : "right top", at: "right bottom" }});
-	
-	$("#searchPhrase").click(function(){
-	   	$("input#searchPhrase").val('');
-	   	resetAutocomplete();
-	});
 	
 	//alert($('input[name=searchBySubmitted]').val());
 	if($('input[name=searchBySubmitted]:checked').val()==1 || ${approver})

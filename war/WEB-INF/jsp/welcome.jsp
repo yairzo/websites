@@ -103,12 +103,6 @@ $(document).ready(function() {
 							<td colspan="2" align="center">
 							<h1>
 							מערכת כנסים
-							<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
-							- מסך דיקן
-							</authz:authorize>
-							<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE">
-							- מסך חבר ועדת כנסים  
-							</authz:authorize>
 							</h1>
 							</td>
 						</c:if>
@@ -202,7 +196,7 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER">
+						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 						<tr>
 						  <th align="right">
 								<a style="text-decoration: none" href="conferenceProposal.html?action=new">פתיחת בקשה חדשה, לתמיכה בכנס מדעי, בינ"ל</a>
@@ -220,7 +214,7 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 						<tr>
 							<th align="right">
-								<a style="text-decoration: none" href="conferenceProposals.html">צפייה בבקשות קודמות שלך במערכת</a>
+								<a style="text-decoration: none" href="conferenceProposals.html?type=self">צפייה בבקשות קודמות שלך במערכת</a>
 							</th>
 						</tr>
 						</authz:authorize>

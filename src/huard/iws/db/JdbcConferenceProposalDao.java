@@ -866,7 +866,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		if ((search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty())) || userPersonBean.isAuthorized("CONFERENCE","APPROVER") || userPersonBean.isAuthorized("RESEARCHER") )
 			whereClause += " where";
 
-		if (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER") && !userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")){
+		//if (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER") && !userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")){
+		if (search.getSelf()==1){
 			whereClause += " personId = " + userPersonBean.getId() ;
 			if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty()))
 				whereClause += " and";

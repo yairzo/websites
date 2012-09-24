@@ -186,6 +186,24 @@ public class SelectBoxFiller extends HttpServlet {
 			out.close();
 		}
 
+		if (type.equals("conference researchers")){
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html");
+			response.setStatus(HttpServletResponse.SC_OK);
+			StringBuilder sb = new StringBuilder();
+			List<Person> persons = personListService.getConferenceResearchers(new String [] { "lastNameHebrew", "firstNameHebrew"});
+			for (Person person: persons){
+				PersonBean personBean = new PersonBean(person);
+				String listItem = personBean.getLastNameHebrew() + " " + personBean.getFirstNameHebrew();
+				sb.append(listItem + ",,");
+			}
+			sb.delete(sb.length()-2, sb.length());
+			ServletOutputStream out = response.getOutputStream();
+			out.print(sb.toString());
+			out.flush();
+			out.close();
+		}
+		
 		if (type.equals("organization unit")){
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");

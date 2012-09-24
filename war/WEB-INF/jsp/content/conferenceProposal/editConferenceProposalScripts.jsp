@@ -865,7 +865,7 @@ $(document).ready(function() {
   			var text ="<u>הצהרת המגיש:</u><br/>";
   			text+="<ol><li> אני חוקר/ת במסלול הרגיל ובשירות פעיל.</li><br/>";
   			text+="<li> איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.</li><br/>";
-			text+="<li> אמלא את טופס הבקשה בהתאם ל<a style='text-decoration:underline;color:#0000FF' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>הוראות הנהלה מספר 17-011</a> , <a style='text-decoration:underline;color:#0000FF' href='http://ard.huji.ac.il/docs/AmotMidaKnasim.doc' target='_blank'>לאמות המידה</a> של הועדה ולהנחיות (המסומנות ב <img src='image/questionmark.png' width='25' height='25'>) שבגוף הטופס.</li></br> ";
+			text+="<li> אמלא את טופס הבקשה בהתאם ל<a style='text-decoration:underline;color:#0000FF' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>הוראות הנהלה מספר 17-011</a> , <a style='text-decoration:underline;color:#0000FF' href='http://ard.huji.ac.il/huard/pubPageViewer.jsp?ardNum=440&category=harashut_lemop' target='_blank'>לאמות המידה</a> של הועדה ולהנחיות (המסומנות ב <img src='image/questionmark.png' width='25' height='25'>) שבגוף הטופס.</li></br> ";
 			text+="</ol>";
 			openHelp('',text);
 		</c:if>

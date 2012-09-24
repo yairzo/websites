@@ -11,6 +11,7 @@ public class ConferenceProposalSearchCreteria extends SearchCreteria{
 	protected int searchByApprover;
 	protected int searchBySubmitted;
 	protected int searchByDeadline;
+	protected int self;
 	
 	
 	public ConferenceProposalSearchCreteria(){
@@ -18,9 +19,17 @@ public class ConferenceProposalSearchCreteria extends SearchCreteria{
 		this.searchByApprover = 0;
 		this.searchBySubmitted = 0;
 		this.searchByDeadline = 0;
+		this.self=0;
 	}
 
+	public int getSelf() {
+		return self;
+	}
 
+	public void setSelf(int self) {
+		this.self = self;
+	}
+	
 	public int getSearchByApprover() {
 		return searchByApprover;
 	}

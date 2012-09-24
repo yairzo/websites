@@ -88,6 +88,14 @@ public class ConferenceProposalListController extends GeneralFormController {
 		//recordProtectService.freeRecordsByUsername(userPersonBean.getUsername());
 
 		ConferenceProposalListCommand searchCommand = (ConferenceProposalListCommand) model.get("command");
+		if(request.getParameter("type", "").equals("self")){
+			searchCommand.getSearchCreteria().setSelf(1);
+			model.put("self",true);
+		}
+		else{
+			searchCommand.getSearchCreteria().setSelf(0);
+			model.put("self",false);
+		}
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(searchCommand.getListView(), searchCommand.getSearchCreteria(),userPersonBean,false);
 		List<ConferenceProposalBean> conferenceProposalBeans = new ArrayList<ConferenceProposalBean>();
 
@@ -136,19 +144,60 @@ public class ConferenceProposalListController extends GeneralFormController {
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
 		ConferenceProposalListCommand searchCommand = new ConferenceProposalListCommand();
-		if (!isFormSubmission(request.getRequest())){
+		
+		if (isFormSubmission(request.getRequest())){//on submit
+			String whereClause = " true";
+			ConferenceProposalSearchCreteria searchCreteria = new ConferenceProposalSearchCreteria();
+			int searchByApprover = request.getIntParameter("searchByApprover", 0);
+			if( searchByApprover > 0){
+				whereClause += " and approverId=" + request.getIntParameter("searchByApprover", 0);
+			}
+			int searchBySubmitted = request.getIntParameter("searchBySubmitted", 0);
+			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN")){
+				if(searchBySubmitted==3)
+					whereClause += " and deleted = 1";
+				else if (searchBySubmitted < 2)// 2 is all proposals
+					whereClause += " and submitted =" + searchBySubmitted + " and deleted=0";
+			}
+			else if (!request.getParameter("type", "").equals("self") && (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")
+				|| userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE"))){
+				whereClause += " and submitted = 1";
+			}
+			
+			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+
+			int searchByDeadline = request.getIntParameter("searchByDeadline", 0);
+			if( searchByDeadline > 0){
+					if(searchByDeadline==1)//for this conference meeting
+						whereClause += " and isInsideDeadline = 1";
+					else if(searchByDeadline==2)//for next conference meeting
+						whereClause += " and isInsideDeadline = 0";
+					whereClause += " and date(deadline)>'"+previousDeadline +"'";
+			}	
+			searchCreteria.setWhereClause(whereClause);
+			searchCreteria.setSearchByApprover(searchByApprover);
+			searchCreteria.setSearchBySubmitted(searchBySubmitted);
+			searchCreteria.setSearchByDeadline(searchByDeadline);
+			searchCommand.setSearchCreteria(searchCreteria);
+			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getWhereClause());
+			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
+			request.getSession().setAttribute("conferenceProposalSearchCreteria", searchCreteria);
+			ListView listView = new ListView();
+			listView.setPage(request.getIntParameter("listView.page", 1));			
+			request.getSession().setAttribute("conferenceProposalListView", listView);
+			request.getSession().setAttribute("newSearch", "no");
+		}
+		if (!isFormSubmission(request.getRequest())){//on show
 			ConferenceProposalSearchCreteria searchCreteria = (ConferenceProposalSearchCreteria) request.getSession().getAttribute("conferenceProposalSearchCreteria");
 			request.getSession().setAttribute("conferenceProposalsSearchCreteria", null);
 			ListView listView = (ListView) request.getSession().getAttribute("conferenceProposalListView");
-			if (searchCreteria == null){
+			if (searchCreteria == null || !request.getSession().getAttribute("newSearch").equals("no")){
 				//default view
 				searchCreteria = new ConferenceProposalSearchCreteria();
 				String whereClause ="";
 				String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-				if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER")){
+				if(request.getParameter("type", "").equals("self")){
 					whereClause = " date(deadline)>'"+previousDeadline +"'";
-					//searchCreteria.setSearchBySubmitted(ConferenceProposalSearchCreteria.DRAFT);
-					
 				}
 				else{
 					whereClause = " submitted=1 and isInsideDeadline = 1 and date(deadline)>'"+previousDeadline +"'";
@@ -176,48 +225,8 @@ public class ConferenceProposalListController extends GeneralFormController {
 			searchCommand.setSearchCreteria(searchCreteria);
 			logger.info("form backing search command on showing form: " + searchCommand.getSearchCreteria().getWhereClause());
 			logger.info("form backing search command on showing form: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
-			searchCommand.setListView(listView);			
-		}
-		if (isFormSubmission(request.getRequest())){
-			String whereClause = " true";
-			ConferenceProposalSearchCreteria searchCreteria = new ConferenceProposalSearchCreteria();
-			int searchByApprover = request.getIntParameter("searchByApprover", 0);
-			if( searchByApprover > 0){
-				whereClause += " and approverId=" + request.getIntParameter("searchByApprover", 0);
-			}
-			int searchBySubmitted = request.getIntParameter("searchBySubmitted", 0);
-			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN")){
-				if(searchBySubmitted==3)
-					whereClause += " and deleted = 1";
-				else if (searchBySubmitted < 2)// 2 is all proposals
-					whereClause += " and submitted =" + searchBySubmitted + " and deleted=0";
-			}
-			else if (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")
-				|| userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE")){
-				whereClause += " and submitted = 1";
-			}
-			
-			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-
-			int searchByDeadline = request.getIntParameter("searchByDeadline", 0);
-			if( searchByDeadline > 0){
-					if(searchByDeadline==1)//for this conference meeting
-						whereClause += " and isInsideDeadline = 1";
-					else if(searchByDeadline==2)//for next conference meeting
-						whereClause += " and isInsideDeadline = 0";
-					whereClause += " and date(deadline)>'"+previousDeadline +"'";
-			}	
-			searchCreteria.setWhereClause(whereClause);
-			searchCreteria.setSearchByApprover(searchByApprover);
-			searchCreteria.setSearchBySubmitted(searchBySubmitted);
-			searchCreteria.setSearchByDeadline(searchByDeadline);
-			searchCommand.setSearchCreteria(searchCreteria);
-			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getWhereClause());
-			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
-			request.getSession().setAttribute("conferenceProposalSearchCreteria", searchCreteria);
-			ListView listView = new ListView();
-			listView.setPage(request.getIntParameter("listView.page", 1));			
-			request.getSession().setAttribute("conferenceProposalListView", listView);
+			searchCommand.setListView(listView);
+			request.getSession().setAttribute("newSearch", "yes");
 		}
 		return searchCommand;
 	}

@@ -24,7 +24,7 @@
         <input type="hidden" name="searchCreteria.roleFilter" value="${command.searchCreteria.roleFilter}"/>
     	<table border="0" align="center" style="width: 95%; direction: rtl;" cellspacing="10">
     		<tr>
-     			<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+    			<c:if test="${!self}">
     			<td class="container" style="width: 15%;">
     				<span style="text-align: center;"><h2> סינון הבקשות שתוצגנה ברשימה</h2></span>
     				<br/>
@@ -68,7 +68,7 @@
   				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
   				   	 <input type="hidden" name="searchBySubmitted" value="1"/>
   				   </authz:authorize>
-  				   <authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_COMMITTEE">
+  				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
   				   <span id="searchByDeadlineSpan" style="display: none;">
   				   <br/>  				   
  				   		 לפי דיון:  				   
@@ -84,23 +84,25 @@
   				   	 <input type="hidden" name="searchByDeadline" value="1"/>
   				   </authz:authorize>
 				</td>
-				</authz:authorize>
+				</c:if>
     			<td class="container" style="width: 85%; vertical-align: top;text-align: center;">
-				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
+				  	<c:if test="${self}">
               			<h1>הבקשות שלך <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogList"/></h1> 
-   					</authz:authorize>
+   					</c:if>
+   					<c:if test="${!self}">
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
     					<span><h2> רשימת הבקשות של חוקרים ביחידה:<c:out escapeXml="false" value="${myFaculty}"></c:out></h2> </span>
    					</authz:authorize>
-				  	<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_APPROVER">
+				  	<authz:authorize ifNotGranted="ROLE_CONFERENCE_APPROVER">
     					<span><h2> רשימת הבקשות </h2></span>
    					</authz:authorize>
+   					</c:if>
     				<table style="width: 100%;">
              			<thead>
   							<tr>
-				  					<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+				  					<c:if test="${!self}">
 		  							<td style="font-weight: bold;width:15%;">החוקר המבקש</td>
-  									</authz:authorize>
+  									</c:if>
 			  						<td style="font-weight: bold;width:60%;">שם הכנס</td>
 			  						<td style="font-weight: bold;width:10%; text-align:center">תאריך הכנס</td>
 			  						<td style="font-weight: bold;width:15%;">הדיקן המתייחס</td>
@@ -119,7 +121,7 @@
              			<c:choose><c:when test="${varStatus.index%2==0}"><c:set var="cssClass" value="darker"/></c:when><c:otherwise><c:set var="cssClass" value="brighter"/></c:otherwise></c:choose>
  							<tbody>            			
  							<tr class="${cssClass}" style="height: 30px;">
-				  						<authz:authorize ifNotGranted="ROLE_CONFERENCE_RESEARCHER">
+				  						<c:if test="${!self}">
 				  						<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
   											<a href="person.html?id=${conferenceProposal.researcher.id}">
@@ -130,7 +132,7 @@
   												<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
   											</authz:authorize>  											
   										</td>
-  										</authz:authorize>
+  										</c:if>
  										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
   											<a href="conferenceProposal.html?id=${conferenceProposal.id}"><c:choose><c:when test="${fn:length(conferenceProposal.subject)>0}"><c:out value="${conferenceProposal.subject}"></c:out></c:when><c:otherwise>ללא נושא</c:otherwise></c:choose></a>
   										</td>
@@ -190,7 +192,7 @@
   	  			  </c:when>
   	  			  <c:otherwise>
   	  			  	<tr class="darker" style="height: 30px;">
-  						<td align="right" style="padding: 0px 20px;">
+  						<td colspan="5" align="right" style="padding: 0px 20px;">
   							אין בקשות לצפייה
   						</td>
   					</tr>
