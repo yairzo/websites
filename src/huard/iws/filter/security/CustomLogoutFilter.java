@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContextHolder;
@@ -59,6 +60,9 @@ public class CustomLogoutFilter implements Filter{
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
 		if (requiresLogout(httpRequest, httpResponse)) {
+			String titleCode="0";
+			if(httpRequest.getSession().getAttribute("titleCode")!=null)
+					titleCode=httpRequest.getSession().getAttribute("titleCode").toString();
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			if (logger.isDebugEnabled()) {
 				logger.debug("Logging out user '" + auth + "' and redirecting to logout page");
@@ -68,6 +72,8 @@ public class CustomLogoutFilter implements Filter{
 			}
 			httpRequest.getSession().removeAttribute("userPerson");
 			httpRequest.getSession().removeAttribute("SAVED_REQUEST_MANDATORY_USER_DETAILS_CHANGE");
+			
+			logoutSuccessUrl="/welcome.html?tc="+titleCode;//override security.xml
 			sendRedirect(httpRequest, httpResponse, logoutSuccessUrl);
 			return;
 		}

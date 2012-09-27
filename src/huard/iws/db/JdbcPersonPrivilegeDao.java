@@ -58,11 +58,19 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 			String query = "select password from personPrivilege where personId = ? limit 1";
 			password = getSimpleJdbcTemplate().queryForObject(query,String.class,personId);
 		}
-		String query = "insert ignore personPrivilege set personId = ?, privilege = ?,password=?";
+		//if already exists a privilege for this person, update lastLogin 
+		String query = "select count(*) from personPrivilege where personId = ?";
+		int count = getSimpleJdbcTemplate().queryForInt(query,personId);
+
+		query = "insert ignore personPrivilege set personId = ?, privilege = ?,password=?";
 		getSimpleJdbcTemplate().update(query, personId, privilege,password);
 
-		query = "update personPrivilege set password = ?,enabled=?  where personId=?";
+		query = "update personPrivilege set password = ?,enabled=? ";
+		if (count>0)
+			query += ", lastLogin = now()";
+		query += " where personId=?";
 		getSimpleJdbcTemplate().update(query, password, enabled, personId);
+		
 	}
 	
 	public void updatePersonPrivilege(int personId,String password, String enabled){

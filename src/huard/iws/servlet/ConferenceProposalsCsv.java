@@ -29,7 +29,6 @@ import org.springframework.context.ApplicationContext;
 public class ConferenceProposalsCsv extends HttpServlet {
 	private static final long serialVersionUID = -1;
 
-	// private static final Logger logger = Logger.getLogger(ImageViewer.class);
 	
 	private boolean isAuthorized(HttpServletRequest request){
 		ApplicationContext context = ApplicationContextProvider.getContext();
@@ -56,9 +55,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		try {
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType ("application/octet-stream");
-			//response.setContentType ("text/plain");
 			response.setHeader("Content-disposition","attachment; filename=proposals.csv");
-			//response.setHeader("Content-disposition","attachment; filename=proposals.odt");
 			
 			Object obj = ApplicationContextProvider.getContext().getBean("configurationService");
 			ConfigurationService configurationService = (ConfigurationService)obj;
@@ -145,13 +142,19 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append('~');
 		b.append("guests file");
 		b.append('~');
+		b.append("guests file type");
+		b.append('~');
 		b.append("program file");
+		b.append('~');
+		b.append("program file type");
 		b.append('~');
 		b.append("description");
 		b.append('~');
 		b.append("organizing company name");
 		b.append('~');
 		b.append("organizing company file");
+		b.append('~');
+		b.append("organizing company file type");
 		b.append('~');
 		b.append("contact person name");
 		b.append('~');
@@ -166,6 +169,8 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append("total cost currency");
 		b.append('~');
 		b.append("budget file");
+		b.append('~');
+		b.append("budget file type");
 		b.append('~');
 		b.append("international flag");
 		b.append('~');
@@ -190,21 +195,6 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append("approver evaluation");
 		b.append('~');
 		b.append("admin remarks");
-		b.append('~');
-
-		/*b.append("created by");
-		b.append('~');
-		b.append("submitted");
-		b.append('~');
-		b.append("submission date");
-		b.append('~');
-		b.append("deadline");
-		b.append('~');
-		b.append("deadline remarks");
-		b.append('~');
-		b.append("is inside current deadline");
-		b.append('~');
-		b.append("committee remarks");*/
 		b.append('\n');
 
 		// get data
@@ -303,8 +293,18 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			else 
 				b.append(" ");
 			b.append('~');
+			if(!conferenceProposalBean.getGuestsAttachContentType().isEmpty())
+				b.append(getExtension(conferenceProposalBean.getGuestsAttachContentType()));
+			else 
+				b.append(" ");
+			b.append('~');
 			if(conferenceProposalBean.getProgramAttach().length>0)
 				b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=programAttach&attachmentId=1");
+			else 
+				b.append(" ");
+			b.append('~');
+			if(!conferenceProposalBean.getProgramAttachContentType().isEmpty())
+				b.append(getExtension(conferenceProposalBean.getProgramAttachContentType()));
 			else 
 				b.append(" ");
 			b.append('~');
@@ -323,6 +323,11 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append('~');
 			if(conferenceProposalBean.getCompanyAttach().length>0)
 				b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=companyAttach&attachmentId=1");
+			else 
+				b.append(" ");
+			b.append('~');
+			if(!conferenceProposalBean.getCompanyAttachContentType().isEmpty())
+				b.append(getExtension(conferenceProposalBean.getCompanyAttachContentType()));
 			else 
 				b.append(" ");
 			b.append('~');
@@ -352,6 +357,11 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append('~');
 			if(conferenceProposalBean.getFinancialAttach().length>0)
 				b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=financialAttach&attachmentId=1");
+			else 
+				b.append(" ");
+			b.append('~');
+			if(!conferenceProposalBean.getFinancialAttachContentType().isEmpty())
+				b.append(getExtension(conferenceProposalBean.getFinancialAttachContentType()));
 			else 
 				b.append(" ");
 			b.append('~');
@@ -405,31 +415,6 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				adminRemarks = adminRemarks.trim().replaceAll("\\s+", " ");
 			}
 			b.append(adminRemarks);
-			b.append('~');
-
-			/*
-			b.append(conferenceProposalBean.getCreator().getDegreeFullNameHebrew());
-			b.append('~');
-			b.append(conferenceProposalBean.getSubmitted());
-			b.append('~');
-			if(conferenceProposalBean.getSubmissionDate()>1000)
-				b.append(formatter.format(conferenceProposalBean.getSubmissionDate()));
-			else
-				b.append(" ");
-			b.append('~');
-			if(conferenceProposalBean.getDeadline()>1000)
-				b.append(formatter.format(conferenceProposalBean.getDeadline()));
-			else
-				b.append(" ");
-			b.append('~');
-			String deadlineRemarks = " ";
-			if (!conferenceProposalBean.getDeadlineRemarks().equals(""));
-				deadlineRemarks = conferenceProposalBean.getDeadlineRemarks().trim();
-			b.append(deadlineRemarks);
-			b.append('~');
-			b.append(conferenceProposalBean.getIsInsideDeadline());
-			b.append('~');
-			 */
 			b.append('\n');
 			
 			ConferenceProposalBean cp = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
@@ -496,6 +481,11 @@ public class ConferenceProposalsCsv extends HttpServlet {
 						b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&assosiateId=" +j +"&attachFile=assosiateAttach&attachmentId=1");
 					else
 						b.append("  ");
+					b.append('~');
+					if(!financialSupport.getFileContentType().isEmpty())
+						b.append(getExtension(financialSupport.getFileContentType()));
+					else 
+						b.append(" ");
 					b.append('\n');
 					j++;
 				}
@@ -526,6 +516,11 @@ public class ConferenceProposalsCsv extends HttpServlet {
 						b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&externalId=" +j +"&attachFile=externalAttach&attachmentId=1");
 					else
 						b.append("  ");
+					b.append('~');
+					if(!financialSupport.getFileContentType().isEmpty())
+						b.append(getExtension(financialSupport.getFileContentType()));
+					else 
+						b.append(" ");
 					b.append('\n');
 					j++;
 				}
@@ -556,6 +551,11 @@ public class ConferenceProposalsCsv extends HttpServlet {
 						b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&admitanceFeeId=" +j +"&attachFile=admitanceFeeAttach&attachmentId=1");
 					else
 						b.append("  ");
+					b.append('~');
+					if(!financialSupport.getFileContentType().isEmpty())
+						b.append(getExtension(financialSupport.getFileContentType()));
+					else 
+						b.append(" ");
 					b.append('\n');
 					j++;
 				}
@@ -585,4 +585,18 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		}
 		return b;
 	}
+	
+	private static String getExtension(String contentType){
+		if(contentType.equals("application/pdf"))
+			return ".pdf";
+		else if (contentType.equals("application/msword"))
+			return ".doc";
+		else if (contentType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+			return ".docx";
+		else if (contentType.equals("application/vnd.ms-excel"))
+			return ".xls";
+		else
+			return "other";
+	}
+
 }
