@@ -4,8 +4,31 @@
 
 <script language="Javascript">
 
-
+function resetAutocomplete(callOfProposals){
+	$("#searchPhrase").autocomplete( 
+			{source: funds,
+			 minLength: 2,
+			 highlight: true				 
+		    }
+	);
+}
 $(document).ready(function() {
+
+	$.get('selectBoxFiller',{type:'fund'},function(data){
+		funds = data.split(",,");
+		resetAutocomplete(funds);   	   				
+    });
+	
+	$('#allYearCheckbox').change(function(){
+		if($('#allYearCheckbox').is(":checked")){
+			$('.submissionDate').css("opacity","0.3");
+			$('.submissionDate').prop("disabled", true);
+		}
+		else{
+			$('.submissionDate').css("opacity","1");
+			$('.submissionDate').prop("disabled", false);
+		}
+	});
 
 	$(".date").datepicker({ dateFormat: 'dd/mm/yy', onSelect: function(){
     	var str1 = $(this).val();
@@ -152,7 +175,7 @@ $(document).ready(function() {
 		});
 	
 	var config=	{
-			toolbar_Full: [ ['Source','-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-', 'Find','Replace','-','SelectAll','RemoveFormat' ],
+			toolbar_Full: [ ['Source','Save','-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-', 'Find','Replace','-','SelectAll','RemoveFormat' ],
 			                [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-',
 			              	'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl', '-','Link','Unlink'],
 			              	['Format','Font','FontSize' ],[ 'TextColor','BGColor' ]],
@@ -164,11 +187,62 @@ $(document).ready(function() {
 			colorButton_enableMore : false
 	};
 
-	$(".editor").click(function(){
-		$(this).ckeditor(config);
-	});
-	$(".editoropen").ckeditor(config);
-    
+	var ceditor; //This is for our CKEditor editor
+	var ceditor_container; //Saves the container of our editor (DIV).
+	var divcontent=""; //This will save the contents of our div
+
+	$(".editor").click(function(e){
+		    e.stopPropagation();//so not to start body click
+	        //Destroy first our editor if it exists then rollback the previous value of our div
+	        if(ceditor)
+	        {
+	            $(ceditor).ckeditorGet().destroy();
+	            $(ceditor_container).html(divcontent);
+	        }
+	 
+	        divcontent = $(this).html(); //Save the content of our div so we can rollback later
+	 
+	        //Insert the textarea inside the div with the contents of our div as it's value
+	        //$(this).html("<textarea name='txtArea'>"+divcontent+"");
+	 
+	        //Time to replace the textarea to a CKEditor editor
+	        //ceditor =  CKEDITOR.replace($(this).children("textarea").get(0),config);
+			$(this).ckeditor(config);	
+	        
+	        ceditor_container = $(this);//Save the div container for retrieval later
+	    });
+	 
+	    $("body").click(function(){
+	        //Destroy the editor and rollback the previous value
+	    	for ( var i in CKEDITOR.instances ){
+	    		   var currentInstance = i;
+	    		   break;
+	    	}
+	    	var ceditor   = CKEDITOR.instances[currentInstance];	       
+	    	if(ceditor){
+	        	ceditor.destroy();
+	            ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed (not destroyed by reference)
+	            $(ceditor_container).html(divcontent);
+	        }
+	    });
+
+	    $(".editoropen").ckeditor(config);
+	    
+		$(".add").click(function(e){
+		    e.stopPropagation();//so not to start body click 
+		    e.preventDefault();//no refresh page 
+		    var addedText= $('#addedText', $(this).closest("tr")).html();
+		    var existingText = $(".editor", $(this).closest("table")).html();
+		    $(".editor", $(this).closest("table")).html(existingText + "<br>" + addedText);
+		});
+		$(".addFile").click(function(e){
+		    e.stopPropagation();//so not to start body click 
+		    e.preventDefault();//no refresh page 
+		    var addedText= $('#addedText', $(this).closest("tr")).html();
+		    var existingText = $(".editor", $(this).closest("#fileTable")).html();
+		    $(".editor", $(this).closest("#fileTable")).html(existingText + "<br>" + addedText);
+		});
+   
 });
 var fieldname=""; 
 function openHelp(name,mytext){

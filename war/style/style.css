@@ -93,6 +93,18 @@ th
 	width: 300px;
 	vertical-align: top;
 }
+.long500
+{
+	text-align: right;
+	width: 500px;
+	vertical-align: top;
+}
+.long800
+{
+	text-align: right;
+	width: 800px;
+	vertical-align: top;
+}
 .fillWidth
 {
 	width: 100%;
