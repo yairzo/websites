@@ -28,7 +28,7 @@ public class EditPersonValidator implements Validator {
 		else
 			ValidationUtils.rejectIfEmpty(errors, "email", "iw_IL.required.email");
 		ValidationUtils.rejectIfEmpty(errors, "phone", "iw_IL.required.phone");
-		if (! personBean.getPhone().trim().matches("^[\\d]{2,3}-[\\d]{7}$")){
+		if (! personBean.getPhone().trim().matches("^[\\d]{2,3}-?[\\d]{7}$")){
 			errors.rejectValue("phone", "iw_IL.invalid.phone");
 		}
 		if( personBean.isAuthorized("ROLE_CONFERENCE_RESEARCHER")){
