@@ -162,11 +162,11 @@ public class EditPersonController extends GeneralFormController {
 		this.facultyService = facultyService;
 	}
 
-	private MailMessageService mailMessageService;
+	/*private MailMessageService mailMessageService;
 
 	public void setMailMessageService(MailMessageService mailMessageService) {
 		this.mailMessageService = mailMessageService;
-	}
+	}*/
 
 
 }

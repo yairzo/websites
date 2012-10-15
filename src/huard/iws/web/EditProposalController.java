@@ -999,12 +999,11 @@ public class EditProposalController extends GeneralFormController {
 	}
 
 
-	private MailMessageService mailMessageService;
-
+	/*private MailMessageService mailMessageService;
 
 	public void setMailMessageService(MailMessageService mailMessageService) {
 		this.mailMessageService = mailMessageService;
-	}
+	}*/
 
 	private ProposalStateService proposalStateService;
 

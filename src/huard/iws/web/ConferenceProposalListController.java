@@ -263,11 +263,11 @@ public class ConferenceProposalListController extends GeneralFormController {
 		this.conferenceProposalListService = conferenceProposalListService;
 	}
 
-	private MailMessageService mailMessageService;
+	/*private MailMessageService mailMessageService;
 
 	public void setMailMessageService(MailMessageService mailMessageService) {
 		this.mailMessageService = mailMessageService;
-	}	
+	}*/	
 
 	private PersonListService personListService;
 

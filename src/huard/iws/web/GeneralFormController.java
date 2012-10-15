@@ -1,7 +1,9 @@
 package huard.iws.web;
 
+import huard.iws.bean.MailMessageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.service.ConfigurationService;
+import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
 import huard.iws.service.PersonPrivilegeService;
 import huard.iws.service.PersonService;
@@ -29,6 +31,8 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 public abstract class GeneralFormController extends SimpleFormController
 	{
+		private final String ERRORS_MAIL_ADDRESS = "hadar123@gmail.com;zohar.yair@gmail.com";
+		//private final String ERRORS_MAIL_ADDRESS = "hadar@localhost.localdomain";
 
 		@Override
 		protected Object formBackingObject(HttpServletRequest request)
@@ -74,8 +78,18 @@ public abstract class GeneralFormController extends SimpleFormController
 			Object command = errors.getTarget();
 			Map<String, Object> model = errors.getModel();
 			List<FieldError> errorsList = errors.getBindingResult().getFieldErrors();
-		    for (FieldError error : errorsList ) {
-		        System.out.println (error.getObjectName() + " - " + error.getDefaultMessage());
+		    String errorsMessage="";
+			for (FieldError error : errorsList ) {
+		        logger.info (error.getObjectName() + " - " + error.getDefaultMessage());
+		        errorsMessage += "<br>" + error.getObjectName() + " - " + error.getDefaultMessage();
+		    }
+		    if(!errorsMessage.isEmpty()){
+		    	errorsMessage="User:" + userPersonBean.getDegreeFullName() + errorsMessage;
+		    	MailMessageBean mailMessageBean = new MailMessageBean();
+		    	mailMessageBean.setAdditionalAddresses(ERRORS_MAIL_ADDRESS);
+				mailMessageBean.setMessageSubject("Form Errors");
+				mailMessageBean.setMessage(errorsMessage);
+		    	mailMessageService.sendMailMessage(mailMessageBean);
 		    }
 
 			
@@ -217,5 +231,10 @@ public abstract class GeneralFormController extends SimpleFormController
 			this.configurationService = configurationService;
 		}
 
+		protected MailMessageService mailMessageService;
+
+		public void setMailMessageService(MailMessageService mailMessageService) {
+			this.mailMessageService = mailMessageService;
+		}	
 
 }

@@ -154,6 +154,9 @@
         <property name="instituteListService">
             <ref bean="instituteListService"/>
         </property>
+       <property name="mailMessageService">
+            <ref bean="mailMessageService"/>
+        </property> 
      </bean>
 
       <bean id="editInstituteController" class="huard.iws.web.EditInstituteController" parent="generalFormController">

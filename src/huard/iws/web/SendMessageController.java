@@ -176,11 +176,11 @@ public class SendMessageController extends GeneralFormController {
 		this.listService = listService;
 	}
 
-	private MailMessageService mailMessageService;
+	/*private MailMessageService mailMessageService;
 
 	public void setMailMessageService(MailMessageService mailMessageService) {
 		this.mailMessageService = mailMessageService;
-	}
+	}*/
 
 
 
