@@ -1,6 +1,7 @@
 package huard.iws.web;
 
 import huard.iws.bean.ConferenceProposalBean;
+import huard.iws.bean.FinancialSupportBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Faculty;
@@ -68,7 +69,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					String aIndex = filename.replaceFirst("^.*?\\[([\\d]+)\\].*?$","$1");
 					int index = Integer.parseInt(aIndex);
 					if (index < conferenceProposalBean.getFromAssosiate().size()){
-						FinancialSupport financialSupport = conferenceProposalBean.getFromAssosiate().get(index);
+						FinancialSupportBean financialSupport = conferenceProposalBean.getFromAssosiate().get(index);
 						if (financialSupport != null){
 							financialSupport.setFileContentType(file.getContentType());
 						}
@@ -78,7 +79,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					String aIndex = filename.replaceFirst("^.*?\\[([\\d]+)\\].*?$","$1");
 					int index = Integer.parseInt(aIndex);
 					if (index < conferenceProposalBean.getFromExternal().size()){
-						FinancialSupport financialSupport = conferenceProposalBean.getFromExternal().get(index);
+						FinancialSupportBean financialSupport = conferenceProposalBean.getFromExternal().get(index);
 						if (financialSupport != null){
 							financialSupport.setFileContentType(file.getContentType());
 						}
@@ -88,7 +89,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					String aIndex = filename.replaceFirst("^.*?\\[([\\d]+)\\].*?$","$1");
 					int index = Integer.parseInt(aIndex);
 					if (index < conferenceProposalBean.getFromAdmitanceFee().size()){
-						FinancialSupport financialSupport = conferenceProposalBean.getFromAdmitanceFee().get(index);
+						FinancialSupportBean financialSupport = conferenceProposalBean.getFromAdmitanceFee().get(index);
 						if (financialSupport != null){
 							financialSupport.setFileContentType(file.getContentType());
 						}

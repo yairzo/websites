@@ -1,10 +1,10 @@
 package huard.iws.servlet;
 
 import huard.iws.bean.ConferenceProposalBean;
+import huard.iws.bean.FinancialSupportBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
-import huard.iws.model.FinancialSupport;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.ConfigurationService;
@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 public class ConferenceProposalsCsv extends HttpServlet {
 	private static final long serialVersionUID = -1;
+	//private static final Logger logger = Logger.getLogger(ConferenceProposalsCsv.class);
 
 	
 	private boolean isAuthorized(HttpServletRequest request){
@@ -201,8 +202,10 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		Object bean = ApplicationContextProvider.getContext().getBean("conferenceProposalListService");
 		ConferenceProposalListService conferenceProposalListService = (ConferenceProposalListService) bean;
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsByDate(prevdeadline);
+		System.out.println("Conference proposals size: " + conferenceProposals.size());
 		for (ConferenceProposal conferenceProposal : conferenceProposals) {
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
+			System.out.println("Conference proposal: " + conferenceProposalBean.getId());
 			b.append("1");
 			b.append('~');
 			b.append(conferenceProposalBean.getId());
@@ -239,7 +242,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(conferenceProposalBean.getResearcher().getCellPhone());
 			b.append('~');
 			String subject = " ";
-			if (!conferenceProposalBean.getSubject().equals("")){
+			if (!conferenceProposalBean.getSubject().isEmpty()){
 				subject = conferenceProposalBean.getSubject().trim();
 				subject = subject.replace('\n', ' ');
 				subject = subject.trim().replaceAll("\\s+", " ");
@@ -455,9 +458,9 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append('\n');
 				}
 			}
-			List<FinancialSupport> fromAssosiates = cp.getFromAssosiate();
+			List<FinancialSupportBean> fromAssosiates = cp.getFromAssosiate();
 			int j=0;
-			for(FinancialSupport financialSupport: fromAssosiates){
+			for(FinancialSupportBean financialSupport: fromAssosiates){
 				if (!financialSupport.isEmpty()){
 					b.append("3");
 					b.append('~');
@@ -490,9 +493,9 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					j++;
 				}
 			}
-			List<FinancialSupport> fromExternals = cp.getFromExternal();
+			List<FinancialSupportBean> fromExternals = cp.getFromExternal();
 			j=0;
-			for(FinancialSupport financialSupport: fromExternals){
+			for(FinancialSupportBean financialSupport: fromExternals){
 				if (!financialSupport.isEmpty()){
 					b.append("3");
 					b.append('~');
@@ -525,9 +528,9 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					j++;
 				}
 			}
-			List<FinancialSupport> fromAdmitanceFee = cp.getFromAdmitanceFee();
+			List<FinancialSupportBean> fromAdmitanceFee = cp.getFromAdmitanceFee();
 			j=0;
-			for(FinancialSupport financialSupport: fromAdmitanceFee){
+			for(FinancialSupportBean financialSupport: fromAdmitanceFee){
 				if (!financialSupport.isEmpty()){
 					b.append("3");
 					b.append('~');

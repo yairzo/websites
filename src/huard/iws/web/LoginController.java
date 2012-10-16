@@ -1,14 +1,12 @@
 package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
-import huard.iws.service.MessageService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;

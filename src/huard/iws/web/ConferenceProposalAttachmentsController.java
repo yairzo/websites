@@ -1,6 +1,7 @@
 package huard.iws.web;
 
 import huard.iws.bean.ConferenceProposalBean;
+import huard.iws.bean.FinancialSupportBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.FinancialSupport;
 import huard.iws.service.ConferenceProposalService;
@@ -64,7 +65,7 @@ public class ConferenceProposalAttachmentsController extends GeneralFormControll
 					String aIndex = request.getParameter("attachIndex", "");
 					int index = Integer.parseInt(aIndex);
 					if (index < conferenceProposalBean.getFromAssosiate().size()){
-						FinancialSupport financialSupport = conferenceProposalBean.getFromAssosiate().get(index);
+						FinancialSupportBean financialSupport = conferenceProposalBean.getFromAssosiate().get(index);
 						if (financialSupport != null){
 							financialSupport.setReferenceFile(file.getBytes());
 							financialSupport.setFileContentType(file.getContentType());
@@ -77,7 +78,7 @@ public class ConferenceProposalAttachmentsController extends GeneralFormControll
 					String aIndex = request.getParameter("attachIndex", "");
 					int index = Integer.parseInt(aIndex);
 					if (index < conferenceProposalBean.getFromExternal().size()){
-						FinancialSupport financialSupport = conferenceProposalBean.getFromExternal().get(index);
+						FinancialSupportBean financialSupport = conferenceProposalBean.getFromExternal().get(index);
 						if (financialSupport != null){
 							financialSupport.setReferenceFile(file.getBytes());
 							financialSupport.setFileContentType(file.getContentType());
@@ -89,7 +90,7 @@ public class ConferenceProposalAttachmentsController extends GeneralFormControll
 					String aIndex = request.getParameter("attachIndex", "");
 					int index = Integer.parseInt(aIndex);
 					if (index < conferenceProposalBean.getFromAdmitanceFee().size()){
-						FinancialSupport financialSupport = conferenceProposalBean.getFromAdmitanceFee().get(index);
+						FinancialSupportBean financialSupport = conferenceProposalBean.getFromAdmitanceFee().get(index);
 						if (financialSupport != null){
 							financialSupport.setReferenceFile(file.getBytes());
 							financialSupport.setFileContentType(file.getContentType());
@@ -97,7 +98,7 @@ public class ConferenceProposalAttachmentsController extends GeneralFormControll
 					}				
 				}
 			}
-		}		
+		}			
 		
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
 

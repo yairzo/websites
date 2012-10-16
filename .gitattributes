@@ -1,4 +1,5 @@
 src/huard/iws/bean/ConferenceProposalBean.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/bean/FinancialSupportBean.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/bean/InitiatingBodyBean.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/bean/PageBodyImageBean.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/bean/PageUrlBean.java svn_mime_002dtype=text%2Fplain

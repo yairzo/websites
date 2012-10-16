@@ -11,10 +11,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 public class ConferenceProposalBean {
 	
 	private final int MAX_NUM_COMMITTEE = 10;
 	private final int MAX_NUM_FINANCIAL_SUPPORT = 10;
+	//private static final Logger logger = Logger.getLogger(ConferenceProposalBean.class);
+
 	
 
 	private int id;
@@ -70,9 +74,9 @@ public class ConferenceProposalBean {
 	private long deadline;
 	private List<Committee> scientificCommittees;
 	private List<Committee> operationalCommittees;
-	private List<FinancialSupport> fromAssosiate;
-	private List<FinancialSupport> fromExternal;
-	private List<FinancialSupport> fromAdmitanceFee;
+	private List<FinancialSupportBean> fromAssosiate;
+	private List<FinancialSupportBean> fromExternal;
+	private List<FinancialSupportBean> fromAdmitanceFee;
 	private boolean deleted;
 	private String deadlineRemarks;
 	private boolean isInsideDeadline;
@@ -146,22 +150,22 @@ public class ConferenceProposalBean {
 			committee.setType(Committee.TYPE_OPERATIONAL);
 			operationalCommittees.add(committee);
 		}
-		this.fromAssosiate = new ArrayList<FinancialSupport>();
+		this.fromAssosiate = new ArrayList<FinancialSupportBean>();
 		for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++){
-			FinancialSupport financialSupport = new FinancialSupport();
-			financialSupport.setType(FinancialSupport.TYPE_ASSOSIATE);
+			FinancialSupportBean financialSupport = new FinancialSupportBean();
+			financialSupport.setType("" + FinancialSupport.TYPE_ASSOSIATE);
 			fromAssosiate.add(financialSupport);
 		}
-		this.fromExternal = new ArrayList<FinancialSupport>();
+		this.fromExternal = new ArrayList<FinancialSupportBean>();
 		for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++){
-			FinancialSupport financialSupport = new FinancialSupport();
-			financialSupport.setType(FinancialSupport.TYPE_EXTERNAL);
+			FinancialSupportBean financialSupport = new FinancialSupportBean();
+			financialSupport.setType("" + FinancialSupport.TYPE_EXTERNAL);
 			fromExternal.add(financialSupport);
 		}
-		this.fromAdmitanceFee = new ArrayList<FinancialSupport>();
+		this.fromAdmitanceFee = new ArrayList<FinancialSupportBean>();
 		for (int i=0; i< MAX_NUM_FINANCIAL_SUPPORT; i++){
-			FinancialSupport financialSupport = new FinancialSupport();
-			financialSupport.setType(FinancialSupport.TYPE_ADMITANCEFEE);
+			FinancialSupportBean financialSupport = new FinancialSupportBean();
+			financialSupport.setType("" + FinancialSupport.TYPE_ADMITANCEFEE);
 			fromAdmitanceFee.add(financialSupport);
 		}
 		this.deleted =false;
@@ -249,26 +253,38 @@ public class ConferenceProposalBean {
 			committee.setType(Committee.TYPE_OPERATIONAL);			
 			operationalCommittees.add(committee);
 		}
-		this.fromAssosiate = conferenceProposal.getFromAssosiate();
+		fromAssosiate = new ArrayList<FinancialSupportBean>();
+		for (FinancialSupport financialSupport: conferenceProposal.getFromAssosiate()){
+			FinancialSupportBean financialSupportBean = new FinancialSupportBean(financialSupport);
+			fromAssosiate.add(financialSupportBean);
+		}
 		for (int i=fromAssosiate.size(); i< MAX_NUM_FINANCIAL_SUPPORT; i++){
-			FinancialSupport financialSupport = new FinancialSupport();
-			financialSupport.setConferenceProposalId(conferenceProposal.getId());
-			financialSupport.setType(FinancialSupport.TYPE_ASSOSIATE);
-			fromAssosiate.add(financialSupport);
+			FinancialSupportBean financialSupportBean = new FinancialSupportBean();
+			financialSupportBean.setConferenceProposalId("" + conferenceProposal.getId());
+			financialSupportBean.setType("" + FinancialSupport.TYPE_ASSOSIATE);
+			fromAssosiate.add(financialSupportBean);
 		}
-		this.fromExternal = conferenceProposal.getFromExternal();
+		fromExternal = new ArrayList<FinancialSupportBean>();
+		for (FinancialSupport financialSupport: conferenceProposal.getFromExternal()){
+			FinancialSupportBean financialSupportBean = new FinancialSupportBean(financialSupport);
+			fromExternal.add(financialSupportBean);
+		}
 		for (int i=fromExternal.size(); i< MAX_NUM_FINANCIAL_SUPPORT; i++){
-			FinancialSupport financialSupport = new FinancialSupport();
-			financialSupport.setConferenceProposalId(conferenceProposal.getId());
-			financialSupport.setType(FinancialSupport.TYPE_EXTERNAL);
-			fromExternal.add(financialSupport);
+			FinancialSupportBean financialSupportBean = new FinancialSupportBean();
+			financialSupportBean.setConferenceProposalId("" + conferenceProposal.getId());
+			financialSupportBean.setType("" + FinancialSupport.TYPE_EXTERNAL);
+			fromExternal.add(financialSupportBean);
 		}
-		this.fromAdmitanceFee = conferenceProposal.getFromAdmitanceFee();
+		fromAdmitanceFee = new ArrayList<FinancialSupportBean>();
+		for (FinancialSupport financialSupport: conferenceProposal.getFromAdmitanceFee()){
+			FinancialSupportBean financialSupportBean = new FinancialSupportBean(financialSupport);
+			fromAdmitanceFee.add(financialSupportBean);
+		}
 		for (int i=fromAdmitanceFee.size(); i< MAX_NUM_FINANCIAL_SUPPORT; i++){
-			FinancialSupport financialSupport = new FinancialSupport();
-			financialSupport.setConferenceProposalId(conferenceProposal.getId());
-			financialSupport.setType(FinancialSupport.TYPE_ADMITANCEFEE);
-			fromAdmitanceFee.add(financialSupport);
+			FinancialSupportBean financialSupportBean = new FinancialSupportBean();
+			financialSupportBean.setConferenceProposalId("" + conferenceProposal.getId());
+			financialSupportBean.setType("" + FinancialSupport.TYPE_ADMITANCEFEE);
+			fromAdmitanceFee.add(financialSupportBean);
 		}
 		this.deleted = conferenceProposal.getDeleted();
 		this.deadlineRemarks = conferenceProposal.getDeadlineRemarks();
@@ -341,9 +357,19 @@ public class ConferenceProposalBean {
 		conferenceProposal.setDeadline(deadline);
 		conferenceProposal.setScientificCommittees(scientificCommittees);
 		conferenceProposal.setOperationalCommittees(operationalCommittees);
-		conferenceProposal.setFromAssosiate(fromAssosiate);
-		conferenceProposal.setFromExternal(fromExternal);
-		conferenceProposal.setFromAdmitanceFee(fromAdmitanceFee);
+		for (FinancialSupportBean financialSupportBean: fromAssosiate){
+			FinancialSupport financialSupport = financialSupportBean.toFinancialSupport();
+			
+			conferenceProposal.getFromAssosiate().add(financialSupport);
+		}
+		for (FinancialSupportBean financialSupportBean: fromExternal){
+			FinancialSupport financialSupport = financialSupportBean.toFinancialSupport();
+			conferenceProposal.getFromExternal().add(financialSupport);
+		}
+		for (FinancialSupportBean financialSupportBean: fromAdmitanceFee){
+			FinancialSupport financialSupport = financialSupportBean.toFinancialSupport();
+			conferenceProposal.getFromAdmitanceFee().add(financialSupport);
+		}
 		conferenceProposal.setDeleted(deleted);
 		conferenceProposal.setDeadlineRemarks(deadlineRemarks);
 		conferenceProposal.setIsInsideDeadline(isInsideDeadline);
@@ -819,27 +845,27 @@ public class ConferenceProposalBean {
 		this.operationalCommittees = operationalCommittees;
 	}
 
-	public List<FinancialSupport> getFromAssosiate() {
+	public List<FinancialSupportBean> getFromAssosiate() {
 		return fromAssosiate;
 	}
 
-	public void setFromAssosiate(List<FinancialSupport> fromAssosiate) {
+	public void setFromAssosiate(List<FinancialSupportBean> fromAssosiate) {
 		this.fromAssosiate = fromAssosiate;
 	}
 
-	public List<FinancialSupport> getFromExternal() {
+	public List<FinancialSupportBean> getFromExternal() {
 		return fromExternal;
 	}
 
-	public void setFromExternal(List<FinancialSupport> fromExternal) {
+	public void setFromExternal(List<FinancialSupportBean> fromExternal) {
 		this.fromExternal = fromExternal;
 	}
 
-	public List<FinancialSupport> getFromAdmitanceFee() {
+	public List<FinancialSupportBean> getFromAdmitanceFee() {
 		return fromAdmitanceFee;
 	}
 
-	public void setFromAdmitanceFee(List<FinancialSupport> fromAdmitanceFee) {
+	public void setFromAdmitanceFee(List<FinancialSupportBean> fromAdmitanceFee) {
 		this.fromAdmitanceFee = fromAdmitanceFee;
 	}
 	

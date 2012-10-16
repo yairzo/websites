@@ -31,7 +31,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 public abstract class GeneralFormController extends SimpleFormController
 	{
-		private final String ERRORS_MAIL_ADDRESS = "hadar123@gmail.com;zohar.yair@gmail.com";
+		private final String ERRORS_MAIL_ADDRESS = "hadar123@gmail.com,zohar.yair@gmail.com";
 		//private final String ERRORS_MAIL_ADDRESS = "hadar@localhost.localdomain";
 
 		@Override
@@ -91,9 +91,8 @@ public abstract class GeneralFormController extends SimpleFormController
 				mailMessageBean.setMessage(errorsMessage);
 		    	mailMessageService.sendMailMessage(mailMessageBean);
 		    }
-
-			
-			model.put("command", command);
+		    
+		    model.put("command", command);
 			model.put("userPersonBean", userPersonBean);
 			model.put("validationErrors", errors.hasErrors());
 
