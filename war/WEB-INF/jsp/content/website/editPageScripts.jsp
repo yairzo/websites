@@ -181,6 +181,7 @@ $(document).ready(function() {
 			              	['Format','Font','FontSize' ],[ 'TextColor','BGColor' ]],
             uiColor:'#F4EEE4',
 			contentsCss:'js/ckeditor/_samples/assets/output_xhtml.css',
+			contentsLangDirection:'rtl',
 			height:"120", 
 			width:"800",
 			fontSize_sizes : '10/10px;12/12px;14/14px;16/16px;24/24px;48/48px;',
@@ -189,41 +190,39 @@ $(document).ready(function() {
 
 	var ceditor; //This is for our CKEditor editor
 	var ceditor_container; //Saves the container of our editor (DIV).
-	var divcontent=""; //This will save the contents of our div
 
 	$(".editor").click(function(e){
 		    e.stopPropagation();//so not to start body click
-	        //Destroy first our editor if it exists then rollback the previous value of our div
-	        if(ceditor)
-	        {
-	            $(ceditor).ckeditorGet().destroy();
-	            $(ceditor_container).html(divcontent);
-	        }
-	 
-	        divcontent = $(this).html(); //Save the content of our div so we can rollback later
-	 
-	        //Insert the textarea inside the div with the contents of our div as it's value
-	        //$(this).html("<textarea name='txtArea'>"+divcontent+"");
-	 
-	        //Time to replace the textarea to a CKEditor editor
-	        //ceditor =  CKEDITOR.replace($(this).children("textarea").get(0),config);
-			$(this).ckeditor(config);	
-	        
-	        ceditor_container = $(this);//Save the div container for retrieval later
+	        //Destroy first our editor if it exists
+	        /* if(ceditor){
+	            ceditor.destroy();
+	        }*/
+
+		   $(".editorText", $(this).closest("table")).hide();
+           $(".textareaEditorSpan", $(this).closest("table")).show();
+            var textAreaId = $(".textareaEditor", $(this).closest("table")).attr("id");
+	        ceditor =  CKEDITOR.replace(textAreaId,config);
+			//$(this).ckeditor(config);	
+
+            ceditor_container = $(this);//Save the div container to know which one to close
 	    });
 	 
-	    $("body").click(function(){
-	        //Destroy the editor and rollback the previous value
-	    	for ( var i in CKEDITOR.instances ){
+	    $("body").click(function(event){
+			if ($(event.target).attr("class")!=undefined && $(event.target).attr("class").indexOf("cke_")>=0) {}
+			else {
+	    		for ( var i in CKEDITOR.instances ){
 	    		   var currentInstance = i;
 	    		   break;
-	    	}
-	    	var ceditor   = CKEDITOR.instances[currentInstance];	       
-	    	if(ceditor){
-	        	ceditor.destroy();
-	            ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed (not destroyed by reference)
-	            $(ceditor_container).html(divcontent);
-	        }
+	    		}
+	    		var ceditor   = CKEDITOR.instances[currentInstance];	       
+	    		if(ceditor){
+	            	$(".editorText", $(ceditor_container).closest("table")).show();
+	            	$(".textareaEditorSpan", $(ceditor_container).closest("table")).hide();
+	            	$(".editorText", $(ceditor_container).closest("table")).html(ceditor.getData());
+	            	ceditor.destroy();
+	            	ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed by reference
+	        	}
+			}
 	    });
 
 	    $(".editoropen").ckeditor(config);
@@ -232,16 +231,26 @@ $(document).ready(function() {
 		    e.stopPropagation();//so not to start body click 
 		    e.preventDefault();//no refresh page 
 		    var addedText= $('#addedText', $(this).closest("tr")).html();
-		    var existingText = $(".editor", $(this).closest("table")).html();
-		    $(".editor", $(this).closest("table")).html(existingText + "<br>" + addedText);
+		    //var existingText = $(".editor", $(this).closest("table")).html();
+		    //$(".editor", $(this).closest("table")).html(existingText + "<br>" + addedText);
+	    	for ( var i in CKEDITOR.instances ){
+	    		   var currentInstance = i;
+	    		   break;
+	    	}
+	    	var ceditor   = CKEDITOR.instances[currentInstance];	       
+	    	if(!ceditor){
+		    	$(".editor", $(this).closest("table")).click();
+	    	}
+	   		ceditor.insertHtml( "<br>" +addedText);	    		
 		});
-		$(".addFile").click(function(e){
+		
+		/*$(".addFile").click(function(e){
 		    e.stopPropagation();//so not to start body click 
 		    e.preventDefault();//no refresh page 
 		    var addedText= $('#addedText', $(this).closest("tr")).html();
 		    var existingText = $(".editor", $(this).closest("#fileTable")).html();
 		    $(".editor", $(this).closest("#fileTable")).html(existingText + "<br>" + addedText);
-		});
+		});*/
    
 });
 var fieldname=""; 

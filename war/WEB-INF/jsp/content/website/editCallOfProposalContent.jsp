@@ -166,49 +166,49 @@
 				</tr>
 				<tr><td>&nbsp;</td></tr>
                 <tr class="form">
-					<td colspan="4" align="right"><h3> פירוט
-					</h3></td>
-				</tr>
-	       		<tr class="form">
-        		<td colspan="4">
-				<table width="950"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-				<tr class="form">
-						<td style="border:1px #bca2a2 dotted">
-      					מקום ההגשה:
-            			<select name="fund" class="green" >
-      						<option value="0">בחר/י</option>
-      						<option value="1">המממן</option>
-      						<option value="2">הרשות למו"פ</option>
-         		        </select>
-      					
- 						</td>
-						<td style="border:1px #bca2a2 dotted">
-      					<input type="checkbox"/>
-						שלח/י העתק בדואר אלקטרוני
- 						</td>
-						<td  style="border:1px #bca2a2 dotted" nowrap>
-						תאריך הגשה בקרן:
-						<input type="text" class="green date medium100"/>
-						</td>
- 						<td style="border:1px #bca2a2 dotted">מספר עותקים:
-            			<input type="text" class="green medium100" value="0"/>
- 						</td>
+					<td colspan="4" align="right"><h3> פירוט</h3></td>
 				</tr>
 				<tr>
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 					<table width="950">
   					<tr>
 					<td colspan="3">
-      					הערות לגבי תאריך הגשה:<br>
+      					פרטים הקשורים להגשה:<br>
  					</td>
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-            			<textarea cols="100" rows="1" class="green" style="display:none;"></textarea>
-						<div class="editor" style="text-align:left;direction:ltr;">
-						&nbsp;
-						</div>
+ 					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">יש להעביר 3 עותקים לרשות למו"פ
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor1" cols="100" rows="1" class="green" style="display:none;">יש להעביר 3 עותקים לרשות למו"פ</textarea>
+						</span>
+					</div>
  					</td>
+ 					</tr>
+ 					<tr>
+					<td colspan="3">&nbsp;</td>
+					</tr>
+ 					<tr>
+					<td colspan="3" style="text-align:right">
+					<span id="addedText">מקום ההגשה ברשות למו"פ, בתאריך </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
+					</td>
+					</tr>
+					<tr>
+					<td colspan="3" style="text-align:right">	
+ 					<span id="addedText">הגשה ישירות לקרן </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button><br/>	
+					</td>
+					</tr>
+					<tr>
+					<td colspan="3" style="text-align:right">	
+  					<span id="addedText">שלח העתק בדואר אלקטרוני ל- Ms. Netanya Bar Cohva Assistant 02-6586668</span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button><br/>		
+ 					</td>
+					</tr>
+ 					<tr>
+					<td colspan="3" style="text-align:right">	
+ 					<span id="addedText">יש להעביר xxx עותקים לרשות למו"פ</span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button><br/>		
+       				</td>
  					</tr>
  					</table>
  					</td>
@@ -218,80 +218,78 @@
 					<table width="950">
   					<tr><td>אנשי קשר:</td>
   					</tr>
-  					<tr><td style="text-align:left">
-  					Ms. Jane Turner Coordinator for Europe - European Union & others 02-6586676<br>
-					Ms. Netanya Bar Cohva Assistant 02-6586668<br>
-					Ms. Ronit Lavi Assistant 02-6586668 <br>
-  					</td>
-  					</tr>
-  					<tr>
-					<td colspan="3">
-      					הערות נוספות לגבי אנשי הקשר:<br>
- 					</td>
-					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-            			<textarea cols="100" rows="1" class="green" style="display:none;"></textarea>
-						<div class="editor" style="text-align:left;direction:ltr;">
-						&nbsp;
-						</div>
+ 					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">&nbsp;
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor2" cols="100" rows="1" class="green" style="display:none;"></textarea>
+						</span>
+					</div>
  					</td>
  					</tr>
- 					</table>
+					<tr>
+					<td colspan="3">&nbsp;</td>
+					</tr>
+					<tr>
+					<td colspan="3" style="text-align:right">
+					<span id="addedText">Ms. Jane Turner Coordinator for Europe - European Union & others 02-6586676 </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
+					</td>
+					</tr>
+					<tr>
+					<td colspan="3" style="text-align:right">
+					<span id="addedText">Ms. Netanya Bar Cohva Assistant 02-6586668 </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
+					</td>
+					</tr>
+  					</table>
  					</td>
 				</tr>	
 				<tr>
 					<td colspan="4" style="border:1px #bca2a2 dotted">
-					<table width="950" id="fileTable">
-  					<tr>
-					<td colspan="3">
-      					טפסים ומידע הקשור לטפסים:<br>
- 					</td>
-					</tr>				
+					<table width="950">
+  					<tr><td>טפסים ומידע הקשור לטפסים:</td>
+  					</tr>
  					<tr>
 					<td colspan="3" align="center">
-           			<textarea cols="100" rows="1" class="green" style="display:none;"></textarea>
-					<div class="editor" style="text-align:left;direction:ltr;">
-						<p>
-						<a href="http://www2.esf.org/WD110AWP/WD110Awp.exe/CONNECT/EW_Application_Form">http://www2.esf.org/WD110AWP/WD110Awp.exe/CONNECT/EW_Application_Form</a>
-						</p>            			
+ 					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">
+						<a href="http://www2.esf.org/WD110AWP/WD110Awp.exe/CONNECT/EW_Application_Form">http://www2.esf.org/WD110AWP/WD110Awp.exe/CONNECT/EW_Application_Form</a>						
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor3" cols="100" rows="1" class="green" style="display:none;">
+           					<a href="http://www2.esf.org/WD110AWP/WD110Awp.exe/CONNECT/EW_Application_Form">http://www2.esf.org/WD110AWP/WD110Awp.exe/CONNECT/EW_Application_Form</a>
+           					</textarea>
+						</span>
 					</div>
-  					</td>
+ 					</td>
  					</tr>
-  					<tr>
-					<td colspan="3">
-					ניהול הקבצים:
-					<table width="800" align="center">
 					<tr>
-					<td>
-						<span id="addedText">
-						<a style="text-decoration:underline" href="fileViewer?conferenceProposalId=70&attachFile=guestsAttach&contentType=application/vnd.oasis.opendocument.spreadsheet&attachmentId=1"
-								target="_blank">טופס הרשמה מספר 1123</a>
-						</span>&nbsp;&nbsp;&nbsp;
-						<a href="" class="addFile">הוסף לעורך</a>						
+					<td colspan="3">&nbsp;</td>
+					</tr>
+					<tr>
+					<td colspan="3" style="text-align:right">
+					<span id="addedText"><a style="text-decoration:underline" href="fileViewer?conferenceProposalId=70&attachFile=guestsAttach&contentType=application/vnd.oasis.opendocument.spreadsheet&attachmentId=1"
+								target="_blank">טופס הרשמה מספר 1123</a> </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
+					
+
+					</td>
+					</tr>
+					<tr>
+					<td colspan="3" style="text-align:right">
+					<span id="addedText"><a style="text-decoration:underline" href="fileViewer?conferenceProposalId=70&attachFile=guestsAttach&contentType=application/vnd.oasis.opendocument.spreadsheet&attachmentId=1"
+								target="_blank">טופס הרשמה מספר 5600</a> </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
 					</td>
 					</tr>
 					<tr>
 					<td>
-						<span id="addedText">
-						<a style="text-decoration:underline" href="fileViewer?conferenceProposalId=70&attachFile=guestsAttach&contentType=application/vnd.oasis.opendocument.spreadsheet&attachmentId=1"
-								target="_blank">טופס הרשמה מספר 5600</a>
-						</span>&nbsp;&nbsp;&nbsp;
-						<a href="" class="addFile">הוסף לעורך</a>
-					</td>
-					</tr>
-					<tr>
-					<td>
-						<div style="display: block; width: 60px; height: 27px; overflow: hidden;">
-							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
-							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="formAttach" id="formAttach"/>
+						<div style="display: block; width: 100px; height: 27px; overflow: hidden;">
+							<button class="green" style="width: 100px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">הוסף קובץ</a></button>
+							<input type="file" style="font-size: 50px; width: 100px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="formAttach" id="formAttach"/>
 						</div>
 					</td>
 					</tr>
-					</table>
- 					</td>
- 					</tr>
- 					</table>
+  					</table>
  					</td>
  				</tr>
 				<tr>
@@ -304,22 +302,33 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-            			<textarea cols="100" rows="1" class="green" style="display:none;"></textarea>
- 						<div class="editor" id="description" style="text-align:left;direction:ltr;">
-             			<p> Each year, ESF supports approximately 50 Exploratory Workshops across all scientific domains. </p>  
-  						<p> <b> The focus of the scheme is on projects aiming to open up new directions in research or to explore emerging research fields with potential impact on new developments in science. Proposals should demonstrate the potential  for initiating follow-up research activities and/or developing future collaborative actions. Interdisciplinary topics are encouraged. </b></p>    
-							Proposals may be submitted in any or across several of the following broad scientific fields: <br> 
- 								<ul>  <li> Biomedical Sciences </li> 
- 								<li> Life, Earth and Environmental Sciences </li> 
- 								<li> Physical and Engineering Sciences </li> 
- 								<li> Social Sciences </li> 
- 								<li> Humanities </li> 
- 								<li> Science driven issues of Research Infrastructures in any of the above fields </li> 
+ 					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">
+            			<p> כאן יכנס תאור מפורט </p>  
+  						<b> מחקר כלשהו עם התייחסות לנושאים הבאים: </b><br> 
+ 								<ul>  <li> ביו רפואה </li> 
+ 								<li> מדעי הסביבה </li> 
+ 								<li> הנדסה ופיזיקה</li> 
+ 								<li> מדעי החברה </li> 
  						</ul> 
-						<p> The  <b> 2008 Call </b>  for Proposals is for workshops to be held between  <b> 1 February and 31 December 2009 </b>.</p>  
+						<p>הצעות יתקבלו מה  <b>  1 לפברואר עד 31 לדצמבר 2012 </b>.</p>  
  						<br> 
- 						</div>
-  					</td>
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor4" cols="100" rows="1" class="green" style="display:none;">
+            			<p> כאן יכנס תאור מפורט </p>  
+  						<b> מחקר כלשהו עם התייחסות לנושאים הבאים: </b><br> 
+ 								<ul>  <li> ביו רפואה </li> 
+ 								<li> מדעי הסביבה </li> 
+ 								<li> הנדסה ופיזיקה</li> 
+ 								<li> מדעי החברה </li> 
+ 						</ul> 
+						<p>הצעות יתקבלו מה <b>  1 לפברואר עד 31 לדצמבר 2012 </b>.</p>  
+ 						<br> 
+           					</textarea>
+						</span>
+					</div>
+   					</td>
  					</tr>
  					</table>
  					</td>
@@ -334,10 +343,16 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-            			<textarea cols="100" rows="1" class="green" style="display:none;"></textarea>
-            			<div class="editor" style="text-align:left;direction:ltr;"> 
-            			Applicants (convenors) must be scientists or scholars from European universities or research institutes in countries having agencies that are Member Organisations of the ESF. <b> Proposals may have co-applicants from other countries.</b>
-            			</div>
+ 					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">
+            			המגישים הינם חוקרים או בעלי מלגה מאוניברסטאות אירופאיות או מרכזי מחקר בארצות שכהגלחהנ. <b>לא יתקבלו הצעות עם שותפים מארצות אחרות.</b>
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor5" cols="100" rows="1" class="green" style="display:none;">
+            			המגישים הינם חוקרים או בעלי מלגה מאוניברסטאות אירופאיות או מרכזי מחקר בארצות שכהגלחהנ. <b>לא יתקבלו הצעות עם שותפים מארצות אחרות.</b>
+							</textarea>
+						</span>
+					</div>
  					</td>
  					</tr>
  					</table>
@@ -353,10 +368,16 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-            			<textarea cols="100" rows="1" class="green" style="display:none;"></textarea>
-            			<div class="editor" style="text-align:left;direction:ltr;"> 
-						The workshop must take place in an ESF Member Organisation country between <b> 1 February and 31 December 2009</b>.            			
-						</div>
+ 					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">
+            			הסדנה תתקיים במדינה החברה בארגון ESF בין התאריכים 1 לפברואר ל 31 לדצמבר.
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor6" cols="100" rows="1" class="green" style="display:none;">
+           				הסדנה תתקיים במדינה החברה בארגון ESF בין התאריכים 1 לפברואר ל 31 לדצמבר.
+							</textarea>
+						</span>
+					</div>
  					</td>
  					</tr>
  					</table>
@@ -372,10 +393,14 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-            			<textarea cols="100" rows="1" class="green" style="display:none;"></textarea>
-						<div class="editor" style="text-align:left;direction:ltr;">
-						&nbsp;
-						</div>
+					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">&nbsp;
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor7" cols="100" rows="1" class="green" style="display:none;">
+ 							</textarea>
+						</span>
+					</div>
  					</td>
  					</tr>
  					</table>
@@ -391,16 +416,19 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-            			<textarea cols="100" rows="1" class="green" style="display:none;"></textarea>
-						<div class="editor" style="text-align:left;direction:ltr;">
-						&nbsp;
-						</div>
+					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">&nbsp;
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor8" cols="100" rows="1" class="green" style="display:none;">
+ 							</textarea>
+						</span>
+					</div>
  					</td>
  					</tr>
  					<tr>
-					<td colspan="3" style="text-align:left">
-					<a href="" class="add">הוסף לעורך</a> &nbsp;
-       				<span id="addedText">The budget proposal needs the approval of the budget officer Mr. Noam Glatzer 02-6586549 </span>	
+					<td colspan="3" style="text-align:right">
+      				<span id="addedText">התקציב דורש את אישורו של מנהל התקציב מר נועם גלזר 02-6586549 </span>&nbsp;	<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
       				</td>
  					</tr>
  					</table>
@@ -416,44 +444,94 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-            			<textarea cols="100" rows="1" class="green" style="display:none;"></textarea>
-            			<div class="editor" style="text-align:left;direction:ltr;"> 
- 				<br> 
- 				<b> Submission format </b>  <br> 
-				<ul>        <li> Applications (including CV) should be prepared as 1 document only in Word, rtf or pdf format. </li> 
-       			<li> All margins should be at least 3 cm and headers and footers not less than 2 cm.
-				 </li>     
-       			<li> Font size must be no smaller than 10. </li> 
+					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">
+				<br> 
+ 				<b>פורמט ההגשה </b><br> 
+				<ul><li>  הגשת המועמדות כולל קורות חיים תהיה באורך עמוד אחד בפורמט וורד או pdf  </li> 
+       			<li> פונט לא קטן מ 10 </li> 
  				</ul> <br>   
- 				<b> Submission procedure </b> <br>  
-       			<ul>  <li> Proposals should be submitted  <b> on-line </b> . </li> 
-       			<li> First submissions will be considered final ( <b> no revisions accepted </b> ). </li> 
+ 				<b> תהליך ההגשה</b><br>  
+       			<ul><li> יש להגיש את ההצעות <b> און ליין </b>.</li> 
+       			<li> הגשות ראשונות ייחשבו לסופיות ( <b> אין קבלת שינויים </b> ). </li> 
  				</ul> <br>   
- 					</div>         			
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor9" cols="100" rows="1" class="green" style="display:none;">
+				<br> 
+ 				<b>פורמט ההגשה </b><br> 
+				<ul><li>  הגשת המועמדות כולל קורות חיים תהיה באורך עמוד אחד בפורמט וורד או pdf  </li> 
+        			<li> פונט לא קטן מ 10 </li> 
+ 				</ul> <br>   
+ 				<b> תהליך ההגשה</b><br>  
+       			<ul><li> יש להגיש את ההצעות <b> און ליין </b>.</li> 
+       			<li> הגשות ראשונות ייחשבו לסופיות ( <b> אין קבלת שינויים </b> ). </li> 
+ 				</ul> <br>   
+ 							</textarea>
+						</span>
+  					</div>         			
  					</td>
  					</tr>
  					</table>
  					</td>
 				</tr>											
 				<tr class="form">
-						<td colspan="2" style="border:1px #bca2a2 dotted">
-      					תקופת מימון מקסימלית:
-            			<input type="text" class="green medium170" value="שנתיים"/>
- 						</td>
-						<td colspan="2" style="border:1px #bca2a2 dotted">
-      					סכום המענק:
-            			<input type="text" class="green medium170" value="עד 15,000 אירו"/>
- 						</td>
+					<td colspan="4" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr>
+					<td colspan="3">
+      					תקופת מימון מקסימלית:<br>
+ 					</td>
+					</tr>				
+ 					<tr>
+					<td colspan="3" align="center">
+					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">שנתיים
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor10" cols="100" rows="1" class="green" style="display:none;">
+ 							שנתיים
+ 							</textarea>
+						</span>
+					</div>
+ 					</td>
+ 					</tr>
+  					</table>
+ 					</td>
+ 				</tr>
+ 				<tr>
+					<td colspan="4" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr>
+					<td colspan="3">
+      					סכום המענק:<br>
+ 					</td>
+					</tr>				
+ 					<tr>
+					<td colspan="3" align="center">
+					<div class="editor" style="text-align:right;direction:rtl;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">עד 15,000 אירו
+						</span>
+ 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
+           					<textarea class="textareaEditor" id="textareaEditor11" cols="100" rows="1" class="green" style="display:none;">
+ 							עד 15,000 אירו
+ 							</textarea>
+						</span>
+					</div>
+             			<textarea cols="100" rows="1" class="green" style="display:none;"></textarea>
+						<div class="editor" style="text-align:right;direction:rtl;">
+						
+						</div>
+ 					</td>
+ 					</tr>
+  					</table>
+ 					</td>
 				</tr>
-				</table>
-				</td>
-				</tr>
-				<tr><td>&nbsp;</td></tr>
 
 	
  		
 		<tr class="form">
-			<td colspan="4" align="center">
+			<td colspan="4" align="center" style="border:1px #bca2a2 dotted">
 				<button title="שמירה" class="grey submit" > שמירה </button>&nbsp;&nbsp;
 				<button class="grey" title="" >צור הודעה בפוסט </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
