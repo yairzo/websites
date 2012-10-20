@@ -5,10 +5,9 @@ import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.FinancialSupport;
+import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.SQLUtils;
-import huard.iws.util.SearchCreteria;
-import huard.iws.util.ConferenceProposalSearchCreteria;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,13 +24,13 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements ConferenceProposalDao {
-	
+
 
 	public ConferenceProposal getConferenceProposal(int id){
 		String query = "select * from conferenceProposal where id=?";
 		logger.info(query);
 		ConferenceProposal conferenceProposal =
-			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
+				getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 		conferenceProposal.setFromAssosiate(getSupportFromAssosiate(id));
 		conferenceProposal.setFromExternal(getSupportFromExternal(id));
 		conferenceProposal.setFromAdmitanceFee(getSupportFromAdmitanceFee(id));
@@ -39,12 +38,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		conferenceProposal.setOperationalCommittees(getOperationalCommittees(id));
 		return conferenceProposal;
 	}
-	
+
 	public List<FinancialSupport> getSupportFromAssosiate(int conferenceProposalId){
 		String query = "select * from financialSupport where conferenceProposalId=? and type=1";
 		//logger.info(query);
 		List<FinancialSupport> supportFromAssosiate =
-			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
+				getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
 		return supportFromAssosiate;
 	}	
 
@@ -52,34 +51,34 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		String query = "select * from financialSupport where conferenceProposalId=? and type=2";
 		//logger.info(query);
 		List<FinancialSupport> supportFromExternal =
-			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
+				getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
 		return supportFromExternal;
 	}
-	
+
 	public List<FinancialSupport> getSupportFromAdmitanceFee(int conferenceProposalId){
 		String query = "select * from financialSupport where conferenceProposalId=? and type=3";
 		//logger.info(query);
 		List<FinancialSupport> supportFromAdmitanceFee =
-			getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
+				getSimpleJdbcTemplate().query(query, financialSupportRowMapper ,	conferenceProposalId);
 		return supportFromAdmitanceFee;
 	}
-	
+
 	public List<Committee> getScientificCommittees(int conferenceProposalId){
 		String query = "select * from committee where conferenceProposalId=? and type=1";
 		//logger.info(query);
 		List<Committee> scientificCommittees =
-			getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
+				getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
 		return scientificCommittees;
 	}	
-	
+
 	public List<Committee> getOperationalCommittees(int conferenceProposalId){
 		String query = "select * from committee where conferenceProposalId=? and type=2";
 		//logger.info(query);
 		List<Committee> operationalCommittees =
-			getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
+				getSimpleJdbcTemplate().query(query, committeeRowMapper ,	conferenceProposalId);
 		return operationalCommittees;
 	}	
-	
+
 	ParameterizedRowMapper<Committee> committeeRowMapper	= new ParameterizedRowMapper<Committee>(){
 		public Committee mapRow(ResultSet rs, int rowNum) throws SQLException{
 			Committee committee = new Committee();
@@ -93,7 +92,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			committee.setType(rs.getInt("type"));
 			return committee;
 		}
-    };
+	};
 	ParameterizedRowMapper<FinancialSupport> financialSupportRowMapper	= new ParameterizedRowMapper<FinancialSupport>(){
 		public FinancialSupport mapRow(ResultSet rs, int rowNum) throws SQLException{
 			FinancialSupport support = new FinancialSupport();
@@ -108,8 +107,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			support.setFileContentType(rs.getString("referenceFileContentType"));
 			return support;
 		}
-    };	
-    
+	};	
+
 	public void insertFinancialSupport(FinancialSupport financialSupport){
 		if (financialSupport.isEmpty())
 			return;
@@ -124,7 +123,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				financialSupport.getSumPerson(),
 				financialSupport.getReferenceFile(),
 				financialSupport.getFileContentType()				
-		);
+				);
 	}   
 	public void updateFinancialSupport(FinancialSupport financialSupport){
 		String query = "update financialSupport set name = ?, sum = ?, currency = ?, type=?, sumPerson=?  where id =?";
@@ -136,7 +135,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				financialSupport.getType(),
 				financialSupport.getSumPerson(),
 				financialSupport.getId()
-		);
+				);
 	}   
 	public void insertCommittee(Committee committee){
 		if (committee.isEmpty())
@@ -157,9 +156,9 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				committee.getCommitteeRole(),
 				committee.getCommitteeRoleOrganizing(),
 				committee.getType()
-		);
+				);
 	}
-	
+
 	public void insertCommittees(ConferenceProposal conferenceProposal){
 		String query = "delete from committee where conferenceProposalId = ?";
 		logger.info(query);
@@ -198,7 +197,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	public FinancialSupport getFinancialSupport(int financialSupportId){
 		String query = "select  * from  financialSupport where id =?";
 		FinancialSupport financialSupport =
-		getSimpleJdbcTemplate().queryForObject(query, financialSupportRowMapper,	financialSupportId );
+				getSimpleJdbcTemplate().queryForObject(query, financialSupportRowMapper,	financialSupportId );
 		return financialSupport;
 	}
 
@@ -212,14 +211,14 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				committee.getCommitteeRole(),
 				committee.getCommitteeRoleOrganizing(),
 				committee.getId()
-		);
+				);
 	} 	
 	public void deleteCommittee(int committeeId){
 		String query = "delete from committee where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query, committeeId);
 	}
-	
+
 	public void insertGradingInfo(ConferenceProposalGrading conferenceProposalGrading){
 		String query = "insert conferenceProposalGrading set approverId = ?, adminId = ?, deadline = ?, sentForGradingDate = now(), finishedGradingDate = ?, adminSendRemark=?";
 		logger.info(query);
@@ -229,7 +228,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				new java.sql.Timestamp(conferenceProposalGrading.getDeadline()),
 				new java.sql.Timestamp(conferenceProposalGrading.getFinishedGradingDate()),
 				conferenceProposalGrading.getAdminSendRemark()
-		);
+				);
 	} 
 	public void updateLastGradingByApproverDeadline(int approverId,String deadline,String deadlineRemarks){
 		String query = "select max(id) from conferenceProposalGrading where approverId = ? and date(deadline) =?;";
@@ -239,13 +238,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query, deadlineRemarks, id);
 	}
-	
+
 	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline){
 		String query = "select  * from  conferenceProposalGrading where date(deadline) =? order by deadline desc, sentForGradingDate desc";
 		logger.info(query + " " + deadline);
 		return getSimpleJdbcTemplate().query(query, gradingRowMapper,	deadline );
 	}
-	
+
 	ParameterizedRowMapper<ConferenceProposalGrading> gradingRowMapper	= new ParameterizedRowMapper<ConferenceProposalGrading>(){
 		public ConferenceProposalGrading mapRow(ResultSet rs, int rowNum) throws SQLException{
 			ConferenceProposalGrading conferenceProposalGrading = new ConferenceProposalGrading();
@@ -272,8 +271,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 			return conferenceProposalGrading;
 		}
-    };	
-    
+	};	
+
 	public ConferenceProposalGrading getApproverlastGrading(int approverId,String deadline){
 		ConferenceProposalGrading conferenceProposalGrading = new ConferenceProposalGrading();
 		try{
@@ -283,15 +282,15 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			return conferenceProposalGrading;
 		}
 		catch( Exception e){
-			 return conferenceProposalGrading;
+			return conferenceProposalGrading;
 		}
 	}
-   
+
 	public ConferenceProposal getVersionConferenceProposal(int confId, int verId){
 		String query = "select  * from conferenceProposalVersion where conferenceProposalId = ? and id = ? ";
 		logger.info(query);
 		ConferenceProposal conferenceProposal =
-		getSimpleJdbcTemplate().queryForObject(query, versionRowMapper,	confId ,verId );
+				getSimpleJdbcTemplate().queryForObject(query, versionRowMapper,	confId ,verId );
 		logger.info("conference proposal id: " + conferenceProposal.getId());
 		conferenceProposal.setFromAssosiate(getSupportFromAssosiate(confId));
 		conferenceProposal.setFromExternal(getSupportFromExternal(confId));
@@ -306,7 +305,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		logger.info(query);
 		return getSimpleJdbcTemplate().queryForInt(query,confId);
 	}
-	
+
 	public int getPreviousVersion(int confId, int verId){
 		if (verId==0)
 			verId = getLastVersion(confId);
@@ -366,7 +365,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setLocalGuests(rs.getInt("localGuests"));
 			conferenceProposal.setForeignAudience(rs.getInt("foreignAudience"));
 			conferenceProposal.setLocalAudience(rs.getInt("localAudience"));
-			
+
 			conferenceProposal.setGuestsAttach(rs.getBytes("guestsAttach"));
 			conferenceProposal.setGuestsAttachContentType(rs.getString("guestsAttachContentType"));
 			conferenceProposal.setProgramAttach(rs.getBytes("programAttach"));
@@ -419,8 +418,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setCommitteeRemarks(rs.getString("committeeRemarks"));
 			conferenceProposal.setAcceptTerms(rs.getBoolean("acceptTerms"));
 			conferenceProposal.setCreatorId(rs.getInt("creatorId"));
-            return conferenceProposal;
-        }
+			return conferenceProposal;
+		}
 	};
 	private ParameterizedRowMapper<ConferenceProposal> versionRowMapper = new ParameterizedRowMapper<ConferenceProposal>(){
 		public ConferenceProposal mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -503,8 +502,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setCommitteeRemarks(rs.getString("committeeRemarks"));
 			conferenceProposal.setAcceptTerms(rs.getBoolean("acceptTerms"));
 			conferenceProposal.setCreatorId(rs.getInt("creatorId"));
-            return conferenceProposal;
-        }
+			return conferenceProposal;
+		}
 	};
 
 	public int insertConferenceProposal(ConferenceProposal conferenceProposal){
@@ -521,7 +520,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		else
 			internalId=internalYear+1;
 		//System.out.println(internalId);
-		
+
 		final String queryS1 = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?,auditorium=1, creatorId=?;";
 		logger.info(queryS1);
 		final int personId = conferenceProposal.getPersonId();
@@ -530,34 +529,34 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
-		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-		            PreparedStatement ps =
-		                connection.prepareStatement(queryS1, new String[] {"id"});
-		            ps.setInt(1, personId);
-		            ps.setTimestamp(2, new java.sql.Timestamp(deadline));
-		            ps.setInt(3, internalId);
-		            ps.setInt(4, creatorId);
-		            return ps;
-		        }
-		    },
-		    keyHolder);
+					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+						PreparedStatement ps =
+								connection.prepareStatement(queryS1, new String[] {"id"});
+						ps.setInt(1, personId);
+						ps.setTimestamp(2, new java.sql.Timestamp(deadline));
+						ps.setInt(3, internalId);
+						ps.setInt(4, creatorId);
+						return ps;
+					}
+				},
+				keyHolder);
 		final int key=keyHolder.getKey().intValue();
 		final String queryS2 = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?, creatorId=?;";
 		logger.info(queryS2);
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
-		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-		            PreparedStatement ps =
-		                connection.prepareStatement(queryS2, new String[] {"id"});
-		            ps.setInt(1, key);
-		            ps.setInt(2, personId);
-		            ps.setTimestamp(3, new java.sql.Timestamp(deadline));
-		            ps.setInt(4, internalId);
-		            ps.setInt(5, creatorId);
-		            return ps;
-		        }
-		    });
-		
+					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+						PreparedStatement ps =
+								connection.prepareStatement(queryS2, new String[] {"id"});
+						ps.setInt(1, key);
+						ps.setInt(2, personId);
+						ps.setTimestamp(3, new java.sql.Timestamp(deadline));
+						ps.setInt(4, internalId);
+						ps.setInt(5, creatorId);
+						return ps;
+					}
+				});
+
 		return keyHolder.getKey().intValue();
 	}
 
@@ -679,12 +678,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getCommitteeRemarks(),
 				conferenceProposal.getAcceptTerms(),
 				conferenceProposal.getId());
-		
+
 		insertCommittees(conferenceProposal);		
 		insertFinancialSupports(conferenceProposal);	
-		
+
 		//insert to version table
-		 query = "insert conferenceProposalVersion set "+
+		query = "insert conferenceProposalVersion set "+
 				" conferenceProposalId = ?" +
 				", personId = ?" + 
 				", internalId = ?" +
@@ -808,30 +807,30 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query, id);
 	}
-	
+
 	public List<ConferenceProposal> getConferenceProposals() {
 		String query = "select * from conferenceProposal where deleted=0 order by id";
 		logger.info(query);
 		List<ConferenceProposal> conferenceProposals =
-			getSimpleJdbcTemplate().query(query, rowMapper);
+				getSimpleJdbcTemplate().query(query, rowMapper);
 		return conferenceProposals;
-    }
-	
+	}
+
 	public List<ConferenceProposal> getConferenceProposalsByDate(String prevdeadline) {
 		String query = "select * from conferenceProposal where submitted =1 and deleted=0 and isInsideDeadline = 1 and date(deadline)> '" + prevdeadline +"' order by id";
 		logger.info(query);
 		List<ConferenceProposal> conferenceProposals =
-			getSimpleJdbcTemplate().query(query, rowMapper);
+				getSimpleJdbcTemplate().query(query, rowMapper);
 		return conferenceProposals;
-    }
-	
+	}
+
 	public List<ConferenceProposal> getConferenceProposalsByPerson( int personId) {
 		String query = "select * from conferenceProposal where deleted=0 and personId = ?";
 		logger.info(query);
 		List<ConferenceProposal> conferenceProposals =
-			getSimpleJdbcTemplate().query(query, rowMapper, personId);
+				getSimpleJdbcTemplate().query(query, rowMapper, personId);
 		return conferenceProposals;
-    }
+	}
 
 	public List<ConferenceProposal> getConferenceProposals(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean, boolean forGrading) {
 
@@ -844,11 +843,11 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		logger.info(query);
 
 		List<ConferenceProposal> conferenceProposals =
-			getSimpleJdbcTemplate().query(query, rowMapper);
+				getSimpleJdbcTemplate().query(query, rowMapper);
 		//applyPersonSubjectIds(persons);
 		return conferenceProposals;
-    }
-	
+	}
+
 	public int countConferenceProposals(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean, boolean forGrading) {
 
 		String query = "select count(*) from conferenceProposal";
@@ -857,43 +856,34 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		logger.info(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 
-    }
+	}
 
 	public String getConferenceProposalsWhereClause(ConferenceProposalSearchCreteria search, PersonBean userPersonBean, boolean forGrading){
-		
+
 		String whereClause="";
 
-		if ((search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty())) || userPersonBean.isAuthorized("CONFERENCE","APPROVER") || userPersonBean.isAuthorized("RESEARCHER") )
-			whereClause += " where";
+		boolean whereClausePreDefined = (search != null && search.isNeedWhereClause());
+		boolean whereClauseNeeded = whereClausePreDefined || userPersonBean.isAuthorized("CONFERENCE","APPROVER") || userPersonBean.isAuthorized("RESEARCHER");
 
-		//if (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER") && !userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")){
-		if (search.getSelf()==1){
-			whereClause += " personId = " + userPersonBean.getId() ;
-			if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty()))
-				whereClause += " and";
-		}
-		else if (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")){
-			whereClause += " approverId = " + userPersonBean.getId() ;
-			if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty()))
-				whereClause += " and";
-		}
-		
-		if (search != null && (!search.getWhereClause().isEmpty() || !search.getSearchPhrase().isEmpty())){
-			if (!search.getWhereClause().isEmpty()){// where clause
-				whereClause+= search.getWhereClause();
-				if(!search.getSearchPhrase().isEmpty())
-					whereClause += " and";
-			}
-			if(!search.getSearchPhrase().isEmpty()){ //search phrase
-				whereClause +=  " personId in (select id from person where (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
-				+ " or concat(lastNameHebrew, ' ', firstNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
-				+ " or concat(firstNameHebrew, ' ', lastNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
-				+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
-				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
-				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "')) ";
+		if (whereClauseNeeded){
+			whereClause += " where 1=1 ";
+
+			if (userPersonBean.isOnlyAuthorized("CONFERENCE", "RESEARCHER") || search.getSelf()==1)
+				whereClause += " and personId = " + userPersonBean.getId() ;			
+			else if (userPersonBean.isAuthorized("CONFERENCE","APPROVER"))
+				whereClause += " and approverId = " + userPersonBean.getId() ;
+			if (whereClausePreDefined)
+				whereClause+= " and " + search.getWhereClause();
+			if (!search.getSearchPhrase().isEmpty()){ //search phrase
+				whereClause +=  " and personId in (select id from person where (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
+						+ " or concat(lastNameHebrew, ' ', firstNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
+						+ " or concat(firstNameHebrew, ' ', lastNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
+						+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
+						+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
+						+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "')) ";
 			}
 		}
-		
+
 		//order by
 		if (forGrading){
 			whereClause += " order by grade";
@@ -905,8 +895,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			whereClause += " order by openDate desc";
 		return whereClause;
 	}
-	
-	
+
+
 	public void gradeHigher(ConferenceProposal conferenceProposal, String prevdeadline){
 		String query = "update conferenceProposal set grade=grade - 1 where deleted=0 and approverId=? and grade=? and date(deadline)>'"+prevdeadline +"';";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()+1);

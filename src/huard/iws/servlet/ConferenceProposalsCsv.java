@@ -16,7 +16,10 @@ import huard.iws.util.UserPersonUtils;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
@@ -30,7 +33,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 	private static final long serialVersionUID = -1;
 	//private static final Logger logger = Logger.getLogger(ConferenceProposalsCsv.class);
 
-	
+
 	private boolean isAuthorized(HttpServletRequest request){
 		ApplicationContext context = ApplicationContextProvider.getContext();
 		Object obj = context.getBean("personService");
@@ -49,7 +52,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		if (! isAuthorized(request)) return;
 
 		ServletOutputStream out = null;
@@ -57,7 +60,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType ("application/octet-stream");
 			response.setHeader("Content-disposition","attachment; filename=proposals.csv");
-			
+
 			Object obj = ApplicationContextProvider.getContext().getBean("configurationService");
 			ConfigurationService configurationService = (ConfigurationService)obj;
 			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
@@ -143,19 +146,13 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append('~');
 		b.append("guests file");
 		b.append('~');
-		b.append("guests file type");
-		b.append('~');
 		b.append("program file");
-		b.append('~');
-		b.append("program file type");
 		b.append('~');
 		b.append("description");
 		b.append('~');
 		b.append("organizing company name");
 		b.append('~');
 		b.append("organizing company file");
-		b.append('~');
-		b.append("organizing company file type");
 		b.append('~');
 		b.append("contact person name");
 		b.append('~');
@@ -170,8 +167,6 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append("total cost currency");
 		b.append('~');
 		b.append("budget file");
-		b.append('~');
-		b.append("budget file type");
 		b.append('~');
 		b.append("international flag");
 		b.append('~');
@@ -196,6 +191,15 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append("approver evaluation");
 		b.append('~');
 		b.append("admin remarks");
+		b.append('~');
+		b.append("guests file type");
+		b.append('~');
+		b.append("program file type");
+		b.append('~');
+		b.append("organizing company file type");
+		b.append('~');
+		b.append("budget file type");
+
 		b.append('\n');
 
 		// get data
@@ -296,18 +300,8 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			else 
 				b.append(" ");
 			b.append('~');
-			if(!conferenceProposalBean.getGuestsAttachContentType().isEmpty())
-				b.append(getExtension(conferenceProposalBean.getGuestsAttachContentType()));
-			else 
-				b.append(" ");
-			b.append('~');
 			if(conferenceProposalBean.getProgramAttach().length>0)
 				b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=programAttach&attachmentId=1");
-			else 
-				b.append(" ");
-			b.append('~');
-			if(!conferenceProposalBean.getProgramAttachContentType().isEmpty())
-				b.append(getExtension(conferenceProposalBean.getProgramAttachContentType()));
 			else 
 				b.append(" ");
 			b.append('~');
@@ -326,11 +320,6 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append('~');
 			if(conferenceProposalBean.getCompanyAttach().length>0)
 				b.append("http://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=companyAttach&attachmentId=1");
-			else 
-				b.append(" ");
-			b.append('~');
-			if(!conferenceProposalBean.getCompanyAttachContentType().isEmpty())
-				b.append(getExtension(conferenceProposalBean.getCompanyAttachContentType()));
 			else 
 				b.append(" ");
 			b.append('~');
@@ -363,10 +352,6 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			else 
 				b.append(" ");
 			b.append('~');
-			if(!conferenceProposalBean.getFinancialAttachContentType().isEmpty())
-				b.append(getExtension(conferenceProposalBean.getFinancialAttachContentType()));
-			else 
-				b.append(" ");
 			b.append('~');
 			b.append(conferenceProposalBean.getAuditorium());
 			b.append('~');
@@ -418,8 +403,27 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				adminRemarks = adminRemarks.trim().replaceAll("\\s+", " ");
 			}
 			b.append(adminRemarks);
+			b.append('~');
+			if(!conferenceProposalBean.getGuestsAttachContentType().isEmpty())
+				b.append(getExtension(conferenceProposalBean.getGuestsAttachContentType()));
+			else 
+				b.append(" ");
+			b.append('~');
+			if(!conferenceProposalBean.getProgramAttachContentType().isEmpty())
+				b.append(getExtension(conferenceProposalBean.getProgramAttachContentType()));
+			else 
+				b.append(" ");
+			b.append('~');
+			if(!conferenceProposalBean.getCompanyAttachContentType().isEmpty())
+				b.append(getExtension(conferenceProposalBean.getCompanyAttachContentType()));
+			else 
+				b.append(" ");
+			if(!conferenceProposalBean.getFinancialAttachContentType().isEmpty())
+				b.append(getExtension(conferenceProposalBean.getFinancialAttachContentType()));
+			else 
+				b.append(" ");
 			b.append('\n');
-			
+
 			ConferenceProposalBean cp = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 			List<Committee> ScientificCommittees = cp.getScientificCommittees();
 			for (Committee committee: ScientificCommittees){
@@ -588,7 +592,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		}
 		return b;
 	}
-	
+
 	private static String getExtension(String contentType){
 		if(contentType.equals("application/pdf"))
 			return ".pdf";
@@ -600,6 +604,5 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			return ".xls";
 		else
 			return "other";
-	}
-
+	}	
 }

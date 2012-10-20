@@ -9,7 +9,6 @@ import huard.iws.model.Faculty;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
-import huard.iws.service.MailMessageService;
 import huard.iws.service.PersonListService;
 import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.DateUtils;
@@ -35,7 +34,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
-		ConferenceProposalListCommand searchCommand = (ConferenceProposalListCommand)command;
+		//ConferenceProposalListCommand searchCommand = (ConferenceProposalListCommand)command;
 
 		//request.getSession().setAttribute("conferenceProposalsSearchCreteria", searchCommand.getSearchCreteria());
 		//request.getSession().setAttribute("conferenceProposalsListView", searchCommand.getListView());
@@ -187,7 +186,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			request.getSession().setAttribute("conferenceProposalListView", listView);
 			request.getSession().setAttribute("newSearch", "no");
 		}
-		if (!isFormSubmission(request.getRequest())){//on show
+		else {//on show
 			ConferenceProposalSearchCreteria searchCreteria = (ConferenceProposalSearchCreteria) request.getSession().getAttribute("conferenceProposalSearchCreteria");
 			request.getSession().setAttribute("conferenceProposalsSearchCreteria", null);
 			ListView listView = (ListView) request.getSession().getAttribute("conferenceProposalListView");

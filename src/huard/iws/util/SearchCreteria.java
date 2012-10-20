@@ -23,7 +23,6 @@ public class SearchCreteria {
 	}
 	
 	public String getFullWhereCluase(){
-	System.out.println("1111111111:" + this.whereClause);
 		String whereCluase = "";
 		if (this.whereClause.isEmpty() && searchPhrase.isEmpty())
 			return "";
@@ -36,6 +35,10 @@ public class SearchCreteria {
 			whereCluase += searchField + " = '" + searchPhrase +"'";
 		}
 		return whereCluase;
+	}
+	
+	public boolean isNeedWhereClause(){
+		return !this.getSearchPhrase().isEmpty() || !this.getWhereClause().isEmpty(); 
 	}
 
 	public String getSearchField() {
