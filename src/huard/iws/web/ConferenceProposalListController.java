@@ -87,14 +87,11 @@ public class ConferenceProposalListController extends GeneralFormController {
 		//recordProtectService.freeRecordsByUsername(userPersonBean.getUsername());
 
 		ConferenceProposalListCommand searchCommand = (ConferenceProposalListCommand) model.get("command");
-		if(request.getParameter("type", "").equals("self")){
-			searchCommand.getSearchCreteria().setSelf(1);
+		if(request.getSession().getAttribute("self").equals("1"))
 			model.put("self",true);
-		}
-		else{
-			searchCommand.getSearchCreteria().setSelf(0);
+		else
 			model.put("self",false);
-		}
+
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(searchCommand.getListView(), searchCommand.getSearchCreteria(),userPersonBean,false);
 		List<ConferenceProposalBean> conferenceProposalBeans = new ArrayList<ConferenceProposalBean>();
 
@@ -136,6 +133,10 @@ public class ConferenceProposalListController extends GeneralFormController {
 			model.put("admin",true);
 		else
 			model.put("admin",false);
+		if(userPersonBean.isOnlyAuthorized("CONFERENCE", "RESEARCHER"))
+			model.put("researcher",true);
+		else
+			model.put("researcher",false);
 		return new ModelAndView (this.getFormView(), model);
 	}
 
@@ -158,8 +159,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 				else if (searchBySubmitted < 2)// 2 is all proposals
 					whereClause += " and submitted =" + searchBySubmitted + " and deleted=0";
 			}
-			else if (!request.getParameter("type", "").equals("self") && (userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")
-				|| userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE"))){
+			else if (request.getSession().getAttribute("self").equals("0") && !userPersonBean.isOnlyAuthorized("CONFERENCE", "RESEARCHER")){
 				whereClause += " and submitted = 1";
 			}
 			
@@ -177,6 +177,10 @@ public class ConferenceProposalListController extends GeneralFormController {
 			searchCreteria.setSearchByApprover(searchByApprover);
 			searchCreteria.setSearchBySubmitted(searchBySubmitted);
 			searchCreteria.setSearchByDeadline(searchByDeadline);
+			int self=0;
+			if(request.getSession().getAttribute("self")!=null && request.getSession().getAttribute("self").equals("1"))
+				self=1;
+			searchCreteria.setSelf(self);
 			searchCommand.setSearchCreteria(searchCreteria);
 			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getWhereClause());
 			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
@@ -195,7 +199,15 @@ public class ConferenceProposalListController extends GeneralFormController {
 				searchCreteria = new ConferenceProposalSearchCreteria();
 				String whereClause ="";
 				String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-				if(request.getParameter("type", "").equals("self")){
+				if(request.getParameter("type", "").equals("self") || userPersonBean.isOnlyAuthorized("CONFERENCE", "RESEARCHER")){
+					request.getSession().setAttribute("self", "1");
+					searchCreteria.setSelf(1);
+				}
+				else{
+					request.getSession().setAttribute("self", "0");
+					searchCreteria.setSelf(0);
+				}
+				if(searchCreteria.getSelf()==1){
 					whereClause = " date(deadline)>'"+previousDeadline +"'";
 				}
 				else{

@@ -24,7 +24,7 @@
         <input type="hidden" name="searchCreteria.roleFilter" value="${command.searchCreteria.roleFilter}"/>
     	<table border="0" align="center" style="width: 95%; direction: rtl;" cellspacing="10">
     		<tr>
-    			<c:if test="${!self}">
+    			<c:if test="${!researcher && !self}">
     			<td class="container" style="width: 15%;">
     				<span style="text-align: center;"><h2> סינון הבקשות שתוצגנה ברשימה</h2></span>
     				<br/>
@@ -86,10 +86,10 @@
 				</td>
 				</c:if>
     			<td class="container" style="width: 85%; vertical-align: top;text-align: center;">
-				  	<c:if test="${self}">
+				  	<c:if test="${researcher || self}">
               			<h1>הבקשות שלך <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogList"/></h1> 
    					</c:if>
-   					<c:if test="${!self}">
+   					<c:if test="${!researcher && !self}">
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
     					<span><h2> רשימת הבקשות של חוקרים ביחידה:<c:out escapeXml="false" value="${myFaculty}"></c:out></h2> </span>
    					</authz:authorize>
@@ -100,9 +100,7 @@
     				<table style="width: 100%;">
              			<thead>
   							<tr>
-				  					<c:if test="${!self}">
 		  							<td style="font-weight: bold;width:15%;">החוקר המבקש</td>
-  									</c:if>
 			  						<td style="font-weight: bold;width:60%;">שם הכנס</td>
 			  						<td style="font-weight: bold;width:10%; text-align:center">תאריך הכנס</td>
 			  						<td style="font-weight: bold;width:15%;">הדיקן המתייחס</td>
@@ -121,7 +119,6 @@
              			<c:choose><c:when test="${varStatus.index%2==0}"><c:set var="cssClass" value="darker"/></c:when><c:otherwise><c:set var="cssClass" value="brighter"/></c:otherwise></c:choose>
  							<tbody>            			
  							<tr class="${cssClass}" style="height: 30px;">
-				  						<c:if test="${!self}">
 				  						<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
   											<a href="person.html?id=${conferenceProposal.researcher.id}">
@@ -132,7 +129,6 @@
   												<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
   											</authz:authorize>  											
   										</td>
-  										</c:if>
  										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
   											<a href="conferenceProposal.html?id=${conferenceProposal.id}"><c:choose><c:when test="${fn:length(conferenceProposal.subject)>0}"><c:out value="${conferenceProposal.subject}"></c:out></c:when><c:otherwise>ללא נושא</c:otherwise></c:choose></a>
   										</td>
