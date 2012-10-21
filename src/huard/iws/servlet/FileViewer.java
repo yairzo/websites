@@ -43,7 +43,8 @@ public class FileViewer extends HttpServlet {
 		byte [] file = null;
 		String contentType = requestWrapper.getParameter("contentType", "");
 		int attachmentId = requestWrapper.getIntParameter("attachmentId", 0);
-		if (attachmentId <= 0 )
+		System.out.println("1111111111:" + requestWrapper.getIntParameter("conferenceProposalId", 0));
+		if (attachmentId <= 0 && requestWrapper.getIntParameter("conferenceProposalId", 0)== 0)
 			return;
 		
 		int proposalId = requestWrapper.getIntParameter("proposalId", 0);
