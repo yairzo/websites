@@ -52,6 +52,22 @@ $(document).ready(function() {
 		$('#participants').prop("readonly", true);
 		jQuery('select#prefferedCampus option:not(:selected)').attr('disabled',true);
 	}
+
+	var textcontent=$('#description').val();
+	if (textcontent.length>0)
+		textcontent = textcontent.charAt(0);
+	if ((textcontent >= 'א') && (textcontent <= 'ת'))
+		$("#description").css('direction','rtl');
+	else 
+		$("#description").css('direction','ltr');
+	textcontent=$('#subject').val();
+	if (textcontent.length>0)
+		textcontent = textcontent.charAt(0);
+	if ((textcontent >= 'א') && (textcontent <= 'ת'))
+		$("#subject").css('direction','rtl');
+	else 
+		$("#subject").css('direction','ltr');
+
 	
 	$('#seminarRoom').change(function(){
 		if($('#seminarRoom').is(":checked")){
@@ -221,6 +237,26 @@ $(document).ready(function() {
 	    $('#form').ajaxSubmit();
 	}, {delay: 3000});
 	
+	$("#description").blur(function(e){
+		var textcontent=$('#description').val();
+		if (textcontent.length>0)
+			textcontent = textcontent.charAt(0);
+		//alert(textcontent);
+		if ((textcontent >= 'א') && (textcontent <= 'ת'))
+			$("#description").css('direction','rtl');
+		else 
+			$("#description").css('direction','ltr');
+	});
+	$("#subject").blur(function(e){
+		var textcontent=$('#subject').val();
+		if (textcontent.length>0)
+			textcontent = textcontent.charAt(0);
+		//alert(textcontent);
+		if ((textcontent >= 'א') && (textcontent <= 'ת'))
+			$("#subject").css('direction','rtl');
+		else 
+			$("#subject").css('direction','ltr');
+	});
 	
 	$('.cancelSubmission').change(function(event){
 		if($('.cancelSubmission').is(":checked")){
