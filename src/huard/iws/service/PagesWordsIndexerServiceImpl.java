@@ -3,7 +3,7 @@ package huard.iws.service;
 import huard.iws.bean.PersonBean;
 import huard.iws.db.PagesWordsIndexerDao;
 import huard.iws.model.AList;
-import huard.iws.model.CallOfProposal;
+import huard.iws.model.CallOfProposalOld;
 import huard.iws.model.Desk;
 import huard.iws.model.OrganizationUnit;
 import huard.iws.model.TextualPage;
@@ -30,7 +30,7 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 		else 
 			runsInterval = RUNS_INTERVAL;
 
-		List<CallOfProposal> callOfProposals = pagesWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,configurationService.getConfigurationString("websiteDb"));
+		List<CallOfProposalOld> callOfProposals = pagesWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,configurationService.getConfigurationString("websiteDb"));
 
 		System.out.println("InfoPagesIndexer: Indexing "+callOfProposals.size()+" pages.");
 		if (callOfProposals.size()>0) 
@@ -65,7 +65,7 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 		}
 
 		int counter = 0;
-		for (CallOfProposal callOfProposal: callOfProposals){
+		for (CallOfProposalOld callOfProposal: callOfProposals){
 			logger.info("Call of porposal: " + callOfProposal.getId());
 			String text = callOfProposal.toString();
 

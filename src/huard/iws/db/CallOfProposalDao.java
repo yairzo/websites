@@ -6,18 +6,17 @@ import huard.iws.model.CallOfProposal;
 
 public interface CallOfProposalDao {
 
-	public CallOfProposal getCallOfProposal(int id, String server);
+	public CallOfProposal getCallOfProposal(int id);
 
-	public CallOfProposal getCallOfProposal(String title, String server);
-
-	public List<CallOfProposal> getCallsOfProposals(String server);
-
-	public List<CallOfProposal> getCallsOfProposals(String server, boolean open);
-
-	public void insertAuthorizedMD5(String md5, String server);
+	public CallOfProposal getCallOfProposal(String title);
 	
-	public List<CallOfProposal> getAliveTabledInfoPages(Integer ardNum,String server);
+	public int insertCallOfProposal(CallOfProposal callOfProposal);
 	
+	public void updateCallOfProposal(CallOfProposal callOfProposal);
+
+	public List<CallOfProposal> getCallsOfProposals();
+
+	public List<CallOfProposal> getCallsOfProposals( boolean open);
 
 
 }

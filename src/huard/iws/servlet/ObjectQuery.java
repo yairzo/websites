@@ -1,9 +1,9 @@
 package huard.iws.servlet;
 
-import huard.iws.bean.CallOfProposalBean;
+import huard.iws.bean.CallOfProposalBeanOld;
 import huard.iws.bean.PersonBean;
-import huard.iws.model.CallOfProposal;
-import huard.iws.service.CallOfProposalService;
+import huard.iws.model.CallOfProposalOld;
+import huard.iws.service.CallOfProposalServiceOld;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.UserPersonUtils;
@@ -22,7 +22,7 @@ public class ObjectQuery extends HttpServlet{
 	//private static final Logger logger = Logger.getLogger(SelectBoxFiller.class);
 	private ApplicationContext context = ApplicationContextProvider.getContext();
 	private PersonService personService;
-	private CallOfProposalService callOfProposalService;
+	private CallOfProposalServiceOld callOfProposalServiceOld;
 
 	final static long serialVersionUID = 0;
 
@@ -52,14 +52,14 @@ public class ObjectQuery extends HttpServlet{
 		if (type.equals("callOfProposal")){
 			if (! userPersonBean.isAuthorized("POST", "ADMIN") && ! userPersonBean.isAuthorized("POST", "CREATOR"))
 				return ;
-			Object obj = context.getBean("callOfProposalService");
-			callOfProposalService = (CallOfProposalService)obj;
-			CallOfProposal callOfProposal = callOfProposalService.getCallOfProposal(id);
+			Object obj = context.getBean("callOfProposalServiceOld");
+			callOfProposalServiceOld = (CallOfProposalServiceOld)obj;
+			CallOfProposalOld callOfProposal = callOfProposalServiceOld.getCallOfProposal(id);
 			//if no such callOfProposal - user entered wrong number
 			if (callOfProposal.getId()==0)
 				return;
 			
-			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal, true);
+			CallOfProposalBeanOld callOfProposalBean = new CallOfProposalBeanOld(callOfProposal, true);
 
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");
@@ -72,14 +72,14 @@ public class ObjectQuery extends HttpServlet{
 		if (type.equals("callOfProposalTitle")){
 			if (! userPersonBean.isAuthorized("POST", "ADMIN") && ! userPersonBean.isAuthorized("POST", "CREATOR"))
 				return ;
-			Object obj = context.getBean("callOfProposalService");
-			callOfProposalService = (CallOfProposalService)obj;
-			CallOfProposal callOfProposal = callOfProposalService.getCallOfProposal(id);
+			Object obj = context.getBean("callOfProposalServiceOld");
+			callOfProposalServiceOld = (CallOfProposalServiceOld)obj;
+			CallOfProposalOld callOfProposal = callOfProposalServiceOld.getCallOfProposal(id);
 			//if no such callOfProposal - user entered wrong number
 			if (callOfProposal.getId()==0)
 				return;
 			
-			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal, true);
+			CallOfProposalBeanOld callOfProposalBean = new CallOfProposalBeanOld(callOfProposal, true);
 
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");

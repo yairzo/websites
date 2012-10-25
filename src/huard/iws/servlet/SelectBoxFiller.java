@@ -1,14 +1,14 @@
 package huard.iws.servlet;
 
 import huard.iws.bean.PersonBean;
-import huard.iws.model.CallOfProposal;
+import huard.iws.model.CallOfProposalOld;
 import huard.iws.model.Country;
 import huard.iws.model.Fund;
 import huard.iws.model.Institute;
 import huard.iws.model.OrganizationUnit;
 import huard.iws.model.Person;
 import huard.iws.model.Post;
-import huard.iws.service.CallOfProposalService;
+import huard.iws.service.CallOfProposalServiceOld;
 import huard.iws.service.FundService;
 import huard.iws.service.InstituteListService;
 import huard.iws.service.OrganizationUnitService;
@@ -43,7 +43,7 @@ public class SelectBoxFiller extends HttpServlet {
 	private FundService fundService;
 	private PersonListService personListService;
 	private OrganizationUnitService organizationUnitService;
-	private CallOfProposalService callOfProposalService;
+	private CallOfProposalServiceOld callOfProposalServiceOld;
 	private PostService postService;
 
 	final static long serialVersionUID = 0;
@@ -71,8 +71,8 @@ public class SelectBoxFiller extends HttpServlet {
 		obj  = context.getBean("organizationUnitService");
 		organizationUnitService = (OrganizationUnitService)obj;
 
-		obj  = context.getBean("callOfProposalService");
-		callOfProposalService = (CallOfProposalService)obj;
+		obj  = context.getBean("callOfProposalServiceOld");
+		callOfProposalServiceOld = (CallOfProposalServiceOld)obj;
 		
 		obj  = context.getBean("postService");
 		postService = (PostService)obj;
@@ -167,6 +167,30 @@ public class SelectBoxFiller extends HttpServlet {
 			out.flush();
 			out.close();
 		}
+		
+		if (type.equals("fundsWithId")){
+			String term = request.getParameter("term");
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html");
+			response.setStatus(HttpServletResponse.SC_OK);
+			StringBuilder sb = new StringBuilder();
+			boolean first = true;
+			sb.append("[");		
+			List<Fund> funds = fundService.getFilteredFunds(term);
+			for (Fund fund: funds){
+				if (!first)
+					sb.append(",");
+				first = false;
+				String listItem = "{\"label\":\"" + fund.getName() + "\",\"id\":"+fund.getId()+"}";
+				sb.append(listItem);
+			}
+			sb.append("]");
+
+			ServletOutputStream out = response.getOutputStream();
+			out.print(sb.toString());
+			out.flush();
+			out.close();
+		}
 
 		if (type.equals("person")){
 			response.setCharacterEncoding("UTF-8");
@@ -229,8 +253,8 @@ public class SelectBoxFiller extends HttpServlet {
 			if (localeId == null)
 				return;
 			StringBuilder sb = new StringBuilder();
-			List<CallOfProposal> callsOfProposals = callOfProposalService.getCallsOfProposals(localeId);
-			for (CallOfProposal callOfProposal: callsOfProposals){
+			List<CallOfProposalOld> callsOfProposals = callOfProposalServiceOld.getCallsOfProposals(localeId);
+			for (CallOfProposalOld callOfProposal: callsOfProposals){
 				sb.append(callOfProposal.getTitle() + " - " + callOfProposal.getId() + ",,");
 			}
 			sb.delete(sb.length()-2, sb.length());

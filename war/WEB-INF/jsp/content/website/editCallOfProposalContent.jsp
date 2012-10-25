@@ -39,10 +39,10 @@
  
                 <tr class="form">
 					<td colspan="4" align="right">
-					<h3>פרטי קול קורא מספר: 255 </h3>  
+					<h3>פרטי קול קורא מספר: ${command.id} </h3>  
 					 מוצג כרגע באתר
 					&nbsp; <button class="grey">הסר מהאתר</button>
-					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/infoPageViewer.jsp?ardNum=255','_blank');return false;">צפה בדף באתר</button>
+					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/infoPageViewer.jsp?ardNum=${command.id}','_blank');return false;">צפה בדף באתר</button>
 					</td>
 				</tr>
                 <tr class="form">
@@ -51,8 +51,7 @@
                 <tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 						 כותרת:
-					<font style="font-weight:bold;"> ESF Exploratory Workshops 2008 </font>
-					
+						<form:input htmlEscape="true" cssClass="green long800" path="title"/>
 					</td>
 				</tr>
 				<tr class="form">
@@ -62,17 +61,17 @@
 					</td>
 					<td  width="300" style="border:1px #bca2a2 dotted">
 						 תאריך פרסום:
-						<input type="text" class="green date medium100" value="16/11/11"/>
+						<input type="text" class="green date medium100" name="publication" value="${publicationTime}" readonly="readonly"/>
 					</td>
-					<td width="300" style="border:1px #bca2a2 dotted" nowrap>
+					<td width="320" style="border:1px #bca2a2 dotted" nowrap>
 						 תאריך הגשה קובע:
-						<input type="text" class="green date submissionDate medium100" value="01/01/12"/>&nbsp;
-						<input type="checkbox" id="allYearCheckbox"/>
+						<input type="text" class="green date submissionDate medium100" name="finalSubmission" value="${finalSubmissionTime}" readonly="readonly"/>&nbsp;
+						<form:checkbox cssClass="green" path="allYearSubmission"/>
 						 כל השנה
  					</td>
 				</tr>
 				<tr class="form">
-					<td width="300" style="border:1px #bca2a2 dotted">
+ 					<td width="300" style="border:1px #bca2a2 dotted">
 						 תאריך הגשה נוסף 1:
 						<input type="text" class="green date submissionDate medium100" value=""/>
 					</td>
@@ -88,51 +87,53 @@
                 <tr class="form">
 					<td colspan="2" style="border:1px #bca2a2 dotted">
 						 מממן:
-						 <input type="text" class="green long500" id="searchPhrase"/>
+						 <input type="text" class="green long500" id="searchPhrase" value="${selectedFund}"/> 
+						<form:hidden path="fundId" />
 					</td>
 					<td style="border:1px #bca2a2 dotted">
 						סוג קול קורא:
-       					<select name="" class="green" >
-      						<option value="0">מלגה</option>
-      						<option value="1">מענק מחקר</option>
-      						<option value="2">חילופי חוקרים</option>
-      						<option value="3">כנס</option>
-        		        </select>
+       					<form:select path="typeId" cssClass="green" >
+      						<form:option value="0">בחר/י</form:option>
+      						<form:option value="1">מענק מחקר</form:option>
+      						<form:option value="2">חילופי חוקרים</form:option>
+      						<form:option value="3">כנס</form:option>
+      						<form:option value="4">מלגה</form:option>
+        		        </form:select>
 					</td>
 				</tr>
 				<tr class="form">
 					<td colspan="2" style="border:1px #bca2a2 dotted">
  						  להציג בהודעות הנגללות,
 						עד לתאריך:
-       					<input type="text" class="date green medium100"/>
+						<input type="text" class="green date medium100" name="keepInRollingMessagesExpiry" value="${keepInRollingMessagesExpiryTime}" readonly="readonly"/>
 					</td>
 					<td  style="border:1px #bca2a2 dotted" nowrap>
 						מדור:
-       					<select name="desk" class="green" >
-      						<option value="0">מדור ישראל</option>
-      						<option value="1">מדור אירופה</option>
-      						<option value="2">מדור ארצות הברית</option>
-      						<option value="3">מדור גרמניה</option>
-        		        </select>
+         				<form:select path="deskId" cssClass="green" >
+      						<form:option value="0">בחר/י</form:option>
+       						<c:forEach items="${mopDesks}" var="mopDesk">
+	        					<form:option htmlEscape="true" value="${mopDesk.id}"><c:out escapeXml="false" value="${mopDesk.hebrewName}"/></form:option>
+       						</c:forEach>
+        		        </form:select>
 					</td>
 				</tr>
 				<tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 						  כתובת הקול קורא המקורי:
-       					<input type="text" class="green" style="width:700px"/>
+						<form:input htmlEscape="true" cssClass="green long800" path="originalCallWebAddress" />
 					</td>
 				</tr>
                 <tr class="form">
 					<td  style="border:1px #bca2a2 dotted" nowrap>
-       					<input type="checkbox"/>
-						להציג רק לבעלי סיסמה
+       					<form:checkbox cssClass="green" path="requireLogin"/>
+       					להציג רק לבעלי סיסמה
 					</td>
 					<td style="border:1px #bca2a2 dotted">
-      					<input type="checkbox"/>
+      					<form:checkbox cssClass="green" path="allYearSubmissionYearPassedAlert"/>
 						לשלוח תזכורת לקראת סיום השנה
  					</td>
 					<td  style="border:1px #bca2a2 dotted" nowrap>
-       					<input type="checkbox"/>
+       					<form:checkbox cssClass="green" path="showDescriptionOnly"/>
 						להציג תיאור בלבד
 					</td>
 				</tr>
@@ -179,10 +180,10 @@
  					<tr>
 					<td colspan="3" align="center">
  					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">יש להעביר 3 עותקים לרשות למו"פ
+ 						<span class="editorText" style="text-align:right;direction:rtl;">${command.submissionDetails }&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor1" cols="100" rows="1" class="green" style="display:none;">יש להעביר 3 עותקים לרשות למו"פ</textarea>
+           					<textarea class="textareaEditor" id="submissionDetailsTA" name="submissionDetailsTA" cols="100" rows="1" class="green" style="display:none;">${command.submissionDetails }</textarea>
 						</span>
 					</div>
  					</td>
@@ -221,10 +222,10 @@
  					<tr>
 					<td colspan="3" align="center">
  					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">&nbsp;
+ 						<span class="editorText" style="text-align:right;direction:rtl;">${command.contactPersonDetails }&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor2" cols="100" rows="1" class="green" style="display:none;"></textarea>
+           					<textarea class="textareaEditor" id="contactPersonDetailsTA" name="contactPersonDetailsTA" cols="100" rows="1" class="green" style="display:none;">${command.contactPersonDetails }</textarea>
 						</span>
 					</div>
  					</td>
@@ -254,12 +255,11 @@
 					<td colspan="3" align="center">
  					<div class="editor" style="text-align:right;direction:rtl;">
  						<span class="editorText" style="text-align:right;direction:rtl;">
-						<a href="http://www2.esf.org/WD110AWP/WD110Awp.exe/CONNECT/EW_Application_Form">http://www2.esf.org/WD110AWP/WD110Awp.exe/CONNECT/EW_Application_Form</a>						
+							&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor3" cols="100" rows="1" class="green" style="display:none;">
-           					<a href="http://www2.esf.org/WD110AWP/WD110Awp.exe/CONNECT/EW_Application_Form">http://www2.esf.org/WD110AWP/WD110Awp.exe/CONNECT/EW_Application_Form</a>
-           					</textarea>
+           					<textarea class="textareaEditor" id="formsTA" name="formsTA" cols="100" rows="1" class="green" style="display:none;">
+          					</textarea>
 						</span>
 					</div>
  					</td>
@@ -303,29 +303,12 @@
  					<tr>
 					<td colspan="3" align="center">
  					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">
-            			<p> כאן יכנס תאור מפורט </p>  
-  						<b> מחקר כלשהו עם התייחסות לנושאים הבאים: </b><br> 
- 								<ul>  <li> ביו רפואה </li> 
- 								<li> מדעי הסביבה </li> 
- 								<li> הנדסה ופיזיקה</li> 
- 								<li> מדעי החברה </li> 
- 						</ul> 
-						<p>הצעות יתקבלו מה  <b>  1 לפברואר עד 31 לדצמבר 2012 </b>.</p>  
- 						<br> 
+ 						<span class="editorText" style="text-align:right;direction:rtl;">${command.description }&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor4" cols="100" rows="1" class="green" style="display:none;">
-            			<p> כאן יכנס תאור מפורט </p>  
-  						<b> מחקר כלשהו עם התייחסות לנושאים הבאים: </b><br> 
- 								<ul>  <li> ביו רפואה </li> 
- 								<li> מדעי הסביבה </li> 
- 								<li> הנדסה ופיזיקה</li> 
- 								<li> מדעי החברה </li> 
- 						</ul> 
-						<p>הצעות יתקבלו מה <b>  1 לפברואר עד 31 לדצמבר 2012 </b>.</p>  
- 						<br> 
-           					</textarea>
+           					<textarea class="textareaEditor" id="descriptionTA" name="descriptionTA" cols="100" rows="1" class="green" style="display:none;">
+							${command.description }           					
+							</textarea>
 						</span>
 					</div>
    					</td>
@@ -344,13 +327,12 @@
  					<tr>
 					<td colspan="3" align="center">
  					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">
-            			המגישים הינם חוקרים או בעלי מלגה מאוניברסטאות אירופאיות או מרכזי מחקר בארצות שכהגלחהנ. <b>לא יתקבלו הצעות עם שותפים מארצות אחרות.</b>
+ 						<span class="editorText" style="text-align:right;direction:rtl;">${command.eligibilityRequirements }&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor5" cols="100" rows="1" class="green" style="display:none;">
-            			המגישים הינם חוקרים או בעלי מלגה מאוניברסטאות אירופאיות או מרכזי מחקר בארצות שכהגלחהנ. <b>לא יתקבלו הצעות עם שותפים מארצות אחרות.</b>
-							</textarea>
+           					<textarea class="textareaEditor" id="eligibilityRequirementsTA"  name="eligibilityRequirementsTA" cols="100" rows="1" class="green" style="display:none;">
+            					${command.eligibilityRequirements }							
+            				</textarea>
 						</span>
 					</div>
  					</td>
@@ -370,11 +352,11 @@
 					<td colspan="3" align="center">
  					<div class="editor" style="text-align:right;direction:rtl;">
  						<span class="editorText" style="text-align:right;direction:rtl;">
-            			הסדנה תתקיים במדינה החברה בארגון ESF בין התאריכים 1 לפברואר ל 31 לדצמבר.
+            			${command.activityLocation }&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor6" cols="100" rows="1" class="green" style="display:none;">
-           				הסדנה תתקיים במדינה החברה בארגון ESF בין התאריכים 1 לפברואר ל 31 לדצמבר.
+           					<textarea class="textareaEditor" id="activityLocationTA" name="activityLocationTA" cols="100" rows="1" class="green" style="display:none;">
+           					${command.activityLocation }
 							</textarea>
 						</span>
 					</div>
@@ -394,10 +376,10 @@
  					<tr>
 					<td colspan="3" align="center">
 					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">&nbsp;
+ 						<span class="editorText" style="text-align:right;direction:rtl;">${command.possibleCollaboration }&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor7" cols="100" rows="1" class="green" style="display:none;">
+           					<textarea class="textareaEditor" id="possibleCollaborationTA" name="possibleCollaborationTA" cols="100" rows="1" class="green" style="display:none;">${command.possibleCollaboration }
  							</textarea>
 						</span>
 					</div>
@@ -417,10 +399,10 @@
  					<tr>
 					<td colspan="3" align="center">
 					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">&nbsp;
+ 						<span class="editorText" style="text-align:right;direction:rtl;">${command.budgetDetails }&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor8" cols="100" rows="1" class="green" style="display:none;">
+           					<textarea class="textareaEditor" id="budgetDetailsTA" name="budgetDetailsTA" cols="100" rows="1" class="green" style="display:none;">${command.budgetDetails }
  							</textarea>
 						</span>
 					</div>
@@ -445,29 +427,12 @@
  					<tr>
 					<td colspan="3" align="center">
 					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">
-				<br> 
- 				<b>פורמט ההגשה </b><br> 
-				<ul><li>  הגשת המועמדות כולל קורות חיים תהיה באורך עמוד אחד בפורמט וורד או pdf  </li> 
-       			<li> פונט לא קטן מ 10 </li> 
- 				</ul> <br>   
- 				<b> תהליך ההגשה</b><br>  
-       			<ul><li> יש להגיש את ההצעות <b> און ליין </b>.</li> 
-       			<li> הגשות ראשונות ייחשבו לסופיות ( <b> אין קבלת שינויים </b> ). </li> 
- 				</ul> <br>   
+ 						<span class="editorText" style="text-align:right;direction:rtl;">${command.additionalInformation }&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor9" cols="100" rows="1" class="green" style="display:none;">
-				<br> 
- 				<b>פורמט ההגשה </b><br> 
-				<ul><li>  הגשת המועמדות כולל קורות חיים תהיה באורך עמוד אחד בפורמט וורד או pdf  </li> 
-        			<li> פונט לא קטן מ 10 </li> 
- 				</ul> <br>   
- 				<b> תהליך ההגשה</b><br>  
-       			<ul><li> יש להגיש את ההצעות <b> און ליין </b>.</li> 
-       			<li> הגשות ראשונות ייחשבו לסופיות ( <b> אין קבלת שינויים </b> ). </li> 
- 				</ul> <br>   
- 							</textarea>
+           					<textarea class="textareaEditor" id="additionalInformationTA" name="additionalInformationTA" cols="100" rows="1" class="green" style="display:none;">
+							${command.additionalInformation } 							
+							</textarea>
 						</span>
   					</div>         			
  					</td>
@@ -486,11 +451,10 @@
  					<tr>
 					<td colspan="3" align="center">
 					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">שנתיים
+ 						<span class="editorText" style="text-align:right;direction:rtl;">${command.fundingPeriod}&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor10" cols="100" rows="1" class="green" style="display:none;">
- 							שנתיים
+           					<textarea class="textareaEditor" id="fundingPeriodTA" name="fundingPeriodTA" cols="100" rows="1" class="green" style="display:none;">${command.fundingPeriod}
  							</textarea>
 						</span>
 					</div>
@@ -510,11 +474,10 @@
  					<tr>
 					<td colspan="3" align="center">
 					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">עד 15,000 אירו
+ 						<span class="editorText" style="text-align:right;direction:rtl;">${command.amountOfGrant}&nbsp;
 						</span>
  						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="textareaEditor11" cols="100" rows="1" class="green" style="display:none;">
- 							עד 15,000 אירו
+           					<textarea class="textareaEditor" id="amountOfGrantTA" name="amountOfGrantTA" cols="100" rows="1" class="green" style="display:none;">${command.amountOfGrant}
  							</textarea>
 						</span>
 					</div>
@@ -532,7 +495,7 @@
  		
 		<tr class="form">
 			<td colspan="4" align="center" style="border:1px #bca2a2 dotted">
-				<button title="שמירה" class="grey submit" > שמירה </button>&nbsp;&nbsp;
+				<button title="שמירה" class="grey save" > שמירה </button>&nbsp;&nbsp;
 				<button class="grey" title="" >צור הודעה בפוסט </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה למסך קודם </button>		

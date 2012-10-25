@@ -1,5 +1,6 @@
 package huard.iws.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -11,6 +12,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.ProposalBean;
 import huard.iws.db.FundDao;
 import huard.iws.model.Fund;
+import huard.iws.model.Person;
 
 public class FundServiceImpl implements FundService{
 	private List<Fund> funds;
@@ -84,7 +86,17 @@ public class FundServiceImpl implements FundService{
 		}
 		return fundsNamesMap;
 	}
-
+	
+	public List<Fund> getFilteredFunds ( String term){
+		List<Fund> funds = getFunds();
+		List<Fund> filteredFunds = new ArrayList<Fund>();
+		for (Fund fund: funds){
+			if (fund !=null && (fund.getName()!=null && fund.getName().contains(term)) || (fund.getShortName()!=null && fund.getShortName().contains(term)))
+				filteredFunds.add(fund);
+		}
+		return filteredFunds;
+	}
+	
 	public Integer getFundIdByShortName(String shortName){
 		return getShortNameIdMap().get(shortName);
 	}

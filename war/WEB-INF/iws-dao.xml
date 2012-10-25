@@ -35,7 +35,15 @@
     		when="after"/>
 	</ehcache:proxy>-->
 
-	<bean id="callOfProposalDao" class="huard.iws.db.JdbcCallOfProposalDao"/>
+	<bean id="callOfProposalDaoOld" class="huard.iws.db.JdbcCallOfProposalDaoOld"/>
+
+	<bean id="callOfProposalDao" class="huard.iws.db.JdbcCallOfProposalDao">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="locksDao" class="huard.iws.db.JdbcLocksDao">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 
 	<bean id="organizationUnitDao" class="huard.iws.db.JdbcOrganizationUnitDao">
 		<property name="dataSource" ref="dataSource"/>

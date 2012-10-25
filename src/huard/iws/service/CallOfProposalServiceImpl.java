@@ -10,19 +10,28 @@ import java.util.List;
 public class CallOfProposalServiceImpl implements CallOfProposalService{
 
 	public CallOfProposal getCallOfProposal(int id){
-		return callOfProposalDao.getCallOfProposal(id, configurationService.getConfigurationString("websiteDb"));
+		return callOfProposalDao.getCallOfProposal(id);
 	}
 
 	public CallOfProposal getCallOfProposal(String title){
-		return callOfProposalDao.getCallOfProposal(title, configurationService.getConfigurationString("websiteDb"));
+		return callOfProposalDao.getCallOfProposal(title);
 	}
+	
+	public int insertCallOfProposal(CallOfProposal callOfProposal){
+		return callOfProposalDao.insertCallOfProposal(callOfProposal);
+	}
+
+	public void updateCallOfProposal(CallOfProposal callOfProposal){
+		callOfProposalDao.updateCallOfProposal(callOfProposal);
+	}
+	
 
 	public List<CallOfProposal> getCallsOfProposals(){
 		return getCallsOfProposals(false);
 	}
 
 	public List<CallOfProposal> getCallsOfProposals(boolean open){
-		return callOfProposalDao.getCallsOfProposals(configurationService.getConfigurationString("websiteDb"), open);
+		return callOfProposalDao.getCallsOfProposals(open);
 	}
 
 	public List<CallOfProposal> getCallsOfProposals(String localeId){
@@ -35,20 +44,10 @@ public class CallOfProposalServiceImpl implements CallOfProposalService{
 		return localeCallsOfProposals;
 	}
 
-	public void insertAuthorizedMD5(String md5){
-		callOfProposalDao.insertAuthorizedMD5(md5, configurationService.getConfigurationString("websiteDb"));
-	}
-
 	private CallOfProposalDao callOfProposalDao;
 
 	public void setCallOfProposalDao(CallOfProposalDao callOfProposalDao) {
 		this.callOfProposalDao = callOfProposalDao;
-	}
-
-	private ConfigurationService configurationService;
-
-	public void setConfigurationService(ConfigurationService configurationService) {
-		this.configurationService = configurationService;
 	}
 
 }

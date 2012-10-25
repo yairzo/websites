@@ -1,66 +1,69 @@
 package huard.iws.model;
 
+import java.util.List;
+
 
 public class CallOfProposal {
 	private int id;
-	private int fundId;
-	private long publicationTimeMillis;
-	private long submissionTimeMillis;
 	private String title;
-	private String amountOfGrant;
-	private String deskId;
-	private String deskAndContact;
-	private String forms;
+	private int creatorId;
+	private long creationTime;
+	private long publicationTime;
+	private long finalSubmissionTime;
+	private boolean allYearSubmission;
+	private boolean allYearSubmissionYearPassedAlert;
+	private boolean hasAdditionalSubmissionDates;
+	private int fundId;
+	private int typeId;
+	private long keepInRollingMessagesExpiryTime;
+	private int deskId;
+	private String originalCallWebAddress;
+	private boolean requireLogin;
+	private boolean showDescriptionOnly;
+	private String submissionDetails;
+	private String contactPersonDetails;
 	private String description;
+	private String fundingPeriod;
+	private String amountOfGrant;
+	private String eligibilityRequirements;
+	private String activityLocation;
+	private String possibleCollaboration;
 	private String budgetDetails;
 	private String additionalInformation;
-	private String pageWebAddress;
-	private boolean descriptionOnly;
-
-
-
+	private List<Integer> subjectsIds;
+	
+	
 
 	public CallOfProposal(){
 		this.id = 0;
-		this.fundId = 0;
-		this.publicationTimeMillis = 0;
-		this.submissionTimeMillis = 0;
 		this.title = "";
-		this.amountOfGrant = "";
-		this.deskId = "";
-		this.deskAndContact="";
-		this.forms="";
+		this.creatorId = 0;
+		this.creationTime = 0;
+		this.publicationTime = 0;
+		this.finalSubmissionTime = 0;
+		this.allYearSubmission = false;
+		this.allYearSubmissionYearPassedAlert=true;
+		this.hasAdditionalSubmissionDates=false;
+		this.fundId=0;
+		this.typeId=0;
+		this.keepInRollingMessagesExpiryTime=0;
+		this.deskId=0;
+		this.originalCallWebAddress="";
+		this.requireLogin=false;
+		this.showDescriptionOnly=true;
+		this.submissionDetails="";
+		this.contactPersonDetails="";
 		this.description="";
+		this.fundingPeriod="";
+		this.amountOfGrant="";
+		this.eligibilityRequirements="";
+		this.activityLocation="";
+		this.possibleCollaboration="";
 		this.budgetDetails="";
 		this.additionalInformation="";
-		this.pageWebAddress="";
-		this.descriptionOnly= false;
+		
 	}
 	
-	public String toString(){
-			StringBuffer text = new StringBuffer();
-			text.append(fundId+" * ");
-			text.append(title+" * ");
-			text.append(forms+" * ");
-			text.append(description+" * ");
-			text.append(amountOfGrant+" * ");
-			text.append(budgetDetails+" * ");
-			text.append(additionalInformation+" * ");
-			return text.toString();
-	}
-
-	public String getAmountOfGrant() {
-		return amountOfGrant;
-	}
-	public void setAmountOfGrant(String amountOfGrant) {
-		this.amountOfGrant = amountOfGrant;
-	}
-	public int getFundId() {
-		return fundId;
-	}
-	public void setFundId(int fundId) {
-		this.fundId = fundId;
-	}
 	public int getId() {
 		return id;
 	}
@@ -74,51 +77,167 @@ public class CallOfProposal {
 		this.title = title;
 	}
 
-	public long getSubmissionTimeMillis() {
-		return submissionTimeMillis;
+	public int getCreatorId() {
+		return creatorId;
+	}
+	public void setCreatorId(int creatorId) {
+		this.creatorId = creatorId;
+	}
+	
+	public long getCreationTime() {
+		return creationTime;
+	}
+	public void setCreationTime(long creationTime) {
+		this.creationTime = creationTime;
 	}
 
-	public void setSubmissionTimeMillis(long submissionTimeMillis) {
-		this.submissionTimeMillis = submissionTimeMillis;
+	public long getPublicationTime() {
+		return publicationTime;
 	}
-	public String getDeskId() {
+	public void setPublicationTime(long publicationTime) {
+		this.publicationTime = publicationTime;
+	}
+
+	public long getFinalSubmissionTime() {
+		return finalSubmissionTime;
+	}
+	public void setFinalSubmissionTime(long finalSubmissionTime) {
+		this.finalSubmissionTime = finalSubmissionTime;
+	}
+
+	public boolean getAllYearSubmission() {
+		return allYearSubmission;
+	}
+	public void setAllYearSubmission(boolean allYearSubmission) {
+		this.allYearSubmission = allYearSubmission;
+	}
+
+	public boolean getAllYearSubmissionYearPassedAlert() {
+		return allYearSubmissionYearPassedAlert;
+	}
+	public void setAllYearSubmissionYearPassedAlert(boolean allYearSubmissionYearPassedAlert) {
+		this.allYearSubmissionYearPassedAlert = allYearSubmissionYearPassedAlert;
+	}
+
+	public boolean getHasAdditionalSubmissionDates() {
+		return hasAdditionalSubmissionDates;
+	}
+	public void setHasAdditionalSubmissionDates(boolean hasAdditionalSubmissionDates) {
+		this.hasAdditionalSubmissionDates = hasAdditionalSubmissionDates;
+	}
+
+	public int getFundId() {
+		return fundId;
+	}
+	public void setFundId(int fundId) {
+		this.fundId = fundId;
+	}
+
+	public int getTypeId() {
+		return typeId;
+	}
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
+	}
+
+	public long getKeepInRollingMessagesExpiryTime() {
+		return keepInRollingMessagesExpiryTime;
+	}
+	public void setKeepInRollingMessagesExpiryTime(long keepInRollingMessagesExpiryTime) {
+		this.keepInRollingMessagesExpiryTime = keepInRollingMessagesExpiryTime;
+	}
+
+	public int getDeskId() {
 		return deskId;
 	}
 
-	public void setDeskId(String deskId) {
+	public void setDeskId(int deskId) {
 		this.deskId = deskId;
 	}
 
-	public long getPublicationTimeMillis() {
-		return publicationTimeMillis;
+	public String getOriginalCallWebAddress() {
+		return originalCallWebAddress;
+	}
+	public void setOriginalCallWebAddress(String originalCallWebAddress) {
+		this.originalCallWebAddress = originalCallWebAddress;
 	}
 
-	public void setPublicationTimeMillis(long publicationTimeMillis) {
-		this.publicationTimeMillis = publicationTimeMillis;
+	public boolean getRequireLogin() {
+		return requireLogin;
 	}
-	
-	public String getDeskAndContact() {
-		return deskAndContact;
-	}
-
-	public void setDeskAndContact(String deskAndContact) {
-		this.deskAndContact = deskAndContact;
-	}
-	
-	public String getForms() {
-		return forms;
+	public void setRequireLogin(boolean requireLogin) {
+		this.requireLogin = requireLogin;
 	}
 
-	public void setForms(String forms) {
-		this.forms = forms;
+	public boolean getShowDescriptionOnly() {
+		return showDescriptionOnly;
+	}
+	public void setShowDescriptionOnly(boolean showDescriptionOnly) {
+		this.showDescriptionOnly = showDescriptionOnly;
+	}
+
+	public String getSubmissionDetails() {
+		return submissionDetails;
+	}
+
+	public void setSubmissionDetails(String submissionDetails) {
+		this.submissionDetails = submissionDetails;
 	}
 	
+	public String getContactPersonDetails() {
+		return contactPersonDetails;
+	}
+
+	public void setContactPersonDetails(String contactPersonDetails) {
+		this.contactPersonDetails = contactPersonDetails;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getFundingPeriod() {
+		return fundingPeriod;
+	}
+
+	public void setFundingPeriod(String fundingPeriod) {
+		this.fundingPeriod = fundingPeriod;
+	}
+	
+	public String getAmountOfGrant() {
+		return amountOfGrant;
+	}
+
+	public void setAmountOfGrant(String amountOfGrant) {
+		this.amountOfGrant = amountOfGrant;
+	}
+
+	public String getEligibilityRequirements() {
+		return eligibilityRequirements;
+	}
+
+	public void setEligibilityRequirements(String eligibilityRequirements) {
+		this.eligibilityRequirements = eligibilityRequirements;
+	}
+
+	public String getActivityLocation() {
+		return activityLocation;
+	}
+
+	public void setActivityLocation(String activityLocation) {
+		this.activityLocation = activityLocation;
+	}
+
+	public String getPossibleCollaboration() {
+		return possibleCollaboration;
+	}
+
+	public void setPossibleCollaboration(String possibleCollaboration) {
+		this.possibleCollaboration = possibleCollaboration;
 	}
 
 	public String getBudgetDetails() {
@@ -128,9 +247,8 @@ public class CallOfProposal {
 	public void setBudgetDetails(String budgetDetails) {
 		this.budgetDetails = budgetDetails;
 	}
-
 	
-	public String getadditionalInformation() {
+	public String getAdditionalInformation() {
 		return additionalInformation;
 	}
 
@@ -138,18 +256,13 @@ public class CallOfProposal {
 		this.additionalInformation = additionalInformation;
 	}
 
-	public String getPageWebAddress() {
-		return pageWebAddress;
+	public List<Integer> getSubjectsIds() {
+		return subjectsIds;
 	}
 
-	public void setPageWebAddress(String string) {
-		pageWebAddress = string;
+	public void setSubjectsIds(List<Integer> subjectsIds) {
+		this.subjectsIds = subjectsIds;
 	}
-	
-	public boolean isDescriptionOnly() {
-		return descriptionOnly;
-	}
-	public void setDescriptionOnly(boolean descriptionOnly) {
-		this.descriptionOnly = descriptionOnly;
-	}
+
+
 }

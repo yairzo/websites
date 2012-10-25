@@ -1,6 +1,6 @@
 package huard.iws.db;
 
-import huard.iws.model.CallOfProposal;
+import huard.iws.model.CallOfProposalOld;
 import huard.iws.model.Desk;
 import huard.iws.model.TextualPage;
 import huard.iws.util.SQLUtils;
@@ -20,7 +20,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 	private java.util.Date now;
 	
 
-	public List<CallOfProposal> getLatelyUpdatedInfoPages(long runsInterval, String server){
+	public List<CallOfProposalOld> getLatelyUpdatedInfoPages(long runsInterval, String server){
 		try{
 			now = new java.util.Date();
 			long lastRunTime = now.getTime() - runsInterval;
@@ -58,7 +58,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 
 	}	
 	
-	public void deleteLatelyUpdatedInfoPagesFromIndexTable(List<CallOfProposal> indexedInfoPages,boolean fullIndex, String server){
+	public void deleteLatelyUpdatedInfoPagesFromIndexTable(List<CallOfProposalOld> indexedInfoPages,boolean fullIndex, String server){
 		try{
 			String queryInClause = buildInfoPagesQueryInClause(indexedInfoPages);			
 			String query = "DELETE FROM InfoPagesIndex";
@@ -74,10 +74,10 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 		}
 	}
 
-	private String buildInfoPagesQueryInClause(List<CallOfProposal> infoPages){
+	private String buildInfoPagesQueryInClause(List<CallOfProposalOld> infoPages){
 		StringBuilder sb = new StringBuilder();
 		boolean first = true;
-		for (CallOfProposal infoPage: infoPages){
+		for (CallOfProposalOld infoPage: infoPages){
 			if (!first)
 				sb.append(",");
 			sb.append(infoPage.getId());
@@ -223,10 +223,10 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 			System.out.println(e);
 		}
 	}	
-	public List<CallOfProposal> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
-		List<CallOfProposal> callOfProposals = new ArrayList<CallOfProposal>();
+	public List<CallOfProposalOld> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
+		List<CallOfProposalOld> callOfProposals = new ArrayList<CallOfProposalOld>();
 		while (resultSet.next()){
-			CallOfProposal callOfProposal = new CallOfProposal();
+			CallOfProposalOld callOfProposal = new CallOfProposalOld();
 			callOfProposal.setId(resultSet.getInt("ardNum"));
 			callOfProposal.setTitle(resultSet.getString("title"));
 			callOfProposal.setPublicationTimeMillis(resultSet.getLong("pubDate"));

@@ -10,12 +10,12 @@ public class LocksServiceImpl implements LocksService{
 		for (int counter = 0; counter < MAX_ACQUIRE_LOCKS_TRIES; counter ++){
 			if (locksDao.insertLock(id, subject, arguments, expiryMinutes))
 				return true;
-				try{
-					Thread.sleep(1000);
-				}
-				catch (InterruptedException ie){
-					continue;
-				}			
+			try{
+				Thread.sleep(1000);
+			}
+			catch (InterruptedException ie){
+				continue;
+			}	
 		}
 		return false;
 	}

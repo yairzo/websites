@@ -12,6 +12,8 @@ import huard.iws.service.FacultyService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
 import huard.iws.service.PersonListService;
+import huard.iws.service.LocksService;
+
 import huard.iws.util.DateUtils;
 import huard.iws.util.RequestWrapper;
 
@@ -238,20 +240,28 @@ public class ConferenceProposalController extends GeneralFormController{
 		if (action.equals("deleteForever")){// new requests when researcher does not sign declaration
 			conferenceProposalService.deleteConferenceProposal(conferenceProposalBean.getId());
 		}
-		
-		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
-		if(request.getParameter("showMessage", "").equals("saved")){
-			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
+		boolean locked = locksService.acquireLock("ConferenceProposalController", "submit", String.valueOf(conferenceProposalBean.getId()), 1);
+		if(locked){
+			conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
+			locksService.releaseLock("ConferenceProposalController", "submit", String.valueOf(conferenceProposalBean.getId()));
+			
+			if(request.getParameter("showMessage", "").equals("saved")){
+				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
+				request.getSession().setAttribute("userMessage", userMessage);
+			}
+			if(request.getParameter("showMessage", "").equals("submitted")){
+				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.submitted");
+				request.getSession().setAttribute("userMessage", userMessage);
+			}		
+			if(request.getParameter("showMessage", "").equals("deleted")){
+				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.deleted");
+				request.getSession().setAttribute("userMessage", userMessage);
+			}	
+		}
+		else{
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.locked");
 			request.getSession().setAttribute("userMessage", userMessage);
-		}		
-		if(request.getParameter("showMessage", "").equals("submitted")){
-			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.submitted");
-			request.getSession().setAttribute("userMessage", userMessage);
-		}		
-		if(request.getParameter("showMessage", "").equals("deleted")){
-			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.deleted");
-			request.getSession().setAttribute("userMessage", userMessage);
-		}	
+		}
 		
 		//return to same page
 		if (request.getBooleanParameter("ajaxSubmit", false)){
@@ -419,6 +429,12 @@ public class ConferenceProposalController extends GeneralFormController{
 
 	public void setFacultyService(FacultyService facultyService) {
 		this.facultyService = facultyService;
+	}
+	
+	private LocksService locksService;
+
+	public void setLocksService(LocksService locksService) {
+		this.locksService = locksService;
 	}
 
 	/*private MailMessageService mailMessageService;

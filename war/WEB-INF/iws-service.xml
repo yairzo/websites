@@ -64,12 +64,24 @@
         </property>
     </bean>
 
+	<bean id="callOfProposalServiceOld" class="huard.iws.service.CallOfProposalServiceImplOld">
+		<property name="callOfProposalDaoOld">
+            <ref bean="callOfProposalDaoOld"/>
+        </property>
+        <property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+    </bean>
+    
 	<bean id="callOfProposalService" class="huard.iws.service.CallOfProposalServiceImpl">
 		<property name="callOfProposalDao">
             <ref bean="callOfProposalDao"/>
         </property>
-        <property name="configurationService">
-            <ref bean="configurationService"/>
+    </bean>
+
+	<bean id="locksService" class="huard.iws.service.LocksServiceImpl">
+		<property name="locksDao">
+            <ref bean="locksDao"/>
         </property>
     </bean>
 
@@ -108,8 +120,8 @@
         <property name="configurationService">
             <ref bean="configurationService"/>
         </property>
-        <property name="callOfProposalService">
-            <ref bean="callOfProposalService"/>
+        <property name="callOfProposalServiceOld">
+            <ref bean="callOfProposalServiceOld"/>
         </property>
     </bean>
     
@@ -132,8 +144,8 @@
     </bean>   
 
    <bean id="urlsCheckerService" class="huard.iws.service.UrlsCheckerServiceImpl">
-		<property name="callOfProposalDao">
-            <ref bean="callOfProposalDao"/>
+		<property name="callOfProposalDaoOld">
+            <ref bean="callOfProposalDaoOld"/>
         </property>
 		<property name="urlsCheckerDao">
             <ref bean="urlsCheckerDao"/>

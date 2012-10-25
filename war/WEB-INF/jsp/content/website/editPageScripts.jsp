@@ -4,20 +4,28 @@
 
 <script language="Javascript">
 
-function resetAutocomplete(callOfProposals){
+function resetAutocomplete(funds){
 	$("#searchPhrase").autocomplete( 
-			{source: funds,
+			{ source: 'selectBoxFiller?type=fundsWithId',
 			 minLength: 2,
-			 highlight: true				 
+			 highlight: true,				 
+			 select: function(event, ui) {
+				 alert(ui.item.label);
+					$("#searchPhrase").val(ui.item.label);
+					$("#fundId").val(ui.item.id);
+					return false;
+				 }
 		    }
+
 	);
 }
-$(document).ready(function() {
 
-	$.get('selectBoxFiller',{type:'fund'},function(data){
-		funds = data.split(",,");
-		resetAutocomplete(funds);   	   				
-    });
+$(document).ready(function() {
+	$("#searchPhrase").click(function(){
+	    	$("#searchPhrase").val('');
+	    	resetAutocomplete();
+	});
+	 
 	
 	$('#allYearCheckbox').change(function(){
 		if($('#allYearCheckbox').is(":checked")){
@@ -29,7 +37,7 @@ $(document).ready(function() {
 			$('.submissionDate').prop("disabled", false);
 		}
 	});
-
+	
 	$(".date").datepicker({ dateFormat: 'dd/mm/yy', onSelect: function(){
     	var str1 = $(this).val();
         var dt1  = str1.substring(0,2); 
@@ -48,10 +56,12 @@ $(document).ready(function() {
         }
     }});	
 	
+	$(".date").datepicker('setDate', new Date());
+
 	
 	$(function() {
         $.datepicker.regional['he'] = {
-            closeText: 'סגור',
+        	closeText: 'סגור',
             prevText: '&#x3c;הקודם',
             nextText: 'הבא&#x3e;',
             currentText: 'היום',
@@ -69,8 +79,7 @@ $(document).ready(function() {
             yearSuffix: ''
         };
         $.datepicker.setDefaults($.datepicker.regional['he']);
- 
-    });
+     });
 	
     $("#genericDialog").dialog({
         autoOpen: false,
@@ -80,6 +89,20 @@ $(document).ready(function() {
         open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
   });
 
+	$('button.save').click(function(){
+		var ids="";
+		$('input.subSubject').each(function(){
+				if (this.checked){
+					var id = this.id;
+					id = id.substring(id.indexOf('.') + 1);
+					if (ids !="")
+						ids = ids + ","
+					ids = ids +id;
+				}
+		});
+		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+		$('form#form').submit();
+	});
 	/* subjects list starts here */
 
 	$('tbody.subSubjects').hide();

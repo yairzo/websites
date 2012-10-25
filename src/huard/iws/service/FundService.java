@@ -19,6 +19,8 @@ public interface FundService {
 
 	public List<Fund> getFunds();
 
+	public List<Fund> getFilteredFunds(String term);
+
 	public Map<Integer, Fund> getFundsMap();
 
 	public Map<Integer, Fund> getFundsMapByDesk(int personId);

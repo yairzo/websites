@@ -107,13 +107,22 @@
         <property name="successView"><value>active.html</value></property>
      </bean>
 	
-	<bean id="editCallOfProposalController" class="huard.iws.web.EditCallOfProposalController" parent="generalFormController">
+	<bean id="callOfProposalController" class="huard.iws.web.CallOfProposalController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
-        <property name="commandClass"><value>huard.iws.web.EditCallOfProposalController$CallOfProposalCommand</value></property>
+        <property name="commandClass"><value>huard.iws.bean.CallOfProposalBean</value></property>
         <property name="formView"><value>editCallOfProposal</value></property>
         <property name="successView"><value>callOfProposal.html</value></property>
      	<property name="subjectService">
             <ref bean="subjectService"/>
+        </property>
+     	<property name="callOfProposalService">
+            <ref bean="callOfProposalService"/>
+        </property>
+    	<property name="fundService">
+            <ref bean="fundService"/>
+        </property>
+   		<property name="mopDeskService">
+            <ref bean="mopDeskService"/>
         </property>
      </bean>
      
@@ -658,7 +667,9 @@
         <property name="mailMessageService">
         	<ref bean="mailMessageService"/>
         </property>
-      
+       <property name="locksService">
+        	<ref bean="locksService"/>
+        </property>
        </bean>
        
 	<bean id="conferenceProposalAttachmentsController" class="huard.iws.web.ConferenceProposalAttachmentsController" parent="generalFormController">
@@ -950,7 +961,7 @@
 				<prop key="/error404.html">urlFilenameViewController</prop>
 				<prop key="/error500.html">urlFilenameViewController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>
-				<prop key="/callOfProposal.html">editCallOfProposalController</prop>
+				<prop key="/callOfProposal.html">callOfProposalController</prop>
 				<prop key="/textualPage.html">editTextualPageController</prop>
 				<prop key="/pages.html">pageListController</prop>
             </props>
