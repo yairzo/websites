@@ -1470,7 +1470,6 @@
 				</c:if>
 				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה למסך קודם </button>		
-				<button class="grey" title="גרסת הדפסה"  onclick="window.location='conferenceProposal.html?id=${command.id}&p=1';return false;">גרסת הדפסה </button>		
 			</td>
 		</tr>
 </c:if>

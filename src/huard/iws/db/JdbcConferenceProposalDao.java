@@ -861,17 +861,15 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	public String getConferenceProposalsWhereClause(ConferenceProposalSearchCreteria search, PersonBean userPersonBean, boolean forGrading){
 
 		String whereClause="";
-
 		boolean whereClausePreDefined = (search != null && search.isNeedWhereClause());
 		boolean whereClauseNeeded = whereClausePreDefined || userPersonBean.isAuthorized("CONFERENCE","APPROVER") || userPersonBean.isAuthorized("RESEARCHER");
 
 		if (whereClauseNeeded){
 			whereClause += " where 1=1 ";
-
 			if (userPersonBean.isOnlyAuthorized("CONFERENCE", "RESEARCHER") || search.getSelf()==1)
-				whereClause += " and personId = " + userPersonBean.getId() ;			
+				whereClause += " and personId = " + userPersonBean.getId();			
 			else if (userPersonBean.isAuthorized("CONFERENCE","APPROVER"))
-				whereClause += " and approverId = " + userPersonBean.getId() ;
+				whereClause += " and approverId = " + userPersonBean.getId();
 			if (whereClausePreDefined)
 				whereClause+= " and " + search.getWhereClause();
 			if (!search.getSearchPhrase().isEmpty()){ //search phrase

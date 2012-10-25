@@ -102,7 +102,7 @@ $(document).ready(function() {
 			 return false;
 		}
 		calcParticipants();
-		if(totalParticipantsCounter>1000){
+		if(totalParticipantsCounter>10000){
 			 $(this).val('0');
 			 openHelp('','כלל המשתתפים בכנס לא יעלה על 1000');
 			 calcParticipants();
