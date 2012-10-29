@@ -368,7 +368,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		return persons;
     }
 	public List<Person> getConferenceResearchers() {
-		String query = "select distinct person.* from person inner join conferenceProposal on conferenceProposal.personId=person.id where conferenceProposal.submitted=1 order by firstNameHebrew;";
+		String query = "select distinct person.* from person inner join conferenceProposal on conferenceProposal.personId=person.id order by firstNameHebrew;";
 		List<Person> persons =
 			getSimpleJdbcTemplate().query(query, getPersonRowMapper());
 		return persons;
