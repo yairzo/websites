@@ -49,6 +49,8 @@
 					${internalIdString}
                   	</td>
                  	 <td colspan="2" align="center">
+	<a href="mailto:conferences_committee@ard.huji.ac.il"><img src="image/mail_1.png" align="top" title="לחצ/י לקבלת עזרה" width="25" height="25" /></a> 					
+
                   	<h1>בקשה לתמיכה בכנס מדעי בינלאומי <br/>
                    	<a class='underline' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>
                   	(לפי הוראת הנהלה 17-011)</a>

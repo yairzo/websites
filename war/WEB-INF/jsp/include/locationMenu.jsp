@@ -34,6 +34,11 @@
 				<p class="white">משתמש: <c:out value="${userPersonBean.degreeFullNameHebrew}"/></p>
 			</c:if>
 		</td>
+		<c:if test="${titleCode==2}">
+		<td>
+			<a href="mailto:conferences_committee@ard.huji.ac.il"><img src="image/mail_1.png" align="top" title="לחצ/י לקבלת עזרה" width="20" height="20" /></a>&nbsp;&nbsp;&nbsp;&nbsp;					
+		</td>
+		</c:if>
 		<td>
 			<a style="text-decoration: none; color: white; font-size:9pt;"  href="welcome.html">תפריט ראשי</a>
 		</td>

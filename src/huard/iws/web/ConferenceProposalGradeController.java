@@ -95,6 +95,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 	{
 		//recordProtectService.freeRecordsByUsername(userPersonBean.getUsername());
 
+		model.put("titleCode", request.getSession().getAttribute("titleCode"));
 		ConferenceProposalGradeCommand gradeCommand = (ConferenceProposalGradeCommand) model.get("command");
 		
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(gradeCommand.getListView(),gradeCommand.getSearchCreteria(),userPersonBean,true);

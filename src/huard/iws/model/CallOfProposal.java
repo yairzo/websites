@@ -1,7 +1,7 @@
 package huard.iws.model;
 
 import java.util.List;
-
+import java.util.Date;
 
 public class CallOfProposal {
 	private int id;
@@ -31,6 +31,7 @@ public class CallOfProposal {
 	private String budgetDetails;
 	private String additionalInformation;
 	private List<Integer> subjectsIds;
+	private List<Date> submissionDates;
 	
 	
 
@@ -262,6 +263,14 @@ public class CallOfProposal {
 
 	public void setSubjectsIds(List<Integer> subjectsIds) {
 		this.subjectsIds = subjectsIds;
+	}
+	
+	public List<Date> getSubmissionDates() {
+		return submissionDates;
+	}
+
+	public void setSubmissionDates(List<Date> submissionDates) {
+		this.submissionDates = submissionDates;
 	}
 
 

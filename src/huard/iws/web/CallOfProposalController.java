@@ -114,8 +114,21 @@ public class CallOfProposalController extends GeneralFormController{
 		}
 		
 		//submissionDates
-
-		
+		if(!request.getParameter("submissionDate1", "").equals("")){
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			Date formattedDate = (Date)formatter.parse(request.getParameter("publication", "")); 
+			callOfProposalBean.getSubmissionDates().add(formattedDate);
+		}
+		if(!request.getParameter("submissionDate2", "").equals("")){
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			Date formattedDate = (Date)formatter.parse(request.getParameter("publication", "")); 
+			callOfProposalBean.getSubmissionDates().add(formattedDate);
+		}
+		if(!request.getParameter("submissionDate3", "").equals("")){
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			Date formattedDate = (Date)formatter.parse(request.getParameter("publication", "")); 
+			callOfProposalBean.getSubmissionDates().add(formattedDate);
+		}
 		
 		//update
 		callOfProposalService.updateCallOfProposal(callOfProposalBean.toCallOfProposal());

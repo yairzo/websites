@@ -143,6 +143,8 @@ public class MailMessageServiceImpl implements MailMessageService{
 			ccPersons.add(personBean.toPerson());
 		}
 		String [] cc = BaseUtils.toEmailsArray(ccPersons);
+		String [] bcc = new String [1];
+		bcc[0]=CONFERENCE_PROPOSAL_MAIL_ADDRESS;
 		
 		model.put("conferenceProposal", conferenceProposal);
 		model.put("server", getServer());
@@ -153,7 +155,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);
 		System.out.println(body);
-		messageService.sendMail(to, CONFERENCE_PROPOSAL_MAIL_ADDRESS, cc, null,subject, body, getCommonResources());
+		messageService.sendMail(to, CONFERENCE_PROPOSAL_MAIL_ADDRESS, cc, bcc,subject, body, getCommonResources());
 	}
 
 	public void createSimpleConferenceGradeMail(PersonBean recipient, String messageKey){

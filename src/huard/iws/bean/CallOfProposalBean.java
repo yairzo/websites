@@ -1,5 +1,6 @@
 package huard.iws.bean;
 
+import java.util.Date;
 import java.util.List;
 
 import huard.iws.model.CallOfProposal;
@@ -32,6 +33,8 @@ public class CallOfProposalBean {
 	private String budgetDetails;
 	private String additionalInformation;
 	private List<Integer> subjectsIds;
+	private List<Date> submissionDates;
+	
 
 	public CallOfProposalBean(){
 		this.id = 0;
@@ -91,6 +94,7 @@ public class CallOfProposalBean {
 		this.budgetDetails=callOfProposal.getBudgetDetails();
 		this.additionalInformation=callOfProposal.getAdditionalInformation();
 		this.subjectsIds =callOfProposal.getSubjectsIds(); 
+		this.submissionDates =callOfProposal.getSubmissionDates(); 
 	}
 
 	public CallOfProposal toCallOfProposal(){
@@ -122,6 +126,7 @@ public class CallOfProposalBean {
 		callOfProposal.setBudgetDetails(budgetDetails);
 		callOfProposal.setAdditionalInformation(additionalInformation);
 		callOfProposal.setSubjectsIds(subjectsIds);
+		callOfProposal.setSubmissionDates(submissionDates);
 		return callOfProposal;
 	}
 
@@ -326,6 +331,14 @@ public class CallOfProposalBean {
 
 	public void setSubjectsIds(List<Integer> subjectsIds) {
 		this.subjectsIds = subjectsIds;
+	}
+	
+	public List<Date> getSubmissionDates() {
+		return submissionDates;
+	}
+
+	public void setSubmissionDates(List<Date> submissionDates) {
+		this.submissionDates = submissionDates;
 	}
 
 

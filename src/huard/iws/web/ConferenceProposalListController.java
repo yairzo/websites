@@ -85,6 +85,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 		//recordProtectService.freeRecordsByUsername(userPersonBean.getUsername());
+		model.put("titleCode", request.getSession().getAttribute("titleCode"));
 
 		ConferenceProposalListCommand searchCommand = (ConferenceProposalListCommand) model.get("command");
 		if(request.getSession().getAttribute("self").equals("1"))

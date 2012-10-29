@@ -13,6 +13,7 @@ public class JdbcLocksDao extends SimpleJdbcDaoSupport implements LocksDao{
 	
 	public void deleteLock (String id, String subject, String arguments){
 		String query = "delete from moduleLock where id = ? and subject = ? and arguments = ?";
+		System.out.println("aaaaa:"+query);
 		getSimpleJdbcTemplate().update(query, id, subject, arguments);
 	}
 	

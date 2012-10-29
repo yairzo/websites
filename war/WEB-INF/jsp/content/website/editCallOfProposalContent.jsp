@@ -72,16 +72,16 @@
 				</tr>
 				<tr class="form">
  					<td width="300" style="border:1px #bca2a2 dotted">
-						 תאריך הגשה נוסף 1:
-						<input type="text" class="green date submissionDate medium100" value=""/>
+						 תאריך הגשה נוסף:
+						<input type="text" class="green date medium100" name="submissionDate1" value="${submissionDate1}" readonly="readonly"/>
 					</td>
 					<td width="300" style="border:1px #bca2a2 dotted">
-						תאריך הגשה נוסף 2:
-						<input type="text" class="green date submissionDate medium100" value=""/>
+						תאריך הגשה נוסף:
+						<input type="text" class="green date medium100" name="submissionDate2" value="${submissionDate2}" readonly="readonly"/>
  					</td>
 					<td  style="border:1px #bca2a2 dotted">
-						תאריך הגשה נוסף 3:
-						<input type="text" class="green date submissionDate medium100" value=""/>
+						תאריך הגשה נוסף:
+						<input type="text" class="green date medium100" name="submissionDate3" value="${submissionDate3}" readonly="readonly"/>
 					</td>
 				</tr>
                 <tr class="form">

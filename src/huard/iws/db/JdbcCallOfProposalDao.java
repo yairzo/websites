@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Date;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -44,6 +45,17 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
             Integer subjectId = rs.getInt("subjectId");
             return subjectId;
+		}
+	};
+	private void applySubmissionDates(CallOfProposal callOfProposal){
+		String query = "select * from callOfProposalDates where callOfProposalId = ?";
+		List<Date> submissionDates =  getSimpleJdbcTemplate().query(query, submissionDatesRowMapper, callOfProposal.getId());
+		callOfProposal.setSubmissionDates(submissionDates);
+	}
+	private ParameterizedRowMapper<Date> submissionDatesRowMapper = new ParameterizedRowMapper<Date>(){
+		public Date mapRow(ResultSet rs, int rowNum) throws SQLException{
+			Date submissionDate = rs.getTimestamp("submissionDate");
+            return submissionDate;
 		}
 	};
 
@@ -136,6 +148,13 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), subjectId);
 		}
 		
+		query = "delete from callOfProposalDates where callOfProposalId = ?";
+		getSimpleJdbcTemplate().update(query,callOfProposal.getId());
+		for (java.util.Date submissionDate: callOfProposal.getSubmissionDates()){
+			query  = "insert callOfProposalDates set callOfProposalId = ?, submissionDate = ?";
+			if (submissionDate != null)
+				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), submissionDate);
+		}
 
 	}
 	

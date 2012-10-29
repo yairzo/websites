@@ -131,7 +131,7 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
   		var texts='<p>';
-  		texts+='ככל שהדירוג נמוך יותר - עדיפותה של הבקשה לתמיכה גבוהה יותר. ע"י לחיצה על החיצים תוכל/י לשנות את מיקום הבקשה (כלומר חשיבותה היחסי).';
+  		texts+='ככל שהדירוג נמוך יותר - עדיפותה של הבקשה לתמיכה גבוהה יותר. ע"י לחיצה על החיצים תוכל/י לשנות את מיקום הבקשה (כלומר חשיבותה היחסית).';
   		texts+='</p>';	    
   	    openHelp("#dialogGrade",texts);
   	    return false;
@@ -279,18 +279,16 @@ $(document).ready(function() {
 											var="conferenceProposal" varStatus="varStatus">
 
 											<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
-												<td width="150" onClick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';"><a
-													href="conferenceProposal.html?id=${conferenceProposal.id}"><c:out
+												<td width="150"><c:out
 															value="${conferenceProposal.researcher.firstNameHebrew}" />&nbsp;<c:out
-															value="${conferenceProposal.researcher.lastNameHebrew}" /></a>
+															value="${conferenceProposal.researcher.lastNameHebrew}" />
 												</td>
 												<td width="350" onClick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';"><a
 													href="conferenceProposal.html?id=${conferenceProposal.id}"><c:out
 															value="${conferenceProposal.subject}" />
 												</a></td>
-												<td width="100" align="right" onClick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">&nbsp;&nbsp;<a
-													href="conferenceProposal.html?id=${conferenceProposal.id}"><c:out
-														value="${conferenceProposal.grade}" /></a></td>
+												<td width="100" align="right">&nbsp;&nbsp;<c:out
+														value="${conferenceProposal.grade}" /></td>
 												<td width="300"><textarea class="green saveclass evaluation"
 														name="approverEvaluation${conferenceProposal.id}"
 														id="${conferenceProposal.id}" rows="3" cols="40">${conferenceProposal.approverEvaluation}</textarea>

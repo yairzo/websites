@@ -277,7 +277,8 @@ public class ConferenceProposalController extends GeneralFormController{
 	
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception	{
-		
+		model.put("titleCode", request.getSession().getAttribute("titleCode"));
+	
 		int id = request.getIntParameter("id", 0);
 		
 		// if new proposal Create a new proposal and write it to db
