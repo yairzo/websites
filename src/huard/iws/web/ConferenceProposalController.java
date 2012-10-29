@@ -43,7 +43,14 @@ public class ConferenceProposalController extends GeneralFormController{
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
 		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		
-	
+		boolean locked = locksService.acquireLock("ConferenceProposalController", "submit", String.valueOf(conferenceProposalBean.getId()), 1);
+		if(!locked){
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.locked");
+			request.getSession().setAttribute("userMessage", userMessage);
+			if (request.getBooleanParameter("ajaxSubmit", false))//allways ajax submit
+				return null;
+		}
+		
 		// this part saves the content type of the attachments
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
@@ -240,36 +247,31 @@ public class ConferenceProposalController extends GeneralFormController{
 		if (action.equals("deleteForever")){// new requests when researcher does not sign declaration
 			conferenceProposalService.deleteConferenceProposal(conferenceProposalBean.getId());
 		}
-		boolean locked = locksService.acquireLock("ConferenceProposalController", "submit", String.valueOf(conferenceProposalBean.getId()), 1);
-		if(locked){
-			conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
-			locksService.releaseLock("ConferenceProposalController", "submit", String.valueOf(conferenceProposalBean.getId()));
+
+		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
 			
-			if(request.getParameter("showMessage", "").equals("saved")){
-				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
-				request.getSession().setAttribute("userMessage", userMessage);
-			}
-			if(request.getParameter("showMessage", "").equals("submitted")){
-				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.submitted");
-				request.getSession().setAttribute("userMessage", userMessage);
-			}		
-			if(request.getParameter("showMessage", "").equals("deleted")){
-				String userMessage = messageService.getMessage("iw_IL.conferenceProposal.deleted");
-				request.getSession().setAttribute("userMessage", userMessage);
-			}	
-		}
-		else{
-			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.locked");
+		if(request.getParameter("showMessage", "").equals("saved")){
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
 			request.getSession().setAttribute("userMessage", userMessage);
 		}
+		if(request.getParameter("showMessage", "").equals("submitted")){
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.submitted");
+			request.getSession().setAttribute("userMessage", userMessage);
+		}		
+		if(request.getParameter("showMessage", "").equals("deleted")){
+			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.deleted");
+			request.getSession().setAttribute("userMessage", userMessage);
+		}	
 		
+		locksService.releaseLock("ConferenceProposalController", "submit", String.valueOf(conferenceProposalBean.getId()));
 		//return to same page
 		if (request.getBooleanParameter("ajaxSubmit", false)){
 			return null;
 		}
 			
+		//never used
 		Map<String, Object> newModel = new HashMap<String, Object>();
-		newModel.put("id", conferenceProposalBean.getId())	;
+		newModel.put("id", conferenceProposalBean.getId());
 		return new ModelAndView(new RedirectView("conferenceProposal.html"), newModel);
 	}
 	
