@@ -31,7 +31,8 @@ public class CallOfProposal {
 	private String budgetDetails;
 	private String additionalInformation;
 	private List<Integer> subjectsIds;
-	private List<Date> submissionDates;
+	private List<Long> submissionDates;
+	private List<byte[]> files;
 	
 	
 
@@ -265,13 +266,21 @@ public class CallOfProposal {
 		this.subjectsIds = subjectsIds;
 	}
 	
-	public List<Date> getSubmissionDates() {
+	public List<Long> getSubmissionDates() {
 		return submissionDates;
 	}
 
-	public void setSubmissionDates(List<Date> submissionDates) {
+	public void setSubmissionDates(List<Long> submissionDates) {
 		this.submissionDates = submissionDates;
 	}
 
+	public List<byte[]> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<byte[]> files) {
+		this.files = files;
+	}
+	
 
 }

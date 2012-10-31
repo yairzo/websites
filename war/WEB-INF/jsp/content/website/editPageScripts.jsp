@@ -56,8 +56,6 @@ $(document).ready(function() {
         }
     }});	
 	
-	$(".date").datepicker('setDate', new Date());
-
 	
 	$(function() {
         $.datepicker.regional['he'] = {

@@ -17,6 +17,7 @@
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" action="callOfProposal.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
+			
  			
  			<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"></c:set>
  			
@@ -50,8 +51,8 @@
                 <table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
                 <tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted">
-						 כותרת:
-						<form:input htmlEscape="true" cssClass="green long800" path="title"/>
+						 ${compulsoryFieldSign}כותרת:
+						<input type="text" htmlEscape="true" class="green long800" name="title" value="${title}"/>
 					</td>
 				</tr>
 				<tr class="form">
@@ -60,11 +61,11 @@
 						יאיר זוהר
 					</td>
 					<td  width="300" style="border:1px #bca2a2 dotted">
-						 תאריך פרסום:
+						 ${compulsoryFieldSign}תאריך פרסום:
 						<input type="text" class="green date medium100" name="publication" value="${publicationTime}" readonly="readonly"/>
 					</td>
 					<td width="320" style="border:1px #bca2a2 dotted" nowrap>
-						 תאריך הגשה קובע:
+						 ${compulsoryFieldSign}תאריך הגשה קובע:
 						<input type="text" class="green date submissionDate medium100" name="finalSubmission" value="${finalSubmissionTime}" readonly="readonly"/>&nbsp;
 						<form:checkbox cssClass="green" path="allYearSubmission"/>
 						 כל השנה
@@ -103,7 +104,7 @@
 				</tr>
 				<tr class="form">
 					<td colspan="2" style="border:1px #bca2a2 dotted">
- 						  להציג בהודעות הנגללות,
+ 						  ${compulsoryFieldSign}להציג בהודעות הנגללות,
 						עד לתאריך:
 						<input type="text" class="green date medium100" name="keepInRollingMessagesExpiry" value="${keepInRollingMessagesExpiryTime}" readonly="readonly"/>
 					</td>

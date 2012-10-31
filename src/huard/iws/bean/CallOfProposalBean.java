@@ -33,7 +33,8 @@ public class CallOfProposalBean {
 	private String budgetDetails;
 	private String additionalInformation;
 	private List<Integer> subjectsIds;
-	private List<Date> submissionDates;
+	private List<Long> submissionDates;
+	private List<byte[]> files;
 	
 
 	public CallOfProposalBean(){
@@ -95,6 +96,7 @@ public class CallOfProposalBean {
 		this.additionalInformation=callOfProposal.getAdditionalInformation();
 		this.subjectsIds =callOfProposal.getSubjectsIds(); 
 		this.submissionDates =callOfProposal.getSubmissionDates(); 
+		this.files = callOfProposal.getFiles();
 	}
 
 	public CallOfProposal toCallOfProposal(){
@@ -127,6 +129,7 @@ public class CallOfProposalBean {
 		callOfProposal.setAdditionalInformation(additionalInformation);
 		callOfProposal.setSubjectsIds(subjectsIds);
 		callOfProposal.setSubmissionDates(submissionDates);
+		callOfProposal.setFiles(files);
 		return callOfProposal;
 	}
 
@@ -333,12 +336,20 @@ public class CallOfProposalBean {
 		this.subjectsIds = subjectsIds;
 	}
 	
-	public List<Date> getSubmissionDates() {
+	public List<Long> getSubmissionDates() {
 		return submissionDates;
 	}
 
-	public void setSubmissionDates(List<Date> submissionDates) {
+	public void setSubmissionDates(List<Long> submissionDates) {
 		this.submissionDates = submissionDates;
+	}
+	
+	public List<byte[]> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<byte[]> files) {
+		this.files = files;
 	}
 
 

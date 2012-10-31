@@ -14,6 +14,7 @@ import huard.iws.service.MopDeskService;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.RequestWrapper;
 import java.util.List;
+import java.util.ArrayList;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -45,24 +46,19 @@ public class CallOfProposalController extends GeneralFormController{
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
 			Iterator fileNames = multipartRequest.getFileNames();
+			List<byte[]> files = new ArrayList<byte[]>();
 			while (fileNames.hasNext()) {
-				
 				String filename = (String) fileNames.next();
 				System.out.println("******************************");
 				System.out.println(" filename : " + filename );
 				System.out.println("******************************");
 				MultipartFile file = multipartRequest.getFile(filename);
-				/*if (filename.equals("guestsAttach") && conferenceProposalBean.getGuestsAttach()!=null && conferenceProposalBean.getGuestsAttach().length>0){
-					callOfProposalBean.setGuestsAttachContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
-				}*/
+				//files.add(file);
+				//files.add(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
 			}
+			callOfProposalBean.setFiles(files);
 		}	
 		
-		//if not added attachment don't override prev attachment
-		/*if(callOfProposalBean.getGuestsAttach().length==0 && !request.getBooleanParameter("deleteGuestsAttach", false)){
-			callOfProposalBean.setGuestsAttach(origConferenceProposalBean.getGuestsAttach());
-			callOfProposalBean.setGuestsAttachContentType(origConferenceProposalBean.getGuestsAttachContentType());
-		}*/
 		
 		
 		// dates 
@@ -114,22 +110,23 @@ public class CallOfProposalController extends GeneralFormController{
 		}
 		
 		//submissionDates
+		List<Long> submissionDates= new ArrayList<Long>();
 		if(!request.getParameter("submissionDate1", "").equals("")){
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date formattedDate = (Date)formatter.parse(request.getParameter("publication", "")); 
-			callOfProposalBean.getSubmissionDates().add(formattedDate);
+			Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDate1", ""));
+			submissionDates.add(formattedDate.getTime());
 		}
 		if(!request.getParameter("submissionDate2", "").equals("")){
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date formattedDate = (Date)formatter.parse(request.getParameter("publication", "")); 
-			callOfProposalBean.getSubmissionDates().add(formattedDate);
+			Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDate2", "")); 
+			submissionDates.add(formattedDate.getTime());
 		}
 		if(!request.getParameter("submissionDate3", "").equals("")){
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date formattedDate = (Date)formatter.parse(request.getParameter("publication", "")); 
-			callOfProposalBean.getSubmissionDates().add(formattedDate);
+			Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDate3", "")); 
+			submissionDates.add(formattedDate.getTime());
 		}
-		
+		callOfProposalBean.setSubmissionDates(submissionDates);
 		//update
 		callOfProposalService.updateCallOfProposal(callOfProposalBean.toCallOfProposal());
 
@@ -164,17 +161,43 @@ public class CallOfProposalController extends GeneralFormController{
 		}
 		else{//show edit
 			CallOfProposalBean callOfProposal = (CallOfProposalBean) model.get("command");
-			//String title="";
-			//if(!callOfProposal.getTitle().startsWith("###"))
-			//	title = callOfProposal.getTitle();
-			//model.put("title", title);
+			String title="";
+			if(!callOfProposal.getTitle().startsWith("###"))
+				title = callOfProposal.getTitle();
+			model.put("title", title);
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date tmpDate = new Date(callOfProposal.getPublicationTime());
-			model.put("publicationTime", formatter.format(tmpDate));
-			tmpDate = new Date(callOfProposal.getFinalSubmissionTime());
-			model.put("finalSubmissionTime", formatter.format(tmpDate));
-			tmpDate = new Date(callOfProposal.getKeepInRollingMessagesExpiryTime());
-			model.put("keepInRollingMessagesExpiryTime", formatter.format(tmpDate));
+			Date tmpDate = new Date();
+			if (callOfProposal.getPublicationTime()==0){
+				model.put("publicationTime", "");
+			}
+			else{
+				tmpDate = new Date(callOfProposal.getPublicationTime());
+				model.put("publicationTime", formatter.format(tmpDate));
+			}
+			if (callOfProposal.getFinalSubmissionTime()==0){
+				model.put("finalSubmissionTime", "");
+			}
+			else{
+				tmpDate = new Date(callOfProposal.getFinalSubmissionTime());
+				model.put("finalSubmissionTime", formatter.format(tmpDate));
+			}
+			if (callOfProposal.getKeepInRollingMessagesExpiryTime()==0){
+				model.put("keepInRollingMessagesExpiryTime", "");
+			}
+			else{
+				tmpDate = new Date(callOfProposal.getKeepInRollingMessagesExpiryTime());
+				model.put("keepInRollingMessagesExpiryTime", formatter.format(tmpDate));
+			}
+			
+			int i=1;
+			if(callOfProposal.getSubmissionDates()!=null){
+				for(Long submissionDate: callOfProposal.getSubmissionDates()){
+					tmpDate = new Date(submissionDate);
+					String submissionName="submissionDate" + i;
+					model.put(submissionName, formatter.format(tmpDate));
+					i++;
+				}
+			}
 			String selectedFund="";
 			if(callOfProposal.getFundId()>0){
 				Fund fund = fundService.getFund(callOfProposal.getFundId());

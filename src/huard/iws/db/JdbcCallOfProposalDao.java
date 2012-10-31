@@ -25,6 +25,8 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		CallOfProposal callOfProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 		applySubjectIds(callOfProposal);
+		applySubmissionDates(callOfProposal);
+		applyFiles(callOfProposal);
 		return 	callOfProposal;	
 	}
 
@@ -33,6 +35,8 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		CallOfProposal callOfProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, title);
 		applySubjectIds(callOfProposal);
+		applySubmissionDates(callOfProposal);
+		applyFiles(callOfProposal);
 		return 	callOfProposal;	
 	}
 
@@ -48,14 +52,30 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		}
 	};
 	private void applySubmissionDates(CallOfProposal callOfProposal){
-		String query = "select * from callOfProposalDates where callOfProposalId = ?";
-		List<Date> submissionDates =  getSimpleJdbcTemplate().query(query, submissionDatesRowMapper, callOfProposal.getId());
+		String query = "select * from callOfProposalDates where callOfProposalId = ? order by submissionDate";
+		List<Long> submissionDates =  getSimpleJdbcTemplate().query(query, submissionDatesRowMapper, callOfProposal.getId());
 		callOfProposal.setSubmissionDates(submissionDates);
 	}
-	private ParameterizedRowMapper<Date> submissionDatesRowMapper = new ParameterizedRowMapper<Date>(){
-		public Date mapRow(ResultSet rs, int rowNum) throws SQLException{
-			Date submissionDate = rs.getTimestamp("submissionDate");
+	private ParameterizedRowMapper<Long> submissionDatesRowMapper = new ParameterizedRowMapper<Long>(){
+		public Long mapRow(ResultSet rs, int rowNum) throws SQLException{
+			long submissionDate = 0;
+			Timestamp submissionDateTS = rs.getTimestamp("submissionDate");
+			if (submissionDateTS != null)
+				submissionDate = submissionDateTS.getTime();
             return submissionDate;
+		}
+	};
+	
+	private void applyFiles(CallOfProposal callOfProposal){
+		String query = "select * from callOfProposalFiles where callOfProposalId = ?";
+		List<byte[]> files =  getSimpleJdbcTemplate().query(query, filesRowMapper, callOfProposal.getId());
+		callOfProposal.setFiles(files);
+	}
+	
+	private ParameterizedRowMapper<byte[]> filesRowMapper = new ParameterizedRowMapper<byte[]>(){
+		public byte[] mapRow(ResultSet rs, int rowNum) throws SQLException{
+			byte[] file = rs.getBytes("fileId");
+            return file;
 		}
 	};
 
@@ -150,11 +170,20 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		
 		query = "delete from callOfProposalDates where callOfProposalId = ?";
 		getSimpleJdbcTemplate().update(query,callOfProposal.getId());
-		for (java.util.Date submissionDate: callOfProposal.getSubmissionDates()){
+		for (Long submissionDate: callOfProposal.getSubmissionDates()){
 			query  = "insert callOfProposalDates set callOfProposalId = ?, submissionDate = ?";
 			if (submissionDate != null)
-				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), submissionDate);
+				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), new java.sql.Timestamp(submissionDate));
 		}
+		
+		query = "delete from callOfProposalFiles where callOfProposalId = ?";
+		getSimpleJdbcTemplate().update(query,callOfProposal.getId());
+		for (byte[] fileId: callOfProposal.getFiles()){
+			query  = "insert callOfProposalFiles set callOfProposalId = ?, fileId = ?";
+			if (fileId != null)
+				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), fileId);
+		}
+		
 
 	}
 	
