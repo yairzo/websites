@@ -1,7 +1,7 @@
 package huard.iws.db;
 
 import huard.iws.model.CallOfProposal;
-import huard.iws.model.Post;
+import huard.iws.model.Attachment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -68,13 +68,16 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	
 	private void applyFiles(CallOfProposal callOfProposal){
 		String query = "select * from callOfProposalFiles where callOfProposalId = ?";
-		List<byte[]> files =  getSimpleJdbcTemplate().query(query, filesRowMapper, callOfProposal.getId());
-		callOfProposal.setFiles(files);
+		List<Attachment> files =  getSimpleJdbcTemplate().query(query, filesRowMapper, callOfProposal.getId());
+		callOfProposal.setAttachments(files);
 	}
 	
-	private ParameterizedRowMapper<byte[]> filesRowMapper = new ParameterizedRowMapper<byte[]>(){
-		public byte[] mapRow(ResultSet rs, int rowNum) throws SQLException{
-			byte[] file = rs.getBytes("fileId");
+	private ParameterizedRowMapper<Attachment> filesRowMapper = new ParameterizedRowMapper<Attachment>(){
+		public Attachment mapRow(ResultSet rs, int rowNum) throws SQLException{
+			Attachment file = new Attachment();
+			file.setFile(rs.getBytes("fileId"));
+			file.setContentType(rs.getString("contentType"));
+			file.setId(rs.getInt("id"));
             return file;
 		}
 	};
@@ -125,6 +128,9 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", deskId = ?" +
 				", originalCallWebAddress = ?" +
 				", requireLogin = ?" +
+				", submissionDetails= ?" +
+				", contactPersonDetails= ?" +
+				", formDetails= ?" +
 				", description = ?" +
 				", fundingPeriod = ?" +
 				", amountOfGrant = ?" +
@@ -150,6 +156,9 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	    		callOfProposal.getDeskId(),
 	    		callOfProposal.getOriginalCallWebAddress(),
 	    		callOfProposal.getRequireLogin(),
+	    		callOfProposal.getSubmissionDetails(),
+	    		callOfProposal.getContactPersonDetails(),
+	    		callOfProposal.getFormDetails(),
 	    		callOfProposal.getDescription(),
 	    		callOfProposal.getFundingPeriod(),
 	    		callOfProposal.getAmountOfGrant(),
@@ -162,10 +171,12 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		
 		query = "delete from subjectToCallOfProposal where callOfProposalId = ?";
 		getSimpleJdbcTemplate().update(query,callOfProposal.getId());
-		for (Integer subjectId: callOfProposal.getSubjectsIds()){
-			query  = "insert subjectToCallOfProposal set callOfProposalId = ?, subjectId = ?";
-			if (subjectId != null)
-				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), subjectId);
+		if(callOfProposal.getSubjectsIds()!=null){
+			for (Integer subjectId: callOfProposal.getSubjectsIds()){
+				query  = "insert subjectToCallOfProposal set callOfProposalId = ?, subjectId = ?";
+				if (subjectId != null)
+					getSimpleJdbcTemplate().update(query,callOfProposal.getId(), subjectId);
+			}
 		}
 		
 		query = "delete from callOfProposalDates where callOfProposalId = ?";
@@ -176,12 +187,12 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), new java.sql.Timestamp(submissionDate));
 		}
 		
-		query = "delete from callOfProposalFiles where callOfProposalId = ?";
-		getSimpleJdbcTemplate().update(query,callOfProposal.getId());
-		for (byte[] fileId: callOfProposal.getFiles()){
-			query  = "insert callOfProposalFiles set callOfProposalId = ?, fileId = ?";
-			if (fileId != null)
-				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), fileId);
+		//query = "delete from callOfProposalFiles where callOfProposalId = ?";
+		//getSimpleJdbcTemplate().update(query,callOfProposal.getId());
+		for (Attachment attachment: callOfProposal.getAttachments()){
+			query  = "insert callOfProposalFiles set callOfProposalId = ?, fileId = ?, contentType= ?";
+			if (attachment != null)
+				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), attachment.getFile(), attachment.getContentType());
 		}
 		
 
@@ -238,6 +249,9 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
     		callOfProposal.setDeskId(rs.getInt("deskId"));
     		callOfProposal.setOriginalCallWebAddress(rs.getString("originalCallWebAddress"));
     		callOfProposal.setRequireLogin(rs.getBoolean("requireLogin"));
+    		callOfProposal.setSubmissionDetails(rs.getString("submissionDetails"));
+    		callOfProposal.setContactPersonDetails(rs.getString("contactPersonDetails"));
+    		callOfProposal.setFormDetails(rs.getString("formDetails"));
     		callOfProposal.setDescription(rs.getString("description"));
     		callOfProposal.setFundingPeriod(rs.getString("fundingPeriod"));
     		callOfProposal.setAmountOfGrant(rs.getString("amountOfGrant"));

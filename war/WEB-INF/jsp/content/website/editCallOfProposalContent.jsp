@@ -17,6 +17,7 @@
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" action="callOfProposal.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
+ 			<form:hidden path="creatorId"/>
 			
  			
  			<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"></c:set>
@@ -53,22 +54,25 @@
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}כותרת:
 						<input type="text" htmlEscape="true" class="green long800" name="title" value="${title}"/>
+					<br> <font color="red"><form:errors path="title" /></font>				
 					</td>
 				</tr>
 				<tr class="form">
 					<td  width="300" style="border:1px #bca2a2 dotted" nowrap>
 						בעל המסמך:
-						יאיר זוהר
+						${command.creator.degreeFullNameHebrew }
 					</td>
 					<td  width="300" style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}תאריך פרסום:
-						<input type="text" class="green date medium100" name="publication" value="${publicationTime}" readonly="readonly"/>
+						<input type="text" class="green date medium100" name="publicationTime" value="${publicationTime}" readonly="readonly"/>
+					<br> <font color="red"><form:errors path="publicationTime" /></font>				
 					</td>
 					<td width="320" style="border:1px #bca2a2 dotted" nowrap>
 						 ${compulsoryFieldSign}תאריך הגשה קובע:
-						<input type="text" class="green date submissionDate medium100" name="finalSubmission" value="${finalSubmissionTime}" readonly="readonly"/>&nbsp;
+						<input type="text" class="green date submissionDate medium100" name="finalSubmissionTime" value="${finalSubmissionTime}" readonly="readonly"/>&nbsp;
 						<form:checkbox cssClass="green" path="allYearSubmission"/>
 						 כל השנה
+ 					 <br><font color="red"><form:errors path="finalSubmissionTime" /></font>				
  					</td>
 				</tr>
 				<tr class="form">
@@ -87,12 +91,13 @@
 				</tr>
                 <tr class="form">
 					<td colspan="2" style="border:1px #bca2a2 dotted">
-						 מממן:
+						 ${compulsoryFieldSign}מממן:
 						 <input type="text" class="green long500" id="searchPhrase" value="${selectedFund}"/> 
 						<form:hidden path="fundId" />
+					 <br><font color="red"><form:errors path="fundId" /></font>				
 					</td>
 					<td style="border:1px #bca2a2 dotted">
-						סוג קול קורא:
+						${compulsoryFieldSign}סוג קול קורא:
        					<form:select path="typeId" cssClass="green" >
       						<form:option value="0">בחר/י</form:option>
       						<form:option value="1">מענק מחקר</form:option>
@@ -100,22 +105,25 @@
       						<form:option value="3">כנס</form:option>
       						<form:option value="4">מלגה</form:option>
         		        </form:select>
+					 <br><font color="red"><form:errors path="typeId" /></font>				
 					</td>
 				</tr>
 				<tr class="form">
 					<td colspan="2" style="border:1px #bca2a2 dotted">
  						  ${compulsoryFieldSign}להציג בהודעות הנגללות,
 						עד לתאריך:
-						<input type="text" class="green date medium100" name="keepInRollingMessagesExpiry" value="${keepInRollingMessagesExpiryTime}" readonly="readonly"/>
+						<input type="text" class="green date medium100" name="keepInRollingMessagesExpiryTime" value="${keepInRollingMessagesExpiryTime}" readonly="readonly"/>
+ 					 <br><font color="red"><form:errors path="keepInRollingMessagesExpiryTime" /></font>				
 					</td>
 					<td  style="border:1px #bca2a2 dotted" nowrap>
-						מדור:
+						${compulsoryFieldSign}מדור:
          				<form:select path="deskId" cssClass="green" >
       						<form:option value="0">בחר/י</form:option>
        						<c:forEach items="${mopDesks}" var="mopDesk">
 	        					<form:option htmlEscape="true" value="${mopDesk.id}"><c:out escapeXml="false" value="${mopDesk.hebrewName}"/></form:option>
        						</c:forEach>
         		        </form:select>
+					 <br><font color="red"><form:errors path="deskId" /></font>				
 					</td>
 				</tr>
 				<tr class="form">
@@ -180,11 +188,11 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
- 					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">${command.submissionDetails }&nbsp;
+ 					<div class="editor" style="align:center;">
+ 						<span class="editorText" style="text-align:right;direction:rtl">${command.submissionDetails }&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="submissionDetailsTA" name="submissionDetailsTA" cols="100" rows="1" class="green" style="display:none;">${command.submissionDetails }</textarea>
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="submissionDetails" name="submissionDetails" cols="100" rows="1" class="green" style="display:none;">${command.submissionDetails }</textarea>
 						</span>
 					</div>
  					</td>
@@ -202,16 +210,18 @@
  					<span id="addedText">הגשה ישירות לקרן </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button><br/>	
 					</td>
 					</tr>
-					<tr>
-					<td colspan="3" style="text-align:right">	
-  					<span id="addedText">שלח העתק בדואר אלקטרוני ל- Ms. Netanya Bar Cohva Assistant 02-6586668</span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button><br/>		
- 					</td>
-					</tr>
  					<tr>
 					<td colspan="3" style="text-align:right">	
  					<span id="addedText">יש להעביר xxx עותקים לרשות למו"פ</span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button><br/>		
        				</td>
  					</tr>
+					<c:forEach items="${deskAssistants}" var="deskAssistant" varStatus="varStatus">
+					<tr>
+					<td colspan="3" style="text-align:right">
+					<span id="addedText">שלח העתק בדואר אלקטרוני ל- <c:out value="${deskAssistant.degreeFullNameHebrew}"></c:out> <c:out value="${deskAssistant.title}"></c:out> <c:out value="${deskAssistant.phone}"></c:out></span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
+					</td>
+					</tr>
+					</c:forEach>
  					</table>
  					</td>
 				</tr>	
@@ -222,11 +232,11 @@
   					</tr>
  					<tr>
 					<td colspan="3" align="center">
- 					<div class="editor" style="text-align:right;direction:rtl;">
+ 					<div class="editor" style="align:center;">
  						<span class="editorText" style="text-align:right;direction:rtl;">${command.contactPersonDetails }&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="contactPersonDetailsTA" name="contactPersonDetailsTA" cols="100" rows="1" class="green" style="display:none;">${command.contactPersonDetails }</textarea>
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="contactPersonDetails" name="contactPersonDetails" cols="100" rows="1" class="green" style="display:none;">${command.contactPersonDetails }</textarea>
 						</span>
 					</div>
  					</td>
@@ -234,17 +244,14 @@
 					<tr>
 					<td colspan="3">&nbsp;</td>
 					</tr>
+					<c:forEach items="${deskPersons}" var="deskPerson" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:right">
-					<span id="addedText">Ms. Jane Turner Coordinator for Europe - European Union & others 02-6586676 </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
+					<span id="addedText"><c:out value="${deskPerson.degreeFullNameHebrew}"></c:out> <c:out value="${deskPerson.title}"></c:out> <c:out value="${deskPerson.phone}"></c:out></span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
 					</td>
 					</tr>
-					<tr>
-					<td colspan="3" style="text-align:right">
-					<span id="addedText">Ms. Netanya Bar Cohva Assistant 02-6586668 </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
-					</td>
-					</tr>
-  					</table>
+					</c:forEach>
+ 					</table>
  					</td>
 				</tr>	
 				<tr>
@@ -254,12 +261,12 @@
   					</tr>
  					<tr>
 					<td colspan="3" align="center">
- 					<div class="editor" style="text-align:right;direction:rtl;">
+ 					<div class="editor" style="align:center;">
  						<span class="editorText" style="text-align:right;direction:rtl;">
-							&nbsp;
+							${command.formDetails }&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="formsTA" name="formsTA" cols="100" rows="1" class="green" style="display:none;">
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="forms" name="forms" cols="100" rows="1" class="green" style="display:none;">${command.formDetails }
           					</textarea>
 						</span>
 					</div>
@@ -268,20 +275,14 @@
 					<tr>
 					<td colspan="3">&nbsp;</td>
 					</tr>
+					<c:forEach items="${command.attachments}" var="attachment" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:right">
-					<span id="addedText"><a style="text-decoration:underline" href="fileViewer?conferenceProposalId=70&attachFile=guestsAttach&contentType=application/vnd.oasis.opendocument.spreadsheet&attachmentId=1"
-								target="_blank">טופס הרשמה מספר 1123</a> </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
-					
-
+						<span id="addedText"><a style="text-decoration:underline" href="fileViewer?callOfProposalId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}"
+								target="_blank">טופס מצורף</a> </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
 					</td>
 					</tr>
-					<tr>
-					<td colspan="3" style="text-align:right">
-					<span id="addedText"><a style="text-decoration:underline" href="fileViewer?conferenceProposalId=70&attachFile=guestsAttach&contentType=application/vnd.oasis.opendocument.spreadsheet&attachmentId=1"
-								target="_blank">טופס הרשמה מספר 5600</a> </span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
-					</td>
-					</tr>
+					</c:forEach>
 					<tr>
 					<td>
 						<div style="display: block; width: 100px; height: 27px; overflow: hidden;">
@@ -303,11 +304,11 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
- 					<div class="editor" style="text-align:right;direction:rtl;">
+ 					<div class="editor" style="align:center;">
  						<span class="editorText" style="text-align:right;direction:rtl;">${command.description }&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="descriptionTA" name="descriptionTA" cols="100" rows="1" class="green" style="display:none;">
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="description" name="description" cols="100" rows="1" class="green" style="display:none;">
 							${command.description }           					
 							</textarea>
 						</span>
@@ -327,11 +328,11 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
- 					<div class="editor" style="text-align:right;direction:rtl;">
+ 					<div class="editor" style="align:center;">
  						<span class="editorText" style="text-align:right;direction:rtl;">${command.eligibilityRequirements }&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="eligibilityRequirementsTA"  name="eligibilityRequirementsTA" cols="100" rows="1" class="green" style="display:none;">
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="eligibilityRequirements"  name="eligibilityRequirements" cols="100" rows="1" class="green" style="display:none;">
             					${command.eligibilityRequirements }							
             				</textarea>
 						</span>
@@ -351,12 +352,11 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
- 					<div class="editor" style="text-align:right;direction:rtl;">
- 						<span class="editorText" style="text-align:right;direction:rtl;">
-            			${command.activityLocation }&nbsp;
+ 					<div class="editor" style="align:center;">
+ 						<span class="editorText" style="text-align:right;direction:rtl;">${command.activityLocation }&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="activityLocationTA" name="activityLocationTA" cols="100" rows="1" class="green" style="display:none;">
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="activityLocation" name="activityLocation" cols="100" rows="1" class="green" style="display:none;">
            					${command.activityLocation }
 							</textarea>
 						</span>
@@ -376,11 +376,11 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-					<div class="editor" style="text-align:right;direction:rtl;">
+					<div class="editor" style="align:center;">
  						<span class="editorText" style="text-align:right;direction:rtl;">${command.possibleCollaboration }&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="possibleCollaborationTA" name="possibleCollaborationTA" cols="100" rows="1" class="green" style="display:none;">${command.possibleCollaboration }
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="possibleCollaboration" name="possibleCollaboration" cols="100" rows="1" class="green" style="display:none;">${command.possibleCollaboration }
  							</textarea>
 						</span>
 					</div>
@@ -399,21 +399,23 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-					<div class="editor" style="text-align:right;direction:rtl;">
+					<div class="editor" style="align:center;">
  						<span class="editorText" style="text-align:right;direction:rtl;">${command.budgetDetails }&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="budgetDetailsTA" name="budgetDetailsTA" cols="100" rows="1" class="green" style="display:none;">${command.budgetDetails }
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="budgetDetails" name="budgetDetails" cols="100" rows="1" class="green" style="display:none;">${command.budgetDetails }
  							</textarea>
 						</span>
 					</div>
  					</td>
  					</tr>
- 					<tr>
+ 					<c:forEach items="${deskBudgetPersons}" var="deskBudgetPerson" varStatus="varStatus">
+					<tr>
 					<td colspan="3" style="text-align:right">
-      				<span id="addedText">התקציב דורש את אישורו של מנהל התקציב מר נועם גלזר 02-6586549 </span>&nbsp;	<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
-      				</td>
- 					</tr>
+					<span id="addedText">התקציב דורש את אישורו של <c:out value="${deskBudgetPerson.degreeFullNameHebrew}"></c:out> <c:out value="${deskBudgetPerson.title}"></c:out> <c:out value="${deskBudgetPerson.phone}"></c:out></span>&nbsp;<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>
+					</td>
+					</tr>
+					</c:forEach>
  					</table>
  					</td>
 				</tr>											
@@ -427,11 +429,11 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-					<div class="editor" style="text-align:right;direction:rtl;">
+					<div class="editor" style="align:center;">
  						<span class="editorText" style="text-align:right;direction:rtl;">${command.additionalInformation }&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="additionalInformationTA" name="additionalInformationTA" cols="100" rows="1" class="green" style="display:none;">
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="additionalInformation" name="additionalInformation" cols="100" rows="1" class="green" style="display:none;">
 							${command.additionalInformation } 							
 							</textarea>
 						</span>
@@ -451,11 +453,11 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-					<div class="editor" style="text-align:right;direction:rtl;">
+					<div class="editor" style="align:center;">
  						<span class="editorText" style="text-align:right;direction:rtl;">${command.fundingPeriod}&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="fundingPeriodTA" name="fundingPeriodTA" cols="100" rows="1" class="green" style="display:none;">${command.fundingPeriod}
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="fundingPeriod" name="fundingPeriod" cols="100" rows="1" class="green" style="display:none;">${command.fundingPeriod}
  							</textarea>
 						</span>
 					</div>
@@ -474,11 +476,11 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-					<div class="editor" style="text-align:right;direction:rtl;">
+					<div class="editor" style="align:center;">
  						<span class="editorText" style="text-align:right;direction:rtl;">${command.amountOfGrant}&nbsp;
 						</span>
- 						<span class="textareaEditorSpan" style="text-align:right;direction:rtl;">
-           					<textarea class="textareaEditor" id="amountOfGrantTA" name="amountOfGrantTA" cols="100" rows="1" class="green" style="display:none;">${command.amountOfGrant}
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="amountOfGrant" name="amountOfGrant" cols="100" rows="1" class="green" style="display:none;">${command.amountOfGrant}
  							</textarea>
 						</span>
 					</div>

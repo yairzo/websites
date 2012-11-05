@@ -1,9 +1,17 @@
 package huard.iws.bean;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
+import huard.iws.model.Attachment;
 import huard.iws.model.CallOfProposal;
+import huard.iws.service.PersonService;
+import huard.iws.util.ApplicationContextProvider;
 
 public class CallOfProposalBean {
 	private int id;
@@ -34,7 +42,8 @@ public class CallOfProposalBean {
 	private String additionalInformation;
 	private List<Integer> subjectsIds;
 	private List<Long> submissionDates;
-	private List<byte[]> files;
+	private List<Attachment> attachments;
+	private String formDetails;
 	
 
 	public CallOfProposalBean(){
@@ -56,6 +65,7 @@ public class CallOfProposalBean {
 		this.showDescriptionOnly=true;
 		this.submissionDetails="";
 		this.contactPersonDetails="";
+		this.formDetails="";
 		this.description="";
 		this.fundingPeriod="";
 		this.amountOfGrant="";
@@ -64,6 +74,7 @@ public class CallOfProposalBean {
 		this.possibleCollaboration="";
 		this.budgetDetails="";
 		this.additionalInformation="";
+		this.attachments=new ArrayList<Attachment>();
 	}
 
 
@@ -86,6 +97,7 @@ public class CallOfProposalBean {
 		this.showDescriptionOnly=callOfProposal.getShowDescriptionOnly();
 		this.submissionDetails=callOfProposal.getSubmissionDetails();
 		this.contactPersonDetails=callOfProposal.getContactPersonDetails();
+		this.formDetails=callOfProposal.getFormDetails();
 		this.description=callOfProposal.getDescription();
 		this.fundingPeriod=callOfProposal.getFundingPeriod();
 		this.amountOfGrant = callOfProposal.getAmountOfGrant();
@@ -96,7 +108,7 @@ public class CallOfProposalBean {
 		this.additionalInformation=callOfProposal.getAdditionalInformation();
 		this.subjectsIds =callOfProposal.getSubjectsIds(); 
 		this.submissionDates =callOfProposal.getSubmissionDates(); 
-		this.files = callOfProposal.getFiles();
+		this.attachments = callOfProposal.getAttachments();
 	}
 
 	public CallOfProposal toCallOfProposal(){
@@ -119,6 +131,7 @@ public class CallOfProposalBean {
 		callOfProposal.setShowDescriptionOnly(showDescriptionOnly);
 		callOfProposal.setSubmissionDetails(submissionDetails);
 		callOfProposal.setContactPersonDetails(contactPersonDetails);
+		callOfProposal.setFormDetails(formDetails);
 		callOfProposal.setDescription(description);
 		callOfProposal.setFundingPeriod(fundingPeriod);
 		callOfProposal.setAmountOfGrant(amountOfGrant);
@@ -129,7 +142,7 @@ public class CallOfProposalBean {
 		callOfProposal.setAdditionalInformation(additionalInformation);
 		callOfProposal.setSubjectsIds(subjectsIds);
 		callOfProposal.setSubmissionDates(submissionDates);
-		callOfProposal.setFiles(files);
+		callOfProposal.setAttachments(attachments);
 		return callOfProposal;
 	}
 
@@ -162,18 +175,35 @@ public class CallOfProposalBean {
 		this.creationTime = creationTime;
 	}
 
-	public long getPublicationTime() {
-		return publicationTime;
+	public String getPublicationTime() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(publicationTime);
 	}
-	public void setPublicationTime(long publicationTime) {
-		this.publicationTime = publicationTime;
+	
+	public void setPublicationTime(String publicationTime) {
+		try{
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			Date formattedDate = (Date)formatter.parse(publicationTime); 
+			this.publicationTime = formattedDate.getTime();
+		}
+		catch(Exception e){
+			this.publicationTime=0;
+		}
 	}
 
-	public long getFinalSubmissionTime() {
-		return finalSubmissionTime;
+	public String getFinalSubmissionTime() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(finalSubmissionTime);
 	}
-	public void setFinalSubmissionTime(long finalSubmissionTime) {
-		this.finalSubmissionTime = finalSubmissionTime;
+	public void setFinalSubmissionTime(String finalSubmissionTime) {
+		try{
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			Date formattedDate = (Date)formatter.parse(finalSubmissionTime); 
+			this.finalSubmissionTime = formattedDate.getTime();
+		}
+		catch(Exception e){
+			this.finalSubmissionTime=0;
+		}
 	}
 
 	public boolean getAllYearSubmission() {
@@ -211,12 +241,20 @@ public class CallOfProposalBean {
 		this.typeId = typeId;
 	}
 
-	public long getKeepInRollingMessagesExpiryTime() {
-		return keepInRollingMessagesExpiryTime;
+	public String getKeepInRollingMessagesExpiryTime() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(keepInRollingMessagesExpiryTime);
 	}
 	
-	public void setKeepInRollingMessagesExpiryTime(long keepInRollingMessagesExpiryTime) {
-		this.keepInRollingMessagesExpiryTime = keepInRollingMessagesExpiryTime;
+	public void setKeepInRollingMessagesExpiryTime(String keepInRollingMessagesExpiryTime) {
+		try{
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			Date formattedDate = (Date)formatter.parse(keepInRollingMessagesExpiryTime); 
+			this.keepInRollingMessagesExpiryTime = formattedDate.getTime();
+		}
+		catch(Exception e){
+			this.keepInRollingMessagesExpiryTime=0;
+		}
 	}
 
 	public int getDeskId() {
@@ -263,6 +301,15 @@ public class CallOfProposalBean {
 	public void setContactPersonDetails(String contactPersonDetails) {
 		this.contactPersonDetails = contactPersonDetails;
 	}
+
+	public String getFormDetails() {
+		return formDetails;
+	}
+
+	public void setFormDetails(String formDetails) {
+		this.formDetails = formDetails;
+	}
+
 
 	public String getDescription() {
 		return description;
@@ -344,13 +391,27 @@ public class CallOfProposalBean {
 		this.submissionDates = submissionDates;
 	}
 	
-	public List<byte[]> getFiles() {
-		return files;
+	public List<Attachment> getAttachments() {
+		return attachments;
 	}
 
-	public void setFiles(List<byte[]> files) {
-		this.files = files;
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
 	}
 
+	public Map <Integer, Attachment> getAttachmentsMap(){
+		Map<Integer, Attachment> attachmentsMap = new HashMap<Integer, Attachment>();
+		for (Attachment attachment: this.attachments){
+			attachmentsMap.put(attachment.getId(), attachment);
+		}
+		return attachmentsMap;
+	}
+	public PersonBean getCreator() {
+		PersonService personService = (PersonService) ApplicationContextProvider
+				.getContext().getBean("personService");
+		PersonBean creator = new PersonBean(
+				personService.getPerson(this.creatorId));
+		return creator;
+	}
 
 }

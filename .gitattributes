@@ -72,6 +72,7 @@ src/huard/iws/web/PageListController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/PersonListHelperController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/UploadImageController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/UrlsListController.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/web/validate/EditCallOfProposalValidator.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/EditConferenceProposalValidator.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/UploadImageValidator.java svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/activePersonsList.jsp svn_mime_002dtype=text%2Fplain

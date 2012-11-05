@@ -22,6 +22,7 @@ public class CallOfProposal {
 	private boolean showDescriptionOnly;
 	private String submissionDetails;
 	private String contactPersonDetails;
+	private String formDetails;
 	private String description;
 	private String fundingPeriod;
 	private String amountOfGrant;
@@ -32,7 +33,7 @@ public class CallOfProposal {
 	private String additionalInformation;
 	private List<Integer> subjectsIds;
 	private List<Long> submissionDates;
-	private List<byte[]> files;
+	private List<Attachment> attachments;
 	
 	
 
@@ -194,6 +195,14 @@ public class CallOfProposal {
 		this.contactPersonDetails = contactPersonDetails;
 	}
 
+	public String getFormDetails() {
+		return formDetails;
+	}
+
+	public void setFormDetails(String formDetails) {
+		this.formDetails = formDetails;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -274,12 +283,12 @@ public class CallOfProposal {
 		this.submissionDates = submissionDates;
 	}
 
-	public List<byte[]> getFiles() {
-		return files;
+	public List<Attachment> getAttachments() {
+		return attachments;
 	}
 
-	public void setFiles(List<byte[]> files) {
-		this.files = files;
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
 	}
 	
 

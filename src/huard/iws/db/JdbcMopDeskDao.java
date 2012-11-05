@@ -33,10 +33,14 @@ public class JdbcMopDeskDao extends SimpleJdbcDaoSupport implements MopDeskDao {
 	};
 
 	public MopDesk getMopDesk(int mopDeskId){
-		String queryString = "select * from desk where id = ?";
-		MopDesk mopDesk =
-			getSimpleJdbcTemplate().queryForObject(queryString, getRowMapper(), mopDeskId);
-		return mopDesk;
+		try{
+			String queryString = "select * from desk where id = ?";
+			MopDesk mopDesk =getSimpleJdbcTemplate().queryForObject(queryString, getRowMapper(), mopDeskId);
+			return mopDesk;
+		}
+		catch(Exception e){
+			return new MopDesk();
+		}
 	}
 
 	public MopDesk getMopDesk(String mopDeskId){

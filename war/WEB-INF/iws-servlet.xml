@@ -124,6 +124,9 @@
    		<property name="mopDeskService">
             <ref bean="mopDeskService"/>
         </property>
+        <property name="validator">
+        	<bean class="huard.iws.web.validate.EditCallOfProposalValidator"/>
+        </property>
      </bean>
      
 	<bean id="editTextualPageController" class="huard.iws.web.EditTextualPageController" parent="generalFormController">
@@ -489,6 +492,9 @@
         </property>
         <property name="configurationService">
             <ref bean="configurationService"/>
+        </property>
+        <property name="mailMessageService">
+            <ref bean="mailMessageService"/>
         </property>
      </bean>
 

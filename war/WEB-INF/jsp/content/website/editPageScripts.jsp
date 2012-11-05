@@ -10,7 +10,7 @@ function resetAutocomplete(funds){
 			 minLength: 2,
 			 highlight: true,				 
 			 select: function(event, ui) {
-				 alert(ui.item.label);
+				 //alert(ui.item.label);
 					$("#searchPhrase").val(ui.item.label);
 					$("#fundId").val(ui.item.id);
 					return false;
@@ -101,6 +101,23 @@ $(document).ready(function() {
 		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
 		$('form#form').submit();
 	});
+
+	$('#formAttach').change(function(event){
+		var ids="";
+		$('input.subSubject').each(function(){
+				if (this.checked){
+					var id = this.id;
+					id = id.substring(id.indexOf('.') + 1);
+					if (ids !="")
+						ids = ids + ","
+					ids = ids +id;
+				}
+		});
+		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+		$('form#form').append('<input type=\"hidden\" name=\"addFile\" value=\"yes\"/>');
+		$('#form').submit();
+	});	
+	
 	/* subjects list starts here */
 
 	$('tbody.subSubjects').hide();

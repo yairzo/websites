@@ -1,6 +1,7 @@
 package huard.iws.servlet;
 
 import huard.iws.bean.PostBean;
+import huard.iws.bean.CallOfProposalBean;
 import huard.iws.model.Attachment;
 import huard.iws.model.FinancialSupport;
 import huard.iws.model.Person;
@@ -8,11 +9,13 @@ import huard.iws.model.Post;
 import huard.iws.model.Proposal;
 import huard.iws.model.ProposalAttachment;
 import huard.iws.model.ConferenceProposal;
+import huard.iws.model.CallOfProposal;
 import huard.iws.service.PersonProposalService;
 import huard.iws.service.PersonService;
 import huard.iws.service.PostService;
 import huard.iws.service.ProposalService;
 import huard.iws.service.ConferenceProposalService;
+import huard.iws.service.CallOfProposalService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.RequestWrapper;
 
@@ -43,13 +46,15 @@ public class FileViewer extends HttpServlet {
 		byte [] file = null;
 		String contentType = requestWrapper.getParameter("contentType", "");
 		int attachmentId = requestWrapper.getIntParameter("attachmentId", 0);
-		System.out.println("1111111111:" + requestWrapper.getIntParameter("conferenceProposalId", 0));
+
 		if (attachmentId <= 0 && requestWrapper.getIntParameter("conferenceProposalId", 0)== 0)
 			return;
+
 		
 		int proposalId = requestWrapper.getIntParameter("proposalId", 0);
 		int postId = requestWrapper.getIntParameter("postId", 0);
 		int conferenceProposalId = requestWrapper.getIntParameter("conferenceProposalId", 0);
+		int callOfProposalId = requestWrapper.getIntParameter("callOfProposalId", 0);
 		
 		String filename = DEFAULT_FILENAME;
 
@@ -160,6 +165,15 @@ public class FileViewer extends HttpServlet {
 			}
 			else return;
 
+		}
+		else if (callOfProposalId > 0){
+			Object obj = ApplicationContextProvider.getContext().getBean("callOfProposalService");
+			CallOfProposalService callOfProposalService = (CallOfProposalService) obj;
+
+			CallOfProposal callOfProposal = callOfProposalService.getCallOfProposal(callOfProposalId);
+			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal);
+			Attachment attachment = callOfProposalBean.getAttachmentsMap().get(attachmentId);
+			file = attachment.getFile();
 		}
 
 		try{
