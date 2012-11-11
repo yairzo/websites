@@ -171,7 +171,7 @@ public class FileViewer extends HttpServlet {
 			CallOfProposalService callOfProposalService = (CallOfProposalService) obj;
 
 			CallOfProposal callOfProposal = callOfProposalService.getCallOfProposal(callOfProposalId);
-			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal);
+			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal,false);
 			Attachment attachment = callOfProposalBean.getAttachmentsMap().get(attachmentId);
 			file = attachment.getFile();
 		}

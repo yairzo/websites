@@ -93,12 +93,6 @@
             <ref bean="urlsCheckerService"/>
         </property>
      </bean>
-	<bean id="pageListController" class="huard.iws.web.PageListController" parent="generalFormController">
- 		<property name="commandName"><value>command</value></property>
-        <property name="commandClass"><value>huard.iws.web.PageListController$PageListControllerCommand</value></property>
-        <property name="formView"><value>pageList</value></property>
-        <property name="successView"><value>pages.html</value></property>
-      </bean>
      
 	<bean id="activePersonsController" class="huard.iws.web.ActivePersonsController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
@@ -128,6 +122,16 @@
         	<bean class="huard.iws.web.validate.EditCallOfProposalValidator"/>
         </property>
      </bean>
+     
+ 	<bean id="callOfProposalListController" class="huard.iws.web.CallOfProposalListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.CallOfProposalListController$CallOfProposalListControllerCommand</value></property>
+        <property name="formView"><value>callOfProposals</value></property>
+        <property name="successView"><value>callOfProposals.html</value></property>
+     	<property name="callOfProposalService">
+            <ref bean="callOfProposalService"/>
+        </property>
+      </bean>
      
 	<bean id="editTextualPageController" class="huard.iws.web.EditTextualPageController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
@@ -213,6 +217,9 @@
         </property>
         <property name="sendPostService">
             <ref bean="sendPostService"/>
+        </property>
+     	<property name="callOfProposalService">
+            <ref bean="callOfProposalService"/>
         </property>
        <!--<property name="messageService">
             <ref bean="messageService"/>
@@ -969,7 +976,7 @@
 				<prop key="/close.html">urlFilenameViewController</prop>
 				<prop key="/callOfProposal.html">callOfProposalController</prop>
 				<prop key="/textualPage.html">editTextualPageController</prop>
-				<prop key="/pages.html">pageListController</prop>
+				<prop key="/callOfProposals.html">callOfProposalListController</prop>
             </props>
         </property>
     </bean>

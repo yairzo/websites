@@ -1,7 +1,6 @@
 package huard.iws.model;
 
 import java.util.List;
-import java.util.Date;
 
 public class CallOfProposal {
 	private int id;

@@ -90,14 +90,21 @@ public class CallOfProposalController extends GeneralFormController{
 			submissionDates.add(formattedDate.getTime());
 		}
 		callOfProposalBean.setSubmissionDates(submissionDates);
+		
 		//update
 		callOfProposalService.updateCallOfProposal(callOfProposalBean.toCallOfProposal());
 
-		
-		//return to same page
-		/*if (request.getBooleanParameter("ajaxSubmit", false)){
-			return null;
-		}*/
+		//upload
+		if (request.getBooleanParameter("online", false)){
+			if(callOfProposalService.existsCallOfProposalOnline(callOfProposalBean.getId()))
+				callOfProposalService.updateCallOfProposalOnline(callOfProposalBean.toCallOfProposal());
+			else
+				callOfProposalService.insertCallOfProposalOnline(callOfProposalBean.toCallOfProposal());
+		}
+		if (request.getBooleanParameter("offline", false)){
+			if(callOfProposalService.existsCallOfProposalOnline(callOfProposalBean.getId()))
+				callOfProposalService.removeCallOfProposalOnline(callOfProposalBean.getId());
+		}
 			
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", callOfProposalBean.getId())	;
@@ -187,6 +194,12 @@ public class CallOfProposalController extends GeneralFormController{
 			//desks
 			List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 			model.put("mopDesks", mopDesks);
+			//online
+			if(callOfProposalService.existsCallOfProposalOnline(callOfProposal.getId()))
+				model.put("online", true);
+			else
+				model.put("online", false);
+			
 			model.put("id",callOfProposal.getId());
 			return new ModelAndView ( this.getFormView(), model);
 		}
@@ -207,7 +220,7 @@ public class CallOfProposalController extends GeneralFormController{
 				|| id == 0)
 			return callOfProposalBean;
 		
-		callOfProposalBean = new CallOfProposalBean(callOfProposalService.getCallOfProposal(id));
+		callOfProposalBean = new CallOfProposalBean(callOfProposalService.getCallOfProposal(id),false);
 		
 		return callOfProposalBean;
 	}

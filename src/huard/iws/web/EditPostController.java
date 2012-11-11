@@ -1,13 +1,14 @@
 package huard.iws.web;
 
+import huard.iws.bean.CallOfProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.PostBean;
 import huard.iws.bean.SubjectBean;
 import huard.iws.model.Attachment;
-import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Post;
 import huard.iws.model.Subject;
-import huard.iws.service.MessageService;
+import huard.iws.model.CallOfProposal;
+import huard.iws.service.CallOfProposalService;
 import huard.iws.service.PersonListService;
 import huard.iws.service.PostService;
 import huard.iws.service.SendPostService;
@@ -125,6 +126,15 @@ public class EditPostController extends GeneralFormController {
 			int id = postService.insertPost(userPersonBean.getId());
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",id);
+			//when opened from callOfProposal
+			if(!request.getParameter("callOfProposal", "").isEmpty()){
+				Post tmpPost = postService.getPost(id);
+				CallOfProposal callOfProposal = callOfProposalService.getCallOfProposal(request.getIntParameter("callOfProposal", 0));
+				CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal, true);
+				tmpPost.setMessageSubject(callOfProposalBean.getId() + " - " + callOfProposalBean.getTitle());
+				tmpPost.setMessage(callOfProposalBean.toString());
+				postService.updatePost(tmpPost);
+			}
 			return new ModelAndView ( new RedirectView("post.html"), newModel);
 		}
 
@@ -212,5 +222,10 @@ public class EditPostController extends GeneralFormController {
 		this.sendPostService = sendPostService;
 	}
 	
+	private CallOfProposalService callOfProposalService;
+
+	public void setCallOfProposalService(CallOfProposalService callOfProposalService) {
+		this.callOfProposalService = callOfProposalService;
+	}
 
 }

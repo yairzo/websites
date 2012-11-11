@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Date;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -28,6 +27,18 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		applySubmissionDates(callOfProposal);
 		applyFiles(callOfProposal);
 		return 	callOfProposal;	
+	}
+	
+	public boolean existsCallOfProposalOnline(int id){
+		String query = "select * from callOfProposalOnline where callOfProposalId =?";
+		try{
+			CallOfProposal callOfProposal =
+					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
+			return true;
+		}
+		catch(Exception e){
+			return false;
+		}
 	}
 
 	public CallOfProposal getCallOfProposal(String title){
@@ -113,6 +124,62 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		return keyHolder.getKey().intValue();
 	}
 	
+	public void insertCallOfProposalOnline(CallOfProposal callOfProposal){
+		final String query = "insert callOfProposalOnline set callOfProposalId = ?"+
+				", title = ?" +
+				", creatorId = ?" +
+				", publicationTime = ?" +
+				", finalSubmissionTime = ?" +
+				", allYearSubmission = ?" +
+				", allYearSubmissionYearPassedAlert = ?" +
+				", hasAdditionalSubmissionDates = ?" +
+				", fundId = ?" +
+				", typeId = ?" +
+				", keepInRollingMessagesExpiryTime = ?" +
+				", deskId = ?" +
+				", originalCallWebAddress = ?" +
+				", requireLogin = ?" +
+				", submissionDetails= ?" +
+				", contactPersonDetails= ?" +
+				", formDetails= ?" +
+				", description = ?" +
+				", fundingPeriod = ?" +
+				", amountOfGrant = ?" +
+				", eligibilityRequirements = ?" +
+				", activityLocation = ?" +
+				", possibleCollaboration = ?" +
+				", budgetDetails = ?" +
+				", additionalInformation = ?";
+		System.out.println("1111111:" + query);
+		logger.info(query);
+		getSimpleJdbcTemplate().update(query,
+				callOfProposal.getId(),
+				callOfProposal.getTitle(),
+				callOfProposal.getCreatorId(),
+				new java.sql.Timestamp(callOfProposal.getPublicationTime()),
+				new java.sql.Timestamp(callOfProposal.getFinalSubmissionTime()),
+	    		callOfProposal.getAllYearSubmission(),
+	    		callOfProposal.getAllYearSubmissionYearPassedAlert(),
+	    		callOfProposal.getHasAdditionalSubmissionDates(),
+	    		callOfProposal.getFundId(),
+	    		callOfProposal.getTypeId(),
+	    		new java.sql.Timestamp(callOfProposal.getKeepInRollingMessagesExpiryTime()),
+	    		callOfProposal.getDeskId(),
+	    		callOfProposal.getOriginalCallWebAddress(),
+	    		callOfProposal.getRequireLogin(),
+	    		callOfProposal.getSubmissionDetails().trim(),
+	    		callOfProposal.getContactPersonDetails().trim(),
+	    		callOfProposal.getFormDetails().trim(),
+	    		callOfProposal.getDescription().trim(),
+	    		callOfProposal.getFundingPeriod().trim(),
+	    		callOfProposal.getAmountOfGrant().trim(),
+	    		callOfProposal.getEligibilityRequirements().trim(),
+	    		callOfProposal.getActivityLocation().trim(),
+	    		callOfProposal.getPossibleCollaboration().trim(),
+	    		callOfProposal.getBudgetDetails().trim(),
+	    		callOfProposal.getAdditionalInformation().trim());
+	}
+	
 	public void updateCallOfProposal(CallOfProposal callOfProposal){
 		String query = "update callOfProposal set " +
 				" title = ?" +
@@ -194,8 +261,91 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 			if (attachment != null)
 				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), attachment.getFile(), attachment.getContentType());
 		}
+	}
+	public void updateCallOfProposalOnline(CallOfProposal callOfProposal){
+		String query = "update callOfProposalOnline set " +
+				" title = ?" +
+				", creatorId = ?" +
+				", publicationTime = ?" +
+				", finalSubmissionTime = ?" +
+				", allYearSubmission = ?" +
+				", allYearSubmissionYearPassedAlert = ?" +
+				", hasAdditionalSubmissionDates = ?" +
+				", fundId = ?" +
+				", typeId = ?" +
+				", keepInRollingMessagesExpiryTime = ?" +
+				", deskId = ?" +
+				", originalCallWebAddress = ?" +
+				", requireLogin = ?" +
+				", submissionDetails= ?" +
+				", contactPersonDetails= ?" +
+				", formDetails= ?" +
+				", description = ?" +
+				", fundingPeriod = ?" +
+				", amountOfGrant = ?" +
+				", eligibilityRequirements = ?" +
+				", activityLocation = ?" +
+				", possibleCollaboration = ?" +
+				", budgetDetails = ?" +
+				", additionalInformation = ?" +
+			" where callOfProposalId = ?;";
+		System.out.println("111111111111111:"+query);
+		logger.info(query);
+		getSimpleJdbcTemplate().update(query,
+				callOfProposal.getTitle(),
+				callOfProposal.getCreatorId(),
+				new java.sql.Timestamp(callOfProposal.getPublicationTime()),
+				new java.sql.Timestamp(callOfProposal.getFinalSubmissionTime()),
+	    		callOfProposal.getAllYearSubmission(),
+	    		callOfProposal.getAllYearSubmissionYearPassedAlert(),
+	    		callOfProposal.getHasAdditionalSubmissionDates(),
+	    		callOfProposal.getFundId(),
+	    		callOfProposal.getTypeId(),
+	    		new java.sql.Timestamp(callOfProposal.getKeepInRollingMessagesExpiryTime()),
+	    		callOfProposal.getDeskId(),
+	    		callOfProposal.getOriginalCallWebAddress(),
+	    		callOfProposal.getRequireLogin(),
+	    		callOfProposal.getSubmissionDetails(),
+	    		callOfProposal.getContactPersonDetails(),
+	    		callOfProposal.getFormDetails(),
+	    		callOfProposal.getDescription(),
+	    		callOfProposal.getFundingPeriod(),
+	    		callOfProposal.getAmountOfGrant(),
+	    		callOfProposal.getEligibilityRequirements(),
+	    		callOfProposal.getActivityLocation(),
+	    		callOfProposal.getPossibleCollaboration(),
+	    		callOfProposal.getBudgetDetails(),
+	    		callOfProposal.getAdditionalInformation(),
+				callOfProposal.getId());
 		
-
+		/*query = "delete from subjectToCallOfProposal where callOfProposalId = ?";
+		getSimpleJdbcTemplate().update(query,callOfProposal.getId());
+		if(callOfProposal.getSubjectsIds()!=null){
+			for (Integer subjectId: callOfProposal.getSubjectsIds()){
+				query  = "insert subjectToCallOfProposal set callOfProposalId = ?, subjectId = ?";
+				if (subjectId != null)
+					getSimpleJdbcTemplate().update(query,callOfProposal.getId(), subjectId);
+			}
+		}
+		
+		query = "delete from callOfProposalDates where callOfProposalId = ?";
+		getSimpleJdbcTemplate().update(query,callOfProposal.getId());
+		for (Long submissionDate: callOfProposal.getSubmissionDates()){
+			query  = "insert callOfProposalDates set callOfProposalId = ?, submissionDate = ?";
+			if (submissionDate != null)
+				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), new java.sql.Timestamp(submissionDate));
+		}
+		
+		for (Attachment attachment: callOfProposal.getAttachments()){
+			query  = "insert callOfProposalFiles set callOfProposalId = ?, fileId = ?, contentType= ?";
+			if (attachment != null)
+				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), attachment.getFile(), attachment.getContentType());
+		}*/
+	}	
+	
+	public void removeCallOfProposalOnline(int id){
+		String query = "delete from callOfProposalOnline where callOfProposalId= ?";
+		getSimpleJdbcTemplate().update(query,id);
 	}
 	
 	public List<CallOfProposal> getCallsOfProposals( boolean open){

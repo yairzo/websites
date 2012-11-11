@@ -41,9 +41,14 @@
  
                 <tr class="form">
 					<td colspan="4" align="right">
-					<h3>פרטי קול קורא מספר: ${command.id} </h3>  
+					<h3>פרטי קול קורא מספר: ${command.id}</h3>  
+					<c:if test="${online}">
 					 מוצג כרגע באתר
-					&nbsp; <button class="grey">הסר מהאתר</button>
+					&nbsp; <button class="grey" id="offline">הסר מהאתר</button>
+					</c:if>
+					<c:if test="${!online}">
+					&nbsp; <button class="grey" id="online">העלה לאתר</button>
+					</c:if>
 					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/infoPageViewer.jsp?ardNum=${command.id}','_blank');return false;">צפה בדף באתר</button>
 					</td>
 				</tr>
@@ -499,7 +504,7 @@
 		<tr class="form">
 			<td colspan="4" align="center" style="border:1px #bca2a2 dotted">
 				<button title="שמירה" class="grey save" > שמירה </button>&nbsp;&nbsp;
-				<button class="grey" title="" >צור הודעה בפוסט </button>&nbsp;&nbsp;		
+				<button class="grey post" title="" >צור הודעה בפוסט </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה למסך קודם </button>		
 			</td>

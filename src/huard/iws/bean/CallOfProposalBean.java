@@ -10,8 +10,15 @@ import java.util.Map;
 
 import huard.iws.model.Attachment;
 import huard.iws.model.CallOfProposal;
+import huard.iws.model.Fund;
+import huard.iws.model.MopDesk;
+import huard.iws.service.ConfigurationService;
+import huard.iws.service.FundService;
+import huard.iws.service.MessageService;
+import huard.iws.service.MopDeskService;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
+import huard.iws.util.DateUtils;
 
 public class CallOfProposalBean {
 	private int id;
@@ -45,6 +52,10 @@ public class CallOfProposalBean {
 	private List<Attachment> attachments;
 	private String formDetails;
 	
+	private MessageService messageService;
+	private ConfigurationService configurationService;
+	private FundService fundService;
+	private MopDeskService mopDeskService;	
 
 	public CallOfProposalBean(){
 		this.id = 0;
@@ -78,7 +89,7 @@ public class CallOfProposalBean {
 	}
 
 
-	public CallOfProposalBean(CallOfProposal callOfProposal){
+	public CallOfProposalBean(CallOfProposal callOfProposal, boolean applyObjs){
 		this.id = callOfProposal.getId();
 		this.title = callOfProposal.getTitle();
 		this.creatorId = callOfProposal.getCreatorId();
@@ -109,6 +120,8 @@ public class CallOfProposalBean {
 		this.subjectsIds =callOfProposal.getSubjectsIds(); 
 		this.submissionDates =callOfProposal.getSubmissionDates(); 
 		this.attachments = callOfProposal.getAttachments();
+		init(applyObjs);
+		
 	}
 
 	public CallOfProposal toCallOfProposal(){
@@ -412,6 +425,47 @@ public class CallOfProposalBean {
 		PersonBean creator = new PersonBean(
 				personService.getPerson(this.creatorId));
 		return creator;
+	}
+	
+	public void init(boolean applyObjs){
+		if (applyObjs){
+			fundService = (FundService) ApplicationContextProvider.getContext().getBean("fundService");
+			messageService = (MessageService) ApplicationContextProvider.getContext().getBean("messageService");
+			configurationService = (ConfigurationService) ApplicationContextProvider.getContext().getBean("configurationService");
+			mopDeskService = (MopDeskService) ApplicationContextProvider.getContext().getBean("mopDeskService");
+		}
+	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("webServer") +
+				"/huard/infoPageViewer.jsp?ardNum=" + this.id + "\">" + title + "</a><br/> ");
+		if (fundId != 0){
+		    Fund fund= fundService.getArdFund(fundId);
+			sb.append(" <a class=\"bold\" href=\"http://" + fund.getWebAddress() + "\">" + fund.getName() + ", " + fund.getShortName() + "</a>;;");
+		}
+		else
+			sb.append("# Funding agency #");
+		if(finalSubmissionTime==0)
+			sb.append(messageService.getMessage("general.callOfProposal.submission", "iw_IL") + ": "
+					+ messageService.getMessage("general.callOfProposal.submissionAllYear", "iw_IL") + " <br/> ");
+		else	
+			sb.append(messageService.getMessage("general.callOfProposal.submission", "iw_IL") + ": "
+				+ DateUtils.getLocaleDependentShortDateFormat(finalSubmissionTime, "iw_IL") + " <br/> ");
+		if (! amountOfGrant.isEmpty())
+			sb.append(messageService.getMessage("general.callOfProposal.amountOfGrant", "iw_IL") + ": " + amountOfGrant.trim() + ";;");
+		sb.append(messageService.getMessage("general.callOfProposal.successIndex", "iw_IL") + ": xxxxx;;");
+		sb.append(" " +messageService.getMessage("general.callOfProposal.deskPrefix", "iw_IL"));
+		sb.append("#mu# #mp##mue#");
+		if (deskId != 0){
+			MopDesk mopDesk = mopDeskService.getMopDesk(deskId);
+			sb.append(", <span class=\"bold\">" + mopDesk.getHebrewName() + "." + "</span>");
+		}
+		String str=sb.toString();
+		str=str.replace("<p>","");
+		str=str.replace("</p>","");
+		str="<p dir=\"rtl\">" + str + "</p>";
+		return str;
 	}
 
 }

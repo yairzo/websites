@@ -3,6 +3,8 @@
 <script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>
 
 <script language="Javascript">
+var ceditor; //This is for our CKEditor editor
+var ceditor_container; //Saves the container of our editor (DIV).
 
 function resetAutocomplete(funds){
 	$("#searchPhrase").autocomplete( 
@@ -117,6 +119,43 @@ $(document).ready(function() {
 		$('form#form').append('<input type=\"hidden\" name=\"addFile\" value=\"yes\"/>');
 		$('#form').submit();
 	});	
+
+	$('button#online').click(function(){
+		var ids="";
+		$('input.subSubject').each(function(){
+				if (this.checked){
+					var id = this.id;
+					id = id.substring(id.indexOf('.') + 1);
+					if (ids !="")
+						ids = ids + ","
+					ids = ids +id;
+				}
+		});
+		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+		$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+		$('#form').submit();
+	});
+	
+	$('button#offline').click(function(){
+		var ids="";
+		$('input.subSubject').each(function(){
+				if (this.checked){
+					var id = this.id;
+					id = id.substring(id.indexOf('.') + 1);
+					if (ids !="")
+						ids = ids + ","
+					ids = ids +id;
+				}
+		});
+		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+		$('form#form').append('<input type=\"hidden\" name=\"offline\" value=\"true\"/>');
+		$('#form').submit();
+	});
+
+	$('button.post').click(function(){
+		window.open('post.html?action=new&callOfProposal=' + ${command.id});
+	});
+	
 	
 	/* subjects list starts here */
 
@@ -226,42 +265,34 @@ $(document).ready(function() {
 			colorButton_enableMore : false
 	};
 
-	var ceditor; //This is for our CKEditor editor
-	var ceditor_container; //Saves the container of our editor (DIV).
 
 	$(".editor").click(function(e){
 		    e.stopPropagation();//so not to start body click
-	        //Destroy first our editor if it exists
-	        /* if(ceditor){
-	            ceditor.destroy();
-	        }*/
+		 	// pressed editor icons
+		    if ($(e.target).attr("class")!=undefined && $(e.target).attr("class").indexOf("cke_")>=0) 
+					return;
 
-		   $(".editorText", $(this).closest("table")).hide();
+	        //if another editor is already open, close it
+        	closeEditor();
+
+		   //open editor
+	        $(".editorText", $(this).closest("table")).hide();
            $(".textareaEditorSpan", $(this).closest("table")).show();
             var textAreaId = $(".textareaEditor", $(this).closest("table")).attr("id");
 	        ceditor =  CKEDITOR.replace(textAreaId,config);
-			//$(this).ckeditor(config);	
-
-            ceditor_container = $(this);//Save the div container to know which one to close
-	    });
+	      
+	        //Save the div container to know which one to close later
+            ceditor_container = $(this);
+	  });
 	 
-	    $("body").click(function(event){
-			if ($(event.target).attr("class")!=undefined && $(event.target).attr("class").indexOf("cke_")>=0) {}
-			else {
-	    		for ( var i in CKEDITOR.instances ){
-	    		   var currentInstance = i;
-	    		   break;
-	    		}
-	    		var ceditor   = CKEDITOR.instances[currentInstance];	       
-	    		if(ceditor){
-	            	$(".editorText", $(ceditor_container).closest("table")).show();
-	            	$(".textareaEditorSpan", $(ceditor_container).closest("table")).hide();
-	            	$(".editorText", $(ceditor_container).closest("table")).html(ceditor.getData());
-	            	ceditor.destroy();
-	            	ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed by reference
-	        	}
+	  $("body").click(function(event){
+			if ($(event.target).attr("class")!=undefined && $(event.target).attr("class").indexOf("cke_")>=0) {
+				//inside editor
 			}
-	    });
+			else {
+				closeEditor();
+			}
+	   });
 
 	    $(".editoropen").ckeditor(config);
 	    
@@ -282,13 +313,6 @@ $(document).ready(function() {
 	   		ceditor.insertHtml( "<br>" +addedText);	    		
 		});
 		
-		/*$(".addFile").click(function(e){
-		    e.stopPropagation();//so not to start body click 
-		    e.preventDefault();//no refresh page 
-		    var addedText= $('#addedText', $(this).closest("tr")).html();
-		    var existingText = $(".editor", $(this).closest("#fileTable")).html();
-		    $(".editor", $(this).closest("#fileTable")).html(existingText + "<br>" + addedText);
-		});*/
    
 });
 var fieldname=""; 
@@ -339,7 +363,21 @@ function showRightMultipleSelectImg(parent){
 	}
 }
 
-
+function closeEditor(){
+		for ( var i in CKEDITOR.instances ){
+		   var currentInstance = i;
+		   break;
+		}
+		var ceditor   = CKEDITOR.instances[currentInstance];	       
+		if(ceditor){
+     		$(".editorText", $(ceditor_container).closest("table")).show();
+     		$(".textareaEditorSpan", $(ceditor_container).closest("table")).hide();
+     		$(".editorText", $(ceditor_container).closest("table")).html(ceditor.getData());
+     		ceditor.destroy();
+     		ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed by reference
+     		ceditor_container=null;
+		}
+}
 
 function closeSubject(element){
 	$(element).children("img.minus").hide();

@@ -109,6 +109,8 @@
       			/conferenceProposalsGrade.html=ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER
       			/urls.html=ROLE_WEBSITE_ADMIN
       			/active.html=ROLE_WEBSITE_ADMIN
+     			/callOfProposals.html=ROLE_WEBSITE_ADMIN
+     			/callOfProposal.html=ROLE_WEBSITE_ADMIN
 	       </value>
   		</property>
 	</bean>

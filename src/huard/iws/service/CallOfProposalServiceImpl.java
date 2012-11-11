@@ -12,7 +12,11 @@ public class CallOfProposalServiceImpl implements CallOfProposalService{
 	public CallOfProposal getCallOfProposal(int id){
 		return callOfProposalDao.getCallOfProposal(id);
 	}
-
+	
+	public boolean existsCallOfProposalOnline(int id){
+		return callOfProposalDao.existsCallOfProposalOnline(id);
+	}
+	
 	public CallOfProposal getCallOfProposal(String title){
 		return callOfProposalDao.getCallOfProposal(title);
 	}
@@ -20,12 +24,23 @@ public class CallOfProposalServiceImpl implements CallOfProposalService{
 	public int insertCallOfProposal(CallOfProposal callOfProposal){
 		return callOfProposalDao.insertCallOfProposal(callOfProposal);
 	}
+	
+	public void insertCallOfProposalOnline(CallOfProposal callOfProposal){
+		callOfProposalDao.insertCallOfProposalOnline(callOfProposal);
+	}
 
 	public void updateCallOfProposal(CallOfProposal callOfProposal){
 		callOfProposalDao.updateCallOfProposal(callOfProposal);
 	}
 	
+	public void updateCallOfProposalOnline(CallOfProposal callOfProposal){
+		callOfProposalDao.updateCallOfProposalOnline(callOfProposal);
+	}
 
+	public void removeCallOfProposalOnline(int id){
+		callOfProposalDao.removeCallOfProposalOnline(id);
+	}
+	
 	public List<CallOfProposal> getCallsOfProposals(){
 		return getCallsOfProposals(false);
 	}

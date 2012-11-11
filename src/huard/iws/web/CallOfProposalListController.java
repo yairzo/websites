@@ -1,19 +1,23 @@
 package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
+import huard.iws.bean.CallOfProposalBean;
+import huard.iws.service.CallOfProposalService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.SearchCreteria;
+import huard.iws.model.CallOfProposal;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.List;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class PageListController extends GeneralFormController {
+public class CallOfProposalListController extends GeneralFormController {
 
 
 	protected ModelAndView onSubmit(Object command,
@@ -30,32 +34,26 @@ public class PageListController extends GeneralFormController {
 
 		//PageListControllerCommand command = (PageListControllerCommand) model.get("command");
 
-		/*List<PageUrl> pageUrls = urlsCheckerService.getSearchPubPagesUrls(command.getListView(), command.getSearchCreteria(),server);
-		List<PageUrlBean> pubPagesBeans = new ArrayList<PageUrlBean>();
-		for (PageUrl pageUrl: pageUrls){
-			PageUrlBean pageUrlbean = new PageUrlBean(pageUrl);
-			pubPagesBeans.add(pageUrlbean);
+		List<CallOfProposal> callOfProposals = callOfProposalService.getCallsOfProposals();
+		List<CallOfProposalBean> callOfProposalBeans = new ArrayList<CallOfProposalBean>();
+		for (CallOfProposal callOfProposal: callOfProposals){
+			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal,false);
+			if(callOfProposalBean.getTitle().startsWith("###"))
+				callOfProposalBean.setTitle("");
+			callOfProposalBeans.add(callOfProposalBean);
 		}
-		pageUrls = urlsCheckerService.getSearchInfoPagesUrls(command.getListView(), command.getSearchCreteria(),server);
-		List<PageUrlBean> infoPagesBeans = new ArrayList<PageUrlBean>();
-		for (PageUrl pageUrl: pageUrls){
-			PageUrlBean urlbean = new PageUrlBean(pageUrl);
-			infoPagesBeans.add(urlbean);
-		}*/
-		
-		//model.put("pageStatus", request.getSession().getAttribute("pageStatus"));
-		//model.put("infoPagesURLs", infoPagesBeans);
-		//model.put("pubPagesURLs", pubPagesBeans);
-		return new ModelAndView ("pageList",model);
+		model.put("callOfProposals", callOfProposalBeans);
+
+		return new ModelAndView ("callOfProposals",model);
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
-		PageListControllerCommand command = new PageListControllerCommand();
+		CallOfProposalListControllerCommand command = new CallOfProposalListControllerCommand();
 		return command;
 	}
 
-	public class PageListControllerCommand{
+	public class CallOfProposalListControllerCommand{
 		private SearchCreteria searchCreteria = new SearchCreteria();
 		private ListView listView = new ListView();
 
@@ -72,7 +70,12 @@ public class PageListController extends GeneralFormController {
 			this.listView = listView;
 		}
 
+	}
+	
+	private CallOfProposalService callOfProposalService;
 
+	public void setCallOfProposalService(CallOfProposalService callOfProposalService) {
+		this.callOfProposalService = callOfProposalService;
 	}
 
 }
