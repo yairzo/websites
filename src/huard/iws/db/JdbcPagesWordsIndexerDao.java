@@ -2,7 +2,7 @@ package huard.iws.db;
 
 import huard.iws.model.CallOfProposalOld;
 import huard.iws.model.Desk;
-import huard.iws.model.TextualPage;
+import huard.iws.model.TextualPageOld;
 import huard.iws.util.SQLUtils;
 
 import java.sql.Connection;
@@ -38,7 +38,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 		}
 
 	}	
-	public List<TextualPage> getLatelyUpdatedPubPages(long runsInterval, String server){
+	public List<TextualPageOld> getLatelyUpdatedPubPages(long runsInterval, String server){
 		try{
 			now = new java.util.Date();
 			long lastRunTime = now.getTime() - runsInterval;
@@ -86,9 +86,9 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 		return sb.toString();
 	}
 
-	public void deleteLatelyUpdatedPubPagesFromIndexTable(List<TextualPage> indexedTextualPages,boolean fullIndex,String server){
+	public void deleteLatelyUpdatedPubPagesFromIndexTable(List<TextualPageOld> indexedTextualPageOlds,boolean fullIndex,String server){
 		try{
-			String queryInClause = buildPubPagesQueryInClause(indexedTextualPages);
+			String queryInClause = buildPubPagesQueryInClause(indexedTextualPageOlds);
 			String query = "DELETE FROM PubPagesIndex";
 			if (!fullIndex)
 				query += " WHERE ardNum IN ("+queryInClause+")";
@@ -102,10 +102,10 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 		}
 	}
 	
-	private String buildPubPagesQueryInClause(List<TextualPage> textualPages){
+	private String buildPubPagesQueryInClause(List<TextualPageOld> textualPages){
 		StringBuilder sb = new StringBuilder();
 		boolean first = true;
-		for (TextualPage textualPage: textualPages){
+		for (TextualPageOld textualPage: textualPages){
 			if (!first)
 				sb.append(",");
 			sb.append(textualPage.getId());
@@ -243,10 +243,10 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 		}
 		return callOfProposals;
 	}
-	public List<TextualPage> moveResultSetToPubPages(ResultSet resultSet) throws SQLException{
-   		List<TextualPage> textualPages = new ArrayList<TextualPage>();
+	public List<TextualPageOld> moveResultSetToPubPages(ResultSet resultSet) throws SQLException{
+   		List<TextualPageOld> textualPages = new ArrayList<TextualPageOld>();
    	   	while (resultSet.next()){
-   	   		TextualPage textPage = new TextualPage();
+   	   		TextualPageOld textPage = new TextualPageOld();
    	   		textPage.setId(resultSet.getInt("ardNum"));
    	   		textPage.setTitle(resultSet.getString("title"));
    	   		textPage.setHtml(resultSet.getString("html"));

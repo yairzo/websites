@@ -78,6 +78,11 @@
             <ref bean="callOfProposalDao"/>
         </property>
     </bean>
+	<bean id="textualPageService" class="huard.iws.service.TextualPageServiceImpl">
+		<property name="textualPageDao">
+            <ref bean="textualPageDao"/>
+        </property>
+    </bean>
 
 	<bean id="locksService" class="huard.iws.service.LocksServiceImpl">
 		<property name="locksDao">

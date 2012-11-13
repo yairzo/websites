@@ -111,6 +111,8 @@
       			/active.html=ROLE_WEBSITE_ADMIN
      			/callOfProposals.html=ROLE_WEBSITE_ADMIN
      			/callOfProposal.html=ROLE_WEBSITE_ADMIN
+     			/textualPage.html=ROLE_WEBSITE_ADMIN
+    			/textualPages.html=ROLE_WEBSITE_ADMIN
 	       </value>
   		</property>
 	</bean>

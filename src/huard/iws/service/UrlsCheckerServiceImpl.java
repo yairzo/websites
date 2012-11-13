@@ -4,7 +4,7 @@ import huard.iws.db.CallOfProposalDaoOld;
 import huard.iws.db.UrlsCheckerDao;
 import huard.iws.model.CallOfProposalOld;
 import huard.iws.model.PageUrl;
-import huard.iws.model.TextualPage;
+import huard.iws.model.TextualPageOld;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
 import huard.iws.util.WordsTokenizer;
@@ -44,8 +44,8 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 	public void buildPubPagesURLsTable(Integer ardNum){
 		String server = configurationService.getConfigurationString("websiteDb");
 		urlsCheckerDao.markExistingRowsInPubPagesUrls(server);
-		List<TextualPage> pubPages = urlsCheckerDao.getAliveAndOnSitePubPages(ardNum,server);
-		for (TextualPage pubPage: pubPages){
+		List<TextualPageOld> pubPages = urlsCheckerDao.getAliveAndOnSitePubPages(ardNum,server);
+		for (TextualPageOld pubPage: pubPages){
 			String text = pubPage.getHtml();
 			List<PageUrl> pageURLsList = getURLs(text);
 			urlsCheckerDao.insertPubPagesURLsTable(pubPage.getId(), pageURLsList, server);

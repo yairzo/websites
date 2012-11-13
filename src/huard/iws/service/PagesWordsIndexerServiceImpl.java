@@ -6,7 +6,7 @@ import huard.iws.model.AList;
 import huard.iws.model.CallOfProposalOld;
 import huard.iws.model.Desk;
 import huard.iws.model.OrganizationUnit;
-import huard.iws.model.TextualPage;
+import huard.iws.model.TextualPageOld;
 import huard.iws.util.WordsTokenizer;
 
 import java.util.ArrayList;
@@ -148,7 +148,7 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 			runsInterval = new Date().getTime();
 		else 
 			runsInterval = RUNS_INTERVAL;
-		List<TextualPage> textualPages = pagesWordsIndexerDao.getLatelyUpdatedPubPages(runsInterval,configurationService.getConfigurationString("websiteDb"));
+		List<TextualPageOld> textualPages = pagesWordsIndexerDao.getLatelyUpdatedPubPages(runsInterval,configurationService.getConfigurationString("websiteDb"));
 
 		if (textualPages.size()>0) 
 			pagesWordsIndexerDao.deleteLatelyUpdatedPubPagesFromIndexTable(textualPages, init,configurationService.getConfigurationString("websiteDb"));
@@ -157,7 +157,7 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 
 		int counter=0;
 		
-		for (TextualPage textualPage: textualPages){
+		for (TextualPageOld textualPage: textualPages){
 
 			logger.info("Working on PubPage: "+textualPage.getId());
 

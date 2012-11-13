@@ -10,12 +10,14 @@ import huard.iws.model.Proposal;
 import huard.iws.model.ProposalAttachment;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.CallOfProposal;
+import huard.iws.model.TextualPage;
 import huard.iws.service.PersonProposalService;
 import huard.iws.service.PersonService;
 import huard.iws.service.PostService;
 import huard.iws.service.ProposalService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.CallOfProposalService;
+import huard.iws.service.TextualPageService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.RequestWrapper;
 
@@ -55,6 +57,7 @@ public class FileViewer extends HttpServlet {
 		int postId = requestWrapper.getIntParameter("postId", 0);
 		int conferenceProposalId = requestWrapper.getIntParameter("conferenceProposalId", 0);
 		int callOfProposalId = requestWrapper.getIntParameter("callOfProposalId", 0);
+		int textualPageId = requestWrapper.getIntParameter("textualPageId", 0);
 		
 		String filename = DEFAULT_FILENAME;
 
@@ -175,7 +178,18 @@ public class FileViewer extends HttpServlet {
 			Attachment attachment = callOfProposalBean.getAttachmentsMap().get(attachmentId);
 			file = attachment.getFile();
 		}
+		else if (textualPageId > 0){
+	
+			Object bean = ApplicationContextProvider.getContext().getBean("textualPageService");
+			TextualPageService textualPageService = (TextualPageService)bean;
 
+			TextualPage textualPage = textualPageService.getTextualPage(textualPageId);
+
+			file = textualPage.getAttachment().getFile();
+			contentType=textualPage.getAttachment().getContentType();
+			filename = "Textual page file";
+
+		}
 		try{
 
 		if (file !=null && file.length > 0){

@@ -1,7 +1,7 @@
 package huard.iws.db;
 
 import huard.iws.model.PageUrl;
-import huard.iws.model.TextualPage;
+import huard.iws.model.TextualPageOld;
 import huard.iws.util.ListView;
 import huard.iws.util.SQLUtils;
 import huard.iws.util.SearchCreteria;
@@ -142,7 +142,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		}
 	}
 
-	public List<TextualPage> getAliveAndOnSitePubPages(Integer ardNum,String server){
+	public List<TextualPageOld> getAliveAndOnSitePubPages(Integer ardNum,String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
@@ -157,11 +157,11 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		}
 	}
 
-	public List<TextualPage> moveResultSetToPubPage(ResultSet resultSet){
+	public List<TextualPageOld> moveResultSetToPubPage(ResultSet resultSet){
 		try{
-			List<TextualPage> pubPages = new ArrayList<TextualPage>();
+			List<TextualPageOld> pubPages = new ArrayList<TextualPageOld>();
 			while (resultSet.next()){
-				TextualPage pubPage = new TextualPage();
+				TextualPageOld pubPage = new TextualPageOld();
 				pubPage.setId(resultSet.getInt("ardNum"));
 				pubPage.setTitle(resultSet.getString("title"));
 				pubPage.setHtml(resultSet.getString("html"));

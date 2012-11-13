@@ -1,7 +1,13 @@
-package huard.iws.model;
+package huard.iws.bean;
 
+import java.util.List;
 
-public class TextualPage {
+import huard.iws.model.TextualPage;
+import huard.iws.model.Attachment;
+import huard.iws.service.PersonService;
+import huard.iws.util.ApplicationContextProvider;
+
+public class TextualPageBean {
 	private int id;
 	private String title;
 	private int creatorId;
@@ -17,8 +23,8 @@ public class TextualPage {
 	private boolean wrapExternalPage;
 	private String externalPageUrl;
 	private Attachment attachment;
-
-	public TextualPage(){
+	
+	public TextualPageBean(){
 		this.id = 0;
 		this.title = "";
 		this.creatorId = 0;
@@ -35,7 +41,46 @@ public class TextualPage {
 		this.externalPageUrl="";
 		this.attachment=new Attachment();
 	}
-	
+
+
+	public TextualPageBean(TextualPage textualPage){
+		this.id = textualPage.getId();
+		this.title = textualPage.getTitle();
+		this.creatorId = textualPage.getCreatorId();
+		this.creationTime = textualPage.getCreationTime();
+		this.deskId = textualPage.getDeskId();
+		this.requireLogin=textualPage.getRequireLogin();
+		this.html=textualPage.getHtml();
+		this.description=textualPage.getDescription();
+		this.showImage=textualPage.getShowImage();
+		this.imageUrl=textualPage.getImageUrl();
+		this.showFile=textualPage.getShowFile();
+		this.fileUrl=textualPage.getFileUrl();
+		this.wrapExternalPage=textualPage.getWrapExternalPage();
+		this.externalPageUrl=textualPage.getExternalPageUrl();
+		this.attachment=textualPage.getAttachment();
+	}
+
+	public TextualPage toTextualPage(){
+		TextualPage textualPage = new TextualPage();
+		textualPage.setId(id);
+		textualPage.setTitle(title);
+		textualPage.setCreatorId(creatorId);
+		textualPage.setCreationTime(creationTime);
+		textualPage.setDeskId(deskId);
+		textualPage.setRequireLogin(requireLogin);
+		textualPage.setHtml(html);
+		textualPage.setDescription(description);
+		textualPage.setShowImage(showImage);
+		textualPage.setImageUrl(imageUrl);
+		textualPage.setShowFile(showFile);
+		textualPage.setFileUrl(fileUrl);
+		textualPage.setWrapExternalPage(wrapExternalPage);
+		textualPage.setExternalPageUrl(externalPageUrl);
+		textualPage.setAttachment(attachment);
+		return textualPage;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -152,5 +197,12 @@ public class TextualPage {
 		this.attachment = attachment;
 	}
 
-
+	public PersonBean getCreator() {
+		PersonService personService = (PersonService) ApplicationContextProvider
+				.getContext().getBean("personService");
+		PersonBean creator = new PersonBean(
+				personService.getPerson(this.creatorId));
+		return creator;
+	}
+	
 }

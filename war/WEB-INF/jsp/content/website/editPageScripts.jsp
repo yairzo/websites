@@ -294,8 +294,7 @@ $(document).ready(function() {
 			}
 	   });
 
-	    $(".editoropen").ckeditor(config);
-	    
+    
 		$(".add").click(function(e){
 		    e.stopPropagation();//so not to start body click 
 		    e.preventDefault();//no refresh page 
@@ -372,7 +371,10 @@ function closeEditor(){
 		if(ceditor){
      		$(".editorText", $(ceditor_container).closest("table")).show();
      		$(".textareaEditorSpan", $(ceditor_container).closest("table")).hide();
-     		$(".editorText", $(ceditor_container).closest("table")).html(ceditor.getData());
+     		if(ceditor.getData()!='')
+     			$(".editorText", $(ceditor_container).closest("table")).html(ceditor.getData());
+     		else
+     			$(".editorText", $(ceditor_container).closest("table")).html('&nbsp;');
      		ceditor.destroy();
      		ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed by reference
      		ceditor_container=null;

@@ -15,7 +15,7 @@
       <table width="1000" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bca2a2" dir="rtl">
         <tr>
           <td valign="top" align="center"><br>
-            <form:form id="form" name="form" method="POST" action="callOfProposal.html" commandName="command" enctype="multipart/form-data">
+            <form:form id="form" name="form" method="POST" action="textualPage.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
  			
  			<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"></c:set>
@@ -38,40 +38,45 @@
  
  
                 <tr class="form">
-					<td colspan="4" align="right"><h3> פרטי דף טקסט מספר: 100
-					</h3></td>
+					<td colspan="4" align="right"><h3> פרטי דף טקסט מספר: ${command.id}	</h3>
+					<c:if test="${online}">
+					 מוצג כרגע באתר
+					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/pubPageViewer.jsp?ardNum=${command.id}','_blank');return false;">צפה בדף באתר</button>
+					&nbsp; <button class="grey" id="offline">הסר מהאתר</button>
+					</c:if>
+					<c:if test="${!online}">
+					&nbsp; <button class="grey" id="online">העלה לאתר</button>
+					</c:if>
+						</td>
 				</tr>
                 <tr class="form">
                 <td colspan="4">
                 <table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
                 <tr class="form">
 					<td colspan="4" style="border:1px #bca2a2 dotted">
-						 כותרת:
-					 R&D Committees  
+						 ${compulsoryFieldSign}כותרת:
+						<form:input htmlEscape="true" cssClass="green long800" path="title"/>
+					<br> <font color="red"><form:errors path="title" /></font>				
 					</td>
 				</tr>
 				<tr class="form">
-					<td width="250" style="border:1px #bca2a2 dotted" nowrap>
+					<td width="300" style="border:1px #bca2a2 dotted" nowrap>
 						בעל המסמך:
-						יאיר זוהר
+						${command.creator.degreeFullNameHebrew }
  					</td>
-					<td width="220" style="border:1px #bca2a2 dotted" nowrap>
-						דסק:
-       					<select name="desk" class="green" >
-      						<option value="0">ISR</option>
-      						<option value="1">EU</option>
-      						<option value="2">USA</option>
-      						<option value="3">GER</option>
-      						<option value="4">INT</option>
-        		        </select>
+					<td width="300" style="border:1px #bca2a2 dotted" nowrap>
+						מדור:
+         				<form:select path="deskId" cssClass="green" >
+      						<form:option value="0">בחר/י</form:option>
+       						<c:forEach items="${mopDesks}" var="mopDesk">
+	        					<form:option htmlEscape="true" value="${mopDesk.id}"><c:out escapeXml="false" value="${mopDesk.hebrewName}"/></form:option>
+       						</c:forEach>
+        		        </form:select>
+					 <br><font color="red"><form:errors path="deskId" /></font>				
 					</td>
-					<td width="220" style="border:1px #bca2a2 dotted" nowrap>
-       					<input type="checkbox"/>
+					<td width="300" style="border:1px #bca2a2 dotted" nowrap>
+       					<form:checkbox cssClass="green" path="requireLogin"/>
 						להציג רק לבעלי סיסמה
-					</td>
-					<td width="220" style="border:1px #bca2a2 dotted" nowrap>
-       					<input type="checkbox"/>
-						להציג באתר
 					</td>
 				</tr>
 				<tr>
@@ -84,35 +89,8 @@
 					</tr>				
  					<tr>
 					<td colspan="4" align="center">
-            			<textarea cols="85" rows="4" class="green editoropen">
-<p>
-	The academic responsibility for research and development is distributed among various university committees as follows:</p>
-<ol>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageWraper.jsp?ardNum=224">The Steering Committee of the Authority for Research and Development </a></li>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageWraper.jsp?ardNum=318&amp;category=המחu  באוניברסיטה &amp;category=המחu  באוניברסיטה&amp;parentPageTitle=ועbים/ועbות לענייני מו">The Committee for Infrastructure</a></li>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageWraper.jsp?ardNum=194&amp;category=המחu  באוניברסיטה &amp;category=המחu  באוניברסיטה&amp;parentPageTitle=ועbים/ועbות לענייני מו">Faculty research committees</a></li>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageWraper.jsp?ardNum=179">Conference committee</a></li>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageWraper.jsp?ardNum=275">The University Committee for Human Subjects Research</a></li>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageWraper.jsp?ardNum=185&amp;category=המחu  באוניברסיטה&amp;category=המחu  באוניברסיטה&amp;parentPageTitle=ועbים/ועbות לענייני מו">The Ethics Committee for Animal Care and Experimentation and departmental subcommittees</a></li>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageWraper.jsp?ardNum=383">The steering committee of the Authority for Animal Facilities</a>.</li>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageWraper.jsp?ardNum=189&amp;category=המחu  באוניברסיטה&amp;category=המחu  באוניברסיטה&amp;parentPageTitle=ועbים/ועbות לענייני מו">The steering committee of the Authority for Information Technology</a></li>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageWraper.jsp?ardNum=192&amp;category=המחu  באוניברסיטה">The Safety Committee</a></li>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageWraper.jsp?ardNum=175">Deans</a></li>
-	<li>
-		<a href="http://ard.huji.ac.il/huard/pubPageViewer.jsp?ardNum=397">The University Committee for Treatment in Conflict of Interests</a></li>
-</ol>
-            			</textarea>
- 					</td>
+           				<textarea class="green editor" id="html" name="html" cols="100" rows="1">${command.html }</textarea>
+   					</td>
  					</tr>
  					</table>
  					</td>
@@ -127,7 +105,7 @@
 					</tr>				
  					<tr>
 					<td colspan="4" align="center">
-            			<textarea cols="85" rows="1" class="green"></textarea>
+            			<form:textarea cols="85" rows="1" cssClass="green" path="description"/>
  					</td>
  					</tr>
  					</table>
@@ -135,14 +113,14 @@
 				</tr>	
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted" nowrap>
-       					<input type="checkbox"/>
+       					<form:checkbox cssClass="green" path="showImage"/>
 						להציג תמונה מעל הדף
 					</td>
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
 						<table>
 						<tr>
 						<td style="width:200" >כתובת האינטרנט של התמונה:</td>
-						<td><input type="text" class="green" style="width:400"/></td>
+						<td><form:input cssClass="green" path="imageUrl"/></td>
 						</tr>
 						</table>
        					
@@ -150,14 +128,14 @@
 				</tr>
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted" nowrap>
-       					<input type="checkbox"/>
+       					<form:checkbox cssClass="green" path="showFile"/>
 						להציג קובץ בדף
 					</td>
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
 						<table>
 						<tr>
 						<td style="width:200">כתובת האינטרנט של הקובץ:</td>
-						<td><input type="text" class="green" style="width:400"/></td>
+						<td><form:input cssClass="green" path="fileUrl"/></td>
 						</tr>
 						</table>
  					</td>
@@ -168,13 +146,15 @@
 					<tr>
 					<td style="width:300">
 					קובץ:
-						<a style="text-decoration:underline" href="fileViewer?conferenceProposalId=70&attachFile=guestsAttach&contentType=application/vnd.oasis.opendocument.spreadsheet&attachmentId=1"
-								target="_blank">טופס הרשמה מספר 1123</a>						
+						<c:if test="${fn:length(command.attachment.file)>0}">
+							<a style="text-decoration:underline" href="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"
+								target="_blank">קובץ מצורף</a>	
+						</c:if>					
 					</td>
 					<td colspan="3" align="right">
 						<span style="display: block; width: 60px; height: 27px; overflow: hidden;">
 							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון</a></button>
-							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="formAttach" id="formAttach"/>
+							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="textualPageFile" id="textualPageFile"/>
 						</span>
 					</td>
 					</tr>
@@ -184,14 +164,14 @@
 				
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted" nowrap>
-       					<input type="checkbox"/>
+        					<form:checkbox cssClass="green" path="wrapExternalPage"/>
 						לעטוף דף חיצוני
 					</td>
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
  						<table>
 						<tr>
 						<td style="width:200">כתובת האינטרנט של הדף:</td>
-						<td><input type="text" class="green" style="width:400"/></td>
+						<td><form:input cssClass="green" path="externalPageUrl"/></td>
 						</tr>
 						</table>
 					</td>
@@ -206,7 +186,6 @@
 		<tr class="form">
 			<td colspan="4" align="center">
 				<button title="שמירה" class="grey save" > שמירת טיוטה </button>&nbsp;&nbsp;
-				<button title="שמירה" class="grey submit" > שמירה והעברה לאתר </button>&nbsp;&nbsp;
 				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה למסך קודם </button>		
 			</td>

@@ -40,6 +40,10 @@
 	<bean id="callOfProposalDao" class="huard.iws.db.JdbcCallOfProposalDao">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
+
+	<bean id="textualPageDao" class="huard.iws.db.JdbcTextualPageDao">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 	
 	<bean id="locksDao" class="huard.iws.db.JdbcLocksDao">
 		<property name="dataSource" ref="dataSource"/>

@@ -135,9 +135,18 @@
      
 	<bean id="editTextualPageController" class="huard.iws.web.EditTextualPageController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
-        <property name="commandClass"><value>huard.iws.web.EditTextualPageController$TextualPageCommand</value></property>
+        <property name="commandClass"><value>huard.iws.bean.TextualPageBean</value></property>
         <property name="formView"><value>editTextualPage</value></property>
         <property name="successView"><value>textualPage.html</value></property>
+     	<property name="textualPageService">
+            <ref bean="textualPageService"/>
+        </property>
+    	<property name="mopDeskService">
+            <ref bean="mopDeskService"/>
+        </property>
+        <property name="validator">
+        	<bean class="huard.iws.web.validate.TextualPageValidator"/>
+        </property>
      </bean>
      
 	<bean id="approvePostController" class="huard.iws.web.ApprovePostController" parent="generalController">
