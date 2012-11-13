@@ -40,7 +40,7 @@ public class TextualPageServiceImpl implements TextualPageService{
 	}
 	
 	public List<TextualPage> getTextualPages(){
-		return getTextualPages();
+		return textualPageDao.getTextualPages();
 	}
 
 	private TextualPageDao textualPageDao;

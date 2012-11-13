@@ -20,7 +20,7 @@ import org.springframework.jdbc.support.KeyHolder;
 public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallOfProposalDao {
 
 	public CallOfProposal getCallOfProposal(int id){
-		String query = "select * from callOfProposal where id =?";
+		String query = "select * from callOfProposalDraft where id =?";
 		CallOfProposal callOfProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 		applySubjectIds(callOfProposal);
@@ -30,7 +30,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	}
 	
 	public boolean existsCallOfProposalOnline(int id){
-		String query = "select * from callOfProposalOnline where callOfProposalId =?";
+		String query = "select * from callOfProposal where callOfProposalId =?";
 		try{
 			CallOfProposal callOfProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
@@ -42,7 +42,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	}
 
 	public CallOfProposal getCallOfProposal(String title){
-		String query = "select * from callOfProposal where title =?";
+		String query = "select * from callOfProposalDraft where title =?";
 		CallOfProposal callOfProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, title);
 		applySubjectIds(callOfProposal);
@@ -94,7 +94,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	};
 
 	public int insertCallOfProposal(CallOfProposal callOfProposal){
-		final String query = "insert callOfProposal set title='###" + new java.util.Date().getTime() + "###'" +
+		final String query = "insert callOfProposalDraft set title='###" + new java.util.Date().getTime() + "###'" +
 				", creatorId = ?" +
 				", fundId = 0" +
 				", typeId = 0" +
@@ -125,7 +125,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	}
 	
 	public void insertCallOfProposalOnline(CallOfProposal callOfProposal){
-		final String query = "insert callOfProposalOnline set callOfProposalId = ?"+
+		final String query = "insert callOfProposal set callOfProposalId = ?"+
 				", title = ?" +
 				", creatorId = ?" +
 				", publicationTime = ?" +
@@ -181,7 +181,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	}
 	
 	public void updateCallOfProposal(CallOfProposal callOfProposal){
-		String query = "update callOfProposal set " +
+		String query = "update callOfProposalDraft set " +
 				" title = ?" +
 				", creatorId = ?" +
 				", publicationTime = ?" +
@@ -263,7 +263,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		}
 	}
 	public void updateCallOfProposalOnline(CallOfProposal callOfProposal){
-		String query = "update callOfProposalOnline set " +
+		String query = "update callOfProposal set " +
 				" title = ?" +
 				", creatorId = ?" +
 				", publicationTime = ?" +
@@ -344,12 +344,12 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	}	
 	
 	public void removeCallOfProposalOnline(int id){
-		String query = "delete from callOfProposalOnline where callOfProposalId= ?";
+		String query = "delete from callOfProposal where callOfProposalId= ?";
 		getSimpleJdbcTemplate().update(query,id);
 	}
 	
 	public List<CallOfProposal> getCallsOfProposals( boolean open){
-		String query = "select * from callOfProposal  ";
+		String query = "select * from callOfProposalDraft  ";
 		if (open)
 				query += " where finalSubmissionTime > " + System.currentTimeMillis() + " or finalSubmissionTime = 0 order by title";
 		System.out.println(query);
@@ -359,7 +359,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 
 
 	public List<CallOfProposal> getCallsOfProposals(){
-		String query  = "select * from callOfProposal order by title";
+		String query  = "select * from callOfProposalDraft order by title";
 		List<CallOfProposal> callOfProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callOfProposals;
 	}

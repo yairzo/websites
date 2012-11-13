@@ -148,6 +148,17 @@
         	<bean class="huard.iws.web.validate.TextualPageValidator"/>
         </property>
      </bean>
+ 
+  	<bean id="textualPageListController" class="huard.iws.web.TextualPageListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.TextualPageListController$TextualPageListControllerCommand</value></property>
+        <property name="formView"><value>textualPages</value></property>
+        <property name="successView"><value>textualPages.html</value></property>
+     	<property name="textualPageService">
+            <ref bean="textualPageService"/>
+        </property>
+      </bean>
+ 
      
 	<bean id="approvePostController" class="huard.iws.web.ApprovePostController" parent="generalController">
 		<property name="postService">
@@ -986,6 +997,7 @@
 				<prop key="/callOfProposal.html">callOfProposalController</prop>
 				<prop key="/textualPage.html">editTextualPageController</prop>
 				<prop key="/callOfProposals.html">callOfProposalListController</prop>
+				<prop key="/textualPages.html">textualPageListController</prop>
             </props>
         </property>
     </bean>
