@@ -4,6 +4,7 @@ import huard.iws.bean.FinancialSupportBean;
 import huard.iws.bean.TextualPageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Attachment;
+import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.MopDesk;
 import huard.iws.service.TextualPageService;
@@ -47,7 +48,7 @@ public class EditTextualPageController extends GeneralFormController {
 				System.out.println(" filename : " + filename );
 				System.out.println("******************************");
 				MultipartFile file = multipartRequest.getFile(filename);
-				if (filename.equals("textualPageFile")){
+				if (filename.equals("textualPageFile") && file.getSize()>0){
 					Attachment attachment = new Attachment();
 					attachment.setFile(file.getBytes());
 					attachment.setContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
@@ -70,6 +71,26 @@ public class EditTextualPageController extends GeneralFormController {
 			if(textualPageService.existsTextualPageOnline(textualPageBean.getId()))
 				textualPageService.removeTextualPageOnline(textualPageBean.getId());
 		}
+		//templates
+		String action=request.getParameter("action","");
+		if(!action.isEmpty() && action.equals("addTemplate")){
+			Template template = new Template();
+			template.setTitle(request.getParameter("templateTitle",""));
+			template.setTemplate(textualPageBean.getHtml());
+			template.setPersonId(userPersonBean.getId());
+			template.setModifierId(userPersonBean.getId());
+			textualPageService.addTemplate(template);
+		}
+		if(!action.isEmpty() && action.equals("updateTemplate")){
+			Template template = textualPageService.getTemplate(request.getIntParameter("templateId",0));
+			template.setTemplate(textualPageBean.getHtml());
+			template.setModifierId(userPersonBean.getId());
+			textualPageService.updateTemplate(template);
+		}
+		if(!action.isEmpty() && action.equals("showTemplate")){
+			request.getSession().setAttribute("templateId", request.getParameter("templateId",""));
+		}
+		
 		
 		Map<String,Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", textualPageBean.getId())	;
@@ -100,6 +121,16 @@ public class EditTextualPageController extends GeneralFormController {
 				model.put("online", true);
 			else
 				model.put("online", false);
+			//templates
+			List<Template> templates = textualPageService.getTemplates();
+			model.put("templates", templates);
+			if(request.getSession().getAttribute("templateId")!=null){
+				int templateId=Integer.parseInt(request.getSession().getAttribute("templateId").toString());
+				Template template = textualPageService.getTemplate(templateId);
+				String templateStripped= template.getTemplate().replace("\n", "");
+				templateStripped =templateStripped.replace("\r", "");
+				model.put("templateHtml", templateStripped);
+			}
 			model.put("id",textualPageBean.getId());
 			return new ModelAndView ( this.getFormView(), model);
 		}		

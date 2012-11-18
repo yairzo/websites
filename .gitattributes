@@ -37,6 +37,7 @@ src/huard/iws/model/InitiatingBody.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/model/PageBodyImage.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/model/PageUrl.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/model/Privilege.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/model/Template.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/model/TextualPage.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/model/TextualPageOld.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/service/CallOfProposalService.java svn_mime_002dtype=text%2Fplain

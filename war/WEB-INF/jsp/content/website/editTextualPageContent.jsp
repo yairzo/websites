@@ -22,7 +22,10 @@
  			
             <table border="0" align="center" cellpadding="2" cellspacing="0">
 
-				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"><p>text put here</p></div>
+				<div id="templateDialog" style="display:none" dir="rtl">
+					<p>רשום כותרת לתבנית:<input type="text" name="templateTitle" id="templateTitle"/></p>
+				</div>
+				
                 <tr>
                   <td colspan="4">
                 	<table width="1000" cellpadding="2" cellspacing="0" align="center">
@@ -92,7 +95,22 @@
            				<textarea class="green editor" id="html" name="html" cols="100" rows="1">${command.html }</textarea>
    					</td>
  					</tr>
+ 					<tr>
+ 					<td colspan="4">
+						תבנית:
+         				<select name="templateId" id="templateId" class="green" >
+      						<option value="0">בחר/י</option>
+       						<c:forEach items="${templates}" var="template">
+	        					<option value="${template.id}"><c:out escapeXml="false" value="${template.title}"/></option>
+       						</c:forEach>
+        		        </select>
+  						<button class="grey showTemplate" > הצגת תבנית בעורך </button>
+ 						<button class="grey addTemplate" > שמירת תבנית </button>
+ 						<button class="grey updateTemplate" > עדכון תבנית </button>
+ 					</td>
+ 					</tr>
  					</table>
+ 					
  					</td>
 				</tr>	
 				<tr>

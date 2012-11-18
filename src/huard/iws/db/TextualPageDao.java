@@ -2,6 +2,7 @@ package huard.iws.db;
 
 import java.util.List;
 
+import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 
 public interface TextualPageDao {
@@ -24,5 +25,12 @@ public interface TextualPageDao {
 	
 	public List<TextualPage> getTextualPages();
 
+	public void addTemplate(Template template);
+
+	public Template getTemplate(int id);
+
+	public void updateTemplate(Template template);
+
+	public List<Template> getTemplates();
 
 }

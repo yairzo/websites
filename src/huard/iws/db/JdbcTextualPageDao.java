@@ -2,6 +2,7 @@ package huard.iws.db;
 
 import huard.iws.model.Attachment;
 import huard.iws.model.CallOfProposal;
+import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 
 import java.sql.Connection;
@@ -149,7 +150,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getExternalPageUrl(),
 	    		textualPage.getId());
 		
-		if (textualPage.getAttachment() != null && textualPage.getAttachment().getFile().length>0){
+		if (textualPage.getAttachment() != null && textualPage.getAttachment().getFile()!=null){
 			query = "delete from textualPageFile where textualPageId = ?";
 			getSimpleJdbcTemplate().update(query,textualPage.getId());
 			query  = "insert textualPageFile set textualPageId = ?, attachment = ?, attachmentContentType= ?";
@@ -199,8 +200,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	public List<TextualPage> getTextualPages(){
 		String query = "select * from textualPageDraft order by title";
 		System.out.println(query);
-		List<TextualPage> TextualPages = getSimpleJdbcTemplate().query(query, rowMapper);
-		return TextualPages;
+		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
+		return textualPages;
 	}
 
 
@@ -229,5 +230,56 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
         }
 	};
 	
+	public void addTemplate(Template template){
+		String query = "insert textualPageTemplate set title = ?" +
+				", template = ?" + 
+				", updateTime = now()" +
+				", personId = ?" +
+				", modifierId = ?";
+		logger.info(query);
+		getSimpleJdbcTemplate().update(query,
+				template.getTitle(),
+				template.getTemplate(),
+				template.getPersonId(),
+				template.getModifierId());
+	}
+	
+	public void updateTemplate(Template template){
+		String query = "update textualPageTemplate set title = ?" +
+				", template = ?" + 
+				", updateTime = now()" +
+				", modifierId = ?" + "" +
+				"  where id=?";
+		logger.info(query);
+		getSimpleJdbcTemplate().update(query,
+				template.getTitle(),
+				template.getTemplate(),
+				template.getModifierId(),
+				template.getId());
+	}
+	
+	public Template getTemplate(int id){
+		String query = "select * from textualPageTemplate where id = ?";
+		logger.info(query);
+		Template template = getSimpleJdbcTemplate().queryForObject(query,templateRowMapper,id);
+		return template;
+	}
+	
+	private ParameterizedRowMapper<Template> templateRowMapper = new ParameterizedRowMapper<Template>(){
+		public Template mapRow(ResultSet rs, int rowNum) throws SQLException{
+			Template template = new Template();
+			template.setId(rs.getInt("id"));
+			template.setTitle(rs.getString("title"));
+			template.setTemplate(rs.getString("template"));
+            return template;
+		}
+	};
+	
+	public List<Template> getTemplates(){
+		String query = "select * from textualPageTemplate;";
+		logger.info(query);
+		List<Template> templates = getSimpleJdbcTemplate().query(query,templateRowMapper);
+		return templates;
+	}
 
 }

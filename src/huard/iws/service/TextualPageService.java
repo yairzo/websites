@@ -3,6 +3,7 @@ package huard.iws.service;
 import java.util.List;
 
 import huard.iws.model.TextualPage;
+import huard.iws.model.Template;
 
 public interface TextualPageService {
 
@@ -23,5 +24,13 @@ public interface TextualPageService {
 	public void removeTextualPageOnline(int id);
 	
 	public List<TextualPage> getTextualPages();
+
+	public void addTemplate(Template template);
+
+	public Template getTemplate(int id);
+
+	public void updateTemplate(Template template);
+
+	public List<Template> getTemplates();
 
 }

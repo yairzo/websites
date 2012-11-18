@@ -1,6 +1,7 @@
 package huard.iws.service;
 
 import huard.iws.db.TextualPageDao;
+import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 
 import java.util.List;
@@ -47,6 +48,22 @@ public class TextualPageServiceImpl implements TextualPageService{
 
 	public void setTextualPageDao(TextualPageDao textualPageDao) {
 		this.textualPageDao = textualPageDao;
+	}
+
+	public void addTemplate(Template template){
+		textualPageDao.addTemplate(template);
+	}
+
+	public Template getTemplate(int id){
+		return textualPageDao.getTemplate(id);
+	}
+
+	public void updateTemplate(Template template){
+		textualPageDao.updateTemplate(template);
+	}
+
+	public List<Template> getTemplates(){
+		return textualPageDao.getTemplates();
 	}
 
 }

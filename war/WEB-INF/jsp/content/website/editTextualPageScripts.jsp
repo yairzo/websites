@@ -8,7 +8,7 @@
 $(document).ready(function() {
 	 
 	
-    $("#genericDialog").dialog({
+    $("#templateDialog").dialog({
         autoOpen: false,
         show: 'fade',
         hide: 'fade',
@@ -33,6 +33,48 @@ $(document).ready(function() {
 		$('form#form').append('<input type=\"hidden\" name=\"offline\" value=\"true\"/>');
 		$('#form').submit();
 	});
+	
+	$('button.addTemplate').click(function(){
+   		$("#templateDialog").dialog('option', 'buttons', {
+            "ביטול" : function() {
+            	$(this).dialog("close");
+             },
+            "המשך" : function() {
+        		$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"addTemplate\"/>');
+           		$('form#form').append('<input type=\"hidden\" name=\"templateTitle\" value=\"'+document.getElementById("templateTitle").value+'\"/>');
+       			$('form#form').submit();
+            	$(this).dialog("close");
+             }
+    	});
+   		$("#templateDialog").dialog("option", "position", "center");
+	    $("#templateDialog").dialog("open");
+	    return false;
+	});
+	
+	$('button.updateTemplate').click(function(){
+		if(document.getElementById("templateId").value>0){
+			$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"updateTemplate\"/>');
+			$('form#form').submit();
+		}
+		else
+			alert("יש לבחור תבנית");
+		return false;
+	});
+	
+	$('button.showTemplate').click(function(){
+		if(document.getElementById("templateId").value>0){
+       		$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"showTemplate\"/>');
+       		$('form#form').append('<input type=\"hidden\" name=\"templateId\" value=\"'+document.getElementById("templateId").value+'\"/>');
+   			$('form#form').submit();
+		}
+		else
+			alert("יש לבחור תבנית");
+		return false;
+	});
+	
+	<c:if test="${fn:length(templateHtml)>0}">
+		$("#html").html('${templateHtml}');
+	</c:if>
 
 	var config=	{
 			toolbar_Full: [ ['Source','Save','-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-', 'Find','Replace','-','SelectAll','RemoveFormat' ],
@@ -53,16 +95,6 @@ $(document).ready(function() {
 		
    
 });
-var fieldname=""; 
-function openHelp(name,mytext){
-	    fieldname=name;
-	 	if(fieldname=="")
-	    	$("#genericDialog").dialog("option", "position", "center");
-	    else
-	 		$('#genericDialog').dialog({position: { my: 'top', at: 'top', of: $(name)} });
-	 	
-	    $("#genericDialog").html(mytext).dialog("open");
-} 
 
 
 
