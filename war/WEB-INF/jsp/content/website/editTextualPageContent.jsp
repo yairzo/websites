@@ -104,7 +104,7 @@
 	        					<option value="${template.id}"><c:out escapeXml="false" value="${template.title}"/></option>
        						</c:forEach>
         		        </select>
-  						<button class="grey showTemplate" > הצגת תבנית בעורך </button>
+  						<button class="grey showTemplate" > ייבוא תבנית לעורך </button>
  						<button class="grey addTemplate" > שמירת תבנית </button>
  						<button class="grey updateTemplate" > עדכון תבנית </button>
  					</td>

@@ -88,6 +88,7 @@ public class EditTextualPageController extends GeneralFormController {
 			textualPageService.updateTemplate(template);
 		}
 		if(!action.isEmpty() && action.equals("showTemplate")){
+			request.getSession().setAttribute("showTemplate",true);
 			request.getSession().setAttribute("templateId", request.getParameter("templateId",""));
 		}
 		
@@ -123,13 +124,16 @@ public class EditTextualPageController extends GeneralFormController {
 				model.put("online", false);
 			//templates
 			List<Template> templates = textualPageService.getTemplates();
+			System.out.println("xxxxxxxxxxxxxxxxxxxxxxx" +templates.get(0).getTitle());
 			model.put("templates", templates);
-			if(request.getSession().getAttribute("templateId")!=null){
+			if(request.getSession().getAttribute("showTemplate")!=null && request.getSession().getAttribute("showTemplate").toString().equals("true")){
 				int templateId=Integer.parseInt(request.getSession().getAttribute("templateId").toString());
 				Template template = textualPageService.getTemplate(templateId);
 				String templateStripped= template.getTemplate().replace("\n", "");
 				templateStripped =templateStripped.replace("\r", "");
 				model.put("templateHtml", templateStripped);
+				model.put("showTemplate", request.getSession().getAttribute("showTemplate"));
+				request.getSession().setAttribute("showTemplate", false);
 			}
 			model.put("id",textualPageBean.getId());
 			return new ModelAndView ( this.getFormView(), model);

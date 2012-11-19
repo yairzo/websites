@@ -72,7 +72,7 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	<c:if test="${fn:length(templateHtml)>0}">
+	<c:if test="${showTemplate}">
 		$("#html").html('${templateHtml}');
 	</c:if>
 
