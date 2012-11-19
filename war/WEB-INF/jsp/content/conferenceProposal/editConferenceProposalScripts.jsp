@@ -277,6 +277,17 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('#allowEdit').change(function(event){
+		var options = { 
+	       	url:       'conferenceProposal.html' ,        
+	       	type:      'POST',
+	   		success:    function() { 
+	   		   	window.location.reload(); 
+	    	} 
+		};
+		$("#form").ajaxSubmit(options);
+	});
+	
 	$('.fee').keyup(function(event){
 		//event.preventDefault();
 		var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;

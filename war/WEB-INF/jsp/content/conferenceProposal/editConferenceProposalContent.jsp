@@ -56,9 +56,9 @@
                   	(לפי הוראת הנהלה 17-011)</a>
                   	<br>
                   	</h1>
- 					<c:if test="${!readOnly && !command.submitted}">התחל בזה:
+ 					התחל בזה:
                   		<img src="image/questionmark.png" align="top" title="הסבר על העזרה" width="25" height="25" id="dialogRequest"/>
-                  	</c:if>
+                  	
                   	</td>
                  	 <td align="left">טופס 050, אוגוסט 2012</td>
                  	 </tr>
@@ -78,9 +78,7 @@
  
                 <tr class="form">
 					<td colspan="4" align="right"><h3> פרטי המבקש 
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProposer"/>
-					</c:if>
 					</h3></td>
 				</tr>
                 <tr class="form">
@@ -120,26 +118,26 @@
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted" nowrap>
 						 הגוף היוזם:
-					<c:if test="${!readOnly && !command.submitted}">
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 						<form:input htmlEscape="true" cssClass="green medium200" path="initiatingBody" />
-      		        	<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogInitiatingBody"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						<form:hidden path="initiatingBody"/>
  						${command.initiatingBody}
 					</c:if>
+      		        <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogInitiatingBody"/>
 					</td>
 					
 					<td style="border:1px #bca2a2 dotted" nowrap>
 						 תפקיד המבקש, בגוף היוזם:
-					<c:if test="${!readOnly && !command.submitted}">
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
        					<form:select path="initiatingBodyRole" cssClass="green" >
       						<form:option value="0">בחר/י תפקיד</form:option>
       						<form:option value="1">ראש/מנהל הגוף</form:option>
       						<form:option value="2">עובד/חבר בגוף</form:option>
        		        	</form:select>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						<form:hidden path="initiatingBodyRole"/>
 						<c:choose>
 							<c:when test="${command.initiatingBodyRole == 1}">ראש/מנהל הגוף</c:when>
@@ -171,12 +169,12 @@
 					</td>
 				</tr>
 				<tr class="form">
-					<c:if test="${!readOnly && !command.submitted}">
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 					<td colspan="4" align="center">
 						<form:textarea cssClass="green" path="subject" id="subject" cols="80" rows="2"/>
 					</td>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 					<td colspan="4">
 						<form:hidden path="subject"/>
 						${command.subject}
@@ -194,25 +192,25 @@
 				<tr class="form">
 					<td width="200" style="border:1px #bca2a2 dotted">
 						${compulsoryFieldSign}תחילת הכנס:
-					<c:if test="${!readOnly && !command.submitted}">
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 						<input type="text" class="green medium100" name="startConfDate" id="startConfDate" value="${startConfDate}" readonly="readonly"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						${startConfDate}
 					</c:if>
 					</td>
 					<td width="200" style="border:1px #bca2a2 dotted">
 						${compulsoryFieldSign}סיום הכנס:
-					<c:if test="${!readOnly && !command.submitted}">
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 						<input type="text" class="green medium100" name="endConfDate" id="endConfDate" value="${endConfDate}" readonly="readonly"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						${endConfDate}
 					</c:if>
 					</td>
 					<td style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}מיקום בארץ:
-					<c:if test="${!readOnly && !command.submitted}">
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
       					<form:select path="location" cssClass="green" id="location">
       						<form:option value="0">בחר/י מיקום</form:option>
       						<form:option value="1">בקמפוס בהר הצופים</form:option>
@@ -223,7 +221,7 @@
       						<form:option value="6">במקום אחר, פרט:</form:option>
         		    	</form:select>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						<form:hidden path="location"/>
 						<c:choose>
 							<c:when test="${command.location == 1}">בקמפוס בהר הצופים</c:when>
@@ -237,10 +235,10 @@
 					</td>
 					<td class="locationDetails" style="border:1px #bca2a2 dotted; opacity: 0.3;filter: alpha(opacity=30);">
 						פירוט מיקום:
-					<c:if test="${!readOnly && !command.submitted}">
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 						<form:input htmlEscape="true" cssClass="green medium200" path="locationDetail" id="locationDetail" readonly="true"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						<form:hidden path="locationDetail"/>
 						${command.locationDetail}
 					</c:if>
@@ -255,9 +253,7 @@
 				<tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					   מספר משתתפים:	
-					   <c:if test="${!readOnly && !command.submitted}">
 					   <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogParticipants"/>						
-					   </c:if>
 				       <table style="border: 1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 				       <tr>
 				       <td style="border: 1px #bca2a2 dotted">&nbsp;</td>
@@ -270,34 +266,34 @@
 						<td style="border: 1px #bca2a2 dotted">
 							מחו"ל:
 						</td>
-						<c:if test="${!readOnly && !command.submitted}">
+						<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium100 calcSum" path="foreignLecturers" />
 						</td>
 						</c:if>
-						<c:if test="${readOnly || command.submitted}">
+						<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="foreignLecturers"/>
 							${command.foreignLecturers}
 						</td>
 						</c:if>
-						<c:if test="${!readOnly && !command.submitted}">
+						<c:if test="${(!readOnly && !command.submitted)|| adminEdit}">
 						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium100 calcSum" path="foreignGuests" />
 						</td>
 						</c:if>
-						<c:if test="${readOnly || command.submitted}">
+						<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="foreignGuests"/>
 							${command.foreignGuests}
 						</td>
 						</c:if>
-						<c:if test="${!readOnly && !command.submitted}">
+						<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium100 calcSum" path="foreignAudience" />
 						</td>
 						</c:if>
-						<c:if test="${readOnly || command.submitted}">
+						<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="foreignAudience"/>
 							${command.foreignAudience}
@@ -310,34 +306,34 @@
 						<td style="border: 1px #bca2a2 dotted">
 							מהארץ:
 						</td>
-						<c:if test="${!readOnly && !command.submitted}">
+						<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium100 calcSum" path="localLecturers" />
 						</td>
 						</c:if>
-						<c:if test="${readOnly || command.submitted}">
+						<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="localLecturers"/>
 							${command.localLecturers}
 						</td>
 						</c:if>
-						<c:if test="${!readOnly && !command.submitted}">
+						<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium100 calcSum" path="localGuests" />
 						</td>
 						</c:if>
-						<c:if test="${readOnly || command.submitted}">
+						<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="localGuests"/>
 							${command.localGuests}
 						</td>
 						</c:if>
-						<c:if test="${!readOnly && !command.submitted}">
+						<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 						<td style="border: 1px #bca2a2 dotted">
 							<form:input cssClass="greennoborder medium100 calcSum" path="localAudience" />
 						</td>
 						</c:if>
-						<c:if test="${readOnly || command.submitted}">
+						<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 						<td width="100" style="border: 1px #bca2a2 dotted">
 							<form:hidden path="localAudience"/>
 							${command.localAudience}
@@ -374,13 +370,11 @@
 					<tr class="form">
 						<td colspan="4">
 						רשימת מרצים ומוזמנים:
-						<c:if test="${!readOnly && !command.submitted}">
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGuestsAttach"/>						
-						</c:if>
 						<table>
 						<tr>
 						<td>
-						<c:if test="${!readOnly && !command.submitted}">
+						<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 							<div style="display: block; width: 60px; height: 27px; overflow: hidden;">
 							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="guestsAttach" id="guestsAttach"/>
@@ -392,7 +386,7 @@
 						<c:if test="${fn:length(command.guestsAttach)>0}">
 							<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=guestsAttach&contentType=${command.guestsAttachContentType}&attachmentId=1"
 								target="_blank"><img src="image/attach.jpg"/>&nbsp;רשימת מרצים ומוזמנים</a>
-							<c:if test="${!readOnly && !command.submitted}">
+							<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 								&nbsp;&nbsp;<a href="" id="deleteGuestsAttach">מחק</a>
 							</c:if>
 						</c:if>
@@ -405,13 +399,11 @@
 					<tr class="form">
 						<td colspan="4">
 						תוכנית הכנס:
-						<c:if test="${!readOnly && !command.submitted}">
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProgramAttach"/>
-						</c:if>
 						<table>
 						<tr>
 						<td>
-						<c:if test="${!readOnly && !command.submitted}">
+						<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 							<div style="display: block; width: 60px; height: 27px; overflow: hidden;">
 							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="programAttach" id="programAttach"/>
@@ -423,7 +415,7 @@
 						<c:if test="${fn:length(command.programAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&contentType=${command.programAttachContentType}&attachmentId=1"
 							target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית הכנס</a>
-							<c:if test="${!readOnly && !command.submitted}">
+							<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 								&nbsp;&nbsp;<a href="" id="deleteProgramAttach">מחק</a>
 							</c:if>
 						</c:if>
@@ -443,18 +435,16 @@
 				<tr>
 					<td colspan="4"> 
 						${compulsoryFieldSign}התוכן העיוני של הכנס וחשיבותו לתחום:
-						<c:if test="${!readOnly && !command.submitted}">
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDescription"/>
-						</c:if>
 					</td>
 				</tr>
 				<tr class="form">
-					<c:if test="${!readOnly && !command.submitted}">
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 					<td colspan="4" align="center">
 						<form:textarea htmlEscape="true" cssClass="green" path="description" id="description" cols="80" rows="5" onkeyup="textlimiter()"/>
 					</td>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 					<td colspan="4" >
 						<form:hidden path="description"/>
 						${command.description}
@@ -479,9 +469,7 @@
 				<tr>
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 					ועדה מדעית/מבצעת:
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogCommittee"/>
-					</c:if>
  					<table width="725"  cellpadding="1" cellspacing="0" align="center">
 				    <tr>
 				    <th style="border: 1px #bca2a2 dotted"> שם </th> 
@@ -491,7 +479,7 @@
 				    <th style="border: 1px #bca2a2 dotted"> תפקיד בועדה המבצעת </th>
 					</tr>
  					<c:choose>
- 					<c:when test="${readOnly || command.submitted}">
+ 					<c:when test="${(readOnly || command.submitted) && !adminEdit}">
            				<c:forEach items="${command.scientificCommittees}" var="committee">
 						<tr>
 						<td style="border: 1px #bca2a2 dotted">
@@ -575,10 +563,10 @@
 				<table width="1000"  style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
 	            <tr>
 	            	<td colspan="4" style="border:1px #bca2a2 dotted">
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 	            		<input type="radio" name="organizingCompany" value="true" <c:if test="${command.organizingCompany}">checked</c:if> />הארגון המנהלתי של הכנס נמסר לחברה מסחרית
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="organizingCompany"/>
 		       		    <input type="radio" disabled="disabled" value="" <c:if test="${command.organizingCompany}">checked</c:if> />הארגון המנהלתי של הכנס נמסר לחברה מסחרית
 					</c:if>
@@ -586,10 +574,10 @@
 				</tr>
 	            <tr class="form organizingCompanyPart">
 		       		<td nowrap style="border:1px #bca2a2 dotted">שם החברה:
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="organizingCompanyName" />
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="organizingCompanyName"/>
 	   					${command.organizingCompanyName}
 					</c:if>
@@ -599,12 +587,10 @@
 					<tr>
 					<td>
 	   				הסכם חברה:
-	   				<c:if test="${!readOnly && !command.submitted}">
 	   				<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogCompany"/>
-	   				</c:if>
 	   				</td>
 	   				<td>
-	   					<c:if test="${!readOnly && !command.submitted}">
+						<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 							<span style="display: block; width: 60px; height: 27px; overflow: hidden;">
 							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="companyAttach" id="companyAttach"/>
@@ -616,7 +602,7 @@
 						<c:if test="${fn:length(command.companyAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=companyAttach&contentType=${command.companyAttachContentType}&attachmentId=1"
 							target="_blank"><img src="image/attach.jpg"/>&nbsp;הסכם חברה</a>
-							<c:if test="${!readOnly && !command.submitted}">
+							<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 								&nbsp;&nbsp;<a href="" id="deleteCompanyAttach">מחק</a>
 							</c:if>
 						</c:if>
@@ -628,46 +614,46 @@
 				</tr>
 	            <tr>
 	            	<td colspan="4" style="border:1px #bca2a2 dotted">
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 	            		<input type="radio" name="organizingCompany" value="false" <c:if test="${!command.organizingCompany}">checked</c:if>/>הארגון המנהלתי של הכנס ייערך ע"י איש קשר 
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 		       		    <input type="radio" disabled="disabled" value="" <c:if test="${!command.organizingCompany}">checked</c:if> />הארגון המנהלתי של הכנס ייערך ע"י איש קשר
 					</c:if>
 				</tr>
 	            <tr class="form organizingContactPart">
 		       		<td nowrap style="border:1px #bca2a2 dotted">${compulsoryFieldSign}שם איש קשר:
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPerson" id="contactPerson"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="contactPerson"/>
 	   					${command.contactPerson}
 					</c:if>
 					</td>
 		       		<td nowrap style="border:1px #bca2a2 dotted">תפקיד:
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPersonRole" />
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="contactPersonRole"/>
 	   					${command.contactPersonRole}
 					</c:if>
 					</td>
 		       		<td nowrap style="border:1px #bca2a2 dotted">טלפון:
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 	   					<form:input htmlEscape="true" cssClass="green medium150" path="contactPersonPhone" id="contactPersonPhone"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="contactPersonPhone"/>
 	   					${command.contactPersonPhone}
 					</c:if>
 					</td>
 				    <td nowrap style="border:1px #bca2a2 dotted">אימייל:
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 	   					<form:input htmlEscape="true" cssClass="green medium250" path="contactPersonEmail" id="contactPersonEmail"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="contactPersonEmail"/>
 	   					${command.contactPersonEmail}
  					</c:if>
@@ -691,9 +677,7 @@
 				
 	            <tr class="form" style="page-break-before:always">
 		       		<td colspan="4" align="right"><h3>תקציב הכנס 
-		       		<c:if test="${!readOnly && !command.submitted}">
 		       		<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogBudget"/>
-		       		</c:if>
 		       		</h3>
 		       		</td>
 				</tr>
@@ -703,19 +687,16 @@
 	            	<tr class="form">
 		       		<td style="border:1px #bca2a2 dotted">
 	   					 ${compulsoryFieldSign}סה"כ ההוצאות לארגון הכנס (ללא השתתפות הוועדה):
-					<c:if test="${!readOnly && !command.submitted}">
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 						<form:input cssClass="green medium100" path="totalCost"  id="totalCost"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="totalCost"/>
 						${command.totalCost}
 					</c:if>
-
 	   				דולר
 					
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogTotalCost"/>
-	   				</c:if>
 	   				<br><span id="errortotalcost" dir="rtl"><p></p></span>
 	   				
 	   				</td>
@@ -727,7 +708,7 @@
 				       תוכנית תקציבית:
 				       </td>
 				       <td>
-						<c:if test="${!readOnly && !command.submitted}">
+						<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 							<div style="display: block; width: 60px; height: 27px; overflow: hidden;">
 							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="financialAttach" id="financialAttach"/>
@@ -739,7 +720,7 @@
 						<c:if test="${fn:length(command.financialAttach)>0}">
 						  <a href="fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&contentType=${command.financialAttachContentType}&attachmentId=1"
 							target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית תקציבית</a>
-							<c:if test="${!readOnly && !command.submitted}">
+							<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 								&nbsp;&nbsp;<a href="" id="deleteFinancialAttach">מחק</a>
 							</c:if>
 						</c:if>
@@ -754,18 +735,13 @@
 				<tr>
 					<td colspan="4" style="border:1px #bca2a2 dotted" >
 	           		פירוט מקורות המימון 				    
-	           		<c:if test="${!readOnly && !command.submitted}">
  				    <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogFinancialSupport"/>
-				    </c:if>
 	           		<br>
 	           		<table width="110" cellpadding="0" cellspacing="0" align="right">
 	           		<tr>
 	           		<td>	           		
 					משותפים לארגון:<br>
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogAssosiate"/>
-					</c:if>
-					
 					</td>
 					</tr>
 					</table>
@@ -776,7 +752,7 @@
 				    <th style="border: 1px #bca2a2 dotted">אסמכתא</th>
  					</tr>
 					<c:choose>
- 					<c:when test="${readOnly || command.submitted}">
+ 					<c:when test="${(readOnly || command.submitted) && !adminEdit}">
            				<c:forEach items="${command.fromAssosiate}" var="fromAssosiate" varStatus="varStatus">
 						<tr>
 						<td style="border: 1px #bca2a2 dotted">
@@ -813,7 +789,7 @@
 						<table>
 						<tr>
 							<td>
-						 	<c:if test="${!readOnly && !command.submitted}">
+						 	<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 							<span style="display: block; width: 60px; height: 26px; overflow: hidden;" class="fromAssosiateAttachFields">
 							<button class="green" style="width: 59px; height: 26px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" class="fromAssosiateAttachFile" name="fromAssosiate[${varStatus.index}].referenceFile" id="fromAssosiate[${varStatus.index}].referenceFile"/>
@@ -825,7 +801,7 @@
 							<c:if test="${fn:length(command.fromAssosiate[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&assosiateId=${varStatus.index}&attachFile=assosiateAttach&contentType=${command.fromAssosiate[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
-								<c:if test="${!readOnly && !command.submitted}">
+								<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 									&nbsp;<a href="" class="deleteFromAssosiateAttachFile" id="${varStatus.index}">מחק</a>
 								</c:if>
 							</c:if>
@@ -858,9 +834,7 @@
 	           		<tr>
 	           		<td>	           		
 					ממממן חיצוני:<br>
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogExternal"/>
-					</c:if>
 					</td>
 					</tr>
 					</table>
@@ -871,7 +845,7 @@
 				    <th style="border: 1px #bca2a2 dotted">אסמכתא</th>
 					</tr>
 					<c:choose>
- 					<c:when test="${readOnly || command.submitted}">
+ 					<c:when test="${(readOnly || command.submitted) && !adminEdit}">
            			<c:forEach items="${command.fromExternal}" var="fromExternal" varStatus="varStatus">
 						<tr>
 						<td style="border: 1px #bca2a2 dotted">
@@ -907,7 +881,7 @@
 						<table>
 						<tr>
 							<td>
-						 	<c:if test="${!readOnly && !command.submitted}">
+						 	<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 							<span style="display: block; width: 60px; height: 26px; overflow: hidden;" class="fromExternalAttachFields">
 							<button class="green" style="width: 59px; height: 26px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" class="fromExternalAttachFile" name="fromExternal[${varStatus.index}].referenceFile" id="fromExternal[${varStatus.index}].referenceFile"/>
@@ -919,7 +893,7 @@
 							<c:if test="${fn:length(command.fromExternal[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&externalId=${varStatus.index}&attachFile=externalAttach&contentType=${command.fromExternal[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
-								<c:if test="${!readOnly && !command.submitted}">
+								<c:if test="${(!readOnly && !command.submitted) || adminEdit}">
 									&nbsp;<a href="" class="deleteFromExternalAttachFile" id="${varStatus.index}">מחק</a>
 								</c:if>
 							</c:if>
@@ -952,9 +926,7 @@
 	           		<tr>
 	           		<td>	           		
 					מדמי הרשמה:<br>
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogAdmitanceFee"/>
-					</c:if>
 					</td>
 					</tr>
 					</table>
@@ -966,7 +938,7 @@
 				    <th style="border: 1px #bca2a2 dotted">אסמכתא</th>
 					</tr>
 					<c:choose>
- 					<c:when test="${readOnly || command.submitted}">
+ 					<c:when test="${(readOnly || command.submitted) && !adminEdit}">
            				<c:forEach items="${command.fromAdmitanceFee}" var="fromAdmitanceFee" varStatus="varStatus">
 						<tr>
 						<td style="border: 1px #bca2a2 dotted">
@@ -1008,7 +980,7 @@
 						<table>
 						<tr>
 							<td>
-						 	<c:if test="${!readOnly && !command.submitted}">
+						 	<c:if test="${(!readOnly && !command.submitted) && !adminEdit}">
 							<span style="display: block; width: 60px; height: 26px; overflow: hidden;" class="fromAdmitanceFeeAttachFields">
 							<button class="green" style="width: 59px; height: 26px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון...</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" class="fromAdmitanceFeeAttachFile" name="fromAdmitanceFee[${varStatus.index}].referenceFile" id="fromAdmitanceFee[${varStatus.index}].referenceFile"/>
@@ -1020,7 +992,7 @@
 							<c:if test="${fn:length(command.fromAdmitanceFee[varStatus.index].referenceFile)>0}">
 								<a align="right" href="fileViewer?conferenceProposalId=${command.id}&admitanceFeeId=${varStatus.index}&attachFile=admitanceFeeAttach&contentType=${command.fromAdmitanceFee[varStatus.index].fileContentType}&attachmentId=1"
 									target="_blank"><img src="image/attach.jpg"/>&nbsp;אסמכתא</a>
-								<c:if test="${!readOnly && !command.submitted}">
+								<c:if test="${(!readOnly && !command.submitted) && !adminEdit}">
 									&nbsp;<a href="" class="deleteFromAdmitanceFeeAttachFile" id="${varStatus.index}">מחק</a>
 								</c:if>
 							</c:if>
@@ -1095,56 +1067,50 @@
 	            <tr class="form">
 		       		<td colspan="3" style="border:1px #bca2a2 dotted">
 					מבוקשת הכרת הוועדה בכנס כבין לאומי
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 		       		    <form:checkbox cssClass="green" path="auditorium"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="auditorium"/>
 						<input type="checkbox" disabled="disabled" value="" <c:if test="${command.auditorium}" > checked </c:if> />
 					</c:if>
 					&nbsp;&nbsp;
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogInternational"/>
-					</c:if>
 					</td>
 				</tr>
 	            <tr class="form">
 		       		<td colspan="3" style="border:1px #bca2a2 dotted">
 	   				${compulsoryFieldSign}מבוקשת השתתפות הוועדה במימון הכנס בסכום:
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 						<form:input cssClass="green medium100" path="supportSum" id="supportSum"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="supportSum"/>
  						${command.supportSum}
 					</c:if>
 					דולר
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogSupportSum"/>
-					</c:if>
 					</td>
 				</tr>
 	            <tr class="form">
 		       		<td style="border:1px #bca2a2 dotted">
 		       		מבוקש פטור מתשלום עבור אולם
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 						<form:checkbox cssClass="green" path="seminarRoom" id="seminarRoom"/>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="seminarRoom"/>
 						<input type="checkbox" disabled="disabled"  value="" <c:if test="${command.seminarRoom}" > checked </c:if> />
 					</c:if>
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRoomsNopay"/>
-					</c:if>
 					</td>
 					<td style="border:1px #bca2a2 dotted; opacity:0.3;filter: alpha(opacity=30);" colspant="2" class="seminarRoomDetails">
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 	   					ל:
 	   					<form:input cssClass="green medium50" path="participants" id="participants"/>
 						אנשים. &nbsp;
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="participants"/>
 						<c:if test="${command.seminarRoom}">
 	   					ל:
@@ -1152,7 +1118,7 @@
 						אנשים. &nbsp;
 	   					</c:if>
 					</c:if>
- 					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
         				<form:select path="prefferedCampus" cssClass="green" id="prefferedCampus">
       					<form:option value="0">בחר/י קמפוס</form:option>
       					<form:option value="1">גבעת רם</form:option>
@@ -1161,7 +1127,7 @@
       					<form:option value="4">רחובות</form:option>
        		        	</form:select>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 						<form:hidden path="prefferedCampus"/>
 						<c:if test="${command.seminarRoom}">
 	   				    רצוי בקמפוס:
@@ -1173,9 +1139,7 @@
 						</c:choose>
 	   					</c:if>
 					</c:if>
- 					<c:if test="${!readOnly && !command.submitted}">
  					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRooms2"/>
-       				</c:if>
        				</td>
 				</tr>	
 				</table>
@@ -1201,18 +1165,16 @@
 				<tr>
 					<td colspan="4">
 					הערות מגיש הבקשה לועדה:
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogRemarks"/>
-					</c:if>
 					</td>
 				</tr>
 				<tr>
-					<c:if test="${!readOnly && !command.submitted}">			
+					<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
 					<td colspan="4" align="center">
 						<form:textarea htmlEscape="true" cssClass="green" path="remarks" cols="80" rows="3"/>
 					</td>
 					</c:if>
-					<c:if test="${readOnly || command.submitted}">			
+					<c:if test="${(readOnly || command.submitted) && !adminEdit}">			
 	   				<td colspan="4">
 						<form:hidden path="remarks"/>
 	   					${command.remarks}
@@ -1223,9 +1185,7 @@
 	            <tr id="deanApproval" class="form">
 		       		<td colspan="4">
 	   				${compulsoryFieldSign}הדיקן הממליץ:
-					<c:if test="${!readOnly && !command.submitted}">
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogApprover"/>
-					</c:if>
 					<c:if test="${!readOnly && !command.submitted}">			
         				<form:select id="deanSelect"  path="approverId" cssClass="green">
       					<form:option value="0">בחר/י דיקן ממליץ</form:option>
@@ -1410,6 +1370,7 @@
 						<c:if test="${!command.isInsideDeadline}">			
 				   			<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
 						</c:if>
+				   		<input type="checkbox" class="green" name="allowEdit" id="allowEdit"/>אפשר עריכה
 				   	</td>
 				</tr>
 				</c:if>

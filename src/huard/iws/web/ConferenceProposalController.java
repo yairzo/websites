@@ -229,6 +229,12 @@ public class ConferenceProposalController extends GeneralFormController{
 					conferenceProposalBean.setGrade(0);
 				}
 		}
+		//allowEdit
+		if(!request.getParameter("allowEdit", "").equals(""))
+			request.getSession().setAttribute("adminEdit", true);
+		else
+			request.getSession().setAttribute("adminEdit", false);
+
 		
 		String action = request.getParameter("action", "");
 		if (action.equals("delete")){
@@ -361,6 +367,10 @@ public class ConferenceProposalController extends GeneralFormController{
 			
 			model.put("researcherDeclaration",request.getSession().getAttribute("researcherDeclaration"));
 			request.getSession().setAttribute("researcherDeclaration", false);//clear
+			
+			model.put("adminEdit",request.getSession().getAttribute("adminEdit"));
+			request.getSession().setAttribute("adminEdit", false);//clear
+			
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		
