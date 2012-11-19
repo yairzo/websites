@@ -1423,7 +1423,8 @@ function checkErrors(){
 	//var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 	var numberRegex=/^\d+$/;
 	//var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-	var phoneRegex = /^[\d]{2,3}-?[\d]{7}$/;		
+	//var phoneRegex = /^[\d]{2,3}-?[\d]{7}$/;
+	var phoneRegex = /^[-,0-9,\\+]{0,15}$/;
 	if($("#totalCost").val()=='0'){
 		errors = true;
 		$("#errortotalcost").html('<font color="red">יש להכניס ערך מספרי לשדה סה"כ ההוצאות לארגון הכנס<font color="red"><br>');

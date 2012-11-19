@@ -25,8 +25,16 @@ public void parseFile(String typeId,String listId,String file){
     		for (int i = 0; i < tokens.length; i++) {
     			String token = tokens[i];
     			if (i==0)//name of ou
-    				ou.setNameHebrew(token);
-    			if (i==1){//faculty
+    				if(token==null || token.isEmpty())
+    					ou.setNameEnglish(" ");
+    				else
+    					ou.setNameEnglish(token);
+				if (i==1)//name of ou
+    				if(token==null || token.isEmpty())
+    					ou.setNameHebrew(" ");
+    				else
+    					ou.setNameHebrew(token);
+    			if (i==2){//faculty
     				int faculty=0;
     				try{
     					faculty = facultyService.getFacultyByNameHebrew(token);
@@ -38,16 +46,25 @@ public void parseFile(String typeId,String listId,String file){
     					ou.setFacultyId(faculty);
     				}
     			}
-    			if (i==2)//site
-    				ou.setWebsiteUrl(token);
-    			if (i==3)//email
-    				ou.setEmail(token);
-    			if (i==4)//manager
-    				ou.setContact(token);
+    			if (i==3)//site
+    				if(token==null || token.isEmpty())
+    					ou.setWebsiteUrl(" ");
+    				else
+    					ou.setWebsiteUrl(token);
+    			if (i==4)//email
+   					if(token==null || token.isEmpty())
+    					ou.setEmail(" ");
+    				else
+    					ou.setEmail(token);
+    			if (i==5)//manager
+    				if(token==null || token.isEmpty())
+    					ou.setContact(" ");
+    				else
+    					ou.setContact(token);
     			//System.out.println("Token #" + i + ": " + token);
     		}
     		ou.setTypeId(new Integer(typeId).intValue());
-    		ou.setNameEnglish("");
+    		//ou.setNameEnglish("");
     		ou.setPhone("");
     		ou.setFax("");
     		ou.setAddress("");
