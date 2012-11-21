@@ -2,6 +2,7 @@ package huard.iws.db;
 
 import huard.iws.model.Attachment;
 import huard.iws.model.CallOfProposal;
+import huard.iws.model.Category;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 
@@ -133,6 +134,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", fileUrl = ?" +
 				", wrapExternalPage = ?" +
 				", externalPageUrl = ?" +
+				", categoryId = ?" +
 			" where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -148,6 +150,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getFileUrl(),
 	    		textualPage.getWrapExternalPage(),
 	    		textualPage.getExternalPageUrl(),
+	    		textualPage.getCategoryId(),
 	    		textualPage.getId());
 		
 		if (textualPage.getAttachment() != null && textualPage.getAttachment().getFile()!=null){
@@ -173,6 +176,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", fileUrl = ?" +
 				", wrapExternalPage = ?" +
 				", externalPageUrl = ?" +
+				", categoryId = ?" +
 				" where callOfProposalId = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -188,6 +192,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getFileUrl(),
 	    		textualPage.getWrapExternalPage(),
 	    		textualPage.getExternalPageUrl(),
+	    		textualPage.getCategoryId(),
 	    		textualPage.getId());
 	
 	}	
@@ -226,6 +231,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
      		textualPage.setFileUrl(rs.getString("fileUrl"));
      		textualPage.setWrapExternalPage(rs.getBoolean("wrapExternalPage"));
      		textualPage.setExternalPageUrl(rs.getString("externalPageUrl"));
+     		textualPage.setCategoryId(rs.getInt("categoryId"));
            return textualPage;
         }
 	};
@@ -281,5 +287,22 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		List<Template> templates = getSimpleJdbcTemplate().query(query,templateRowMapper);
 		return templates;
 	}
-
+	
+	private ParameterizedRowMapper<Category> categoryRowMapper = new ParameterizedRowMapper<Category>(){
+		public Category mapRow(ResultSet rs, int rowNum) throws SQLException{
+			Category category = new Category();
+			category.setId(rs.getInt("id"));
+			category.setName(rs.getString("name"));
+			category.setParentId(rs.getInt("parentId"));
+			category.setCategoryOrder(rs.getInt("categoryOrder"));
+			return category;
+		}
+	};
+	
+	public List<Category> getCategories(){
+		String query = "select * from websiteCategory;";
+		logger.info(query);
+		List<Category> categories = getSimpleJdbcTemplate().query(query,categoryRowMapper);
+		return categories;
+	}
 }

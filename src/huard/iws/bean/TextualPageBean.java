@@ -22,6 +22,7 @@ public class TextualPageBean {
 	private String fileUrl;
 	private boolean wrapExternalPage;
 	private String externalPageUrl;
+	private int categoryId;
 	private Attachment attachment;
 	
 	public TextualPageBean(){
@@ -39,6 +40,7 @@ public class TextualPageBean {
 		this.fileUrl="";
 		this.wrapExternalPage=false;
 		this.externalPageUrl="";
+		this.categoryId=0;
 		this.attachment=new Attachment();
 	}
 
@@ -58,6 +60,7 @@ public class TextualPageBean {
 		this.fileUrl=textualPage.getFileUrl();
 		this.wrapExternalPage=textualPage.getWrapExternalPage();
 		this.externalPageUrl=textualPage.getExternalPageUrl();
+		this.categoryId=textualPage.getCategoryId();
 		this.attachment=textualPage.getAttachment();
 	}
 
@@ -77,6 +80,7 @@ public class TextualPageBean {
 		textualPage.setFileUrl(fileUrl);
 		textualPage.setWrapExternalPage(wrapExternalPage);
 		textualPage.setExternalPageUrl(externalPageUrl);
+		textualPage.setCategoryId(categoryId);
 		textualPage.setAttachment(attachment);
 		return textualPage;
 	}
@@ -186,6 +190,14 @@ public class TextualPageBean {
 
 	public void setExternalPageUrl(String externalPageUrl) {
 		this.externalPageUrl = externalPageUrl;
+	}
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 

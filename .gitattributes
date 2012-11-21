@@ -28,6 +28,7 @@ src/huard/iws/exec/ExecUrlsChecker.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/exec/ExecWordsIndexer.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/exec/checkUrl.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/model/CallOfProposal.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/model/Category.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/model/Committee.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/model/ConferenceProposal.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/model/ConferenceProposalGrading.java svn_mime_002dtype=text%2Fplain

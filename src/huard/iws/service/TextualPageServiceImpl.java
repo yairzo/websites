@@ -1,6 +1,7 @@
 package huard.iws.service;
 
 import huard.iws.db.TextualPageDao;
+import huard.iws.model.Category;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 
@@ -64,6 +65,10 @@ public class TextualPageServiceImpl implements TextualPageService{
 
 	public List<Template> getTemplates(){
 		return textualPageDao.getTemplates();
+	}
+
+	public List<Category> getCategories(){
+		return textualPageDao.getCategories();
 	}
 
 }

@@ -16,6 +16,7 @@ public class TextualPage {
 	private String fileUrl;
 	private boolean wrapExternalPage;
 	private String externalPageUrl;
+	private int categoryId;
 	private Attachment attachment;
 
 	public TextualPage(){
@@ -33,6 +34,7 @@ public class TextualPage {
 		this.fileUrl="";
 		this.wrapExternalPage=false;
 		this.externalPageUrl="";
+		this.categoryId=0;
 		this.attachment=new Attachment();
 	}
 	
@@ -143,6 +145,13 @@ public class TextualPage {
 		this.externalPageUrl = externalPageUrl;
 	}
 
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
 
 	public Attachment getAttachment() {
 		return attachment;

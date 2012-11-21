@@ -7,6 +7,7 @@ import huard.iws.model.Attachment;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.MopDesk;
+import huard.iws.model.Category;
 import huard.iws.service.TextualPageService;
 import huard.iws.service.MopDeskService;
 import huard.iws.util.ListView;
@@ -124,7 +125,6 @@ public class EditTextualPageController extends GeneralFormController {
 				model.put("online", false);
 			//templates
 			List<Template> templates = textualPageService.getTemplates();
-			System.out.println("xxxxxxxxxxxxxxxxxxxxxxx" +templates.get(0).getTitle());
 			model.put("templates", templates);
 			if(request.getSession().getAttribute("showTemplate")!=null && request.getSession().getAttribute("showTemplate").toString().equals("true")){
 				int templateId=Integer.parseInt(request.getSession().getAttribute("templateId").toString());
@@ -135,6 +135,8 @@ public class EditTextualPageController extends GeneralFormController {
 				model.put("showTemplate", request.getSession().getAttribute("showTemplate"));
 				request.getSession().setAttribute("showTemplate", false);
 			}
+			List<Category> categories = textualPageService.getCategories();
+			model.put("categories", categories);
 			model.put("id",textualPageBean.getId());
 			return new ModelAndView ( this.getFormView(), model);
 		}		
