@@ -203,7 +203,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 	
 	public List<TextualPage> getTextualPages(){
-		String query = "select * from textualPageDraft order by title";
+		String query = "select * from textualPageDraft order by id";
 		System.out.println(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;

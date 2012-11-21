@@ -63,7 +63,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		}
 	};
 	private void applySubmissionDates(CallOfProposal callOfProposal){
-		String query = "select * from callOfProposalDates where callOfProposalId = ? order by submissionDate";
+		String query = "select * from callOfProposalDate where callOfProposalId = ? order by submissionDate";
 		List<Long> submissionDates =  getSimpleJdbcTemplate().query(query, submissionDatesRowMapper, callOfProposal.getId());
 		callOfProposal.setSubmissionDates(submissionDates);
 	}
@@ -78,7 +78,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	};
 	
 	private void applyFiles(CallOfProposal callOfProposal){
-		String query = "select * from callOfProposalFiles where callOfProposalId = ?";
+		String query = "select * from callOfProposalFile where callOfProposalId = ?";
 		List<Attachment> files =  getSimpleJdbcTemplate().query(query, filesRowMapper, callOfProposal.getId());
 		callOfProposal.setAttachments(files);
 	}
@@ -246,18 +246,18 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 			}
 		}
 		
-		query = "delete from callOfProposalDates where callOfProposalId = ?";
+		query = "delete from callOfProposalDate where callOfProposalId = ?";
 		getSimpleJdbcTemplate().update(query,callOfProposal.getId());
 		for (Long submissionDate: callOfProposal.getSubmissionDates()){
-			query  = "insert callOfProposalDates set callOfProposalId = ?, submissionDate = ?";
+			query  = "insert callOfProposalDate set callOfProposalId = ?, submissionDate = ?";
 			if (submissionDate != null)
 				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), new java.sql.Timestamp(submissionDate));
 		}
 		
-		//query = "delete from callOfProposalFiles where callOfProposalId = ?";
+		//query = "delete from callOfProposalFile where callOfProposalId = ?";
 		//getSimpleJdbcTemplate().update(query,callOfProposal.getId());
 		for (Attachment attachment: callOfProposal.getAttachments()){
-			query  = "insert callOfProposalFiles set callOfProposalId = ?, fileId = ?, contentType= ?";
+			query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?";
 			if (attachment != null)
 				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), attachment.getFile(), attachment.getContentType());
 		}
@@ -328,16 +328,16 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 			}
 		}
 		
-		query = "delete from callOfProposalDates where callOfProposalId = ?";
+		query = "delete from callOfProposalDate where callOfProposalId = ?";
 		getSimpleJdbcTemplate().update(query,callOfProposal.getId());
 		for (Long submissionDate: callOfProposal.getSubmissionDates()){
-			query  = "insert callOfProposalDates set callOfProposalId = ?, submissionDate = ?";
+			query  = "insert callOfProposalDate set callOfProposalId = ?, submissionDate = ?";
 			if (submissionDate != null)
 				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), new java.sql.Timestamp(submissionDate));
 		}
 		
 		for (Attachment attachment: callOfProposal.getAttachments()){
-			query  = "insert callOfProposalFiles set callOfProposalId = ?, fileId = ?, contentType= ?";
+			query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?";
 			if (attachment != null)
 				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), attachment.getFile(), attachment.getContentType());
 		}*/
