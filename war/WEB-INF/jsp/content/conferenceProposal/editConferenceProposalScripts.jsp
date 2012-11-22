@@ -1023,7 +1023,7 @@ $(document).ready(function() {
    $("#dialogSumDiff").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ height: 250 });
 		$("#genericDialog").dialog({ width: 400 });
 		var texts='<p>';
 		texts='אם ההפרש שונה מ - 0, זה סימן שהתכנון הכספי של הכנס אינו מאוזן. אפשר לתקן זאת ע"י עדכון הנתונים; בסכום ההוצאות או בסכומי ההכנסות, או בשניהם. ';
@@ -1104,7 +1104,7 @@ $(document).ready(function() {
    $("#dialogRemarks").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ height: 250 });
 		$("#genericDialog").dialog({ width: 400 });
 		var texts='<p>';
 		texts='בשדה זה ניתן להקליד הערות העשויות להיות רלוונטיות להחלטות הוועדה, או הבהרות לגבי כל אחד מהשדות שבטופס.';
@@ -1139,7 +1139,7 @@ $(document).ready(function() {
    $("#dialogRequest").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 400 });
+		$("#genericDialog").dialog({ height: 420 });
 		$("#genericDialog").dialog({ width: 400 });
 		var texts='<p><ol>';
 		texts+='<li> העזר/י בהסברים - הוראותיהם מחייבות!</li>';
@@ -1178,8 +1178,8 @@ $(document).ready(function() {
    $("#dialogAdmitanceFee").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 400 });
-		$("#genericDialog").dialog({ width: 400 });
+		$("#genericDialog").dialog({ height: 350 });
+		$("#genericDialog").dialog({ width: 350 });
 		var texts='';
 		texts+='מדמי ההרשמה; זאת אומרת מדמי ההרשמה הנגבים באופן מסודר ורשמי מהמשתתפים או מקבוצה מוגדרת מתוכם.<br>';
 		texts+='הקלדה ברשומה תפתח את הרשומה העוקבת.<br>';
@@ -1207,7 +1207,7 @@ $(document).ready(function() {
    $("#dialogAssosiate").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 400 });
+		$("#genericDialog").dialog({ height: 350 });
 		$("#genericDialog").dialog({ width: 400 });
 		var texts='';
 		texts+='השותפים לארגון הם: חוקרים, או יחידות, או גופים השותפים לתכנון ו/או לביצוע תוכנית הכנס.<br>';

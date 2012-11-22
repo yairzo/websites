@@ -25,7 +25,8 @@ public class ConferenceProposalListServiceImpl implements ConferenceProposalList
 	}
 
 	public void prepareListView(ListView lv, ConferenceProposalSearchCreteria search,PersonBean userPersonBean,boolean forGrading){
-		lv.setLastPage(lv.getNumOfPages(conferenceProposalDao.countConferenceProposals(lv,search,userPersonBean,forGrading)));
+		lv.setCountRows(conferenceProposalDao.countConferenceProposals(lv,search,userPersonBean,forGrading));
+		lv.setLastPage(lv.getNumOfPages());
 		lv.setNearPages(lv.getScroll());
 	}
 

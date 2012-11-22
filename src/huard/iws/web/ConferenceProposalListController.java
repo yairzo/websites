@@ -207,11 +207,6 @@ public class ConferenceProposalListController extends GeneralFormController {
 				else{
 					request.getSession().setAttribute("self", "0");
 					searchCreteria.setSelf(0);
-				}
-				if(searchCreteria.getSelf()==1){
-					whereClause = " date(deadline)>'"+previousDeadline +"'";
-				}
-				else{
 					whereClause = " submitted=1 and isInsideDeadline = 1 and date(deadline)>'"+previousDeadline +"'";
 					searchCreteria.setSearchBySubmitted(ConferenceProposalSearchCreteria.SUBMITTED);
 				}

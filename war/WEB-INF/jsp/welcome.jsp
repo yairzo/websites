@@ -1,6 +1,16 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 <%@ include file="/WEB-INF/jsp/include/header.jsp" %>
+<style>
+	.ui-autocomplete {
+		direction: rtl;
+	}
+	
+	.ui-autocomplete li {
+		list-style-type: none;
+	}
+
+</style>
 <script>
 
 function resetAutocomplete(){		

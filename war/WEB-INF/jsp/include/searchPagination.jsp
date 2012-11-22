@@ -10,7 +10,7 @@
 
 <c:forEach items="${command.listView.nearPages}" var="nearPage">
 	<c:out value=" "/>
-		<c:if test="${nearPage.pageNum==command.listView.page}"><font style="color: #b8b7b1"></c:if><span id="${nearPage.pageNum}" class="nearPage pagination"><c:out value="${nearPage.display}"/></span><c:if test="${nearPage.pageNum==command.listView.page}"></font></c:if><c:out value=" "/>
+		<c:if test="${nearPage.pageNum==command.listView.page}"><font style="color: #383838 "><b></c:if><span id="${nearPage.pageNum}" class="nearPage pagination"><c:out value="${nearPage.display}"/></span><c:if test="${nearPage.pageNum==command.listView.page}"></b></font></c:if><c:out value=" "/>
 </c:forEach>
 
 <c:choose>

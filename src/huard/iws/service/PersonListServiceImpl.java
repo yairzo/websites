@@ -36,7 +36,8 @@ public class PersonListServiceImpl implements PersonListService{
 		//lv.setLastPage(lp.getNumOfPages());
 		//lv.setNearPages(lp.getNearPages(lv.getPage()));
 		System.out.println("personDao.countPersons(lv,search)"+personDao.countPersons(lv,search));
-		lv.setLastPage(lv.getNumOfPages(personDao.countPersons(lv,search)));
+		lv.setCountRows(personDao.countPersons(lv,search));
+		lv.setLastPage(lv.getNumOfPages());
 		lv.setNearPages(lv.getScroll());
 	}
 
@@ -146,7 +147,7 @@ public class PersonListServiceImpl implements PersonListService{
 		List<Person> filteredPersons = new ArrayList<Person>();
 		for (Person person: persons){
 			PersonBean personBean = new PersonBean(person);
-			if (personBean.getFullNameHebrew().contains(term))
+			if (personBean.getFirstNameHebrew().startsWith(term) || personBean.getLastNameHebrew().startsWith(term))
 				filteredPersons.add(person);
 		}
 		return filteredPersons;

@@ -34,6 +34,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 	private final String PROPOSAL_MAIL_MESSAGE_KEY = "iw_IL.eqfSystem.editProposal.mailMessage.";
 	private final String PARTNER_MAIL_MESSAGE_KEY = "iw_IL.eqfSystem.editProposal.mailMessage.";
 	private final String CONFERENCE_PROPOSAL_MAIL_ADDRESS = "conferences_committee@ard.huji.ac.il";
+	//private final String CONFERENCE_PROPOSAL_MAIL_ADDRESS = "hadar@localhost.localdomain";
 
 	private String server;
 
@@ -129,6 +130,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String subject = messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".subject");
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("align", "right");
+		model.put("language", LanguageUtils.getLanguagesMap().get("iw_IL"));
 		model.put("recipient", recipient.getDegreeFullNameHebrew());
 		//to
 		String [] to = new String[1];
@@ -167,6 +169,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
 		model.put("align", "right");
+		model.put("language", LanguageUtils.getLanguagesMap().get("iw_IL"));
 		model.put("recipient", recipient.getDegreeFullNameHebrew());
 		model.put("server", getServer());
 		String [] messageParams = new String []{sender.getDegreeFullNameHebrew(),getServer(),conferenceProposalGrading.getAdminSendRemark()};
@@ -195,10 +198,11 @@ public class MailMessageServiceImpl implements MailMessageService{
 		//body
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("align", "right");
+		model.put("language", LanguageUtils.getLanguagesMap().get("iw_IL"));
 		model.put("deanName", dean.getDegreeFullName());
 		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
 		model.put("server", getServer());
-		String [] messageParams = new String []{dean.getDegreeFullNameHebrew(),getServer()};
+		String [] messageParams = new String []{dean.getDegreeFullNameHebrew(),getServer(),String.valueOf(dean.getId())};
 		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);

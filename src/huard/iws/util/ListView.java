@@ -11,6 +11,7 @@ public class ListView {
 	private int lastPage;
 	private List<NearPage> nearPages;
 	private int rowsInPage;
+	private int countRows;
 
 
 	public void setNearPages(List<NearPage> nearPages) {
@@ -41,6 +42,14 @@ public class ListView {
 
 	public void setLastPage(int lastPage) {
 		this.lastPage = lastPage;
+	}
+
+	public int getCountRows() {
+		return countRows;
+	}
+
+	public void setCountRows(int countRows) {
+		this.countRows = countRows;
 	}
 
 	
@@ -80,7 +89,7 @@ public class ListView {
 		this.rowsInPage = rowsInPage;
 	}
 
-	public int getNumOfPages(int countRows){
+	public int getNumOfPages(){
 		if (countRows==0) return 1;
 		if (countRows%getRowsInPage() == 0) return countRows/getRowsInPage();
 		else return (countRows/getRowsInPage())+1;

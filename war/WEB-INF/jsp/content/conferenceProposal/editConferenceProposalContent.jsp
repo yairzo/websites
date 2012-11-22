@@ -75,6 +75,23 @@
 				</tr>
 				</c:if>
                 
+				<c:choose>
+					<c:when test="${command.deleted}">
+               			<tr class="form">
+						<td colspan="4" align="right">סטטוס: מבוטלת</td>
+						</tr>
+					</c:when>
+					<c:when test="${!command.submitted}">
+               			<tr class="form">
+						<td colspan="4" align="right">סטטוס הבקשה: טיוטה, נפתחה בתאריך: ${command.statusDate}</td>
+						</tr>
+					</c:when>
+					<c:when test="${command.submitted}">
+                		<tr class="form">
+						<td colspan="4" align="right">סטטוס הבקשה: הוגשה, בתאריך: ${command.statusDate}</td>
+						</tr>
+					</c:when>
+				</c:choose>				
  
                 <tr class="form">
 					<td colspan="4" align="right"><h3> פרטי המבקש 
@@ -176,8 +193,8 @@
 					</c:if>
 					<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 					<td colspan="4">
-						<form:hidden path="subject"/>
-						${command.subject}
+						<form:hidden htmlEscape="true" path="subject"/>
+						<font htmlEscape="true">${command.subject}</font>
 					</td>
 					</c:if>
 				</tr>
@@ -446,8 +463,8 @@
 					</c:if>
 					<c:if test="${(readOnly || command.submitted) && !adminEdit}">
 					<td colspan="4" >
-						<form:hidden path="description"/>
-						${command.description}
+						<form:hidden htmlEscape="true" path="description"/>
+						<font htmlEscape="true">${command.description}</font>
 					</td>
 					</c:if>
 				</tr>

@@ -87,16 +87,17 @@
 				</c:if>
     			<td class="container" style="width: 85%; vertical-align: top;text-align: center;">
 				  	<c:if test="${researcher || self}">
-              			<h1>הבקשות שלך <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogList"/></h1> 
+              			<h1>הבקשות שלך (${command.listView.countRows}) <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogList"/></h1> 
    					</c:if>
    					<c:if test="${!researcher && !self}">
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
-    					<span><h2> רשימת הבקשות של חוקרים ביחידה:<c:out escapeXml="false" value="${myFaculty}"></c:out></h2> </span>
+    					<span><h2> רשימת הבקשות של חוקרים ביחידה:<c:out escapeXml="false" value="${myFaculty}"></c:out> (${command.listView.countRows})</h2> </span>
    					</authz:authorize>
 				  	<authz:authorize ifNotGranted="ROLE_CONFERENCE_APPROVER">
-    					<span><h2> רשימת הבקשות </h2></span>
+    					<span><h2> רשימת הבקשות (${command.listView.countRows})</h2></span>
    					</authz:authorize>
    					</c:if>
+   					
     				<table style="width: 100%;">
              			<thead>
   							<tr>
