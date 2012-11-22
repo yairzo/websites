@@ -72,7 +72,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 
 	public int insertTextualPage(TextualPage textualPage){
-		final String query = "insert textualPageDraft set title='', creatorId = ?;";
+		final String query = "insert textualPageDraft set title='', creatorId = ?, html='', description='';";
 		logger.info(query);
 		final int creatorId= textualPage.getCreatorId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();

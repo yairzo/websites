@@ -100,6 +100,9 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", typeId = 0" +
 				", deskId = 0" +
 				", originalCallWebAddress = ''" +
+				", submissionDetails = ''" +
+				", contactPersonDetails = ''" +
+				", formDetails = ''" +
 				", description = ''" +
 				", fundingPeriod = ''" +
 				", amountOfGrant = ''" +
