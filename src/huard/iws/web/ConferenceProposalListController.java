@@ -34,6 +34,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
+
 		//ConferenceProposalListCommand searchCommand = (ConferenceProposalListCommand)command;
 
 		//request.getSession().setAttribute("conferenceProposalsSearchCreteria", searchCommand.getSearchCreteria());
@@ -77,7 +78,6 @@ public class ConferenceProposalListController extends GeneralFormController {
 			if (updatedApprover.isValidEmail()) 
 				mailMessageService.createSimpleConferenceGradeMail(conferenceProposalGrading,updatedApprover, userPersonBean,"startGrading");
 		}
-
 		return new ModelAndView(new RedirectView(getSuccessView()), newModel);
 	}
 
@@ -145,6 +145,9 @@ public class ConferenceProposalListController extends GeneralFormController {
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
 		ConferenceProposalListCommand searchCommand = new ConferenceProposalListCommand();
+
+		if(request.getParameter("action", "").equals("cleanSearch")	)//clean search button
+			request.getSession().setAttribute("cleanSearch","true");
 		
 		if (isFormSubmission(request.getRequest())){//on submit
 			String whereClause = " true";
@@ -189,13 +192,15 @@ public class ConferenceProposalListController extends GeneralFormController {
 			ListView listView = new ListView();
 			listView.setPage(request.getIntParameter("listView.page", 1));			
 			request.getSession().setAttribute("conferenceProposalListView", listView);
-			request.getSession().setAttribute("newSearch", "no");
+			//request.getSession().setAttribute("newSearch", "no");
 		}
 		else {//on show
 			ConferenceProposalSearchCreteria searchCreteria = (ConferenceProposalSearchCreteria) request.getSession().getAttribute("conferenceProposalSearchCreteria");
 			request.getSession().setAttribute("conferenceProposalsSearchCreteria", null);
 			ListView listView = (ListView) request.getSession().getAttribute("conferenceProposalListView");
-			if (searchCreteria == null || !request.getSession().getAttribute("newSearch").equals("no")){
+			//if (searchCreteria == null || !request.getSession().getAttribute("newSearch").equals("no")){//to clear all search params when coming from menu
+			if (searchCreteria == null || (request.getSession().getAttribute("cleanSearch")!=null && request.getSession().getAttribute("cleanSearch").equals("true"))){
+				request.getSession().setAttribute("cleanSearch","");
 				//default view
 				searchCreteria = new ConferenceProposalSearchCreteria();
 				String whereClause ="";
@@ -233,7 +238,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			logger.info("form backing search command on showing form: " + searchCommand.getSearchCreteria().getWhereClause());
 			logger.info("form backing search command on showing form: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
 			searchCommand.setListView(listView);
-			request.getSession().setAttribute("newSearch", "yes");
+			//request.getSession().setAttribute("newSearch", "yes");
 		}
 		return searchCommand;
 	}

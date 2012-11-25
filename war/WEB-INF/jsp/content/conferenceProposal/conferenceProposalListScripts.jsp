@@ -84,6 +84,12 @@ $(document).ready(function() {
     	$("#form").submit();
     	return true;
     });
+	
+	$(".cleanSearch").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"cleanSearch\"/>");
+		$("#form").submit();
+    	return true;
+    });
 
     $("#buttonDelete").click(function(){
     	$.alerts.confirm('<fmt:message key="iw_IL.eqfSystem.editProposal.deleteProposal.confirm"/>', "מחיקת הצעה",

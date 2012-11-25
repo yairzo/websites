@@ -83,6 +83,7 @@
   				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE">
   				   	 <input type="hidden" name="searchByDeadline" value="1"/>
   				   </authz:authorize>
+					<br><button  class="grey cleanSearch" title="נקה חיפוש" >נקה חיפוש</button>		
 				</td>
 				</c:if>
     			<td class="container" style="width: 85%; vertical-align: top;text-align: center;">
