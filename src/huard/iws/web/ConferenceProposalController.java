@@ -58,21 +58,28 @@ public class ConferenceProposalController extends GeneralFormController{
 			while (fileNames.hasNext()) {
 				
 				String filename = (String) fileNames.next();
+
+
 				System.out.println("******************************");
 				System.out.println(" filename : " + filename );
 				System.out.println("******************************");
 				MultipartFile file = multipartRequest.getFile(filename);
+				String originalName = file.getOriginalFilename();
+				String ext = originalName.substring(originalName.lastIndexOf(".")+1);
+				System.out.println("******************************");
+				System.out.println(" ext: " + ext  + " content type:" + getContentType(ext));
+				System.out.println("******************************");
 				if (filename.equals("guestsAttach") && conferenceProposalBean.getGuestsAttach()!=null && conferenceProposalBean.getGuestsAttach().length>0){
-					conferenceProposalBean.setGuestsAttachContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
+					conferenceProposalBean.setGuestsAttachContentType(getContentType(ext));
 				}
 				else if (filename.equals("programAttach") && conferenceProposalBean.getProgramAttach()!=null && conferenceProposalBean.getProgramAttach().length>0){
-					conferenceProposalBean.setProgramAttachContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
+					conferenceProposalBean.setProgramAttachContentType(getContentType(ext));
 				}
 				else if (filename.equals("financialAttach") && conferenceProposalBean.getFinancialAttach()!=null && conferenceProposalBean.getFinancialAttach().length>0){
-					conferenceProposalBean.setFinancialAttachContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
+					conferenceProposalBean.setFinancialAttachContentType(getContentType(ext));
 				}
 				else if (filename.equals("companyAttach") && conferenceProposalBean.getCompanyAttach()!=null && conferenceProposalBean.getCompanyAttach().length>0){
-					conferenceProposalBean.setCompanyAttachContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
+					conferenceProposalBean.setCompanyAttachContentType(getContentType(ext));
 				}
 				else if (filename.startsWith("fromAssosiate")){
 					String aIndex = filename.replaceFirst("^.*?\\[([\\d]+)\\].*?$","$1");
@@ -80,7 +87,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					if (index < conferenceProposalBean.getFromAssosiate().size()){
 						FinancialSupportBean financialSupport = conferenceProposalBean.getFromAssosiate().get(index);
 						if (financialSupport != null){
-							financialSupport.setFileContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
+							financialSupport.setFileContentType(getContentType(ext));
 						}
 					}				
 				}
@@ -90,7 +97,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					if (index < conferenceProposalBean.getFromExternal().size()){
 						FinancialSupportBean financialSupport = conferenceProposalBean.getFromExternal().get(index);
 						if (financialSupport != null){
-							financialSupport.setFileContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
+							financialSupport.setFileContentType(getContentType(ext));
 						}
 					}				
 				}
@@ -100,7 +107,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					if (index < conferenceProposalBean.getFromAdmitanceFee().size()){
 						FinancialSupportBean financialSupport = conferenceProposalBean.getFromAdmitanceFee().get(index);
 						if (financialSupport != null){
-							financialSupport.setFileContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
+							financialSupport.setFileContentType(getContentType(ext));
 						}
 					}				
 				}
@@ -455,5 +462,20 @@ public class ConferenceProposalController extends GeneralFormController{
 	public void setMailMessageService(MailMessageService mailMessageService) {
 		this.mailMessageService = mailMessageService;
 	}	*/
-	
+	private static String getContentType(String extension){
+		if(extension.equals("pdf"))
+			return "application/pdf";
+		else if (extension.equals("doc"))
+			return "application/msword";
+		else if (extension.equals("docx"))
+			return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+		else if (extension.equals("xls"))
+			return "application/vnd.ms-excel";
+		else if (extension.equals("txt"))
+			return "text/plain";
+		else if (extension.equals("jpg")|| extension.equals("jpeg"))
+			return "image/jpeg ";
+		else
+			return "text/html";
+	}	
 }
