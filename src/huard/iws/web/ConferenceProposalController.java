@@ -471,6 +471,8 @@ public class ConferenceProposalController extends GeneralFormController{
 			return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 		else if (extension.equals("xls"))
 			return "application/vnd.ms-excel";
+		else if (extension.equals("xlsx"))
+			return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 		else if (extension.equals("txt"))
 			return "text/plain";
 		else if (extension.equals("jpg")|| extension.equals("jpeg"))

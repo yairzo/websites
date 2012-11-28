@@ -1283,7 +1283,7 @@
 				</tr>
 				<tr><td>&nbsp;</td></tr>
 				</c:if>
-				<c:if test="${admin}">
+				<c:if test="${admin || approver || committee}">
  				<tr>
 		             <td colspan="4"><h3>הערות רכזת הועדה</h3></td>
         		 </tr>
@@ -1298,13 +1298,16 @@
 					<td>הערות רכזת הועדה בנוגע לבקשה:</td>
 				</tr>
 				<tr>
+				   	<c:if test="${admin && !printcp}">
 					<td colspan="4" align="center">
-						<c:if test="${!printcp}">
-						<form:textarea htmlEscape="true" cssClass="green" path="adminRemarks" cols="80" rows="3"/>
-						</c:if>
-						<c:if test="${printcp}">
-						${command.adminRemarks}
-						</c:if>
+					<form:textarea htmlEscape="true" cssClass="green" path="adminRemarks" cols="80" rows="3"/>
+					</td>
+					</c:if>
+				 	<c:if test="${committee || approver || printcp}">
+					<td colspan="4" align="right">
+				 	<c:out value="${command.adminRemarks}"></c:out>
+				 	</td>
+				 	</c:if>
 					</td>
 				</tr>
 				</table>
