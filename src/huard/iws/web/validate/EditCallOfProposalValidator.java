@@ -15,13 +15,13 @@ public class EditCallOfProposalValidator implements Validator {
 	public void validate ( Object command, Errors errors ){
 		CallOfProposalBean callOfProposalBean = (CallOfProposalBean) command;
 		ValidationUtils.rejectIfEmpty(errors, "title", "iw_IL.required.titleCallOfProposal");
-		if ( callOfProposalBean.getPublicationTime().equals("01/01/1970") ){
+		if ( callOfProposalBean.getPublicationTime()==0 ){
 			errors.rejectValue("publicationTime", "iw_IL.invalid.publicationTime");
 		}
-		if ( callOfProposalBean.getFinalSubmissionTime().equals("01/01/1970") ){
+		if ( callOfProposalBean.getFinalSubmissionTime()==0 ){
 			errors.rejectValue("finalSubmissionTime", "iw_IL.invalid.finalSubmissionTime");
 		}
-		if ( callOfProposalBean.getKeepInRollingMessagesExpiryTime().equals("01/01/1970") ){
+		if ( callOfProposalBean.getKeepInRollingMessagesExpiryTime()==0 ){
 			errors.rejectValue("keepInRollingMessagesExpiryTime", "iw_IL.invalid.keepInRollingMessagesExpiryTime");
 		}
 		if ( callOfProposalBean.getFundId()==0 ){

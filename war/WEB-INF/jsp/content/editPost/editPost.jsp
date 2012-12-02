@@ -166,11 +166,14 @@
 							<fmt:message key="${lang.localeId}.post.sender"/>
 						</td>
 						<td>
-							<form:select cssClass ="green" path="senderId">
+							<form:select cssClass ="green sender" path="senderId">
 								<c:forEach items="${senders}" var="sender">
 									<form:option value="${sender.id}">${sender.degreeFullName}</form:option>
 								</c:forEach>
 							</form:select>
+ 							<c:forEach items="${senders}" var="sender">
+ 								<input type="hidden" id="sender${sender.id}" value="${sender.email}"/>
+							</c:forEach>
 						</td>
 				</tr>
 

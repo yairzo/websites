@@ -224,6 +224,10 @@
         			if (cplist[j].substring(cplist[j].length-(id.length+2))=="- "+id){
         				valid=true;
     					$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposal&id="+id, function(data){
+    						var senderId= $("select.sender").val();
+    						var email = $("#sender" + senderId).val();
+    						var name = $('.sender').find(":selected").text();
+    						data= data.replace("#mu# #mp##mue#","<a class=\"underline\" href=\"mailto:" + email + "\">"+name+"</a>")
     						$("textarea.tinymce").val('<p dir="${lang.dir}"> ' + data + ' </p>');				
     					});
     					$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposalTitle&id="+id, function(data){
@@ -249,6 +253,25 @@
    	     });
 
 
+		$("select.sender").change(function(){
+			var label='<fmt:message key="${lang.localeId}.general.callOfProposal.deskPrefix"/>';
+			//alert(label);
+	    	var ceditorData   = CKEDITOR.instances.body.getData();
+	    	if(ceditorData.indexOf(label)>0){
+	    		var oldContact=ceditorData.substring(ceditorData.indexOf(label)+ label.length);
+	    		oldContact = oldContact.substring(0,oldContact.indexOf(","));
+		    	//alert(oldContact);
+				var senderId= $("select.sender").val();
+				var email = $("#sender" + senderId).val();
+				var name = $('.sender').find(":selected").text();
+		    	var newContact= "<a class=\"underline\" href=\"mailto:" + email + "\">"+name+"</a>";
+		    	//alert(newContact);
+		    	ceditorData = ceditorData.replace(oldContact,newContact);
+		    	CKEDITOR.instances.body.setData( ceditorData);
+	    	}
+		});
+
+		
 		$("select.callOfProposal").change(function(){
 			var message = $("textarea#body").html();
 			var callOfProposalId = $(this).val();

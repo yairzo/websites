@@ -1,12 +1,27 @@
 <%@ page  pageEncoding="UTF-8" %>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.autosave.js"></script>
 
 <script language="Javascript">
 
 
 $(document).ready(function() {
 	 
+	$('form').find('input:not([type=file],[type=button])').autoSave(function(){		
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit();
+	}, {delay: 2000});
+	
+	$('form').find('select').change(function(){
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+	    $('#form').ajaxSubmit();
+	});
+	
+	$('form').find('checkbox').change(function(){
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+	    $('#form').ajaxSubmit();
+	});
 	
     $("#templateDialog").dialog({
         autoOpen: false,
@@ -17,20 +32,33 @@ $(document).ready(function() {
   });
 
 	$('button.save').click(function(){
+  		$(".ajaxSubmit").remove();
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('form#form').submit();
 	});
 
 	$('#textualPageFile').change(function(event){
+  		$(".ajaxSubmit").remove();
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('#form').submit();
 	});	
 
 	$('button#online').click(function(){
 		$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+  		$(".ajaxSubmit").remove();
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('#form').submit();
 	});
-	
+	$('button#onlineUpdate').click(function(){
+    	$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+    	$(".ajaxSubmit").remove();
+    	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+   		$('#form').submit();
+	});	
 	$('button#offline').click(function(){
 		$('form#form').append('<input type=\"hidden\" name=\"offline\" value=\"true\"/>');
+  		$(".ajaxSubmit").remove();
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('#form').submit();
 	});
 	
@@ -42,7 +70,9 @@ $(document).ready(function() {
             "המשך" : function() {
         		$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"addTemplate\"/>');
            		$('form#form').append('<input type=\"hidden\" name=\"templateTitle\" value=\"'+document.getElementById("templateTitle").value+'\"/>');
-       			$('form#form').submit();
+          		$(".ajaxSubmit").remove();
+          		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+       			$('#form').submit();
             	$(this).dialog("close");
              }
     	});
@@ -54,7 +84,9 @@ $(document).ready(function() {
 	$('button.updateTemplate').click(function(){
 		if(document.getElementById("templateId").value>0){
 			$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"updateTemplate\"/>');
-			$('form#form').submit();
+	  		$(".ajaxSubmit").remove();
+	  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+			$('#form').submit();
 		}
 		else
 			alert("יש לבחור תבנית");
@@ -65,7 +97,9 @@ $(document).ready(function() {
 		if(document.getElementById("templateId").value>0){
        		$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"showTemplate\"/>');
        		$('form#form').append('<input type=\"hidden\" name=\"templateId\" value=\"'+document.getElementById("templateId").value+'\"/>');
-   			$('form#form').submit();
+      		$(".ajaxSubmit").remove();
+      		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+   			$('#form').submit();
 		}
 		else
 			alert("יש לבחור תבנית");

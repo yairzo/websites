@@ -188,35 +188,39 @@ public class CallOfProposalBean {
 		this.creationTime = creationTime;
 	}
 
-	public String getPublicationTime() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return formatter.format(publicationTime);
+	public long getPublicationTime() {
+		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		//return formatter.format(publicationTime);
+		return publicationTime;
 	}
 	
-	public void setPublicationTime(String publicationTime) {
-		try{
+	public void setPublicationTime(long publicationTime) {
+		/*try{
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date formattedDate = (Date)formatter.parse(publicationTime); 
 			this.publicationTime = formattedDate.getTime();
 		}
 		catch(Exception e){
 			this.publicationTime=0;
-		}
+		}*/
+		this.publicationTime=publicationTime;
 	}
 
-	public String getFinalSubmissionTime() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return formatter.format(finalSubmissionTime);
+	public long getFinalSubmissionTime() {
+		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		//return formatter.format(finalSubmissionTime);
+		return finalSubmissionTime;
 	}
-	public void setFinalSubmissionTime(String finalSubmissionTime) {
-		try{
+	public void setFinalSubmissionTime(long finalSubmissionTime) {
+		/*try{
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date formattedDate = (Date)formatter.parse(finalSubmissionTime); 
 			this.finalSubmissionTime = formattedDate.getTime();
 		}
 		catch(Exception e){
 			this.finalSubmissionTime=0;
-		}
+		}*/
+		this.finalSubmissionTime=finalSubmissionTime;
 	}
 
 	public boolean getAllYearSubmission() {
@@ -254,20 +258,22 @@ public class CallOfProposalBean {
 		this.typeId = typeId;
 	}
 
-	public String getKeepInRollingMessagesExpiryTime() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return formatter.format(keepInRollingMessagesExpiryTime);
+	public long getKeepInRollingMessagesExpiryTime() {
+		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		//return formatter.format(keepInRollingMessagesExpiryTime);
+		return keepInRollingMessagesExpiryTime;
 	}
 	
-	public void setKeepInRollingMessagesExpiryTime(String keepInRollingMessagesExpiryTime) {
-		try{
+	public void setKeepInRollingMessagesExpiryTime(long keepInRollingMessagesExpiryTime) {
+		/*try{
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date formattedDate = (Date)formatter.parse(keepInRollingMessagesExpiryTime); 
 			this.keepInRollingMessagesExpiryTime = formattedDate.getTime();
 		}
 		catch(Exception e){
 			this.keepInRollingMessagesExpiryTime=0;
-		}
+		}*/
+		this.keepInRollingMessagesExpiryTime=keepInRollingMessagesExpiryTime;
 	}
 
 	public int getDeskId() {
@@ -456,7 +462,8 @@ public class CallOfProposalBean {
 			sb.append(messageService.getMessage("general.callOfProposal.amountOfGrant", "iw_IL") + ": " + amountOfGrant.trim() + ";;");
 		sb.append(messageService.getMessage("general.callOfProposal.successIndex", "iw_IL") + ": xxxxx;;");
 		sb.append(" " +messageService.getMessage("general.callOfProposal.deskPrefix", "iw_IL"));
-		sb.append("#mu# #mp##mue#");
+		sb.append("<a class=\"underline\" href=\"mailto:" + getCreator().getEmail() + "\">"+getCreator().getDegreeFullNameHebrew()+"</a>");
+		//sb.append("#mu# #mp##mue#");
 		if (deskId != 0){
 			MopDesk mopDesk = mopDeskService.getMopDesk(deskId);
 			sb.append(", <span class=\"bold\">" + mopDesk.getHebrewName() + "." + "</span>");

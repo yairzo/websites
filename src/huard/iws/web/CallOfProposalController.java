@@ -54,9 +54,15 @@ public class CallOfProposalController extends GeneralFormController{
 				while (fileNames.hasNext()) {
 					String filename = (String) fileNames.next();
 					MultipartFile file = multipartRequest.getFile(filename);
+					String originalName = file.getOriginalFilename();
+					String ext = originalName.substring(originalName.lastIndexOf(".")+1);
+					String title = originalName;
+					if(originalName.lastIndexOf(".")>-1)
+						title = originalName.substring(0,originalName.lastIndexOf("."));
 					Attachment attachment = new Attachment();
 					attachment.setFile(file.getBytes());
-					attachment.setContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
+					attachment.setContentType(getContentType(ext));
+					attachment.setTitle(title);
 					attachments.add(attachment);
 				}
 				callOfProposalBean.setAttachments(attachments);
@@ -68,6 +74,7 @@ public class CallOfProposalController extends GeneralFormController{
 		List<Integer> subjectsIds = BaseUtils.getIntegerList(subjectsIdsString, ",");
 		if (callOfProposalBean.getSubjectsIds() != null)
 			callOfProposalBean.getSubjectsIds().clear();
+		
 		for (int subjectId: subjectsIds){
 			callOfProposalBean.getSubjectsIds().add(subjectId);
 		}
@@ -105,7 +112,9 @@ public class CallOfProposalController extends GeneralFormController{
 			if(callOfProposalService.existsCallOfProposalOnline(callOfProposalBean.getId()))
 				callOfProposalService.removeCallOfProposalOnline(callOfProposalBean.getId());
 		}
-			
+//System.out.println("1111111111111111111111 ajaxSubmit:"+request.getBooleanParameter("ajaxSubmit", false));			
+		if (request.getBooleanParameter("ajaxSubmit", false))
+			return null;
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", callOfProposalBean.getId())	;
 		return new ModelAndView(new RedirectView("callOfProposal.html"), newModel);
@@ -159,21 +168,21 @@ public class CallOfProposalController extends GeneralFormController{
 			
 			//dates
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date tmpDate = new Date();
-			if (callOfProposal.getPublicationTime().equals("01/01/1970"))
+			if (callOfProposal.getPublicationTime()==0)
 				model.put("publicationTime", "");
 			else
-				model.put("publicationTime", callOfProposal.getPublicationTime());
-			if (callOfProposal.getFinalSubmissionTime().equals("01/01/1970"))
+				model.put("publicationTime", formatter.format(callOfProposal.getPublicationTime()));
+			if (callOfProposal.getFinalSubmissionTime()==0)
 				model.put("finalSubmissionTime", "");
 			else
-				model.put("finalSubmissionTime", callOfProposal.getFinalSubmissionTime());
-			if (callOfProposal.getKeepInRollingMessagesExpiryTime().equals("01/01/1970"))
+				model.put("finalSubmissionTime", formatter.format(callOfProposal.getFinalSubmissionTime()));
+			if (callOfProposal.getKeepInRollingMessagesExpiryTime()==0)
 				model.put("keepInRollingMessagesExpiryTime", "");
 			else
-				model.put("keepInRollingMessagesExpiryTime", callOfProposal.getKeepInRollingMessagesExpiryTime());
+				model.put("keepInRollingMessagesExpiryTime", formatter.format(callOfProposal.getKeepInRollingMessagesExpiryTime()));
 
 			//extra submission dates
+			Date tmpDate = new Date();
 			int i=1;
 			if(callOfProposal.getSubmissionDates()!=null){
 				for(Long submissionDate: callOfProposal.getSubmissionDates()){
@@ -215,6 +224,47 @@ public class CallOfProposalController extends GeneralFormController{
 		int id = request.getIntParameter("id", 0);
 		logger.info("id: " + id);
 		
+		//dates
+		if(request.getParameter("publicationTimeStr", "").equals("")){
+			callOfProposalBean.setPublicationTime(0);
+		}
+		else{
+			try{
+				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				Date formattedDate = (Date)formatter.parse(request.getParameter("publicationTimeStr", "")); 
+				callOfProposalBean.setPublicationTime(formattedDate.getTime());
+			}
+			catch(Exception e){
+				callOfProposalBean.setPublicationTime(0);
+			}
+		}
+		if(request.getParameter("finalSubmissionTimeStr", "").equals("")){
+			callOfProposalBean.setFinalSubmissionTime(0);
+		}
+		else{
+			try{
+				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				Date formattedDate = (Date)formatter.parse(request.getParameter("finalSubmissionTimeStr", "")); 
+				callOfProposalBean.setFinalSubmissionTime(formattedDate.getTime());
+			}
+			catch(Exception e){
+				callOfProposalBean.setFinalSubmissionTime(0);
+			}
+		}
+		if(request.getParameter("keepInRollingMessagesExpiryTimeStr", "").equals("")){
+			callOfProposalBean.setKeepInRollingMessagesExpiryTime(0);
+		}
+		else{
+			try{
+				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				Date formattedDate = (Date)formatter.parse(request.getParameter("keepInRollingMessagesExpiryTimeStr", "")); 
+				callOfProposalBean.setKeepInRollingMessagesExpiryTime(formattedDate.getTime());
+			}
+			catch(Exception e){
+				callOfProposalBean.setKeepInRollingMessagesExpiryTime(0);
+			}
+		}
+		
 		if ( isFormSubmission(request.getRequest()) 
 				|| request.getParameter("action","").equals("new")
 				|| id == 0)
@@ -231,6 +281,25 @@ public class CallOfProposalController extends GeneralFormController{
 		// we have to register a custom editor
 		binder.registerCustomEditor(byte[].class,	new ByteArrayMultipartFileEditor());
 		// now Spring knows how to handle multipart object and convert them
+	}	
+	
+	private static String getContentType(String extension){
+		if(extension.equals("pdf"))
+			return "application/pdf";
+		else if (extension.equals("doc"))
+			return "application/msword";
+		else if (extension.equals("docx"))
+			return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+		else if (extension.equals("xls"))
+			return "application/vnd.ms-excel";
+		else if (extension.equals("xlsx"))
+			return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+		else if (extension.equals("txt"))
+			return "text/plain";
+		else if (extension.equals("jpg")|| extension.equals("jpeg"))
+			return "image/jpeg ";
+		else
+			return "text/html";
 	}	
 	
 	private CallOfProposalService callOfProposalService;

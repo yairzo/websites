@@ -88,6 +88,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 			Attachment file = new Attachment();
 			file.setFile(rs.getBytes("fileId"));
 			file.setContentType(rs.getString("contentType"));
+			file.setTitle(rs.getString("title"));
 			file.setId(rs.getInt("id"));
             return file;
 		}
@@ -128,6 +129,11 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	}
 	
 	public void insertCallOfProposalOnline(CallOfProposal callOfProposal){
+		String keepInRollingMessagesExpiryTime="";
+		if(callOfProposal.getKeepInRollingMessagesExpiryTime()==0)//
+			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
+		else
+			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(callOfProposal.getKeepInRollingMessagesExpiryTime()).toString();
 		final String query = "insert callOfProposal set callOfProposalId = ?"+
 				", title = ?" +
 				", creatorId = ?" +
@@ -142,6 +148,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", deskId = ?" +
 				", originalCallWebAddress = ?" +
 				", requireLogin = ?" +
+				", showDescriptionOnly = ?" +				
 				", submissionDetails= ?" +
 				", contactPersonDetails= ?" +
 				", formDetails= ?" +
@@ -166,10 +173,11 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	    		callOfProposal.getHasAdditionalSubmissionDates(),
 	    		callOfProposal.getFundId(),
 	    		callOfProposal.getTypeId(),
-	    		new java.sql.Timestamp(callOfProposal.getKeepInRollingMessagesExpiryTime()),
+	    		keepInRollingMessagesExpiryTime,
 	    		callOfProposal.getDeskId(),
 	    		callOfProposal.getOriginalCallWebAddress(),
 	    		callOfProposal.getRequireLogin(),
+	    		callOfProposal.getShowDescriptionOnly(),
 	    		callOfProposal.getSubmissionDetails().trim(),
 	    		callOfProposal.getContactPersonDetails().trim(),
 	    		callOfProposal.getFormDetails().trim(),
@@ -198,6 +206,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", deskId = ?" +
 				", originalCallWebAddress = ?" +
 				", requireLogin = ?" +
+				", showDescriptionOnly = ?" +				
 				", submissionDetails= ?" +
 				", contactPersonDetails= ?" +
 				", formDetails= ?" +
@@ -212,31 +221,47 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 			" where id = ?;";
 		System.out.println(query);
 		logger.info(query);
+		String publicationTime="";
+		if(callOfProposal.getPublicationTime()==0)//
+			publicationTime="0000-00-00 00:00:00";
+		else
+			publicationTime=new java.sql.Timestamp(callOfProposal.getPublicationTime()).toString();
+		String finalSubmissionTime="";
+		if(callOfProposal.getFinalSubmissionTime()==0)//
+			finalSubmissionTime="0000-00-00 00:00:00";
+		else
+			finalSubmissionTime=new java.sql.Timestamp(callOfProposal.getFinalSubmissionTime()).toString();
+		String keepInRollingMessagesExpiryTime="";
+		if(callOfProposal.getKeepInRollingMessagesExpiryTime()==0)//
+			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
+		else
+			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(callOfProposal.getKeepInRollingMessagesExpiryTime()).toString();
 		getSimpleJdbcTemplate().update(query,
 				callOfProposal.getTitle(),
 				callOfProposal.getCreatorId(),
-				new java.sql.Timestamp(callOfProposal.getPublicationTime()),
-				new java.sql.Timestamp(callOfProposal.getFinalSubmissionTime()),
+				publicationTime,
+				finalSubmissionTime,
 	    		callOfProposal.getAllYearSubmission(),
 	    		callOfProposal.getAllYearSubmissionYearPassedAlert(),
 	    		callOfProposal.getHasAdditionalSubmissionDates(),
 	    		callOfProposal.getFundId(),
 	    		callOfProposal.getTypeId(),
-	    		new java.sql.Timestamp(callOfProposal.getKeepInRollingMessagesExpiryTime()),
+	    		keepInRollingMessagesExpiryTime,
 	    		callOfProposal.getDeskId(),
 	    		callOfProposal.getOriginalCallWebAddress(),
 	    		callOfProposal.getRequireLogin(),
-	    		callOfProposal.getSubmissionDetails(),
-	    		callOfProposal.getContactPersonDetails(),
-	    		callOfProposal.getFormDetails(),
-	    		callOfProposal.getDescription(),
-	    		callOfProposal.getFundingPeriod(),
-	    		callOfProposal.getAmountOfGrant(),
-	    		callOfProposal.getEligibilityRequirements(),
-	    		callOfProposal.getActivityLocation(),
-	    		callOfProposal.getPossibleCollaboration(),
-	    		callOfProposal.getBudgetDetails(),
-	    		callOfProposal.getAdditionalInformation(),
+	    		callOfProposal.getShowDescriptionOnly(),
+	    		callOfProposal.getSubmissionDetails().trim(),
+	    		callOfProposal.getContactPersonDetails().trim(),
+	    		callOfProposal.getFormDetails().trim(),
+	    		callOfProposal.getDescription().trim(),
+	    		callOfProposal.getFundingPeriod().trim(),
+	    		callOfProposal.getAmountOfGrant().trim(),
+	    		callOfProposal.getEligibilityRequirements().trim(),
+	    		callOfProposal.getActivityLocation().trim(),
+	    		callOfProposal.getPossibleCollaboration().trim(),
+	    		callOfProposal.getBudgetDetails().trim(),
+	    		callOfProposal.getAdditionalInformation().trim(),
 				callOfProposal.getId());
 		
 		query = "delete from subjectToCallOfProposal where callOfProposalId = ?";
@@ -260,9 +285,9 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		//query = "delete from callOfProposalFile where callOfProposalId = ?";
 		//getSimpleJdbcTemplate().update(query,callOfProposal.getId());
 		for (Attachment attachment: callOfProposal.getAttachments()){
-			query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?";
+			query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?, title= ?";
 			if (attachment != null)
-				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), attachment.getFile(), attachment.getContentType());
+				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), attachment.getFile(), attachment.getContentType(), attachment.getTitle());
 		}
 	}
 	public void updateCallOfProposalOnline(CallOfProposal callOfProposal){
@@ -280,6 +305,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", deskId = ?" +
 				", originalCallWebAddress = ?" +
 				", requireLogin = ?" +
+				", showDescriptionOnly = ?" +
 				", submissionDetails= ?" +
 				", contactPersonDetails= ?" +
 				", formDetails= ?" +
@@ -308,6 +334,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	    		callOfProposal.getDeskId(),
 	    		callOfProposal.getOriginalCallWebAddress(),
 	    		callOfProposal.getRequireLogin(),
+	    		callOfProposal.getShowDescriptionOnly(),
 	    		callOfProposal.getSubmissionDetails(),
 	    		callOfProposal.getContactPersonDetails(),
 	    		callOfProposal.getFormDetails(),
@@ -340,10 +367,11 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		}
 		
 		for (Attachment attachment: callOfProposal.getAttachments()){
-			query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?";
+			query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?, title= ?";
 			if (attachment != null)
-				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), attachment.getFile(), attachment.getContentType());
-		}*/
+				getSimpleJdbcTemplate().update(query,callOfProposal.getId(), attachment.getFile(), attachment.getContentType(), attachment.getTitle());
+		}
+		 */
 	}	
 	
 	public void removeCallOfProposalOnline(int id){
@@ -402,6 +430,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
     		callOfProposal.setDeskId(rs.getInt("deskId"));
     		callOfProposal.setOriginalCallWebAddress(rs.getString("originalCallWebAddress"));
     		callOfProposal.setRequireLogin(rs.getBoolean("requireLogin"));
+    		callOfProposal.setShowDescriptionOnly(rs.getBoolean("showDescriptionOnly"));
     		callOfProposal.setSubmissionDetails(rs.getString("submissionDetails"));
     		callOfProposal.setContactPersonDetails(rs.getString("contactPersonDetails"));
     		callOfProposal.setFormDetails(rs.getString("formDetails"));

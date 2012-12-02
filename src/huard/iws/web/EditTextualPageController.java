@@ -49,10 +49,12 @@ public class EditTextualPageController extends GeneralFormController {
 				System.out.println(" filename : " + filename );
 				System.out.println("******************************");
 				MultipartFile file = multipartRequest.getFile(filename);
+				String originalName = file.getOriginalFilename();
+				String ext = originalName.substring(originalName.lastIndexOf(".")+1);
 				if (filename.equals("textualPageFile") && file.getSize()>0){
 					Attachment attachment = new Attachment();
 					attachment.setFile(file.getBytes());
-					attachment.setContentType(file.getContentType().equals("application/octet-stream")?"application/vnd.openxmlformats-officedocument.wordprocessingml.document":file.getContentType());
+					attachment.setContentType(getContentType(ext));
 					textualPageBean.setAttachment(attachment);
 				}
 			}
@@ -93,6 +95,8 @@ public class EditTextualPageController extends GeneralFormController {
 			request.getSession().setAttribute("templateId", request.getParameter("templateId",""));
 		}
 		
+		if (request.getBooleanParameter("ajaxSubmit", false))
+			return null;
 		
 		Map<String,Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", textualPageBean.getId())	;
@@ -168,6 +172,24 @@ public class EditTextualPageController extends GeneralFormController {
 		// now Spring knows how to handle multipart object and convert them
 	}	
 	
+	private static String getContentType(String extension){
+		if(extension.equals("pdf"))
+			return "application/pdf";
+		else if (extension.equals("doc"))
+			return "application/msword";
+		else if (extension.equals("docx"))
+			return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+		else if (extension.equals("xls"))
+			return "application/vnd.ms-excel";
+		else if (extension.equals("xlsx"))
+			return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+		else if (extension.equals("txt"))
+			return "text/plain";
+		else if (extension.equals("jpg")|| extension.equals("jpeg"))
+			return "image/jpeg ";
+		else
+			return "text/html";
+	}	
 	private TextualPageService textualPageService;
 
 	public void setTextualPageService(TextualPageService textualPageService) {

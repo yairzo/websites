@@ -46,6 +46,7 @@
 					 מוצג כרגע באתר
 					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/pubPageViewer.jsp?ardNum=${command.id}','_blank');return false;">צפה בדף באתר</button>
 					&nbsp; <button class="grey" id="offline">הסר מהאתר</button>
+					&nbsp; <button class="grey" id="onlineUpdate">עדכן האתר</button>
 					</c:if>
 					<c:if test="${!online}">
 					&nbsp; <button class="grey" id="online">העלה לאתר</button>

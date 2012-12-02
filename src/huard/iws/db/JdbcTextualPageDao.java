@@ -177,7 +177,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", wrapExternalPage = ?" +
 				", externalPageUrl = ?" +
 				", categoryId = ?" +
-				" where callOfProposalId = ?;";
+				" where textualPageId = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getTitle(),

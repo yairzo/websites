@@ -133,6 +133,15 @@ public class EditPostController extends GeneralFormController {
 				CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal, true);
 				tmpPost.setMessageSubject(callOfProposalBean.getId() + " - " + callOfProposalBean.getTitle());
 				tmpPost.setMessage(callOfProposalBean.toString());
+				List<Integer> subjectsIds = callOfProposalBean.getSubjectsIds();
+				for (int subjectId: subjectsIds){
+					tmpPost.getSubjectsIds().add(subjectId);
+				}
+				List<Attachment> attachments = callOfProposalBean.getAttachments();
+				for (Attachment attachment: attachments){
+					attachment.setId(0);
+					tmpPost.getAttachments().add(attachment);
+				}
 				postService.updatePost(tmpPost);
 			}
 			return new ModelAndView ( new RedirectView("post.html"), newModel);

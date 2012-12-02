@@ -118,9 +118,6 @@
    		<property name="mopDeskService">
             <ref bean="mopDeskService"/>
         </property>
-        <property name="validator">
-        	<bean class="huard.iws.web.validate.EditCallOfProposalValidator"/>
-        </property>
      </bean>
      
  	<bean id="callOfProposalListController" class="huard.iws.web.CallOfProposalListController" parent="generalFormController">

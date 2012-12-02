@@ -1,6 +1,13 @@
 <%@ page  pageEncoding="UTF-8" %>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.autosave.js"></script>
+<style>
+	.ui-autocomplete li {
+		list-style-type: none;
+	}
+
+</style>
 
 <script language="Javascript">
 var ceditor; //This is for our CKEditor editor
@@ -12,22 +19,59 @@ function resetAutocomplete(funds){
 			 minLength: 2,
 			 highlight: true,				 
 			 select: function(event, ui) {
-				 //alert(ui.item.label);
+				 	//alert(ui.item.label);
 					$("#searchPhrase").val(ui.item.label);
 					$("#fundId").val(ui.item.id);
-					return false;
+					//alert("here");
+				 },
+			 change: function(event, ui) {
+				 checkFund();
 				 }
 		    }
-
 	);
 }
 
 $(document).ready(function() {
+
+	if($("#fundId").val()!='0')
+		$('#searchPhrase').prop("disabled", true);
+
 	$("#searchPhrase").click(function(){
 	    	$("#searchPhrase").val('');
 	    	resetAutocomplete();
 	});
-	 
+	
+
+	$("#changeFund").click(function(e){
+		e.preventDefault();
+		$('#searchPhrase').prop("disabled", false);
+		$("#fundId").val('0');
+	});
+	
+	$('form').find('input:not([type=file],[type=button])').autoSave(function(){		
+		insertIds();
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+		$('#form').ajaxSubmit();
+	}, {delay: 2000});
+	
+	$('form').find('select:not([class*=deskId])').change(function(){
+		insertIds();
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+	    $('#form').ajaxSubmit();
+	});
+	
+	$('form').find('checkbox').change(function(){
+		insertIds();
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+	    $('#form').ajaxSubmit();
+	});
+	
+	$('#deskId').change(function(){
+		insertIds();
+   		$(".ajaxSubmit").remove();
+   	 	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+	    $('#form').submit();
+	});
 	
 	$('#allYearCheckbox').change(function(){
 		if($('#allYearCheckbox').is(":checked")){
@@ -41,23 +85,44 @@ $(document).ready(function() {
 	});
 	
 	$(".date").datepicker({ dateFormat: 'dd/mm/yy', onSelect: function(){
-    	var str1 = $(this).val();
-        var dt1  = str1.substring(0,2); 
-        var mon1 = str1.substring(3,5); 
-        var yr1  = str1.substring(6,10);  
-        temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
-        var cfd = Date.parse(temp1);
-        var date1 = new Date(cfd); 
-        
-        if(new Date()>date1){
-      		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
-    		$("#genericDialog").dialog({ modal: false });
-  			$("#genericDialog").dialog({ height: 200 });
-			$("#genericDialog").dialog({ width: 400 });
-      		openHelp("","תאריך זה כבר עבר");
-        }
-    }});	
+    	var str = $(this).val();
+       	var dt1  = str.substring(0,2); 
+       	var mon1 = str.substring(3,5); 
+       	var yr1  = str.substring(6,10);  
+       	temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
+       	var cfd = Date.parse(temp1);
+       	var date1 = new Date(cfd);
+       	var date2 = new Date();
+       	if(date2.setHours(0,0,0,0)>date1.setHours(0,0,0,0)){
+      			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+    			$("#genericDialog").dialog({ modal: false });
+  				$("#genericDialog").dialog({ height: 200 });
+				$("#genericDialog").dialog({ width: 400 });
+      			openHelp("","תאריך זה כבר עבר");
+       	}
+   	 }});	
 	
+	$(".date").change(function(event){
+		//check date format 
+		var str=$(this).val();
+		if(str.indexOf(".")>0)
+			while (str.indexOf(".")>0)
+				str=str.replace(".","/");
+		if(str.indexOf("-")>0)
+			while (str.indexOf("-")>0)
+				str=str.replace("-","/");
+		
+		var dateRegex=/^((0[1-9])|([1-31]))\/(([1-9])|(0[1-9])|(1[0-2]))\/((19|20)\d\d)$/;
+		$(this).val(str);
+		if(!dateRegex.test(str)){
+ 			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+  			openHelp("","יש להזין תאריך בפורמט dd/MM/yyyy");
+  			$(this).val('');
+    	}
+	});
 	
 	$(function() {
         $.datepicker.regional['he'] = {
@@ -90,70 +155,69 @@ $(document).ready(function() {
   });
 
 	$('button.save').click(function(){
-		var ids="";
-		$('input.subSubject').each(function(){
-				if (this.checked){
-					var id = this.id;
-					id = id.substring(id.indexOf('.') + 1);
-					if (ids !="")
-						ids = ids + ","
-					ids = ids +id;
-				}
-		});
-		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+		insertIds();
+  		$(".ajaxSubmit").remove();
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('form#form').submit();
 	});
 
 	$('#formAttach').change(function(event){
-		var ids="";
-		$('input.subSubject').each(function(){
-				if (this.checked){
-					var id = this.id;
-					id = id.substring(id.indexOf('.') + 1);
-					if (ids !="")
-						ids = ids + ","
-					ids = ids +id;
-				}
-		});
-		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+		insertIds();
 		$('form#form').append('<input type=\"hidden\" name=\"addFile\" value=\"yes\"/>');
 		$('#form').submit();
 	});	
 
 	$('button#online').click(function(){
-		var ids="";
-		$('input.subSubject').each(function(){
-				if (this.checked){
-					var id = this.id;
-					id = id.substring(id.indexOf('.') + 1);
-					if (ids !="")
-						ids = ids + ","
-					ids = ids +id;
-				}
-		});
-		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
-		$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
-		$('#form').submit();
+      	var errors = checkErrors();//validating fields
+		if (errors){
+	   		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+			openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
+			return false;
+		}
+		else{
+			insertIds();
+    		$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+    		$(".ajaxSubmit").remove();
+    		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+    		$('#form').submit();
+    	   	return false;
+		 }//else no errors
+	});
+	
+	$('button#onlineUpdate').click(function(){
+      	var errors = checkErrors();//validating fields
+		if (errors){
+	   		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+			openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
+			return false;
+		}
+		else{
+			insertIds();
+    		$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+    		$(".ajaxSubmit").remove();
+    		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+    		$('#form').submit();
+    	   	return false;
+		 }//else no errors 
 	});
 	
 	$('button#offline').click(function(){
-		var ids="";
-		$('input.subSubject').each(function(){
-				if (this.checked){
-					var id = this.id;
-					id = id.substring(id.indexOf('.') + 1);
-					if (ids !="")
-						ids = ids + ","
-					ids = ids +id;
-				}
-		});
-		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+		insertIds();
 		$('form#form').append('<input type=\"hidden\" name=\"offline\" value=\"true\"/>');
+   		$(".ajaxSubmit").remove();
+   	 	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('#form').submit();
 	});
 
 	$('button.post').click(function(){
 		window.open('post.html?action=new&callOfProposal=' + ${command.id});
+		return false;
 	});
 	
 	
@@ -248,6 +312,12 @@ $(document).ready(function() {
 			else if (!isAnyChecked){
 				closeSubject($(this).parent().children("td.toggleSubject"));
 			}
+			
+			//this is for autosave
+			insertIds();
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+		    $('#form').ajaxSubmit();
+
 			return false;
 		});
 	
@@ -267,23 +337,30 @@ $(document).ready(function() {
 
 
 	$(".editor").click(function(e){
-		    e.stopPropagation();//so not to start body click
+			e.stopPropagation();//so not to start body click
 		 	// pressed editor icons
 		    if ($(e.target).attr("class")!=undefined && $(e.target).attr("class").indexOf("cke_")>=0) 
 					return;
-
 	        //if another editor is already open, close it
         	closeEditor();
-
-		   //open editor
+ 		   //open editor
 	        $(".editorText", $(this).closest("table")).hide();
            $(".textareaEditorSpan", $(this).closest("table")).show();
             var textAreaId = $(".textareaEditor", $(this).closest("table")).attr("id");
 	        ceditor =  CKEDITOR.replace(textAreaId,config);
-	      
 	        //Save the div container to know which one to close later
             ceditor_container = $(this);
 	  });
+		
+		$(".openEditor").click(function(e){
+			e.stopPropagation();//so not to start body click
+	    	e.preventDefault();//so href doesnt submit
+	    	$('.editor', $(this).closest("td")).click();
+		});
+		$(".closeEditor").click(function(e){
+		    e.preventDefault();//so href doesnt submit
+			closeEditor();
+		});
 	 
 	  $("body").click(function(event){
 			if ($(event.target).attr("class")!=undefined && $(event.target).attr("class").indexOf("cke_")>=0) {
@@ -299,8 +376,6 @@ $(document).ready(function() {
 		    e.stopPropagation();//so not to start body click 
 		    e.preventDefault();//no refresh page 
 		    var addedText= $('#addedText', $(this).closest("tr")).html();
-		    //var existingText = $(".editor", $(this).closest("table")).html();
-		    //$(".editor", $(this).closest("table")).html(existingText + "<br>" + addedText);
 	    	for ( var i in CKEDITOR.instances ){
 	    		   var currentInstance = i;
 	    		   break;
@@ -324,6 +399,54 @@ function openHelp(name,mytext){
 	 	
 	    $("#genericDialog").html(mytext).dialog("open");
 } 
+
+function checkErrors(){
+	var errors=false;
+	if($("#title").val()==''){
+		errors = true;
+		$("#errortitle").html('<font color="red">יש למלא שדה נושא קול קורא<font color="red"><br>');
+	}
+	else{
+		$("#errortitle").html('');
+	}
+	if($("#publicationTime").val()==''){
+		errors = true;
+		$("#errorpublicationTime").html('<font color="red">יש למלא שדה תאריך פרסום<font color="red"><br>');
+	}
+	else{
+		$("#errorpublicationTime").html('');
+	}
+	if($("#finalSubmissionTime").val()==''){
+		errors = true;
+		$("#errorfinalSubmissionTime").html('<font color="red">יש למלא שדה תאריך הגשה קובע<font color="red"><br>');
+	}
+	else{
+		$("#errorfinalSubmissionTime").html('');
+	}
+	if($("#fundId").val()=='0'){
+		errors = true;
+		$("#errorfund").html('<font color="red">יש לבחור מממן<font color="red"><br>');
+	}
+	else{
+		$("#errorfund").html('');
+	}
+	if($("#typeId").val()=='0'){
+		errors = true;
+		$("#errortype").html('<font color="red">יש לבחור את סוג הקול קורא<font color="red"><br>');
+	}
+	else{
+		$("#errortype").html('');
+	}
+	if($("#deskId").val()=='0'){
+		errors = true;
+		$("#errordesk").html('<font color="red">יש לבחור מדור<font color="red"><br>');
+	}
+	else{
+		$("#errordesk").html('');
+	}
+	return errors;
+}
+
 function openSubject(element){
 	$(element).children("img.plus").hide();
 	$(element).children("img.minus").show();
@@ -369,7 +492,7 @@ function closeEditor(){
 		}
 		var ceditor   = CKEDITOR.instances[currentInstance];	       
 		if(ceditor){
-     		$(".editorText", $(ceditor_container).closest("table")).show();
+    		$(".editorText", $(ceditor_container).closest("table")).show();
      		$(".textareaEditorSpan", $(ceditor_container).closest("table")).hide();
      		if(ceditor.getData()!='')
      			$(".editorText", $(ceditor_container).closest("table")).html(ceditor.getData());
@@ -378,7 +501,12 @@ function closeEditor(){
      		ceditor.destroy();
      		ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed by reference
      		ceditor_container=null;
+    		//autosave
+    		insertIds();
+    		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+    	    $('#form').ajaxSubmit();
 		}
+		
 }
 
 function closeSubject(element){
@@ -395,4 +523,33 @@ function toggleSubject(element){
 		$("tbody#"+targetId+"Sub").toggle();
 }
 
+function insertIds(){
+	var ids="";
+	$('input.subSubject').each(function(){
+			if (this.checked){
+				var id = this.id;
+				id = id.substring(id.indexOf('.') + 1);
+				if (ids !="")
+					ids = ids + ","
+				ids = ids +id;
+			}
+	});
+	$('.subjectsIdsString').remove();
+	$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" class=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+}
+
+function checkFund(){
+	//alert($("#fundId").val());
+    if($("#fundId").val()=='0'){
+  		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
+  		openHelp("","יש להקליד את שם הגוף המממן ורשימה תיפתח לבחירה");
+		$('#searchPhrase').prop("disabled", false);
+    }
+    else{
+    	$('#searchPhrase').prop("disabled", true);
+    }
+}
 </script>
