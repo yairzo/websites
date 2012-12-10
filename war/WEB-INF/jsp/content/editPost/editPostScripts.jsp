@@ -141,7 +141,7 @@
 		);
 	}
 
-	var formExit=true;
+	var formExit=true;//formExit is when form exits by pressing menu or back, and not pressing any form button 
 
 	window.onunload = function() {
 		if (formExit && $('.messageSubject').val()==''  && $('.message').val()==''){
@@ -151,12 +151,11 @@
 	        return false;
 
 		}
-		else{
+		else if(formExit){//other exits already contain submit 
 			$('form#form').append('<input type="hidden" name="action" value="save"/>');
 			$('form#form').ajaxSubmit();
 			return false;
-		}
-		formExit=true;
+		} 
 	};
 
 
@@ -317,6 +316,10 @@
 			}
 		});
 
+		$('#file1').change(function(event){
+			$('#form').submit();
+		});	
+
 		$('button.cancel').click(function(){
 			$('form#form').append('<input type="hidden" name="action" value="cancel"/>');
 			$('form#form').submit();
@@ -374,6 +377,7 @@
 							});
 							$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
 							$('form#form').submit();
+							return false;
 		 	    		},
 						"בטל": function() {
 							$( this ).dialog( "close" );

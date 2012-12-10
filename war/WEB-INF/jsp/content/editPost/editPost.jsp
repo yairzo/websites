@@ -139,8 +139,12 @@
 				</tr>
 				<tr>
 						<td colspan="2" class="addFile">
-							<fmt:message key="${lang.localeId}.post.addAttach"/>
-							<input class="green" type="file" name="file1"  /> &nbsp; <button class="save grey" onclick=""><fmt:message key="${lang.localeId}.post.addFile"/></button>
+							<!--<fmt:message key="${lang.localeId}.post.addAttach"/>
+							 <input class="green" type="file" name="file1"  /> &nbsp; <button class="save grey" onclick=""><fmt:message key="${lang.localeId}.post.addFile"/></button> -->
+						<span style="display: block; width: 60px; height: 27px; overflow: hidden;">
+							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)"><fmt:message key="${lang.localeId}.post.addFile"/></a></button>
+							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="file1" id="file1"/>
+						</span>
 						</td>
 					</tr>
 

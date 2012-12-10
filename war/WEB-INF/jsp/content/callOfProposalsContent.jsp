@@ -36,10 +36,10 @@
              <tbody>
    				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 				<td align="right">
-				<a href="callOfProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.id}"></c:out></a>
+				<a href="callForProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.id}"></c:out></a>
   				</td>
   				<td align="right">
-				<a href="callOfProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.title}"></c:out></a>
+				<a href="callForProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.title}"></c:out></a>
 				</td>
    	  			</tr>
   	  		</tbody>

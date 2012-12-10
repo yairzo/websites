@@ -446,6 +446,7 @@ public class CallOfProposalBean {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("webServer") +
 				"/huard/infoPageViewer.jsp?ardNum=" + this.id + "\">" + title + "</a><br/> ");
+		sb.append("<span class=\"medium\">");
 		if (fundId != 0){
 		    Fund fund= fundService.getArdFund(fundId);
 			sb.append(" <a class=\"bold\" href=\"http://" + fund.getWebAddress() + "\">" + fund.getName() + ", " + fund.getShortName() + "</a>;;");

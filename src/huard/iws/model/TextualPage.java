@@ -10,14 +10,14 @@ public class TextualPage {
 	private boolean requireLogin;
 	private String html;
 	private String description;
-	private boolean showImage;
-	private String imageUrl;
 	private boolean showFile;
 	private String fileUrl;
 	private boolean wrapExternalPage;
 	private String externalPageUrl;
 	private int categoryId;
 	private Attachment attachment;
+	private boolean isMessage;
+	private long keepInRollingMessagesExpiryTime;
 
 	public TextualPage(){
 		this.id = 0;
@@ -28,14 +28,14 @@ public class TextualPage {
 		this.requireLogin=false;
 		this.html="";
 		this.description="";
-		this.showImage=false;
-		this.imageUrl="";
 		this.showFile=false;
 		this.fileUrl="";
 		this.wrapExternalPage=false;
 		this.externalPageUrl="";
 		this.categoryId=0;
 		this.attachment=new Attachment();
+		this.isMessage=false;
+		this.keepInRollingMessagesExpiryTime=0;
 	}
 	
 	public int getId() {
@@ -97,22 +97,6 @@ public class TextualPage {
 		this.description = description;
 	}
 
-	public boolean getShowImage() {
-		return showImage;
-	}
-
-	public void setShowImage(boolean showImage) {
-		this.showImage = showImage;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
 	public boolean getShowFile() {
 		return showFile;
 	}
@@ -159,6 +143,22 @@ public class TextualPage {
 
 	public void setAttachment(Attachment attachment) {
 		this.attachment = attachment;
+	}
+
+	public boolean getIsMessage() {
+		return isMessage;
+	}
+
+	public void setIsMessage(boolean isMessage) {
+		this.isMessage = isMessage;
+	}
+
+	public long getKeepInRollingMessagesExpiryTime() {
+		return keepInRollingMessagesExpiryTime;
+	}
+	
+	public void setKeepInRollingMessagesExpiryTime(long keepInRollingMessagesExpiryTime) {
+		this.keepInRollingMessagesExpiryTime=keepInRollingMessagesExpiryTime;
 	}
 
 

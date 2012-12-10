@@ -1,3 +1,13 @@
+<style>
+	.ui-autocomplete {
+		direction: rtl;
+	}
+	
+	.ui-autocomplete li {
+		list-style-type: none;
+	}
+
+</style>
 <script language="Javascript">
 	<%@ include file="/WEB-INF/jsp/content/userMessageScripts.jsp" %>
 
@@ -253,7 +263,11 @@ theme_advanced_resizing : true
 		$.get('selectBoxFiller',{type:'${listType}'},function(data){
    	   		var entitiesMap = data.split(",,");
    	   		$("div.addEntity").show();
-   	   		$("input.addEntity").autocomplete(entitiesMap, {align: 'right', dir: 'rtl', scroll: 'true', scrollHeight: 90});
+   	   		$("input.addEntity").autocomplete({
+   	   			source: entitiesMap,
+				 minLength: 2,
+				 highlight: true,				 
+			     align: 'right', dir: 'rtl', scroll: 'true', scrollHeight: 90});
    	   	});
    	});
 

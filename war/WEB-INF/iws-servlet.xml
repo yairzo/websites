@@ -105,7 +105,7 @@
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.CallOfProposalBean</value></property>
         <property name="formView"><value>editCallOfProposal</value></property>
-        <property name="successView"><value>callOfProposal.html</value></property>
+        <property name="successView"><value>callForProposal.html</value></property>
      	<property name="subjectService">
             <ref bean="subjectService"/>
         </property>
@@ -124,7 +124,7 @@
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.CallOfProposalListController$CallOfProposalListControllerCommand</value></property>
         <property name="formView"><value>callOfProposals</value></property>
-        <property name="successView"><value>callOfProposals.html</value></property>
+        <property name="successView"><value>callForProposals.html</value></property>
      	<property name="callOfProposalService">
             <ref bean="callOfProposalService"/>
         </property>
@@ -140,6 +140,9 @@
         </property>
     	<property name="mopDeskService">
             <ref bean="mopDeskService"/>
+        </property>
+    	<property name="listListService">
+            <ref bean="listListService"/>
         </property>
         <property name="validator">
         	<bean class="huard.iws.web.validate.TextualPageValidator"/>
@@ -991,9 +994,9 @@
 				<prop key="/error404.html">urlFilenameViewController</prop>
 				<prop key="/error500.html">urlFilenameViewController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>
-				<prop key="/callOfProposal.html">callOfProposalController</prop>
+				<prop key="/callForProposal.html">callOfProposalController</prop>
 				<prop key="/textualPage.html">editTextualPageController</prop>
-				<prop key="/callOfProposals.html">callOfProposalListController</prop>
+				<prop key="/callForProposals.html">callOfProposalListController</prop>
 				<prop key="/textualPages.html">textualPageListController</prop>
             </props>
         </property>

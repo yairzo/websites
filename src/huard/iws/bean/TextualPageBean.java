@@ -16,14 +16,15 @@ public class TextualPageBean {
 	private boolean requireLogin;
 	private String html;
 	private String description;
-	private boolean showImage;
-	private String imageUrl;
 	private boolean showFile;
 	private String fileUrl;
 	private boolean wrapExternalPage;
 	private String externalPageUrl;
 	private int categoryId;
 	private Attachment attachment;
+	private boolean isMessage;
+	private long keepInRollingMessagesExpiryTime;
+
 	
 	public TextualPageBean(){
 		this.id = 0;
@@ -34,14 +35,14 @@ public class TextualPageBean {
 		this.requireLogin=false;
 		this.html="";
 		this.description="";
-		this.showImage=false;
-		this.imageUrl="";
 		this.showFile=false;
 		this.fileUrl="";
 		this.wrapExternalPage=false;
 		this.externalPageUrl="";
 		this.categoryId=0;
 		this.attachment=new Attachment();
+		this.isMessage=false;
+		this.keepInRollingMessagesExpiryTime=0;
 	}
 
 
@@ -54,14 +55,14 @@ public class TextualPageBean {
 		this.requireLogin=textualPage.getRequireLogin();
 		this.html=textualPage.getHtml();
 		this.description=textualPage.getDescription();
-		this.showImage=textualPage.getShowImage();
-		this.imageUrl=textualPage.getImageUrl();
 		this.showFile=textualPage.getShowFile();
 		this.fileUrl=textualPage.getFileUrl();
 		this.wrapExternalPage=textualPage.getWrapExternalPage();
 		this.externalPageUrl=textualPage.getExternalPageUrl();
 		this.categoryId=textualPage.getCategoryId();
 		this.attachment=textualPage.getAttachment();
+		this.isMessage = textualPage.getIsMessage();
+		this.keepInRollingMessagesExpiryTime = textualPage.getKeepInRollingMessagesExpiryTime();
 	}
 
 	public TextualPage toTextualPage(){
@@ -74,14 +75,14 @@ public class TextualPageBean {
 		textualPage.setRequireLogin(requireLogin);
 		textualPage.setHtml(html);
 		textualPage.setDescription(description);
-		textualPage.setShowImage(showImage);
-		textualPage.setImageUrl(imageUrl);
 		textualPage.setShowFile(showFile);
 		textualPage.setFileUrl(fileUrl);
 		textualPage.setWrapExternalPage(wrapExternalPage);
 		textualPage.setExternalPageUrl(externalPageUrl);
 		textualPage.setCategoryId(categoryId);
 		textualPage.setAttachment(attachment);
+		textualPage.setIsMessage(isMessage);
+		textualPage.setKeepInRollingMessagesExpiryTime(keepInRollingMessagesExpiryTime);
 		return textualPage;
 	}
 
@@ -144,22 +145,6 @@ public class TextualPageBean {
 		this.description = description;
 	}
 
-	public boolean getShowImage() {
-		return showImage;
-	}
-
-	public void setShowImage(boolean showImage) {
-		this.showImage = showImage;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
 	public boolean getShowFile() {
 		return showFile;
 	}
@@ -207,6 +192,22 @@ public class TextualPageBean {
 
 	public void setAttachment(Attachment attachment) {
 		this.attachment = attachment;
+	}
+	
+	public boolean getIsMessage() {
+		return isMessage;
+	}
+
+	public void setIsMessage(boolean isMessage) {
+		this.isMessage = isMessage;
+	}
+
+	public long getKeepInRollingMessagesExpiryTime() {
+		return keepInRollingMessagesExpiryTime;
+	}
+	
+	public void setKeepInRollingMessagesExpiryTime(long keepInRollingMessagesExpiryTime) {
+		this.keepInRollingMessagesExpiryTime=keepInRollingMessagesExpiryTime;
 	}
 
 	public PersonBean getCreator() {

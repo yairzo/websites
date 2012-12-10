@@ -1,6 +1,5 @@
 package huard.iws.web;
 
-import huard.iws.bean.FinancialSupportBean;
 import huard.iws.bean.TextualPageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Attachment;
@@ -8,11 +7,14 @@ import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Category;
+import huard.iws.model.AList;
 import huard.iws.service.TextualPageService;
 import huard.iws.service.MopDeskService;
+import huard.iws.service.ListListService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -139,8 +141,19 @@ public class EditTextualPageController extends GeneralFormController {
 				model.put("showTemplate", request.getSession().getAttribute("showTemplate"));
 				request.getSession().setAttribute("showTemplate", false);
 			}
+			//categories
 			List<Category> categories = textualPageService.getCategories();
 			model.put("categories", categories);
+			//lists
+			List<AList> alists = listListService.getLists();
+			model.put("alists", alists);
+			//date
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			if (textualPageBean.getKeepInRollingMessagesExpiryTime()==0)
+				model.put("keepInRollingMessagesExpiryTime", "");
+			else
+				model.put("keepInRollingMessagesExpiryTime", formatter.format(textualPageBean.getKeepInRollingMessagesExpiryTime()));
+
 			model.put("id",textualPageBean.getId());
 			return new ModelAndView ( this.getFormView(), model);
 		}		
@@ -152,6 +165,20 @@ public class EditTextualPageController extends GeneralFormController {
 
 		int id = request.getIntParameter("id", 0);
 		logger.info("id: " + id);
+		
+		if(request.getParameter("keepInRollingMessagesExpiryTimeStr", "").equals("")){
+			textualPageBean.setKeepInRollingMessagesExpiryTime(0);
+		}
+		else{
+			try{
+				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				Date formattedDate = (Date)formatter.parse(request.getParameter("keepInRollingMessagesExpiryTimeStr", "")); 
+				textualPageBean.setKeepInRollingMessagesExpiryTime(formattedDate.getTime());
+			}
+			catch(Exception e){
+				textualPageBean.setKeepInRollingMessagesExpiryTime(0);
+			}
+		}
 		
 		if ( isFormSubmission(request.getRequest()) 
 				|| request.getParameter("action","").equals("new")
@@ -200,6 +227,12 @@ public class EditTextualPageController extends GeneralFormController {
 
 	public void setMopDeskService(MopDeskService mopDeskService) {
 		this.mopDeskService = mopDeskService;
+	}
+	
+	private ListListService listListService;
+
+	public void setListListService(ListListService listListService) {
+		this.listListService = listListService;
 	}
 	
 

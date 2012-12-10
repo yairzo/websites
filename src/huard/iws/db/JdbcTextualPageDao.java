@@ -90,6 +90,11 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 	
 	public void insertTextualPageOnline(TextualPage textualPage){
+		String keepInRollingMessagesExpiryTime="";
+		if(textualPage.getKeepInRollingMessagesExpiryTime()==0)//
+			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
+		else
+			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(textualPage.getKeepInRollingMessagesExpiryTime()).toString();
 		final String query = "insert textualPage set textualPageId = ?"+
 				", title = ?" +
 				", creatorId = ?" +
@@ -97,12 +102,12 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", requireLogin = ?" +
 				", html = ?" + 
 				", description = ?" +
-				", showImage = ?" +
-				", imageUrl = ?" +
 				", showFile = ?" +
 				", fileUrl = ?" +
 				", wrapExternalPage = ?" +
-				", externalPageUrl = ?";
+				", externalPageUrl = ?" +
+				", isMessage = ?" +
+				", keepInRollingMessagesExpiryTime = ?";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getId(),
@@ -112,15 +117,20 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getRequireLogin(),
 	    		textualPage.getHtml(),
 	    		textualPage.getDescription(),
-	    		textualPage.getShowImage(),
-	    		textualPage.getImageUrl(),
 	    		textualPage.getShowFile(),
 	    		textualPage.getFileUrl(),
 	    		textualPage.getWrapExternalPage(),
-	    		textualPage.getExternalPageUrl());
+	    		textualPage.getExternalPageUrl(),
+	    		textualPage.getIsMessage(),
+	    		keepInRollingMessagesExpiryTime);
 	}
 	
 	public void updateTextualPage(TextualPage textualPage){
+		String keepInRollingMessagesExpiryTime="";
+		if(textualPage.getKeepInRollingMessagesExpiryTime()==0)//
+			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
+		else
+			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(textualPage.getKeepInRollingMessagesExpiryTime()).toString();
 		String query = "update textualPageDraft set " +
 				" title = ?" +
 				", creatorId = ?" +
@@ -128,13 +138,13 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", requireLogin = ?" +
 				", html = ?" + 
 				", description = ?" +
-				", showImage = ?" +
-				", imageUrl = ?" +
 				", showFile = ?" +
 				", fileUrl = ?" +
 				", wrapExternalPage = ?" +
 				", externalPageUrl = ?" +
 				", categoryId = ?" +
+				", isMessage = ?" +
+				", keepInRollingMessagesExpiryTime = ?" +
 			" where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -144,13 +154,13 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getRequireLogin(),
 	    		textualPage.getHtml(),
 	    		textualPage.getDescription(),
-	    		textualPage.getShowImage(),
-	    		textualPage.getImageUrl(),
 	    		textualPage.getShowFile(),
 	    		textualPage.getFileUrl(),
 	    		textualPage.getWrapExternalPage(),
 	    		textualPage.getExternalPageUrl(),
 	    		textualPage.getCategoryId(),
+	    		textualPage.getIsMessage(),
+	    		keepInRollingMessagesExpiryTime,	    		
 	    		textualPage.getId());
 		
 		if (textualPage.getAttachment() != null && textualPage.getAttachment().getFile()!=null){
@@ -163,6 +173,11 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 	
 	public void updateTextualPageOnline(TextualPage textualPage){
+		String keepInRollingMessagesExpiryTime="";
+		if(textualPage.getKeepInRollingMessagesExpiryTime()==0)//
+			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
+		else
+			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(textualPage.getKeepInRollingMessagesExpiryTime()).toString();
 		String query = "update textualPage set " +
 				" title = ?" +
 				", creatorId = ?" +
@@ -170,13 +185,13 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", requireLogin = ?" +
 				", html = ?" + 
 				", description = ?" +
-				", showImage = ?" +
-				", imageUrl = ?" +
 				", showFile = ?" +
 				", fileUrl = ?" +
 				", wrapExternalPage = ?" +
 				", externalPageUrl = ?" +
 				", categoryId = ?" +
+				", isMessage = ?" +
+				", keepInRollingMessagesExpiryTime = ?" +
 				" where textualPageId = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -186,13 +201,13 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getRequireLogin(),
 	    		textualPage.getHtml(),
 	    		textualPage.getDescription(),
-	    		textualPage.getShowImage(),
-	    		textualPage.getImageUrl(),
 	    		textualPage.getShowFile(),
 	    		textualPage.getFileUrl(),
 	    		textualPage.getWrapExternalPage(),
 	    		textualPage.getExternalPageUrl(),
 	    		textualPage.getCategoryId(),
+	    		textualPage.getIsMessage(),
+	    		keepInRollingMessagesExpiryTime,	    		
 	    		textualPage.getId());
 	
 	}	
@@ -225,13 +240,17 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
      		textualPage.setRequireLogin(rs.getBoolean("requireLogin"));
      		textualPage.setHtml(rs.getString("html"));
      		textualPage.setDescription(rs.getString("description"));
-     		textualPage.setShowImage(rs.getBoolean("showImage"));
-     		textualPage.setImageUrl(rs.getString("imageUrl"));
      		textualPage.setShowFile(rs.getBoolean("showFile"));
      		textualPage.setFileUrl(rs.getString("fileUrl"));
      		textualPage.setWrapExternalPage(rs.getBoolean("wrapExternalPage"));
      		textualPage.setExternalPageUrl(rs.getString("externalPageUrl"));
      		textualPage.setCategoryId(rs.getInt("categoryId"));
+     		textualPage.setIsMessage(rs.getBoolean("isMessage"));
+			long keepInRollingMessagesExpiryTime = 0;
+			Timestamp keepInRollingMessagesExpiryTimeTS = rs.getTimestamp("keepInRollingMessagesExpiryTime");
+			if (keepInRollingMessagesExpiryTimeTS != null)
+				keepInRollingMessagesExpiryTime = keepInRollingMessagesExpiryTimeTS.getTime();
+			textualPage.setKeepInRollingMessagesExpiryTime(keepInRollingMessagesExpiryTime);
            return textualPage;
         }
 	};

@@ -23,9 +23,13 @@ function resetAutocomplete(funds){
 					$("#searchPhrase").val(ui.item.label);
 					$("#fundId").val(ui.item.id);
 					//alert("here");
+					 $.get('objectQuery?type=fundDesk&id='+$("#fundId").val(), function(data) {
+						 $("#deskId").val( data ).attr('selected',true);
+					 });
 				 },
 			 change: function(event, ui) {
 				 checkFund();
+				 
 				 }
 		    }
 	);
@@ -376,18 +380,48 @@ $(document).ready(function() {
 		    e.stopPropagation();//so not to start body click 
 		    e.preventDefault();//no refresh page 
 		    var addedText= $('#addedText', $(this).closest("tr")).html();
-	    	for ( var i in CKEDITOR.instances ){
-	    		   var currentInstance = i;
-	    		   break;
-	    	}
-	    	var ceditor   = CKEDITOR.instances[currentInstance];	       
+		    var instance = $('#addedText', $(this).closest("tr")).attr("class");
+	    	var ceditor   = CKEDITOR.instances[instance];	       
 	    	if(!ceditor){
-		    	$(".editor", $(this).closest("table")).click();
+		    	$(".editor", $(this).closest("table")).click();//open editor 
+			    ceditor   = CKEDITOR.instances[instance];	       
+			    //add text - insertHtml doesnt work just after opening so setData instead 
+			    var oldstr=ceditor.getData();
+			    oldstr=	oldstr.replace("</p>","");
+		    	ceditor.setData( oldstr + "<br>" +addedText);	
 	    	}
-	   		ceditor.insertHtml( "<br>" +addedText);	    		
+	    	else
+	    		ceditor.insertHtml( "<br>" +addedText);	
 		});
-		
-   
+
+		CKEDITOR.on('instanceReady', function(ev) {//putting cursor at end of text (for ie) 
+			 
+	        ev.editor.focus();
+	 
+	        var s = ev.editor.getSelection(); // getting selection
+	        var selected_ranges = s.getRanges(); // getting ranges
+	        var node = selected_ranges[0].startContainer; // selecting the starting node
+	        var parents = node.getParents(true);
+	 
+	        node = parents[parents.length - 2].getFirst();
+	 
+	        while (true) {
+	            var x = node.getNext();
+	            if (x == null) {
+	                break;
+	            }
+	            node = x;
+	        }
+	 
+	        s.selectElement(node);
+	        selected_ranges = s.getRanges();
+	        selected_ranges[0].collapse(false);  //  false collapses the range to the end of the selected node, true before the node.
+	        s.selectRanges(selected_ranges);  // putting the current selection there 
+	    });
+
+		/*$("#formAttach").hover(function(e){
+		    $("selector").css('cursor','pointer');
+		});*/
 });
 var fieldname=""; 
 function openHelp(name,mytext){
@@ -550,6 +584,10 @@ function checkFund(){
     }
     else{
     	$('#searchPhrase').prop("disabled", true);
+		//autosave
+		insertIds();
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+	    $('#form').ajaxSubmit();
     }
 }
 </script>

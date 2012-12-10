@@ -97,6 +97,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	public int insertCallOfProposal(CallOfProposal callOfProposal){
 		final String query = "insert callOfProposalDraft set title='###" + new java.util.Date().getTime() + "###'" +
 				", creatorId = ?" +
+				", publicationTime = now()" +
 				", fundId = 0" +
 				", typeId = 0" +
 				", deskId = 0" +
@@ -291,6 +292,11 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		}
 	}
 	public void updateCallOfProposalOnline(CallOfProposal callOfProposal){
+		String keepInRollingMessagesExpiryTime="";
+		if(callOfProposal.getKeepInRollingMessagesExpiryTime()==0)//
+			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
+		else
+			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(callOfProposal.getKeepInRollingMessagesExpiryTime()).toString();
 		String query = "update callOfProposal set " +
 				" title = ?" +
 				", creatorId = ?" +
@@ -330,7 +336,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	    		callOfProposal.getHasAdditionalSubmissionDates(),
 	    		callOfProposal.getFundId(),
 	    		callOfProposal.getTypeId(),
-	    		new java.sql.Timestamp(callOfProposal.getKeepInRollingMessagesExpiryTime()),
+	    		keepInRollingMessagesExpiryTime,
 	    		callOfProposal.getDeskId(),
 	    		callOfProposal.getOriginalCallWebAddress(),
 	    		callOfProposal.getRequireLogin(),

@@ -15,7 +15,7 @@
       <table width="1000" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bca2a2" dir="rtl">
         <tr>
           <td valign="top" align="center"><br>
-            <form:form id="form" name="form" method="POST" action="callOfProposal.html" commandName="command" enctype="multipart/form-data">
+            <form:form id="form" name="form" method="POST" action="callForProposal.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
  			<form:hidden path="creatorId"/>
 			
@@ -44,6 +44,7 @@
 					<h3>פרטי קול קורא מספר: ${command.id}</h3>  
 					<c:if test="${online}">
 					 מוצג כרגע באתר
+					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/infoPageViewer.jsp?ardNum=${command.id}?draft=true','_blank');return false;">תצוגה מקדימה</button>
 					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/infoPageViewer.jsp?ardNum=${command.id}','_blank');return false;">צפה בדף באתר</button>
 					&nbsp; <button class="grey" id="offline">הסר מהאתר</button>
 					&nbsp; <button class="grey" id="onlineUpdate">עדכן האתר</button>
@@ -51,7 +52,7 @@
 					<c:if test="${!online}">
 					&nbsp; <button class="grey" id="online">העלה לאתר</button>
 					</c:if>
-					</td>body
+					</td>
 				</tr>
                 <tr class="form">
                 <td colspan="4">
@@ -207,29 +208,29 @@
 						</span>
 					</div>
 					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+ 					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
  					</td>
  					</tr>
  					<tr>
 					<td colspan="3" style="text-align:right">
-					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText">מקום ההגשה ברשות למו"פ, בתאריך </span>
+					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="submissionDetails">מקום ההגשה ברשות למו"פ, בתאריך </span>
 					</td>
 					</tr>
 					<tr>
 					<td colspan="3" style="text-align:right">	
- 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText">הגשה ישירות לקרן </span><br/>	
+ 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="submissionDetails">הגשה ישירות לקרן </span><br/>	
 					</td>
 					</tr>
  					<tr>
 					<td colspan="3" style="text-align:right">	
- 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText">יש להעביר xxx עותקים לרשות למו"פ</span><br/>		
+ 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="submissionDetails">יש להעביר xxx עותקים לרשות למו"פ</span><br/>		
        				</td>
  					</tr>
 					<c:forEach items="${deskAssistants}" var="deskAssistant" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:right">
-					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText">שלח העתק בדואר אלקטרוני ל- <c:out value="${deskAssistant.degreeFullNameHebrew}"></c:out> <c:out value="${deskAssistant.title}"></c:out> <c:out value="${deskAssistant.phone}"></c:out></span>
+					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="submissionDetails">שלח העתק בדואר אלקטרוני ל- <c:out value="${deskAssistant.degreeFullNameHebrew}"></c:out> <c:out value="${deskAssistant.title}"></c:out> <c:out value="${deskAssistant.phone}"></c:out></span>
 					</td>
 					</tr>
 					</c:forEach>
@@ -260,14 +261,16 @@
 						</span>
 					</div>
 					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
  					</td>
  					</tr>
 					<c:forEach items="${deskPersons}" var="deskPerson" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:right">
-					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText"><c:out value="${deskPerson.degreeFullNameHebrew}"></c:out> <c:out value="${deskPerson.title}"></c:out> <c:out value="${deskPerson.phone}"></c:out></span>
+					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="contactPersonDetails"><a href="mailto:${deskPerson.email}"><c:out value="${deskPerson.degreeFullNameHebrew}"></c:out></a>
+					<img src="image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskPerson.title}"></c:out>
+					<img src="image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskPerson.phone}"></c:out></span>
 					</td>
 					</tr>
 					</c:forEach>
@@ -298,7 +301,7 @@
 						</span>
 					</div>
  					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
  					</td>
  					</tr>
@@ -306,7 +309,7 @@
 					<c:forEach items="${command.attachments}" var="attachment" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:right">
-						<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText"><a style="text-decoration:underline" href="fileViewer?callOfProposalId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}"
+						<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="formDetails"><a style="text-decoration:underline" href="fileViewer?callOfProposalId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}"
 								target="_blank">${attachment.title}</a> </span>
 					</td>
 					</tr>
@@ -355,7 +358,7 @@
 						</span>
 					</div>
 					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
    					</td>
  					</tr>
@@ -391,7 +394,7 @@
 						</span>
 					</div>
 					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+ 					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
  					</td>
  					</tr>
@@ -427,7 +430,7 @@
 						</span>
 					</div>
 					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
  					</td>
  					</tr>
@@ -462,7 +465,7 @@
 						</span>
 					</div>
 					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+ 					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
  					</td>
  					</tr>
@@ -497,14 +500,14 @@
 						</span>
 					</div>
 					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
  					</td>
  					</tr>
  					<c:forEach items="${deskBudgetPersons}" var="deskBudgetPerson" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:right">
-					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText">התקציב דורש את אישורו של <c:out value="${deskBudgetPerson.degreeFullNameHebrew}"></c:out> <c:out value="${deskBudgetPerson.title}"></c:out> <c:out value="${deskBudgetPerson.phone}"></c:out></span>
+					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="budgetDetails">התקציב דורש את אישורו של <c:out value="${deskBudgetPerson.degreeFullNameHebrew}"></c:out> <c:out value="${deskBudgetPerson.title}"></c:out> <c:out value="${deskBudgetPerson.phone}"></c:out></span>
 					</td>
 					</tr>
 					</c:forEach>
@@ -540,7 +543,7 @@
 						</span>
   					</div>         			
 					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
  					</td>
  					</tr>
@@ -575,7 +578,7 @@
 						</span>
 					</div>
 					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
  					</td>
  					</tr>
@@ -610,7 +613,7 @@
 						</span>
 					</div>
 					<div style="width:800;align:center;text-align:left;">
- 					<a href="" class="openEditor">עריכה</a>&nbsp;&nbsp;&nbsp;<a href="" class="closeEditor">סיום</a>
+					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
  					</td>
  					</tr>

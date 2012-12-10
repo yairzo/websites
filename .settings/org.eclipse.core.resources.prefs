@@ -1,6 +1,7 @@
-#Mon Nov 19 13:36:51 IST 2012
+#Mon Dec 10 12:26:25 IST 2012
 eclipse.preferences.version=1
 encoding//war/WEB-INF/jsp/content/editPerson/editPersonScripts.jsp=UTF-8
+encoding//war/WEB-INF/jsp/content/editPost/editPost.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/website/editTextualPageContent.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/website/editTextualPageScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/personListHelper.jsp=UTF-8

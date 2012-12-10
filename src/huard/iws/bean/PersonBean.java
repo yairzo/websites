@@ -374,7 +374,7 @@ public class PersonBean implements Serializable {
 			return false;
 		for (String privilege : privileges) {
 			for (String authority: authorities){
-				logger.info ( "Privilege: " + privilege + " Authority: " + authority);
+				//logger.info ( "Privilege: " + privilege + " Authority: " + authority);
 				if (privilege.contains(authority))
 					return true;
 			}

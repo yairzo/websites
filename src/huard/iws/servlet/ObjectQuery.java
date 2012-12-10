@@ -3,8 +3,10 @@ package huard.iws.servlet;
 import huard.iws.bean.CallOfProposalBeanOld;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.CallOfProposalOld;
+import huard.iws.model.Fund;
 import huard.iws.service.CallOfProposalServiceOld;
 import huard.iws.service.PersonService;
+import huard.iws.service.FundService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.UserPersonUtils;
 
@@ -23,6 +25,7 @@ public class ObjectQuery extends HttpServlet{
 	private ApplicationContext context = ApplicationContextProvider.getContext();
 	private PersonService personService;
 	private CallOfProposalServiceOld callOfProposalServiceOld;
+	private FundService fundService;
 
 	final static long serialVersionUID = 0;
 
@@ -89,7 +92,19 @@ public class ObjectQuery extends HttpServlet{
 			out.flush();
 			out.close();
 		}
-		
+		if (type.equals("fundDesk")){
+			Object obj = context.getBean("fundService");
+			fundService = (FundService)obj;
+			Fund fund = fundService.getFund(id);
+System.out.println("111111111111111111:"+fund.getDeskId());
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html");
+			response.setStatus(HttpServletResponse.SC_OK);
+			ServletOutputStream out = response.getOutputStream();
+			out.print(fund.getDeskId());
+			out.flush();
+			out.close();
+		}		
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res)

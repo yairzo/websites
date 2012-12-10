@@ -7,6 +7,10 @@
 
 
 $(document).ready(function() {
+	if($('.disableEditor').is(":checked"))
+    	$("#htmlDiv").hide();
+	else
+   		$("#htmlDiv").show();
 	 
 	$('form').find('input:not([type=file],[type=button])').autoSave(function(){		
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
@@ -22,6 +26,28 @@ $(document).ready(function() {
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
 	    $('#form').ajaxSubmit();
 	});
+
+	$(".date").datepicker({ dateFormat: 'dd/mm/yy', onSelect: function(){
+    	var str = $(this).val();
+       	var dt1  = str.substring(0,2); 
+       	var mon1 = str.substring(3,5); 
+       	var yr1  = str.substring(6,10);  
+       	temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
+       	var cfd = Date.parse(temp1);
+       	var date1 = new Date(cfd);
+       	var date2 = new Date();
+       	if(date2.setHours(0,0,0,0)>date1.setHours(0,0,0,0)){
+      			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+    			$("#genericDialog").dialog({ modal: false });
+  				$("#genericDialog").dialog({ height: 200 });
+				$("#genericDialog").dialog({ width: 400 });
+      			openHelp("","תאריך זה כבר עבר");
+       	}
+       	else{
+    		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+    		$('#form').ajaxSubmit();
+       	}
+   	 }});	
 	
     $("#templateDialog").dialog({
         autoOpen: false,
@@ -30,7 +56,13 @@ $(document).ready(function() {
         modal: true,
         open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
   });
-
+    $("#genericDialog").dialog({
+        autoOpen: false,
+        show: 'fade',
+        hide: 'fade',
+        modal: true,
+        open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
+  });
 	$('button.save').click(function(){
   		$(".ajaxSubmit").remove();
   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
@@ -106,9 +138,6 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	<c:if test="${showTemplate}">
-		$("#html").html('${templateHtml}');
-	</c:if>
 
 	var config=	{
 			toolbar_Full: [ ['Source','Save','-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-', 'Find','Replace','-','SelectAll','RemoveFormat' ],
@@ -116,7 +145,10 @@ $(document).ready(function() {
 			              	'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl', '-','Link','Unlink'],
 			              	['Format','Font','FontSize' ],[ 'TextColor','BGColor' ]],
             uiColor:'#F4EEE4',
-			contentsCss:'js/ckeditor/_samples/assets/output_xhtml.css',
+            //scayt_autoStartup:true,
+            //scayt_sLang:'iw_IL',
+            disableNativeSpellChecker:false,
+            contentsCss:'js/ckeditor/_samples/assets/output_xhtml.css',
 			contentsLangDirection:'rtl',
 			height:"120", 
 			width:"800",
@@ -125,12 +157,40 @@ $(document).ready(function() {
 	};
 
     $(".editor").ckeditor(config);
-	    
+	
+	//<c:if test="${showTemplate}">
+	//	$("#html").html('${templateHtml}');
+	//</c:if> 
+	
+   CKEDITOR.on('instanceReady', function() {//(for ie) 
+    if('${showTemplate}'){
+		var ceditor   = CKEDITOR.instances['html'];	  
+   		ceditor.setData('${templateHtml}');
+    }
+
+   });
+  
+    $(".disableEditor").change(function(){		
+   	    if($('.disableEditor').is(":checked"))
+    		$("#htmlDiv").hide();
+		else
+    		$("#htmlDiv").show();
+	});
+   
 		
    
 });
 
-
+var fieldname=""; 
+function openHelp(name,mytext){
+	    fieldname=name;
+	 	if(fieldname=="")
+	    	$("#genericDialog").dialog("option", "position", "center");
+	    else
+	 		$('#genericDialog').dialog({position: { my: 'top', at: 'top', of: $(name)} });
+	 	
+	    $("#genericDialog").html(mytext).dialog("open");
+} 
 
 
 </script>

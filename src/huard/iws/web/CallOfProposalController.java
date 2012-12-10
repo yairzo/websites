@@ -117,7 +117,7 @@ public class CallOfProposalController extends GeneralFormController{
 			return null;
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", callOfProposalBean.getId())	;
-		return new ModelAndView(new RedirectView("callOfProposal.html"), newModel);
+		return new ModelAndView(new RedirectView("callForProposal.html"), newModel);
 	}
 	
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
@@ -137,7 +137,7 @@ public class CallOfProposalController extends GeneralFormController{
 			logger.info("callOfProposalId " + callOfProposalId);
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",callOfProposalId);
-			return new ModelAndView ( new RedirectView("callOfProposal.html"), newModel);
+			return new ModelAndView ( new RedirectView("callForProposal.html"), newModel);
 		}
 		else{//show edit
 			CallOfProposalBean callOfProposal = (CallOfProposalBean) model.get("command");

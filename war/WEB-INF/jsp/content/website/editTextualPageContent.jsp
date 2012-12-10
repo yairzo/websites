@@ -25,7 +25,8 @@
 				<div id="templateDialog" style="display:none" dir="rtl">
 					<p>רשום כותרת לתבנית:<input type="text" name="templateTitle" id="templateTitle"/></p>
 				</div>
-				
+				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"><p>text put here</p></div>
+ 				
                 <tr>
                   <td colspan="4">
                 	<table width="1000" cellpadding="2" cellspacing="0" align="center">
@@ -44,6 +45,7 @@
 					<td colspan="4" align="right"><h3> פרטי דף טקסט מספר: ${command.id}	</h3>
 					<c:if test="${online}">
 					 מוצג כרגע באתר
+					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/pubPageViewer.jsp?ardNum=${command.id}?draft=true','_blank');return false;">תצוגה מקדימה</button>
 					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/pubPageViewer.jsp?ardNum=${command.id}','_blank');return false;">צפה בדף באתר</button>
 					&nbsp; <button class="grey" id="offline">הסר מהאתר</button>
 					&nbsp; <button class="grey" id="onlineUpdate">עדכן האתר</button>
@@ -94,7 +96,7 @@
         		        </form:select>
 					</td>
 				</tr>
-				<tr>
+ 				<tr id="htmlDiv">
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 					<table width="950">
   					<tr>
@@ -103,11 +105,11 @@
  					</td>
 					</tr>				
  					<tr>
-					<td colspan="4" align="center">
+ 					<td colspan="4" align="center">
            				<textarea class="green editor" id="html" name="html" cols="100" rows="1">${command.html }</textarea>
    					</td>
  					</tr>
- 					<tr>
+  					<tr>
  					<td colspan="4">
 						תבנית:
          				<select name="templateId" id="templateId" class="green" >
@@ -122,10 +124,9 @@
  					</td>
  					</tr>
  					</table>
- 					
  					</td>
 				</tr>	
-				<tr>
+  				<tr>
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 					<table width="950">
   					<tr>
@@ -143,65 +144,63 @@
 				</tr>	
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted" nowrap>
-       					<form:checkbox cssClass="green" path="showImage"/>
-						להציג תמונה מעל הדף
+        					<form:checkbox cssClass="green" path="isMessage"/>
+						הודעה
 					</td>
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
-						<table>
-						<tr>
-						<td style="width:200" >כתובת האינטרנט של התמונה:</td>
-						<td><form:input cssClass="green" path="imageUrl"/></td>
-						</tr>
-						</table>
-       					
+ 						 להציג בהודעות הנגללות,
+						עד לתאריך:
+						<input type="text" class="green date medium100" name="keepInRollingMessagesExpiryTimeStr"  id="keepInRollingMessagesExpiryTime" value="${keepInRollingMessagesExpiryTime}"/>
 					</td>
 				</tr>
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted" nowrap>
-       					<form:checkbox cssClass="green" path="showFile"/>
-						להציג קובץ בדף
+       					<form:checkbox cssClass="green disableEditor" path="showFile"/>
+						דף שמציג קובץ
 					</td>
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
 						<table>
 						<tr>
-						<td style="width:200">כתובת האינטרנט של הקובץ:</td>
-						<td><form:input cssClass="green" path="fileUrl"/></td>
-						</tr>
-						</table>
- 					</td>
-				</tr>
-				<tr>
-					<td colspan="4" style="border:1px #bca2a2 dotted">
-					<table width="950">
-					<tr>
-					<td style="width:300">
-					קובץ:
+						<!-- <td>
+						כתובת האינטרנט של הקובץ:
+						<form:input cssClass="green" path="fileUrl"/>
+						</td> -->
+						<td>
+ 						קובץ:
 						<c:if test="${fn:length(command.attachment.file)>0}">
 							<a style="text-decoration:underline" href="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"
 								target="_blank">קובץ מצורף</a>	
-						</c:if>					
-					</td>
-					<td colspan="3" align="right">
+						</c:if>	
+						</td>
+						<td>				
 						<span style="display: block; width: 60px; height: 27px; overflow: hidden;">
 							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון</a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="textualPageFile" id="textualPageFile"/>
 						</span>
+						</td>
+						</tr>
+						</table>
 					</td>
-					</tr>
-					</table>
- 					</td>
- 				</tr>
+				</tr>
 				
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted" nowrap>
         					<form:checkbox cssClass="green" path="wrapExternalPage"/>
-						לעטוף דף חיצוני
+						דף שמציג רשימה
 					</td>
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
  						<table>
 						<tr>
-						<td style="width:200">כתובת האינטרנט של הדף:</td>
-						<td><form:input cssClass="green" path="externalPageUrl"/></td>
+						<td>בחר/י רשימה:</td>
+						<td>
+       					<form:select path="externalPageUrl" cssClass="green" >
+      						<form:option value="0">בחר/י</form:option>
+       						<c:forEach items="${alists}" var="alist">
+	        					<form:option htmlEscape="true" value="${alist.id}"><c:out escapeXml="false" value="${alist.name}"/></form:option>
+       						</c:forEach>
+        		        </form:select>
+
+						</td>
 						</tr>
 						</table>
 					</td>
