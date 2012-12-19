@@ -77,7 +77,7 @@
 					<td width="320" style="border:1px #bca2a2 dotted" nowrap>
 						 ${compulsoryFieldSign}תאריך הגשה קובע:
 						<input type="text" class="green date submissionDate medium100" name="finalSubmissionTimeStr" id="finalSubmissionTime" value="${finalSubmissionTime}"/>&nbsp;
-						<form:checkbox cssClass="green" path="allYearSubmission"/>
+						<form:checkbox cssClass="green" path="allYearSubmission" id="allYearSubmission"/>
 						 כל השנה
 					    <div id="errorfinalSubmissionTime" title="שגיאה" dir="rtl">				
  					</td>
@@ -100,8 +100,9 @@
 					<td colspan="2" style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}מממן:
 						 <input type="text" class="green long500" id="searchPhrase" value="${selectedFund}"/> 
-						<a href="" id="changeFund">שנה/י</a>
 						<form:hidden path="fundId" id="fundId"/>
+						<a href="" id="changeFund">שנה/י</a>&nbsp;
+						<a href="temporaryFund.html?action=new" target="_blank">הוסף/י זמני</a>
 						<div id="errorfund" title="שגיאה" dir="rtl">
 					</td>
 					<td style="border:1px #bca2a2 dotted">

@@ -1,28 +1,9 @@
 <%@ page  pageEncoding="UTF-8" %>
 
-<script type="text/javascript">
 
-$(document).ready(function() {
-
-	$("#searchByTemporary").click(function(){
-		if($("#searchByTemporary").is(":checked")){
-			$("#form").append("<input type=\"hidden\" name=\"temporaryFund\" value=\"true\"/>");
-			$('#form').submit();
-		}
-		else{
-			$("#form").append("<input type=\"hidden\" name=\"temporaryFund\" value=\"false\"/>");
-			$('#form').submit();
-			
-		}
-	});
-});
-
-</script>
-	
-	
           <td align="right" bgcolor="#787669" height="20">
           		<c:set var="applicationName" value="ניהול אתר האוניברסיטה"/>
-          	        <c:set var="pageName" value="רשימת קולות קוראים"/>
+          	        <c:set var="pageName" value="רשימת דפי טקסט"/>
        	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
 
           </td>
@@ -37,33 +18,34 @@ $(document).ready(function() {
       <table width="900" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
         <tr>
           <td valign="top" align="center"><br>
-            <form:form id="form" name="form" method="POST" commandName="command" action="callForProposals.html">
+            <form:form id="form" name="form" method="POST" commandName="command" action="temporaryFunds.html">
             	<input type="hidden" id="listViewPage" name="listView.page" value="${command.listView.page}"/>
             	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
 
               <table width="800" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
-                  <td colspan="2" align="center"><h1>רשימת דפי קולות קוראים</h1>
+                  <td colspan="2" align="center"><h1>רשימת קרנות מימון זמניות</h1>
                   </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-  				   <input type="checkbox" name="searchByTemporary" id="searchByTemporary" class="green" <c:if test="${temporaryFund}">checked="checked"</c:if>/> קולות קוראים עם מממן זמני
-                 </td>
                 </tr>
                 </table>
 
 				<table width="800" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
     		<c:choose>
-    		<c:when test="${fn:length(callOfProposals) > 0}">
-			<c:forEach items="${callOfProposals}" var="callOfProposal" varStatus="varStatus">
+    		<c:when test="${fn:length(temporaryFunds) > 0}">
+			<c:forEach items="${temporaryFunds}" var="temporaryFund" varStatus="varStatus">
              <tbody>
    				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 				<td align="right">
-				<a href="callForProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.id}"></c:out></a>
+				<a href="temporaryFund.html?id=${temporaryFund.id}"><c:out value="${temporaryFund.id}"></c:out></a>
   				</td>
   				<td align="right">
-				<a href="callForProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.title}"></c:out></a>
+				<a href="temporaryFund.html?id=${temporaryFund.id}"><c:out value="${temporaryFund.name}"></c:out></a>
+				</td>
+  				<td align="right">
+				<a href="temporaryFund.html?id=${temporaryFund.id}"><c:out value="${temporaryFund.shortName}"></c:out></a>
+				</td>
+  				<td align="right">
+				<a href="temporaryFund.html?id=${temporaryFund.id}"><c:out value="${temporaryFund.financialId}"></c:out></a>
 				</td>
    	  			</tr>
   	  		</tbody>
@@ -72,7 +54,7 @@ $(document).ready(function() {
   	  		<c:otherwise>
   	  			  	<tr class="darker" style="height: 30px;">
   						<td colspan="4" align="center" style="padding: 0px 20px;">
-  							אין דפים 
+  							אין קרנות זמניות 
    						</td>
   					</tr>
   			</c:otherwise>

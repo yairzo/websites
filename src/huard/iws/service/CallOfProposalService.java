@@ -3,6 +3,7 @@ package huard.iws.service;
 import java.util.List;
 
 import huard.iws.model.CallOfProposal;
+import huard.iws.util.SearchCreteria;
 
 public interface CallOfProposalService {
 
@@ -22,10 +23,10 @@ public interface CallOfProposalService {
 
 	public void removeCallOfProposalOnline(int id);
 	
-	public List<CallOfProposal> getCallsOfProposals();
+	public List<CallOfProposal> getCallsOfProposals(boolean temporaryFund);
 
-	public List<CallOfProposal> getCallsOfProposals(boolean open);
+	public List<CallOfProposal> getCallsOfProposals(boolean temporaryFund,boolean open);
 
-	public List<CallOfProposal> getCallsOfProposals(String localeId);
+	public List<CallOfProposal> getCallsOfProposals(boolean temporaryFund,String localeId);
 
 }

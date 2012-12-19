@@ -11,6 +11,7 @@ public class FundBean {
 	private String shortName;
 	private int deskId;
 	private boolean temporary;
+	private int financialId;
 
 	private int hujiId;
 	private int parentId;
@@ -39,7 +40,7 @@ public class FundBean {
 		this.shortName = "";
 		this.deskId = 0;
 		this.temporary = false;
-
+		this.financialId=0;
 		this.hujiId = 0;
 		this.parentId = 0;
 //		this.hasForms = "";
@@ -65,6 +66,7 @@ public class FundBean {
 		this.shortName = fund.getShortName();
 		this.deskId = fund.getDeskId();
 		this.temporary = fund.isTemporary();
+		this.financialId=fund.getFinancialId();
 		this.hujiId = fund.getHujiId();
 		this.parentId = fund.getParentId();
 //		this.hasForms = fund.gethasForms();
@@ -91,6 +93,7 @@ public class FundBean {
 		fund.setShortName(shortName);
 		fund.setDeskId(deskId);
 		fund.setTemporary(temporary);
+		fund.setFinancialId(financialId);
 		fund.setHujiId(hujiId);
 		fund.setParentId(parentId);
 //		fund.sethasForms();
@@ -111,39 +114,6 @@ public class FundBean {
 		return fund;
 	}
 
-	public int getDeskId() {
-		return deskId;
-	}
-
-	public void setDeskId(int deskId) {
-		this.deskId = deskId;
-	}
-
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getShortName() {
-		return shortName;
-	}
-
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-
 	public boolean isTemporary() {
 		return temporary;
 	}
@@ -152,4 +122,68 @@ public class FundBean {
 		this.temporary = temporary;
 	}
 
+	public int getDeskId() {
+		return deskId;
+	}
+	public void setDeskId(int deskId) {
+		this.deskId = deskId;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getShortName() {
+		return shortName;
+	}
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public int getFinancialId() {
+		return financialId;
+	}
+	public void setFinancialId(int financialId) {
+		this.financialId = financialId;
+	}
+
+	public Timestamp getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Timestamp creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public int getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(int creatorId) {
+		this.creatorId = creatorId;
+	}
+
+
+	public Timestamp getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Timestamp updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getWebAddress() {
+		return webAddress;
+	}
+
+	public void setWebAddress(String webAddress) {
+		this.webAddress = webAddress;
+	}
 }

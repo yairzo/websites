@@ -32,9 +32,13 @@ public class CallOfProposalListController extends GeneralFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
-		//PageListControllerCommand command = (PageListControllerCommand) model.get("command");
-
-		List<CallOfProposal> callOfProposals = callOfProposalService.getCallsOfProposals();
+		CallOfProposalListControllerCommand command = (CallOfProposalListControllerCommand) model.get("command");
+		boolean temporaryFund=false;
+		if(request.getSession().getAttribute("temporaryFund")!=null)
+			temporaryFund =  (Boolean)request.getSession().getAttribute("temporaryFund");
+		model.put("temporaryFund", temporaryFund);
+		request.getSession().setAttribute("temporaryFund", false);
+		List<CallOfProposal> callOfProposals = callOfProposalService.getCallsOfProposals(temporaryFund);
 		List<CallOfProposalBean> callOfProposalBeans = new ArrayList<CallOfProposalBean>();
 		for (CallOfProposal callOfProposal: callOfProposals){
 			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal,false);
@@ -50,6 +54,10 @@ public class CallOfProposalListController extends GeneralFormController {
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		CallOfProposalListControllerCommand command = new CallOfProposalListControllerCommand();
+		if (isFormSubmission(request.getRequest())){//on submit
+			boolean temporaryFund = request.getBooleanParameter("temporaryFund", false);
+			request.getSession().setAttribute("temporaryFund", temporaryFund);
+		}
 		return command;
 	}
 

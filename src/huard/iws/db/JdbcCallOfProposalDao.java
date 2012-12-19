@@ -2,6 +2,7 @@ package huard.iws.db;
 
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.Attachment;
+import huard.iws.util.SearchCreteria;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -385,22 +386,31 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		getSimpleJdbcTemplate().update(query,id);
 	}
 	
-	public List<CallOfProposal> getCallsOfProposals( boolean open){
-		String query = "select * from callOfProposalDraft  ";
+	public List<CallOfProposal> getCallsOfProposals( boolean temporaryFund, boolean open){
+		String query = "select callOfProposalDraft.* from callOfProposalDraft  ";
 		if (open)
-				query += " where finalSubmissionTime > " + System.currentTimeMillis() + " or finalSubmissionTime = 0 order by title";
+				query += " where finalSubmissionTime > " + System.currentTimeMillis() + " or finalSubmissionTime = 0";
+		query += getCallOfProposalsWhereClause(temporaryFund);
 		System.out.println(query);
 		List<CallOfProposal> callOfProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callOfProposals;
 	}
 
-
-	public List<CallOfProposal> getCallsOfProposals(){
-		String query  = "select * from callOfProposalDraft order by title";
+	public List<CallOfProposal> getCallsOfProposals(boolean temporaryFund){
+		String query  = "select callOfProposalDraft.* from callOfProposalDraft";
+		query += getCallOfProposalsWhereClause(temporaryFund);
 		List<CallOfProposal> callOfProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callOfProposals;
 	}
 	
+	public String getCallOfProposalsWhereClause(boolean temporaryFund){
+		String whereClause="";
+		if (temporaryFund)
+			whereClause += ",fund where fund.financialId=callOfProposalDraft.fundId and fund.isTemporary=1 ";
+		whereClause += "  order by callOfProposalDraft.title";
+		System.out.println("111111111111111111:"+whereClause);
+		return whereClause;
+	}
 
 	private ParameterizedRowMapper<CallOfProposal> rowMapper = new ParameterizedRowMapper<CallOfProposal>(){
 		public CallOfProposal mapRow(ResultSet rs, int rowNum) throws SQLException{

@@ -181,7 +181,7 @@ public class SelectBoxFiller extends HttpServlet {
 				if (!first)
 					sb.append(",");
 				first = false;
-				String listItem = "{\"label\":\"" + fund.getName() + "\",\"id\":"+fund.getId()+"}";
+				String listItem = "{\"label\":\"" + fund.getName() + "\",\"id\":"+fund.getFinancialId()+"}";
 				sb.append(listItem);
 			}
 			sb.append("]");

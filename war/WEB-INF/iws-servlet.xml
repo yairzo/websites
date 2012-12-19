@@ -148,6 +148,7 @@
         	<bean class="huard.iws.web.validate.TextualPageValidator"/>
         </property>
      </bean>
+     
  
   	<bean id="textualPageListController" class="huard.iws.web.TextualPageListController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
@@ -159,6 +160,28 @@
         </property>
       </bean>
  
+      <bean id="editTemporaryFundController" class="huard.iws.web.EditTemporaryFundController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.FundBean</value></property>
+        <property name="formView"><value>editTemporaryFund</value></property>
+        <property name="successView"><value>temporaryFund.html</value></property>
+     	<property name="fundService">
+            <ref bean="fundService"/>
+        </property>
+    	<property name="mopDeskService">
+            <ref bean="mopDeskService"/>
+        </property>
+     </bean>
+ 
+  	<bean id="temporaryFundListController" class="huard.iws.web.TemporaryFundListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.TemporaryFundListController$TemporaryFundListControllerCommand</value></property>
+        <property name="formView"><value>temporaryFunds</value></property>
+        <property name="successView"><value>temporaryFunds.html</value></property>
+     	<property name="fundService">
+            <ref bean="fundService"/>
+        </property>
+      </bean>
      
 	<bean id="approvePostController" class="huard.iws.web.ApprovePostController" parent="generalController">
 		<property name="postService">
@@ -998,6 +1021,8 @@
 				<prop key="/textualPage.html">editTextualPageController</prop>
 				<prop key="/callForProposals.html">callOfProposalListController</prop>
 				<prop key="/textualPages.html">textualPageListController</prop>
+				<prop key="/temporaryFund.html">editTemporaryFundController</prop>
+				<prop key="/temporaryFunds.html">temporaryFundListController</prop>
             </props>
         </property>
     </bean>

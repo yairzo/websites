@@ -11,6 +11,8 @@ public interface FundService {
 
 	public Fund getFund( int id);
 
+	public Fund getFundByFinancialId(int financialId);
+
 	public void updateFund (Fund fund);
 
 	public int insertFund (Fund fund);
@@ -18,6 +20,8 @@ public interface FundService {
 	public void deleteFund (int fundId);
 
 	public List<Fund> getFunds();
+
+	public List<Fund> getTemporaryFunds();
 
 	public List<Fund> getFilteredFunds(String term);
 
@@ -32,5 +36,7 @@ public interface FundService {
 	public Integer getFundIdByShortName(String shortName);
 
 	public Fund getArdFund(int id);
+
+	public int getMaxFinancialIdForTemporary();
 
 }

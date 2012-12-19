@@ -195,7 +195,7 @@ public class CallOfProposalController extends GeneralFormController{
 			//funds
 			String selectedFund="";
 			if(callOfProposal.getFundId()>0){
-				Fund fund = fundService.getFund(callOfProposal.getFundId());
+				Fund fund = fundService.getFundByFinancialId(callOfProposal.getFundId());
 				if (fund!=null)
 					selectedFund=fund.getName();
 			}

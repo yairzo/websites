@@ -23,6 +23,10 @@ public class FundServiceImpl implements FundService{
 		return fundDao.getFund(id);
 	}
 
+	public Fund getFundByFinancialId(int financialId){
+		return fundDao.getFundByFinancialId(financialId);
+	}
+	
 	public void updateFund (Fund fund){
 		fundDao.updateFund(fund);
 	}
@@ -41,6 +45,11 @@ public class FundServiceImpl implements FundService{
 		}
 		return funds;
 	}
+	
+	public List<Fund> getTemporaryFunds(){
+		return fundDao.getTemporaryFunds();
+	}
+
 
 	public Map<Integer, Fund> getFundsMap(){
 		if (fundsMap == null){
@@ -113,6 +122,10 @@ public class FundServiceImpl implements FundService{
 
 	public Fund getArdFund(int id){
 		return fundDao.getArdFund(id, configurationService.getConfigurationString("websiteDb"));
+	}
+	
+	public int getMaxFinancialIdForTemporary(){
+		return fundDao.getMaxFinancialIdForTemporary();
 	}
 
 	private MopDeskService mopDeskService;

@@ -45,6 +45,19 @@ $(document).ready(function() {
 	    	resetAutocomplete();
 	});
 	
+	
+	if($('#allYearSubmission').is(":checked")){
+		//alert("checked");
+		$('.submissionDate').css("opacity","0.3");
+		$('.submissionDate').prop("disabled", true);
+		$('.submissionDate').val("");
+	}
+	else{
+		//alert("not checked");
+		$('.submissionDate').css("opacity","1");
+		$('.submissionDate').prop("disabled", false);
+	}
+	
 
 	$("#changeFund").click(function(e){
 		e.preventDefault();
@@ -77,12 +90,15 @@ $(document).ready(function() {
 	    $('#form').submit();
 	});
 	
-	$('#allYearCheckbox').change(function(){
-		if($('#allYearCheckbox').is(":checked")){
+	$('#allYearSubmission').change(function(){
+		if($('#allYearSubmission').is(":checked")){
+			//alert("checked");
 			$('.submissionDate').css("opacity","0.3");
 			$('.submissionDate').prop("disabled", true);
+			$('.submissionDate').val("");
 		}
 		else{
+			//alert("not checked");
 			$('.submissionDate').css("opacity","1");
 			$('.submissionDate').prop("disabled", false);
 		}

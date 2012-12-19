@@ -9,7 +9,7 @@ public class Fund {
 	private String shortName;
 	private int deskId;
 	private boolean temporary;
-
+	private int financialId;
 	private int hujiId;
 	private int parentId;
 //	private boolean hasForms;
@@ -35,7 +35,7 @@ public class Fund {
 		this.shortName = "";
 		this.deskId = 0;
 		this.temporary = false;
-
+		this.financialId=0;
 		this.hujiId = 0;
 		this.parentId = 0;
 //		this.hasForms;
@@ -63,6 +63,9 @@ public class Fund {
 	public void setTemporary(boolean temporary) {
 		this.temporary = temporary;
 	}
+	public boolean getTemporary() {
+		return temporary;
+	}
 
 	public int getDeskId() {
 		return deskId;
@@ -87,6 +90,13 @@ public class Fund {
 	}
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
+	}
+
+	public int getFinancialId() {
+		return financialId;
+	}
+	public void setFinancialId(int financialId) {
+		this.financialId = financialId;
 	}
 
 	public int getBudgetOfficerId() {

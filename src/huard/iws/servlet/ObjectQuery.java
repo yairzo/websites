@@ -95,7 +95,7 @@ public class ObjectQuery extends HttpServlet{
 		if (type.equals("fundDesk")){
 			Object obj = context.getBean("fundService");
 			fundService = (FundService)obj;
-			Fund fund = fundService.getFund(id);
+			Fund fund = fundService.getFundByFinancialId(id);
 System.out.println("111111111111111111:"+fund.getDeskId());
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");

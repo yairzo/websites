@@ -3,7 +3,7 @@ package huard.iws.service;
 import huard.iws.db.CallOfProposalDao;
 import huard.iws.model.CallOfProposal;
 import huard.iws.util.LanguageUtils;
-
+import huard.iws.util.SearchCreteria;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,17 +41,17 @@ public class CallOfProposalServiceImpl implements CallOfProposalService{
 		callOfProposalDao.removeCallOfProposalOnline(id);
 	}
 	
-	public List<CallOfProposal> getCallsOfProposals(){
-		return getCallsOfProposals(false);
+	public List<CallOfProposal> getCallsOfProposals(boolean temporaryFund){
+		return getCallsOfProposals(temporaryFund,false);
 	}
 
-	public List<CallOfProposal> getCallsOfProposals(boolean open){
-		return callOfProposalDao.getCallsOfProposals(open);
+	public List<CallOfProposal> getCallsOfProposals(boolean temporaryFund,boolean open){
+		return callOfProposalDao.getCallsOfProposals(temporaryFund,open);
 	}
 
-	public List<CallOfProposal> getCallsOfProposals(String localeId){
+	public List<CallOfProposal> getCallsOfProposals(boolean temporaryFund,String localeId){
 		List<CallOfProposal> localeCallsOfProposals = new ArrayList<CallOfProposal>();
-		for (CallOfProposal callOfProposal: getCallsOfProposals(true)){
+		for (CallOfProposal callOfProposal: getCallsOfProposals(temporaryFund,true)){
 
 			if (LanguageUtils.getLanguage(callOfProposal.getTitle()).getLocaleId().equals(localeId))
 				localeCallsOfProposals.add(callOfProposal);

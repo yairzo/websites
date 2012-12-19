@@ -23,6 +23,13 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 			getSimpleJdbcTemplate().queryForObject(personSelect, rowMapper,	id);
 		return fund;
 	}
+	
+	public Fund getFundByFinancialId(int financialId){
+		String personSelect = "select * from fund where financialId=?";
+		Fund fund =
+			getSimpleJdbcTemplate().queryForObject(personSelect, rowMapper,	financialId);
+		return fund;
+	}
 
 	private ParameterizedRowMapper<Fund> rowMapper = new ParameterizedRowMapper<Fund>(){
 		public Fund mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -32,6 +39,7 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
             fund.setShortName(rs.getString("shortName"));
             fund.setDeskId(rs.getInt("deskId"));
             fund.setTemporary(rs.getBoolean("isTemporary"));
+            fund.setFinancialId(rs.getInt("financialId"));
             fund.setHujiId(rs.getInt("hujiId"));
             fund.setParentId(rs.getInt("parentId"));
             fund.setWebAddress(rs.getString("webAddress"));
@@ -57,18 +65,19 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 				" name = ?" +
 				", shortName = ?" +
 				", deskId = ?" +
-				",  temporary = ?" +
+				", isTemporary = ?" +
+				", financialId = ?" +
 				", hujiId = ?" +
 				", parentId = ?" +
 				", webAddress = ?" +
 				", phone = ?" +
 				", fax = ?" +
 				", contact = ?" +
-				", mailAddress = ?" +
+				", email = ?" +
 				", keywords = ?" +
 				", creatorId = ?" +
 				", budgetOfficerId = ?" +
-				", finantialReporterId = ?" +
+				", financialReporterId = ?" +
 				", html = ?" +
 				", creationTime = ?" +
 				", updateTime = ?" +
@@ -78,6 +87,7 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 				fund.getShortName(),
 				fund.getDeskId(),
 				fund.isTemporary(),
+				fund.getFinancialId(),
 				fund.getHujiId(),
 				fund.getParentId(),
 				fund.getWebAddress(),
@@ -97,11 +107,12 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 
 	public int insertFund(Fund fund){
 		final String proposalInsert = "insert fund set name = ?, shortName = ?, deskId = ?" +
-				", isTemporary = ?;";
+				", isTemporary = ?, financialId=?, html='', keywords='';";
 		final String name = fund.getName();
 		final String shortName = fund.getShortName();
 		final int deskId = fund.getDeskId();
 		final boolean temporary = fund.isTemporary();
+		final int financialId = fund.getFinancialId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -112,6 +123,7 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 		            ps.setString(2, shortName);
 		            ps.setInt(3, deskId);
 		            ps.setBoolean(4, temporary);
+		            ps.setInt(5, financialId);
 		            return ps;
 		        }
 		    },
@@ -131,12 +143,20 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 		return funds;
     }
 
+	public List<Fund> getTemporaryFunds() {
+		String query = "select * from fund where isTemporary=1 order by shortName";
+		List<Fund> funds =
+			getSimpleJdbcTemplate().query(query, rowMapper);
+		return funds;
+    }
+
 	public List<Fund> getFundsByDeskId( int mopDeskId) {
 		String query = "select * from fund where deskId = ? order by shortName";
 		List<Fund> funds =
 			getSimpleJdbcTemplate().query(query, rowMapper, mopDeskId);
 		return funds;
     }
+	
 
 	public Fund getArdFund(int id, String server){
 		Fund fund = new Fund();
@@ -159,6 +179,19 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 		return fund;
 	}
 
+	public int getMaxFinancialIdForTemporary(){
+		String query = "select max(financialId) from fund where financialId>9999;";
+		logger.info(query);
+		try{
+			int id = getSimpleJdbcTemplate().queryForInt(query);
+			if(id==0)
+				return 10000;
+			return id+1;
+		}
+		catch(Exception e){
+			return 10000;
+		}
+	}
 
 
 
