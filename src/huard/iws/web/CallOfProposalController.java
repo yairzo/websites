@@ -4,6 +4,7 @@ import huard.iws.bean.CallOfProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Fund;
 import huard.iws.model.MopDesk;
+import huard.iws.model.Language;
 import huard.iws.bean.SubjectBean;
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.Subject;
@@ -14,6 +15,7 @@ import huard.iws.service.SubjectService;
 import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
 import huard.iws.util.BaseUtils;
+import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 import java.util.List;
 import java.util.ArrayList;
@@ -112,7 +114,7 @@ public class CallOfProposalController extends GeneralFormController{
 			if(callOfProposalService.existsCallOfProposalOnline(callOfProposalBean.getId()))
 				callOfProposalService.removeCallOfProposalOnline(callOfProposalBean.getId());
 		}
-//System.out.println("1111111111111111111111 ajaxSubmit:"+request.getBooleanParameter("ajaxSubmit", false));			
+
 		if (request.getBooleanParameter("ajaxSubmit", false))
 			return null;
 		Map<String, Object> newModel = new HashMap<String, Object>();
@@ -124,15 +126,13 @@ public class CallOfProposalController extends GeneralFormController{
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception	{
 		
 		int id = request.getIntParameter("id", 0);
-		Subject rootSubject = subjectService.getSubject(1, "iw_IL");
-		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, "iw_IL");
-		model.put("rootSubject", rootSubjectBean);
 		
 		
 		// if new proposal Create a new proposal and write it to db
 		if (request.getParameter("action", "").equals("new") || id == 0){
 			CallOfProposal callOfProposal= new CallOfProposal();
 			callOfProposal.setCreatorId(userPersonBean.getId());
+			callOfProposal.setLocaleId(userPersonBean.getPreferedLocaleId());
 			int callOfProposalId = callOfProposalService.insertCallOfProposal(callOfProposal);
 			logger.info("callOfProposalId " + callOfProposalId);
 			Map<String, Object> newModel = new HashMap<String, Object>();
@@ -142,6 +142,15 @@ public class CallOfProposalController extends GeneralFormController{
 		else{//show edit
 			CallOfProposalBean callOfProposal = (CallOfProposalBean) model.get("command");
 			
+			//language
+			LanguageUtils.applyLanguage(model, request, response, callOfProposal.getLocaleId());
+			LanguageUtils.applyLanguages(model);
+
+			//subjects
+			Subject rootSubject = subjectService.getSubject(1, callOfProposal.getLocaleId());
+			SubjectBean rootSubjectBean = new SubjectBean(rootSubject, callOfProposal.getLocaleId());
+			model.put("rootSubject", rootSubjectBean);
+
 			//title
 			String title="";
 			if(!callOfProposal.getTitle().startsWith("###"))
@@ -149,19 +158,30 @@ public class CallOfProposalController extends GeneralFormController{
 			model.put("title", title);
 			
 			//desk contact persons
-			List<PersonBean> deskPersons = mopDeskService.getPersonsList(callOfProposal.getDeskId(),0);
+			String budgetTitle="Budget";
+			String assistantTitle="Assistant";
+			List<PersonBean> deskPersons =new ArrayList<PersonBean>();
+			Language language= new Language();
+			language = (Language)model.get("lang");
+			if(language.getLocaleId().equals("iw_IL")){
+				budgetTitle="תקציב";
+				assistantTitle="עוזר";
+				deskPersons=mopDeskService.getPersonsList(callOfProposal.getDeskId(),0);
+			}
+			else
+				deskPersons=mopDeskService.getPersonsListEnglish(callOfProposal.getDeskId(),0);
 			model.put("deskPersons", deskPersons);
 			//desk budget officers
 			List<PersonBean> deskBudgetPersons = new ArrayList<PersonBean>();
 			for(PersonBean personBean:deskPersons){
-				if(personBean.getTitle().indexOf("תקציב")>=0)
+				if(personBean.getTitle().indexOf(budgetTitle)>=0)
 					deskBudgetPersons.add(personBean);
 			}
 			model.put("deskBudgetPersons", deskBudgetPersons);
 			//desk assistants
 			List<PersonBean> deskAssistants = new ArrayList<PersonBean>();
 			for(PersonBean personBean:deskPersons){
-				if(personBean.getTitle().indexOf("עוזר")>=0)
+				if(personBean.getTitle().indexOf(assistantTitle)>=0)
 					deskAssistants.add(personBean);
 			}
 			model.put("deskAssistants", deskAssistants);

@@ -39,6 +39,7 @@ public class CallOfProposalBean {
 	private boolean showDescriptionOnly;
 	private String submissionDetails;
 	private String contactPersonDetails;
+	private String formDetails;
 	private String description;
 	private String fundingPeriod;
 	private String amountOfGrant;
@@ -50,7 +51,7 @@ public class CallOfProposalBean {
 	private List<Integer> subjectsIds;
 	private List<Long> submissionDates;
 	private List<Attachment> attachments;
-	private String formDetails;
+	private String localeId;
 	
 	private MessageService messageService;
 	private ConfigurationService configurationService;
@@ -86,6 +87,7 @@ public class CallOfProposalBean {
 		this.budgetDetails="";
 		this.additionalInformation="";
 		this.attachments=new ArrayList<Attachment>();
+		this.localeId="";
 	}
 
 
@@ -120,6 +122,8 @@ public class CallOfProposalBean {
 		this.subjectsIds =callOfProposal.getSubjectsIds(); 
 		this.submissionDates =callOfProposal.getSubmissionDates(); 
 		this.attachments = callOfProposal.getAttachments();
+		this.localeId=callOfProposal.getLocaleId();
+
 		init(applyObjs);
 		
 	}
@@ -156,6 +160,7 @@ public class CallOfProposalBean {
 		callOfProposal.setSubjectsIds(subjectsIds);
 		callOfProposal.setSubmissionDates(submissionDates);
 		callOfProposal.setAttachments(attachments);
+		callOfProposal.setLocaleId(localeId);
 		return callOfProposal;
 	}
 
@@ -416,6 +421,15 @@ public class CallOfProposalBean {
 
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
+	}
+
+	
+	public String getLocaleId() {
+		return localeId;
+	}
+
+	public void setLocaleId(String localeId) {
+		this.localeId = localeId;
 	}
 
 	public Map <Integer, Attachment> getAttachmentsMap(){

@@ -28,6 +28,7 @@ public class JdbcMopDeskDao extends SimpleJdbcDaoSupport implements MopDeskDao {
             mopDesk.setEnglishName(rs.getString("englishName"));
             mopDesk.setAppearence(rs.getInt("appearence"));
             mopDesk.setPersonsListId(rs.getInt("personsListId"));
+            mopDesk.setPersonsListIdEnglish(rs.getInt("personsListIdEnglish"));
             return mopDesk;
         }
 	};

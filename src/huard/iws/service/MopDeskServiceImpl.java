@@ -42,6 +42,15 @@ public class MopDeskServiceImpl implements MopDeskService{
 		}
 		return titleIdPersonBeans;
 	}
+	public List<PersonBean> getPersonsListEnglish(int deskId, int titleId){
+		List<PersonBean> titleIdPersonBeans = new ArrayList<PersonBean>();
+		for (PersonBean personBean: personListService.getPersonsList( getMopDesk(deskId).getPersonsListIdEnglish())){
+			if (personBean.getTitleId() == titleId){
+				titleIdPersonBeans.add(personBean);
+			}
+		}
+		return titleIdPersonBeans;
+	}
 
 	public int getPersonDeskId(int personId){
 		for (MopDesk mopDesk: getMopDesks()){

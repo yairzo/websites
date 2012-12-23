@@ -322,6 +322,10 @@ public class PersonBean implements Serializable {
 		return (degreeHebrew == null ? "" : degreeHebrew) + " "
 				+ firstNameHebrew + " " + lastNameHebrew;
 	}
+	public String getDegreeFullNameEnglish() {
+		return (degreeEnglish == null ? "" : degreeEnglish) + " "
+				+ firstNameEnglish + " " + lastNameEnglish;
+	}
 
 	public String getFullNameHebrew() {
 		return firstNameHebrew + " " + lastNameHebrew;

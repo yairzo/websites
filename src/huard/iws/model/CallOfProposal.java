@@ -33,6 +33,7 @@ public class CallOfProposal {
 	private List<Integer> subjectsIds;
 	private List<Long> submissionDates;
 	private List<Attachment> attachments;
+	private String localeId;
 	
 	
 
@@ -290,5 +291,13 @@ public class CallOfProposal {
 		this.attachments = attachments;
 	}
 	
+	public String getLocaleId() {
+		return localeId;
+	}
+
+	public void setLocaleId(String localeId) {
+		this.localeId = localeId;
+	}
+
 
 }

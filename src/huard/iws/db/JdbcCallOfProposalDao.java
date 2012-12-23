@@ -113,9 +113,11 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", activityLocation = ''" +
 				", possibleCollaboration = ''" +
 				", budgetDetails = ''" +
-				", additionalInformation = '';";
+				", additionalInformation = ''"+
+				", localeId=?;";
 		logger.info(query);
 		final int creatorId= callOfProposal.getCreatorId();
+		final String localeId= callOfProposal.getLocaleId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -123,6 +125,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 						PreparedStatement ps =
 								connection.prepareStatement(query, new String[] {"id"});
 						ps.setInt(1, creatorId);
+						ps.setString(2, localeId);
 						return ps;
 					}
 				},
@@ -161,7 +164,8 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", activityLocation = ?" +
 				", possibleCollaboration = ?" +
 				", budgetDetails = ?" +
-				", additionalInformation = ?";
+				", additionalInformation = ?" +
+				", localeId = ?";
 		System.out.println("1111111:" + query);
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -190,7 +194,8 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	    		callOfProposal.getActivityLocation().trim(),
 	    		callOfProposal.getPossibleCollaboration().trim(),
 	    		callOfProposal.getBudgetDetails().trim(),
-	    		callOfProposal.getAdditionalInformation().trim());
+	    		callOfProposal.getAdditionalInformation().trim(),
+	    		callOfProposal.getLocaleId());
 	}
 	
 	public void updateCallOfProposal(CallOfProposal callOfProposal){
@@ -220,6 +225,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", possibleCollaboration = ?" +
 				", budgetDetails = ?" +
 				", additionalInformation = ?" +
+				", localeId = ?" +
 			" where id = ?;";
 		System.out.println(query);
 		logger.info(query);
@@ -264,6 +270,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	    		callOfProposal.getPossibleCollaboration().trim(),
 	    		callOfProposal.getBudgetDetails().trim(),
 	    		callOfProposal.getAdditionalInformation().trim(),
+	    		callOfProposal.getLocaleId(),
 				callOfProposal.getId());
 		
 		query = "delete from subjectToCallOfProposal where callOfProposalId = ?";
@@ -324,6 +331,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", possibleCollaboration = ?" +
 				", budgetDetails = ?" +
 				", additionalInformation = ?" +
+				", localeId = ?" +
 			" where callOfProposalId = ?;";
 		System.out.println("111111111111111:"+query);
 		logger.info(query);
@@ -353,6 +361,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	    		callOfProposal.getPossibleCollaboration(),
 	    		callOfProposal.getBudgetDetails(),
 	    		callOfProposal.getAdditionalInformation(),
+	    		callOfProposal.getLocaleId(),
 				callOfProposal.getId());
 		
 		/*query = "delete from subjectToCallOfProposal where callOfProposalId = ?";
@@ -458,6 +467,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
     		callOfProposal.setPossibleCollaboration(rs.getString("possibleCollaboration"));
     		callOfProposal.setBudgetDetails(rs.getString("budgetDetails"));
     		callOfProposal.setAdditionalInformation(rs.getString("additionalInformation"));
+    		callOfProposal.setLocaleId(rs.getString("localeId"));
            return callOfProposal;
         }
 	};

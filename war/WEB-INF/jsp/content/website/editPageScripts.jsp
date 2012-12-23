@@ -45,6 +45,9 @@ $(document).ready(function() {
 	    	resetAutocomplete();
 	});
 	
+	$(".langSelect").change(function(){
+		$('#form').submit();
+	});
 	
 	if($('#allYearSubmission').is(":checked")){
 		//alert("checked");
@@ -105,6 +108,7 @@ $(document).ready(function() {
 	});
 	
 	$(".date").datepicker({ dateFormat: 'dd/mm/yy', onSelect: function(){
+		var text='<fmt:message key="${lang.localeId}.callForProposal.datePassed"/>';
     	var str = $(this).val();
        	var dt1  = str.substring(0,2); 
        	var mon1 = str.substring(3,5); 
@@ -118,11 +122,12 @@ $(document).ready(function() {
     			$("#genericDialog").dialog({ modal: false });
   				$("#genericDialog").dialog({ height: 200 });
 				$("#genericDialog").dialog({ width: 400 });
-      			openHelp("","תאריך זה כבר עבר");
+      			openHelp("",text);
        	}
    	 }});	
 	
 	$(".date").change(function(event){
+		var text='<fmt:message key="${lang.localeId}.callForProposal.dateFormat"/>';
 		//check date format 
 		var str=$(this).val();
 		if(str.indexOf(".")>0)
@@ -139,7 +144,7 @@ $(document).ready(function() {
 			$("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
-  			openHelp("","יש להזין תאריך בפורמט dd/MM/yyyy");
+  			openHelp("",text);
   			$(this).val('');
     	}
 	});
@@ -163,7 +168,10 @@ $(document).ready(function() {
             showMonthAfterYear: false,
             yearSuffix: ''
         };
-        $.datepicker.setDefaults($.datepicker.regional['he']);
+        if(${lang.localeId=='iw_IL'})
+        	$.datepicker.setDefaults($.datepicker.regional['he']);
+        else
+        	$.datepicker.setDefaults();
      });
 	
     $("#genericDialog").dialog({
@@ -188,13 +196,14 @@ $(document).ready(function() {
 	});	
 
 	$('button#online').click(function(){
+		var text='<fmt:message key="${lang.localeId}.callForProposal.fieldsError"/>';
       	var errors = checkErrors();//validating fields
 		if (errors){
 	   		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 			$("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
-			openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
+			openHelp('',text);
 			return false;
 		}
 		else{
@@ -208,13 +217,14 @@ $(document).ready(function() {
 	});
 	
 	$('button#onlineUpdate').click(function(){
+		var text='<fmt:message key="${lang.localeId}.callForProposal.fieldsError"/>';
       	var errors = checkErrors();//validating fields
 		if (errors){
 	   		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 			$("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
-			openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
+			openHelp('',text);
 			return false;
 		}
 		else{
@@ -454,42 +464,42 @@ function checkErrors(){
 	var errors=false;
 	if($("#title").val()==''){
 		errors = true;
-		$("#errortitle").html('<font color="red">יש למלא שדה נושא קול קורא<font color="red"><br>');
+		$("#errortitle").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterFieldSubject"/><font color="red"><br>');
 	}
 	else{
 		$("#errortitle").html('');
 	}
 	if($("#publicationTime").val()==''){
 		errors = true;
-		$("#errorpublicationTime").html('<font color="red">יש למלא שדה תאריך פרסום<font color="red"><br>');
+		$("#errorpublicationTime").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterPublicationDate"/><font color="red"><br>');
 	}
 	else{
 		$("#errorpublicationTime").html('');
 	}
 	if($("#finalSubmissionTime").val()==''){
 		errors = true;
-		$("#errorfinalSubmissionTime").html('<font color="red">יש למלא שדה תאריך הגשה קובע<font color="red"><br>');
+		$("#errorfinalSubmissionTime").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterFinalSubmissionDate"/><font color="red"><br>');
 	}
 	else{
 		$("#errorfinalSubmissionTime").html('');
 	}
 	if($("#fundId").val()=='0'){
 		errors = true;
-		$("#errorfund").html('<font color="red">יש לבחור מממן<font color="red"><br>');
+		$("#errorfund").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterFund"/><font color="red"><br>');
 	}
 	else{
 		$("#errorfund").html('');
 	}
 	if($("#typeId").val()=='0'){
 		errors = true;
-		$("#errortype").html('<font color="red">יש לבחור את סוג הקול קורא<font color="red"><br>');
+		$("#errortype").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterType"/><font color="red"><br>');
 	}
 	else{
 		$("#errortype").html('');
 	}
 	if($("#deskId").val()=='0'){
 		errors = true;
-		$("#errordesk").html('<font color="red">יש לבחור מדור<font color="red"><br>');
+		$("#errordesk").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterDesk"/><font color="red"><br>');
 	}
 	else{
 		$("#errordesk").html('');
@@ -590,12 +600,13 @@ function insertIds(){
 
 function checkFund(){
 	//alert($("#fundId").val());
+	var text='<fmt:message key="${lang.localeId}.callForProposal.typeFundName"/>';
     if($("#fundId").val()=='0'){
   		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-  		openHelp("","יש להקליד את שם הגוף המממן ורשימה תיפתח לבחירה");
+  		openHelp("",text);
 		$('#searchPhrase').prop("disabled", false);
     }
     else{

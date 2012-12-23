@@ -9,6 +9,7 @@ public class MopDesk {
 	private String englishName;
 	private int appearence;
 	private int personsListId;
+	private int personsListIdEnglish;
 
 
 	public int getAppearence() {
@@ -28,6 +29,12 @@ public class MopDesk {
 	}
 	public void setPersonsListId(int personsListId) {
 		this.personsListId = personsListId;
+	}
+	public int getPersonsListIdEnglish() {
+		return personsListIdEnglish;
+	}
+	public void setPersonsListIdEnglish(int personsListIdEnglish) {
+		this.personsListIdEnglish = personsListIdEnglish;
 	}
 	public String getEnglishName() {
 		return englishName;
