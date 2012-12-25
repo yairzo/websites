@@ -63,6 +63,7 @@
        					</tr>
 						<tr class="form">
 						<td align="center">
+						<c:set var="callOfProposalSearch" value="true"/>
 						<%@ include file="/WEB-INF/jsp/content/editPost/subjects.jsp" %>					
 						</td>
 						</tr>

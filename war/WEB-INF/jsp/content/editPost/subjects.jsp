@@ -1,4 +1,13 @@
-<table width="500" border=0  cellspacing=2 cellpadding=2 rules="groups" dir="${lang.dir}">
+ 	<c:choose>
+    	<c:when test="${callOfProposalSearch}">
+      		<c:set var="subjectWidth" value="400"/>
+      	</c:when>
+      	<c:otherwise>
+      		<c:set var="subjectWidth" value="500"/>
+      	</c:otherwise>
+     </c:choose>
+
+<table width="${subjectWidth}" border=0  cellspacing=2 cellpadding=2 rules="groups" dir="${lang.dir}">
 
 				<tr>
                   <th colspan="8" align="center" valign="middle" bgcolor="#ded6b4"><fmt:message key="${lang.localeId}.post.selectSubjects"/> </th>
