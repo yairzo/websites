@@ -2,6 +2,7 @@ package huard.iws.db;
 
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.Attachment;
+import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.SearchCreteria;
 
 import java.sql.Connection;
@@ -395,29 +396,44 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		getSimpleJdbcTemplate().update(query,id);
 	}
 	
-	public List<CallOfProposal> getCallsOfProposals( boolean temporaryFund, boolean open){
+	/*public List<CallOfProposal> getCallsOfProposals( CallForProposalSearchCreteria searchCriteria, boolean open){
 		String query = "select callOfProposalDraft.* from callOfProposalDraft  ";
+		query += getCallOfProposalsWhereClause(searchCriteria);
 		if (open)
-				query += " where finalSubmissionTime > " + System.currentTimeMillis() + " or finalSubmissionTime = 0";
-		query += getCallOfProposalsWhereClause(temporaryFund);
+			query += " where finalSubmissionTime > " + System.currentTimeMillis() + " or finalSubmissionTime = 0";
 		System.out.println(query);
 		List<CallOfProposal> callOfProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callOfProposals;
-	}
+	}*/
 
-	public List<CallOfProposal> getCallsOfProposals(boolean temporaryFund){
+	public List<CallOfProposal> getCallsOfProposals(CallForProposalSearchCreteria searchCriteria){
 		String query  = "select callOfProposalDraft.* from callOfProposalDraft";
-		query += getCallOfProposalsWhereClause(temporaryFund);
+		query += getCallOfProposalsWhereClause(searchCriteria);
+		logger.info(query);
 		List<CallOfProposal> callOfProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callOfProposals;
 	}
 	
-	public String getCallOfProposalsWhereClause(boolean temporaryFund){
+	public String getCallOfProposalsWhereClause(CallForProposalSearchCreteria searchCriteria){
 		String whereClause="";
-		if (temporaryFund)
-			whereClause += ",fund where fund.financialId=callOfProposalDraft.fundId and fund.isTemporary=1 ";
-		whereClause += "  order by callOfProposalDraft.title";
-		System.out.println("111111111111111111:"+whereClause);
+		if (searchCriteria.getSearchByTemporaryFund())
+			whereClause += " inner join fund on fund.financialId=callOfProposalDraft.fundId";
+		whereClause += " where true";
+		if(searchCriteria.getSearchByTemporaryFund())
+			whereClause +=" and fund.isTemporary=1";
+		if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty())
+			whereClause +=" and callOfProposalDraft.finalSubmissionTime >='"+searchCriteria.getSearchBySubmissionDateFrom()+"'";
+		if(!searchCriteria.getSearchBySubmissionDateTo().isEmpty())
+			whereClause +=" and callOfProposalDraft.finalSubmissionTime <='"+searchCriteria.getSearchBySubmissionDateTo()+"'";
+		if(searchCriteria.getSearchByFund()>0)
+			whereClause +=" and callOfProposalDraft.fundId="+searchCriteria.getSearchByFund();
+		if(searchCriteria.getSearchByDesk()>0)
+			whereClause +=" and callOfProposalDraft.deskId="+searchCriteria.getSearchByDesk();
+		if(!searchCriteria.getSearchBySubjectIds().isEmpty())
+			whereClause +=" and callOfProposalDraft.id in (select distinct callOfProposalId from subjectToCallOfProposal where subjectId in ("+searchCriteria.getSearchBySubjectIds() + "))";
+		whereClause += "  order by callOfProposalDraft.id";
+		
+		logger.info(whereClause);
 		return whereClause;
 	}
 

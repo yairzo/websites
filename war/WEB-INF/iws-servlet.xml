@@ -128,6 +128,12 @@
      	<property name="callOfProposalService">
             <ref bean="callOfProposalService"/>
         </property>
+   		<property name="mopDeskService">
+            <ref bean="mopDeskService"/>
+        </property>
+    	<property name="subjectService">
+            <ref bean="subjectService"/>
+        </property>
       </bean>
      
 	<bean id="editTextualPageController" class="huard.iws.web.EditTextualPageController" parent="generalFormController">

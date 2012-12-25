@@ -507,6 +507,30 @@ function checkErrors(){
 	return errors;
 }
 
+function closeEditor(){
+	for ( var i in CKEDITOR.instances ){
+	   var currentInstance = i;
+	   break;
+	}
+	var ceditor   = CKEDITOR.instances[currentInstance];	       
+	if(ceditor){
+		$(".editorText", $(ceditor_container).closest("table")).show();
+ 		$(".textareaEditorSpan", $(ceditor_container).closest("table")).hide();
+ 		if(ceditor.getData()!='')
+ 			$(".editorText", $(ceditor_container).closest("table")).html(ceditor.getData());
+ 		else
+ 			$(".editorText", $(ceditor_container).closest("table")).html('&nbsp;');
+ 		ceditor.destroy();
+ 		ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed by reference
+ 		ceditor_container=null;
+		//autosave
+		insertIds();
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+	    $('#form').ajaxSubmit();
+	}
+	
+}
+
 function openSubject(element){
 	$(element).children("img.plus").hide();
 	$(element).children("img.minus").show();
@@ -545,29 +569,6 @@ function showRightMultipleSelectImg(parent){
 	}
 }
 
-function closeEditor(){
-		for ( var i in CKEDITOR.instances ){
-		   var currentInstance = i;
-		   break;
-		}
-		var ceditor   = CKEDITOR.instances[currentInstance];	       
-		if(ceditor){
-    		$(".editorText", $(ceditor_container).closest("table")).show();
-     		$(".textareaEditorSpan", $(ceditor_container).closest("table")).hide();
-     		if(ceditor.getData()!='')
-     			$(".editorText", $(ceditor_container).closest("table")).html(ceditor.getData());
-     		else
-     			$(".editorText", $(ceditor_container).closest("table")).html('&nbsp;');
-     		ceditor.destroy();
-     		ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed by reference
-     		ceditor_container=null;
-    		//autosave
-    		insertIds();
-    		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
-    	    $('#form').ajaxSubmit();
-		}
-		
-}
 
 function closeSubject(element){
 	$(element).children("img.minus").hide();
