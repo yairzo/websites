@@ -94,6 +94,7 @@ war/WEB-INF/jsp/conferenceProposalAffirmation.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/conferenceProposalsGrade.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/conferenceProposalsList.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/activePersonsListContent.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/content/callOfProposalsContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/conferenceProposal/conferenceProposalGradeContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/conferenceProposal/conferenceProposalListContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/conferenceProposal/conferenceProposalListContentOld.jsp svn_mime_002dtype=text%2Fplain
