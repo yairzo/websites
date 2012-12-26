@@ -186,6 +186,7 @@ public class EditTextualPageController extends GeneralFormController {
 			return textualPageBean;
 		
 		textualPageBean = new TextualPageBean(textualPageService.getTextualPage(id));
+		logger.info("textualPageBean id: " + textualPageBean.getId());
 		
 		return textualPageBean;
 	}

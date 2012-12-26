@@ -15,7 +15,7 @@ public class LocksServiceImpl implements LocksService{
 			}
 			catch (InterruptedException ie){
 				continue;
-			}	
+			}			
 		}
 		return false;
 	}

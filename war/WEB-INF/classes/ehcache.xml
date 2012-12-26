@@ -4,9 +4,10 @@
         eternal="true"
         overflowToDisk="false"
         memoryStoreEvictionPolicy="LFU" />
-    <cache name="personListCache"
+    <cache name="configurationCache"
         maxElementsInMemory="500"
         eternal="true"
         overflowToDisk="false"
-        memoryStoreEvictionPolicy="LFU" />
+        memoryStoreEvictionPolicy="LFU"
+        timeToLiveSeconds="600" />        
 </ehcache>

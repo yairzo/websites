@@ -16,24 +16,16 @@
 
  	<ehcache:config configLocation="classpath:/ehcache.xml" />
 
-    <!--<ehcache:proxy id="personDao">
-    	<bean class="huard.iws.db.JdbcPersonDao">
+    <ehcache:proxy id="configurationDao">
+    	<bean class="huard.iws.db.JdbcConfigurationDao">
     		<property name="dataSource">
            		<ref bean="dataSource"/>
         	</property>
      	</bean>
   		<ehcache:caching
       		methodName="get*"
-      		cacheName="personCache" />
-      	<ehcache:flushing
-    		methodName="deletePerson"
-    		cacheNames="personCache"
-    		when="after"/>
-    	<ehcache:flushing
-    		methodName="updatePerson"
-    		cacheNames="personCache"
-    		when="after"/>
-	</ehcache:proxy>-->
+      		cacheName="configurationCache" />
+      </ehcache:proxy>
 
 	<bean id="callOfProposalDaoOld" class="huard.iws.db.JdbcCallOfProposalDaoOld"/>
 
@@ -54,9 +46,9 @@
 	</bean>
 
 
-	<bean id="configurationDao" class="huard.iws.db.JdbcConfigurationDao">
+	<!--<bean id="configurationDao" class="huard.iws.db.JdbcConfigurationDao">
 		<property name="dataSource" ref="dataSource"/>
-	</bean>
+	</bean>-->
 
 	<bean id="subjectDao" class="huard.iws.db.JdbcSubjectDao">
 		<property name="dataSource" ref="dataSource"/>

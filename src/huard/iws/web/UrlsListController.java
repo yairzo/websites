@@ -40,7 +40,7 @@ public class UrlsListController extends GeneralFormController {
 
 		UrlListControllerCommand command = (UrlListControllerCommand) model.get("command");
 
-		String server = configurationService.getConfigurationString("websiteDb");
+		String server = configurationService.getConfigurationString("website", "websiteDb");
 
 		System.out.println("Show form search command: " + command.getSearchCreteria().getWhereClause());
 		List<PageUrl> pageUrls = urlsCheckerService.getSearchPubPagesUrls(command.getListView(), command.getSearchCreteria(),server);

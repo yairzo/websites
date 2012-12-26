@@ -21,6 +21,4 @@ public class JdbcLocksDao extends SimpleJdbcDaoSupport implements LocksDao{
 		String query = "delete from moduleLock where id = ? and subject = ? and arguments = ? and expiryTime < now()";
 		getSimpleJdbcTemplate().update(query, id, subject, arguments);
 	}
-	
-
 }

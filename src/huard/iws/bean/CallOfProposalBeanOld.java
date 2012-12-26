@@ -76,7 +76,7 @@ public class CallOfProposalBeanOld {
 	public String toString(){
 		//StringBuilder sb = new StringBuilder(messageService.getMessage("general.callOfProposal.titlePrefix", getLocaleId()));
 		StringBuilder sb = new StringBuilder();
-		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("webServer") +
+		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("website", "webServer") +
 				"/huard/infoPageViewer.jsp?ardNum=" + this.id + "\">" + title + "</a><br/> ");
 
 		sb.append("<span class=\"medium\">");

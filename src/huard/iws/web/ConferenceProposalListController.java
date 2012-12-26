@@ -51,12 +51,12 @@ public class ConferenceProposalListController extends GeneralFormController {
 			if(!insideDeadlineValue.isEmpty() && insideDeadlineValue.equals("on")){
 				cp.setIsInsideDeadline(true);
 				//assign default grade
-				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 				cp.setGrade(conferenceProposalService.getMaxGrade(cp.getApproverId(), prevdeadline)+1);
 			}
 			else{//cancel grade and rearrange grades
 				cp.setIsInsideDeadline(false);
-				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 				conferenceProposalService.rearangeGrades(cp.getGrade(), cp.getApproverId(), prevdeadline);
 				cp.setGrade(0);
 			}
@@ -67,7 +67,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			ConferenceProposalGrading conferenceProposalGrading = new ConferenceProposalGrading();
 			conferenceProposalGrading.setApproverId(request.getIntParameter("approver", 0));
 			conferenceProposalGrading.setAdminId(userPersonBean.getId());
-			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+			String deadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalDeadline");
 			logger.info("deadline : " + deadline);
 			conferenceProposalGrading.setDeadline(DateUtils.parseDate(deadline, "yyyy-MM-dd"));
 			conferenceProposalGrading.setAdminSendRemark(request.getParameter("adminSendRemarks", ""));
@@ -121,9 +121,9 @@ public class ConferenceProposalListController extends GeneralFormController {
 		model.put("searchBySubmitted", searchCommand.getSearchCreteria().getSearchBySubmitted());
 		model.put("searchByDeadline", searchCommand.getSearchCreteria().getSearchByDeadline());
 		// a list of possible proposal approvers
-		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
+		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("conferenceProposal", "proposalApproversListId")));
 		
-		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+		String deadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalDeadline");
 		List<ConferenceProposalGrading> conferenceProposalGradings = conferenceProposalListService.getAllGradingsByCurrentDeadline(deadline);
 		model.put("conferenceProposalGradings", conferenceProposalGradings);
 		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER"))
@@ -167,7 +167,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 				whereClause += " and submitted = 1";
 			}
 			
-			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+			String previousDeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 
 			int searchByDeadline = request.getIntParameter("searchByDeadline", 0);
 			if( searchByDeadline > 0){
@@ -204,7 +204,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 				//default view
 				searchCreteria = new ConferenceProposalSearchCreteria();
 				String whereClause ="";
-				String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				String previousDeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 				if(request.getParameter("type", "").equals("self") || userPersonBean.isOnlyAuthorized("CONFERENCE", "RESEARCHER")){
 					request.getSession().setAttribute("self", "1");
 					searchCreteria.setSelf(1);

@@ -16,10 +16,7 @@ import huard.iws.util.UserPersonUtils;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
@@ -41,7 +38,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		Object obj1 = context.getBean("configurationService");
 		ConfigurationService configurationService = (ConfigurationService)obj1;
 		String password = request.getParameter("password");
-		if (password != null && password.equals(configurationService.getConfigurationString("conferenceProposalCsvPassword")))
+		if (password != null && password.equals(configurationService.getConfigurationString("conferenceProposal", "conferenceProposalCsvPassword")))
 			return true;
 		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
 		if (userPersonBean.isAuthorized("WEBSITE", "ADMIN")) 
@@ -63,8 +60,8 @@ public class ConferenceProposalsCsv extends HttpServlet {
 
 			Object obj = ApplicationContextProvider.getContext().getBean("configurationService");
 			ConfigurationService configurationService = (ConfigurationService)obj;
-			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
-			String server = configurationService.getConfigurationString("server");
+			String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
+			String server = configurationService.getConfigurationString("iws","server");
 			StringBuffer cpb = generateCsvFileBuffer(prevdeadline,server);
 
 			String cps = cpb.toString();

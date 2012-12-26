@@ -29,7 +29,7 @@ public class HujiAuthorizationServiceImpl implements HujiAuthorizationService{
 		if (username.equals("00001009") && password.equals("123456"))
 			return true;
 		try{
-			String command = configurationService.getConfigurationString("hujiAuthorizationPath")
+			String command = configurationService.getConfigurationString("iws", "hujiAuthorizationPath")
 			+ "psw_tele_teleid_db "+ username+"%id "+ password +" 3 0 2> /dev/null";
 			System.out.println(command);
 			Process p = Runtime.getRuntime().exec(command);

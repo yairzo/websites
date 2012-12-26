@@ -39,7 +39,7 @@ public class PersonProposalServiceImpl implements PersonProposalService{
 			stateId = PersonProposalStates.getStateId("WAIT_DEAN_APPROVAL");
 			requiredActionsIds.add(PersonProposalRequiredActions.getRequiredActionId("APPROVE"));
 			PersonBean personBean = personListService.getPersonsListPerson(
-					configurationService.getConfigurationInt("proposalApproversListId"), personId);
+					configurationService.getConfigurationInt("conferenceProposal", "proposalApproversListId"), personId);
 			title = personBean.getTitle();
 		}
 		else if (typeId == PersonProposalTypes.getTypeId("BUDGET_OFFICER")){
@@ -54,7 +54,7 @@ public class PersonProposalServiceImpl implements PersonProposalService{
 			requiredActionsIds.add(PersonProposalRequiredActions.getRequiredActionId("ARCHIVE"));
 //TODO: the archiver should come from another desk
 			PersonBean personBean = personListService.getPersonsListPerson(
-					configurationService.getConfigurationInt("archiversListId"), personId);
+					configurationService.getConfigurationInt("fundingProposal", "archiversListId"), personId);
 			title = personBean.getTitle();
 		}
 		else if (typeId == PersonProposalTypes.getTypeId("YISSUM")){

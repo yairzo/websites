@@ -24,5 +24,6 @@
 	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-logging.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/sphinxapi.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

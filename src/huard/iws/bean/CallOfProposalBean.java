@@ -1,13 +1,5 @@
 package huard.iws.bean;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-
 import huard.iws.model.Attachment;
 import huard.iws.model.CallOfProposal;
 import huard.iws.model.Fund;
@@ -19,6 +11,11 @@ import huard.iws.service.MopDeskService;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.DateUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CallOfProposalBean {
 	private int id;
@@ -458,7 +455,7 @@ public class CallOfProposalBean {
 	
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
-		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("webServer") +
+		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("website", "webServer") +
 				"/huard/infoPageViewer.jsp?ardNum=" + this.id + "\">" + title + "</a><br/> ");
 		sb.append("<span class=\"medium\">");
 		if (fundId != 0){

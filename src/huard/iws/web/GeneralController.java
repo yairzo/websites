@@ -42,7 +42,7 @@ public abstract class GeneralController extends AbstractController{
 		String lastUpdate = calculateLastUpdate(requestWrapper);
 		model.put("lastUpdate", lastUpdate);
 
-		String showPopup =  configurationService.getConfigurationString("showPopup");
+		String showPopup =  configurationService.getConfigurationString("iws", "showPopup");
 		if(showPopup.equals("yes")){
 			String popupMessage = messageService.getMessage("iw_IL.general.popup");
 			model.put("popupMessage", popupMessage);

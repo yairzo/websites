@@ -96,6 +96,12 @@
             <ref bean="subjectDao"/>
         </property>
     </bean>
+    
+    <bean id="sphinxSearchService" class="huard.iws.service.SphinxSearchServiceImpl">
+		<property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+    </bean>
 
 	<bean id="postService" class="huard.iws.service.PostServiceImpl">
 		<property name="postDao">

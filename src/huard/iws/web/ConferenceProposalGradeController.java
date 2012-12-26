@@ -1,23 +1,17 @@
 package huard.iws.web;
 
-import huard.iws.bean.MailMessageBean;
-import huard.iws.bean.PersonBean;
 import huard.iws.bean.ConferenceProposalBean;
+import huard.iws.bean.PersonBean;
 import huard.iws.constant.Constants;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
-import huard.iws.service.MailMessageService;
-import huard.iws.service.MessageService;
-import huard.iws.service.RecordProtectService;
 import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
-import huard.iws.util.SearchCreteria;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +38,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		
 		
 		String action = request.getParameter("action", "");
-		String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+		String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 		if (action.equals("movedown") && gradeCommand.getConferenceProposalId()>0 ){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
 			if(cp.getGrade()<conferenceProposalService.getMaxGrade(cp.getApproverId(),prevdeadline))
@@ -68,7 +62,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			return new ModelAndView( new RedirectView("conferenceProposal.html"),newModel);
 		}*/
 		if (action.equals("stopGrading")){
-			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+			String deadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalDeadline");
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !request.getSession().getAttribute("approverId").equals(""))//if admin enters on behalf of approver
 				conferenceProposalListService.updateLastGradingByApproverDeadline(new Integer(request.getSession().getAttribute("approverId").toString()).intValue(),deadline,request.getParameter("deadlineRemarks", ""));
 			else
@@ -80,7 +74,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			request.getSession().setAttribute("userMessage", userMessage);
 		}
 		if (action.equals("saveDeadlineRemarks")){
-			String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+			String previousDeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !request.getSession().getAttribute("approverId").equals(""))//if admin enters on behalf of approver
 				conferenceProposalService.updateDeadlineRemarks(new Integer(request.getSession().getAttribute("approverId").toString()).intValue(),previousDeadline,request.getParameter("deadlineRemarks", ""));
 			else
@@ -115,7 +109,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			grader = request.getIntParameter("approverId",0);
 		else
 			grader = userPersonBean.getId();
-		String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+		String deadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalDeadline");
 		ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(grader,deadline);
 		model.put("adminDeadlineRemarks",conferenceProposalGrading.getAdminSendRemark());
 		if(conferenceProposalGrading.getFinishedGradingDate()>1000)
@@ -131,7 +125,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
 		ConferenceProposalGradeCommand gradeCommand = new ConferenceProposalGradeCommand();
-		String previousDeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+		String previousDeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 		String whereClause = " submitted=1 and date(deadline)>'"+previousDeadline +"' and isInsideDeadline=1";
 		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !request.getParameter("approverId","").equals(""))//if admin enters on behalf of approver
 			request.getSession().setAttribute("approverId",request.getParameter("approverId",""));

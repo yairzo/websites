@@ -5,15 +5,11 @@ import huard.iws.bean.FinancialSupportBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.Faculty;
-import huard.iws.model.FinancialSupport;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
-import huard.iws.service.MailMessageService;
-import huard.iws.service.MessageService;
-import huard.iws.service.PersonListService;
 import huard.iws.service.LocksService;
-
+import huard.iws.service.PersonListService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.RequestWrapper;
 
@@ -193,7 +189,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		if(!request.getParameter("isInsideDeadline","").equals("")){ 
 				conferenceProposalBean.setIsInsideDeadline(true);
 				//assign default grade
-				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 				conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
 		}
 		else{
@@ -209,7 +205,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 			else{
 				//assign default grade
-				String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+				String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 				conferenceProposalBean.setGrade(conferenceProposalService.getMaxGrade(conferenceProposalBean.getApproverId(), prevdeadline)+1);
 			}
 			//send mail to approver
@@ -231,7 +227,7 @@ public class ConferenceProposalController extends GeneralFormController{
 				conferenceProposalBean.setSubmitted(false);
 				conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
 				if(origConferenceProposalBean.getGrade()>0){
-					String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+					String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 					conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
 					conferenceProposalBean.setGrade(0);
 				}
@@ -250,7 +246,7 @@ public class ConferenceProposalController extends GeneralFormController{
 				conferenceProposalBean.setSubmitted(false);
 				conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
 				if(origConferenceProposalBean.getGrade()>0){
-					String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+					String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 					conferenceProposalService.rearangeGrades(conferenceProposalBean.getGrade(), conferenceProposalBean.getApproverId(), prevdeadline);
 					conferenceProposalBean.setGrade(0);
 				}
@@ -300,7 +296,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			int researcherId = request.getIntParameter("researcherId", userPersonBean.getId());
 			conferenceProposal.setPersonId(researcherId);
 			conferenceProposal.setCreatorId(userPersonBean.getId());
-			String deadline = configurationService.getConfigurationString("conferenceProposalDeadline");
+			String deadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalDeadline");
 			logger.info("Deadline on new proposal: " + deadline);
 			conferenceProposal.setDeadline(DateUtils.parseDate(deadline, "yyyy-MM-dd"));
 			int conferenceProposalId = conferenceProposalService.insertConferenceProposal(conferenceProposal);
@@ -321,7 +317,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			model.put("firstVersion", request.getSession().getAttribute("firstVersion"));
 			model.put("lastVersion", request.getSession().getAttribute("lastVersion"));
 			// a list of possible proposal approvers
-			model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
+			model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("conferenceProposal", "proposalApproversListId")));
 			ConferenceProposalBean conferenceProposal = (ConferenceProposalBean) model.get("command");
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER") && !userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE") && !userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER") && conferenceProposal.getResearcher().getId()!=userPersonBean.getId()){
 				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
@@ -347,7 +343,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			}
 			model.put("internalIdString", internalIdString);
 			model.put("committeeRemarksWithLineBreaks", conferenceProposal.getCommitteeRemarks().replace("\n", "<br/>"));
-			String prevdeadline = configurationService.getConfigurationString("conferenceProposalPrevDeadline");
+			String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 			model.put("maxGrade",conferenceProposalService.getMaxGrade(conferenceProposal.getApproverId(),prevdeadline));
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER")){
 				if(conferenceProposal.getResearcher().getId()==userPersonBean.getId())

@@ -30,14 +30,14 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 		else 
 			runsInterval = RUNS_INTERVAL;
 
-		List<CallOfProposalOld> callOfProposals = pagesWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,configurationService.getConfigurationString("websiteDb"));
+		List<CallOfProposalOld> callOfProposals = pagesWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,configurationService.getConfigurationString("website", "websiteDb"));
 
 		System.out.println("InfoPagesIndexer: Indexing "+callOfProposals.size()+" pages.");
 		if (callOfProposals.size()>0) 
-			pagesWordsIndexerDao.deleteLatelyUpdatedInfoPagesFromIndexTable(callOfProposals,init,configurationService.getConfigurationString("websiteDb"));
+			pagesWordsIndexerDao.deleteLatelyUpdatedInfoPagesFromIndexTable(callOfProposals,init,configurationService.getConfigurationString("website", "websiteDb"));
 
 		Map<String, String> desksPersonsMap = new HashMap<String, String>();
-		List<Desk> desks = pagesWordsIndexerDao.getDesks(configurationService.getConfigurationString("websiteDb"));
+		List<Desk> desks = pagesWordsIndexerDao.getDesks(configurationService.getConfigurationString("website", "websiteDb"));
 		for (Desk desk: desks){
 			try{
 				List<PersonBean> deskPersonsEnglish = personListService.getPersonsList(desk.getEnglishListId());
@@ -114,9 +114,9 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 				}
 			}
 			counter += pagesWordsIndexerDao.insertWordsToInfoPagesIndexTable(actualWordsList, callOfProposal.getId(), 
-					configurationService.getConfigurationString("websiteDb"));
+					configurationService.getConfigurationString("website", "websiteDb"));
 		}
-		pagesWordsIndexerDao.purgeInfoPagesIndexTable(configurationService.getConfigurationString("websiteDb"));
+		pagesWordsIndexerDao.purgeInfoPagesIndexTable(configurationService.getConfigurationString("website", "websiteDb"));
 		System.out.println("InfoPagesIndexer: Indexed " + counter + " words in " + callOfProposals.size() + "call of proposals");
 	}
 
@@ -148,10 +148,10 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 			runsInterval = new Date().getTime();
 		else 
 			runsInterval = RUNS_INTERVAL;
-		List<TextualPageOld> textualPages = pagesWordsIndexerDao.getLatelyUpdatedPubPages(runsInterval,configurationService.getConfigurationString("websiteDb"));
+		List<TextualPageOld> textualPages = pagesWordsIndexerDao.getLatelyUpdatedPubPages(runsInterval,configurationService.getConfigurationString("website", "websiteDb"));
 
 		if (textualPages.size()>0) 
-			pagesWordsIndexerDao.deleteLatelyUpdatedPubPagesFromIndexTable(textualPages, init,configurationService.getConfigurationString("websiteDb"));
+			pagesWordsIndexerDao.deleteLatelyUpdatedPubPagesFromIndexTable(textualPages, init,configurationService.getConfigurationString("website", "websiteDb"));
 
 		logger.info("PubPagesIndexer Indexing "+textualPages.size()+" pages.");
 
@@ -243,7 +243,7 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 	}
 	
 	private String getWebsiteDb(){
-		return configurationService.getConfigurationString("websiteDb");
+		return configurationService.getConfigurationString("website", "websiteDb");
 	}
 
 

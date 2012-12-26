@@ -1,5 +1,10 @@
 package huard.iws.service;
 
+import huard.iws.bean.PersonBean;
+import huard.iws.bean.ProposalBean;
+import huard.iws.db.FundDao;
+import huard.iws.model.Fund;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,12 +12,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import huard.iws.bean.PersonBean;
-import huard.iws.bean.ProposalBean;
-import huard.iws.db.FundDao;
-import huard.iws.model.Fund;
-import huard.iws.model.Person;
 
 public class FundServiceImpl implements FundService{
 	private List<Fund> funds;
@@ -121,7 +120,7 @@ public class FundServiceImpl implements FundService{
 	}
 
 	public Fund getArdFund(int id){
-		return fundDao.getArdFund(id, configurationService.getConfigurationString("websiteDb"));
+		return fundDao.getArdFund(id, configurationService.getConfigurationString("website", "websiteDb"));
 	}
 	
 	public int getMaxFinancialIdForTemporary(){
