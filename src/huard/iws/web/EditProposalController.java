@@ -373,7 +373,7 @@ public class EditProposalController extends GeneralFormController {
 					&& proposalBean.getDeanId() > 0){
 				PersonBean dean =
 					personListService.getPersonsListPerson(
-							configurationService.getConfigurationInt("proposalApproversListId")
+							configurationService.getConfigurationInt("conferenceProposal", "proposalApproversListId")
 							, proposalBean.getDeanId());
 				mailMessageService.createSimpleProposalMail(dean, userPersonBean, proposalBean, "deanApprovalRequest");
 				ProposalStateDetails proposalStateDetails = proposalStateService.getProposalStateDetails("DEAN_WAIT");
@@ -439,7 +439,8 @@ public class EditProposalController extends GeneralFormController {
 
 				// TODO: here the person should be taken from the desk that includes the archive
 				// and not from the desk that handles the funding agency
-				List<PersonBean> archivers = personListService.getPersonsList(configurationService.getConfigurationInt("archiversListId"));
+				List<PersonBean> archivers = 
+						personListService.getPersonsList(configurationService.getConfigurationInt("fundingProposa", "archiversListId"));
 				// we arbitarry chose one of the archivers.
 				Long archiverIndex = Math.round(Math.random() * (archivers.size() - 1));
 				PersonBean archiver = archivers.get(archiverIndex.intValue());
@@ -566,7 +567,7 @@ public class EditProposalController extends GeneralFormController {
 
 		// let's add the model a list of possible proposal approvers
 
-		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("proposalApproversListId")));
+		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("fundingProposa", "proposalApproversListId")));
 
 
 		// let's add the model a list of continents
@@ -831,7 +832,7 @@ public class EditProposalController extends GeneralFormController {
 			proposalStateHistoryService.insertProposalState(proposalBean.getStateId(), "SEND_YISSUM", proposalBean, userPersonBean, "Researcher");
 			// It's assumed there is only one person in Yissum, otherwise we'll need to let user choose
 			PersonBean yissumPerson = personListService.getPersonsListPerson(
-					configurationService.getConfigurationInt("yissumApproversListId"));
+					configurationService.getConfigurationInt("fundingProposa", "yissumApproversListId"));
 			mailMessageService.createSimpleProposalMail(yissumPerson, userPersonBean, proposalBean, "yissumApprovalRequest");
 			preupdateProposal.setYissumSend(true);
 			personProposalService.insertPersonProposal(yissumPerson.getId(), proposalBean,

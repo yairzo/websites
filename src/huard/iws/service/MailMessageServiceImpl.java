@@ -41,7 +41,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 
 	private String getServer(){
 		if (server == null){
-			server = configurationService.getConfigurationString("server");
+			server = configurationService.getConfigurationString("iws", "server");
 		}
 		return server;
 	}
@@ -78,7 +78,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 
 		String message = messageService.getMessage(recipient.getPreferedLocaleId() + ".post.subscription.message",
 				new String[] {recipient.getPreferedLocaleDegreeFullName(),
-					configurationService.getConfigurationString("server"),	""+recipient.getId(), md5});
+					configurationService.getConfigurationString("iws", "server"),	""+recipient.getId(), md5});
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("message", message);
 		model.put("language", LanguageUtils.getLanguagesMap().get(recipient.getPreferedLocaleId()));
@@ -91,7 +91,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String subject = messageService.getMessage(recipient.getPreferedLocaleId() + ".conference.subscription.subject");
 		String message = messageService.getMessage(recipient.getPreferedLocaleId() + ".conference.subscription.message",
 				new String[] {recipient.getPreferedLocaleDegreeFullName(),
-					configurationService.getConfigurationString("server"),	""+recipient.getId(), md5});
+					configurationService.getConfigurationString("iws", "server"),	""+recipient.getId(), md5});
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("message", message);
 		model.put("language", LanguageUtils.getLanguagesMap().get(recipient.getPreferedLocaleId()));
@@ -134,14 +134,14 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("recipient", recipient.getDegreeFullNameHebrew());
 		//to
 		String [] to = new String[1];
-		Boolean isSendToApprover = Boolean.parseBoolean(configurationService.getConfigurationString("sendMailsToConferenceApprovers"));
+		Boolean isSendToApprover = Boolean.parseBoolean(configurationService.getConfigurationString("conferenceProposal", "sendMailsToConferenceApprovers"));
 		if (isSendToApprover)
 			to[0] = recipient.getEmail();
 		else
 			to[0] = CONFERENCE_PROPOSAL_MAIL_ADDRESS;
 		//cc
 		List<Person> ccPersons = new ArrayList<Person>();
-		for (PersonBean personBean : personListService.getPersonsList(configurationService.getConfigurationInt("conferenceProposalAdminListId"))){
+		for (PersonBean personBean : personListService.getPersonsList(configurationService.getConfigurationInt("conferenceProposal", "conferenceProposalAdminListId"))){
 			ccPersons.add(personBean.toPerson());
 		}
 		String [] cc = BaseUtils.toEmailsArray(ccPersons);
@@ -176,7 +176,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("message", messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);
-		Boolean isSendToApprover = Boolean.parseBoolean(configurationService.getConfigurationString("sendMailsToConferenceApprovers"));
+		Boolean isSendToApprover = Boolean.parseBoolean(configurationService.getConfigurationString("conferenceProposal", "sendMailsToConferenceApprovers"));
 		String to;
 		if (isSendToApprover)
 			to = recipient.getEmail();
@@ -191,7 +191,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String subject = messageService.getMessage("iw_IL.eqfSystem.editConferenceProposal.mailMessage."+messageKey+".subject");
 		//to
 		List<Person> recipientPersons = new ArrayList<Person>();
-		for (PersonBean personBean : personListService.getPersonsList(configurationService.getConfigurationInt("conferenceProposalAdminListId"))){
+		for (PersonBean personBean : personListService.getPersonsList(configurationService.getConfigurationInt("conferenceProposal", "conferenceProposalAdminListId"))){
 			recipientPersons.add(personBean.toPerson());
 		}
 		String [] to = BaseUtils.toEmailsArray(recipientPersons);
@@ -290,7 +290,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 	}
 
 	public void informAdminsOnUnknownFund(ProposalBean proposal, Fund fund){
-		List<PersonBean> admins = personListService.getPersonsList(configurationService.getConfigurationInt("adminsListId"));
+		List<PersonBean> admins = personListService.getPersonsList(configurationService.getConfigurationInt("fundingProposal", "adminsListId"));
 		FundBean fundBean = new FundBean(fund);
 		for (PersonBean admin: admins){
 			createSimpleFundMail(admin, proposal, fundBean, "informAdminOnUnknownFund");
@@ -381,17 +381,17 @@ public class MailMessageServiceImpl implements MailMessageService{
 
 
 		resources.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("imagesPath") + "corner_left.jpg"));
+				configurationService.getConfigurationString("iws", "imagesPath") + "corner_left.jpg"));
 		if (needsBulletImage)
 			resources.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("imagesPath") + "bullet.gif"));
+				configurationService.getConfigurationString("iws", "imagesPath") + "bullet.gif"));
 
 		if (needsAttachmentImage)
 			resources.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("imagesPath") + "attach.jpg"));
+				configurationService.getConfigurationString("iws", "imagesPath") + "attach.jpg"));
 		for (int itemTypeId: existingItemTypes){
 			resources.add( new FileSystemResourceWrapper (
-					configurationService.getConfigurationString("imagesPath") + "corner_"+itemTypeId+".jpg"));
+					configurationService.getConfigurationString("iws", "imagesPath") + "corner_"+itemTypeId+".jpg"));
 		}
 
 		List<Attachment> attachments = new ArrayList<Attachment>();
@@ -451,7 +451,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 	private List<FileSystemResourceWrapper> getCommonResources(){
 		List<FileSystemResourceWrapper> resources = new ArrayList<FileSystemResourceWrapper>();
 		resources.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("imagesPath") + "header_post.jpg"));
+				configurationService.getConfigurationString("iws", "imagesPath") + "header_post.jpg"));
 		return resources;
 	}
 

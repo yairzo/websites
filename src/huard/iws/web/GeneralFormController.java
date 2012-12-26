@@ -107,14 +107,14 @@ public abstract class GeneralFormController extends SimpleFormController
 				model.put("userMessage", userMessage);
 			}
 
-			model.put("server", configurationService.getConfigurationString("server"));
+			model.put("server", configurationService.getConfigurationString("iws", "server"));
 
 			String lastUpdate = calculateLastUpdate(requestWrapper);
 			model.put("lastUpdate", lastUpdate);
 
 			LanguageUtils.applyLanguage(model, requestWrapper, response, userPersonBean.getPreferedLocaleId());
 
-			String showPopup =  configurationService.getConfigurationString("showPopup");
+			String showPopup =  configurationService.getConfigurationString("iws", "showPopup");
 			if(showPopup.equals("yes")){
 				String popupMessage = messageService.getMessage("iw_IL.general.popup");
 				model.put("popupMessage", popupMessage);

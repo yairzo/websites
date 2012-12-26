@@ -158,7 +158,7 @@ public class EditPostController extends GeneralFormController {
 		LanguageUtils.applyLanguage(model, request, response, postBean.getLocaleId());
 		LanguageUtils.applyLanguages(model);
 
-		int listId = configurationService.getConfigurationInt("postCreatorsListId");
+		int listId = configurationService.getConfigurationInt("post","postCreatorsListId");
 
 		List<PersonBean> senders = personListService.getPersonsList(listId, postBean.getLocaleId());
 		model.put("senders", senders);

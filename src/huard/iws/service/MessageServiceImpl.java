@@ -97,7 +97,7 @@ public class MessageServiceImpl implements MessageService{
 			List<FileSystemResourceWrapper> resources)
 		throws MessagingException, UnsupportedEncodingException{
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-		sender.setHost(configurationService.getConfigurationString("smtpServer"));
+		sender.setHost(configurationService.getConfigurationString("iws", "smtpServer"));
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 		helper.setTo(mailMessage.getTo());

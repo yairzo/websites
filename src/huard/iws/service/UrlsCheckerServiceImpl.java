@@ -21,7 +21,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 	private static final Logger logger = Logger.getLogger(UrlsCheckerServiceImpl.class);
 	
 	public void buildInfoPagesURLsTable(Integer ardNum){
-		String server = configurationService.getConfigurationString("websiteDb");
+		String server = configurationService.getConfigurationString("website", "websiteDb");
 		urlsCheckerDao.markExistingRowsInInfoPagesUrls(server);
 		List<CallOfProposalOld> callOfProposals = callOfProposalDaoOld.getAliveTabledInfoPages(ardNum,server);
 		for (CallOfProposalOld callOfProposal: callOfProposals){
@@ -42,7 +42,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 
 	
 	public void buildPubPagesURLsTable(Integer ardNum){
-		String server = configurationService.getConfigurationString("websiteDb");
+		String server = configurationService.getConfigurationString("website", "websiteDb");
 		urlsCheckerDao.markExistingRowsInPubPagesUrls(server);
 		List<TextualPageOld> pubPages = urlsCheckerDao.getAliveAndOnSitePubPages(ardNum,server);
 		for (TextualPageOld pubPage: pubPages){
@@ -110,7 +110,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 	}
 
 	public void updateURLsStatusAndSizeInInfoPagesURLsTable(Integer ardNum, String pathToApp){
-		String server = configurationService.getConfigurationString("websiteDb");
+		String server = configurationService.getConfigurationString("website", "websiteDb");
 		List<PageUrl> pagesUrls = urlsCheckerDao.getInfoPagesUrls(ardNum,server);
 		for (PageUrl pageUrl: pagesUrls){
 			pageUrl = updateURLsStatusAndSize(pageUrl, pathToApp);
@@ -120,7 +120,7 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 	}	
 
 	public void updateURLsStatusAndSizeInPubPagesURLsTable(Integer ardNum, String pathToApp){
-		String server = configurationService.getConfigurationString("websiteDb");
+		String server = configurationService.getConfigurationString("website", "websiteDb");
 		List<PageUrl> pagesUrls = urlsCheckerDao.getPubPagesUrls(server);
 		for (PageUrl pageUrl: pagesUrls){
 			pageUrl = updateURLsStatusAndSize(pageUrl, pathToApp);
