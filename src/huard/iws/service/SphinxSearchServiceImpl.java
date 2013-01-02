@@ -18,8 +18,10 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 
 	public SphinxSearchServiceImpl () {
 		try{
-			String host = configurationService.getConfigurationString("sphinx", "host");
-			int port = configurationService.getConfigurationInt("sphinx", "port");
+			//String host = configurationService.getConfigurationString("sphinx", "host");
+			//int port = configurationService.getConfigurationInt("sphinx", "port");
+			String host = "";
+			int port = 9312;
 			int mode = SphinxClient.SPH_MATCH_ALL;
 			int offset = 0;
 			int limit = 20;
@@ -148,7 +150,7 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 
 	public static void main (String [] args){
 		SphinxSearchServiceImpl sphinxSearchServiceImpl = new SphinxSearchServiceImpl();
-		sphinxSearchServiceImpl.getResult("google","callOfProposal");
+		sphinxSearchServiceImpl.getResult("google","call_for_proposal_index");
 	}
 	
 	

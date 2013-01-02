@@ -429,6 +429,10 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 			whereClause +=" and callOfProposalDraft.fundId="+searchCriteria.getSearchByFund();
 		if(searchCriteria.getSearchByDesk()>0)
 			whereClause +=" and callOfProposalDraft.deskId="+searchCriteria.getSearchByDesk();
+		if(searchCriteria.getSearchByType()>0)
+			whereClause +=" and callOfProposalDraft.typeId="+searchCriteria.getSearchByType();
+		if(!searchCriteria.getSearchBySearchWords().isEmpty())
+			whereClause +=" and callOfProposalDraft.id in ("+searchCriteria.getSearchBySearchWords() + ")";
 		if(!searchCriteria.getSearchBySubjectIds().isEmpty())
 			whereClause +=" and callOfProposalDraft.id in (select distinct callOfProposalId from subjectToCallOfProposal where subjectId in ("+searchCriteria.getSearchBySubjectIds() + "))";
 		whereClause += "  order by callOfProposalDraft.id";

@@ -29,6 +29,12 @@
                 	 	<tr>
                  		 <td align="center"><h1>סינון קולות קוראים</h1>	</td>
                 		</tr>
+                		<tr class="form">
+							<td>
+						 	<fmt:message key="${lang.localeId}.callForProposal.searchWords"/>
+							<input type="text" class="green" style="width:400px" name="searchWords"/> 
+							</td>
+						</tr>
  						<tr class="form">
 						<td>
    			   			תאריך הגשה בין - <input type="text" name="submissionDateFrom" class="green date medium100"/>
@@ -46,6 +52,18 @@
 	        					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${mopDesk.englishName}"/></c:if>
 	        					</option>
        						</c:forEach>
+        		        </select>
+						</td>
+						</tr>
+ 						<tr class="form">
+						<td>
+						<fmt:message key="${lang.localeId}.callForProposal.type"/>
+         				<select name="typeId"  class="green" >
+      						<option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></option>
+      						<option value="1"><fmt:message key="${lang.localeId}.callForProposal.researchGrant"/></option>
+      						<option value="2"><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></option>
+      						<option value="3"><fmt:message key="${lang.localeId}.callForProposal.conference"/></option>
+      						<option value="4"><fmt:message key="${lang.localeId}.callForProposal.scholarship"/></option>
         		        </select>
 						</td>
 						</tr>

@@ -134,6 +134,9 @@
     	<property name="subjectService">
             <ref bean="subjectService"/>
         </property>
+    	<property name="sphinxSearchService">
+            <ref bean="sphinxSearchService"/>
+        </property>
       </bean>
      
 	<bean id="editTextualPageController" class="huard.iws.web.EditTextualPageController" parent="generalFormController">

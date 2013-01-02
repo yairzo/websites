@@ -6,6 +6,7 @@ import huard.iws.bean.SubjectBean;
 import huard.iws.service.CallOfProposalService;
 import huard.iws.service.MopDeskService;
 import huard.iws.service.SubjectService;
+import huard.iws.service.SphinxSearchService;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
@@ -17,9 +18,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -85,6 +88,12 @@ public class CallOfProposalListController extends GeneralFormController {
 			searchCreteria.setSearchByFund(request.getIntParameter("fundId", 0));
 			searchCreteria.setSearchByDesk(request.getIntParameter("deskId", 0));
 			searchCreteria.setSearchBySubjectIds(request.getParameter("subjectsIdsString", ""));
+			searchCreteria.setSearchByType(request.getIntParameter("typeId", 0));
+			Set<Long> sphinxIds=new LinkedHashSet<Long>();
+			if(!request.getParameter("searchWords", "").isEmpty())
+				sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_draft_index"));
+			System.out.println("xxxxxxxxxxxx:"+sphinxIds.size());
+			searchCreteria.setSearchBySearchWords(sphinxIds);
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 		}
 		else{//on show
@@ -142,5 +151,10 @@ public class CallOfProposalListController extends GeneralFormController {
 		this.subjectService = subjectService;
 	}
 	
+	private SphinxSearchService sphinxSearchService;
+
+	public void setSphinxSearchService(SphinxSearchService sphinxSearchService) {
+		this.sphinxSearchService = sphinxSearchService;
+	}
 
 }
