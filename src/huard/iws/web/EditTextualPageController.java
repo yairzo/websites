@@ -11,6 +11,7 @@ import huard.iws.model.AList;
 import huard.iws.service.TextualPageService;
 import huard.iws.service.MopDeskService;
 import huard.iws.service.ListListService;
+import huard.iws.service.CategoryService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 
@@ -142,7 +143,8 @@ public class EditTextualPageController extends GeneralFormController {
 				request.getSession().setAttribute("showTemplate", false);
 			}
 			//categories
-			List<Category> categories = textualPageService.getCategories();
+			Category rootCategory = categoryService.getRootCategory();
+			List<Category> categories = categoryService.getlanguageRootCategories(rootCategory.getId());
 			model.put("categories", categories);
 			//lists
 			List<AList> alists = listListService.getLists();
@@ -236,5 +238,9 @@ public class EditTextualPageController extends GeneralFormController {
 		this.listListService = listListService;
 	}
 	
-
+	private CategoryService categoryService;
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
+	
 }

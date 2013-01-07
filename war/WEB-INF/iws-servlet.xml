@@ -153,6 +153,9 @@
     	<property name="listListService">
             <ref bean="listListService"/>
         </property>
+   		<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>
         <property name="validator">
         	<bean class="huard.iws.web.validate.TextualPageValidator"/>
         </property>
@@ -166,6 +169,29 @@
         <property name="successView"><value>textualPages.html</value></property>
      	<property name="textualPageService">
             <ref bean="textualPageService"/>
+        </property>
+      </bean>
+ 
+	<bean id="editCategoryController" class="huard.iws.web.EditCategoryController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.CategoryBean</value></property>
+        <property name="formView"><value>editCategory</value></property>
+        <property name="successView"><value>category.html</value></property>
+     	<property name="textualPageService">
+            <ref bean="textualPageService"/>
+        </property>
+   		<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>
+     </bean>
+ 
+  	<bean id="categoryListController" class="huard.iws.web.CategoryListController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.CategoryListController$CategoryListBean</value></property>
+        <property name="formView"><value>categories</value></property>
+        <property name="successView"><value>categories.html</value></property>
+     	<property name="categoryService">
+            <ref bean="categoryService"/>
         </property>
       </bean>
  
@@ -1030,6 +1056,8 @@
 				<prop key="/textualPage.html">editTextualPageController</prop>
 				<prop key="/callForProposals.html">callOfProposalListController</prop>
 				<prop key="/textualPages.html">textualPageListController</prop>
+				<prop key="/categories.html">categoryListController</prop>
+				<prop key="/category.html">editCategoryController</prop>
 				<prop key="/temporaryFund.html">editTemporaryFundController</prop>
 				<prop key="/temporaryFunds.html">temporaryFundListController</prop>
             </props>

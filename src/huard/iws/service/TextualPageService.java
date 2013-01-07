@@ -26,6 +26,8 @@ public interface TextualPageService {
 	
 	public List<TextualPage> getTextualPages();
 
+	public List<TextualPage> getOnlineTextualPages();
+
 	public void addTemplate(Template template);
 
 	public Template getTemplate(int id);
@@ -33,7 +35,5 @@ public interface TextualPageService {
 	public void updateTemplate(Template template);
 
 	public List<Template> getTemplates();
-
-	public List<Category> getCategories();
 
 }

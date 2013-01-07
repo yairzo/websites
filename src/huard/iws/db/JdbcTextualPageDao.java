@@ -224,6 +224,12 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		return textualPages;
 	}
 
+	public List<TextualPage> getOnlineTextualPages(){
+		String query = "select * from textualPage order by id";
+		System.out.println(query);
+		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
+		return textualPages;
+	}
 
 	private ParameterizedRowMapper<TextualPage> rowMapper = new ParameterizedRowMapper<TextualPage>(){
 		public TextualPage mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -307,21 +313,5 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		return templates;
 	}
 	
-	private ParameterizedRowMapper<Category> categoryRowMapper = new ParameterizedRowMapper<Category>(){
-		public Category mapRow(ResultSet rs, int rowNum) throws SQLException{
-			Category category = new Category();
-			category.setId(rs.getInt("id"));
-			category.setName(rs.getString("name"));
-			category.setParentId(rs.getInt("parentId"));
-			category.setCategoryOrder(rs.getInt("categoryOrder"));
-			return category;
-		}
-	};
-	
-	public List<Category> getCategories(){
-		String query = "select * from websiteCategory;";
-		logger.info(query);
-		List<Category> categories = getSimpleJdbcTemplate().query(query,categoryRowMapper);
-		return categories;
-	}
+
 }

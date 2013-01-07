@@ -45,6 +45,10 @@ public class TextualPageServiceImpl implements TextualPageService{
 		return textualPageDao.getTextualPages();
 	}
 
+	public List<TextualPage> getOnlineTextualPages(){
+		return textualPageDao.getOnlineTextualPages();
+	}
+
 	private TextualPageDao textualPageDao;
 
 	public void setTextualPageDao(TextualPageDao textualPageDao) {
@@ -65,10 +69,6 @@ public class TextualPageServiceImpl implements TextualPageService{
 
 	public List<Template> getTemplates(){
 		return textualPageDao.getTemplates();
-	}
-
-	public List<Category> getCategories(){
-		return textualPageDao.getCategories();
 	}
 
 }
