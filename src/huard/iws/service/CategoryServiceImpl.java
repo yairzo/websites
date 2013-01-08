@@ -12,7 +12,9 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	public Category getCategory(int id){
-		return categoryDao.getCategory(id);
+		Category category = categoryDao.getCategory(id);
+		category.setSubCategories(getCategories(id));
+		return category;
 	}
 	
 	public List<Category> getlanguageRootCategories(int rootCategoryId){

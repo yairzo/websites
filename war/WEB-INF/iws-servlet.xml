@@ -143,7 +143,7 @@
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.TextualPageBean</value></property>
         <property name="formView"><value>editTextualPage</value></property>
-        <property name="successView"><value>textualPage.html</value></property>
+        <property name="successView"><value>editTextualPage.html</value></property>
      	<property name="textualPageService">
             <ref bean="textualPageService"/>
         </property>
@@ -161,6 +161,18 @@
         </property>
      </bean>
      
+	<bean id="textualPageController" class="huard.iws.web.TextualPageController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.TextualPageBean</value></property>
+        <property name="formView"><value>textualPage</value></property>
+        <property name="successView"><value>textualPage.html</value></property>
+     	<property name="textualPageService">
+            <ref bean="textualPageService"/>
+        </property>
+   		<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>
+     </bean>
  
   	<bean id="textualPageListController" class="huard.iws.web.TextualPageListController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
@@ -1053,7 +1065,8 @@
 				<prop key="/error500.html">urlFilenameViewController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>
 				<prop key="/callForProposal.html">callOfProposalController</prop>
-				<prop key="/textualPage.html">editTextualPageController</prop>
+				<prop key="/editTextualPage.html">editTextualPageController</prop>
+				<prop key="/textualPage.html">textualPageController</prop>
 				<prop key="/callForProposals.html">callOfProposalListController</prop>
 				<prop key="/textualPages.html">textualPageListController</prop>
 				<prop key="/categories.html">categoryListController</prop>

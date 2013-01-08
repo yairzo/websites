@@ -15,7 +15,7 @@
       <table width="1000" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bca2a2" dir="rtl">
         <tr>
           <td valign="top" align="center"><br>
-            <form:form id="form" name="form" method="POST" action="textualPage.html" commandName="command" enctype="multipart/form-data">
+            <form:form id="form" name="form" method="POST" action="editTextualPage.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
  			
  			<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"></c:set>
