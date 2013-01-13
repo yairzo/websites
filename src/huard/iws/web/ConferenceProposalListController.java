@@ -77,6 +77,9 @@ public class ConferenceProposalListController extends GeneralFormController {
 			PersonBean updatedApprover = new PersonBean(personService.getPerson(request.getIntParameter("approver", 0)));
 			if (updatedApprover.isValidEmail()) 
 				mailMessageService.createSimpleConferenceGradeMail(conferenceProposalGrading,updatedApprover, userPersonBean,"startGrading");
+			//update statuses for all relevant proposals
+			String previousDeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
+			conferenceProposalListService.updateStatusPerGrading(previousDeadline,updatedApprover.getId(),ConferenceProposalBean.getStatusMapId("STATUS_SENT_TO_APPROVER"));
 		}
 		return new ModelAndView(new RedirectView(getSuccessView()), newModel);
 	}
@@ -118,7 +121,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 		Faculty faculty = facultyService.getFaculty(userPersonBean.getFacultyId());
 		model.put("myFaculty", faculty.getNameHebrew());
 		model.put("searchByApprover", searchCommand.getSearchCreteria().getSearchByApprover());
-		model.put("searchBySubmitted", searchCommand.getSearchCreteria().getSearchBySubmitted());
+		model.put("searchByStatus", searchCommand.getSearchCreteria().getSearchByStatus());
 		model.put("searchByDeadline", searchCommand.getSearchCreteria().getSearchByDeadline());
 		// a list of possible proposal approvers
 		model.put("deans", personListService.getPersonsList(configurationService.getConfigurationInt("conferenceProposal", "proposalApproversListId")));
@@ -156,14 +159,12 @@ public class ConferenceProposalListController extends GeneralFormController {
 			if( searchByApprover > 0){
 				whereClause += " and approverId=" + request.getIntParameter("searchByApprover", 0);
 			}
-			int searchBySubmitted = request.getIntParameter("searchBySubmitted", 0);
+			int searchByStatus = request.getIntParameter("searchByStatus", -1);
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN")){
-				if(searchBySubmitted==3)
-					whereClause += " and deleted = 1";
-				else if (searchBySubmitted < 2)// 2 is all proposals
-					whereClause += " and submitted =" + searchBySubmitted + " and deleted=0";
+				if(searchByStatus>=0)
+					whereClause += " and statusId =" + searchByStatus;
 			}
-			else if (request.getSession().getAttribute("self").equals("0") && !userPersonBean.isOnlyAuthorized("CONFERENCE", "RESEARCHER")){
+			if ((userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER") || userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE")) && request.getSession().getAttribute("self").equals("0") ){
 				whereClause += " and submitted = 1";
 			}
 			
@@ -179,7 +180,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			}	
 			searchCreteria.setWhereClause(whereClause);
 			searchCreteria.setSearchByApprover(searchByApprover);
-			searchCreteria.setSearchBySubmitted(searchBySubmitted);
+			searchCreteria.setSearchByStatus(searchByStatus);
 			searchCreteria.setSearchByDeadline(searchByDeadline);
 			int self=0;
 			if(request.getSession().getAttribute("self")!=null && request.getSession().getAttribute("self").equals("1"))
@@ -187,7 +188,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			searchCreteria.setSelf(self);
 			searchCommand.setSearchCreteria(searchCreteria);
 			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getWhereClause());
-			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
+			logger.info("form backing search command on submission: " + searchCommand.getSearchCreteria().getSearchByStatus());
 			request.getSession().setAttribute("conferenceProposalSearchCreteria", searchCreteria);
 			ListView listView = new ListView();
 			listView.setPage(request.getIntParameter("listView.page", 1));			
@@ -212,8 +213,8 @@ public class ConferenceProposalListController extends GeneralFormController {
 				else{
 					request.getSession().setAttribute("self", "0");
 					searchCreteria.setSelf(0);
-					whereClause = " submitted=1 and isInsideDeadline = 1 and date(deadline)>'"+previousDeadline +"'";
-					searchCreteria.setSearchBySubmitted(ConferenceProposalSearchCreteria.SUBMITTED);
+					whereClause = " statusId=1 and isInsideDeadline = 1 and date(deadline)>'"+previousDeadline +"'";
+					searchCreteria.setSearchByStatus(ConferenceProposalSearchCreteria.SUBMITTED);
 				}
 				searchCreteria.setWhereClause(whereClause);
 				int roleFilterId = request.getIntParameter("rf", 0);
@@ -236,7 +237,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 
 			searchCommand.setSearchCreteria(searchCreteria);
 			logger.info("form backing search command on showing form: " + searchCommand.getSearchCreteria().getWhereClause());
-			logger.info("form backing search command on showing form: " + searchCommand.getSearchCreteria().getSearchBySubmitted());
+			logger.info("form backing search command on showing form: " + searchCommand.getSearchCreteria().getSearchByStatus());
 			searchCommand.setListView(listView);
 			//request.getSession().setAttribute("newSearch", "yes");
 		}

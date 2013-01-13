@@ -9,7 +9,7 @@ public class ConferenceProposalSearchCreteria extends SearchCreteria{
 	public static int NO_APPROVER = 0;
 	
 	protected int searchByApprover;
-	protected int searchBySubmitted;
+	protected int searchByStatus;
 	protected int searchByDeadline;
 	protected int self;
 	
@@ -17,7 +17,7 @@ public class ConferenceProposalSearchCreteria extends SearchCreteria{
 	public ConferenceProposalSearchCreteria(){
 		super();
 		this.searchByApprover = 0;
-		this.searchBySubmitted = 0;
+		this.searchByStatus = 0;
 		this.searchByDeadline = 0;
 		this.self=0;
 	}
@@ -40,13 +40,13 @@ public class ConferenceProposalSearchCreteria extends SearchCreteria{
 	}
 
 
-	public int getSearchBySubmitted() {
-		return searchBySubmitted;
+	public int getSearchByStatus() {
+		return searchByStatus;
 	}
 
 
-	public void setSearchBySubmitted(int searchBySubmitted) {
-		this.searchBySubmitted = searchBySubmitted;
+	public void setSearchByStatus(int searchByStatus) {
+		this.searchByStatus = searchByStatus;
 	}
 
 

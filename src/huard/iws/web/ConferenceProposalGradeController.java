@@ -72,6 +72,12 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			//return success message
 			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.finishedGradingSuccess");
 			request.getSession().setAttribute("userMessage", userMessage);
+			//update statuses for all relevant proposals
+			String previousDeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
+			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN") && !request.getSession().getAttribute("approverId").equals(""))//if admin enters on behalf of approver
+				conferenceProposalListService.updateStatusPerGrading(previousDeadline,new Integer(request.getSession().getAttribute("approverId").toString()).intValue(),ConferenceProposalBean.getStatusMapId("STATUS_READY_FOR_CONFERENCE"));
+			else
+				conferenceProposalListService.updateStatusPerGrading(previousDeadline,userPersonBean.getId(),ConferenceProposalBean.getStatusMapId("STATUS_READY_FOR_CONFERENCE"));
 		}
 		if (action.equals("saveDeadlineRemarks")){
 			String previousDeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");

@@ -64,21 +64,11 @@ $(document).ready(function() {
  		}
         </c:forEach>
 		if(errorFlag){
-	        var text = " לא מיצית את האפשרויות לרשום חוות דעת ו/או הערה כללית לועדה. האם, למרות זאת, ברצונך לשלוח את התייחסות לוועדה? ";
-    	   	$("#genericDialog").dialog({ modal: true });
+	        var text = " לא מיצית את האפשרויות לרשום חוות דעת והערה כללית לועדה.";
+	  		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+   	   		$("#genericDialog").dialog({ modal: true });
     		$("#genericDialog").dialog({ height: 200 });
-    		$("#genericDialog").dialog({ width: 500 });
-        	$("#genericDialog").dialog('option', 'buttons', {
-                "לא" : function() {
-                    $(this).dialog("close");
-                },
-                "כן" : function() {
-                    $(this).dialog("close");
-      	 	 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"stopGrading\"/>");
-          	   		$("#form").submit();
-          	   		return true;
-               }
-            });
+    		$("#genericDialog").dialog({ width: 400 });
     		openHelp(this,text);		
  		} 
         else{

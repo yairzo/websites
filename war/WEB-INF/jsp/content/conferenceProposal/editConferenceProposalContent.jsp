@@ -24,12 +24,20 @@
  			<form:hidden path="personId"/>
  			<form:hidden path="deadline"/>
  			<form:hidden path="creatorId"/>
+ 			<form:hidden path="statusId"/>
+ 			<form:hidden path="statusDate"/>
  			
 			<c:if test="${approver || committee || printcp}">
  				<c:set var="readOnly" value="true"/>
  			</c:if>
 			<c:if test="${!approver && !committee && !printcp}">
 				<c:set var="readOnly" value="false"/>
+ 			</c:if>
+ 			<c:if test="${command.statusId==3 || command.statusId==4 || command.statusId==5}">
+				<c:set var="staffReadOnly" value="true"/>
+ 			</c:if>
+			<c:if test="${command.statusId!=3 && command.statusId!=4 && command.statusId!=5}">
+				<c:set var="staffReadOnly" value="false"/>
  			</c:if>
  			
  			<c:set var="compulsoryFieldSign" value=""></c:set>
@@ -75,24 +83,10 @@
 				</tr>
 				</c:if>
                 
-				<c:choose>
-					<c:when test="${command.deleted}">
-               			<tr class="form">
-						<td colspan="4" align="right">סטטוס: מבוטלת</td>
-						</tr>
-					</c:when>
-					<c:when test="${!command.submitted}">
-               			<tr class="form">
-						<td colspan="4" align="right">סטטוס הבקשה: טיוטה, נפתחה בתאריך: ${command.statusDate}</td>
-						</tr>
-					</c:when>
-					<c:when test="${command.submitted}">
-                		<tr class="form">
-						<td colspan="4" align="right">סטטוס הבקשה: הוגשה, בתאריך: ${command.statusDate}</td>
-						</tr>
-					</c:when>
-				</c:choose>				
- 
+             	<tr class="form">
+					<td colspan="4" align="right"> סטטוס: ${command.status}, תאריך הסטטוס: ${command.formattedStatusDate}</td>
+				</tr>
+	
                 <tr class="form">
 					<td colspan="4" align="right"><h3> פרטי המבקש 
 					<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProposer"/>
@@ -439,6 +433,12 @@
 						</span>
 						</td>
 						</tr>
+						<tr class="form">
+						<td colspan="4">
+						<div id="errorguestsAttach" dir="rtl"><p></p></div>
+						<div id="errorprogramAttach" dir="rtl"><p></p></div>						
+						</td>
+						</tr>
 						</table>
 						</td>
 					</tr>
@@ -721,8 +721,8 @@
 					<table>
 					<tr>
 						<td>
-					
 				       תוכנית תקציבית:
+						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogFinancialAttach"/>
 				       </td>
 				       <td>
 						<c:if test="${(!readOnly && !command.submitted) || adminEdit}">			
@@ -742,6 +742,10 @@
 							</c:if>
 						</c:if>
 						</span>
+						</td>
+						</tr>
+						<tr>
+						<td colspan="2"><div id="errorfinancialAttach" dir="rtl"><p></p></div>
 						</td>
 						</tr>
 						
@@ -1251,12 +1255,12 @@
 		       		</td>
 				</tr>
 				<tr>
-				    <c:if test="${(admin || approver) && !printcp}">
+				    <c:if test="${(admin || approver) && !printcp && !staffReadOnly}">
 				    <td colspan="4" align="center">
 						<form:textarea htmlEscape="true" cssClass="green" path="approverEvaluation" cols="80" rows="3"/>
 					</td>
 					</c:if>
-					 <c:if test="${committee || printcp}">
+					 <c:if test="${committee || printcp || staffReadOnly}">
 				    <td colspan="4" align="right">
 					 	<c:out value="${command.approverEvaluation}"></c:out>
 					</td>
@@ -1298,12 +1302,12 @@
 					<td>הערות רכזת הועדה בנוגע לבקשה:</td>
 				</tr>
 				<tr>
-				   	<c:if test="${admin && !printcp}">
+				   	<c:if test="${admin && !printcp && !staffReadOnly}">
 					<td colspan="4" align="center">
 					<form:textarea htmlEscape="true" cssClass="green" path="adminRemarks" cols="80" rows="3"/>
 					</td>
 					</c:if>
-				 	<c:if test="${committee || approver || printcp}">
+				 	<c:if test="${committee || approver || printcp || staffReadOnly}">
 					<td colspan="4" align="right">
 				 	<c:out value="${command.adminRemarks}"></c:out>
 				 	</td>
@@ -1335,25 +1339,25 @@
 				</tr>
 				<c:if test="${admin}">
  				<tr>
-					<c:if test="${!printcp}">
+					<c:if test="${!printcp  && !staffReadOnly}">
 	   				<td colspan="4" align="center">
 						<form:textarea htmlEscape="true" cssClass="green" path="committeeRemarks" cols="80" rows="3"/>
 	   				</td>
 					</c:if>
-					<c:if test="${printcp}">
+					<c:if test="${printcp || staffReadOnly}">
 	   				<td colspan="4">
 						${committeeRemarksWithLineBreaks}
 	   				</td>
 					</c:if>
 				</tr>
 				</c:if>
-				<c:if test="${committee}">
+				<c:if test="${committee || staffReadOnly}">
  				<tr>
 	   				<td colspan="4">
 	   				${committeeRemarksWithLineBreaks}
 	   				</td>
 				</tr>
-				<c:if test="${!printcp}">
+				<c:if test="${!printcp && !staffReadOnly}">
 				<tr>
 					<td>הוסף הערה:</td>
 				</tr>
@@ -1373,10 +1377,10 @@
 				</tr>	
 				</c:if>
 				
-				<c:if test="${!admin && !approver}">
+				<c:if test="${(!admin && !approver) || staffReadOnly }">
 						<form:hidden path="approverEvaluation"/>
 				</c:if>
-				<c:if test="${!admin}">
+				<c:if test="${!admin || staffReadOnly}">
  						<form:hidden path="adminRemarks"/>
 						<form:hidden path="committeeRemarks"/>
 				</c:if>
@@ -1386,11 +1390,20 @@
 				<c:if test="${admin && command.submitted}">
 				<tr class="form">
 					<td colspan="4">
-				   		<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/>החזר למצב טיוטה
-						<c:if test="${!command.isInsideDeadline}">			
-				   			<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
+						<c:if test="${command.statusId==1}">			
+				   			<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/>החזר למצב טיוטה
 						</c:if>
-				   		<input type="checkbox" class="green" name="allowEdit" id="allowEdit"/>אפשר עריכה
+						<c:if test="${command.statusId==5}">			
+				   			<input type="checkbox" class="green" name="statusFinished"/>העבר לסטטוס הסתיים הטיפול
+						</c:if>
+						
+						<c:if test="${!command.isInsideDeadline}">			
+				   			<input type="checkbox" class="green" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
+						</c:if>
+				   		
+						<c:if test="${!staffReadOnly}">			
+				   			<input type="checkbox" class="green" name="allowEdit" id="allowEdit"/>אפשר עריכה
+						</c:if>
 				   	</td>
 				</tr>
 				</c:if>

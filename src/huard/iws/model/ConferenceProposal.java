@@ -69,6 +69,8 @@ public class ConferenceProposal {
 	private String companyAttachContentType;
 	private boolean acceptTerms;
 	private int creatorId;
+	private int statusId;
+	private long statusDate;
 
 	public ConferenceProposal(){
 		this.id = 0;
@@ -135,6 +137,8 @@ public class ConferenceProposal {
 		this.companyAttachContentType= "";
 		this.acceptTerms=false;
 		this.creatorId=0;
+		this.statusId=0;
+		this.statusDate=0;
 	}
 
 	
@@ -622,6 +626,20 @@ public class ConferenceProposal {
 	}
 	public void setCreatorId(int creatorId) {
 		this.creatorId = creatorId;
+	}
+
+	public int getStatusId() {
+		return statusId;
+	}
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
+	}
+	
+	public long getStatusDate() {
+		return statusDate;
+	}
+	public void setStatusDate(long statusDate) {
+		this.statusDate = statusDate;
 	}
 
 

@@ -56,15 +56,17 @@
 				   <br/>	
  				   		לפי סטאטוס: 				   
  				   <br/>
- 				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 				  
-  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="1" <c:if test="${searchBySubmitted==1}">checked="checked"</c:if>/> מוגשות
-  				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="0" <c:if test="${searchBySubmitted==0}">checked="checked"</c:if>/> טיוטות
-  				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="3" <c:if test="${searchBySubmitted==3}">checked="checked"</c:if>/> מבוטלות
-  				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  				   <input class="searchBySubmitted" type="radio" name="searchBySubmitted" class="green" value="2" <c:if test="${searchBySubmitted==2}">checked="checked"</c:if>/> כל הבקשות
-  				   </authz:authorize>
+ 				    	
+ 				   <select name="searchByStatus" id="searchByStatus" class="green">
+ 				   	<option value="0" <c:if test="${searchByStatus==0}">selected</c:if>>טיוטות</option>
+ 				   	<option value="1" <c:if test="${searchByStatus==1}">selected</c:if>>מוגשות</option>
+ 				   	<option value="2" <c:if test="${searchByStatus==2}">selected</c:if>>נשלחו לדיקן</option>
+ 				  	<option value="3" <c:if test="${searchByStatus==3}">selected</c:if>>מוכנות לדיון</option>
+ 				   	<option value="4" <c:if test="${searchByStatus==4}">selected</c:if>>נדונו</option>
+ 				   	<option value="5" <c:if test="${searchByStatus==5}">selected</c:if>>הטיפול הסתיים</option>
+ 				   	<option value="6" <c:if test="${searchByStatus==6}">selected</c:if>>מבוטלות</option>
+ 				   </select>			  
+   				   </authz:authorize>
   				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
   				   	 <input type="hidden" name="searchBySubmitted" value="1"/>
   				   </authz:authorize>
@@ -156,25 +158,11 @@
   										</td>
   										<td style="text-align:center" onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
   											<a href="conferenceProposal.html?id=${conferenceProposal.id}">
-  											<c:choose>
-   											<c:when test="${conferenceProposal.deleted}">
-  												בוטלה
-  											</c:when>
-   											<c:otherwise>
- 												<c:choose>
-  												<c:when test="${conferenceProposal.submitted}">
-  												הוגשה
-  												</c:when>
-  												<c:otherwise>
-  												טיוטה
-  												</c:otherwise>
-  												</c:choose>
-  											</c:otherwise>
-  											</c:choose>
+  											${conferenceProposal.status}
   											</a>
   										</td>
  										<td style="text-align:center" onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
-   											<a href="conferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.statusDate}"/></a>
+   											<a href="conferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedStatusDate}"/></a>
  										</td>
  										<c:if test="${admin}">
   										<td style="text-align:center;">

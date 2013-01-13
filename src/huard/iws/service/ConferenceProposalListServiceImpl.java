@@ -61,7 +61,10 @@ public class ConferenceProposalListServiceImpl implements ConferenceProposalList
 	public ConferenceProposalGrading getApproverlastGrading(int approverId,String deadline){
 		return conferenceProposalDao.getApproverlastGrading(approverId,deadline);
 	}
-
+	
+	public void updateStatusPerGrading(String prevdeadline,int approverId, int statusId){
+		conferenceProposalDao.updateStatusPerGrading(prevdeadline,approverId,statusId);
+	}
 	
 	
 	private ConferenceProposalDao conferenceProposalDao;

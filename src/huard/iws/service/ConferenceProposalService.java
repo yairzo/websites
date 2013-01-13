@@ -54,5 +54,8 @@ public interface ConferenceProposalService {
 	public void deleteCommittee(int committeeId);
 	
 	public void updateDeadlineRemarks(int approverId, String prevdeadline, String deadlineRemarks);
+	
+	public Map<Integer, String> getStatusMap();
+
 
 }

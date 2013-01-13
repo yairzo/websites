@@ -40,7 +40,7 @@ $(document).ready(function() {
 	$("#searchPhrase").autocomplete({ position: { my : "right top", at: "right bottom" }});
 	
 	//alert($('input[name=searchBySubmitted]').val());
-	if($('input[name=searchBySubmitted]:checked').val()==1 || ${approver})
+	if($('#searchByStatus').val()==1 || ${approver})
 		$('#searchByDeadlineSpan').show();
 	else
 		$('#searchByDeadlineSpan').hide();
@@ -117,7 +117,7 @@ $(document).ready(function() {
     $("#buttonCleanSearch").click(function(){
     	$("input#searchPhrase").val('');
        	$("#searchByApprover").val('0');
-       	$("#searchBySubmitted").val('0');
+       	$("#searchByStatus").val('1');
        	$("#searchByDeadline").val('0');
    		$("input#listViewPage").remove();
 		$("input#orderBy").remove();
@@ -141,14 +141,13 @@ $(document).ready(function() {
 		$("#form").submit();
     });
     
-    $('.searchBySubmitted').click(function(){
-    	if($('input[name=searchBySubmitted]:checked').val()==1 || ${approver}){
-			$('input[name=searchByDeadline]:checked').val(1);
+    $('#searchByStatus').change(function(){
+    	if($('#searchByStatus').val()==1){
+			$('input[name=searchByDeadline]').val(1);
     		$('#searchByDeadlineSpan').show();
     	}
    		else{
-    		//$('input[name=searchByDeadline]:checked').val(0);
-    		$('#searchByDeadlineSpan').hide();
+     		$('#searchByDeadlineSpan').hide();
     	}
     	//each new search should start at page 1
 		$("input#listViewPage").remove();

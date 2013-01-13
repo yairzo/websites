@@ -10,6 +10,7 @@ import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.ListView;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ConferenceProposalDao {
 
@@ -71,8 +72,12 @@ public interface ConferenceProposalDao {
 
 	public void updateLastGradingByApproverDeadline(int approverId,String deadline,String deadlineRemarks);
 	
+	public void updateStatusPerGrading(String prevdeadline,int approverId, int statusId);
+
 	public List<ConferenceProposalGrading> getAllGradingsByCurrentDeadline(String deadline);
 	
 	public ConferenceProposalGrading getApproverlastGrading(int approverId,String deadline);
+
+	public Map<Integer, String> getStatusMap();
 
 }

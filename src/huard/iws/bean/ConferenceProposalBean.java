@@ -3,21 +3,42 @@ package huard.iws.bean;
 import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.FinancialSupport;
+import huard.iws.model.Language;
 import huard.iws.service.PersonService;
+import huard.iws.service.ConferenceProposalService;
 import huard.iws.util.ApplicationContextProvider;
+import huard.iws.util.RequestWrapper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 public class ConferenceProposalBean {
 	
 	private final int MAX_NUM_COMMITTEE = 10;
 	private final int MAX_NUM_FINANCIAL_SUPPORT = 10;
 	//private static final Logger logger = Logger.getLogger(ConferenceProposalBean.class);
+	private  static Map<String, Integer> statusMap ;
+
+	static{
+		statusMap = new HashMap<String, Integer>();
+		statusMap.put("STATUS_DRAFT", 0);
+		statusMap.put("STATUS_SUBMITTED", 1);
+		statusMap.put("STATUS_SENT_TO_APPROVER", 2);
+		statusMap.put("STATUS_READY_FOR_CONFERENCE", 3);
+		statusMap.put("STATUS_DISCUSSED_IN_CONFERENCE", 4);
+		statusMap.put("STATUS_FINISHED_TREATMENT", 5);
+		statusMap.put("STATUS_DELETED", 6);
+	}
 
 	
 
@@ -85,6 +106,9 @@ public class ConferenceProposalBean {
 	private String companyAttachContentType;
 	private boolean acceptTerms;
 	private int creatorId;
+	private int statusId;
+	private long statusDate;
+
 
 	public ConferenceProposalBean() {
 		this.id = 0;
@@ -176,6 +200,8 @@ public class ConferenceProposalBean {
 		this.companyAttachContentType = "";
 		this.acceptTerms =false;
 		this.creatorId=0;
+		this.statusId=0;
+		this.statusDate=0;
 	}
 
 	public ConferenceProposalBean(ConferenceProposal conferenceProposal) {
@@ -294,6 +320,8 @@ public class ConferenceProposalBean {
 		this.companyAttachContentType = conferenceProposal.getCompanyAttachContentType();
 		this.acceptTerms =conferenceProposal.getAcceptTerms();
 		this.creatorId = conferenceProposal.getCreatorId();
+		this.statusId=conferenceProposal.getStatusId();
+		this.statusDate=conferenceProposal.getStatusDate();
 		// System.out.println("beannnnnnnnnnnnnnnn:" + this.getSubject() +
 		// this.getApproverEvaluation() + this.getApproverId() +
 		// this.getDescription() + this.getLocation() + this.getLocationDetail()
@@ -378,7 +406,16 @@ public class ConferenceProposalBean {
 		conferenceProposal.setCompanyAttachContentType(companyAttachContentType);
 		conferenceProposal.setAcceptTerms(acceptTerms);
 		conferenceProposal.setCreatorId(creatorId);
+		conferenceProposal.setStatusId(statusId);
+		conferenceProposal.setStatusDate(statusDate);
 		return conferenceProposal;
+	}
+
+	public static Integer getStatusMapId(String statusDesc){
+		if (statusMap.containsKey(statusDesc))
+			return statusMap.get(statusDesc);
+		else
+			return -1;
 	}
 
 	public int getId() {
@@ -424,17 +461,6 @@ public class ConferenceProposalBean {
 		return formatter.format(fromDate);
 	}
 	
-	public String getStatusDate() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		if(this.submitted==true){
-			Date submissionDate = new Date(this.submissionDate);
-			return formatter.format(submissionDate);
-		}
-		else {
-			Date openDate = new Date(this.openDate);
-			return formatter.format(openDate);
-		}
-	}
 	
 	public int getPersonId() {
 		return personId;
@@ -962,6 +988,31 @@ public class ConferenceProposalBean {
 	}
 	public void setCreatorId(int creatorId) {
 		this.creatorId = creatorId;
+	}
+	
+	public int getStatusId() {
+		return statusId;
+	}
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
+	}
+
+	public String getStatus() {
+		ConferenceProposalService conferenceProposalService = (ConferenceProposalService) ApplicationContextProvider
+				.getContext().getBean("conferenceProposalService");
+		return conferenceProposalService.getStatusMap().get(statusId);
+	}
+	
+	public long getStatusDate() {
+		return statusDate;
+	}
+	public void setStatusDate(long statusDate) {
+		this.statusDate = statusDate;
+	}
+	public String getFormattedStatusDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Date statusDate = new Date(this.statusDate);
+		return formatter.format(statusDate);
 	}
 
 

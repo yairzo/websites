@@ -200,6 +200,8 @@ public class ConferenceProposalController extends GeneralFormController{
 		if(request.getParameter("action","").equals("submitForGrading")){
 			conferenceProposalBean.setSubmitted(true);
 			conferenceProposalBean.setSubmissionDate(System.currentTimeMillis());
+			conferenceProposalBean.setStatusId(ConferenceProposalBean.getStatusMapId("STATUS_SUBMITTED"));
+			conferenceProposalBean.setStatusDate(System.currentTimeMillis());
 			if (System.currentTimeMillis()> conferenceProposalBean.getDeadline()){// submitted after deadline
 				conferenceProposalBean.setIsInsideDeadline(false);
 			}
@@ -226,11 +228,18 @@ public class ConferenceProposalController extends GeneralFormController{
 		if(!request.getParameter("cancelSubmission", "").equals("")){
 				conferenceProposalBean.setSubmitted(false);
 				conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
+				conferenceProposalBean.setStatusId(ConferenceProposalBean.getStatusMapId("STATUS_DRAFT"));
+				conferenceProposalBean.setStatusDate(System.currentTimeMillis());
 				if(origConferenceProposalBean.getGrade()>0){
 					String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 					conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
 					conferenceProposalBean.setGrade(0);
 				}
+		}
+		//status changed by admin
+		if(!request.getParameter("statusFinished", "").equals("")){
+			conferenceProposalBean.setStatusId(ConferenceProposalBean.getStatusMapId("STATUS_FINISHED_TREATMENT"));
+			conferenceProposalBean.setStatusDate(System.currentTimeMillis());
 		}
 		//allowEdit
 		if(!request.getParameter("allowEdit", "").equals(""))
@@ -245,6 +254,8 @@ public class ConferenceProposalController extends GeneralFormController{
 			if(conferenceProposalBean.getSubmitted()){//if was already submitted need to rearrange grades
 				conferenceProposalBean.setSubmitted(false);
 				conferenceProposalBean.setSubmissionDate(1000);//1970-01-01 02:00:01
+				conferenceProposalBean.setStatusId(ConferenceProposalBean.getStatusMapId("STATUS_DELETED"));
+				conferenceProposalBean.setStatusDate(System.currentTimeMillis());
 				if(origConferenceProposalBean.getGrade()>0){
 					String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 					conferenceProposalService.rearangeGrades(conferenceProposalBean.getGrade(), conferenceProposalBean.getApproverId(), prevdeadline);
@@ -373,7 +384,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			
 			model.put("adminEdit",request.getSession().getAttribute("adminEdit"));
 			request.getSession().setAttribute("adminEdit", false);//clear
-			
+
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		

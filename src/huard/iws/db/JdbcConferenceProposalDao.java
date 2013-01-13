@@ -5,6 +5,7 @@ import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.FinancialSupport;
+import huard.iws.model.ConferenceProposalStatus;
 import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.SQLUtils;
@@ -15,7 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -126,7 +129,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				);
 	}   
 	public void updateFinancialSupport(FinancialSupport financialSupport){
-		String query = "update financialSupport set name = ?, sum = ?, currency = ?, type=?, sumPerson=?  where id =?";
+		String query = "update financialSupport seוּבְעֵת שְׁקִיעַת הַשֶּׁמֶשׁ,t name = ?, sum = ?, currency = ?, type=?, sumPerson=?  where id =?";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				financialSupport.getName(),
@@ -418,6 +421,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setCommitteeRemarks(rs.getString("committeeRemarks"));
 			conferenceProposal.setAcceptTerms(rs.getBoolean("acceptTerms"));
 			conferenceProposal.setCreatorId(rs.getInt("creatorId"));
+			conferenceProposal.setStatusId(rs.getInt("statusId"));
+			long statusDate = 0;
+			Timestamp astatusDate = rs.getTimestamp("statusDate");
+			if (astatusDate != null)
+				statusDate = astatusDate.getTime();
+			conferenceProposal.setStatusDate(statusDate);
 			return conferenceProposal;
 		}
 	};
@@ -502,6 +511,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			conferenceProposal.setCommitteeRemarks(rs.getString("committeeRemarks"));
 			conferenceProposal.setAcceptTerms(rs.getBoolean("acceptTerms"));
 			conferenceProposal.setCreatorId(rs.getInt("creatorId"));
+			conferenceProposal.setStatusId(rs.getInt("statusId"));
+			long statusDate = 0;
+			Timestamp astatusDate = rs.getTimestamp("statusDate");
+			if (astatusDate != null)
+				statusDate = astatusDate.getTime();
+			conferenceProposal.setStatusDate(statusDate);
 			return conferenceProposal;
 		}
 	};
@@ -521,7 +536,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			internalId=internalYear+1;
 		//System.out.println(internalId);
 
-		final String queryS1 = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?,auditorium=1, creatorId=?;";
+		final String queryS1 = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?,auditorium=1, creatorId=?,statusDate=now();";
 		logger.info(queryS1);
 		final int personId = conferenceProposal.getPersonId();
 		final long deadline = conferenceProposal.getDeadline();
@@ -541,7 +556,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				},
 				keyHolder);
 		final int key=keyHolder.getKey().intValue();
-		final String queryS2 = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?, creatorId=?;";
+		final String queryS2 = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?, creatorId=?,statusDate=now();";
 		logger.info(queryS2);
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -618,6 +633,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", isInsideDeadline= ?" + 
 				", committeeRemarks= ?" +
 				", acceptTerms= ?" +
+				", statusId= ?" +
+				", statusDate= ?" +
 				" where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -677,6 +694,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getIsInsideDeadline(),
 				conferenceProposal.getCommitteeRemarks(),
 				conferenceProposal.getAcceptTerms(),
+				conferenceProposal.getStatusId(),
+				new java.sql.Timestamp(conferenceProposal.getStatusDate()),
 				conferenceProposal.getId());
 
 		insertCommittees(conferenceProposal);		
@@ -740,6 +759,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", isInsideDeadline= ?" + 
 				", committeeRemarks= ?" +
 				", acceptTerms= ?" +
+				", statusId= ?" +
+				", statusDate= ?" +
 				";";
 
 		logger.info(query);
@@ -798,7 +819,9 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getDeadlineRemarks(),
 				conferenceProposal.getIsInsideDeadline(),
 				conferenceProposal.getCommitteeRemarks(),
-				conferenceProposal.getAcceptTerms());
+				conferenceProposal.getAcceptTerms(),
+				conferenceProposal.getStatusId(),
+				new java.sql.Timestamp(conferenceProposal.getStatusDate()));
 	}
 
 
@@ -883,14 +906,10 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		}
 
 		//order by
-		if (forGrading){
+		if (forGrading)
 			whereClause += " order by grade";
-		}
-		else if(search.getSearchBySubmitted()==1){
-			whereClause += " order by submissionDate desc";
-		}
 		else
-			whereClause += " order by openDate desc";
+			whereClause += " order by statusDate desc";
 		return whereClause;
 	}
 
@@ -927,5 +946,22 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,deadlineRemarks,approverId);
 	}
-
+	
+	public void updateStatusPerGrading(String prevdeadline,int approverId, int statusId){
+		String query = "update conferenceProposal set statusId =?,statusDate=now() where approverId=? and submitted=1 and date(deadline)>'"+prevdeadline +"' and isInsideDeadline=1;";
+		logger.info(query);
+		getSimpleJdbcTemplate().update(query,statusId,approverId);
+	}
+	
+	public Map<Integer, String> getStatusMap(){
+		String query = "select * from conferenceProposalStatus;";
+		final Map<Integer,String> statusMap = new HashMap<Integer,String>();
+		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
+			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{
+				statusMap.put(rs.getInt(1), rs.getString(2));
+				return null;
+			}
+		});
+		return statusMap;
+	}
 }

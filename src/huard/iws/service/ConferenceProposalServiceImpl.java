@@ -126,7 +126,9 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 	public void updateDeadlineRemarks(int approverId, String prevdeadline, String deadlineRemarks){
 		conferenceProposalDao.updateDeadlineRemarks(approverId, prevdeadline, deadlineRemarks);
 	}
-	
+	public Map<Integer, String> getStatusMap(){
+		return conferenceProposalDao.getStatusMap();
+	}
 	
 	private ConferenceProposalDao conferenceProposalDao;
 

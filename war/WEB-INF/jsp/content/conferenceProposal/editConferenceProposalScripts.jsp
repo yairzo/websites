@@ -441,9 +441,20 @@ $(document).ready(function() {
 		   		   	window.location.reload(); 
 		    	} 
 			}; 
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit(options);
-		//$('#guestsAttachDiv').html();	
+		var fileName = $("#guestsAttach").val();
+		var ext = fileName.substring(fileName.length-3);
+		if(ext=='PDF' || ext=='pdf'){
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+			$('#form').ajaxSubmit(options);
+		}
+		else{
+			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+		 	openHelp(this,'נא לצרף קובץ מסוג PDF');
+			return false;
+		}
 	});	
 	$('#deleteGuestsAttach').click(function(event){
 		event.preventDefault();
@@ -465,9 +476,20 @@ $(document).ready(function() {
 		   		   	window.location.reload(); 
 		    	} 
 			}; 
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit(options);
-		//$('#programAttachDiv').html('<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=programAttach&attachmentId=1 target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית הכנס</a>&nbsp;&nbsp;<a href="" id="deleteProgramAttach">מחק</a>');
+		var fileName = $("#programAttach").val();
+		var ext = fileName.substring(fileName.length-3);
+		if(ext=='PDF' || ext=='pdf'){
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+			$('#form').ajaxSubmit(options);
+		}
+		else{
+			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+		 	openHelp(this,'נא לצרף קובץ מסוג PDF');
+			return false;
+		}
 	});	
 	
 	$('#deleteProgramAttach').click(function(event){
@@ -490,9 +512,20 @@ $(document).ready(function() {
 		   		   	window.location.reload(); 
 		    	} 
 			}; 
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit(options);
-		$('#financialAttachDiv').html('<a href="fileViewer?conferenceProposalId=${command.id}&attachFile=financialAttach&contentType=${command.financialAttachContentType}&attachmentId=1 target="_blank"><img src="image/attach.jpg"/>&nbsp;תוכנית תקציבית</a>&nbsp;&nbsp;<a href="" id="deleteFinancialAttach">מחק</a>');
+		var fileName = $("#financialAttach").val();
+		var ext = fileName.substring(fileName.length-3);
+		if(ext=='PDF' || ext=='pdf'){
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+			$('#form').ajaxSubmit(options);
+		}
+		else{
+			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+		 	openHelp(this,'נא לצרף קובץ מסוג PDF');
+			return false;
+		}
 	});	
 	$('#deleteFinancialAttach').click(function(event){
 		event.preventDefault();
@@ -514,10 +547,20 @@ $(document).ready(function() {
 		   		   	window.location.reload(); 
 		    	} 
 			}; 
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit(options);
-		//$('#companyAttachDiv').html('');
-		
+		var fileName = $("#companyAttach").val();
+		var ext = fileName.substring(fileName.length-3);
+		if(ext=='PDF' || ext=='pdf'){
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+			$('#form').ajaxSubmit(options);
+		}
+		else{
+			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+		 	openHelp(this,'נא לצרף קובץ מסוג PDF');
+			return false;
+		}
 	});	
 	$('#deleteCompanyAttach').click(function(event){
 		event.preventDefault();
@@ -539,11 +582,20 @@ $(document).ready(function() {
 		   		   	window.location.reload(); 
 		    	} 
 			}; 
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$("#form").ajaxSubmit(options);
-		//var filename = $(this).attr("id");
-		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		//$("#fromAssosiateAttachDiv", $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&assosiateId="+aIndex+"&attachFile=assosiateAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromAssosiateAttachFile\" id=\""+aIndex+"\">מחק</a>");
+		var fileName = $(this).val();
+		var ext = fileName.substring(fileName.length-3);
+		if(ext=='PDF' || ext=='pdf'){
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+			$('#form').ajaxSubmit(options);
+		}
+		else{
+			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+		 	openHelp(this,'נא לצרף קובץ מסוג PDF');
+			return false;
+		}
 	});	
 	$('.deleteFromAssosiateAttachFile').click(function(event){
 		event.preventDefault();
@@ -572,11 +624,20 @@ $(document).ready(function() {
 		   		   	window.location.reload(); 
 		    	} 
 			}; 
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit(options);
-		//var filename = $(this).attr("id");
-		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		//$('#fromExternalAttachDiv', $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&externalId="+aIndex+"&attachFile=externalAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromExternalAttachFile\" id=\""+aIndex+"\">מחק</a>");
+		var fileName = $(this).val();
+		var ext = fileName.substring(fileName.length-3);
+		if(ext=='PDF' || ext=='pdf'){
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+			$('#form').ajaxSubmit(options);
+		}
+		else{
+			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+		 	openHelp(this,'נא לצרף קובץ מסוג PDF');
+			return false;
+		}
 	});	
 	$('.deleteFromExternalAttachFile').click(function(event){
 		event.preventDefault();
@@ -605,11 +666,20 @@ $(document).ready(function() {
 		   		   	window.location.reload(); 
 		    	} 
 			}; 
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit(options);
-		//var filename = $(this).attr("id");
-		//var aIndex = filename.substring(filename.indexOf("[")+1,filename.indexOf("]"));
-		//$('#fromAdmitanceFeeAttachDiv', $(this).closest("tr")).html("<a href='fileViewer?conferenceProposalId=${command.id}&admitanceFeeId="+aIndex+"&attachFile=admitanceFeeAttach&attachmentId=1' target='_blank'><img src='image/attach.jpg'/>&nbsp;אסמכתא</a>&nbsp;<a href=\"\" class=\"deleteFromAdmitanceFeeAttachFile\" id=\""+aIndex+"\">מחק</a>");
+		var fileName = $(this).val();
+		var ext = fileName.substring(fileName.length-3);
+		if(ext=='PDF' || ext=='pdf'){
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+			$('#form').ajaxSubmit(options);
+		}
+		else{
+			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+		 	openHelp(this,'נא לצרף קובץ מסוג PDF');
+			return false;
+		}
 	});	
 	$('.deleteFromAdmitanceFeeAttachFile').click(function(event){
 		event.preventDefault();
@@ -983,7 +1053,7 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-		  openHelp("#dialogCompany","הקלד את שם החברה וצרף את ההסכם עמה. אם עדיין לא נחתם הסכם עם החברה הקלד 'לא נבחרה' וצרף קובץ בו מתוארות המשימות שתדרשנה מהחברה.");
+		  openHelp("#dialogCompany","הקלד את שם החברה וצרף את ההסכם עמה בפורמט PDF. אם עדיין לא נחתם הסכם עם החברה הקלד 'לא נבחרה' וצרף קובץ בו מתוארות המשימות שתדרשנה מהחברה.");
 	    return false;
 	});
    $("#dialogProposer").click(function(e) {
@@ -1009,7 +1079,7 @@ $(document).ready(function() {
 		  $("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
-		  openHelp("#dialogGuestsAttach",'יש לצרף רשימה מפורטת של המשתתפים מהארץ ומחו"ל,תוך תיאור מעמדם המדעי, וציון המוסדות והארצות מהם הם באים.');
+		  openHelp("#dialogGuestsAttach",'יש לצרף רשימה מפורטת בפורמט PDF של המשתתפים מהארץ ומחו"ל,תוך תיאור מעמדם המדעי, וציון המוסדות והארצות מהם הם באים.');
 		  return false;
 	   });   
    $("#dialogProgramAttach").click(function(e) {
@@ -1017,9 +1087,18 @@ $(document).ready(function() {
 		  $("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
-		  openHelp("#dialogProgramAttach","יש לצרף את תוכנית הכנס (ובמידת ההכרח רק תוכנית ראשונית)");
+		  openHelp("#dialogProgramAttach","יש לצרף את תוכנית הכנס בפורמט PDF (ובמידת ההכרח רק תוכנית ראשונית)");
+		  return false;
+	   }); 
+   $("#dialogFinancialAttach").click(function(e) {
+		  $("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		  $("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+		  openHelp("#dialogFinancialAttach","יש לצרף את התוכנית התקציבית בפורמט PDF");
 		  return false;
 	   });   
+
    $("#dialogSumDiff").click(function(e) {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
@@ -1184,7 +1263,7 @@ $(document).ready(function() {
 		texts+='מדמי ההרשמה; זאת אומרת מדמי ההרשמה הנגבים באופן מסודר ורשמי מהמשתתפים או מקבוצה מוגדרת מתוכם.<br>';
 		texts+='הקלדה ברשומה תפתח את הרשומה העוקבת.<br>';
 		texts+='לחיצה על X מאפשרת את מחיקת הרשומה.<br>';
-		texts +='הקובץ שיצורף כאסמכתא יציג את ההודעה על דמי ההרשמה.';
+		texts +='הקובץ שיצורף כאסמכתא יהיה בפורמט PDF ויציג את ההודעה על דמי ההרשמה.';
 	    openHelp("#dialogAdmitanceFee",texts);
 	    return false;
 	   });
@@ -1199,7 +1278,7 @@ $(document).ready(function() {
 		texts+='ראויים במיוחד לציון מממנים תחרותיים (כגון:ISF,BSF,GIF) המוכנים לתמוך בכנס, לאחר שיפוט מקצועי של רמתו המדעית.<br> ';
 		texts+='הקלדה ברשומה תפתח את הרשומה העוקבת. <br>';
 		texts+='לחיצה על X מאפשרת את מחיקת הרשומה.<br>';
-		texts +='הקובץ שיצורף כאסמכתא יעיד על מחויבות המממן החיצוני להשתתף במימון.';
+		texts +='הקובץ שיצורף כאסמכתא יהיה בפורמט PDF ויעיד על מחויבות המממן החיצוני להשתתף במימון.';
 	    openHelp("#dialogExternal",texts);
 	    return false;
 	   });
@@ -1213,7 +1292,7 @@ $(document).ready(function() {
 		texts+='השותפים לארגון הם: חוקרים, או יחידות, או גופים השותפים לתכנון ו/או לביצוע תוכנית הכנס.<br>';
 		texts+='הקלדה ברשומה תפתח את הרשומה העוקבת.<br>';
 		texts+='לחיצה על X מאפשרת את מחיקת הרשומה.<br>';
-		texts +='הקובץ שיצורף כאסמכתא יעיד על מחויבות השותף להשתתף במימון.';
+		texts +='הקובץ שיצורף כאסמכתא יהיה בפורמט PDF ויעיד על מחויבות השותף להשתתף במימון.';
 	    openHelp("#dialogAssosiate",texts);
 	    return false;
 	   });
@@ -1420,6 +1499,29 @@ function checkErrors(){
 	else{
 		$("#errordescription").html('');
 	}
+	if("${fn:length(command.guestsAttach)}"=="0"){
+		errors = true;
+		$("#errorguestsAttach").html('<font color="red">יש לצרף את רשימת המרצים והמוזמנים<font color="red"><br>');
+	}
+	else{
+		$("#errorguestsAttach").html('');
+	}
+	if("${fn:length(command.programAttach)}"=="0"){
+		errors = true;
+		$("#errorprogramAttach").html('<font color="red">יש לצרף את תוכנית הכנס<font color="red"><br>');
+	}
+	else{
+		$("#errorprogramAttach").html('');
+	}
+	if("${fn:length(command.financialAttach)}"=="0"){
+		errors = true;
+		$("#errorfinancialAttach").html('<font color="red">יש לצרף את התוכנית התקציבית<font color="red"><br>');
+	}
+	else{
+		$("#errorfinancialAttach").html('');
+	}
+	
+	
 	//var numberRegex=/^[+-]?\d+(\.\d+)?([eE][+-]?d+)?$/;
 	var numberRegex=/^\d+$/;
 	//var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
