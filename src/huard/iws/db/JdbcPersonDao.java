@@ -39,6 +39,26 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 			return new Person();
 		}
 	}
+	
+	public int getOnBehalfOf(String module, int id){
+		try{
+			String query = "select fakePersonId from fakePerson where module=? and personId=?";
+			return getSimpleJdbcTemplate().queryForInt(query, module,id);		
+		}
+		catch(Exception e){
+			return id;
+		}
+	}
+	
+	public int getImpersonator(String module, int id){
+		try{
+			String query = "select personId from fakePerson where module=? and fakePersonId=?";
+			return getSimpleJdbcTemplate().queryForInt(query, module,id);		
+		}
+		catch(Exception e){
+			return id;
+		}
+	}
 
 	private void applyPersonSubjectIds(Person person){
 		String query = "select * from subjectToPerson where personId = ?";
@@ -467,7 +487,6 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	public int countPerson(){
 		String query = "select count(*) from person";
 		return getSimpleJdbcTemplate().queryForInt(query);
-		
 	}
 
 }

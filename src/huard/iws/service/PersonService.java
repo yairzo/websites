@@ -53,5 +53,9 @@ public interface PersonService {
 	public List<PersonBean> getUsers (String role, boolean enabled);
 
 	public List<PersonBean> getUsers (String role, boolean enabled, String additionalCondition);
+	
+	public int getOnBehalfOf(String module,int personId);
+
+	public int getImpersonator(String module,int personId);
 
 }

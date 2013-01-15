@@ -65,5 +65,9 @@ public interface PersonDao {
 	public int countPerson();
 	
 	public List<Person> getConferenceResearchers();
+	
+	public int getOnBehalfOf(String module,int personId);
+
+	public int getImpersonator(String module,int personId);
 
 }

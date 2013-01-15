@@ -177,12 +177,23 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);
 		Boolean isSendToApprover = Boolean.parseBoolean(configurationService.getConfigurationString("conferenceProposal", "sendMailsToConferenceApprovers"));
-		String to;
-		if (isSendToApprover)
-			to = recipient.getEmail();
-		else
-			to = CONFERENCE_PROPOSAL_MAIL_ADDRESS;
-		messageService.sendMail(to, CONFERENCE_PROPOSAL_MAIL_ADDRESS, subject, body, getCommonResources());
+		String [] to;
+		String [] cc;//cc to approver assistant
+		if (isSendToApprover){
+			to = new String []{recipient.getEmail()};
+			int impersonator =recipient.getImpersonator("conferenceProposal");
+			if(impersonator!=recipient.getId() ){
+				Person p = personService.getPerson(impersonator);
+				cc=new String []{p.getEmail()};
+			}
+			else
+				cc = null;
+		}
+		else{
+			to = new String []{CONFERENCE_PROPOSAL_MAIL_ADDRESS};
+			cc = null;
+		}
+		messageService.sendMail(to, CONFERENCE_PROPOSAL_MAIL_ADDRESS, cc, null,subject, body, getCommonResources());
 	}
 
 	

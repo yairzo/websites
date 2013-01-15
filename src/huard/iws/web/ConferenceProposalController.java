@@ -333,7 +333,7 @@ public class ConferenceProposalController extends GeneralFormController{
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_RESEARCHER") && !userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE") && !userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER") && conferenceProposal.getResearcher().getId()!=userPersonBean.getId()){
 				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
 			}
-			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER") && conferenceProposal.getApprover()!=null && conferenceProposal.getApprover().getId()!=userPersonBean.getId() && conferenceProposal.getResearcher().getId()!=userPersonBean.getId()){
+			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER") && conferenceProposal.getApprover()!=null && conferenceProposal.getApprover().getId()!=userPersonBean.getOnBehalfOf("conferenceProposal") && conferenceProposal.getResearcher().getId()!=userPersonBean.getId()){
 				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
 			}
 			logger.info("Conference proposal scientific committee: " + conferenceProposal.getScientificCommittees().size());

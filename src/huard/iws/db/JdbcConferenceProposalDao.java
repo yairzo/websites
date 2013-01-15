@@ -892,7 +892,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			if (userPersonBean.isOnlyAuthorized("CONFERENCE", "RESEARCHER") || search.getSelf()==1)
 				whereClause += " and personId = " + userPersonBean.getId();			
 			else if (userPersonBean.isAuthorized("CONFERENCE","APPROVER"))
-				whereClause += " and approverId = " + userPersonBean.getId();
+				whereClause += " and approverId = " + userPersonBean.getOnBehalfOf("conferenceProposal");
 			if (whereClausePreDefined)
 				whereClause+= " and " + search.getWhereClause();
 			if (!search.getSearchPhrase().isEmpty()){ //search phrase

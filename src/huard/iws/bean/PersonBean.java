@@ -2,6 +2,8 @@ package huard.iws.bean;
 
 import huard.iws.model.Person;
 import huard.iws.model.PersonListAttribution;
+import huard.iws.service.PersonService;
+import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.MD5Encoder;
 
 import java.io.Serializable;
@@ -688,5 +690,12 @@ public class PersonBean implements Serializable {
 		this.readsUTF8Mails = readsUTF8Mails;
 	}
 
-
+	public int getOnBehalfOf(String module) {
+		PersonService personService = (PersonService) ApplicationContextProvider.getContext().getBean("personService");
+		return personService.getOnBehalfOf(module,this.id);
+	}
+	public int getImpersonator(String module) {
+		PersonService personService = (PersonService) ApplicationContextProvider.getContext().getBean("personService");
+		return personService.getImpersonator(module,this.id);
+	}
 }
