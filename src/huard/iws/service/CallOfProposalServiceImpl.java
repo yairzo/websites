@@ -46,9 +46,9 @@ public class CallOfProposalServiceImpl implements CallOfProposalService{
 		return callOfProposalDao.getCallsOfProposals(searchCriteria);
 	}
 
-	//public List<CallOfProposal> getCallsOfProposals(CallForProposalSearchCreteria searchCriteria,boolean open){
-	//	return callOfProposalDao.getCallsOfProposals(searchCriteria,open);
-	//}
+	public List<CallOfProposal> getCallsOfProposalsOnline(CallForProposalSearchCreteria searchCriteria){
+		return callOfProposalDao.getCallsOfProposalsOnline(searchCriteria);
+	}
 
 	public List<CallOfProposal> getCallsOfProposals(CallForProposalSearchCreteria searchCriteria,String localeId){
 		List<CallOfProposal> localeCallsOfProposals = new ArrayList<CallOfProposal>();

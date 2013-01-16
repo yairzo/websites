@@ -32,7 +32,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	}
 	
 	public boolean existsCallOfProposalOnline(int id){
-		String query = "select * from callOfProposal where callOfProposalId =?";
+		String query = "select * from callOfProposal where id =?";
 		try{
 			CallOfProposal callOfProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
@@ -140,7 +140,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
 		else
 			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(callOfProposal.getKeepInRollingMessagesExpiryTime()).toString();
-		final String query = "insert callOfProposal set callOfProposalId = ?"+
+		final String query = "insert callOfProposal set id = ?"+
 				", title = ?" +
 				", creatorId = ?" +
 				", publicationTime = ?" +
@@ -333,7 +333,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", budgetDetails = ?" +
 				", additionalInformation = ?" +
 				", localeId = ?" +
-			" where callOfProposalId = ?;";
+			" where id = ?;";
 		System.out.println("111111111111111:"+query);
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -392,7 +392,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	}	
 	
 	public void removeCallOfProposalOnline(int id){
-		String query = "delete from callOfProposal where callOfProposalId= ?";
+		String query = "delete from callOfProposal where id= ?";
 		getSimpleJdbcTemplate().update(query,id);
 	}
 	
@@ -408,34 +408,42 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 
 	public List<CallOfProposal> getCallsOfProposals(CallForProposalSearchCreteria searchCriteria){
 		String query  = "select callOfProposalDraft.* from callOfProposalDraft";
-		query += getCallOfProposalsWhereClause(searchCriteria);
+		query += getCallOfProposalsWhereClause(searchCriteria,"callOfProposalDraft");
 		logger.info(query);
 		List<CallOfProposal> callOfProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callOfProposals;
 	}
+	public List<CallOfProposal> getCallsOfProposalsOnline(CallForProposalSearchCreteria searchCriteria){
+		String query  = "select callOfProposal.* from callOfProposal";
+		query += getCallOfProposalsWhereClause(searchCriteria,"callOfProposal");
+		logger.info(query);
+		List<CallOfProposal> callOfProposals = getSimpleJdbcTemplate().query(query, rowMapper);
+		return callOfProposals;
+	}
+
 	
-	public String getCallOfProposalsWhereClause(CallForProposalSearchCreteria searchCriteria){
+	public String getCallOfProposalsWhereClause(CallForProposalSearchCreteria searchCriteria, String mainTable){
 		String whereClause="";
 		if (searchCriteria.getSearchByTemporaryFund())
-			whereClause += " inner join fund on fund.financialId=callOfProposalDraft.fundId";
+			whereClause += " inner join fund on fund.financialId=" + mainTable +".fundId";
 		whereClause += " where true";
 		if(searchCriteria.getSearchByTemporaryFund())
 			whereClause +=" and fund.isTemporary=1";
 		if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty())
-			whereClause +=" and callOfProposalDraft.finalSubmissionTime >='"+searchCriteria.getSearchBySubmissionDateFrom()+"'";
+			whereClause +=" and " + mainTable +".finalSubmissionTime >='"+searchCriteria.getSearchBySubmissionDateFrom()+"'";
 		if(!searchCriteria.getSearchBySubmissionDateTo().isEmpty())
-			whereClause +=" and callOfProposalDraft.finalSubmissionTime <='"+searchCriteria.getSearchBySubmissionDateTo()+"'";
+			whereClause +=" and " + mainTable +".finalSubmissionTime <='"+searchCriteria.getSearchBySubmissionDateTo()+"'";
 		if(searchCriteria.getSearchByFund()>0)
-			whereClause +=" and callOfProposalDraft.fundId="+searchCriteria.getSearchByFund();
+			whereClause +=" and " + mainTable +".fundId="+searchCriteria.getSearchByFund();
 		if(searchCriteria.getSearchByDesk()>0)
-			whereClause +=" and callOfProposalDraft.deskId="+searchCriteria.getSearchByDesk();
+			whereClause +=" and " + mainTable +".deskId="+searchCriteria.getSearchByDesk();
 		if(searchCriteria.getSearchByType()>0)
-			whereClause +=" and callOfProposalDraft.typeId="+searchCriteria.getSearchByType();
+			whereClause +=" and " + mainTable +".typeId="+searchCriteria.getSearchByType();
 		if(!searchCriteria.getSearchBySearchWords().isEmpty())
-			whereClause +=" and callOfProposalDraft.id in ("+searchCriteria.getSearchBySearchWords() + ")";
+			whereClause +=" and " + mainTable +".id in ("+searchCriteria.getSearchBySearchWords() + ")";
 		if(!searchCriteria.getSearchBySubjectIds().isEmpty())
-			whereClause +=" and callOfProposalDraft.id in (select distinct callOfProposalId from subjectToCallOfProposal where subjectId in ("+searchCriteria.getSearchBySubjectIds() + "))";
-		whereClause += "  order by callOfProposalDraft.id";
+			whereClause +=" and " + mainTable +".id in (select distinct callOfProposalId from subjectToCallOfProposal where subjectId in ("+searchCriteria.getSearchBySubjectIds() + "))";
+		whereClause += "  order by " + mainTable +".id";
 		
 		logger.info(whereClause);
 		return whereClause;

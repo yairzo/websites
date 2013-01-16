@@ -5,7 +5,6 @@
 
 		<title><fmt:message key="${lang.localeId}.website.title"/></title>  
 
-		<link rel="stylesheet" type="text/css" href="style.css"></link>
 
 		<jsp:include page="${templateScripts}" />
 	</head>

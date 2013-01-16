@@ -138,6 +138,28 @@
             <ref bean="sphinxSearchService"/>
         </property>
       </bean>
+      
+	<bean id="searchWebsiteController" class="huard.iws.web.SearchWebsiteController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.SearchWebsiteController$SearchWebsiteControllerCommand</value></property>
+        <property name="formView"><value>searchPage</value></property>
+        <property name="successView"><value>searchPage.html</value></property>
+     	<property name="callOfProposalService">
+            <ref bean="callOfProposalService"/>
+        </property>
+   		<property name="mopDeskService">
+            <ref bean="mopDeskService"/>
+        </property>
+    	<property name="subjectService">
+            <ref bean="subjectService"/>
+        </property>
+    	<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>
+    	<property name="sphinxSearchService">
+            <ref bean="sphinxSearchService"/>
+        </property>
+      </bean>
      
 	<bean id="editTextualPageController" class="huard.iws.web.EditTextualPageController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
@@ -1073,6 +1095,7 @@
 				<prop key="/category.html">editCategoryController</prop>
 				<prop key="/temporaryFund.html">editTemporaryFundController</prop>
 				<prop key="/temporaryFunds.html">temporaryFundListController</prop>
+				<prop key="/searchPage.html">searchWebsiteController</prop>
             </props>
         </property>
     </bean>

@@ -26,7 +26,7 @@ public interface CallOfProposalDao {
 	
 	public List<CallOfProposal> getCallsOfProposals(CallForProposalSearchCreteria searchCriteria);
 
-	//public List<CallOfProposal> getCallsOfProposals( CallForProposalSearchCreteria searchCriteria,boolean open);
+	public List<CallOfProposal> getCallsOfProposalsOnline( CallForProposalSearchCreteria searchCriteria);
 
 
 }

@@ -16,8 +16,9 @@
 	<p dir="${lang.dir}" align="${lang.align}">
  		<fmt:message key="${lang.localeId}.website.usefulLinks"/>
  		<br>
-		<c:forEach items="${lowerSideMenuSubCategories}" var="lowerSideMenuCategory" varStatus="varStatus">			
+		<!-- <c:forEach items="${lowerSideMenuSubCategories}" var="lowerSideMenuCategory" varStatus="varStatus">			
 			<a href="${lowerSideMenuCategory.url}">${lowerSideMenuCategory.name}</a>
 			<br/>
-		</c:forEach>
+		</c:forEach> -->
+		<a href="searchPage.html"><fmt:message key="${lang.localeId}.website.search"/></a>
 	</p>

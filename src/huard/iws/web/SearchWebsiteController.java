@@ -1,16 +1,20 @@
 package huard.iws.web;
 
+import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.CallOfProposalBean;
 import huard.iws.bean.SubjectBean;
 import huard.iws.service.CallOfProposalService;
+import huard.iws.service.CategoryService;
 import huard.iws.service.MopDeskService;
 import huard.iws.service.SubjectService;
 import huard.iws.service.SphinxSearchService;
 import huard.iws.util.CallForProposalSearchCreteria;
+import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallOfProposal;
+import huard.iws.model.Category;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Subject;
 
@@ -28,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class CallOfProposalListController extends GeneralFormController {
+public class SearchWebsiteController extends GeneralFormController {
 
 
 	protected ModelAndView onSubmit(Object command,
@@ -42,8 +46,24 @@ public class CallOfProposalListController extends GeneralFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
-		CallOfProposalListControllerCommand command = (CallOfProposalListControllerCommand) model.get("command");
-		List<CallOfProposal> callOfProposals = callOfProposalService.getCallsOfProposals(command.getSearchCreteria());
+		SearchWebsiteControllerCommand command = (SearchWebsiteControllerCommand) model.get("command");
+		//top categories
+		Category rootCategory = categoryService.getRootCategory();
+		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
+		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
+		for (Category category: languageRootCategories){
+			languageRootCategoryBeans.add( new CategoryBean (category));
+		}
+		model.put("languageRootCategories", languageRootCategoryBeans);
+		//category
+		model.put("category",categoryService.getCategory(rootCategory.getId()));
+		//language
+		LanguageUtils.applyLanguage(model, request, response,userPersonBean.getPreferedLocaleId());
+		LanguageUtils.applyLanguages(model);
+		//page title
+		model.put("pageTitle", messageService.getMessage("iw_IL.website.search"));
+
+		List<CallOfProposal> callOfProposals = callOfProposalService.getCallsOfProposalsOnline(command.getSearchCreteria());
 		List<CallOfProposalBean> callOfProposalBeans = new ArrayList<CallOfProposalBean>();
 		for (CallOfProposal callOfProposal: callOfProposals){
 			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal,false);
@@ -60,12 +80,12 @@ public class CallOfProposalListController extends GeneralFormController {
 		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, "iw_IL");
 		model.put("rootSubject", rootSubjectBean);
 
-		return new ModelAndView ("callOfProposals",model);
+		return new ModelAndView ("searchPage",model);
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
-		CallOfProposalListControllerCommand command = new CallOfProposalListControllerCommand();
+		SearchWebsiteControllerCommand command = new SearchWebsiteControllerCommand();
 		if (isFormSubmission(request.getRequest())){//on submit
 			CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
 			String sqlFromDate ="";
@@ -108,7 +128,7 @@ public class CallOfProposalListController extends GeneralFormController {
 		return command;
 	}
 
-	public class CallOfProposalListControllerCommand{
+	public class SearchWebsiteControllerCommand{
 		private CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
 		private ListView listView = new ListView();
 		private String subjectsIds ="";
@@ -151,6 +171,12 @@ public class CallOfProposalListController extends GeneralFormController {
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
 	}
+	
+	private CategoryService categoryService;
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
+	
 	
 	private SphinxSearchService sphinxSearchService;
 
