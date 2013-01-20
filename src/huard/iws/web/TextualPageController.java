@@ -9,6 +9,7 @@ import huard.iws.service.CategoryService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +54,12 @@ public class TextualPageController extends GeneralFormController {
 		//page title
 		model.put("pageTitle", textualPageBean.getTitle());
 		
+		//dates
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		if (textualPageBean.getUpdateTime()==0)
+			model.put("updateTime", "");
+		else
+			model.put("updateTime", formatter.format(textualPageBean.getUpdateTime()));
 		model.put("id",textualPageBean.getId());
 		return new ModelAndView ( this.getFormView(), model);
 	}

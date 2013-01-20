@@ -38,7 +38,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class CallOfProposalController extends GeneralFormController{
+public class EditCallOfProposalController extends GeneralFormController{
 	
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
@@ -119,7 +119,7 @@ public class CallOfProposalController extends GeneralFormController{
 			return null;
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", callOfProposalBean.getId())	;
-		return new ModelAndView(new RedirectView("callForProposal.html"), newModel);
+		return new ModelAndView(new RedirectView("editCallForProposal.html"), newModel);
 	}
 	
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,

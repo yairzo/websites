@@ -14,6 +14,10 @@ public class CallOfProposalServiceImpl implements CallOfProposalService{
 		return callOfProposalDao.getCallOfProposal(id);
 	}
 	
+	public CallOfProposal getCallOfProposalOnline(int id){
+		return callOfProposalDao.getCallOfProposalOnline(id);
+	}
+	
 	public boolean existsCallOfProposalOnline(int id){
 		return callOfProposalDao.existsCallOfProposalOnline(id);
 	}

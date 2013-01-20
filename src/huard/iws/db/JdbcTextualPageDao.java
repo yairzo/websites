@@ -72,7 +72,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 
 	public int insertTextualPage(TextualPage textualPage){
-		final String query = "insert textualPageDraft set title='', creatorId = ?, html='', description='';";
+		final String query = "insert textualPageDraft set title='', creatorId = ?, html='', description='', updateTime=now();";
 		logger.info(query);
 		final int creatorId= textualPage.getCreatorId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -107,7 +107,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", wrapExternalPage = ?" +
 				", externalPageUrl = ?" +
 				", isMessage = ?" +
-				", keepInRollingMessagesExpiryTime = ?";
+				", keepInRollingMessagesExpiryTime = ?" +
+				", updateTime = now()";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getId(),
@@ -145,6 +146,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", categoryId = ?" +
 				", isMessage = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
+				", updateTime = now()" +
 			" where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -192,6 +194,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", categoryId = ?" +
 				", isMessage = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
+				", updateTime = now()" +
 				" where textualPageId = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -257,6 +260,11 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 			if (keepInRollingMessagesExpiryTimeTS != null)
 				keepInRollingMessagesExpiryTime = keepInRollingMessagesExpiryTimeTS.getTime();
 			textualPage.setKeepInRollingMessagesExpiryTime(keepInRollingMessagesExpiryTime);
+			long updateTime = 0;
+			Timestamp updateTimeTS = rs.getTimestamp("updateTime");
+			if (updateTimeTS != null)
+				updateTime = updateTimeTS.getTime();
+			textualPage.setUpdateTime(updateTime);
            return textualPage;
         }
 	};

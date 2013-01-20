@@ -101,11 +101,11 @@
         <property name="successView"><value>active.html</value></property>
      </bean>
 	
-	<bean id="callOfProposalController" class="huard.iws.web.CallOfProposalController" parent="generalFormController">
+	<bean id="editCallOfProposalController" class="huard.iws.web.EditCallOfProposalController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.CallOfProposalBean</value></property>
         <property name="formView"><value>editCallOfProposal</value></property>
-        <property name="successView"><value>callForProposal.html</value></property>
+        <property name="successView"><value>editCallForProposal.html</value></property>
      	<property name="subjectService">
             <ref bean="subjectService"/>
         </property>
@@ -117,6 +117,22 @@
         </property>
    		<property name="mopDeskService">
             <ref bean="mopDeskService"/>
+        </property>
+     </bean>
+     
+	<bean id="callForProposalController" class="huard.iws.web.CallForProposalController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.CallOfProposalBean</value></property>
+        <property name="formView"><value>callForProposal</value></property>
+        <property name="successView"><value>callForProposal.html</value></property>
+     	<property name="callOfProposalService">
+            <ref bean="callOfProposalService"/>
+        </property>
+   		<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>
+   		<property name="fundService">
+            <ref bean="fundService"/>
         </property>
      </bean>
      
@@ -1086,7 +1102,8 @@
 				<prop key="/error404.html">urlFilenameViewController</prop>
 				<prop key="/error500.html">urlFilenameViewController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>
-				<prop key="/callForProposal.html">callOfProposalController</prop>
+				<prop key="/editCallForProposal.html">editCallOfProposalController</prop>
+				<prop key="/callForProposal.html">callForProposalController</prop>
 				<prop key="/editTextualPage.html">editTextualPageController</prop>
 				<prop key="/textualPage.html">textualPageController</prop>
 				<prop key="/callForProposals.html">callOfProposalListController</prop>

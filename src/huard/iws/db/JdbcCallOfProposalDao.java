@@ -31,6 +31,16 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 		return 	callOfProposal;	
 	}
 	
+	public CallOfProposal getCallOfProposalOnline(int id){
+		String query = "select * from callOfProposal where id =?";
+		CallOfProposal callOfProposal =
+					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
+		applySubjectIds(callOfProposal);
+		applySubmissionDates(callOfProposal);
+		applyFiles(callOfProposal);
+		return 	callOfProposal;	
+	}
+	
 	public boolean existsCallOfProposalOnline(int id){
 		String query = "select * from callOfProposal where id =?";
 		try{
@@ -115,7 +125,8 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", possibleCollaboration = ''" +
 				", budgetDetails = ''" +
 				", additionalInformation = ''"+
-				", localeId=?;";
+				", localeId=?"+
+				", updateTime=now();";
 		logger.info(query);
 		final int creatorId= callOfProposal.getCreatorId();
 		final String localeId= callOfProposal.getLocaleId();
@@ -166,7 +177,8 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", possibleCollaboration = ?" +
 				", budgetDetails = ?" +
 				", additionalInformation = ?" +
-				", localeId = ?";
+				", localeId = ?" + 
+				", updateTime = now()";
 		System.out.println("1111111:" + query);
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -227,6 +239,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", budgetDetails = ?" +
 				", additionalInformation = ?" +
 				", localeId = ?" +
+				", updateTime = now()" +
 			" where id = ?;";
 		System.out.println(query);
 		logger.info(query);
@@ -333,6 +346,7 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 				", budgetDetails = ?" +
 				", additionalInformation = ?" +
 				", localeId = ?" +
+				", updateTime = now()" +
 			" where id = ?;";
 		System.out.println("111111111111111:"+query);
 		logger.info(query);
@@ -351,17 +365,17 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
 	    		callOfProposal.getOriginalCallWebAddress(),
 	    		callOfProposal.getRequireLogin(),
 	    		callOfProposal.getShowDescriptionOnly(),
-	    		callOfProposal.getSubmissionDetails(),
-	    		callOfProposal.getContactPersonDetails(),
-	    		callOfProposal.getFormDetails(),
-	    		callOfProposal.getDescription(),
-	    		callOfProposal.getFundingPeriod(),
-	    		callOfProposal.getAmountOfGrant(),
-	    		callOfProposal.getEligibilityRequirements(),
-	    		callOfProposal.getActivityLocation(),
-	    		callOfProposal.getPossibleCollaboration(),
-	    		callOfProposal.getBudgetDetails(),
-	    		callOfProposal.getAdditionalInformation(),
+	    		callOfProposal.getSubmissionDetails().trim(),
+	    		callOfProposal.getContactPersonDetails().trim(),
+	    		callOfProposal.getFormDetails().trim(),
+	    		callOfProposal.getDescription().trim(),
+	    		callOfProposal.getFundingPeriod().trim(),
+	    		callOfProposal.getAmountOfGrant().trim(),
+	    		callOfProposal.getEligibilityRequirements().trim(),
+	    		callOfProposal.getActivityLocation().trim(),
+	    		callOfProposal.getPossibleCollaboration().trim(),
+	    		callOfProposal.getBudgetDetails().trim(),
+	    		callOfProposal.getAdditionalInformation().trim(),
 	    		callOfProposal.getLocaleId(),
 				callOfProposal.getId());
 		
@@ -496,6 +510,11 @@ public class JdbcCallOfProposalDao extends SimpleJdbcDaoSupport implements CallO
     		callOfProposal.setBudgetDetails(rs.getString("budgetDetails"));
     		callOfProposal.setAdditionalInformation(rs.getString("additionalInformation"));
     		callOfProposal.setLocaleId(rs.getString("localeId"));
+			long updateTime = 0;
+			Timestamp updateTimeTS = rs.getTimestamp("updateTime");
+			if (updateTimeTS != null)
+				updateTime = updateTimeTS.getTime();
+    		callOfProposal.setUpdateTime(updateTime);
            return callOfProposal;
         }
 	};

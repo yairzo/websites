@@ -34,6 +34,7 @@ public class CallOfProposal {
 	private List<Long> submissionDates;
 	private List<Attachment> attachments;
 	private String localeId;
+	private long updateTime;
 	
 	
 
@@ -64,7 +65,7 @@ public class CallOfProposal {
 		this.possibleCollaboration="";
 		this.budgetDetails="";
 		this.additionalInformation="";
-		
+		this.updateTime=0;
 	}
 	
 	public int getId() {
@@ -297,6 +298,13 @@ public class CallOfProposal {
 
 	public void setLocaleId(String localeId) {
 		this.localeId = localeId;
+	}
+
+	public long getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
 	}
 
 

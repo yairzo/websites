@@ -110,9 +110,9 @@
       			/urls.html=ROLE_WEBSITE_ADMIN
       			/active.html=ROLE_WEBSITE_ADMIN
      			/callForProposals.html=ROLE_WEBSITE_ADMIN
-     			/callForProposal.html=ROLE_WEBSITE_ADMIN
-     			/textualPage.html=ROLE_WEBSITE_ADMIN
+     			/editCallForProposal.html=ROLE_WEBSITE_ADMIN
     			/textualPages.html=ROLE_WEBSITE_ADMIN
+     			/editTextualPage.html=ROLE_WEBSITE_ADMIN
 	       </value>
   		</property>
 	</bean>

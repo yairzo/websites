@@ -24,6 +24,7 @@ public class TextualPageBean {
 	private Attachment attachment;
 	private boolean isMessage;
 	private long keepInRollingMessagesExpiryTime;
+	private long updateTime;
 
 	
 	public TextualPageBean(){
@@ -43,6 +44,7 @@ public class TextualPageBean {
 		this.attachment=new Attachment();
 		this.isMessage=false;
 		this.keepInRollingMessagesExpiryTime=0;
+		this.updateTime=0;
 	}
 
 
@@ -63,6 +65,7 @@ public class TextualPageBean {
 		this.attachment=textualPage.getAttachment();
 		this.isMessage = textualPage.getIsMessage();
 		this.keepInRollingMessagesExpiryTime = textualPage.getKeepInRollingMessagesExpiryTime();
+		this.updateTime = textualPage.getUpdateTime();
 	}
 
 	public TextualPage toTextualPage(){
@@ -83,6 +86,7 @@ public class TextualPageBean {
 		textualPage.setAttachment(attachment);
 		textualPage.setIsMessage(isMessage);
 		textualPage.setKeepInRollingMessagesExpiryTime(keepInRollingMessagesExpiryTime);
+		textualPage.setUpdateTime(updateTime);
 		return textualPage;
 	}
 
@@ -217,5 +221,12 @@ public class TextualPageBean {
 				personService.getPerson(this.creatorId));
 		return creator;
 	}
-	
+
+	public long getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
+	}
+
 }

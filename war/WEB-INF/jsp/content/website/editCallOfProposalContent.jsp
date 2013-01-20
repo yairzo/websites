@@ -15,7 +15,7 @@
       <table width="1000" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bca2a2" dir="${lang.dir}">
         <tr>
           <td valign="top" align="center"><br>
-            <form:form id="form" name="form" method="POST" action="callForProposal.html" commandName="command" enctype="multipart/form-data">
+            <form:form id="form" name="form" method="POST" action="editCallForProposal.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
  			<form:hidden path="creatorId"/>
 			
@@ -199,7 +199,7 @@
 				</tr>
 				<tr><td>&nbsp;</td></tr>
                 <tr class="form">
-					<td colspan="4" align="right"><h3><fmt:message key="${lang.localeId}.callForProposal.details"/></h3></td>
+					<td colspan="4" align="${lang.align}"><h3><fmt:message key="${lang.localeId}.callForProposal.details"/></h3></td>
 				</tr>
 				<tr>
 					<td colspan="4" >
@@ -542,10 +542,12 @@
 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;
 					<span id="addedText" class="budgetDetails">
 					<fmt:message key="${lang.localeId}.callForProposal.budgetApprover"/> 
+					<a href="mailto:${deskBudgetPerson.email}">
 					<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameHebrew}"/></c:if>
    					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameEnglish}"/></c:if>
-					<c:out value="${deskBudgetPerson.title}"></c:out> 
-					<c:out value="${deskBudgetPerson.phone}"></c:out>
+					</a>
+					<img src="image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskBudgetPerson.title}"></c:out> 
+					<img src="image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskBudgetPerson.phone}"></c:out>
 					</span>
 					</td>
 					</tr>

@@ -13,6 +13,7 @@ import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.DateUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,7 @@ public class CallOfProposalBean {
 	private List<Long> submissionDates;
 	private List<Attachment> attachments;
 	private String localeId;
+	private long updateTime;
 	
 	private MessageService messageService;
 	private ConfigurationService configurationService;
@@ -85,6 +87,7 @@ public class CallOfProposalBean {
 		this.additionalInformation="";
 		this.attachments=new ArrayList<Attachment>();
 		this.localeId="";
+		this.updateTime=0;
 	}
 
 
@@ -120,7 +123,7 @@ public class CallOfProposalBean {
 		this.submissionDates =callOfProposal.getSubmissionDates(); 
 		this.attachments = callOfProposal.getAttachments();
 		this.localeId=callOfProposal.getLocaleId();
-
+		this.updateTime= callOfProposal.getUpdateTime();
 		init(applyObjs);
 		
 	}
@@ -158,6 +161,7 @@ public class CallOfProposalBean {
 		callOfProposal.setSubmissionDates(submissionDates);
 		callOfProposal.setAttachments(attachments);
 		callOfProposal.setLocaleId(localeId);
+		callOfProposal.setUpdateTime(updateTime);
 		return callOfProposal;
 	}
 
@@ -429,6 +433,13 @@ public class CallOfProposalBean {
 		this.localeId = localeId;
 	}
 
+	public long getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
+	}
+
 	public Map <Integer, Attachment> getAttachmentsMap(){
 		Map<Integer, Attachment> attachmentsMap = new HashMap<Integer, Attachment>();
 		for (Attachment attachment: this.attachments){
@@ -442,6 +453,13 @@ public class CallOfProposalBean {
 		PersonBean creator = new PersonBean(
 				personService.getPerson(this.creatorId));
 		return creator;
+	}
+	
+	public boolean getExpired() {
+		if (finalSubmissionTime < new Date().getTime()+86400000L && finalSubmissionTime != 0)
+			return true;
+		else
+			return false;
 	}
 	
 	public void init(boolean applyObjs){

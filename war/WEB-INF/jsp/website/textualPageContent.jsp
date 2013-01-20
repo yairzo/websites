@@ -6,7 +6,7 @@
 			      			<h1>${command.title}</h1>
                       	</td>
                       	<td width="150" align="${lang.align}">
-                         	<fmt:message key="${lang.localeId}.website.lastUpdate"/>
+                         	<fmt:message key="${lang.localeId}.website.lastUpdate"/>${updateTime}
                       	</td>
                     </tr>
 					<tr>

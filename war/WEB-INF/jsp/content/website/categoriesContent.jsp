@@ -23,8 +23,8 @@
 	             	}
 	    		});
 				dlg.dialog({ modal: true });
-				dlg.dialog({ height: 350 });
-				dlg.dialog({ width: 800 });
+				dlg.dialog({ height: 400 });
+				dlg.dialog({ width: 900 });
 				dlg.dialog("option", "position", "center");
 	  			$.get('category.html?id='+categoryId, function(data) {
 	  				dlg.html(data).dialog("open");

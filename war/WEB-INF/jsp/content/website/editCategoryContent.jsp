@@ -13,12 +13,10 @@
 	  });
 	</script> -->
 	
-  <tr>
-    <td>
-      <table width="700" border="0" align="center" cellpadding="0" cellspacing="0" dir="rtl">
-        <tr>
-          <td valign="top" align="center"><br>
-            <form:form id="form2" name="form2" method="POST" action="category.html" commandName="command" >
+<table width="700" border="0" align="center" cellpadding="0" cellspacing="0" dir="rtl">
+   <tr>
+     <td valign="top" align="center"><br>
+     <form:form id="form2" name="form2" method="POST" action="category.html" commandName="command" >
  			<form:hidden path="id"/>
  			<form:hidden path="parentId"/>
  			<form:hidden path="categoryOrder"/>
@@ -54,27 +52,22 @@
    					</td>
 				</tr>
 				
-			</table>
+				</table>
 				</td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
 
 	
  		
-	<!--  	<tr class="form">
+		<!--<tr class="form">
 			<td colspan="4" align="center">
 				<button title="שמירה" class="grey save" > שמירה</button>
 				<button title="סגירה" class="grey close" > סגירה</button>
 			</td>
 		</tr>-->
     </table>
-</form:form>
+	</form:form>
     </td>
   </tr>
 
 </table>
-
-
-
-</body>
-</html>

@@ -10,6 +10,8 @@ public interface CallOfProposalDao {
 
 	public CallOfProposal getCallOfProposal(int id);
 
+	public CallOfProposal getCallOfProposalOnline(int id);
+
 	public boolean existsCallOfProposalOnline(int id);
 	
 	public CallOfProposal getCallOfProposal(String title);

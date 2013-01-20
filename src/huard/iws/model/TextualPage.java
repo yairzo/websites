@@ -18,6 +18,7 @@ public class TextualPage {
 	private Attachment attachment;
 	private boolean isMessage;
 	private long keepInRollingMessagesExpiryTime;
+	private long updateTime;
 
 	public TextualPage(){
 		this.id = 0;
@@ -36,6 +37,7 @@ public class TextualPage {
 		this.attachment=new Attachment();
 		this.isMessage=false;
 		this.keepInRollingMessagesExpiryTime=0;
+		this.updateTime=0;
 	}
 	
 	public int getId() {
@@ -159,6 +161,13 @@ public class TextualPage {
 	
 	public void setKeepInRollingMessagesExpiryTime(long keepInRollingMessagesExpiryTime) {
 		this.keepInRollingMessagesExpiryTime=keepInRollingMessagesExpiryTime;
+	}
+
+	public long getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
 	}
 
 

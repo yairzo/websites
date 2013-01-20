@@ -10,6 +10,8 @@
 			<tr>
 		    <td colspan="2">
             <form:form id="form" name="form" method="POST" commandName="command" action="searchPage.html">
+ 			
+ 			<div id="genericDialog" title="קול קורא" style="display:none" dir="rtl"><p></p></div>
             <input type="hidden" id="listViewPage" name="listView.page" value="${command.listView.page}"/>
             <input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
 
@@ -91,10 +93,10 @@
              			<tbody>
    							<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 							<td align="right">
-							<a href="callForProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.id}"></c:out></a>
+							<a href="" class="viewProposal" id="${callOfProposal.id}"><c:out value="${callOfProposal.id}"></c:out></a>
   							</td>
   							<td align="right">
-							<a href="callForProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.title}"></c:out></a>
+							<a href="" class="viewProposal" id="${callOfProposal.id}"><c:out value="${callOfProposal.title}"></c:out></a>
 							</td>
    	  						</tr>
   	  					</tbody>
