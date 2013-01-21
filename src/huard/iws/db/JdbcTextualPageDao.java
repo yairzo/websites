@@ -53,7 +53,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	};
 	
 	public boolean existsTextualPageOnline(int id){
-		String query = "select * from textualPage where textualPageId =?";
+		String query = "select * from textualPage where id =?";
 		try{
 			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 			return true;
@@ -95,7 +95,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
 		else
 			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(textualPage.getKeepInRollingMessagesExpiryTime()).toString();
-		final String query = "insert textualPage set textualPageId = ?"+
+		final String query = "insert textualPage set id = ?"+
 				", title = ?" +
 				", creatorId = ?" +
 				", deskId = ?" +
@@ -195,7 +195,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", isMessage = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()" +
-				" where textualPageId = ?;";
+				" where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getTitle(),
@@ -216,7 +216,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}	
 	
 	public void removeTextualPageOnline(int id){
-		String query = "delete from textualPage where textualPageId= ?";
+		String query = "delete from textualPage where id= ?";
 		getSimpleJdbcTemplate().update(query,id);
 	}
 	

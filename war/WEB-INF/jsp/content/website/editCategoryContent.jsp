@@ -41,7 +41,7 @@
          				<select name="textualPage" cssClass="green" >
       						<option value="">בחר/י</option>
        						<c:forEach items="${textualPages}" var="textualPage">
-	        					<option htmlEscape="true" value="http://ard.huji.ac.il/huard/pubPageViewer.jsp?ardNum=${textualPage.id}"><c:out escapeXml="false" value="${textualPage.title}"/></option>
+	        					<option htmlEscape="true" value="textualPage.html?id=${textualPage.id}"><c:out escapeXml="false" value="${textualPage.title}"/></option>
        						</c:forEach>
         		        </select>
 					</td>
