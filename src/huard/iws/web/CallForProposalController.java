@@ -93,30 +93,15 @@ public class CallForProposalController extends GeneralFormController {
 		}
 		model.put("selectedFund", selectedFund);
 		//stripped fields
-		String stripped =callOfProposalBean.getFundingPeriod();
-		stripped = stripped.replace("<p>", "");
-		stripped = stripped.replace("<p dir=\"ltr\">", "");
-		stripped = stripped.replace("</p>", "");
+		String stripped =callOfProposalBean.getFundingPeriod().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedFundingPeriod", stripped);
-		stripped =callOfProposalBean.getAmountOfGrant();
-		stripped = stripped.replace("<p>", "");
-		stripped = stripped.replace("<p dir=\"ltr\">", "");
-		stripped = stripped.replace("</p>", "");
+		stripped =callOfProposalBean.getAmountOfGrant().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedAmountOfGrant", stripped);
-		stripped =callOfProposalBean.getEligibilityRequirements();
-		stripped = stripped.replace("<p>", "");
-		stripped = stripped.replace("<p dir=\"ltr\">", "");
-		stripped = stripped.replace("</p>", "");
+		stripped =callOfProposalBean.getEligibilityRequirements().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedEligibilityRequirements", stripped);
-		stripped =callOfProposalBean.getActivityLocation();
-		stripped = stripped.replace("<p>", "");
-		stripped = stripped.replace("<p dir=\"ltr\">", "");
-		stripped = stripped.replace("</p>", "");
+		stripped =callOfProposalBean.getActivityLocation().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedActivityLocation()", stripped);
-		stripped =callOfProposalBean.getPossibleCollaboration();
-		stripped = stripped.replace("<p>", "");
-		stripped = stripped.replace("<p dir=\"ltr\">", "");
-		stripped = stripped.replace("</p>", "");
+		stripped =callOfProposalBean.getPossibleCollaboration().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedPossibleCollaboration()", stripped);
 
 		model.put("id",callOfProposalBean.getId());

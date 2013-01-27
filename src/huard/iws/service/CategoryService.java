@@ -10,6 +10,8 @@ public interface CategoryService {
 
 	public Category getCategory(int id);
 
+	public Category getCategoryByUrl(String url);
+
 	public List<Category> getlanguageRootCategories(int rootCategoryId);
 	
 	public List<Category> getCategories(int parentCategoryId);
@@ -23,5 +25,7 @@ public interface CategoryService {
 	public void moveCategoryUp (int categoryId);
 
 	public void moveCategoryDown (int categoryId);
+
+	public Category getTopCategory(Category category);
 
 }

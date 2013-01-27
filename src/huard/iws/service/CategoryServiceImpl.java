@@ -16,6 +16,11 @@ public class CategoryServiceImpl implements CategoryService{
 		category.setSubCategories(getCategories(id));
 		return category;
 	}
+	public Category getCategoryByUrl(String url){
+		Category category = categoryDao.getCategoryByUrl(url);
+		category.setSubCategories(getCategories(category.getId()));
+		return category;
+	}
 	
 	public List<Category> getlanguageRootCategories(int rootCategoryId){
 		return categoryDao.getCategories(rootCategoryId);
@@ -27,7 +32,15 @@ public class CategoryServiceImpl implements CategoryService{
 		}
 		return categories;
 	}
-
+	
+	public Category getTopCategory(Category category){
+		int rootCategory = categoryDao.getRootCategory().getId();
+		while (category.getParentId()!=rootCategory){
+			category = categoryDao.getCategory(category.getParentId());
+		}
+		return category;
+	}
+	
 	public void updateCategory(Category category){
 		categoryDao.updateCategory(category);
 	}

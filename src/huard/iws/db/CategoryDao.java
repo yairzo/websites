@@ -9,6 +9,8 @@ public interface CategoryDao {
 	public Category getRootCategory();
 
 	public Category getCategory(int id);
+	
+	public Category getCategoryByUrl(String url);
 
 	public List<Category> getCategories(int parentCategoryId);
 

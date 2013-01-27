@@ -2,8 +2,10 @@ package huard.iws.bean;
 
 import huard.iws.model.Attachment;
 import huard.iws.model.CallOfProposal;
+import huard.iws.model.Committee;
 import huard.iws.model.Fund;
 import huard.iws.model.MopDesk;
+import huard.iws.model.AdditionalSubmissionDate;
 import huard.iws.service.ConfigurationService;
 import huard.iws.service.FundService;
 import huard.iws.service.MessageService;
@@ -12,6 +14,8 @@ import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.DateUtils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,13 +28,16 @@ public class CallOfProposalBean {
 	private int creatorId;
 	private long creationTime;
 	private long publicationTime;
+	private String publicationTimeString;
 	private long finalSubmissionTime;
+	private String finalSubmissionTimeString;
 	private boolean allYearSubmission;
 	private boolean allYearSubmissionYearPassedAlert;
 	private boolean hasAdditionalSubmissionDates;
 	private int fundId;
 	private int typeId;
 	private long keepInRollingMessagesExpiryTime;
+	private String keepInRollingMessagesExpiryTimeString;
 	private int deskId;
 	private String originalCallWebAddress;
 	private boolean requireLogin;
@@ -48,6 +55,7 @@ public class CallOfProposalBean {
 	private String additionalInformation;
 	private List<Integer> subjectsIds;
 	private List<Long> submissionDates;
+	private List<AdditionalSubmissionDate> submissionDatesList;
 	private List<Attachment> attachments;
 	private String localeId;
 	private long updateTime;
@@ -85,9 +93,15 @@ public class CallOfProposalBean {
 		this.possibleCollaboration="";
 		this.budgetDetails="";
 		this.additionalInformation="";
+		this.submissionDates=new ArrayList<Long>();
 		this.attachments=new ArrayList<Attachment>();
 		this.localeId="";
 		this.updateTime=0;
+		this.submissionDatesList=new ArrayList<AdditionalSubmissionDate>();
+		for (int i=0; i< 3; i++){
+			AdditionalSubmissionDate additionalSubmissionDate = new AdditionalSubmissionDate();
+			submissionDatesList.add(additionalSubmissionDate);
+		}
 	}
 
 
@@ -124,6 +138,7 @@ public class CallOfProposalBean {
 		this.attachments = callOfProposal.getAttachments();
 		this.localeId=callOfProposal.getLocaleId();
 		this.updateTime= callOfProposal.getUpdateTime();
+		this.submissionDatesList=callOfProposal.getSubmissionDatesList();
 		init(applyObjs);
 		
 	}
@@ -195,38 +210,54 @@ public class CallOfProposalBean {
 	}
 
 	public long getPublicationTime() {
-		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		//return formatter.format(publicationTime);
 		return publicationTime;
 	}
 	
 	public void setPublicationTime(long publicationTime) {
-		/*try{
+		this.publicationTime=publicationTime;
+	}
+	
+	public String getPublicationTimeString() {
+		if(publicationTime==0)
+			return "";
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(publicationTime);
+	}
+	
+	public void setPublicationTimeString(String publicationTimeString) {
+		try{
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date formattedDate = (Date)formatter.parse(publicationTime); 
+			Date formattedDate = (Date)formatter.parse(publicationTimeString); 
 			this.publicationTime = formattedDate.getTime();
 		}
 		catch(Exception e){
 			this.publicationTime=0;
-		}*/
-		this.publicationTime=publicationTime;
+		}
 	}
 
 	public long getFinalSubmissionTime() {
-		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		//return formatter.format(finalSubmissionTime);
 		return finalSubmissionTime;
 	}
 	public void setFinalSubmissionTime(long finalSubmissionTime) {
-		/*try{
+		this.finalSubmissionTime=finalSubmissionTime;
+	}
+
+	public String getFinalSubmissionTimeString() {
+		if(finalSubmissionTime==0)
+			return "";
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(finalSubmissionTime);
+	}
+	
+	public void setFinalSubmissionTimeString(String finalSubmissionTimeString) {
+		try{
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date formattedDate = (Date)formatter.parse(finalSubmissionTime); 
+			Date formattedDate = (Date)formatter.parse(finalSubmissionTimeString); 
 			this.finalSubmissionTime = formattedDate.getTime();
 		}
 		catch(Exception e){
 			this.finalSubmissionTime=0;
-		}*/
-		this.finalSubmissionTime=finalSubmissionTime;
+		}
 	}
 
 	public boolean getAllYearSubmission() {
@@ -265,21 +296,28 @@ public class CallOfProposalBean {
 	}
 
 	public long getKeepInRollingMessagesExpiryTime() {
-		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		//return formatter.format(keepInRollingMessagesExpiryTime);
 		return keepInRollingMessagesExpiryTime;
 	}
 	
 	public void setKeepInRollingMessagesExpiryTime(long keepInRollingMessagesExpiryTime) {
-		/*try{
+		this.keepInRollingMessagesExpiryTime=keepInRollingMessagesExpiryTime;
+	}
+	public String getKeepInRollingMessagesExpiryTimeString() {
+		if(keepInRollingMessagesExpiryTime==0)
+			return "";
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(keepInRollingMessagesExpiryTime);
+	}
+	
+	public void setKeepInRollingMessagesExpiryTimeString(String keepInRollingMessagesExpiryTimeString) {
+		try{
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date formattedDate = (Date)formatter.parse(keepInRollingMessagesExpiryTime); 
+			Date formattedDate = (Date)formatter.parse(keepInRollingMessagesExpiryTimeString); 
 			this.keepInRollingMessagesExpiryTime = formattedDate.getTime();
 		}
 		catch(Exception e){
 			this.keepInRollingMessagesExpiryTime=0;
-		}*/
-		this.keepInRollingMessagesExpiryTime=keepInRollingMessagesExpiryTime;
+		}
 	}
 
 	public int getDeskId() {
@@ -414,6 +452,28 @@ public class CallOfProposalBean {
 
 	public void setSubmissionDates(List<Long> submissionDates) {
 		this.submissionDates = submissionDates;
+	}
+
+	
+	public List<AdditionalSubmissionDate> getSubmissionDatesList() {
+		for (int i=0; i< 3; i++){
+			AdditionalSubmissionDate additionalSubmissionDate = new AdditionalSubmissionDate();
+			if(submissionDates.size()>i){
+				Long submissionDate = submissionDates.get(i);
+				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				additionalSubmissionDate.setSubmissionDate(formatter.format(submissionDate));
+				submissionDatesList.set(i, additionalSubmissionDate);
+			}
+			else{
+				additionalSubmissionDate.setSubmissionDate("");
+				submissionDatesList.add(additionalSubmissionDate);
+			}
+		}
+		return submissionDatesList; 
+	}
+
+	public void setSubmissionDatesList(List<AdditionalSubmissionDate> submissionDatesList) {
+		this.submissionDatesList = submissionDatesList;	
 	}
 	
 	public List<Attachment> getAttachments() {

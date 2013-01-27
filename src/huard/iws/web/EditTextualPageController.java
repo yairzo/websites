@@ -155,7 +155,14 @@ public class EditTextualPageController extends GeneralFormController {
 				model.put("keepInRollingMessagesExpiryTime", "");
 			else
 				model.put("keepInRollingMessagesExpiryTime", formatter.format(textualPageBean.getKeepInRollingMessagesExpiryTime()));
-
+			//if this textual page is a url of any category - get the top category 
+			Category category = categoryService.getCategoryByUrl("textualPage.html?id="+textualPageBean.getId());
+			if(category.getId()>0)
+				model.put("pageTopCategory",categoryService.getTopCategory(category).getId());
+			else
+				model.put("pageTopCategory","0");
+				
+			
 			model.put("id",textualPageBean.getId());
 			return new ModelAndView ( this.getFormView(), model);
 		}		

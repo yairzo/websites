@@ -2,6 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.CallOfProposalBean;
 import huard.iws.bean.PersonBean;
+import huard.iws.model.AdditionalSubmissionDate;
 import huard.iws.model.Fund;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Language;
@@ -81,8 +82,47 @@ public class EditCallOfProposalController extends GeneralFormController{
 			callOfProposalBean.getSubjectsIds().add(subjectId);
 		}
 		
-		//submissionDates
-		List<Long> submissionDates= new ArrayList<Long>();
+		//dates
+		/*if(request.getParameter("publicationTimeStr", "").equals("")){
+			callOfProposalBean.setPublicationTime(0);
+		}
+		else{
+			try{
+				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				Date formattedDate = (Date)formatter.parse(request.getParameter("publicationTimeStr", "")); 
+				callOfProposalBean.setPublicationTime(formattedDate.getTime());
+			}
+			catch(Exception e){
+				callOfProposalBean.setPublicationTime(0);
+			}
+		}
+		if(request.getParameter("finalSubmissionTimeStr", "").equals("")){
+			callOfProposalBean.setFinalSubmissionTime(0);
+		}
+		else{
+			try{
+				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				Date formattedDate = (Date)formatter.parse(request.getParameter("finalSubmissionTimeStr", "")); 
+				callOfProposalBean.setFinalSubmissionTime(formattedDate.getTime());
+			}
+			catch(Exception e){
+				callOfProposalBean.setFinalSubmissionTime(0);
+			}
+		}
+		if(request.getParameter("keepInRollingMessagesExpiryTimeStr", "").equals("")){
+			callOfProposalBean.setKeepInRollingMessagesExpiryTime(0);
+		}
+		else{
+			try{
+				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				Date formattedDate = (Date)formatter.parse(request.getParameter("keepInRollingMessagesExpiryTimeStr", "")); 
+				callOfProposalBean.setKeepInRollingMessagesExpiryTime(formattedDate.getTime());
+			}
+			catch(Exception e){
+				callOfProposalBean.setKeepInRollingMessagesExpiryTime(0);
+			}
+		}*/
+		/*List<Long> submissionDates= new ArrayList<Long>();
 		if(!request.getParameter("submissionDate1", "").equals("")){
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDate1", ""));
@@ -97,6 +137,21 @@ public class EditCallOfProposalController extends GeneralFormController{
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDate3", "")); 
 			submissionDates.add(formattedDate.getTime());
+		}
+		callOfProposalBean.setSubmissionDates(submissionDates);*/
+		List<Long> submissionDates= new ArrayList<Long>();
+		for (int i=0; i< 3; i++){
+			AdditionalSubmissionDate additionalSubmissionDate =  callOfProposalBean.getSubmissionDatesList().get(i);
+			System.out.println("222222222222222222222:"+i+":"+additionalSubmissionDate.getSubmissionDate());
+			try{
+				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				Date formattedDate = (Date)formatter.parse(additionalSubmissionDate.getSubmissionDate()); 
+				submissionDates.add(formattedDate.getTime());
+			}
+			catch(Exception e){
+				submissionDates.add(new Long(1000));
+			}
+			System.out.println("222222222222222222222:"+submissionDates.get(i));
 		}
 		callOfProposalBean.setSubmissionDates(submissionDates);
 		
@@ -137,7 +192,7 @@ public class EditCallOfProposalController extends GeneralFormController{
 			logger.info("callOfProposalId " + callOfProposalId);
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",callOfProposalId);
-			return new ModelAndView ( new RedirectView("callForProposal.html"), newModel);
+			return new ModelAndView ( new RedirectView("editCallForProposal.html"), newModel);
 		}
 		else{//show edit
 			CallOfProposalBean callOfProposal = (CallOfProposalBean) model.get("command");
@@ -188,7 +243,7 @@ public class EditCallOfProposalController extends GeneralFormController{
 			
 			//dates
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			if (callOfProposal.getPublicationTime()==0)
+			/*if (callOfProposal.getPublicationTime()==0)
 				model.put("publicationTime", "");
 			else
 				model.put("publicationTime", formatter.format(callOfProposal.getPublicationTime()));
@@ -200,9 +255,9 @@ public class EditCallOfProposalController extends GeneralFormController{
 				model.put("keepInRollingMessagesExpiryTime", "");
 			else
 				model.put("keepInRollingMessagesExpiryTime", formatter.format(callOfProposal.getKeepInRollingMessagesExpiryTime()));
-
+			 */
 			//extra submission dates
-			Date tmpDate = new Date();
+			/*Date tmpDate = new Date();
 			int i=1;
 			if(callOfProposal.getSubmissionDates()!=null){
 				for(Long submissionDate: callOfProposal.getSubmissionDates()){
@@ -211,7 +266,7 @@ public class EditCallOfProposalController extends GeneralFormController{
 					model.put(submissionName, formatter.format(tmpDate));
 					i++;
 				}
-			}
+			}*/
 			//funds
 			String selectedFund="";
 			if(callOfProposal.getFundId()>0){
@@ -244,46 +299,6 @@ public class EditCallOfProposalController extends GeneralFormController{
 		int id = request.getIntParameter("id", 0);
 		logger.info("id: " + id);
 		
-		//dates
-		if(request.getParameter("publicationTimeStr", "").equals("")){
-			callOfProposalBean.setPublicationTime(0);
-		}
-		else{
-			try{
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(request.getParameter("publicationTimeStr", "")); 
-				callOfProposalBean.setPublicationTime(formattedDate.getTime());
-			}
-			catch(Exception e){
-				callOfProposalBean.setPublicationTime(0);
-			}
-		}
-		if(request.getParameter("finalSubmissionTimeStr", "").equals("")){
-			callOfProposalBean.setFinalSubmissionTime(0);
-		}
-		else{
-			try{
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(request.getParameter("finalSubmissionTimeStr", "")); 
-				callOfProposalBean.setFinalSubmissionTime(formattedDate.getTime());
-			}
-			catch(Exception e){
-				callOfProposalBean.setFinalSubmissionTime(0);
-			}
-		}
-		if(request.getParameter("keepInRollingMessagesExpiryTimeStr", "").equals("")){
-			callOfProposalBean.setKeepInRollingMessagesExpiryTime(0);
-		}
-		else{
-			try{
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(request.getParameter("keepInRollingMessagesExpiryTimeStr", "")); 
-				callOfProposalBean.setKeepInRollingMessagesExpiryTime(formattedDate.getTime());
-			}
-			catch(Exception e){
-				callOfProposalBean.setKeepInRollingMessagesExpiryTime(0);
-			}
-		}
 		
 		if ( isFormSubmission(request.getRequest()) 
 				|| request.getParameter("action","").equals("new")

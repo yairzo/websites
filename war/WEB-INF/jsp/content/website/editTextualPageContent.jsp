@@ -88,7 +88,7 @@
 				<tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
 					שיוך לקטגוריה:
-        				<form:select path="categoryId" cssClass="green" >
+        				<form:select path="categoryId" id="categoryId" cssClass="green" >
       						<form:option value="0">בחר/י</form:option>
        						<c:forEach items="${categories}" var="category">
 	        					<form:option htmlEscape="true" value="${category.id}"><c:out escapeXml="false" value="${category.name}"/></form:option>

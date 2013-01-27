@@ -93,7 +93,15 @@ $(document).ready(function() {
   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('#form').submit();
 	});
+
 	
+	$("#categoryId").change(function(){
+		var topCategory = "${pageTopCategory}";
+		if(topCategory!=$("#categoryId").val() && topCategory>0){
+			alert('<fmt:message key="${lang.localeId}.website.categoryclash2"/>');
+		}
+	});
+
 	$('button.addTemplate').click(function(){
    		$("#templateDialog").dialog('option', 'buttons', {
             "ביטול" : function() {
@@ -158,9 +166,6 @@ $(document).ready(function() {
 
     $(".editor").ckeditor(config);
 	
-	//<c:if test="${showTemplate}">
-	//	$("#html").html('${templateHtml}');
-	//</c:if> 
 	
    CKEDITOR.on('instanceReady', function() {//(for ie) 
     if('${showTemplate}'){

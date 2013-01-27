@@ -30,6 +30,18 @@ public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao
 		Category category = getSimpleJdbcTemplate().queryForObject(query,categoryRowMapper,id);
 		return category;
 	}
+	public Category getCategoryByUrl(String url){
+		String query = "select * from websiteCategory where url=? limit 1;";
+		logger.info(query);
+		Category category = new Category();
+		try{
+			category = getSimpleJdbcTemplate().queryForObject(query,categoryRowMapper,url);
+			return category;
+		}
+		catch(Exception e){
+			return category;
+		}
+	}
 	
 	private ParameterizedRowMapper<Category> categoryRowMapper = new ParameterizedRowMapper<Category>(){
 		public Category mapRow(ResultSet rs, int rowNum) throws SQLException{

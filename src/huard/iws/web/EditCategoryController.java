@@ -28,15 +28,14 @@ public class EditCategoryController extends GeneralFormController {
 
 		CategoryBean categoryBean = (CategoryBean)command;
 		if(!request.getParameter("textualPage", "").isEmpty()){
-			String textualPage = request.getParameter("textualPage", "");
-			categoryBean.setUrl(textualPage);
+			String textualPageId = request.getParameter("textualPage", "");
+			categoryBean.setUrl("textualPage.html?id="+textualPageId);
 		}
+		
 		//update
 		categoryService.updateCategory(categoryBean.toCategory());
 
-		if (request.getBooleanParameter("ajaxSubmit", false))
-			return null;
-		
+	
 		Map<String,Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", categoryBean.getId())	;
 		return new ModelAndView(new RedirectView("categories.html"),newModel);
@@ -65,6 +64,8 @@ public class EditCategoryController extends GeneralFormController {
 				textualPageBeans.add(textualPageBean);
 			}
 			model.put("textualPages", textualPageBeans);
+			
+			model.put("topCategory",categoryService.getTopCategory(category.toCategory()).getId());
 
 			model.put("id",category.getId());
 			return new ModelAndView ( this.getFormView(), model);

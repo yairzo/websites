@@ -84,31 +84,26 @@
 					</td>
 					<td  width="300" style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.publicationTime"/>
-						<input type="text" class="green date medium100" name="publicationTimeStr" id="publicationTime" value="${publicationTime}"/>
+						<form:input htmlEscape="true" cssClass="green date medium100" path="publicationTimeString" id="publicationTime"/>
 					    <div id="errorpublicationTime" title="שגיאה" dir="${lang.dir}">				
 					</td>
 					<td width="320" style="border:1px #bca2a2 dotted" nowrap>
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.finalSubmissionTime"/>
-						<input type="text" class="green date submissionDate medium100" name="finalSubmissionTimeStr" id="finalSubmissionTime" value="${finalSubmissionTime}"/>&nbsp;
+						<form:input htmlEscape="true" cssClass="green date submissionDate medium100" path="finalSubmissionTimeString" id="finalSubmissionTime"/>&nbsp;
 						<form:checkbox cssClass="green" path="allYearSubmission" id="allYearSubmission"/>
 						<fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/>
 					    <div id="errorfinalSubmissionTime" title="שגיאה" dir="${lang.dir}">				
  					</td>
 				</tr>
 				<tr class="form">
- 					<td width="300" style="border:1px #bca2a2 dotted">
-						 <fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/>
-						<input type="text" class="green date medium100" name="submissionDate1" value="${submissionDate1}"/>
-					</td>
+				    <c:forEach items="${command.submissionDatesList}" var="anotherSubmissionDate" varStatus="varStatus">
 					<td width="300" style="border:1px #bca2a2 dotted">
-						<fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/>
-						<input type="text" class="green date medium100" name="submissionDate2" value="${submissionDate2}"/>
- 					</td>
-					<td  style="border:1px #bca2a2 dotted">
-						<fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/>
-						<input type="text" class="green date medium100" name="submissionDate3" value="${submissionDate3}"/>
+						 <fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/>
+						<form:input htmlEscape="true" cssClass="green date medium100" path="submissionDatesList[${varStatus.index}].submissionDate"/>
 					</td>
-				</tr>
+					</c:forEach>
+				
+				</tr> 
                 <tr class="form">
 					<td colspan="2" style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.fund"/>
@@ -133,7 +128,7 @@
 				<tr class="form">
 					<td colspan="2" style="border:1px #bca2a2 dotted">
  						<fmt:message key="${lang.localeId}.callForProposal.keepInRollingMessagesExpiryTime"/>
-						<input type="text" class="green date medium100" name="keepInRollingMessagesExpiryTimeStr"  id="keepInRollingMessagesExpiryTime" value="${keepInRollingMessagesExpiryTime}"/>
+						<form:input htmlEscape="true" cssClass="green date medium100" path="keepInRollingMessagesExpiryTimeString" id="keepInRollingMessagesExpiryTime"/>
  					</td>
 					<td  style="border:1px #bca2a2 dotted" nowrap>
 						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.desk"/>

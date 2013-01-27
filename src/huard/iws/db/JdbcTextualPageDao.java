@@ -106,6 +106,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", fileUrl = ?" +
 				", wrapExternalPage = ?" +
 				", externalPageUrl = ?" +
+				", categoryId = ?" +
 				", isMessage = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()";
@@ -122,6 +123,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getFileUrl(),
 	    		textualPage.getWrapExternalPage(),
 	    		textualPage.getExternalPageUrl(),
+	    		textualPage.getCategoryId(),
 	    		textualPage.getIsMessage(),
 	    		keepInRollingMessagesExpiryTime);
 	}
