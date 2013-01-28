@@ -2,7 +2,6 @@ package huard.iws.web;
 
 import huard.iws.bean.CallOfProposalBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.model.AdditionalSubmissionDate;
 import huard.iws.model.Fund;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Language;
@@ -11,7 +10,6 @@ import huard.iws.model.CallOfProposal;
 import huard.iws.model.Subject;
 import huard.iws.model.Attachment;
 import huard.iws.service.CallOfProposalService;
-import huard.iws.service.PersonListService;
 import huard.iws.service.SubjectService;
 import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
@@ -81,79 +79,6 @@ public class EditCallOfProposalController extends GeneralFormController{
 		for (int subjectId: subjectsIds){
 			callOfProposalBean.getSubjectsIds().add(subjectId);
 		}
-		
-		//dates
-		/*if(request.getParameter("publicationTimeStr", "").equals("")){
-			callOfProposalBean.setPublicationTime(0);
-		}
-		else{
-			try{
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(request.getParameter("publicationTimeStr", "")); 
-				callOfProposalBean.setPublicationTime(formattedDate.getTime());
-			}
-			catch(Exception e){
-				callOfProposalBean.setPublicationTime(0);
-			}
-		}
-		if(request.getParameter("finalSubmissionTimeStr", "").equals("")){
-			callOfProposalBean.setFinalSubmissionTime(0);
-		}
-		else{
-			try{
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(request.getParameter("finalSubmissionTimeStr", "")); 
-				callOfProposalBean.setFinalSubmissionTime(formattedDate.getTime());
-			}
-			catch(Exception e){
-				callOfProposalBean.setFinalSubmissionTime(0);
-			}
-		}
-		if(request.getParameter("keepInRollingMessagesExpiryTimeStr", "").equals("")){
-			callOfProposalBean.setKeepInRollingMessagesExpiryTime(0);
-		}
-		else{
-			try{
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(request.getParameter("keepInRollingMessagesExpiryTimeStr", "")); 
-				callOfProposalBean.setKeepInRollingMessagesExpiryTime(formattedDate.getTime());
-			}
-			catch(Exception e){
-				callOfProposalBean.setKeepInRollingMessagesExpiryTime(0);
-			}
-		}*/
-		/*List<Long> submissionDates= new ArrayList<Long>();
-		if(!request.getParameter("submissionDate1", "").equals("")){
-			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDate1", ""));
-			submissionDates.add(formattedDate.getTime());
-		}
-		if(!request.getParameter("submissionDate2", "").equals("")){
-			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDate2", "")); 
-			submissionDates.add(formattedDate.getTime());
-		}
-		if(!request.getParameter("submissionDate3", "").equals("")){
-			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDate3", "")); 
-			submissionDates.add(formattedDate.getTime());
-		}
-		callOfProposalBean.setSubmissionDates(submissionDates);*/
-		List<Long> submissionDates= new ArrayList<Long>();
-		for (int i=0; i< 3; i++){
-			AdditionalSubmissionDate additionalSubmissionDate =  callOfProposalBean.getSubmissionDatesList().get(i);
-			System.out.println("222222222222222222222:"+i+":"+additionalSubmissionDate.getSubmissionDate());
-			try{
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(additionalSubmissionDate.getSubmissionDate()); 
-				submissionDates.add(formattedDate.getTime());
-			}
-			catch(Exception e){
-				submissionDates.add(new Long(1000));
-			}
-			System.out.println("222222222222222222222:"+submissionDates.get(i));
-		}
-		callOfProposalBean.setSubmissionDates(submissionDates);
 		
 		//update
 		callOfProposalService.updateCallOfProposal(callOfProposalBean.toCallOfProposal());
@@ -241,32 +166,6 @@ public class EditCallOfProposalController extends GeneralFormController{
 			}
 			model.put("deskAssistants", deskAssistants);
 			
-			//dates
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			/*if (callOfProposal.getPublicationTime()==0)
-				model.put("publicationTime", "");
-			else
-				model.put("publicationTime", formatter.format(callOfProposal.getPublicationTime()));
-			if (callOfProposal.getFinalSubmissionTime()==0)
-				model.put("finalSubmissionTime", "");
-			else
-				model.put("finalSubmissionTime", formatter.format(callOfProposal.getFinalSubmissionTime()));
-			if (callOfProposal.getKeepInRollingMessagesExpiryTime()==0)
-				model.put("keepInRollingMessagesExpiryTime", "");
-			else
-				model.put("keepInRollingMessagesExpiryTime", formatter.format(callOfProposal.getKeepInRollingMessagesExpiryTime()));
-			 */
-			//extra submission dates
-			/*Date tmpDate = new Date();
-			int i=1;
-			if(callOfProposal.getSubmissionDates()!=null){
-				for(Long submissionDate: callOfProposal.getSubmissionDates()){
-					tmpDate = new Date(submissionDate);
-					String submissionName="submissionDate" + i;
-					model.put(submissionName, formatter.format(tmpDate));
-					i++;
-				}
-			}*/
 			//funds
 			String selectedFund="";
 			if(callOfProposal.getFundId()>0){

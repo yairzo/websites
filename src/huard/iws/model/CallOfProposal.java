@@ -1,6 +1,5 @@
 package huard.iws.model;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class CallOfProposal {
 	private String additionalInformation;
 	private List<Integer> subjectsIds;
 	private List<Long> submissionDates;
-	private List<AdditionalSubmissionDate> submissionDatesList;
+	private List<String> submissionDatesList;
 	private List<Attachment> attachments;
 	private String localeId;
 	private long updateTime;
@@ -69,11 +68,7 @@ public class CallOfProposal {
 		this.budgetDetails="";
 		this.additionalInformation="";
 		this.updateTime=0;
-		this.submissionDatesList=new ArrayList<AdditionalSubmissionDate>();
-		for (int i=0; i< 3; i++){
-			AdditionalSubmissionDate additionalSubmissionDate = new AdditionalSubmissionDate();
-			submissionDatesList.add(additionalSubmissionDate);
-		}
+		this.submissionDatesList=new ArrayList<String>();
 	}
 	
 	public int getId() {
@@ -315,11 +310,11 @@ public class CallOfProposal {
 		this.updateTime = updateTime;
 	}
 	
-	public List<AdditionalSubmissionDate> getSubmissionDatesList() {
+	public List<String> getSubmissionDatesList() {
 		return submissionDatesList; 
 	}
 
-	public void setSubmissionDatesList(List<AdditionalSubmissionDate> submissionDatesList) {
+	public void setSubmissionDatesList(List<String> submissionDatesList) {
 		this.submissionDatesList = submissionDatesList;	
 	}
 

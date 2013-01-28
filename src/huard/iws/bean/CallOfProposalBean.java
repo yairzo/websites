@@ -2,10 +2,8 @@ package huard.iws.bean;
 
 import huard.iws.model.Attachment;
 import huard.iws.model.CallOfProposal;
-import huard.iws.model.Committee;
 import huard.iws.model.Fund;
 import huard.iws.model.MopDesk;
-import huard.iws.model.AdditionalSubmissionDate;
 import huard.iws.service.ConfigurationService;
 import huard.iws.service.FundService;
 import huard.iws.service.MessageService;
@@ -55,7 +53,7 @@ public class CallOfProposalBean {
 	private String additionalInformation;
 	private List<Integer> subjectsIds;
 	private List<Long> submissionDates;
-	private List<AdditionalSubmissionDate> submissionDatesList;
+	private List<String> submissionDatesList;
 	private List<Attachment> attachments;
 	private String localeId;
 	private long updateTime;
@@ -97,10 +95,9 @@ public class CallOfProposalBean {
 		this.attachments=new ArrayList<Attachment>();
 		this.localeId="";
 		this.updateTime=0;
-		this.submissionDatesList=new ArrayList<AdditionalSubmissionDate>();
+		this.submissionDatesList=new ArrayList<String>();
 		for (int i=0; i< 3; i++){
-			AdditionalSubmissionDate additionalSubmissionDate = new AdditionalSubmissionDate();
-			submissionDatesList.add(additionalSubmissionDate);
+			submissionDatesList.add("");
 		}
 	}
 
@@ -139,7 +136,14 @@ public class CallOfProposalBean {
 		this.localeId=callOfProposal.getLocaleId();
 		this.updateTime= callOfProposal.getUpdateTime();
 		this.submissionDatesList=callOfProposal.getSubmissionDatesList();
-		init(applyObjs);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        for (long submissionDate: callOfProposal.getSubmissionDates()){
+            if(submissionDate>1000)
+             	this.submissionDatesList.add(formatter.format(submissionDate));
+        }	
+        while (submissionDatesList.size() < 3)
+        	this.submissionDatesList.add("");
+        init(applyObjs);
 		
 	}
 
@@ -177,6 +181,18 @@ public class CallOfProposalBean {
 		callOfProposal.setAttachments(attachments);
 		callOfProposal.setLocaleId(localeId);
 		callOfProposal.setUpdateTime(updateTime);
+		List<Long> submissionDates= new ArrayList<Long>();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        for (String additionalSubmissionDate: submissionDatesList){
+			try{
+				Date formattedDate = (Date)formatter.parse(additionalSubmissionDate); 
+				submissionDates.add(formattedDate.getTime());
+			}
+			catch(Exception e){
+				submissionDates.add(new Long(1000));
+			}
+	    }	
+		callOfProposal.setSubmissionDates(submissionDates);
 		return callOfProposal;
 	}
 
@@ -455,24 +471,11 @@ public class CallOfProposalBean {
 	}
 
 	
-	public List<AdditionalSubmissionDate> getSubmissionDatesList() {
-		for (int i=0; i< 3; i++){
-			AdditionalSubmissionDate additionalSubmissionDate = new AdditionalSubmissionDate();
-			if(submissionDates.size()>i){
-				Long submissionDate = submissionDates.get(i);
-				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				additionalSubmissionDate.setSubmissionDate(formatter.format(submissionDate));
-				submissionDatesList.set(i, additionalSubmissionDate);
-			}
-			else{
-				additionalSubmissionDate.setSubmissionDate("");
-				submissionDatesList.add(additionalSubmissionDate);
-			}
-		}
+	public List<String> getSubmissionDatesList() {
 		return submissionDatesList; 
 	}
 
-	public void setSubmissionDatesList(List<AdditionalSubmissionDate> submissionDatesList) {
+	public void setSubmissionDatesList(List<String> submissionDatesList) {
 		this.submissionDatesList = submissionDatesList;	
 	}
 	

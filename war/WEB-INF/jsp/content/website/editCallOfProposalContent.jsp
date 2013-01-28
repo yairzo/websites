@@ -99,7 +99,7 @@
 				    <c:forEach items="${command.submissionDatesList}" var="anotherSubmissionDate" varStatus="varStatus">
 					<td width="300" style="border:1px #bca2a2 dotted">
 						 <fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/>
-						<form:input htmlEscape="true" cssClass="green date medium100" path="submissionDatesList[${varStatus.index}].submissionDate"/>
+						<form:input htmlEscape="true" cssClass="green date medium100" path="submissionDatesList[${varStatus.index}]"/>
 					</td>
 					</c:forEach>
 				
