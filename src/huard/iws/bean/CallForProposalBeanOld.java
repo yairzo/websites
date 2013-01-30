@@ -1,6 +1,6 @@
 package huard.iws.bean;
 
-import huard.iws.model.CallOfProposalOld;
+import huard.iws.model.CallForProposalOld;
 import huard.iws.model.Fund;
 import huard.iws.model.MopDesk;
 import huard.iws.service.ConfigurationService;
@@ -11,7 +11,7 @@ import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
 
-public class CallOfProposalBeanOld {
+public class CallForProposalBeanOld {
 	private int id;
 	private int fundId;
 	private long publicationTimeMillis;
@@ -29,7 +29,7 @@ public class CallOfProposalBeanOld {
 		return fund;
 	}
 
-	public CallOfProposalBeanOld(){
+	public CallForProposalBeanOld(){
 		this.id = 0;
 		this.fundId = 0;
 		this.publicationTimeMillis = 0;
@@ -50,31 +50,31 @@ public class CallOfProposalBeanOld {
 		configurationService = (ConfigurationService) ApplicationContextProvider.getContext().getBean("configurationService");
 	}
 
-	public CallOfProposalBeanOld(CallOfProposalOld callOfProposal, boolean applyObjs){
-		this.id = callOfProposal.getId();
-		this.fundId = callOfProposal.getFundId();
-		this.publicationTimeMillis = callOfProposal.getPublicationTimeMillis();
-		this.submissionTimeMillis = callOfProposal.getSubmissionTimeMillis();
-		this.title = callOfProposal.getTitle();
-		this.amountOfGrant = callOfProposal.getAmountOfGrant();
-		this.deskId = callOfProposal.getDeskId();
+	public CallForProposalBeanOld(CallForProposalOld callForProposal, boolean applyObjs){
+		this.id = callForProposal.getId();
+		this.fundId = callForProposal.getFundId();
+		this.publicationTimeMillis = callForProposal.getPublicationTimeMillis();
+		this.submissionTimeMillis = callForProposal.getSubmissionTimeMillis();
+		this.title = callForProposal.getTitle();
+		this.amountOfGrant = callForProposal.getAmountOfGrant();
+		this.deskId = callForProposal.getDeskId();
 		init(applyObjs);
 	}
 
-	public CallOfProposalOld toCallOfProposal(){
-		CallOfProposalOld callOfProposal = new CallOfProposalOld();
-		callOfProposal.setId(id);
-		callOfProposal.setFundId(fundId);
-		callOfProposal.setPublicationTimeMillis(publicationTimeMillis);
-		callOfProposal.setSubmissionTimeMillis(submissionTimeMillis);
-		callOfProposal.setTitle(title);
-		callOfProposal.setAmountOfGrant(amountOfGrant);
-		callOfProposal.setDeskId(deskId);
-		return callOfProposal;
+	public CallForProposalOld toCallForProposal(){
+		CallForProposalOld callForProposal = new CallForProposalOld();
+		callForProposal.setId(id);
+		callForProposal.setFundId(fundId);
+		callForProposal.setPublicationTimeMillis(publicationTimeMillis);
+		callForProposal.setSubmissionTimeMillis(submissionTimeMillis);
+		callForProposal.setTitle(title);
+		callForProposal.setAmountOfGrant(amountOfGrant);
+		callForProposal.setDeskId(deskId);
+		return callForProposal;
 	}
 
 	public String toString(){
-		//StringBuilder sb = new StringBuilder(messageService.getMessage("general.callOfProposal.titlePrefix", getLocaleId()));
+		//StringBuilder sb = new StringBuilder(messageService.getMessage("general.callForProposal.titlePrefix", getLocaleId()));
 		StringBuilder sb = new StringBuilder();
 		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("website", "webServer") +
 				"/huard/infoPageViewer.jsp?ardNum=" + this.id + "\">" + title + "</a><br/> ");
@@ -85,17 +85,17 @@ public class CallOfProposalBeanOld {
 		else
 			sb.append("# Funding agency #");
 		if(submissionTimeMillis==0)
-			sb.append(messageService.getMessage("general.callOfProposal.submission", getLocaleId()) + ": "
-					+ messageService.getMessage("general.callOfProposal.submissionAllYear", getLocaleId()) + " <br/> ");
+			sb.append(messageService.getMessage("general.callForProposal.submission", getLocaleId()) + ": "
+					+ messageService.getMessage("general.callForProposal.submissionAllYear", getLocaleId()) + " <br/> ");
 		else	
-			sb.append(messageService.getMessage("general.callOfProposal.submission", getLocaleId()) + ": "
+			sb.append(messageService.getMessage("general.callForProposal.submission", getLocaleId()) + ": "
 				+ DateUtils.getLocaleDependentShortDateFormat(submissionTimeMillis, getLocaleId()) + " <br/> ");
 		if (! amountOfGrant.isEmpty())
-			sb.append(messageService.getMessage("general.callOfProposal.amountOfGrant", getLocaleId()) + ": " + amountOfGrant + ";;");
-		sb.append(messageService.getMessage("general.callOfProposal.successIndex", getLocaleId()) + ": xxxxx;;");
-		sb.append(" " +messageService.getMessage("general.callOfProposal.deskPrefix", getLocaleId()));
+			sb.append(messageService.getMessage("general.callForProposal.amountOfGrant", getLocaleId()) + ": " + amountOfGrant + ";;");
+		sb.append(messageService.getMessage("general.callForProposal.successIndex", getLocaleId()) + ": xxxxx;;");
+		sb.append(" " +messageService.getMessage("general.callForProposal.deskPrefix", getLocaleId()));
 		MopDeskBean mopDeskBean = new MopDeskBean(mopDesk);
-		//sb.append("#mu# #mp##mue#, <span class=\"bold\">" + mopDeskBean.getName(getLocaleId()) + "." +messageService.getMessage("general.callOfProposal.publication", getLocaleId()) + ":" + DateUtils.getLocaleDependentShortDateFormat(publicationTimeMillis, getLocaleId()) + "</span>");
+		//sb.append("#mu# #mp##mue#, <span class=\"bold\">" + mopDeskBean.getName(getLocaleId()) + "." +messageService.getMessage("general.callForProposal.publication", getLocaleId()) + ":" + DateUtils.getLocaleDependentShortDateFormat(publicationTimeMillis, getLocaleId()) + "</span>");
 		sb.append("#mu# #mp##mue#, <span class=\"bold\">" + mopDeskBean.getName(getLocaleId()) + "." + "</span>");
 
 		return sb.toString();

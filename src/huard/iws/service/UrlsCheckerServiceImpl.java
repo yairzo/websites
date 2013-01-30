@@ -1,8 +1,8 @@
 package huard.iws.service;
 
-import huard.iws.db.CallOfProposalDaoOld;
+import huard.iws.db.CallForProposalDaoOld;
 import huard.iws.db.UrlsCheckerDao;
-import huard.iws.model.CallOfProposalOld;
+import huard.iws.model.CallForProposalOld;
 import huard.iws.model.PageUrl;
 import huard.iws.model.TextualPageOld;
 import huard.iws.util.ListView;
@@ -23,19 +23,19 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 	public void buildInfoPagesURLsTable(Integer ardNum){
 		String server = configurationService.getConfigurationString("website", "websiteDb");
 		urlsCheckerDao.markExistingRowsInInfoPagesUrls(server);
-		List<CallOfProposalOld> callOfProposals = callOfProposalDaoOld.getAliveTabledInfoPages(ardNum,server);
-		for (CallOfProposalOld callOfProposal: callOfProposals){
-			String text = callOfProposal.toString();
+		List<CallForProposalOld> callForProposals = callForProposalDaoOld.getAliveTabledInfoPages(ardNum,server);
+		for (CallForProposalOld callForProposal: callForProposals){
+			String text = callForProposal.toString();
 			List<PageUrl> pageURLsList = getURLs(text);
-			if (! callOfProposal.isDescriptionOnly()){
-				String pageWebAddress = callOfProposal.getPageWebAddress();
+			if (! callForProposal.isDescriptionOnly()){
+				String pageWebAddress = callForProposal.getPageWebAddress();
 				if (pageWebAddress!=null && !"".equals(pageWebAddress)){
 					if (pageWebAddress.indexOf("http://")==-1) pageWebAddress = "http://"+pageWebAddress;
 					PageUrl pageUrl = new PageUrl("Original Call", pageWebAddress);
 					pageURLsList.add(pageUrl);
 				}
 			}
-			urlsCheckerDao.insertTabledInfoPagesURLsTable(callOfProposal.getId(), pageURLsList, server);
+			urlsCheckerDao.insertTabledInfoPagesURLsTable(callForProposal.getId(), pageURLsList, server);
 		}
 		urlsCheckerDao.deleteOldRowsFromInfoPagesUrls(server);
 	}
@@ -196,8 +196,8 @@ public class UrlsCheckerServiceImpl implements UrlsCheckerService{
 		this.urlsCheckerDao = urlsCheckerDao;
 	}
 	
-	private CallOfProposalDaoOld callOfProposalDaoOld;
-	public void setCallOfProposalDaoOld(CallOfProposalDaoOld callOfProposalDaoOld) {
-		this.callOfProposalDaoOld = callOfProposalDaoOld;
+	private CallForProposalDaoOld callForProposalDaoOld;
+	public void setCallForProposalDaoOld(CallForProposalDaoOld callForProposalDaoOld) {
+		this.callForProposalDaoOld = callForProposalDaoOld;
 	}
 }

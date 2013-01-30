@@ -1,6 +1,6 @@
 package huard.iws.db;
 
-//import huard.iws.model.CallOfProposal;
+//import huard.iws.model.CallForProposal;
 //import huard.iws.model.PageMailUrl;
 import huard.iws.model.PageUrl;
 import huard.iws.model.TextualPageOld;
@@ -13,7 +13,7 @@ public interface UrlsCheckerDao {
 
 	public void markExistingRowsInInfoPagesUrls(String server);
 	
-	//public List<CallOfProposal> getAliveTabledInfoPages(Integer ardNum,String server);
+	//public List<CallForProposal> getAliveTabledInfoPages(Integer ardNum,String server);
 
 	public void insertTabledInfoPagesURLsTable(int ardNum, List<PageUrl> URLsList,String server);
 
@@ -37,7 +37,7 @@ public interface UrlsCheckerDao {
 
 	public List<PageUrl> getInfoPagesUrls(Integer ardNum,String server);
 
-	//public List<CallOfProposal> getInfoPageByArdNum(int ardNum,String server);
+	//public List<CallForProposal> getInfoPageByArdNum(int ardNum,String server);
 
 	public void updateTabledInfoPagesUrl(PageUrl pageUrl,String server);
 

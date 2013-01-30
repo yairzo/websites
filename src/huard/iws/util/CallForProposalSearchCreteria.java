@@ -12,6 +12,7 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 	protected String searchBySubmissionDateTo;
 	protected int searchByType;
 	protected String searchBySearchWords;
+	protected String searchWords;
 	
 	
 	public CallForProposalSearchCreteria(){
@@ -24,6 +25,7 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 		this.searchBySubmissionDateTo = "";
 		this.searchByType = 0;
 		this.searchBySearchWords= "";
+		this.searchWords="";
 	}
 
 	
@@ -91,16 +93,14 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 	}
 
 	public void setSearchBySearchWords(Set<Long> searchBySearchWords) {
-		String searchWords = "";
-		Iterator<Long> it = searchBySearchWords.iterator();
-		while(it.hasNext()){
-			searchWords+=",";
-			String nextId=it.next().toString();
-			searchWords+=nextId;
-		}
-		if(!searchWords.isEmpty())
-			searchWords=searchWords.substring(1);
-		this.searchBySearchWords = searchWords;
+		this.searchBySearchWords = BaseUtils.getStringFromLongSet(searchBySearchWords);
+	}
+	public String getSearchWords() {
+		return searchWords;
+	}
+
+	public void setSearchWords(String searchWords) {
+		this.searchWords = searchWords;
 	}
 
 }

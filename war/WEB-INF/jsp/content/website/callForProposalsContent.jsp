@@ -29,10 +29,16 @@
                 	 	<tr>
                  		 <td align="center"><h1>סינון קולות קוראים</h1>	</td>
                 		</tr>
+                		<tr class="form">
+							<td>
+						 	<fmt:message key="${lang.localeId}.callForProposal.searchWords"/>
+							<input type="text" class="green" style="width:400px" name="searchWords" value="${searchWords }"/> 
+							</td>
+						</tr>
  						<tr class="form">
 						<td>
-   			   			תאריך הגשה בין - <input type="text" name="submissionDateFrom" class="green date medium100"/>
-  			   			ל - <input type="text" name="submissionDateTo" class="green date medium100"/> 
+   			   			תאריך הגשה בין - <input type="text" name="submissionDateFrom" class="green date medium100" value="${submissionDateFrom}"/>
+  			   			ל - <input type="text" name="submissionDateTo" class="green date medium100" value="${submissionDateTo}"/> 
        					</td>
        					</tr>
 						<tr class="form">
@@ -41,11 +47,22 @@
          				<select name="deskId"  class="green" >
       						<option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></option>
        						<c:forEach items="${mopDesks}" var="mopDesk">
-	        					<option htmlEscape="true" value="${mopDesk.id}">
+ 	        					<option htmlEscape="true" value="${mopDesk.id}" <c:if test="${mopDesk.id==deskId}">selected</c:if> >
 	        					<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${mopDesk.hebrewName}"/></c:if>
 	        					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${mopDesk.englishName}"/></c:if>
-	        					</option>
-       						</c:forEach>
+      						</c:forEach>
+        		        </select>
+						</td>
+						</tr>
+ 						<tr class="form">
+						<td>
+						<fmt:message key="${lang.localeId}.callForProposal.type"/>
+         				<select name="typeId"  class="green" >
+      						<option value="0" <c:if test="${typeId==0}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.select"/></option>
+      						<option value="1" <c:if test="${typeId==1}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.researchGrant"/></option>
+      						<option value="2" <c:if test="${typeId==2}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></option>
+      						<option value="3" <c:if test="${typeId==3}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.conference"/></option>
+      						<option value="4" <c:if test="${typeId==4}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.scholarship"/></option>
         		        </select>
 						</td>
 						</tr>
@@ -53,7 +70,7 @@
 							<td>
 						 	<fmt:message key="${lang.localeId}.callForProposal.fund"/>
 							<input type="text" class="green" style="width:400px" id="fundName" value="${selectedFund}"/> 
-							<hidden id="fundId"/>
+							<hidden id="fundId" value="${fundId}"/>
 							</td>
 						</tr>
                  		<tr>
@@ -63,7 +80,7 @@
        					</tr>
 						<tr class="form">
 						<td align="center">
-						<c:set var="callOfProposalSearch" value="true"/>
+						<c:set var="callForProposalSearch" value="true"/>
 						<%@ include file="/WEB-INF/jsp/content/editPost/subjects.jsp" %>					
 						</td>
 						</tr>
@@ -80,15 +97,15 @@
                  		 <td colspan="2" align="center"><h1>רשימת דפי קולות קוראים</h1>	</td>
                 		</tr>
      					<c:choose>
-    					<c:when test="${fn:length(callOfProposals) > 0}">
-						<c:forEach items="${callOfProposals}" var="callOfProposal" varStatus="varStatus">
+    					<c:when test="${fn:length(callForProposals) > 0}">
+						<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
              			<tbody>
    							<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 							<td align="right">
-							<a href="callForProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.id}"></c:out></a>
+							<a href="editCallForProposal.html?id=${callForProposal.id}"><c:out value="${callForProposal.id}"></c:out></a>
   							</td>
   							<td align="right">
-							<a href="callForProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.title}"></c:out></a>
+							<a href="editCallForProposal.html?id=${callForProposal.id}"><c:out value="${callForProposal.title}"></c:out></a>
 							</td>
    	  						</tr>
   	  					</tbody>

@@ -2,18 +2,21 @@ package huard.iws.web;
 
 import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.bean.CallOfProposalBean;
+import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.SubjectBean;
-import huard.iws.service.CallOfProposalService;
+import huard.iws.service.CallForProposalService;
 import huard.iws.service.CategoryService;
+import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
 import huard.iws.service.SubjectService;
 import huard.iws.service.SphinxSearchService;
+import huard.iws.util.BaseUtils;
 import huard.iws.util.CallForProposalSearchCreteria;
+import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
-import huard.iws.model.CallOfProposal;
+import huard.iws.model.CallForProposal;
 import huard.iws.model.Category;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Subject;
@@ -63,15 +66,15 @@ public class SearchWebsiteController extends GeneralFormController {
 		//page title
 		model.put("pageTitle", messageService.getMessage("iw_IL.website.search"));
 
-		List<CallOfProposal> callOfProposals = callOfProposalService.getCallsOfProposalsOnline(command.getSearchCreteria());
-		List<CallOfProposalBean> callOfProposalBeans = new ArrayList<CallOfProposalBean>();
-		for (CallOfProposal callOfProposal: callOfProposals){
-			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal,false);
-			if(callOfProposalBean.getTitle().startsWith("###"))
-				callOfProposalBean.setTitle("");
-			callOfProposalBeans.add(callOfProposalBean);
+		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
+		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
+		for (CallForProposal callForProposal: callForProposals){
+			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,false);
+			if(callForProposalBean.getTitle().startsWith("###"))
+				callForProposalBean.setTitle("");
+			callForProposalBeans.add(callForProposalBean);
 		}
-		model.put("callOfProposals", callOfProposalBeans);
+		model.put("callForProposals", callForProposalBeans);
 		//desks
 		List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 		model.put("mopDesks", mopDesks);
@@ -79,6 +82,21 @@ public class SearchWebsiteController extends GeneralFormController {
 		Subject rootSubject = subjectService.getSubject(1, "iw_IL");
 		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, "iw_IL");
 		model.put("rootSubject", rootSubjectBean);
+		//show searched parameters
+		model.put("searchWords",command.getSearchCreteria().getSearchWords());
+		model.put("submissionDateFrom", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateFrom(),"yyyy-MM-dd","dd/MM/yyyy"));
+		model.put("submissionDateTo", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateTo(),"yyyy-MM-dd","dd/MM/yyyy"));
+		model.put("deskId",command.getSearchCreteria().getSearchByDesk());
+		model.put("fundId",command.getSearchCreteria().getSearchByFund());
+		try{
+			if(command.getSearchCreteria().getSearchByFund()>0 )
+				model.put("selectedFund",fundService.getFundByFinancialId(command.getSearchCreteria().getSearchByFund()).getName());
+		}
+		catch(Exception e){
+			e.printStackTrace();	
+		}
+		model.put("typeId",command.getSearchCreteria().getSearchByType());
+		model.put("temporaryFund",command.getSearchCreteria().getSearchByTemporaryFund());
 
 		return new ModelAndView ("searchPage",model);
 	}
@@ -88,22 +106,10 @@ public class SearchWebsiteController extends GeneralFormController {
 		SearchWebsiteControllerCommand command = new SearchWebsiteControllerCommand();
 		if (isFormSubmission(request.getRequest())){//on submit
 			CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
-			String sqlFromDate ="";
-			String sqlFromTo ="";
-			if(!request.getParameter("submissionDateFrom", "").equals("")){
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDateFrom", ""));
-				formatter=new SimpleDateFormat("yyyy-MM-dd");
-				sqlFromDate = formatter.format(formattedDate);
-				searchCreteria.setSearchBySubmissionDateFrom(sqlFromDate);
-			}
-			if(!request.getParameter("submissionDateTo", "").equals("")){
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDateTo", ""));
-				formatter=new SimpleDateFormat("yyyy-MM-dd");
-				sqlFromTo = formatter.format(formattedDate);
-				searchCreteria.setSearchBySubmissionDateTo(sqlFromTo);
-			}
+			if(!request.getParameter("submissionDateFrom", "").equals(""))
+				searchCreteria.setSearchBySubmissionDateFrom(DateUtils.formatToSqlDate(request.getParameter("submissionDateFrom", ""),"dd/MM/yyyy"));
+			if(!request.getParameter("submissionDateTo", "").equals(""))
+				searchCreteria.setSearchBySubmissionDateTo(DateUtils.formatToSqlDate(request.getParameter("submissionDateTo", ""),"dd/MM/yyyy"));
 			searchCreteria.setSearchByTemporaryFund(request.getBooleanParameter("temporaryFund", false));
 			searchCreteria.setSearchByFund(request.getIntParameter("fundId", 0));
 			searchCreteria.setSearchByDesk(request.getIntParameter("deskId", 0));
@@ -115,6 +121,7 @@ public class SearchWebsiteController extends GeneralFormController {
 				sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_index"));
 			}
 			searchCreteria.setSearchBySearchWords(sphinxIds);
+			searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 		}
 		else{//on show
@@ -131,7 +138,6 @@ public class SearchWebsiteController extends GeneralFormController {
 	public class SearchWebsiteControllerCommand{
 		private CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
 		private ListView listView = new ListView();
-		private String subjectsIds ="";
 		
 		public CallForProposalSearchCreteria getSearchCreteria() {
 			return searchCreteria;
@@ -145,19 +151,16 @@ public class SearchWebsiteController extends GeneralFormController {
 		public void setListView(ListView listView) {
 			this.listView = listView;
 		}
-		public String getSubjectsIds() {
-			return subjectsIds;
-		}
-		public void setSubjectsIds(String subjectsIds) {
-			this.subjectsIds = subjectsIds;
+		public List<Integer> getSubjectsIds() {
+			return BaseUtils.getIntegerList(searchCreteria.getSearchBySubjectIds(),",");//for keeping the chosen subject after searched
 		}
 
 	}
 	
-	private CallOfProposalService callOfProposalService;
+	private CallForProposalService callForProposalService;
 
-	public void setCallOfProposalService(CallOfProposalService callOfProposalService) {
-		this.callOfProposalService = callOfProposalService;
+	public void setCallForProposalService(CallForProposalService callForProposalService) {
+		this.callForProposalService = callForProposalService;
 	}
 
 	private MopDeskService mopDeskService;
@@ -177,6 +180,11 @@ public class SearchWebsiteController extends GeneralFormController {
 		this.categoryService = categoryService;
 	}
 	
+	private FundService fundService;
+
+	public void setFundService(FundService fundService) {
+		this.fundService = fundService;
+	}
 	
 	private SphinxSearchService sphinxSearchService;
 

@@ -27,9 +27,9 @@
       		cacheName="configurationCache" />
       </ehcache:proxy>
 
-	<bean id="callOfProposalDaoOld" class="huard.iws.db.JdbcCallOfProposalDaoOld"/>
+	<bean id="callForProposalDaoOld" class="huard.iws.db.JdbcCallForProposalDaoOld"/>
 
-	<bean id="callOfProposalDao" class="huard.iws.db.JdbcCallOfProposalDao">
+	<bean id="callForProposalDao" class="huard.iws.db.JdbcCallForProposalDao">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 

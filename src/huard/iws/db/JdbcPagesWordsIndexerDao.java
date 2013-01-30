@@ -1,6 +1,6 @@
 package huard.iws.db;
 
-import huard.iws.model.CallOfProposalOld;
+import huard.iws.model.CallForProposalOld;
 import huard.iws.model.Desk;
 import huard.iws.model.TextualPageOld;
 import huard.iws.util.SQLUtils;
@@ -20,7 +20,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 	private java.util.Date now;
 	
 
-	public List<CallOfProposalOld> getLatelyUpdatedInfoPages(long runsInterval, String server){
+	public List<CallForProposalOld> getLatelyUpdatedInfoPages(long runsInterval, String server){
 		try{
 			now = new java.util.Date();
 			long lastRunTime = now.getTime() - runsInterval;
@@ -58,7 +58,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 
 	}	
 	
-	public void deleteLatelyUpdatedInfoPagesFromIndexTable(List<CallOfProposalOld> indexedInfoPages,boolean fullIndex, String server){
+	public void deleteLatelyUpdatedInfoPagesFromIndexTable(List<CallForProposalOld> indexedInfoPages,boolean fullIndex, String server){
 		try{
 			String queryInClause = buildInfoPagesQueryInClause(indexedInfoPages);			
 			String query = "DELETE FROM InfoPagesIndex";
@@ -74,10 +74,10 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 		}
 	}
 
-	private String buildInfoPagesQueryInClause(List<CallOfProposalOld> infoPages){
+	private String buildInfoPagesQueryInClause(List<CallForProposalOld> infoPages){
 		StringBuilder sb = new StringBuilder();
 		boolean first = true;
-		for (CallOfProposalOld infoPage: infoPages){
+		for (CallForProposalOld infoPage: infoPages){
 			if (!first)
 				sb.append(",");
 			sb.append(infoPage.getId());
@@ -145,7 +145,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 		}
 	}
 	
-	public int insertWordsToInfoPagesIndexTable(List<String> words, int callOfProposalId, String server){
+	public int insertWordsToInfoPagesIndexTable(List<String> words, int callForProposalId, String server){
 		int counter = 0;
 		try{
 			
@@ -156,7 +156,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 				counter++;
 				if (!columnsValues.isEmpty())
 					columnsValues += ",";
-				columnsValues += "('" + SQLUtils.toSQLString(word) + "'," + callOfProposalId + ")";
+				columnsValues += "('" + SQLUtils.toSQLString(word) + "'," + callForProposalId + ")";
 
 				if(counter%100==0 || counter==words.size()){
 					String query ="INSERT IGNORE INTO InfoPagesIndex VALUES " + columnsValues + ";";
@@ -223,25 +223,25 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 			System.out.println(e);
 		}
 	}	
-	public List<CallOfProposalOld> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
-		List<CallOfProposalOld> callOfProposals = new ArrayList<CallOfProposalOld>();
+	public List<CallForProposalOld> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
+		List<CallForProposalOld> callForProposals = new ArrayList<CallForProposalOld>();
 		while (resultSet.next()){
-			CallOfProposalOld callOfProposal = new CallOfProposalOld();
-			callOfProposal.setId(resultSet.getInt("ardNum"));
-			callOfProposal.setTitle(resultSet.getString("title"));
-			callOfProposal.setPublicationTimeMillis(resultSet.getLong("pubDate"));
-			callOfProposal.setSubmissionTimeMillis(resultSet.getLong("subDate"));
-			callOfProposal.setDeskId(resultSet.getString("deskId"));
-			callOfProposal.setFundId(resultSet.getInt("fundNum"));
-			callOfProposal.setDeskAndContact(resultSet.getString("deskAndContact"));
-			callOfProposal.setForms(resultSet.getString("forms"));
-			callOfProposal.setDescription(resultSet.getString("description"));
-			callOfProposal.setAmountOfGrant(resultSet.getString("amountOfGrant"));
-			callOfProposal.setBudgetDetails(resultSet.getString("budgetDetails"));
-			callOfProposal.setAdditionalInformation(resultSet.getString("additionalInformation"));
-			callOfProposals.add(callOfProposal);
+			CallForProposalOld callForProposal = new CallForProposalOld();
+			callForProposal.setId(resultSet.getInt("ardNum"));
+			callForProposal.setTitle(resultSet.getString("title"));
+			callForProposal.setPublicationTimeMillis(resultSet.getLong("pubDate"));
+			callForProposal.setSubmissionTimeMillis(resultSet.getLong("subDate"));
+			callForProposal.setDeskId(resultSet.getString("deskId"));
+			callForProposal.setFundId(resultSet.getInt("fundNum"));
+			callForProposal.setDeskAndContact(resultSet.getString("deskAndContact"));
+			callForProposal.setForms(resultSet.getString("forms"));
+			callForProposal.setDescription(resultSet.getString("description"));
+			callForProposal.setAmountOfGrant(resultSet.getString("amountOfGrant"));
+			callForProposal.setBudgetDetails(resultSet.getString("budgetDetails"));
+			callForProposal.setAdditionalInformation(resultSet.getString("additionalInformation"));
+			callForProposals.add(callForProposal);
 		}
-		return callOfProposals;
+		return callForProposals;
 	}
 	public List<TextualPageOld> moveResultSetToPubPages(ResultSet resultSet) throws SQLException{
    		List<TextualPageOld> textualPages = new ArrayList<TextualPageOld>();

@@ -246,7 +246,7 @@ $(document).ready(function() {
 	});
 
 	$('button.post').click(function(){
-		window.open('post.html?action=new&callOfProposal=' + ${command.id});
+		window.open('post.html?action=new&callForProposal=' + ${command.id});
 		return false;
 	});
 	

@@ -132,9 +132,9 @@
 			$("tbody#"+targetId+"Sub").toggle();
 	}
 	
-	function resetAutocomplete(callOfProposals){
-		$("input.callOfProposal").autocomplete( 
-				{source: callOfProposals,
+	function resetAutocomplete(callForProposals){
+		$("input.callForProposal").autocomplete( 
+				{source: callForProposals,
 				 minLength: 2,
 				 highlight: true				 
 			    }
@@ -160,8 +160,8 @@
 
 
 	$(document).ready(function() {
-		$(".callOfProposal").autocomplete({ position: { my : "right top", at: "right bottom" }});
-		$(".callOfProposal").autocomplete ("widget").css("width",'auto');  
+		$(".callForProposal").autocomplete({ position: { my : "right top", at: "right bottom" }});
+		$(".callForProposal").autocomplete ("widget").css("width",'auto');  
 		ShowCKEDITOR();
 		/*$("input.rdoTypeTinymce").attr("cheked",true);
 		ShowTinyMCE();
@@ -190,7 +190,7 @@
 
 		<c:if test="$false && ${command.typeId == 2}">
 			$("textarea#body").html('');
-			$("textarea#body").append('${callOfProposalTemplate}');
+			$("textarea#body").append('${callForProposalTemplate}');
 		</c:if>
 
 		$("button.action").click(function(){
@@ -200,36 +200,36 @@
 
 		var typeId = $("select.postType").val();
 		if (typeId <=3){
-			$.get('selectBoxFiller',{type:'callOfProposal',localeId:'${command.localeId}'},function(data){
-   	   				callOfProposals = data.split(",,");
-   	   				resetAutocomplete(callOfProposals);   	   				
+			$.get('selectBoxFiller',{type:'callForProposal',localeId:'${command.localeId}'},function(data){
+   	   				callForProposals = data.split(",,");
+   	   				resetAutocomplete(callForProposals);   	   				
    	             });
 		}
 		else{
-			$("tr.selectCallOfProposal").hide();
+			$("tr.selectCallForProposal").hide();
 		}
 
 
 
-		$("button.importCallOfProposal").click(function(){
+		$("button.importCallForProposal").click(function(){
 
-			if ($("input.callOfProposal").val() == "") return;
-			var callOfProposalTitle = $("input.callOfProposal").val();
-			var id = callOfProposalTitle.replace(/.+ - /,"");
-			$.get('selectBoxFiller',{type:'callOfProposal',localeId:'${command.localeId}'},function(data){
+			if ($("input.callForProposal").val() == "") return;
+			var callForProposalTitle = $("input.callForProposal").val();
+			var id = callForProposalTitle.replace(/.+ - /,"");
+			$.get('selectBoxFiller',{type:'callForProposal',localeId:'${command.localeId}'},function(data){
 				var cplist=data.split(",,");
 				var valid=false;
 				for (var j=0; j<cplist.length; j++) {
         			if (cplist[j].substring(cplist[j].length-(id.length+2))=="- "+id){
         				valid=true;
-    					$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposal&id="+id, function(data){
+    					$("div.callForProposalImportBox").load("objectQuery?type=callForProposal&id="+id, function(data){
     						var senderId= $("select.sender").val();
     						var email = $("#sender" + senderId).val();
     						var name = $('.sender').find(":selected").text();
     						data= data.replace("#mu# #mp##mue#","<a class=\"underline\" href=\"mailto:" + email + "\">"+name+"</a>")
     						$("textarea.tinymce").val('<p dir="${lang.dir}"> ' + data + ' </p>');				
     					});
-    					$("div.callOfProposalImportBox").load("objectQuery?type=callOfProposalTitle&id="+id, function(data){
+    					$("div.callForProposalImportBox").load("objectQuery?type=callForProposalTitle&id="+id, function(data){
     						$("input.messageSubject").val(data);
     					});
        				}
@@ -242,10 +242,10 @@
 			return false;
 		});
 
-		$("button.reloadCallOfProposalsList").click(function(){
-			$.get('selectBoxFiller',{type:'callOfProposal',localeId:'${command.localeId}'},function(data){
-   	   			callOfProposals = data.split(",,");
-   	   			resetAutocomplete(callOfProposals);   
+		$("button.reloadCallForProposalsList").click(function(){
+			$.get('selectBoxFiller',{type:'callForProposal',localeId:'${command.localeId}'},function(data){
+   	   			callForProposals = data.split(",,");
+   	   			resetAutocomplete(callForProposals);   
    	        });
 			return false;
 			return false;
@@ -253,7 +253,7 @@
 
 
 		$("select.sender").change(function(){
-			var label='<fmt:message key="${lang.localeId}.general.callOfProposal.deskPrefix"/>';
+			var label='<fmt:message key="${lang.localeId}.general.callForProposal.deskPrefix"/>';
 			//alert(label);
 	    	var ceditorData   = CKEDITOR.instances.body.getData();
 	    	if(ceditorData.indexOf(label)>0){
@@ -271,20 +271,20 @@
 		});
 
 		
-		$("select.callOfProposal").change(function(){
+		$("select.callForProposal").change(function(){
 			var message = $("textarea#body").html();
-			var callOfProposalId = $(this).val();
+			var callForProposalId = $(this).val();
 
 			if (message == ""){
 				$("textarea#body").html('');
-				$("textarea#body").load("objectQuery?type=callOfProposal&id=" + callOfProposalId);
+				$("textarea#body").load("objectQuery?type=callForProposal&id=" + callForProposalId);
 			}
-			$.alerts.confirm('<fmt:message key="${lang.localeId}.post.changeCallOfProposal.confirm"/>',
+			$.alerts.confirm('<fmt:message key="${lang.localeId}.post.changeCallForProposal.confirm"/>',
     			'<fmt:message key="iw_IL.eqfSystem.editProposal.confirm.title"/>',
     			function(confirm){
     				if (confirm==1){
     					$("textarea#body").html('');
-						$("textarea#body").load("objectQuery?type=callOfProposal&id=" + callOfProposalId);
+						$("textarea#body").load("objectQuery?type=callForProposal&id=" + callForProposalId);
 					}
 				}
 			);

@@ -51,19 +51,19 @@
 							&nbsp;
 						</td>
 				</tr>
-				<tr class="selectCallOfProposal">
+				<tr class="selectCallForProposal">
 						<td>
-							<fmt:message key="${lang.localeId}.post.callOfProposal"/>
+							<fmt:message key="${lang.localeId}.post.callForProposal"/>
 						</td>
 						<td style="text-align: ${lang.align}; direction: ${lang.dir}">
-						<input type="text" class="green callOfProposal">&nbsp;
+						<input type="text" class="green callForProposal">&nbsp;
 
-						<button class="importCallOfProposal grey"><fmt:message key="${lang.localeId}.post.importCallOfProposal"/></button>&nbsp;
-						<button class="reloadCallOfProposalsList grey"><fmt:message key="${lang.localeId}.post.reloadCallOfProposalsList"/></button>
+						<button class="importCallForProposal grey"><fmt:message key="${lang.localeId}.post.importCallForProposal"/></button>&nbsp;
+						<button class="reloadCallForProposalsList grey"><fmt:message key="${lang.localeId}.post.reloadCallForProposalsList"/></button>
 
 						</td>
 				</tr>
-				<tr class="selectCallOfProposal">
+				<tr class="selectCallForProposal">
 						<td>
 							&nbsp;
 						</td>
@@ -111,7 +111,7 @@
 				<tr>
 						<td>
 							&nbsp;
-							<div style="visibility: hidden" class="callOfProposalImportBox"/>
+							<div style="visibility: hidden" class="callForProposalImportBox"/>
 						</td>
 				</tr>
 				<tr>

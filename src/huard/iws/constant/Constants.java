@@ -44,7 +44,7 @@ public class Constants {
 		}
 
 		postTypes.put(1, "message");
-		postTypes.put(2, "callOfProposal");
+		postTypes.put(2, "callForProposal");
 
 		usersRoles.put(1, "ROLE_POST_READER");
 

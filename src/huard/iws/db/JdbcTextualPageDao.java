@@ -1,7 +1,7 @@
 package huard.iws.db;
 
 import huard.iws.model.Attachment;
-import huard.iws.model.CallOfProposal;
+import huard.iws.model.CallForProposal;
 import huard.iws.model.Category;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;

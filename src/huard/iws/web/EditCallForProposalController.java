@@ -1,15 +1,15 @@
 package huard.iws.web;
 
-import huard.iws.bean.CallOfProposalBean;
+import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Fund;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Language;
 import huard.iws.bean.SubjectBean;
-import huard.iws.model.CallOfProposal;
+import huard.iws.model.CallForProposal;
 import huard.iws.model.Subject;
 import huard.iws.model.Attachment;
-import huard.iws.service.CallOfProposalService;
+import huard.iws.service.CallForProposalService;
 import huard.iws.service.SubjectService;
 import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
@@ -37,12 +37,12 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class EditCallOfProposalController extends GeneralFormController{
+public class EditCallForProposalController extends GeneralFormController{
 	
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 	throws Exception{
-		CallOfProposalBean callOfProposalBean = (CallOfProposalBean) command;
+		CallForProposalBean callForProposalBean = (CallForProposalBean) command;
 		
 
 		// this part saves the content type of the attachments
@@ -66,39 +66,39 @@ public class EditCallOfProposalController extends GeneralFormController{
 					attachment.setTitle(title);
 					attachments.add(attachment);
 				}
-				callOfProposalBean.setAttachments(attachments);
+				callForProposalBean.setAttachments(attachments);
 			}
 		}	
 		
 		//subjectIds
 		String subjectsIdsString = request.getParameter("subjectsIdsString","");
 		List<Integer> subjectsIds = BaseUtils.getIntegerList(subjectsIdsString, ",");
-		if (callOfProposalBean.getSubjectsIds() != null)
-			callOfProposalBean.getSubjectsIds().clear();
+		if (callForProposalBean.getSubjectsIds() != null)
+			callForProposalBean.getSubjectsIds().clear();
 		
 		for (int subjectId: subjectsIds){
-			callOfProposalBean.getSubjectsIds().add(subjectId);
+			callForProposalBean.getSubjectsIds().add(subjectId);
 		}
 		
 		//update
-		callOfProposalService.updateCallOfProposal(callOfProposalBean.toCallOfProposal());
+		callForProposalService.updateCallForProposal(callForProposalBean.toCallForProposal());
 
 		//upload
 		if (request.getBooleanParameter("online", false)){
-			if(callOfProposalService.existsCallOfProposalOnline(callOfProposalBean.getId()))
-				callOfProposalService.updateCallOfProposalOnline(callOfProposalBean.toCallOfProposal());
+			if(callForProposalService.existsCallForProposalOnline(callForProposalBean.getId()))
+				callForProposalService.updateCallForProposalOnline(callForProposalBean.toCallForProposal());
 			else
-				callOfProposalService.insertCallOfProposalOnline(callOfProposalBean.toCallOfProposal());
+				callForProposalService.insertCallForProposalOnline(callForProposalBean.toCallForProposal());
 		}
 		if (request.getBooleanParameter("offline", false)){
-			if(callOfProposalService.existsCallOfProposalOnline(callOfProposalBean.getId()))
-				callOfProposalService.removeCallOfProposalOnline(callOfProposalBean.getId());
+			if(callForProposalService.existsCallForProposalOnline(callForProposalBean.getId()))
+				callForProposalService.removeCallForProposalOnline(callForProposalBean.getId());
 		}
 
 		if (request.getBooleanParameter("ajaxSubmit", false))
 			return null;
 		Map<String, Object> newModel = new HashMap<String, Object>();
-		newModel.put("id", callOfProposalBean.getId())	;
+		newModel.put("id", callForProposalBean.getId())	;
 		return new ModelAndView(new RedirectView("editCallForProposal.html"), newModel);
 	}
 	
@@ -110,31 +110,31 @@ public class EditCallOfProposalController extends GeneralFormController{
 		
 		// if new proposal Create a new proposal and write it to db
 		if (request.getParameter("action", "").equals("new") || id == 0){
-			CallOfProposal callOfProposal= new CallOfProposal();
-			callOfProposal.setCreatorId(userPersonBean.getId());
-			callOfProposal.setLocaleId(userPersonBean.getPreferedLocaleId());
-			int callOfProposalId = callOfProposalService.insertCallOfProposal(callOfProposal);
-			logger.info("callOfProposalId " + callOfProposalId);
+			CallForProposal callForProposal= new CallForProposal();
+			callForProposal.setCreatorId(userPersonBean.getId());
+			callForProposal.setLocaleId(userPersonBean.getPreferedLocaleId());
+			int callForProposalId = callForProposalService.insertCallForProposal(callForProposal);
+			logger.info("callForProposalId " + callForProposalId);
 			Map<String, Object> newModel = new HashMap<String, Object>();
-			newModel.put("id",callOfProposalId);
+			newModel.put("id",callForProposalId);
 			return new ModelAndView ( new RedirectView("editCallForProposal.html"), newModel);
 		}
 		else{//show edit
-			CallOfProposalBean callOfProposal = (CallOfProposalBean) model.get("command");
+			CallForProposalBean callForProposal = (CallForProposalBean) model.get("command");
 			
 			//language
-			LanguageUtils.applyLanguage(model, request, response, callOfProposal.getLocaleId());
+			LanguageUtils.applyLanguage(model, request, response, callForProposal.getLocaleId());
 			LanguageUtils.applyLanguages(model);
 
 			//subjects
-			Subject rootSubject = subjectService.getSubject(1, callOfProposal.getLocaleId());
-			SubjectBean rootSubjectBean = new SubjectBean(rootSubject, callOfProposal.getLocaleId());
+			Subject rootSubject = subjectService.getSubject(1, callForProposal.getLocaleId());
+			SubjectBean rootSubjectBean = new SubjectBean(rootSubject, callForProposal.getLocaleId());
 			model.put("rootSubject", rootSubjectBean);
 
 			//title
 			String title="";
-			if(!callOfProposal.getTitle().startsWith("###"))
-				title = callOfProposal.getTitle();
+			if(!callForProposal.getTitle().startsWith("###"))
+				title = callForProposal.getTitle();
 			model.put("title", title);
 			
 			//desk contact persons
@@ -146,10 +146,10 @@ public class EditCallOfProposalController extends GeneralFormController{
 			if(language.getLocaleId().equals("iw_IL")){
 				budgetTitle="תקציב";
 				assistantTitle="עוזר";
-				deskPersons=mopDeskService.getPersonsList(callOfProposal.getDeskId(),0);
+				deskPersons=mopDeskService.getPersonsList(callForProposal.getDeskId(),0);
 			}
 			else
-				deskPersons=mopDeskService.getPersonsListEnglish(callOfProposal.getDeskId(),0);
+				deskPersons=mopDeskService.getPersonsListEnglish(callForProposal.getDeskId(),0);
 			model.put("deskPersons", deskPersons);
 			//desk budget officers
 			List<PersonBean> deskBudgetPersons = new ArrayList<PersonBean>();
@@ -168,8 +168,8 @@ public class EditCallOfProposalController extends GeneralFormController{
 			
 			//funds
 			String selectedFund="";
-			if(callOfProposal.getFundId()>0){
-				Fund fund = fundService.getFundByFinancialId(callOfProposal.getFundId());
+			if(callForProposal.getFundId()>0){
+				Fund fund = fundService.getFundByFinancialId(callForProposal.getFundId());
 				if (fund!=null)
 					selectedFund=fund.getName();
 			}
@@ -178,12 +178,12 @@ public class EditCallOfProposalController extends GeneralFormController{
 			List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 			model.put("mopDesks", mopDesks);
 			//online
-			if(callOfProposalService.existsCallOfProposalOnline(callOfProposal.getId()))
+			if(callForProposalService.existsCallForProposalOnline(callForProposal.getId()))
 				model.put("online", true);
 			else
 				model.put("online", false);
 			
-			model.put("id",callOfProposal.getId());
+			model.put("id",callForProposal.getId());
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		
@@ -192,7 +192,7 @@ public class EditCallOfProposalController extends GeneralFormController{
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
-		CallOfProposalBean callOfProposalBean = new CallOfProposalBean();
+		CallForProposalBean callForProposalBean = new CallForProposalBean();
 		//logger.info("action : " + request.getParameter("action",""));
 		
 		int id = request.getIntParameter("id", 0);
@@ -202,11 +202,11 @@ public class EditCallOfProposalController extends GeneralFormController{
 		if ( isFormSubmission(request.getRequest()) 
 				|| request.getParameter("action","").equals("new")
 				|| id == 0)
-			return callOfProposalBean;
+			return callForProposalBean;
 		
-		callOfProposalBean = new CallOfProposalBean(callOfProposalService.getCallOfProposal(id),false);
+		callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposal(id),false);
 		
-		return callOfProposalBean;
+		return callForProposalBean;
 	}
 
 	protected void initBinder(HttpServletRequest request,
@@ -236,10 +236,10 @@ public class EditCallOfProposalController extends GeneralFormController{
 			return "text/html";
 	}	
 	
-	private CallOfProposalService callOfProposalService;
+	private CallForProposalService callForProposalService;
 
-	public void setCallOfProposalService(CallOfProposalService callOfProposalService) {
-		this.callOfProposalService = callOfProposalService;
+	public void setCallForProposalService(CallForProposalService callForProposalService) {
+		this.callForProposalService = callForProposalService;
 	}
 	
 	private SubjectService subjectService;

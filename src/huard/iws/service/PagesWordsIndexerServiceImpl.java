@@ -3,7 +3,7 @@ package huard.iws.service;
 import huard.iws.bean.PersonBean;
 import huard.iws.db.PagesWordsIndexerDao;
 import huard.iws.model.AList;
-import huard.iws.model.CallOfProposalOld;
+import huard.iws.model.CallForProposalOld;
 import huard.iws.model.Desk;
 import huard.iws.model.OrganizationUnit;
 import huard.iws.model.TextualPageOld;
@@ -30,11 +30,11 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 		else 
 			runsInterval = RUNS_INTERVAL;
 
-		List<CallOfProposalOld> callOfProposals = pagesWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,configurationService.getConfigurationString("website", "websiteDb"));
+		List<CallForProposalOld> callForProposals = pagesWordsIndexerDao.getLatelyUpdatedInfoPages(runsInterval,configurationService.getConfigurationString("website", "websiteDb"));
 
-		System.out.println("InfoPagesIndexer: Indexing "+callOfProposals.size()+" pages.");
-		if (callOfProposals.size()>0) 
-			pagesWordsIndexerDao.deleteLatelyUpdatedInfoPagesFromIndexTable(callOfProposals,init,configurationService.getConfigurationString("website", "websiteDb"));
+		System.out.println("InfoPagesIndexer: Indexing "+callForProposals.size()+" pages.");
+		if (callForProposals.size()>0) 
+			pagesWordsIndexerDao.deleteLatelyUpdatedInfoPagesFromIndexTable(callForProposals,init,configurationService.getConfigurationString("website", "websiteDb"));
 
 		Map<String, String> desksPersonsMap = new HashMap<String, String>();
 		List<Desk> desks = pagesWordsIndexerDao.getDesks(configurationService.getConfigurationString("website", "websiteDb"));
@@ -65,12 +65,12 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 		}
 
 		int counter = 0;
-		for (CallOfProposalOld callOfProposal: callOfProposals){
-			logger.info("Call of porposal: " + callOfProposal.getId());
-			String text = callOfProposal.toString();
+		for (CallForProposalOld callForProposal: callForProposals){
+			logger.info("Call of porposal: " + callForProposal.getId());
+			String text = callForProposal.toString();
 
-			if(callOfProposal.getDeskId()!=null && desksPersonsMap.get(callOfProposal.getDeskId())!=null)
-				text += " " + desksPersonsMap.get(callOfProposal.getDeskId());
+			if(callForProposal.getDeskId()!=null && desksPersonsMap.get(callForProposal.getDeskId())!=null)
+				text += " " + desksPersonsMap.get(callForProposal.getDeskId());
 			text = replaceAll(text, "*", " * ");  //pad all * with spaces
 			text = replaceAll(text, "<", " <");
 			text = replaceAll(text, ">", "> ");
@@ -113,11 +113,11 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 					actualWordsList.add(replaceAll(word,"/",""));
 				}
 			}
-			counter += pagesWordsIndexerDao.insertWordsToInfoPagesIndexTable(actualWordsList, callOfProposal.getId(), 
+			counter += pagesWordsIndexerDao.insertWordsToInfoPagesIndexTable(actualWordsList, callForProposal.getId(), 
 					configurationService.getConfigurationString("website", "websiteDb"));
 		}
 		pagesWordsIndexerDao.purgeInfoPagesIndexTable(configurationService.getConfigurationString("website", "websiteDb"));
-		System.out.println("InfoPagesIndexer: Indexed " + counter + " words in " + callOfProposals.size() + "call of proposals");
+		System.out.println("InfoPagesIndexer: Indexed " + counter + " words in " + callForProposals.size() + "call of proposals");
 	}
 
 

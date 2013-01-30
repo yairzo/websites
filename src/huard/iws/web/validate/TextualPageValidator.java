@@ -13,6 +13,6 @@ public class TextualPageValidator implements Validator {
 	}
 
 	public void validate ( Object command, Errors errors ){
-		ValidationUtils.rejectIfEmpty(errors, "title", "iw_IL.required.titleCallOfProposal");
+		ValidationUtils.rejectIfEmpty(errors, "title", "iw_IL.required.titleCallForProposal");
 	}
 }

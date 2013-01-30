@@ -1,14 +1,14 @@
 package huard.iws.servlet;
 
 import huard.iws.bean.PersonBean;
-import huard.iws.model.CallOfProposalOld;
+import huard.iws.model.CallForProposalOld;
 import huard.iws.model.Country;
 import huard.iws.model.Fund;
 import huard.iws.model.Institute;
 import huard.iws.model.OrganizationUnit;
 import huard.iws.model.Person;
 import huard.iws.model.Post;
-import huard.iws.service.CallOfProposalServiceOld;
+import huard.iws.service.CallForProposalServiceOld;
 import huard.iws.service.FundService;
 import huard.iws.service.InstituteListService;
 import huard.iws.service.OrganizationUnitService;
@@ -43,7 +43,7 @@ public class SelectBoxFiller extends HttpServlet {
 	private FundService fundService;
 	private PersonListService personListService;
 	private OrganizationUnitService organizationUnitService;
-	private CallOfProposalServiceOld callOfProposalServiceOld;
+	private CallForProposalServiceOld callForProposalServiceOld;
 	private PostService postService;
 
 	final static long serialVersionUID = 0;
@@ -71,8 +71,8 @@ public class SelectBoxFiller extends HttpServlet {
 		obj  = context.getBean("organizationUnitService");
 		organizationUnitService = (OrganizationUnitService)obj;
 
-		obj  = context.getBean("callOfProposalServiceOld");
-		callOfProposalServiceOld = (CallOfProposalServiceOld)obj;
+		obj  = context.getBean("callForProposalServiceOld");
+		callForProposalServiceOld = (CallForProposalServiceOld)obj;
 		
 		obj  = context.getBean("postService");
 		postService = (PostService)obj;
@@ -244,7 +244,7 @@ public class SelectBoxFiller extends HttpServlet {
 			out.close();
 		}
 
-		if (type.equals("callOfProposal")){
+		if (type.equals("callForProposal")){
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -253,9 +253,9 @@ public class SelectBoxFiller extends HttpServlet {
 			if (localeId == null)
 				return;
 			StringBuilder sb = new StringBuilder();
-			List<CallOfProposalOld> callsOfProposals = callOfProposalServiceOld.getCallsOfProposals(localeId);
-			for (CallOfProposalOld callOfProposal: callsOfProposals){
-				sb.append(callOfProposal.getTitle() + " - " + callOfProposal.getId() + ",,");
+			List<CallForProposalOld> callForProposals = callForProposalServiceOld.getCallForProposals(localeId);
+			for (CallForProposalOld callForProposal: callForProposals){
+				sb.append(callForProposal.getTitle() + " - " + callForProposal.getId() + ",,");
 			}
 			sb.delete(sb.length()-2, sb.length());
 			ServletOutputStream out = response.getOutputStream();

@@ -1,5 +1,5 @@
  	<c:choose>
-    	<c:when test="${callOfProposalSearch}">
+    	<c:when test="${callForProposalSearch}">
       		<c:set var="subjectWidth" value="400"/>
       	</c:when>
       	<c:otherwise>

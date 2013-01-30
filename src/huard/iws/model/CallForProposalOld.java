@@ -1,7 +1,7 @@
 package huard.iws.model;
 
 
-public class CallOfProposalOld {
+public class CallForProposalOld {
 	private int id;
 	private int fundId;
 	private long publicationTimeMillis;
@@ -20,7 +20,7 @@ public class CallOfProposalOld {
 
 
 
-	public CallOfProposalOld(){
+	public CallForProposalOld(){
 		this.id = 0;
 		this.fundId = 0;
 		this.publicationTimeMillis = 0;

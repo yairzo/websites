@@ -1,12 +1,12 @@
 package huard.iws.web;
 
 import huard.iws.bean.CategoryBean;
-import huard.iws.bean.CallOfProposalBean;
+import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Category;
 import huard.iws.model.Fund;
 import huard.iws.model.MopDesk;
-import huard.iws.service.CallOfProposalService;
+import huard.iws.service.CallForProposalService;
 import huard.iws.service.CategoryService;
 import huard.iws.service.FundService;
 import huard.iws.util.LanguageUtils;
@@ -30,17 +30,17 @@ public class CallForProposalController extends GeneralFormController {
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
-		CallOfProposalBean callOfProposalBean = (CallOfProposalBean)command;
+		CallForProposalBean callForProposalBean = (CallForProposalBean)command;
 	
 		Map<String,Object> newModel = new HashMap<String, Object>();
-		newModel.put("id", callOfProposalBean.getId())	;
+		newModel.put("id", callForProposalBean.getId())	;
 		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
 	}
 
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
-		CallOfProposalBean callOfProposalBean = (CallOfProposalBean) model.get("command");
+		CallForProposalBean callForProposalBean = (CallForProposalBean) model.get("command");
 
 		//top categories
 		Category rootCategory = categoryService.getRootCategory();
@@ -53,31 +53,31 @@ public class CallForProposalController extends GeneralFormController {
 		//category
 		model.put("category",categoryService.getCategory(rootCategory.getId()));
 		//language
-		LanguageUtils.applyLanguage(model, request, response,callOfProposalBean.getLocaleId());
+		LanguageUtils.applyLanguage(model, request, response,callForProposalBean.getLocaleId());
 		LanguageUtils.applyLanguages(model);
 		//page title
-		model.put("pageTitle", callOfProposalBean.getTitle());
+		model.put("pageTitle", callForProposalBean.getTitle());
 
 		//dates
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		if (callOfProposalBean.getPublicationTime()==0)
+		if (callForProposalBean.getPublicationTime()==0)
 			model.put("publicationTime", "");
 		else
-			model.put("publicationTime", formatter.format(callOfProposalBean.getPublicationTime()));
-		if (callOfProposalBean.getFinalSubmissionTime()==0)
+			model.put("publicationTime", formatter.format(callForProposalBean.getPublicationTime()));
+		if (callForProposalBean.getFinalSubmissionTime()==0)
 			model.put("finalSubmissionTime", "");
 		else
-			model.put("finalSubmissionTime", formatter.format(callOfProposalBean.getFinalSubmissionTime()));
-		if (callOfProposalBean.getUpdateTime()==0)
+			model.put("finalSubmissionTime", formatter.format(callForProposalBean.getFinalSubmissionTime()));
+		if (callForProposalBean.getUpdateTime()==0)
 			model.put("updateTime", "");
 		else
-			model.put("updateTime", formatter.format(callOfProposalBean.getUpdateTime()));
+			model.put("updateTime", formatter.format(callForProposalBean.getUpdateTime()));
 
 		//extra submission dates
 		Date tmpDate = new Date();
 		int i=1;
-		if(callOfProposalBean.getSubmissionDates()!=null){
-			for(Long submissionDate: callOfProposalBean.getSubmissionDates()){
+		if(callForProposalBean.getSubmissionDates()!=null){
+			for(Long submissionDate: callForProposalBean.getSubmissionDates()){
 				tmpDate = new Date(submissionDate);
 				String submissionName="submissionDate" + i;
 				model.put(submissionName, formatter.format(tmpDate));
@@ -86,31 +86,31 @@ public class CallForProposalController extends GeneralFormController {
 		}
 		//funds
 		String selectedFund="";
-		if(callOfProposalBean.getFundId()>0){
-			Fund fund = fundService.getFundByFinancialId(callOfProposalBean.getFundId());
+		if(callForProposalBean.getFundId()>0){
+			Fund fund = fundService.getFundByFinancialId(callForProposalBean.getFundId());
 			if (fund!=null)
 				selectedFund=fund.getName();
 		}
 		model.put("selectedFund", selectedFund);
 		//stripped fields
-		String stripped =callOfProposalBean.getFundingPeriod().replaceAll("<[/]{0,1}p.*?>","");
+		String stripped =callForProposalBean.getFundingPeriod().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedFundingPeriod", stripped);
-		stripped =callOfProposalBean.getAmountOfGrant().replaceAll("<[/]{0,1}p.*?>","");
+		stripped =callForProposalBean.getAmountOfGrant().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedAmountOfGrant", stripped);
-		stripped =callOfProposalBean.getEligibilityRequirements().replaceAll("<[/]{0,1}p.*?>","");
+		stripped =callForProposalBean.getEligibilityRequirements().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedEligibilityRequirements", stripped);
-		stripped =callOfProposalBean.getActivityLocation().replaceAll("<[/]{0,1}p.*?>","");
+		stripped =callForProposalBean.getActivityLocation().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedActivityLocation()", stripped);
-		stripped =callOfProposalBean.getPossibleCollaboration().replaceAll("<[/]{0,1}p.*?>","");
+		stripped =callForProposalBean.getPossibleCollaboration().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedPossibleCollaboration()", stripped);
 
-		model.put("id",callOfProposalBean.getId());
+		model.put("id",callForProposalBean.getId());
 		return new ModelAndView ( this.getFormView(), model);
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
-		CallOfProposalBean callOfProposalBean = new CallOfProposalBean();
+		CallForProposalBean callForProposalBean = new CallForProposalBean();
 
 		int id = request.getIntParameter("id", 0);
 		logger.info("id: " + id);
@@ -118,19 +118,19 @@ public class CallForProposalController extends GeneralFormController {
 			
 		if ( isFormSubmission(request.getRequest()) 
 				|| id == 0)
-			return callOfProposalBean;
+			return callForProposalBean;
 		
-		callOfProposalBean = new CallOfProposalBean(callOfProposalService.getCallOfProposalOnline(id),true);
-		logger.info("callOfProposalBean id: " + callOfProposalBean.getId());
+		callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposalOnline(id),true);
+		logger.info("callForProposalBean id: " + callForProposalBean.getId());
 		
-		return callOfProposalBean;
+		return callForProposalBean;
 	}
 
 	
-	private CallOfProposalService callOfProposalService;
+	private CallForProposalService callForProposalService;
 
-	public void setCallOfProposalService(CallOfProposalService callOfProposalService) {
-		this.callOfProposalService = callOfProposalService;
+	public void setCallForProposalService(CallForProposalService callForProposalService) {
+		this.callForProposalService = callForProposalService;
 	}
 	
 

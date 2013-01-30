@@ -7,7 +7,7 @@ public class PostType {
 	private String englishName;
 	private String englishDescription;
 	private String color;
-	private boolean relyOnCallOfProposal;
+	private boolean relyOnCallForProposal;
 
 
 	public String getColor() {
@@ -46,11 +46,11 @@ public class PostType {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public boolean isRelyOnCallOfProposal() {
-		return relyOnCallOfProposal;
+	public boolean isRelyOnCallForProposal() {
+		return relyOnCallForProposal;
 	}
-	public void setRelyOnCallOfProposal(boolean relyOnCallOfProposal) {
-		this.relyOnCallOfProposal = relyOnCallOfProposal;
+	public void setRelyOnCallForProposal(boolean relyOnCallForProposal) {
+		this.relyOnCallForProposal = relyOnCallForProposal;
 	}
 
 

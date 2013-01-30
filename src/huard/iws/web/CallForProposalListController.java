@@ -1,22 +1,22 @@
 package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
-import huard.iws.bean.CallOfProposalBean;
+import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.SubjectBean;
-import huard.iws.service.CallOfProposalService;
+import huard.iws.service.CallForProposalService;
 import huard.iws.service.MopDeskService;
 import huard.iws.service.SubjectService;
+import huard.iws.service.FundService;
 import huard.iws.service.SphinxSearchService;
 import huard.iws.util.CallForProposalSearchCreteria;
+import huard.iws.util.DateUtils;
+import huard.iws.util.BaseUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
-import huard.iws.model.CallOfProposal;
+import huard.iws.model.CallForProposal;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Subject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class CallOfProposalListController extends GeneralFormController {
+public class CallForProposalListController extends GeneralFormController {
 
 
 	protected ModelAndView onSubmit(Object command,
@@ -42,16 +42,16 @@ public class CallOfProposalListController extends GeneralFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
-		CallOfProposalListControllerCommand command = (CallOfProposalListControllerCommand) model.get("command");
-		List<CallOfProposal> callOfProposals = callOfProposalService.getCallsOfProposals(command.getSearchCreteria());
-		List<CallOfProposalBean> callOfProposalBeans = new ArrayList<CallOfProposalBean>();
-		for (CallOfProposal callOfProposal: callOfProposals){
-			CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal,false);
-			if(callOfProposalBean.getTitle().startsWith("###"))
-				callOfProposalBean.setTitle("");
-			callOfProposalBeans.add(callOfProposalBean);
+		CallForProposalListControllerCommand command = (CallForProposalListControllerCommand) model.get("command");
+		List<CallForProposal> callForProposals = callForProposalService.getCallForProposals(command.getSearchCreteria());
+		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
+		for (CallForProposal callForProposal: callForProposals){
+			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,false);
+			if(callForProposalBean.getTitle().startsWith("###"))
+				callForProposalBean.setTitle("");
+			callForProposalBeans.add(callForProposalBean);
 		}
-		model.put("callOfProposals", callOfProposalBeans);
+		model.put("callForProposals", callForProposalBeans);
 		//desks
 		List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 		model.put("mopDesks", mopDesks);
@@ -59,31 +59,33 @@ public class CallOfProposalListController extends GeneralFormController {
 		Subject rootSubject = subjectService.getSubject(1, "iw_IL");
 		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, "iw_IL");
 		model.put("rootSubject", rootSubjectBean);
-
-		return new ModelAndView ("callOfProposals",model);
+		//show searched parameters
+		model.put("searchWords",command.getSearchCreteria().getSearchWords());
+		model.put("submissionDateFrom", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateFrom(),"yyyy-MM-dd","dd/MM/yyyy"));
+		model.put("submissionDateTo", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateTo(),"yyyy-MM-dd","dd/MM/yyyy"));
+		model.put("deskId",command.getSearchCreteria().getSearchByDesk());
+		model.put("fundId",command.getSearchCreteria().getSearchByFund());
+		try{
+			if(command.getSearchCreteria().getSearchByFund()>0 )
+				model.put("selectedFund",fundService.getFundByFinancialId(command.getSearchCreteria().getSearchByFund()).getName());
+		}
+		catch(Exception e){
+			e.printStackTrace();	
+		}
+		model.put("typeId",command.getSearchCreteria().getSearchByType());
+		model.put("temporaryFund",command.getSearchCreteria().getSearchByTemporaryFund());
+		return new ModelAndView ("callForProposals",model);
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
-		CallOfProposalListControllerCommand command = new CallOfProposalListControllerCommand();
+		CallForProposalListControllerCommand command = new CallForProposalListControllerCommand();
 		if (isFormSubmission(request.getRequest())){//on submit
 			CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
-			String sqlFromDate ="";
-			String sqlFromTo ="";
-			if(!request.getParameter("submissionDateFrom", "").equals("")){
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDateFrom", ""));
-				formatter=new SimpleDateFormat("yyyy-MM-dd");
-				sqlFromDate = formatter.format(formattedDate);
-				searchCreteria.setSearchBySubmissionDateFrom(sqlFromDate);
-			}
-			if(!request.getParameter("submissionDateTo", "").equals("")){
-				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-				Date formattedDate = (Date)formatter.parse(request.getParameter("submissionDateTo", ""));
-				formatter=new SimpleDateFormat("yyyy-MM-dd");
-				sqlFromTo = formatter.format(formattedDate);
-				searchCreteria.setSearchBySubmissionDateTo(sqlFromTo);
-			}
+			if(!request.getParameter("submissionDateFrom", "").equals(""))
+				searchCreteria.setSearchBySubmissionDateFrom(DateUtils.formatToSqlDate(request.getParameter("submissionDateFrom", ""),"dd/MM/yyyy"));
+			if(!request.getParameter("submissionDateTo", "").equals(""))
+				searchCreteria.setSearchBySubmissionDateTo(DateUtils.formatToSqlDate(request.getParameter("submissionDateTo", ""),"dd/MM/yyyy"));
 			searchCreteria.setSearchByTemporaryFund(request.getBooleanParameter("temporaryFund", false));
 			searchCreteria.setSearchByFund(request.getIntParameter("fundId", 0));
 			searchCreteria.setSearchByDesk(request.getIntParameter("deskId", 0));
@@ -92,9 +94,10 @@ public class CallOfProposalListController extends GeneralFormController {
 			Set<Long> sphinxIds=new LinkedHashSet<Long>();
 			if(!request.getParameter("searchWords", "").isEmpty()){
 				sphinxIds.add(new Long(0));//so wont show everything when deos'nt find any ids
-				sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_index"));
+				sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_draft_index"));
 			}
 			searchCreteria.setSearchBySearchWords(sphinxIds);
+			searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 		}
 		else{//on show
@@ -108,10 +111,9 @@ public class CallOfProposalListController extends GeneralFormController {
 		return command;
 	}
 
-	public class CallOfProposalListControllerCommand{
+	public class CallForProposalListControllerCommand{
 		private CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
 		private ListView listView = new ListView();
-		private String subjectsIds ="";
 		
 		public CallForProposalSearchCreteria getSearchCreteria() {
 			return searchCreteria;
@@ -125,19 +127,17 @@ public class CallOfProposalListController extends GeneralFormController {
 		public void setListView(ListView listView) {
 			this.listView = listView;
 		}
-		public String getSubjectsIds() {
-			return subjectsIds;
+		public List<Integer> getSubjectsIds() {
+			return BaseUtils.getIntegerList(searchCreteria.getSearchBySubjectIds(),",");//for keeping the chosen subject after searched
 		}
-		public void setSubjectsIds(String subjectsIds) {
-			this.subjectsIds = subjectsIds;
-		}
+
 
 	}
 	
-	private CallOfProposalService callOfProposalService;
+	private CallForProposalService callForProposalService;
 
-	public void setCallOfProposalService(CallOfProposalService callOfProposalService) {
-		this.callOfProposalService = callOfProposalService;
+	public void setCallForProposalService(CallForProposalService callForProposalService) {
+		this.callForProposalService = callForProposalService;
 	}
 
 	private MopDeskService mopDeskService;
@@ -150,6 +150,11 @@ public class CallOfProposalListController extends GeneralFormController {
 
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
+	}
+	private FundService fundService;
+
+	public void setFundService(FundService fundService) {
+		this.fundService = fundService;
 	}
 	
 	private SphinxSearchService sphinxSearchService;

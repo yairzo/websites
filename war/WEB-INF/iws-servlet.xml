@@ -101,16 +101,16 @@
         <property name="successView"><value>active.html</value></property>
      </bean>
 	
-	<bean id="editCallOfProposalController" class="huard.iws.web.EditCallOfProposalController" parent="generalFormController">
+	<bean id="editCallForProposalController" class="huard.iws.web.EditCallForProposalController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
-        <property name="commandClass"><value>huard.iws.bean.CallOfProposalBean</value></property>
-        <property name="formView"><value>editCallOfProposal</value></property>
+        <property name="commandClass"><value>huard.iws.bean.CallForProposalBean</value></property>
+        <property name="formView"><value>editCallForProposal</value></property>
         <property name="successView"><value>editCallForProposal.html</value></property>
      	<property name="subjectService">
             <ref bean="subjectService"/>
         </property>
-     	<property name="callOfProposalService">
-            <ref bean="callOfProposalService"/>
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
         </property>
     	<property name="fundService">
             <ref bean="fundService"/>
@@ -122,11 +122,11 @@
      
 	<bean id="callForProposalController" class="huard.iws.web.CallForProposalController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
-        <property name="commandClass"><value>huard.iws.bean.CallOfProposalBean</value></property>
+        <property name="commandClass"><value>huard.iws.bean.CallForProposalBean</value></property>
         <property name="formView"><value>callForProposal</value></property>
         <property name="successView"><value>callForProposal.html</value></property>
-     	<property name="callOfProposalService">
-            <ref bean="callOfProposalService"/>
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
         </property>
    		<property name="categoryService">
             <ref bean="categoryService"/>
@@ -136,19 +136,22 @@
         </property>
      </bean>
      
- 	<bean id="callOfProposalListController" class="huard.iws.web.CallOfProposalListController" parent="generalFormController">
+ 	<bean id="callForProposalListController" class="huard.iws.web.CallForProposalListController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
-        <property name="commandClass"><value>huard.iws.web.CallOfProposalListController$CallOfProposalListControllerCommand</value></property>
-        <property name="formView"><value>callOfProposals</value></property>
+        <property name="commandClass"><value>huard.iws.web.CallForProposalListController$CallForProposalListControllerCommand</value></property>
+        <property name="formView"><value>callForProposals</value></property>
         <property name="successView"><value>callForProposals.html</value></property>
-     	<property name="callOfProposalService">
-            <ref bean="callOfProposalService"/>
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
         </property>
    		<property name="mopDeskService">
             <ref bean="mopDeskService"/>
         </property>
     	<property name="subjectService">
             <ref bean="subjectService"/>
+        </property>
+   		<property name="fundService">
+            <ref bean="fundService"/>
         </property>
     	<property name="sphinxSearchService">
             <ref bean="sphinxSearchService"/>
@@ -160,14 +163,17 @@
         <property name="commandClass"><value>huard.iws.web.SearchWebsiteController$SearchWebsiteControllerCommand</value></property>
         <property name="formView"><value>searchPage</value></property>
         <property name="successView"><value>searchPage.html</value></property>
-     	<property name="callOfProposalService">
-            <ref bean="callOfProposalService"/>
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
         </property>
    		<property name="mopDeskService">
             <ref bean="mopDeskService"/>
         </property>
     	<property name="subjectService">
             <ref bean="subjectService"/>
+        </property>
+   		<property name="fundService">
+            <ref bean="fundService"/>
         </property>
     	<property name="categoryService">
             <ref bean="categoryService"/>
@@ -346,8 +352,8 @@
         <property name="sendPostService">
             <ref bean="sendPostService"/>
         </property>
-     	<property name="callOfProposalService">
-            <ref bean="callOfProposalService"/>
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
         </property>
        <!--<property name="messageService">
             <ref bean="messageService"/>
@@ -1102,11 +1108,11 @@
 				<prop key="/error404.html">urlFilenameViewController</prop>
 				<prop key="/error500.html">urlFilenameViewController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>
-				<prop key="/editCallForProposal.html">editCallOfProposalController</prop>
+				<prop key="/editCallForProposal.html">editCallForProposalController</prop>
 				<prop key="/callForProposal.html">callForProposalController</prop>
 				<prop key="/editTextualPage.html">editTextualPageController</prop>
 				<prop key="/textualPage.html">textualPageController</prop>
-				<prop key="/callForProposals.html">callOfProposalListController</prop>
+				<prop key="/callForProposals.html">callForProposalListController</prop>
 				<prop key="/textualPages.html">textualPageListController</prop>
 				<prop key="/categories.html">categoryListController</prop>
 				<prop key="/category.html">editCategoryController</prop>

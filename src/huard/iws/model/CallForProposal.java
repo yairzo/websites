@@ -3,7 +3,7 @@ package huard.iws.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CallOfProposal {
+public class CallForProposal {
 	private int id;
 	private String title;
 	private int creatorId;
@@ -40,7 +40,7 @@ public class CallOfProposal {
 	
 	
 
-	public CallOfProposal(){
+	public CallForProposal(){
 		this.id = 0;
 		this.title = "";
 		this.creatorId = 0;
@@ -68,6 +68,7 @@ public class CallOfProposal {
 		this.budgetDetails="";
 		this.additionalInformation="";
 		this.updateTime=0;
+		this.submissionDates=new ArrayList<Long>();
 		this.submissionDatesList=new ArrayList<String>();
 	}
 	

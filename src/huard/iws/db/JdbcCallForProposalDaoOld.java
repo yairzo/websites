@@ -1,6 +1,6 @@
 package huard.iws.db;
 
-import huard.iws.model.CallOfProposalOld;
+import huard.iws.model.CallForProposalOld;
 import huard.iws.util.SQLUtils;
 
 import java.sql.Connection;
@@ -10,10 +10,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcCallOfProposalDaoOld implements CallOfProposalDaoOld {
+public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 
-	public CallOfProposalOld getCallOfProposal(int id, String server){
-		CallOfProposalOld callOfProposal = new CallOfProposalOld();
+	public CallForProposalOld getCallForProposal(int id, String server){
+		CallForProposalOld callForProposal = new CallForProposalOld();
 		try{
 			String query = "select * from InfoPages inner join TabledInfoPages on InfoPages.ardNum = TabledInfoPages.ardNum"
 				+ " where InfoPages.ardNum =" + id;
@@ -21,24 +21,24 @@ public class JdbcCallOfProposalDaoOld implements CallOfProposalDaoOld {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			if (rs.next()){
-				callOfProposal.setId(rs.getInt("ardNum"));
-				callOfProposal.setFundId(rs.getInt("fundNum"));
-				callOfProposal.setPublicationTimeMillis(rs.getLong("pubDate"));
-				callOfProposal.setSubmissionTimeMillis(rs.getLong("subDate"));
-				callOfProposal.setTitle(rs.getString("title"));
-				callOfProposal.setAmountOfGrant(rs.getString("amountOfGrant"));
-				callOfProposal.setDeskId(rs.getString("deskId"));
+				callForProposal.setId(rs.getInt("ardNum"));
+				callForProposal.setFundId(rs.getInt("fundNum"));
+				callForProposal.setPublicationTimeMillis(rs.getLong("pubDate"));
+				callForProposal.setSubmissionTimeMillis(rs.getLong("subDate"));
+				callForProposal.setTitle(rs.getString("title"));
+				callForProposal.setAmountOfGrant(rs.getString("amountOfGrant"));
+				callForProposal.setDeskId(rs.getString("deskId"));
 
 			}
 		}
 		catch (SQLException e){
 			System.out.println(e);
 		}
-		return callOfProposal;
+		return callForProposal;
 	}
 
-	public CallOfProposalOld getCallOfProposal(String title, String server){
-		CallOfProposalOld callOfProposal = new CallOfProposalOld();
+	public CallForProposalOld getCallForProposal(String title, String server){
+		CallForProposalOld callForProposal = new CallForProposalOld();
 		try{
 			String query = "select ardNum from InfoPages where title = '" + SQLUtils.toSQLString(title) + "'";
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
@@ -48,21 +48,21 @@ public class JdbcCallOfProposalDaoOld implements CallOfProposalDaoOld {
 			if (rs.next()){
 				id = rs.getInt("ardNum");
 			}
-			callOfProposal = getCallOfProposal(id, server);
+			callForProposal = getCallForProposal(id, server);
 		}
 		catch (SQLException e){
 			System.out.println(e);
 		}
-		return callOfProposal;
+		return callForProposal;
 	}
 
 
-	public List<CallOfProposalOld> getCallsOfProposals(String server){
-		return getCallsOfProposals(server, false);
+	public List<CallForProposalOld> getCallForProposals(String server){
+		return getCallForProposals(server, false);
 	}
 
-	public List<CallOfProposalOld> getCallsOfProposals(String server, boolean open){
-		List<CallOfProposalOld> callOfProposals = new ArrayList<CallOfProposalOld>();
+	public List<CallForProposalOld> getCallForProposals(String server, boolean open){
+		List<CallForProposalOld> callForProposals = new ArrayList<CallForProposalOld>();
 		try{
 			String query = "select * from InfoPages inner join TabledInfoPages on InfoPages.ardNum = TabledInfoPages.ardNum ";
 			if (open)
@@ -73,21 +73,21 @@ public class JdbcCallOfProposalDaoOld implements CallOfProposalDaoOld {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()){
-				CallOfProposalOld callOfProposal  = new CallOfProposalOld();
-				callOfProposal.setId(rs.getInt("ardNum"));
-				callOfProposal.setFundId(rs.getInt("fundNum"));
-				callOfProposal.setSubmissionTimeMillis(rs.getLong("subDate"));
-				callOfProposal.setTitle(rs.getString("title"));
-				callOfProposal.setAmountOfGrant(rs.getString("amountOfGrant"));
-				callOfProposal.setDeskId(rs.getString("deskId"));
+				CallForProposalOld callForProposal  = new CallForProposalOld();
+				callForProposal.setId(rs.getInt("ardNum"));
+				callForProposal.setFundId(rs.getInt("fundNum"));
+				callForProposal.setSubmissionTimeMillis(rs.getLong("subDate"));
+				callForProposal.setTitle(rs.getString("title"));
+				callForProposal.setAmountOfGrant(rs.getString("amountOfGrant"));
+				callForProposal.setDeskId(rs.getString("deskId"));
 
-				callOfProposals.add(callOfProposal);
+				callForProposals.add(callForProposal);
 			}
 		}
 		catch (SQLException e){
 			System.out.println(e);
 		}
-		return callOfProposals;
+		return callForProposals;
 	}
 
 	public void insertAuthorizedMD5(String md5, String server){
@@ -107,33 +107,33 @@ public class JdbcCallOfProposalDaoOld implements CallOfProposalDaoOld {
 
 
 
-	/*public CallOfProposal getCallOfProposal(int id){
+	/*public CallForProposal getCallForProposal(int id){
 		String query = "select * from HUARD.InfoPages inner join HUARD.TabledInfoPages on InfoPages.ardNum = TabledInfoPages.ardNum"
 			+ " where InfoPages.ardNum = ?";
-		CallOfProposal callOfProposal = getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
-		return callOfProposal;
+		CallForProposal callForProposal = getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
+		return callForProposal;
 	}
 
-	private ParameterizedRowMapper<CallOfProposal> rowMapper = new ParameterizedRowMapper<CallOfProposal>(){
-		public CallOfProposal mapRow(ResultSet rs, int rowNum) throws SQLException{
-            CallOfProposal callOfProposal = new CallOfProposal();
-            callOfProposal.setId(rs.getInt("ardNum"));
-            callOfProposal.setFundId(rs.getInt("fundNum"));
-            callOfProposal.setSubmissionTimeMillis(rs.getLong("subDate"));
-            callOfProposal.setTitle(rs.getString("title"));
-            callOfProposal.setAmountOfGrant(rs.getString("amountOfGrant"));
-            return callOfProposal;
+	private ParameterizedRowMapper<CallForProposal> rowMapper = new ParameterizedRowMapper<CallForProposal>(){
+		public CallForProposal mapRow(ResultSet rs, int rowNum) throws SQLException{
+            CallForProposal callForProposal = new CallForProposal();
+            callForProposal.setId(rs.getInt("ardNum"));
+            callForProposal.setFundId(rs.getInt("fundNum"));
+            callForProposal.setSubmissionTimeMillis(rs.getLong("subDate"));
+            callForProposal.setTitle(rs.getString("title"));
+            callForProposal.setAmountOfGrant(rs.getString("amountOfGrant"));
+            return callForProposal;
         }
 	};
 
-	public List<CallOfProposal> getCallsOfProposals(){
+	public List<CallForProposal> getCallsForProposals(){
 		String query  = "select * from HUARD.InfoPages inner join HUARD.TabledInfoPages on InfoPages.ardNum = TabledInfoPages.ardNum"
 			+ " order by title";
-		List<CallOfProposal> callOfProposals = getSimpleJdbcTemplate().query(query, rowMapper);
-		return callOfProposals;
+		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
+		return callForProposals;
 	}*/
 	
-	public List<CallOfProposalOld> getAliveTabledInfoPages(Integer ardNum, String server){
+	public List<CallForProposalOld> getAliveTabledInfoPages(Integer ardNum, String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
@@ -151,10 +151,10 @@ public class JdbcCallOfProposalDaoOld implements CallOfProposalDaoOld {
 			return null;
 		}
 	}
-	public List<CallOfProposalOld> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
-		List<CallOfProposalOld> tabledInfoPages = new ArrayList<CallOfProposalOld>();
+	public List<CallForProposalOld> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
+		List<CallForProposalOld> tabledInfoPages = new ArrayList<CallForProposalOld>();
 		while (resultSet.next()){
-			CallOfProposalOld tabledInfoPage = new CallOfProposalOld();
+			CallForProposalOld tabledInfoPage = new CallForProposalOld();
 			tabledInfoPage.setId(resultSet.getInt("ardNum"));
 			tabledInfoPage.setTitle(resultSet.getString("title"));
 			tabledInfoPage.setPublicationTimeMillis(resultSet.getLong("pubDate"));

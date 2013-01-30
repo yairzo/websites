@@ -4,6 +4,7 @@ import huard.iws.service.MessageService;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -131,5 +132,23 @@ public class DateUtils {
 		}
 		return aDate;		
 	}
-
+	
+	public static String formatDate(String date, String fromFormat, String toFormat){
+		if(date.isEmpty())
+			return "";
+		DateFormat formatter = new SimpleDateFormat(fromFormat);
+		String returnDate="";
+		try{
+			java.util.Date formattedDate = (java.util.Date)formatter.parse(date);
+			formatter=new SimpleDateFormat(toFormat);
+			returnDate= formatter.format(formattedDate);
+		}
+		catch(ParseException e){
+		  e.printStackTrace();	
+		}
+		return returnDate;
+	}
+	public static String formatToSqlDate(String date, String fromFormat){
+		return formatDate(date,fromFormat,"yyyy-MM-dd");
+	}
 }

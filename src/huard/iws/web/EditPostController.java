@@ -1,14 +1,14 @@
 package huard.iws.web;
 
-import huard.iws.bean.CallOfProposalBean;
+import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.PostBean;
 import huard.iws.bean.SubjectBean;
 import huard.iws.model.Attachment;
 import huard.iws.model.Post;
 import huard.iws.model.Subject;
-import huard.iws.model.CallOfProposal;
-import huard.iws.service.CallOfProposalService;
+import huard.iws.model.CallForProposal;
+import huard.iws.service.CallForProposalService;
 import huard.iws.service.PersonListService;
 import huard.iws.service.PostService;
 import huard.iws.service.SendPostService;
@@ -126,18 +126,18 @@ public class EditPostController extends GeneralFormController {
 			int id = postService.insertPost(userPersonBean.getId());
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",id);
-			//when opened from callOfProposal
-			if(!request.getParameter("callOfProposal", "").isEmpty()){
+			//when opened from callForProposal
+			if(!request.getParameter("callForProposal", "").isEmpty()){
 				Post tmpPost = postService.getPost(id);
-				CallOfProposal callOfProposal = callOfProposalService.getCallOfProposal(request.getIntParameter("callOfProposal", 0));
-				CallOfProposalBean callOfProposalBean = new CallOfProposalBean(callOfProposal, true);
-				tmpPost.setMessageSubject(callOfProposalBean.getId() + " - " + callOfProposalBean.getTitle());
-				tmpPost.setMessage(callOfProposalBean.toString());
-				List<Integer> subjectsIds = callOfProposalBean.getSubjectsIds();
+				CallForProposal callForProposal = callForProposalService.getCallForProposal(request.getIntParameter("callForProposal", 0));
+				CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal, true);
+				tmpPost.setMessageSubject(callForProposalBean.getId() + " - " + callForProposalBean.getTitle());
+				tmpPost.setMessage(callForProposalBean.toString());
+				List<Integer> subjectsIds = callForProposalBean.getSubjectsIds();
 				for (int subjectId: subjectsIds){
 					tmpPost.getSubjectsIds().add(subjectId);
 				}
-				List<Attachment> attachments = callOfProposalBean.getAttachments();
+				List<Attachment> attachments = callForProposalBean.getAttachments();
 				for (Attachment attachment: attachments){
 					attachment.setId(0);
 					tmpPost.getAttachments().add(attachment);
@@ -231,10 +231,10 @@ public class EditPostController extends GeneralFormController {
 		this.sendPostService = sendPostService;
 	}
 	
-	private CallOfProposalService callOfProposalService;
+	private CallForProposalService callForProposalService;
 
-	public void setCallOfProposalService(CallOfProposalService callOfProposalService) {
-		this.callOfProposalService = callOfProposalService;
+	public void setCallForProposalService(CallForProposalService callForProposalService) {
+		this.callForProposalService = callForProposalService;
 	}
 
 }

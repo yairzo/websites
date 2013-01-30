@@ -6,6 +6,7 @@ import huard.iws.model.IMailable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -98,6 +99,19 @@ public class BaseUtils {
 				sb.deleteCharAt(j);
 		}
 		return sb.toString();
+	}
+	
+	public static String getStringFromLongSet(Set<Long> aLongSet){
+		String aString = "";
+		Iterator<Long> it = aLongSet.iterator();
+		while(it.hasNext()){
+			aString+=",";
+			String nextId=it.next().toString();
+			aString+=nextId;
+		}
+		if(!aString.isEmpty())
+			aString=aString.substring(1);
+		return aString;
 	}
 
 	public static <T> Set<T> toSet (List<T> l){

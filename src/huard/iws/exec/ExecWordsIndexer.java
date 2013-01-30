@@ -21,15 +21,15 @@ public class ExecWordsIndexer {
 	public static void main (String [] args){
 		
 		if (args.length == 0 || args.length > 2){
-			System.out.println("Usage: ExecWordsIndexer CallOfProposals | TextualPage [init]");
+			System.out.println("Usage: ExecWordsIndexer CallForProposals | TextualPage [init]");
 			return;
 		}
-		if (!args[0].equals("CallOfProposals") && !args[0].equals("TextualPages")){
-			System.out.println("Usage: ExecWordsIndexer CallOfProposals | TextualPage [init]");
+		if (!args[0].equals("CallForProposals") && !args[0].equals("TextualPages")){
+			System.out.println("Usage: ExecWordsIndexer CallForProposals | TextualPage [init]");
 			return;
 		}
 		if (args.length == 2 && !args[1].equals("init")){
-			System.out.println("Usage: ExecWordsIndexer CallOfProposals | TextualPage [init]");
+			System.out.println("Usage: ExecWordsIndexer CallForProposals | TextualPage [init]");
 			return;
 		}		
 		ExecWordsIndexer execWordsIndexer = new ExecWordsIndexer();
@@ -44,7 +44,7 @@ public class ExecWordsIndexer {
 		boolean init = args.length == 2;
 		String indexer = args[0];
 
-		if(indexer.equals("CallOfProposals"))
+		if(indexer.equals("CallForProposals"))
 			execWordsIndexer.getPagesWordsIndexerService().indexInfoPages(init);
 		else if (indexer.equals("TextualPages"))
 			execWordsIndexer.getPagesWordsIndexerService().indexTextualPages(init);

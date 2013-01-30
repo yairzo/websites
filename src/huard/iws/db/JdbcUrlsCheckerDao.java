@@ -31,8 +31,8 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			System.out.println(e);
 		}
 	}
-	/* moved to JdbcCallOfProposal
-	public List<CallOfProposal> getAliveTabledInfoPages(Integer ardNum,String server){
+	/* moved to JdbcCallForProposal
+	public List<CallForProposal> getAliveTabledInfoPages(Integer ardNum,String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
@@ -51,10 +51,10 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		}
 	}
 	
-	public List<CallOfProposal> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
-		List<CallOfProposal> tabledInfoPages = new ArrayList<CallOfProposal>();
+	public List<CallForProposal> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
+		List<CallForProposal> tabledInfoPages = new ArrayList<CallForProposal>();
 		while (resultSet.next()){
-			CallOfProposal tabledInfoPage = new CallOfProposal();
+			CallForProposal tabledInfoPage = new CallForProposal();
 			tabledInfoPage.setId(resultSet.getInt("ardNum"));
 			tabledInfoPage.setTitle(resultSet.getString("title"));
 			tabledInfoPage.setPublicationTimeMillis(resultSet.getLong("pubDate"));
@@ -314,12 +314,12 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 		}
 	}
 
-	/* public List<CallOfProposal> getInfoPageByArdNum(int ardNum,String server){
+	/* public List<CallForProposal> getInfoPageByArdNum(int ardNum,String server){
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM TabledInfoPages, InfoPages WHERE InfoPages.ardNum="+ardNum+";");
-			List<CallOfProposal> infoPages = moveResultSetToTabledInfoPages(resultSet);
+			List<CallForProposal> infoPages = moveResultSetToTabledInfoPages(resultSet);
 			return infoPages;
 		}
 		catch(SQLException e){

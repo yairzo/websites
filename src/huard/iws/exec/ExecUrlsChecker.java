@@ -27,7 +27,7 @@ public class ExecUrlsChecker {
 
 	public static void main (String [] args){
 		
-		String usagePhrase = "Usage: ExecUrlsChecker buildTables|checkUrls pathToApp CallOfProposals|TextualPages [ardNum]";
+		String usagePhrase = "Usage: ExecUrlsChecker buildTables|checkUrls pathToApp CallForProposals|TextualPages [ardNum]";
 				
 		if (args.length < 3 || args.length > 4){
 			System.out.println(usagePhrase);
@@ -47,7 +47,7 @@ public class ExecUrlsChecker {
 			System.out.println("Can't find working dir.");
 			validExecution = false;
 		}		
-		else if (!pageType.equals("CallOfProposals") && !pageType.equals("TextualPages")){
+		else if (!pageType.equals("CallForProposals") && !pageType.equals("TextualPages")){
 			System.out.println(usagePhrase);
 			validExecution = false;
 		}
@@ -72,7 +72,7 @@ public class ExecUrlsChecker {
 					
 		if (mode.equals("buildTables") ){
 			System.out.println("Starting....buildTables" );
-			if (pageType.equals("CallOfProposals")){
+			if (pageType.equals("CallForProposals")){
 				System.out.println("Will run now.");
 				execUrlsChecker.getUrlsCheckerService().buildInfoPagesURLsTable(ardNum);
 				
@@ -83,7 +83,7 @@ public class ExecUrlsChecker {
 		}
 		else if (mode.equals("checkUrls")){
 			System.out.println("Starting....checkUrls" );
-			if (pageType.equals("CallOfProposals"))
+			if (pageType.equals("CallForProposals"))
 				execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInInfoPagesURLsTable(ardNum, pathToApp);
 			else if (pageType.equals("TextualPages"))
 				execUrlsChecker.getUrlsCheckerService().updateURLsStatusAndSizeInPubPagesURLsTable(ardNum, pathToApp);

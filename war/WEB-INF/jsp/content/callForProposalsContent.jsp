@@ -29,12 +29,6 @@
                 	 	<tr>
                  		 <td align="center"><h1>סינון קולות קוראים</h1>	</td>
                 		</tr>
-                		<tr class="form">
-							<td>
-						 	<fmt:message key="${lang.localeId}.callForProposal.searchWords"/>
-							<input type="text" class="green" style="width:400px" name="searchWords"/> 
-							</td>
-						</tr>
  						<tr class="form">
 						<td>
    			   			תאריך הגשה בין - <input type="text" name="submissionDateFrom" class="green date medium100"/>
@@ -55,18 +49,6 @@
         		        </select>
 						</td>
 						</tr>
- 						<tr class="form">
-						<td>
-						<fmt:message key="${lang.localeId}.callForProposal.type"/>
-         				<select name="typeId"  class="green" >
-      						<option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></option>
-      						<option value="1"><fmt:message key="${lang.localeId}.callForProposal.researchGrant"/></option>
-      						<option value="2"><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></option>
-      						<option value="3"><fmt:message key="${lang.localeId}.callForProposal.conference"/></option>
-      						<option value="4"><fmt:message key="${lang.localeId}.callForProposal.scholarship"/></option>
-        		        </select>
-						</td>
-						</tr>
                  		<tr class="form">
 							<td>
 						 	<fmt:message key="${lang.localeId}.callForProposal.fund"/>
@@ -81,7 +63,7 @@
        					</tr>
 						<tr class="form">
 						<td align="center">
-						<c:set var="callOfProposalSearch" value="true"/>
+						<c:set var="callForProposalSearch" value="true"/>
 						<%@ include file="/WEB-INF/jsp/content/editPost/subjects.jsp" %>					
 						</td>
 						</tr>
@@ -98,15 +80,15 @@
                  		 <td colspan="2" align="center"><h1>רשימת דפי קולות קוראים</h1>	</td>
                 		</tr>
      					<c:choose>
-    					<c:when test="${fn:length(callOfProposals) > 0}">
-						<c:forEach items="${callOfProposals}" var="callOfProposal" varStatus="varStatus">
+    					<c:when test="${fn:length(callForProposals) > 0}">
+						<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
              			<tbody>
    							<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 							<td align="right">
-							<a href="editCallForProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.id}"></c:out></a>
+							<a href="callForProposal.html?id=${callForProposal.id}"><c:out value="${callForProposal.id}"></c:out></a>
   							</td>
   							<td align="right">
-							<a href="editCallForProposal.html?id=${callOfProposal.id}"><c:out value="${callOfProposal.title}"></c:out></a>
+							<a href="callForProposal.html?id=${callForProposal.id}"><c:out value="${callForProposal.title}"></c:out></a>
 							</td>
    	  						</tr>
   	  					</tbody>
