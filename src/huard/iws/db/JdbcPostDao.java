@@ -328,7 +328,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 						postType.setEnglishName(rs.getString("englishName"));
 						postType.setEnglishDescription(rs.getString("englishDescription"));
 						postType.setColor(rs.getString("color"));
-						postType.setRelyOnCallForProposal(rs.getBoolean("isRelyOnCallForProposal"));
+						postType.setRelyOnCallForProposal(rs.getBoolean("isRelyOnCallOfProposal"));
 						return postType;
 					}
 		});
