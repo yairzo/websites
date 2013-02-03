@@ -58,13 +58,15 @@
  				   <br/>
  				    	
  				   <select name="searchByStatus" id="searchByStatus" class="green">
+ 				   	<option value="-1" <c:if test="${searchByStatus==-1}">selected</c:if>>הכל</option>
  				   	<option value="0" <c:if test="${searchByStatus==0}">selected</c:if>>טיוטות</option>
  				   	<option value="1" <c:if test="${searchByStatus==1}">selected</c:if>>מוגשות</option>
  				   	<option value="2" <c:if test="${searchByStatus==2}">selected</c:if>>נשלחו לדיקן</option>
- 				  	<option value="3" <c:if test="${searchByStatus==3}">selected</c:if>>מוכנות לדיון</option>
- 				   	<option value="4" <c:if test="${searchByStatus==4}">selected</c:if>>נדונו</option>
- 				   	<option value="5" <c:if test="${searchByStatus==5}">selected</c:if>>הטיפול הסתיים</option>
- 				   	<option value="6" <c:if test="${searchByStatus==6}">selected</c:if>>מבוטלות</option>
+ 				  	<option value="3" <c:if test="${searchByStatus==3}">selected</c:if>>דורגו</option>
+				  	<option value="4" <c:if test="${searchByStatus==4}">selected</c:if>>מוכנות לדיון</option>
+ 				   	<option value="5" <c:if test="${searchByStatus==5}">selected</c:if>>נדונו</option>
+ 				   	<option value="6" <c:if test="${searchByStatus==6}">selected</c:if>>הטיפול הסתיים</option>
+ 				   	<option value="7" <c:if test="${searchByStatus==7}">selected</c:if>>מבוטלות</option>
  				   </select>			  
    				   </authz:authorize>
   				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">

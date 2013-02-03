@@ -33,10 +33,10 @@
 			<c:if test="${!approver && !committee && !printcp}">
 				<c:set var="readOnly" value="false"/>
  			</c:if>
- 			<c:if test="${command.statusId==3 || command.statusId==4 || command.statusId==5}">
+ 			<c:if test="${command.statusId==4 || command.statusId==5 || command.statusId==6}">
 				<c:set var="staffReadOnly" value="true"/>
  			</c:if>
-			<c:if test="${command.statusId!=3 && command.statusId!=4 && command.statusId!=5}">
+			<c:if test="${command.statusId!=4 && command.statusId!=5 && command.statusId!=6}">
 				<c:set var="staffReadOnly" value="false"/>
  			</c:if>
  			
@@ -380,7 +380,7 @@
 				<table align="center">
 					<tr class="form">
 						<td colspan="4">
-						רשימת מרצים ומוזמנים:
+						${compulsoryFieldSign}רשימת מרצים ומוזמנים:
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGuestsAttach"/>						
 						<table>
 						<tr>
@@ -409,7 +409,7 @@
 					</tr>
 					<tr class="form">
 						<td colspan="4">
-						תוכנית הכנס:
+						${compulsoryFieldSign}תוכנית הכנס:
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogProgramAttach"/>
 						<table>
 						<tr>
@@ -721,7 +721,7 @@
 					<table>
 					<tr>
 						<td>
-				       תוכנית תקציבית:
+				       ${compulsoryFieldSign}תוכנית תקציבית:
 						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogFinancialAttach"/>
 				       </td>
 				       <td>
@@ -1392,6 +1392,9 @@
 					<td colspan="4">
 						<c:if test="${command.statusId==1}">			
 				   			<input type="checkbox" class="green cancelSubmission" name="cancelSubmission"/>החזר למצב טיוטה
+						</c:if>
+						<c:if test="${command.statusId==3}">			
+				   			<input type="checkbox" class="green" name="statusReadyForConference"/>העבר לסטטוס מוכנה לדיון
 						</c:if>
 						<c:if test="${command.statusId==5}">			
 				   			<input type="checkbox" class="green" name="statusFinished"/>העבר לסטטוס הסתיים הטיפול

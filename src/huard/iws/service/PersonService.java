@@ -56,6 +56,6 @@ public interface PersonService {
 	
 	public int getOnBehalfOf(String module,int personId);
 
-	public int getImpersonator(String module,int personId);
+	public int getOfficialRepresentative(String module,int id);
 
 }

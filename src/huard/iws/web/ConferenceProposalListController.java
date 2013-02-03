@@ -106,17 +106,6 @@ public class ConferenceProposalListController extends GeneralFormController {
 		}
 		model.put("conferenceProposals", conferenceProposalBeans);
 		
-		// We handle the case of a new form, no search options were selected
-		/*Integer searchByApprover = (Integer) request.getSession().getAttribute("searchByApprover");
-		if (searchByApprover == null)
-			searchByApprover = 0;
-		Integer searchBySubmitted = (Integer) request.getSession().getAttribute("searchBySubmitted");
-		if (searchBySubmitted == null)
-			searchBySubmitted = 0;
-		Integer searchByDeadline = (Integer) request.getSession().getAttribute("searchByDeadline");
-		if (searchByDeadline == null)
-			searchByDeadline = 0;*/		
-
 		//get faculty name by user facultyId
 		Faculty faculty = facultyService.getFaculty(userPersonBean.getFacultyId());
 		model.put("myFaculty", faculty.getNameHebrew());

@@ -34,10 +34,11 @@ public class ConferenceProposalBean {
 		statusMap.put("STATUS_DRAFT", 0);
 		statusMap.put("STATUS_SUBMITTED", 1);
 		statusMap.put("STATUS_SENT_TO_APPROVER", 2);
-		statusMap.put("STATUS_READY_FOR_CONFERENCE", 3);
-		statusMap.put("STATUS_DISCUSSED_IN_CONFERENCE", 4);
-		statusMap.put("STATUS_FINISHED_TREATMENT", 5);
-		statusMap.put("STATUS_DELETED", 6);
+		statusMap.put("STATUS_GRADED", 3);
+		statusMap.put("STATUS_READY_FOR_CONFERENCE", 4);
+		statusMap.put("STATUS_DISCUSSED_IN_CONFERENCE", 5);
+		statusMap.put("STATUS_FINISHED_TREATMENT", 6);
+		statusMap.put("STATUS_DELETED", 7);
 	}
 
 	

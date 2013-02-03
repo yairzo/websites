@@ -26,8 +26,8 @@ public class PersonServiceImpl implements PersonService {
 	public int getOnBehalfOf(String module,int personId){
 		return personDao.getOnBehalfOf(module,personId);
 	}
-	public int getImpersonator(String module,int personId){
-		return personDao.getImpersonator(module,personId);
+	public int getOfficialRepresentative(String module,int id){
+		return personDao.getOfficialRepresentative(module,id);
 	}
 	public Person getPerson (String details, String [] fields){
 		List<Person> persons = personListService.getPersons();

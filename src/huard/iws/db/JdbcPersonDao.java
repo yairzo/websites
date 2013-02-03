@@ -42,7 +42,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	
 	public int getOnBehalfOf(String module, int id){
 		try{
-			String query = "select fakePersonId from fakePerson where module=? and personId=?";
+			String query = "select personId from officialRepresentativePerson where module=? and officialRepresentativePersonId=?";
 			return getSimpleJdbcTemplate().queryForInt(query, module,id);		
 		}
 		catch(Exception e){
@@ -50,9 +50,9 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		}
 	}
 	
-	public int getImpersonator(String module, int id){
+	public int getOfficialRepresentative(String module, int id){
 		try{
-			String query = "select personId from fakePerson where module=? and fakePersonId=?";
+			String query = "select officialRepresentativePersonId from officialRepresentativePerson where module=? and personId=?";
 			return getSimpleJdbcTemplate().queryForInt(query, module,id);		
 		}
 		catch(Exception e){

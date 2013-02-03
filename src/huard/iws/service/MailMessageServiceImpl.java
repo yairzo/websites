@@ -181,7 +181,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String [] cc;//cc to approver assistant
 		if (isSendToApprover){
 			to = new String []{recipient.getEmail()};
-			int impersonator =recipient.getImpersonator("conferenceProposal");
+			int impersonator =recipient.getOfficialRepresentative("conferenceProposal");
 			if(impersonator!=recipient.getId() ){
 				Person p = personService.getPerson(impersonator);
 				cc=new String []{p.getEmail()};

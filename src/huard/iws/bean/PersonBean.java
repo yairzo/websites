@@ -694,8 +694,8 @@ public class PersonBean implements Serializable {
 		PersonService personService = (PersonService) ApplicationContextProvider.getContext().getBean("personService");
 		return personService.getOnBehalfOf(module,this.id);
 	}
-	public int getImpersonator(String module) {
+	public int getOfficialRepresentative(String module) {
 		PersonService personService = (PersonService) ApplicationContextProvider.getContext().getBean("personService");
-		return personService.getImpersonator(module,this.id);
+		return personService.getOfficialRepresentative(module,this.id);
 	}
 }

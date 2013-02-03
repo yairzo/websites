@@ -241,6 +241,10 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposalBean.setStatusId(ConferenceProposalBean.getStatusMapId("STATUS_FINISHED_TREATMENT"));
 			conferenceProposalBean.setStatusDate(System.currentTimeMillis());
 		}
+		if(!request.getParameter("statusReadyForConference", "").equals("")){
+			conferenceProposalBean.setStatusId(ConferenceProposalBean.getStatusMapId("STATUS_READY_FOR_CONFERENCE"));
+			conferenceProposalBean.setStatusDate(System.currentTimeMillis());
+		}
 		//allowEdit
 		if(!request.getParameter("allowEdit", "").equals(""))
 			request.getSession().setAttribute("adminEdit", true);

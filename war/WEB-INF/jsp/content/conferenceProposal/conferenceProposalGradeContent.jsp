@@ -201,6 +201,12 @@ $(document).ready(function() {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		var text='הבקשות לדיון הקרוב כבר דורגו ונשלחו לוועדת הכנסים. לא ניתן לדרג אלא לאחר שרכז/ת הכנסים ישלח בקשה נוספת לדירוג.<br/>רכז/ת הכנסים יכול/ה לדרג בשמך.';
 		openHelp('',text);
+		//make fields readonly
+		$("#deadlineRemarks").attr('readonly','readonly');
+	   	<c:forEach items="${conferenceProposals}" var="conferenceProposal">
+ 			$("textarea#${conferenceProposal.id}").attr('readonly','readonly');
+        </c:forEach>
+
 	}
 
 });
