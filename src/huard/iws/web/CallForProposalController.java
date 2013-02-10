@@ -1,11 +1,10 @@
 package huard.iws.web;
 
-import huard.iws.bean.CategoryBean;
 import huard.iws.bean.CallForProposalBean;
+import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Category;
 import huard.iws.model.Fund;
-import huard.iws.model.MopDesk;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.CategoryService;
 import huard.iws.service.FundService;

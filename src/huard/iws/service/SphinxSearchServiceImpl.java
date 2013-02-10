@@ -140,8 +140,7 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 		return matchedIds;
 	}
 	
-	private ConfigurationService configurationService;
-	
+	private ConfigurationService configurationService;	
 	
 	
 	public void setConfigurationService(ConfigurationService configurationService) {

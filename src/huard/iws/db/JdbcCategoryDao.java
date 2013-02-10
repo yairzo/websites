@@ -18,7 +18,7 @@ import org.springframework.jdbc.support.KeyHolder;
 public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao {
 
 	public Category getRootCategory(){
-		String query = "select * from websiteCategory where parentId<0 limit 1;";
+		String query = "select * from websiteCategory where parentId = 0;";
 		logger.info(query);
 		Category category = getSimpleJdbcTemplate().queryForObject(query,categoryRowMapper);
 		return category;
