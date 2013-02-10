@@ -1,7 +1,6 @@
 package huard.iws.db;
 
 import huard.iws.model.ManagedConnection;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

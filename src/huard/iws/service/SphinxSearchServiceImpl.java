@@ -10,8 +10,6 @@ import org.sphx.api.SphinxMatch;
 import org.sphx.api.SphinxResult;
 import org.sphx.api.SphinxWordInfo;
 
-
-
 public class SphinxSearchServiceImpl implements SphinxSearchService{
 
 	private SphinxClient sphinxClient;
