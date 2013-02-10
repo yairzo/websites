@@ -3,7 +3,7 @@ package huard.iws.service;
 import java.util.List;
 
 import huard.iws.model.CallForProposal;
-import huard.iws.util.SearchCreteria;
+import huard.iws.model.Attachment;
 import huard.iws.util.CallForProposalSearchCreteria;
 
 public interface CallForProposalService {
@@ -32,4 +32,7 @@ public interface CallForProposalService {
 
 	public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria,String localeId);
 
+	public void insertArdNum(int ardNum,int id);
+	
+	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment);
 }

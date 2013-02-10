@@ -136,6 +136,10 @@ public class PersonServiceImpl implements PersonService {
 		}
 		return usersPersonBeans;
 	}
+	
+	public Person getPersonByFullNameEnglish(String fullNameEnglish){
+		return personDao.getPersonByFullNameEnglish(fullNameEnglish);
+	}
 
 
 	private PersonDao personDao;

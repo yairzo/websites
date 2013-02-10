@@ -56,4 +56,6 @@ public interface PostService {
 
 	public Map<Integer,Integer> getCountPostPersonsSent();
 
+	public Post getPostByMessageSubject(String messageSubject);
+
 }

@@ -1,5 +1,6 @@
 package huard.iws.db;
 
+import huard.iws.bean.PersonBean;
 import huard.iws.model.Person;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.ListView;
@@ -487,6 +488,18 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	public int countPerson(){
 		String query = "select count(*) from person";
 		return getSimpleJdbcTemplate().queryForInt(query);
+	}
+	
+	public Person getPersonByFullNameEnglish(String fullNameEnglish){
+		Person person = new Person();
+		try{
+			String query = "select * from person where firstNameEnglish + ' ' + lastNameEnglish like '"+ fullNameEnglish +"'";
+			person =  getSimpleJdbcTemplate().queryForObject(query, personRowMapper);	
+			return person;
+		}
+		catch(Exception e){
+			return person;
+		}
 	}
 
 }

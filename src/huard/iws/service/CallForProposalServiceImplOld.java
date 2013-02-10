@@ -39,6 +39,22 @@ public class CallForProposalServiceImplOld implements CallForProposalServiceOld{
 		callForProposalDaoOld.insertAuthorizedMD5(md5, configurationService.getConfigurationString("website", "websiteDb"));
 	}
 
+	public List<CallForProposalOld> getCallForProposalsOldWebsite(){
+		return callForProposalDaoOld.getCallForProposalsOldWebsite(configurationService.getConfigurationString("website", "websiteDb"));
+	}
+
+	public long getUpdateTime(int ardNum){
+		return callForProposalDaoOld.getUpdateTime(ardNum,configurationService.getConfigurationString("website", "websiteDb"));
+	}
+
+	public List<Long> getSubmissionDates(int ardNum){
+		return callForProposalDaoOld.getSubmissionDates(ardNum,configurationService.getConfigurationString("website", "websiteDb"));
+	}
+	public String getFundBudgetOfficer(int FundId) {
+		return callForProposalDaoOld.getFundBudgetOfficer(FundId,configurationService.getConfigurationString("website", "websiteDb"));
+	}
+	
+
 	private CallForProposalDaoOld callForProposalDaoOld;
 
 	public void setCallForProposalDaoOld(CallForProposalDaoOld callForProposalDaoOld) {

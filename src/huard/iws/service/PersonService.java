@@ -58,4 +58,6 @@ public interface PersonService {
 
 	public int getOfficialRepresentative(String module,int id);
 
+	public Person getPersonByFullNameEnglish(String fullNameEnglish);
+
 }

@@ -154,6 +154,9 @@ public class PostServiceImpl implements PostService{
 	public Map<Integer,Integer> getCountPostPersonsSent(){
 		return postDao.getCountPostPersonsSent();
 	}
+	public Post getPostByMessageSubject(String messageSubject){
+		return postDao.getPostByMessageSubject(messageSubject);
+	}
 
 	
 	private PostDao postDao;

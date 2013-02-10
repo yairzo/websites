@@ -18,4 +18,12 @@ public interface CallForProposalServiceOld {
 
 	public void insertAuthorizedMD5 (String md5);
 
+	public List<CallForProposalOld> getCallForProposalsOldWebsite();
+
+	public long getUpdateTime(int ardNum);
+
+	public List<Long> getSubmissionDates(int ardNum);
+
+	public String getFundBudgetOfficer(int FundId);
+
 }

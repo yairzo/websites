@@ -2,9 +2,9 @@ package huard.iws.db;
 
 import java.util.List;
 
+import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
 import huard.iws.util.CallForProposalSearchCreteria;
-import huard.iws.util.SearchCreteria;
 
 public interface CallForProposalDao {
 
@@ -30,5 +30,8 @@ public interface CallForProposalDao {
 
 	public List<CallForProposal> getCallForProposalsOnline( CallForProposalSearchCreteria searchCriteria);
 
+	public void insertArdNum(int ardNum,int id);
+	
+	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment);
 
 }

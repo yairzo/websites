@@ -376,4 +376,19 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		});
 		return countPostPersonsMap;
 	}
+	
+	public Post getPostByMessageSubject(String messageSubject){
+		Post post= new Post();
+		try{
+			String query = "select * from post where messageSubject=?";
+			post = getSimpleJdbcTemplate().queryForObject(query, rowMapper,	messageSubject);
+			applySubjectIds(post);
+			return post;
+		}
+		catch(Exception e){
+			return post;
+		}
+	}
+
+
 }

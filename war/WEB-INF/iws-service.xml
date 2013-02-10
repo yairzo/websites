@@ -48,6 +48,27 @@
             <ref bean="facultyService"/>
         </property>
     </bean>
+	
+	<bean id="importCallForProposalsService" class="huard.iws.service.ImportCallForProposalsServiceImpl">
+		<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
+        </property>
+		<property name="callForProposalServiceOld">
+            <ref bean="callForProposalServiceOld"/>
+        </property>
+		<property name="mopDeskService">
+            <ref bean="mopDeskService"/>
+        </property>
+		<property name="messageService">
+            <ref bean="messageService"/>
+        </property>
+		<property name="postService">
+            <ref bean="postService"/>
+        </property>
+		<property name="personService">
+            <ref bean="personService"/>
+        </property>
+    </bean>
     
 	<bean id="organizationUnitService" class="huard.iws.service.OrganizationUnitServiceImpl">
 		<property name="listInstructionService">

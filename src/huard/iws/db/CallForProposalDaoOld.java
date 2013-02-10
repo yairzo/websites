@@ -18,6 +18,12 @@ public interface CallForProposalDaoOld {
 	
 	public List<CallForProposalOld> getAliveTabledInfoPages(Integer ardNum,String server);
 	
+	public List<CallForProposalOld> getCallForProposalsOldWebsite(String server);
 
+	public long getUpdateTime(int ardNum,String server);
+
+	public List<Long> getSubmissionDates(int ardNum,String server);
+	
+	public String getFundBudgetOfficer(int FundId,String server);
 
 }

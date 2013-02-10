@@ -997,6 +997,14 @@
   		<property name="registry" ref="registry"/>
 	</bean>
 	
+	<bean id="importCallForProposalsServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="importCallForProposalsService"/>
+  		<property name="serviceName" value="ImportCallForProposalsService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.ImportCallForProposalsService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+
 	<bean id="parseOrganizationUnitServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
   		<property name="service" ref="parseOrganizationUnitService"/>
   		<property name="serviceName" value="ParseOrganizationUnitFileService"/>

@@ -1,5 +1,6 @@
 package huard.iws.db;
 
+import huard.iws.model.CallForProposal;
 import huard.iws.model.CallForProposalOld;
 import huard.iws.util.SQLUtils;
 
@@ -151,6 +152,20 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			return null;
 		}
 	}
+	public List<CallForProposalOld> getCallForProposalsOldWebsite(String server){
+		try{
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			String query = "SELECT * FROM InfoPages,TabledInfoPages WHERE InfoPages.ardNum = TabledInfoPages.ardNum AND InfoPages.isDeleted=0;";
+			System.out.println(query);
+			ResultSet resultSet = statement.executeQuery(query);
+			return moveResultSetToTabledInfoPages(resultSet);
+		}
+		catch(SQLException e){
+			System.out.println(e);
+			return null;
+		}
+	}
 	public List<CallForProposalOld> moveResultSetToTabledInfoPages(ResultSet resultSet) throws SQLException{
 		List<CallForProposalOld> tabledInfoPages = new ArrayList<CallForProposalOld>();
 		while (resultSet.next()){
@@ -169,11 +184,79 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			tabledInfoPage.setAmountOfGrant(resultSet.getString("amountOfGrant"));
 			tabledInfoPage.setBudgetDetails(resultSet.getString("budgetDetails"));
 			tabledInfoPage.setAdditionalInformation(resultSet.getString("additionalInformation"));
+			tabledInfoPage.setHasTabledVersion(resultSet.getBoolean("hasTabledVersion"));
+			tabledInfoPage.setDocType(resultSet.getString("docType"));
+			tabledInfoPage.setDocOwner(resultSet.getString("docOwner"));
+			tabledInfoPage.setRestricted(resultSet.getInt("restricted"));
+			tabledInfoPage.setStopRollingTimeMillis(resultSet.getLong("stopRollingDate"));
+			tabledInfoPage.setSubSite(resultSet.getString("subSite"));
+			tabledInfoPage.setSubDateArd(resultSet.getString("subDateArd"));
+			tabledInfoPage.setSubDateFund(resultSet.getString("subDateFund"));
+			tabledInfoPage.setSubDateDetails(resultSet.getString("subDateDetails"));
+			tabledInfoPage.setNumOfCopies(resultSet.getInt("numOfCopies"));
+			tabledInfoPage.setFundingPeriod(resultSet.getString("maxFundingPeriod"));
+			tabledInfoPage.setEligibilityRequirements(resultSet.getString("eligibilityRequirements"));
+			tabledInfoPage.setActivityLocation(resultSet.getString("activityLocation"));
+			tabledInfoPage.setSendDigitalCopy(resultSet.getBoolean("sendDigitalCopy"));
+			tabledInfoPage.setAppendBudgetOfficerLine(resultSet.getBoolean("appendBudgetOfficerLine"));
 			tabledInfoPages.add(tabledInfoPage);
 		}
 		return tabledInfoPages;
 	}
 
+	public long getUpdateTime(int ardNum,String server){
+		long lastUpdate = 0;
+		try{
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			String query = "SELECT date FROM InfoPagesLastUpdates WHERE ardNum="+ardNum;
+			System.out.println(query);
+			ResultSet resultSet = statement.executeQuery(query);
+			resultSet.next();
+			lastUpdate = resultSet.getLong("date");
+			statement.close();
+		}
+		catch(SQLException e){
+			System.out.println(e);
+		}
+		return lastUpdate;
+	}
 	
+	public List<Long> getSubmissionDates(int ardNum,String server){
+		List<Long> additionalSubDatesList = new ArrayList<Long>();
+		try{
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			String query = "SELECT * FROM AdditionalSubDates WHERE ardNum="+ardNum+" ORDER BY subDate;";
+			System.out.println(query);
+			ResultSet resultSet = statement.executeQuery(query);
+     		while(resultSet.next()){
+     			Long additionalSubDate = new Long(resultSet.getLong("subDate"));
+     			additionalSubDatesList.add(additionalSubDate);
+     		}
+ 			statement.close();
+		}
+		catch(SQLException e){
+			System.out.println(e);
+		}
+		return additionalSubDatesList;
+	}
+	public String getFundBudgetOfficer(int FundId,String server){
+		String budgetOfficerName = "";
+		try{
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			String query = "SELECT budgetOfficer FROM Funds WHERE fundNum="+FundId;
+			System.out.println(query);
+			ResultSet resultSet = statement.executeQuery(query);
+			resultSet.next();
+			budgetOfficerName = resultSet.getString("budgetOfficer");
+			statement.close();
+		}
+		catch(SQLException e){
+			System.out.println(e);
+		}
+		return budgetOfficerName;
+	}
 
 }

@@ -1,10 +1,10 @@
 package huard.iws.service;
 
 import huard.iws.db.CallForProposalDao;
+import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.LanguageUtils;
-import huard.iws.util.SearchCreteria;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +61,13 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 				localeCallForProposals.add(callForProposal);
 		}
 		return localeCallForProposals;
+	}
+
+	public void insertArdNum(int ardNum,int id){
+		callForProposalDao.insertArdNum(ardNum,id);
+	}
+	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment){
+		return callForProposalDao.insertAttachmentToCallForProposal(callForProposalId,attachment);
 	}
 
 	private CallForProposalDao callForProposalDao;

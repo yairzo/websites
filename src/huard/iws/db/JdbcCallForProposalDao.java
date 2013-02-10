@@ -107,7 +107,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	};
 
 	public int insertCallForProposal(CallForProposal callForProposal){
-		final String query = "insert callOfProposalDraft set title='###" + new java.util.Date().getTime() + "###'" +
+
+		if(callForProposal.getTitle().isEmpty())
+			callForProposal.setTitle("###" + new java.util.Date().getTime() + "###");
+		
+		final String query = "insert callOfProposalDraft set title = '" + callForProposal.getTitle() + "'"+
 				", creatorId = ?" +
 				", publicationTime = now()" +
 				", fundId = 0" +
@@ -211,6 +215,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getLocaleId());
 	}
 	
+
 	public void updateCallForProposal(CallForProposal callForProposal){
 		String query = "update callOfProposalDraft set " +
 				" title = ?" +
@@ -521,5 +526,17 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
         }
 	};
 	
+	public void insertArdNum(int ardNum,int id){
+		String query  = "insert callForProposalHistoryId set callForProposalId = ?, callForProposalHistoryId = ?";
+		getSimpleJdbcTemplate().update(query,id, ardNum);
+	}
+
+	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment){
+		String query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?, title= ?";
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		if (attachment != null)
+			getSimpleJdbcTemplate().update(query,callForProposalId, attachment.getFile(), attachment.getContentType(), attachment.getTitle(),keyHolder);
+		return keyHolder.getKey().intValue();
+	}
 
 }
