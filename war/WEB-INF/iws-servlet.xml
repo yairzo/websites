@@ -1126,7 +1126,7 @@
 				<prop key="/category.html">editCategoryController</prop>
 				<prop key="/temporaryFund.html">editTemporaryFundController</prop>
 				<prop key="/temporaryFunds.html">temporaryFundListController</prop>
-				<prop key="/searchPage.html">searchWebsiteController</prop>
+				<prop key="/search.html">searchWebsiteController</prop>
             </props>
         </property>
     </bean>
