@@ -121,5 +121,9 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 		String query = "update personPrivilege set lastAction='0000-00-00 00:00:00'";
 		getSimpleJdbcTemplate().update(query);
 	}	
+	public void updateSubscriptionMd5(int personId,String subscriptionMd5){
+		String query = "update personPrivilege set subscriptionMd5=?  where personId=?";
+		getSimpleJdbcTemplate().update(query, subscriptionMd5,personId);
+	}
 
 }

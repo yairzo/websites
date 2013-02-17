@@ -908,6 +908,19 @@
         </property>
        </bean>
 
+	<bean id="sendPasswordEmailController" class="huard.iws.web.SendPasswordEmailController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.SendPasswordEmailController$SendPasswordEmailControllerCommand</value></property>
+        <property name="formView"><value>sendPasswordEmail</value></property>
+        <property name="successView"><value>sendPasswordEmail.html</value></property>
+     </bean>
+
+	<bean id="resetPasswordController" class="huard.iws.web.ResetPasswordController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.ResetPasswordController$ResetPasswordCommand</value></property>
+        <property name="formView"><value>resetPassword</value></property>
+        <property name="successView"><value>resetPasswordSuccess.html</value></property>
+     </bean>
 
 
 	<aop:config>
@@ -1127,6 +1140,9 @@
 				<prop key="/temporaryFund.html">editTemporaryFundController</prop>
 				<prop key="/temporaryFunds.html">temporaryFundListController</prop>
 				<prop key="/search.html">searchWebsiteController</prop>
+				<prop key="/sendPasswordEmail.html">sendPasswordEmailController</prop>
+				<prop key="/resetPassword.html">resetPasswordController</prop>
+				<prop key="/resetPasswordSuccess.html">urlFilenameViewController</prop>
             </props>
         </property>
     </bean>

@@ -86,6 +86,15 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		}
 		return person;
 	}
+	public int getPersonIdBySubscriptionMd5(String subscriptionMd5){
+		String query = "select personId from personPrivilege where subscriptionMd5=? limit 1;";
+		try{
+			return getSimpleJdbcTemplate().queryForInt(query, subscriptionMd5);
+		}
+		catch(Exception e){
+			return 0;
+		}
+	}
 
 // The method was changed for demo please fix it
 	/*public Person getPersonByMopDeskId(int mopDeskId){

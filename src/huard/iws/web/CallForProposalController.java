@@ -98,9 +98,9 @@ public class CallForProposalController extends GeneralFormController {
 		stripped =callForProposalBean.getEligibilityRequirements().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedEligibilityRequirements", stripped);
 		stripped =callForProposalBean.getActivityLocation().replaceAll("<[/]{0,1}p.*?>","");
-		model.put("strippedActivityLocation()", stripped);
+		model.put("strippedActivityLocation", stripped);
 		stripped =callForProposalBean.getPossibleCollaboration().replaceAll("<[/]{0,1}p.*?>","");
-		model.put("strippedPossibleCollaboration()", stripped);
+		model.put("strippedPossibleCollaboration", stripped);
 
 		model.put("id",callForProposalBean.getId());
 		return new ModelAndView ( this.getFormView(), model);

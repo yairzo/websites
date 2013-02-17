@@ -75,12 +75,24 @@
 						<td colspan="3" style="border:1px #bca2a2 dotted">
       					<fmt:message key="${lang.localeId}.callForProposal.fundingDetails"/><br>
 							<ul>
+							<c:if test="${strippedFundingPeriod!=''}">
 							<li><fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/>${strippedFundingPeriod}</li>
+							</c:if>
+							<c:if test="${strippedAmountOfGrant!=''}">
 							<li><fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/>${strippedAmountOfGrant}</li>
+							</c:if>
+							<c:if test="${strippedEligibilityRequirements!=''}">
 							<li><fmt:message key="${lang.localeId}.callForProposal.eligibilityRequirements"/>${strippedEligibilityRequirements}</li>
+							</c:if>
+							<c:if test="${strippedActivityLocation!=''}">
 							<li><fmt:message key="${lang.localeId}.callForProposal.activityLocation"/>${strippedActivityLocation}</li>
+							</c:if>
+							<c:if test="${strippedPossibleCollaboration!=''}">
 							<li><fmt:message key="${lang.localeId}.callForProposal.possibleCollaboration"/>${strippedPossibleCollaboration}</li>
+							</c:if>
+							<c:if test="${originalCallWebAddress!=''}">
 							<li><a href="${command.originalCallWebAddress}"><fmt:message key="${lang.localeId}.website.originalCallWebAddress"/></a></li>
+							</c:if>
 							</ul>
  						</td>
 					</tr>				

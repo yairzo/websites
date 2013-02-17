@@ -16,6 +16,8 @@ public interface PersonService {
 
 	public Person getPersonByCivilId(String civilId);
 
+	public int getPersonIdBySubscriptionMd5(String subscriptionMd5);
+	
 	/*public Person getPersonByMopDeskId(int mopDeskId);*/
 
 	public void updatePerson(Person person);

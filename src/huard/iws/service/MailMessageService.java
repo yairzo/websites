@@ -21,6 +21,8 @@ public interface MailMessageService {
 	
 	public void createConferenceSubscriptionMail (PersonBean recipient, String md5);
 
+	public void createPasswordMail (PersonBean recipient, String md5);
+
 	public void createSimpleProposalMail(PersonBean recipient, ProposalBean proposal,
 			String messageKey);
 

@@ -42,7 +42,11 @@ public class PersonPrivilegeServiceImpl implements PersonPrivilegeService{
 	public List<PersonPrivilege> getActivePersons (){
 		return personPrivilegeDao.getActivePersons();
 	}
-
+	
+	public void updateSubscriptionMd5(int personId,String subscriptionMd5){
+		personPrivilegeDao.updateSubscriptionMd5(personId,subscriptionMd5);
+	}
+	
 	PersonPrivilegeDao personPrivilegeDao;
 
 	public void setPersonPrivilegeDao(PersonPrivilegeDao personPrivilegeDao) {

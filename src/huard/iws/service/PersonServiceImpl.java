@@ -44,6 +44,10 @@ public class PersonServiceImpl implements PersonService {
 		return personDao.getPersonByCivilId( username );
 	}
 
+	public int getPersonIdBySubscriptionMd5(String subscriptionMd5){
+		return personDao.getPersonIdBySubscriptionMd5( subscriptionMd5 );
+	}
+
 	/*public Person getPersonByMopDeskId(int mopDeskId){
 		return personDao.getPersonByMopDeskId(mopDeskId);
 	}*/

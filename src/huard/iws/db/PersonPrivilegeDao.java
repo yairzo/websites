@@ -27,4 +27,7 @@ public interface PersonPrivilegeDao {
 	public List<PersonPrivilege> getActivePersons ();
 
 	public void clearLastActionTime();
+	
+	public void updateSubscriptionMd5(int personId,String subscriptionMd5);
+
 }

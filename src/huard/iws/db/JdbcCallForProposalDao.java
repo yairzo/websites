@@ -111,7 +111,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		if(callForProposal.getTitle().isEmpty())
 			callForProposal.setTitle("###" + new java.util.Date().getTime() + "###");
 		
-		final String query = "insert callOfProposalDraft set title = '" + callForProposal.getTitle() + "'"+
+		final String query = "insert ignore callOfProposalDraft set title = '" + callForProposal.getTitle().replace("'","") + "'"+
 				", creatorId = ?" +
 				", publicationTime = now()" +
 				", fundId = 0" +
@@ -146,7 +146,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 					}
 				},
 				keyHolder);
-		return keyHolder.getKey().intValue();
+		return keyHolder.getKey()==null?0:keyHolder.getKey().intValue();
 	}
 	
 	public void insertCallForProposalOnline(CallForProposal callForProposal){
@@ -183,14 +183,18 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", additionalInformation = ?" +
 				", localeId = ?" + 
 				", updateTime = now()";
-		System.out.println("1111111:" + query);
 		logger.info(query);
+		String finalSubmissionTime="";
+		if(callForProposal.getFinalSubmissionTime()==0)
+			finalSubmissionTime="0000-00-00 00:00:00";
+		else
+			finalSubmissionTime=new java.sql.Timestamp(callForProposal.getFinalSubmissionTime()).toString();
 		getSimpleJdbcTemplate().update(query,
 				callForProposal.getId(),
 				callForProposal.getTitle(),
 				callForProposal.getCreatorId(),
 				new java.sql.Timestamp(callForProposal.getPublicationTime()),
-				new java.sql.Timestamp(callForProposal.getFinalSubmissionTime()),
+				finalSubmissionTime,
 	    		callForProposal.getAllYearSubmission(),
 	    		callForProposal.getAllYearSubmissionYearPassedAlert(),
 	    		callForProposal.getHasAdditionalSubmissionDates(),
@@ -312,10 +316,12 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		
 		//query = "delete from callOfProposalFile where callOfProposalId = ?";
 		//getSimpleJdbcTemplate().update(query,callForProposal.getId());
-		for (Attachment attachment: callForProposal.getAttachments()){
-			query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?, title= ?";
-			if (attachment != null)
-				getSimpleJdbcTemplate().update(query,callForProposal.getId(), attachment.getFile(), attachment.getContentType(), attachment.getTitle());
+		if(callForProposal.getAttachments()!=null){
+			for (Attachment attachment: callForProposal.getAttachments()){
+				query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?, title= ?";
+				if (attachment != null)
+					getSimpleJdbcTemplate().update(query,callForProposal.getId(), attachment.getFile(), attachment.getContentType(), attachment.getTitle());
+			}
 		}
 	}
 	public void updateCallForProposalOnline(CallForProposal callForProposal){
@@ -353,7 +359,6 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", localeId = ?" +
 				", updateTime = now()" +
 			" where id = ?;";
-		System.out.println("111111111111111:"+query);
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				callForProposal.getTitle(),
@@ -532,10 +537,24 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	}
 
 	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment){
-		String query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?, title= ?";
+		final String query  = "insert callOfProposalFile set callOfProposalId = ?, fileId = ?, contentType= ?, title= ?";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		if (attachment != null)
-			getSimpleJdbcTemplate().update(query,callForProposalId, attachment.getFile(), attachment.getContentType(), attachment.getTitle(),keyHolder);
+		final int finalCallForProposalId= callForProposalId;
+		final byte[] file= attachment.getFile();
+		final String contentType = attachment.getContentType();
+		final String title = attachment.getTitle();
+		getJdbcTemplate().update(
+				new PreparedStatementCreator() {
+					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+						PreparedStatement ps = connection.prepareStatement(query, new String[] {"id"});
+						ps.setInt(1, finalCallForProposalId);
+						ps.setBytes(2, file);
+						ps.setString(3, contentType);
+						ps.setString(4, title);
+						return ps;
+					}
+				},
+				keyHolder);
 		return keyHolder.getKey().intValue();
 	}
 
