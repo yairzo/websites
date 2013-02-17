@@ -56,8 +56,8 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
   		<dispatcher>REQUEST</dispatcher>
     	<dispatcher>FORWARD</dispatcher>
   	</filter-mapping>
-
-	<filter>
+  	
+  	<filter>
   		<filter-name>Acegi Channel Processing Filter</filter-name>
   		<filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
  		<init-param>
@@ -68,10 +68,10 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 	<filter-mapping>
   		<filter-name>Acegi Channel Processing Filter</filter-name>
   		<url-pattern>/*</url-pattern>
-  		<dispatcher>REQUEST</dispatcher>
-    	<dispatcher>FORWARD</dispatcher>
+  		
 	</filter-mapping>
-    <filter>
+	
+	<filter>
  	 	<filter-name>Spring Security Filter Chain Proxy</filter-name>
   		<filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
   		<init-param>
@@ -85,6 +85,9 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
   		<dispatcher>REQUEST</dispatcher>
     	<dispatcher>FORWARD</dispatcher>
   </filter-mapping>
+
+	
+    
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
