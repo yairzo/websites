@@ -1,15 +1,12 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 <%@ include file="/WEB-INF/jsp/include/header.jsp" %>
-
-
           <td align="right" bgcolor="#787669" height="20">
           		<c:set var="applicationName" value="מערכת מופ"/>
           	        <c:set var="pageName" value="אישור שליחת דואר"/>
-       	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
+       	          	
           </td>
         </tr>
-
       </table>
     </td>
   </tr>

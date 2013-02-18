@@ -8,11 +8,11 @@
     </td>
   </tr>
 
-<script language="Javascript">
+<script>
 
  $(document).ready(function() {
  	
-	if("${isRegistered}"){
+	if(${isRegistered}){
 	 $("#divPasword").hide();
 	 $("#divMessage").show();
 	 $("#divMessage").val("<tr><th colspan='2' align='right'>אינך רשומ/ה במערכת</th></tr>");
@@ -43,7 +43,7 @@
 			alert("יש למלא את השדות סיסמה ואימות סיסמה");
 		else{
 			$("#form").append("<input type=\"hidden\" name=\"subscriptionMd5\" id=\"subscriptionMd5\" value=\"${subscriptionMd5}\"/>");
-			$('#form').ajaxSubmit();
+			$('#form').submit();
 		}
 	});	 
  });

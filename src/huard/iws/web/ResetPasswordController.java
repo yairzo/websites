@@ -1,10 +1,8 @@
 package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
-import huard.iws.model.Person;
-import huard.iws.util.RequestWrapper;
 import huard.iws.util.MD5Encoder;
-import huard.iws.util.SysUtils;
+import huard.iws.util.RequestWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +23,12 @@ public class ResetPasswordController extends GeneralFormController{
 			String password=request.getParameter("password", "");
 			personService.updatePersonPrivilegePassword(personService.getPerson(personId),MD5Encoder.digest(password));
 		}
-		return new ModelAndView(new RedirectView("resetPasswordSuccess.html"), null);
+		String userMessage = messageService.getMessage("iw_IL.general.resetPasswordSuccess");
+		request.getSession().setAttribute("userMessage", userMessage);
+		Map<String, Object> newModel = new HashMap<String, Object>();
+		newModel.put("cp", "j_acegi_logout");
+		request.getSession().setAttribute("userPerson", null);
+		return new ModelAndView (new RedirectView("viewMessage.html"), newModel);
 	}
 
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,

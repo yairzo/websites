@@ -72,7 +72,6 @@
 			      ref="accessDecisionManager" />
 		   <property name="objectDefinitionSource">
 		    <value>
-
 				PATTERN_TYPE_APACHE_ANT
       			/persons.html=ROLE_LISTS_EDITOR,ROLE_LISTS_ADMIN
       			/lists.html=ROLE_LISTS_MOP,ROLE_LISTS_READER,ROLE_LISTS_EDITOR,ROLE_LISTS_ADMIN
@@ -113,7 +112,7 @@
      			/editCallForProposal.html=ROLE_WEBSITE_ADMIN
     			/textualPages.html=ROLE_WEBSITE_ADMIN
      			/editTextualPage.html=ROLE_WEBSITE_ADMIN
-	       </value>
+     		</value>
   		</property>
 	</bean>
 

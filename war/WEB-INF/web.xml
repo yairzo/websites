@@ -13,7 +13,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
     	</param-value>
   	</context-param>
   	
-  <!--	<filter>
+  	<filter>
     	<filter-name>UrlRewriteFilter</filter-name>
     	<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
     	<init-param>
@@ -27,7 +27,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
     	<dispatcher>REQUEST</dispatcher>
     	<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
--->
+
   	<filter>
   		<filter-name>httpsCookieFilter</filter-name>
 		<filter-class>huard.iws.filter.security.HttpsCookieFilter</filter-class>
