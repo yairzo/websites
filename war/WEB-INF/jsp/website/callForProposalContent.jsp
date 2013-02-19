@@ -30,17 +30,13 @@
 						<c:if test="${!command.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.finalSubmissionTime"/>${finalSubmissionTime}</c:if>
  						</td>
 					</tr>
-					<c:if test="${submissionDate1}">
+					<c:if test="${fn:length(submissionDate1)>0}">
 					<tr>
- 						<td style="border:1px #bca2a2 dotted">
-						 <fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/>${submissionDate1}
-						</td>
-						<td style="border:1px #bca2a2 dotted">
-						<fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/>${submissionDate2}
+ 						<td colspan="3"  style="border:1px #bca2a2 dotted">
+						 <fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/>${submissionDate1}&nbsp;
+						${submissionDate2}&nbsp;
+						${submissionDate3}
  						</td>
-						<td style="border:1px #bca2a2 dotted">
-						<fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/>${submissionDate3}
-						</td>
 					</tr>
 					</c:if>
                 	<tr>

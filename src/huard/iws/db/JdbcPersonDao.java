@@ -502,7 +502,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	public Person getPersonByFullNameEnglish(String fullNameEnglish){
 		Person person = new Person();
 		try{
-			String query = "select * from person where firstNameEnglish + ' ' + lastNameEnglish like '"+ fullNameEnglish +"'";
+			String query = "select * from person where concat(firstNameEnglish,' ' ,lastNameEnglish) like '"+ fullNameEnglish +"'";
 			person =  getSimpleJdbcTemplate().queryForObject(query, personRowMapper);	
 			return person;
 		}

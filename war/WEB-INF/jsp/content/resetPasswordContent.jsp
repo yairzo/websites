@@ -12,15 +12,16 @@
 
  $(document).ready(function() {
  	
-	if(${isRegistered}){
-	 $("#divPasword").hide();
-	 $("#divMessage").show();
-	 $("#divMessage").val("<tr><th colspan='2' align='right'>אינך רשומ/ה במערכת</th></tr>");
- 	} 
- 	else{
-	 $("#divPasword").show();
-	 $("#divMessage").hide();
- 	}
+	if(${isRegistrated}){
+		 $(".changePassword").show();
+		 $(".message").hide();
+	} 
+	else{
+		 $(".changePassword").hide();
+		 $(".message").show();
+		 $(".message").html("<tr><th colspan='2' align='right'>אינך רשומ/ה במערכת</th></tr>");
+	}
+
 
 	$("#password").blur(function(){
 		var passwordRegex = /^[a-zA-Z0-9]{4,9}$/;
@@ -37,13 +38,15 @@
 		}
 	});
 	
-	$("#submit").click(function(e){
+	$("button.submit").click(function(e){
 		e.preventDefault();
-		if($("#passwordConfirm").val()=="" || $("#password").val()=="")
+		if($("#passwordConfirm").val()=="" || $("#password").val()==""){
 			alert("יש למלא את השדות סיסמה ואימות סיסמה");
+			return false;
+		}
 		else{
 			$("#form").append("<input type=\"hidden\" name=\"subscriptionMd5\" id=\"subscriptionMd5\" value=\"${subscriptionMd5}\"/>");
-			$('#form').submit();
+			$("#form").submit();
 		}
 	});	 
  });
@@ -62,8 +65,7 @@
                   <td colspan="2" align="center"><h1>הרשות למחקר ופיתוח - איפוס סיסמה</h1>
                   </td>
                 </tr>
-                <div id="passwordDiv">
-                <tr>
+                <tr class="changePassword">
 					<th align="right">
 						נא להקליד סיסמה חדשה:
 					</th>
@@ -71,7 +73,7 @@
 					 	<input cssClass="green medium200" type="password" id="password" name="password">
 					</th>
 				</tr>
-				<tr>
+				<tr class="changePassword">
 					<th align="right">
 						 (יש להקליד שוב את הסיסמה)אימות סיסמה:
 					</th>
@@ -79,19 +81,13 @@
 						<input cssClass="green medium200" type="password" id="passwordConfirm" name="passwordConfirm">
 					</th>
 				</tr>
-                <tr>
+                <tr class="changePassword">
 					<th colspan="2">
-						<button class="grey" id="submit" >עדכן סיסמה</button>
+						<button class="grey submit" >עדכן סיסמה</button>
 					</th>
 				</tr>
-				</div>
-                <div id="messageDiv">
-                 <tr>
-					<th colspan="2" align="right">
-						
-					</th>
+               <tr class="message">
 				</tr>
- 				</div>
                 <tr>
 					<th colspan="2" align="right">
 					<a style="text-decoration: underline;" href="mailto:mop@ard.huji.ac.il">יצירת קשר</a> לפתרון בעיות רישום או כניסה למערכת

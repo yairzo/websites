@@ -17,6 +17,7 @@ public class ResetPasswordController extends GeneralFormController{
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
+
 		String subscriptionMd5=request.getParameter("subscriptionMd5", "");
 		if(!subscriptionMd5.isEmpty()){
 			int personId = personService.getPersonIdBySubscriptionMd5(subscriptionMd5);

@@ -86,7 +86,7 @@ public class CallForProposalController extends GeneralFormController {
 		String selectedFund="";
 		if(callForProposalBean.getFundId()>0){
 			Fund fund = fundService.getFundByFinancialId(callForProposalBean.getFundId());
-			if (fund!=null)
+			if (fund.getId()>0)
 				selectedFund=fund.getName();
 		}
 		model.put("selectedFund", selectedFund);

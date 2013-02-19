@@ -19,6 +19,16 @@
        $('form').submit();
        }
       });
+  
+  $('#changePassword').click(function(e){
+	  e.preventDefault();
+	  var userName = $("#j_username").val();
+	  if($("#j_username").val()=="")
+		  alert("הכנס שם משתמש");
+	  else
+	 	window.location="sendPasswordEmail.html?username="+ userName;     
+  });
+
  });
 
 </script>
@@ -40,7 +50,7 @@
 						${username}
 					</th>
 					<th align="right">
-					 	<input class="green medium200" type="text" name="j_username">
+					 	<input class="green medium200" type="text" id="j_username" name="j_username">
 					</th>
 				</tr>
 				<tr>
@@ -79,6 +89,11 @@
                 <tr>
 					<th colspan="2" align="right">
 					<a style="text-decoration: underline;" href="mailto:mop@ard.huji.ac.il">יצירת קשר</a> לפתרון בעיות רישום או כניסה למערכת
+					</th>
+				</tr>
+               <tr>
+					<th colspan="2" align="right">
+					<a style="text-decoration: underline;" href="" id="changePassword">לחצ/י כאן </a> לשינוי סיסמה
 					</th>
 				</tr>
 			</table>

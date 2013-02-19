@@ -29,6 +29,7 @@ public class SendPasswordEmailController extends GeneralFormController{
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 		String civilId=request.getParameter("username", "");
+System.out.println("111111111111111111:"+ civilId);
 		Person person = personService.getPersonByCivilId(civilId);
 		if(person!=null){
 			boolean enabled = personService.isSubscribed(person.getId());

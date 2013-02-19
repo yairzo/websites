@@ -1,5 +1,6 @@
 package huard.iws.service;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,60 +67,65 @@ public void importCallForProposals(){
 		callForProposal.setOriginalCallWebAddress(callForProposalOld.getPageWebAddress());
 		callForProposal.setKeepInRollingMessagesExpiryTime(callForProposalOld.getStopRollingTimeMillis());
 		callForProposal.setShowDescriptionOnly(callForProposalOld.isDescriptionOnly());
+		//submission details
 		String submissionDetails = "";
 		if(callForProposalOld.getSubSite().equals("ARD")){
 			submissionDetails =  messageService.getMessage(localeId + ".callForProposal.submissionAtAuthority");
-			if(callForProposalOld.getSubDateArd()!=null && !callForProposalOld.getSubDateArd().equals("null") )
+			if( callForProposalOld.getSubDateArd()!=null && !callForProposalOld.getSubDateArd().equals("null") )
 				submissionDetails +=" " + callForProposalOld.getSubDateArd();
+			else if(!callForProposal.getAllYearSubmission()){
+				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				submissionDetails +=" " + formatter.format(callForProposal.getFinalSubmissionTime());
+			}
 		}
 		else if (callForProposalOld.getSubSite().equals("Fund")){
 			submissionDetails =  messageService.getMessage(localeId + ".callForProposal.submissionAtFund");
 			if(callForProposalOld.getSubDateFund()!=null && !callForProposalOld.getSubDateFund().equals("null") )
 				submissionDetails +=" " + callForProposalOld.getSubDateFund();
+			else if(!callForProposal.getAllYearSubmission()){
+				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+				submissionDetails +=" " + formatter.format(callForProposal.getFinalSubmissionTime());
+			}
 		}
 		if(callForProposalOld.getNumOfCopies()>0){
 			submissionDetails += "<br>" + messageService.getMessage(localeId + ".callForProposal.submissionCopiesShort");
 			submissionDetails += callForProposalOld.getNumOfCopies();
-			if(callForProposalOld.getSendDigitalCopy())
-				messageService.getMessage(localeId + ".callForProposal.copyMop");
+			if(!callForProposalOld.getSendDigitalCopy())
+				submissionDetails += messageService.getMessage(localeId + ".callForProposal.copyMop");
 		}
 		if(callForProposalOld.getSendDigitalCopy()){
 			for(PersonBean personBean:deskPersons){
 				if(personBean.getTitle().indexOf("עוזר")>=0 || personBean.getTitle().indexOf("Assistant")>=0){
 					submissionDetails += "<br>" + messageService.getMessage(localeId + ".callForProposal.submissionEmail") + 
-					"<a href=\"mailto:" + personBean.getEmail()+ "\">"+ personBean.getPreferedLocaleDegreeFullName()+"</a>" + 
-					" " + personBean.getTitle();
+					"<a href=\"mailto:" + personBean.getEmail()+ "\">";
+					if(localeId.equals("iw_IL")) submissionDetails += personBean.getDegreeFullNameHebrew();
+					else submissionDetails += personBean.getDegreeFullNameEnglish();
+					submissionDetails +="</a> " + personBean.getTitle();
 					break;
 				}
 			}
 		}
 		submissionDetails += "<br>" + cleanText(callForProposalOld.getSubDateDetails());
 		callForProposal.setSubmissionDetails(submissionDetails);
+		//budget
 		String budgetDetails = "";
 		String budgetOfficerName = callForProposalServiceOld.getFundBudgetOfficer(callForProposalOld.getFundId());
 		PersonBean budgetOfficer = new PersonBean(personService.getPersonByFullNameEnglish(budgetOfficerName));
-		if(callForProposalOld.getDocType().equals("Research Grant") && callForProposalOld.getAppendBudgetOfficerLine()){
-			budgetDetails += "<br>" + messageService.getMessage(localeId + ".callForProposal.budgetApprover");
-			if(budgetOfficer!=null){
-				budgetDetails += "<a href=\"mailto:" + budgetOfficer.getEmail()+ "\">" 
-					+ budgetOfficer.getPreferedLocaleDegreeFullName() + "</a> " + budgetOfficer.getTitle();
-			}
+		if(callForProposalOld.getDocType().equals("Research Grant") && budgetOfficer.getId()>0 && callForProposalOld.getAppendBudgetOfficerLine()){
+			budgetDetails += "<br>" + messageService.getMessage(localeId + ".callForProposal.budgetApprover")
+				+ "<a href=\"mailto:" + budgetOfficer.getEmail()+ "\">";
+			if(localeId.equals("iw_IL")) budgetDetails += budgetOfficer.getDegreeFullNameHebrew();
+			else budgetDetails += budgetOfficer.getDegreeFullNameEnglish();
+			budgetDetails += "</a> ";
 		}
 		budgetDetails += "<br>" + cleanText(callForProposalOld.getBudgetDetails());
 		callForProposal.setBudgetDetails(budgetDetails);
-		for(PersonBean personBean:deskPersons){
-			if ((personBean.getTitle().contains("Budget") || personBean.getTitle().contains("Financial")) && budgetOfficer.getId()!=personBean.getId())
-				continue;
-			if (! personBean.getFirstNameEnglish().equals("")) {
-				submissionDetails += "<br>" + messageService.getMessage(localeId + ".callForProposal.submissionEmail") + 
-				"<a href=\"mailto:" + personBean.getEmail()+ "\">"+ personBean.getPreferedLocaleDegreeFullName()+"</a>" + 
-				" " + personBean.getTitle();
-			}
-		}
+		//contact persons
 		String contactPersonDetails=cleanText(callForProposalOld.getDeskAndContact());
 		for(PersonBean personBean:deskPersons){
 			if(personBean.getTitle().indexOf("עוזר")>=0 || personBean.getTitle().indexOf("Assistant")>=0 ||
-					personBean.getTitle().indexOf("ראש מדור")>=0 || personBean.getTitle().indexOf("Coordinator")>=0){
+					personBean.getTitle().indexOf("ראש מדור")>=0 || personBean.getTitle().indexOf("Coordinator")>=0 ||
+					budgetOfficer.getId()==personBean.getId()){
 				contactPersonDetails += "<br>" + "<a href=\"mailto:" + personBean.getEmail()+ "\">";
 				if(localeId.equals("iw_IL")) contactPersonDetails += personBean.getDegreeFullNameHebrew();
 				else contactPersonDetails += personBean.getDegreeFullNameEnglish();
@@ -128,6 +134,7 @@ public void importCallForProposals(){
 			}
 		}
 		callForProposal.setContactPersonDetails(contactPersonDetails);
+		System.out.println("111111111111:"+callForProposalOld.getDescription());
 		callForProposal.setDescription(cleanText(callForProposalOld.getDescription()));
 		callForProposal.setFundingPeriod(cleanText(callForProposalOld.getFundingPeriod()));
 		callForProposal.setAmountOfGrant(cleanText(callForProposalOld.getAmountOfGrant()));
@@ -171,7 +178,8 @@ public void importCallForProposals(){
 					    e.printStackTrace();
 				    }
 			}
-			formDetails = formDetails.replaceFirst("\\*(.*?)\\*(.*?)\\*","<a href=\""+linkAddress+"\">"+linkText+"</a>");
+			String newLink = "<a href=\""+linkAddress.replace("$", "\\$")+"\">"+linkText+"</a>";
+			formDetails = formDetails.replaceFirst("\\*(.*?)\\*(.*?)\\*",newLink);
 		}
 		callForProposal.setFormDetails(cleanText(formDetails));
 		callForProposalService.updateCallForProposal(callForProposal);
@@ -188,7 +196,12 @@ public String cleanText(String text){
 	Pattern p = Pattern.compile("\\*(.*?)\\*(.*?)\\*");
 	Matcher m = p.matcher(text);
 	while(m.find())
-		text = text.replaceFirst("\\*(.*?)\\*(.*?)\\*","<a href=\""+m.group(2)+"\">"+m.group(1)+"</a>");
+		text = text.replaceFirst("\\*(.*?)\\*(.*?)\\*","<a href=\""+m.group(2).replace("$", "\\$")+"\">"+m.group(1)+"</a>");
+	p = Pattern.compile("\\*[\\s]*?(.*?)[\\s]*?\\*");
+	m = p.matcher(text);
+	while(m.find())
+		text = text.replaceFirst("\\*[\\s]*?(.*?)[\\s]*?\\*","<a href=\""+m.group(1).replace("$", "\\$")+"\">"+m.group(1)+"</a>");
+
 	return text;
 }
 

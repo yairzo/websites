@@ -170,7 +170,7 @@ public class EditCallForProposalController extends GeneralFormController{
 			String selectedFund="";
 			if(callForProposal.getFundId()>0){
 				Fund fund = fundService.getFundByFinancialId(callForProposal.getFundId());
-				if (fund!=null)
+				if (fund.getId()>0)
 					selectedFund=fund.getName();
 			}
 			model.put("selectedFund", selectedFund);

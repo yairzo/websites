@@ -25,9 +25,14 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 	}
 	
 	public Fund getFundByFinancialId(int financialId){
+		Fund fund =new Fund();
 		String personSelect = "select * from fund where financialId=?";
-		Fund fund =
-			getSimpleJdbcTemplate().queryForObject(personSelect, rowMapper,	financialId);
+		try{
+			fund =	getSimpleJdbcTemplate().queryForObject(personSelect, rowMapper,	financialId);
+		}
+		catch(Exception e){
+			return fund;
+		}
 		return fund;
 	}
 

@@ -148,7 +148,6 @@ war/WEB-INF/jsp/editTemporaryFund.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/editTextualPage.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/personListHelper.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/resetPassword.jsp svn_mime_002dtype=text%2Fplain
-war/WEB-INF/jsp/resetPasswordSuccess.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/searchPage.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/sendPasswordEmail.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/temporaryFunds.jsp svn_mime_002dtype=text%2Fplain

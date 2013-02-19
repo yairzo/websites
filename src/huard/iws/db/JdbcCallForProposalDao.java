@@ -182,13 +182,18 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", budgetDetails = ?" +
 				", additionalInformation = ?" +
 				", localeId = ?" + 
-				", updateTime = now()";
+				", updateTime = ?";
 		logger.info(query);
 		String finalSubmissionTime="";
 		if(callForProposal.getFinalSubmissionTime()==0)
 			finalSubmissionTime="0000-00-00 00:00:00";
 		else
 			finalSubmissionTime=new java.sql.Timestamp(callForProposal.getFinalSubmissionTime()).toString();
+		String updateTime="";
+		if(callForProposal.getUpdateTime()==0)
+			updateTime=new java.sql.Timestamp(new java.util.Date().getTime()).toString();
+		else
+			updateTime=new java.sql.Timestamp(callForProposal.getUpdateTime()).toString();
 		getSimpleJdbcTemplate().update(query,
 				callForProposal.getId(),
 				callForProposal.getTitle(),
@@ -216,7 +221,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getPossibleCollaboration().trim(),
 	    		callForProposal.getBudgetDetails().trim(),
 	    		callForProposal.getAdditionalInformation().trim(),
-	    		callForProposal.getLocaleId());
+	    		callForProposal.getLocaleId(),
+	    		updateTime);
 	}
 	
 
@@ -248,7 +254,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", budgetDetails = ?" +
 				", additionalInformation = ?" +
 				", localeId = ?" +
-				", updateTime = now()" +
+				", updateTime = ?" +
 			" where id = ?;";
 		System.out.println(query);
 		logger.info(query);
@@ -267,7 +273,12 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
 		else
 			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(callForProposal.getKeepInRollingMessagesExpiryTime()).toString();
-		getSimpleJdbcTemplate().update(query,
+		String updateTime="";
+		if(callForProposal.getUpdateTime()==0)
+			updateTime=new java.sql.Timestamp(new java.util.Date().getTime()).toString();
+		else
+			updateTime=new java.sql.Timestamp(callForProposal.getUpdateTime()).toString();
+			getSimpleJdbcTemplate().update(query,
 				callForProposal.getTitle(),
 				callForProposal.getCreatorId(),
 				publicationTime,
@@ -294,6 +305,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getBudgetDetails().trim(),
 	    		callForProposal.getAdditionalInformation().trim(),
 	    		callForProposal.getLocaleId(),
+	    		updateTime,
 				callForProposal.getId());
 		
 		query = "delete from subjectToCallOfProposal where callOfProposalId = ?";
