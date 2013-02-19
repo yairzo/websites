@@ -472,6 +472,7 @@ war/js/ckeditor/skins/v2/images/noimage.png svn_mime_002dtype=application%2Focte
 war/js/ckeditor/skins/v2/images/sprites.png svn_mime_002dtype=application%2Foctet-stream
 war/js/ckeditor/skins/v2/images/sprites_ie6.png svn_mime_002dtype=application%2Foctet-stream
 war/js/ckeditor/skins/v2/images/toolbar_start.gif svn_mime_002dtype=application%2Foctet-stream
+war/js/jquery-1.6.2.js svn_mime_002dtype=text%2Fplain
 war/js/jquery-1.6.2.min.js svn_mime_002dtype=text%2Fplain
 war/js/jquery-ui-1.8.16.custom.min.js svn_mime_002dtype=text%2Fplain
 war/js/jquery-ui-timepicker-addon.js svn_mime_002dtype=text%2Fplain
