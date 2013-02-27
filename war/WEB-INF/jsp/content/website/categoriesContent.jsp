@@ -101,17 +101,65 @@
                	 		<td>
    						<ul>
  						<li>
-						<a href="${rootCategory.url}">${rootCategory.name}</a>&nbsp;<img id="${rootCategory.id}" class="add" src="image/icon_plus.gif" alt="add"/>
+						<a href="${rootCategoryHeb.url}">${rootCategoryHeb.name}</a>&nbsp;<img id="${rootCategoryHeb.id}" class="add" src="image/icon_plus.gif" alt="add"/>
      					<c:choose>
-    					<c:when test="${fn:length(languageRootCategories) > 0}">
+    					<c:when test="${fn:length(hebCategories) > 0}">
     					<ul>
-						<c:forEach items="${languageRootCategories}" var="languageRootCategory" varStatus="varStatus">
+						<c:forEach items="${hebCategories}" var="hebCategory" varStatus="varStatus">
  							<li>
- 							<a href="${languageRootCategory.url}">${languageRootCategory.name}</a>&nbsp;<img src="image/icon_edit.gif" class="edit" id="${languageRootCategory.id}" border="0"/>&nbsp;<img id="${languageRootCategory.id}" class="moveDown" src="image/icon_down.gif" alt="move down"/>&nbsp;<img id="${languageRootCategory.id}" class="moveUp" src="image/icon_up.gif" alt="move up"/>&nbsp;<img id="${languageRootCategory.id}" class="add" src="image/icon_plus.gif" alt="add"/>&nbsp;<img id="${languageRootCategory.id}" class="delete" src="image/icon_delete.gif" alt="delete"/>
+ 							<a href="${hebCategory.url}">${hebCategory.name}</a>&nbsp;<img src="image/icon_edit.gif" class="edit" id="${hebCategory.id}" border="0"/>&nbsp;<img id="${hebCategory.id}" class="moveDown" src="image/icon_down.gif" alt="move down"/>&nbsp;<img id="${hebCategory.id}" class="moveUp" src="image/icon_up.gif" alt="move up"/>&nbsp;<img id="${hebCategory.id}" class="add" src="image/icon_plus.gif" alt="add"/>&nbsp;<img id="${hebCategory.id}" class="delete" src="image/icon_delete.gif" alt="delete"/>
       						<c:choose>
-    						<c:when test="${fn:length(languageRootCategory.subCategories) > 0}">
+    						<c:when test="${fn:length(hebCategory.subCategories) > 0}">
 							<ul>
-							<c:forEach items="${languageRootCategory.subCategories}" var="category" varStatus="varStatus">
+							<c:forEach items="${hebCategory.subCategories}" var="category" varStatus="varStatus">
+     							<li>
+ 								<a href="${category.url}">${category.name}</a>&nbsp;<img src="image/icon_edit.gif" class="edit" id="${category.id}" border="0"/>&nbsp;<img id="${category.id}" class="moveDown" src="image/icon_down.gif" alt="move down"/>&nbsp;<img id="${category.id}" class="moveUp" src="image/icon_up.gif" alt="move up"/>&nbsp;<img id="${category.id}" class="add" src="image/icon_plus.gif" alt="add"/>&nbsp;<img id="${category.id}" class="delete" src="image/icon_delete.gif" alt="delete"/>
+     							<c:choose>
+    							<c:when test="${fn:length(category.subCategories) > 0}">
+								<ul>
+								<c:forEach items="${category.subCategories}" var="subCategory" varStatus="varStatus">
+ 									<li>
+ 									<a href="${subCategory.url}">${subCategory.name}</a> &nbsp;<img src="image/icon_edit.gif" class="edit" id="${subCategory.id}" border="0"/>&nbsp;<img id="${subCategory.id}" class="moveDown" src="image/icon_down.gif" alt="move down"/>&nbsp;<img id="${subCategory.id}" class="moveUp" src="image/icon_up.gif" alt="move up"/>&nbsp;<img id="${subCategory.id}" class="add" src="image/icon_plus.gif" alt="add"/>&nbsp;<img id="${subCategory.id}" class="delete" src="image/icon_delete.gif" alt="delete"/>
+ 									</li>
+	   							</c:forEach>
+	   							</ul>
+	  							</c:when>
+  								</c:choose> 
+	   							</li>
+ 	   						</c:forEach>
+ 	   						</ul>
+ 	  						</c:when>
+  							</c:choose> 
+	   					</c:forEach>
+	   					</ul>
+ 	  					</c:when>
+  	  					<c:otherwise>
+   	  			  			<tr style="height: 30px;">
+  							<td colspan="4" align="center" style="padding: 0px 20px;">
+  								אין קטגוריות 
+   							</td>
+  							</tr>
+  						</c:otherwise>
+  						</c:choose> 
+  						</li>
+  						</ul>
+  						</td>
+  						</tr>
+              	 		<tr>
+               	 		<td>
+   						<ul>
+ 						<li>
+						<a href="${rootCategoryEng.url}">${rootCategoryEng.name}</a>&nbsp;<img id="${rootCategoryEng.id}" class="add" src="image/icon_plus.gif" alt="add"/>
+     					<c:choose>
+    					<c:when test="${fn:length(engCategories) > 0}">
+    					<ul>
+						<c:forEach items="${engCategories}" var="engCategory" varStatus="varStatus">
+ 							<li>
+ 							<a href="${engCategory.url}">${engCategory.name}</a>&nbsp;<img src="image/icon_edit.gif" class="edit" id="${engCategory.id}" border="0"/>&nbsp;<img id="${engCategory.id}" class="moveDown" src="image/icon_down.gif" alt="move down"/>&nbsp;<img id="${engCategory.id}" class="moveUp" src="image/icon_up.gif" alt="move up"/>&nbsp;<img id="${engCategory.id}" class="add" src="image/icon_plus.gif" alt="add"/>&nbsp;<img id="${engCategory.id}" class="delete" src="image/icon_delete.gif" alt="delete"/>
+      						<c:choose>
+    						<c:when test="${fn:length(engCategory.subCategories) > 0}">
+							<ul>
+							<c:forEach items="${engCategory.subCategories}" var="category" varStatus="varStatus">
      							<li>
  								<a href="${category.url}">${category.name}</a>&nbsp;<img src="image/icon_edit.gif" class="edit" id="${category.id}" border="0"/>&nbsp;<img id="${category.id}" class="moveDown" src="image/icon_down.gif" alt="move down"/>&nbsp;<img id="${category.id}" class="moveUp" src="image/icon_up.gif" alt="move up"/>&nbsp;<img id="${category.id}" class="add" src="image/icon_plus.gif" alt="add"/>&nbsp;<img id="${category.id}" class="delete" src="image/icon_delete.gif" alt="delete"/>
      							<c:choose>

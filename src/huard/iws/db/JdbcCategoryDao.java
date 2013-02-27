@@ -18,22 +18,22 @@ import org.springframework.jdbc.support.KeyHolder;
 
 public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao {
 
-	public Category getRootCategory(){
-		String query = "select * from websiteCategory where parentId = 0;";
-		logger.info(query);
-		Category category = getSimpleJdbcTemplate().queryForObject(query,categoryRowMapper);
+	public Category getRootCategory(String localeId){
+		String query = "select * from websiteCategory where parentId = 0 and localeId=?;";
+		//logger.info(query);
+		Category category = getSimpleJdbcTemplate().queryForObject(query,categoryRowMapper,localeId);
 		return category;
 	}
 	
 	public Category getCategory(int id){
 		String query = "select * from websiteCategory where id=?;";
-		logger.info(query);
+		//logger.info(query);
 		Category category = getSimpleJdbcTemplate().queryForObject(query,categoryRowMapper,id);
 		return category;
 	}
 	public Category getCategoryByUrl(String url){
 		String query = "select * from websiteCategory where url=? limit 1;";
-		logger.info(query);
+		//logger.info(query);
 		Category category = new Category();
 		try{
 			category = getSimpleJdbcTemplate().queryForObject(query,categoryRowMapper,url);
@@ -41,6 +41,17 @@ public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao
 		}
 		catch(Exception e){
 			return category;
+		}
+	}
+	
+	public int getCategoryIdByName(String name){
+		try{
+			String query = "select id from websiteCategory where name='" + name+"' limit 1;";
+			logger.info(query);
+			return getSimpleJdbcTemplate().queryForInt(query);
+		}
+		catch(Exception e){
+			return 0;
 		}
 	}
 	
@@ -52,14 +63,15 @@ public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao
 			category.setParentId(rs.getInt("parentId"));
 			category.setCategoryOrder(rs.getInt("categoryOrder"));
 			category.setUrl(rs.getString("url"));
+			category.setLocaleId(rs.getString("localeId"));
 			return category;
 		}
 	};
 	
 	public List<Category> getCategories(int parentCategoryId){
 		String query = "select * from websiteCategory where parentId=? order by categoryOrder;";
-		logger.info(query);
-		logger.info("parentId:" + parentCategoryId);
+		//logger.info(query);
+		//logger.info("parentId:" + parentCategoryId);
 		
 		List<Category> categories = getSimpleJdbcTemplate().query(query,categoryRowMapper,parentCategoryId);
 		return categories;
@@ -72,7 +84,7 @@ public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao
 				", categoryOrder = ?" +
 				", url = ?" +
 			" where id = ?;";
-		logger.info(query);
+		//logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				category.getName(),
 				category.getParentId(),
@@ -81,10 +93,10 @@ public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao
 				category.getId());
 	}
 	public int insertCategory(int parentId){
-		final String categoryInsert = "insert websiteCategory set parentId = ?, name = ?, categoryOrder = ?;"; 
+		final String categoryInsert = "insert websiteCategory set parentId = ?, name = ?, categoryOrder = ?,localeId=?;"; 
 		final int categoryOrder = getCategories(parentId).size() + 1;
 		final int aParentId = parentId;
-
+		final String locaelId = getCategory(parentId).getLocaleId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -94,6 +106,7 @@ public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao
 		            ps.setInt(1, aParentId);
 		            ps.setString(2, "קטגוריה חדשה");
 		            ps.setInt(3, categoryOrder);
+		            ps.setString(4, locaelId);
 		            return ps;
 		        }
 		    },

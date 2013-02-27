@@ -5,6 +5,7 @@ import java.util.List;
 import huard.iws.model.Category;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
+import huard.iws.model.TextualPageOld;
 
 public interface TextualPageDao {
 
@@ -35,5 +36,9 @@ public interface TextualPageDao {
 	public void updateTemplate(Template template);
 
 	public List<Template> getTemplates();
+
+	public List<TextualPageOld> getTextualPagesOldWebsite(String server);
 	
+	public void insertArdNum(int ardNum,int id);
+
 }

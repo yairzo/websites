@@ -143,11 +143,18 @@
  					</td>
 				</tr>	
 				<tr class="form">
-					<td style="border:1px #bca2a2 dotted" nowrap>
+					<td style="border:1px #bca2a2 dotted">
         					<form:checkbox cssClass="green" path="isMessage"/>
 						הודעה
 					</td>
-					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
+					<td style="border:1px #bca2a2 dotted">סוג ההודעה:
+       					<form:select path="messageType" cssClass="green" >
+      						<form:option value="0">בחר/י</form:option>
+      						<form:option value="1">Funding</form:option>
+      						<form:option value="2">ARD</form:option>
+         		        </form:select>
+					</td>
+					<td colspan="2" style="border:1px #bca2a2 dotted" nowrap>
  						 להציג בהודעות הנגללות,
 						עד לתאריך:
 						<input type="text" class="green date medium100" name="keepInRollingMessagesExpiryTimeStr"  id="keepInRollingMessagesExpiryTime" value="${keepInRollingMessagesExpiryTime}"/>

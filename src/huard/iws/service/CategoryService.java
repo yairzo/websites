@@ -6,12 +6,14 @@ import java.util.List;
 
 public interface CategoryService {
 	
-	public Category getRootCategory();
+	public Category getRootCategory(String localeId);
 
 	public Category getCategory(int id);
 
 	public Category getCategoryByUrl(String url);
 
+	public int getCategoryIdByName(String name);
+	
 	public List<Category> getlanguageRootCategories(int rootCategoryId);
 	
 	public List<Category> getCategories(int parentCategoryId);
@@ -26,6 +28,6 @@ public interface CategoryService {
 
 	public void moveCategoryDown (int categoryId);
 
-	public Category getTopCategory(Category category);
+	public Category getTopCategory(Category category,String localeId);
 
 }

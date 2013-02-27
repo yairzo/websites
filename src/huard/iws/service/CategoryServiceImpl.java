@@ -7,8 +7,8 @@ import java.util.List;
 
 public class CategoryServiceImpl implements CategoryService{
 
-	public Category getRootCategory(){
-		return categoryDao.getRootCategory();
+	public Category getRootCategory(String localeId){
+		return categoryDao.getRootCategory(localeId);
 	}
 
 	public Category getCategory(int id){
@@ -21,7 +21,11 @@ public class CategoryServiceImpl implements CategoryService{
 		category.setSubCategories(getCategories(category.getId()));
 		return category;
 	}
-	
+
+	public int getCategoryIdByName(String name){
+		return categoryDao.getCategoryIdByName(name);
+	}
+
 	public List<Category> getlanguageRootCategories(int rootCategoryId){
 		return categoryDao.getCategories(rootCategoryId);
 	}
@@ -33,8 +37,8 @@ public class CategoryServiceImpl implements CategoryService{
 		return categories;
 	}
 	
-	public Category getTopCategory(Category category){
-		int rootCategory = categoryDao.getRootCategory().getId();
+	public Category getTopCategory(Category category,String localeId){
+		int rootCategory = categoryDao.getRootCategory(localeId).getId();
 		while (category.getParentId()!=rootCategory){
 			category = categoryDao.getCategory(category.getParentId());
 		}

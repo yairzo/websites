@@ -39,7 +39,7 @@
 				<a href="editTextualPage.html?id=${textualPage.id}"><c:out value="${textualPage.id}"></c:out></a>
   				</td>
   				<td align="right">
-				<a href="editTextualPage.html?id=${textualPage.id}"><c:out value="${textualPage.title}"></c:out></a>
+				<a href="editTextualPage.html?id=${textualPage.id}">${textualPage.title}</a>
 				</td>
    	  			</tr>
   	  		</tbody>

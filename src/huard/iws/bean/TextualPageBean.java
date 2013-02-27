@@ -23,6 +23,7 @@ public class TextualPageBean {
 	private int categoryId;
 	private Attachment attachment;
 	private boolean isMessage;
+	private int messageType;
 	private long keepInRollingMessagesExpiryTime;
 	private long updateTime;
 
@@ -43,6 +44,7 @@ public class TextualPageBean {
 		this.categoryId=0;
 		this.attachment=new Attachment();
 		this.isMessage=false;
+		this.messageType=0;
 		this.keepInRollingMessagesExpiryTime=0;
 		this.updateTime=0;
 	}
@@ -64,6 +66,7 @@ public class TextualPageBean {
 		this.categoryId=textualPage.getCategoryId();
 		this.attachment=textualPage.getAttachment();
 		this.isMessage = textualPage.getIsMessage();
+		this.messageType= textualPage.getMessageType();
 		this.keepInRollingMessagesExpiryTime = textualPage.getKeepInRollingMessagesExpiryTime();
 		this.updateTime = textualPage.getUpdateTime();
 	}
@@ -85,6 +88,7 @@ public class TextualPageBean {
 		textualPage.setCategoryId(categoryId);
 		textualPage.setAttachment(attachment);
 		textualPage.setIsMessage(isMessage);
+		textualPage.setMessageType(messageType);
 		textualPage.setKeepInRollingMessagesExpiryTime(keepInRollingMessagesExpiryTime);
 		textualPage.setUpdateTime(updateTime);
 		return textualPage;
@@ -204,6 +208,13 @@ public class TextualPageBean {
 
 	public void setIsMessage(boolean isMessage) {
 		this.isMessage = isMessage;
+	}
+
+	public int getMessageType() {
+		return messageType;
+	}
+	public void setMessageType(int messageType) {
+		this.messageType = messageType;
 	}
 
 	public long getKeepInRollingMessagesExpiryTime() {

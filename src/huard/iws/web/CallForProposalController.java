@@ -41,7 +41,7 @@ public class CallForProposalController extends GeneralFormController {
 		CallForProposalBean callForProposalBean = (CallForProposalBean) model.get("command");
 
 		//top categories
-		Category rootCategory = categoryService.getRootCategory();
+		Category rootCategory = categoryService.getRootCategory("iw_IL");
 		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
 		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
 		for (Category category: languageRootCategories){

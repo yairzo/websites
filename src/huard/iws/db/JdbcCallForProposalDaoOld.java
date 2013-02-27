@@ -156,7 +156,7 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
-			String query = "SELECT * FROM InfoPages,TabledInfoPages WHERE InfoPages.ardNum = TabledInfoPages.ardNum AND InfoPages.isDeleted=0 and InfoPages.ardNum>3140;";
+			String query = "SELECT * FROM InfoPages,TabledInfoPages WHERE InfoPages.ardNum = TabledInfoPages.ardNum AND InfoPages.isDeleted=0;";
 			System.out.println(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			return moveResultSetToTabledInfoPages(resultSet);

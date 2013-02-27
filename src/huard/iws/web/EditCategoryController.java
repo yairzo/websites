@@ -65,7 +65,7 @@ public class EditCategoryController extends GeneralFormController {
 			}
 			model.put("textualPages", textualPageBeans);
 			
-			model.put("topCategory",categoryService.getTopCategory(category.toCategory()).getId());
+			model.put("topCategory",categoryService.getTopCategory(category.toCategory(),category.getLocaleId()).getId());
 
 			model.put("id",category.getId());
 			return new ModelAndView ( this.getFormView(), model);

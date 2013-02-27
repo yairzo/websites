@@ -43,14 +43,22 @@ public class CategoryListController extends GeneralFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
-		Category rootCategory = categoryService.getRootCategory();
-		model.put("rootCategory", rootCategory);
-		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
-		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
-		for (Category category: languageRootCategories){
-			languageRootCategoryBeans.add( new CategoryBean (category));
+		Category rootCategoryHeb = categoryService.getRootCategory("iw_IL");
+		model.put("rootCategoryHeb", rootCategoryHeb);
+		List <Category> hebCategories = categoryService.getCategories(rootCategoryHeb.getId());
+		List <CategoryBean> hebCategoryBeans = new ArrayList<CategoryBean>();
+		for (Category category: hebCategories){
+			hebCategoryBeans.add( new CategoryBean (category));
 		}
-		model.put("languageRootCategories", languageRootCategoryBeans);
+		model.put("hebCategories", hebCategoryBeans);
+		Category rootCategoryEng = categoryService.getRootCategory("en_US");
+		model.put("rootCategoryEng", rootCategoryEng);
+		List <Category> engCategories = categoryService.getCategories(rootCategoryEng.getId());
+		List <CategoryBean> engCategoryBeans = new ArrayList<CategoryBean>();
+		for (Category category: engCategories){
+			engCategoryBeans.add( new CategoryBean (category));
+		}
+		model.put("engCategories", engCategoryBeans);
 
 		return new ModelAndView (this.getFormView(),model);
 	}

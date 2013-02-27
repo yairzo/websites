@@ -70,6 +70,21 @@
         </property>
     </bean>
     
+ 	<bean id="importTextualPagesService" class="huard.iws.service.ImportTextualPagesServiceImpl">
+		<property name="textualPageService">
+            <ref bean="textualPageService"/>
+        </property>
+		<property name="mopDeskService">
+            <ref bean="mopDeskService"/>
+        </property>
+		<property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+		<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>
+    </bean>
+    
 	<bean id="organizationUnitService" class="huard.iws.service.OrganizationUnitServiceImpl">
 		<property name="listInstructionService">
             <ref bean="listInstructionService"/>

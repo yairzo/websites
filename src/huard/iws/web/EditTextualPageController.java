@@ -143,8 +143,10 @@ public class EditTextualPageController extends GeneralFormController {
 				request.getSession().setAttribute("showTemplate", false);
 			}
 			//categories
-			Category rootCategory = categoryService.getRootCategory();
-			List<Category> categories = categoryService.getlanguageRootCategories(rootCategory.getId());
+			Category rootCategoryHeb = categoryService.getRootCategory("iw_IL");
+			List<Category> categories = categoryService.getlanguageRootCategories(rootCategoryHeb.getId());
+			Category rootCategoryEng = categoryService.getRootCategory("en_US");
+			categories.addAll(categoryService.getlanguageRootCategories(rootCategoryEng.getId()));
 			model.put("categories", categories);
 			//lists
 			List<AList> alists = listListService.getLists();
@@ -158,7 +160,7 @@ public class EditTextualPageController extends GeneralFormController {
 			//if this textual page is a url of any category - get the top category 
 			Category category = categoryService.getCategoryByUrl("textualPage.html?id="+textualPageBean.getId());
 			if(category.getId()>0)
-				model.put("pageTopCategory",categoryService.getTopCategory(category).getId());
+				model.put("pageTopCategory",categoryService.getTopCategory(category,category.getLocaleId()).getId());
 			else
 				model.put("pageTopCategory","0");
 				

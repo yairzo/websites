@@ -5,12 +5,15 @@ import huard.iws.model.CallForProposal;
 import huard.iws.model.Category;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
+import huard.iws.model.TextualPageOld;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -72,7 +75,10 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 
 	public int insertTextualPage(TextualPage textualPage){
-		final String query = "insert textualPageDraft set title='', creatorId = ?, html='', description='', updateTime=now();";
+		if(textualPage.getTitle().isEmpty())
+			textualPage.setTitle("###" + new java.util.Date().getTime() + "###");
+
+		final String query = "insert ignore textualPageDraft set title='" + textualPage.getTitle() + "', creatorId = ?, html='', description='', updateTime=now();";
 		logger.info(query);
 		final int creatorId= textualPage.getCreatorId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -86,7 +92,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 					}
 				},
 				keyHolder);
-		return keyHolder.getKey().intValue();
+		return keyHolder.getKey()==null?0:keyHolder.getKey().intValue();
 	}
 	
 	public void insertTextualPageOnline(TextualPage textualPage){
@@ -108,6 +114,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", externalPageUrl = ?" +
 				", categoryId = ?" +
 				", isMessage = ?" +
+				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()";
 		logger.info(query);
@@ -125,6 +132,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getExternalPageUrl(),
 	    		textualPage.getCategoryId(),
 	    		textualPage.getIsMessage(),
+	    		textualPage.getMessageType(),
 	    		keepInRollingMessagesExpiryTime);
 	}
 	
@@ -147,6 +155,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", externalPageUrl = ?" +
 				", categoryId = ?" +
 				", isMessage = ?" +
+				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()" +
 			" where id = ?;";
@@ -164,6 +173,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getExternalPageUrl(),
 	    		textualPage.getCategoryId(),
 	    		textualPage.getIsMessage(),
+	    		textualPage.getMessageType(),
 	    		keepInRollingMessagesExpiryTime,	    		
 	    		textualPage.getId());
 		
@@ -195,6 +205,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", externalPageUrl = ?" +
 				", categoryId = ?" +
 				", isMessage = ?" +
+				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()" +
 				" where id = ?;";
@@ -212,6 +223,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getExternalPageUrl(),
 	    		textualPage.getCategoryId(),
 	    		textualPage.getIsMessage(),
+	    		textualPage.getMessageType(),
 	    		keepInRollingMessagesExpiryTime,	    		
 	    		textualPage.getId());
 	
@@ -257,7 +269,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
      		textualPage.setExternalPageUrl(rs.getString("externalPageUrl"));
      		textualPage.setCategoryId(rs.getInt("categoryId"));
      		textualPage.setIsMessage(rs.getBoolean("isMessage"));
-			long keepInRollingMessagesExpiryTime = 0;
+     		textualPage.setMessageType(rs.getInt("messageType"));
+     		long keepInRollingMessagesExpiryTime = 0;
 			Timestamp keepInRollingMessagesExpiryTimeTS = rs.getTimestamp("keepInRollingMessagesExpiryTime");
 			if (keepInRollingMessagesExpiryTimeTS != null)
 				keepInRollingMessagesExpiryTime = keepInRollingMessagesExpiryTimeTS.getTime();
@@ -323,5 +336,56 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		return templates;
 	}
 	
+	public List<TextualPageOld> getTextualPagesOldWebsite(String server){
+		try{
+			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
+			Statement statement = connection.createStatement();
+			String query = "SELECT * FROM PubPages,PubPagesLastUpdates WHERE isDeleted=0 AND PubPages.ardNum = PubPagesLastUpdates.ardNum and PubPages.ardNum >200 and PubPages.ardNum <250;";
+			ResultSet resultSet = statement.executeQuery(query);
+			return moveResultSetToPubPage(resultSet);
+		}
+		catch(SQLException e){
+			System.out.println(e);
+			return null;
+		}
+	}
+	public List<TextualPageOld> moveResultSetToPubPage(ResultSet resultSet){
+		try{
+			List<TextualPageOld> pubPages = new ArrayList<TextualPageOld>();
+			while (resultSet.next()){
+				TextualPageOld pubPage = new TextualPageOld();
+				pubPage.setId(resultSet.getInt("ardNum"));
+				pubPage.setTitle(resultSet.getString("title"));
+				pubPage.setHtml(resultSet.getString("html"));
+				pubPage.setDocType(resultSet.getString("docType"));
+				pubPage.setPubDate(resultSet.getLong("pubDate"));
+				pubPage.setDeskId(resultSet.getString("deskId"));
+				pubPage.setRestricted(resultSet.getBoolean("restricted"));
+				pubPage.setMessage(resultSet.getInt("message")==1);
+				pubPage.setStopRollingDate(resultSet.getLong("stopRollingDate"));
+				pubPage.setFileRepresentation(resultSet.getBoolean("fileRepresentation"));
+				pubPage.setLink(resultSet.getString("link"));
+				pubPage.setInternalUseDescription(resultSet.getString("internalUseDescription"));
+				pubPage.setWraper(resultSet.getBoolean("wraper"));
+				pubPage.setSourceToWrap(resultSet.getString("sourceToWrap"));
+				pubPage.setOnSite(resultSet.getBoolean("onSite"));
+				pubPage.setCategory(resultSet.getString("category"));
+				pubPage.setUpdateTime(resultSet.getLong("date"));
+				pubPages.add(pubPage);
+				System.out.println("1111111111111111111111111111" + pubPage.getCategory());			
+			}
+			return pubPages;
+		}
+		catch (SQLException e){
+			System.out.println(e);
+			return null;
+		}
+	}
 
+	public void insertArdNum(int ardNum,int id){
+		String query  = "insert textualPageHistoryId set textualPageId = ?, textualPageHistoryId = ?";
+		getSimpleJdbcTemplate().update(query,id, ardNum);
+	}
+
+	
 }

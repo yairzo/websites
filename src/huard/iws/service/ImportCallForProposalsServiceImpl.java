@@ -52,7 +52,7 @@ public void importCallForProposals(){
 		callForProposal.setCreatorId(creatorId);
 		int newid=callForProposalService.insertCallForProposal(callForProposal);
 		if(newid==0)
-			break;
+			continue;
 		callForProposal.setId(newid);
 		int ardNum=callForProposalOld.getId();
 		callForProposalService.insertArdNum(ardNum,newid);
@@ -134,7 +134,6 @@ public void importCallForProposals(){
 			}
 		}
 		callForProposal.setContactPersonDetails(contactPersonDetails);
-		System.out.println("111111111111:"+callForProposalOld.getDescription());
 		callForProposal.setDescription(cleanText(callForProposalOld.getDescription()));
 		callForProposal.setFundingPeriod(cleanText(callForProposalOld.getFundingPeriod()));
 		callForProposal.setAmountOfGrant(cleanText(callForProposalOld.getAmountOfGrant()));

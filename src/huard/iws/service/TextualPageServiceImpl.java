@@ -4,6 +4,7 @@ import huard.iws.db.TextualPageDao;
 import huard.iws.model.Category;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
+import huard.iws.model.TextualPageOld;
 
 import java.util.List;
 
@@ -69,6 +70,14 @@ public class TextualPageServiceImpl implements TextualPageService{
 
 	public List<Template> getTemplates(){
 		return textualPageDao.getTemplates();
+	}
+
+	public List<TextualPageOld> getTextualPagesOldWebsite(String server){
+		return textualPageDao.getTextualPagesOldWebsite(server);
+	}
+
+	public void insertArdNum(int ardNum,int id){
+		textualPageDao.insertArdNum(ardNum,id);
 	}
 
 }

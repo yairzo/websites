@@ -6,11 +6,13 @@ import java.util.List;
 
 public interface CategoryDao {
 
-	public Category getRootCategory();
+	public Category getRootCategory(String localeId);
 
 	public Category getCategory(int id);
 	
 	public Category getCategoryByUrl(String url);
+
+	public int getCategoryIdByName(String name);
 
 	public List<Category> getCategories(int parentCategoryId);
 

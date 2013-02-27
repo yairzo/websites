@@ -13,6 +13,7 @@ public class CategoryBean {
 	private int categoryOrder;
 	private List<Category> subCategories;
 	private String url;
+	private String localeId;
 	
 	public CategoryBean(){
 		this.id = 0;
@@ -21,6 +22,7 @@ public class CategoryBean {
 		this.categoryOrder = 0;
 		this.subCategories=new ArrayList<Category>();
 		this.url="";
+		this.localeId="";
 	}
 
 
@@ -31,6 +33,7 @@ public class CategoryBean {
 		this.categoryOrder = category.getCategoryOrder();
 		this.subCategories = category.getSubCategories();
 		this.url = category.getUrl();
+		this.localeId = category.getLocaleId();
 	}
 
 	public Category toCategory(){
@@ -41,6 +44,7 @@ public class CategoryBean {
 		category.setCategoryOrder(categoryOrder);
 		category.setSubCategories(subCategories);
 		category.setUrl(url);
+		category.setLocaleId(localeId);
 		return category;
 	}
 
@@ -80,6 +84,12 @@ public class CategoryBean {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public String getLocaleId() {
+		return localeId;
+	}
+	public void setLocaleId(String localeId) {
+		this.localeId = localeId;
 	}
 
 }

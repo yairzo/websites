@@ -17,6 +17,7 @@ public class TextualPage {
 	private int categoryId;
 	private Attachment attachment;
 	private boolean isMessage;
+	private int messageType;
 	private long keepInRollingMessagesExpiryTime;
 	private long updateTime;
 
@@ -36,6 +37,7 @@ public class TextualPage {
 		this.categoryId=0;
 		this.attachment=new Attachment();
 		this.isMessage=false;
+		this.messageType=0;
 		this.keepInRollingMessagesExpiryTime=0;
 		this.updateTime=0;
 	}
@@ -153,6 +155,13 @@ public class TextualPage {
 
 	public void setIsMessage(boolean isMessage) {
 		this.isMessage = isMessage;
+	}
+	
+	public int getMessageType() {
+		return messageType;
+	}
+	public void setMessageType(int messageType) {
+		this.messageType = messageType;
 	}
 
 	public long getKeepInRollingMessagesExpiryTime() {

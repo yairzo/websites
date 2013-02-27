@@ -10,6 +10,7 @@ public class Category {
 	private int categoryOrder;
 	private List<Category> subCategories;
 	private String url;
+	private String localeId;
 
 
 	public int getId() {
@@ -48,6 +49,12 @@ public class Category {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public String getLocaleId() {
+		return localeId;
+	}
+	public void setLocaleId(String localeId) {
+		this.localeId = localeId;
 	}
 
 }

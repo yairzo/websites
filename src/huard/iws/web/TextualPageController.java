@@ -39,7 +39,7 @@ public class TextualPageController extends GeneralFormController {
 		TextualPageBean textualPageBean = (TextualPageBean) model.get("command");
 
 		//top categories
-		Category rootCategory = categoryService.getRootCategory();
+		Category rootCategory = categoryService.getRootCategory("iw_IL");
 		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
 		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
 		for (Category category: languageRootCategories){
@@ -47,7 +47,10 @@ public class TextualPageController extends GeneralFormController {
 		}
 		model.put("languageRootCategories", languageRootCategoryBeans);
 		//category
-		model.put("category",categoryService.getCategory(textualPageBean.getCategoryId()));
+		Category category =  new Category();
+		if(textualPageBean.getCategoryId()>0)
+			category = categoryService.getCategory(textualPageBean.getCategoryId());
+		model.put("category",category);
 		//language
 		LanguageUtils.applyLanguage(model, request, response,userPersonBean.getPreferedLocaleId());
 		LanguageUtils.applyLanguages(model);

@@ -1017,6 +1017,13 @@
       		value="huard.iws.service.ImportCallForProposalsService"/>
   		<property name="registry" ref="registry"/>
 	</bean>
+	<bean id="importTextualPagesServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="importTextualPagesService"/>
+  		<property name="serviceName" value="ImportTextualPagesService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.ImportTextualPagesService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
 
 	<bean id="parseOrganizationUnitServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
   		<property name="service" ref="parseOrganizationUnitService"/>
