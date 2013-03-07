@@ -1,7 +1,6 @@
 package huard.iws.service;
 
 import huard.iws.db.TextualPageDao;
-import huard.iws.model.Category;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.TextualPageOld;
@@ -42,13 +41,18 @@ public class TextualPageServiceImpl implements TextualPageService{
 		textualPageDao.removeTextualPageOnline(id);
 	}
 	
-	public List<TextualPage> getTextualPages(){
-		return textualPageDao.getTextualPages();
+	public List<TextualPage> getTextualPages(int creatorId){
+		return textualPageDao.getTextualPages(creatorId);
+	}
+
+	public List<TextualPage> getOnlineTextualPagesSearch(String ids){
+		return textualPageDao.getOnlineTextualPagesSearch(ids);
 	}
 
 	public List<TextualPage> getOnlineTextualPages(){
 		return textualPageDao.getOnlineTextualPages();
 	}
+
 
 	private TextualPageDao textualPageDao;
 

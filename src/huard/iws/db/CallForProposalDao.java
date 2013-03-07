@@ -30,6 +30,8 @@ public interface CallForProposalDao {
 
 	public List<CallForProposal> getCallForProposalsOnline( CallForProposalSearchCreteria searchCriteria);
 
+	public List<CallForProposal> getCallForProposalsOnline( String ids);
+
 	public void insertArdNum(int ardNum,int id);
 	
 	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment);

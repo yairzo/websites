@@ -301,6 +301,42 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_WEBSITE_READ,ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="search.html">אתר האוניברסיטה - חיפוש כללי</a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="searchCallForProposals.html">אתר האוניברסיטה - חיפוש קולות קוראים</a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="categories.html">אתר האוניברסיטה - מפת האתר</a>
+							</th>
+						</tr>
+						<authz:authorize ifAnyGranted="ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="callForProposals.html"> עריכת קולות קוראים</a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="textualPages.html"> עריכת דפי טקסט</a>
+							</th>
+						</tr>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN">
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="categories.html">עריכת קטגוריות לאתר </a>
+							</th>
+						</tr>
+						</authz:authorize>
+						</authz:authorize>
 					
 						<tr>
 							<th align="right" style="height:35">

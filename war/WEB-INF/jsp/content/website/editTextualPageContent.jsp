@@ -17,6 +17,7 @@
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" action="editTextualPage.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
+ 			<form:hidden path="creatorId"/>
  			
  			<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"></c:set>
  			

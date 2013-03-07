@@ -2,7 +2,6 @@ package huard.iws.db;
 
 import java.util.List;
 
-import huard.iws.model.Category;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.TextualPageOld;
@@ -25,9 +24,11 @@ public interface TextualPageDao {
 
 	public void removeTextualPageOnline(int id);
 	
-	public List<TextualPage> getTextualPages();
+	public List<TextualPage> getTextualPages(int creatorId);
 
 	public List<TextualPage> getOnlineTextualPages();
+
+	public List<TextualPage> getOnlineTextualPagesSearch(String ids);
 
 	public void addTemplate(Template template);
 

@@ -158,11 +158,11 @@
         </property>
       </bean>
       
-	<bean id="searchWebsiteController" class="huard.iws.web.SearchWebsiteController" parent="generalFormController">
+	<bean id="searchCallForProposalsController" class="huard.iws.web.SearchCallForProposalsController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
-        <property name="commandClass"><value>huard.iws.web.SearchWebsiteController$SearchWebsiteControllerCommand</value></property>
-        <property name="formView"><value>searchPage</value></property>
-        <property name="successView"><value>searchPage.html</value></property>
+        <property name="commandClass"><value>huard.iws.web.SearchCallForProposalsController$SearchCallForProposalsControllerCommand</value></property>
+        <property name="formView"><value>searchCallForProposals</value></property>
+        <property name="successView"><value>searchCallForProposals.html</value></property>
      	<property name="callForProposalService">
             <ref bean="callForProposalService"/>
         </property>
@@ -174,6 +174,25 @@
         </property>
    		<property name="fundService">
             <ref bean="fundService"/>
+        </property>
+    	<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>
+    	<property name="sphinxSearchService">
+            <ref bean="sphinxSearchService"/>
+        </property>
+      </bean>
+      
+ 	<bean id="searchWebsiteController" class="huard.iws.web.SearchWebsiteController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.SearchWebsiteController$SearchWebsiteControllerCommand</value></property>
+        <property name="formView"><value>searchPage</value></property>
+        <property name="successView"><value>search.html</value></property>
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
+        </property>
+    	<property name="textualPageService">
+            <ref bean="textualPageService"/>
         </property>
     	<property name="categoryService">
             <ref bean="categoryService"/>
@@ -1146,6 +1165,7 @@
 				<prop key="/category.html">editCategoryController</prop>
 				<prop key="/temporaryFund.html">editTemporaryFundController</prop>
 				<prop key="/temporaryFunds.html">temporaryFundListController</prop>
+				<prop key="/searchCallForProposals.html">searchCallForProposalsController</prop>
 				<prop key="/search.html">searchWebsiteController</prop>
 				<prop key="/sendPasswordEmail.html">sendPasswordEmailController</prop>
 				<prop key="/resetPassword.html">resetPasswordController</prop>

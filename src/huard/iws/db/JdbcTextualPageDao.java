@@ -1,8 +1,6 @@
 package huard.iws.db;
 
 import huard.iws.model.Attachment;
-import huard.iws.model.CallForProposal;
-import huard.iws.model.Category;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.TextualPageOld;
@@ -234,8 +232,11 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		getSimpleJdbcTemplate().update(query,id);
 	}
 	
-	public List<TextualPage> getTextualPages(){
-		String query = "select * from textualPageDraft order by id";
+	public List<TextualPage> getTextualPages(int creatorId){
+		String query = "select * from textualPageDraft";
+		if(creatorId>0)
+			query +=" where creatorId="+creatorId;
+		query+=" order by id";
 		System.out.println(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
@@ -244,6 +245,15 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	public List<TextualPage> getOnlineTextualPages(){
 		String query = "select * from textualPage order by id";
 		System.out.println(query);
+		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
+		return textualPages;
+	}
+	
+	public List<TextualPage> getOnlineTextualPagesSearch(String ids){
+		String query  = "select distinct textualPage.* from textualPage";
+		if(!ids.isEmpty())
+			query += " where id in ("+ids + ") order by id";
+		logger.info(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
 	}
@@ -372,7 +382,6 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				pubPage.setCategory(resultSet.getString("category"));
 				pubPage.setUpdateTime(resultSet.getLong("date"));
 				pubPages.add(pubPage);
-				System.out.println("1111111111111111111111111111" + pubPage.getCategory());			
 			}
 			return pubPages;
 		}

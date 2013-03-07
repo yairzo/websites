@@ -30,12 +30,15 @@ public class TextualPageListController extends GeneralFormController {
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
-
-
-		List<TextualPage> textualPages = textualPageService.getTextualPages();
+		int creatorId=0;
+		if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
+			creatorId =userPersonBean.getId();
+		List<TextualPage> textualPages = textualPageService.getTextualPages(creatorId);
 		List<TextualPageBean> textualPageBeans = new ArrayList<TextualPageBean>();
 		for (TextualPage textualPage: textualPages){
 			TextualPageBean textualPageBean = new TextualPageBean(textualPage);
+			if(textualPageBean.getTitle().startsWith("###"))
+				textualPageBean.setTitle("");
 			textualPageBeans.add(textualPageBean);
 		}
 		model.put("textualPages", textualPageBeans);

@@ -1,8 +1,11 @@
 package huard.iws.service;
 
+import huard.iws.util.LanguageUtils;
+
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import org.sphx.api.SphinxClient;
 import org.sphx.api.SphinxException;
@@ -20,7 +23,6 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 			//int port = configurationService.getConfigurationInt("sphinx", "port");
 			String host = "";
 			int port = 9312;
-			int mode = SphinxClient.SPH_MATCH_ALL;
 			int offset = 0;
 			int limit = 20;
 			int sortMode = SphinxClient.SPH_SORT_RELEVANCE;
@@ -31,7 +33,6 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 			sphinxClient = new SphinxClient();
 			sphinxClient.SetServer ( host, port );
 			sphinxClient.SetWeights ( new int[] { 100, 1 } );
-			sphinxClient.SetMatchMode ( mode );
 			sphinxClient.SetLimits ( offset, limit );
 			sphinxClient.SetSortMode ( sortMode, sortClause );
 			if ( groupBy.length()>0 )
@@ -45,11 +46,13 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 
 	public SphinxResult getResult(String query, String index){
 		try {
+			sphinxClient.SetMatchMode ( SphinxClient.SPH_MATCH_EXTENDED );
 			SphinxResult res = sphinxClient.Query(query.toString(), index);
 			if ( res==null )
 			{
 				System.err.println ( "Error: " + sphinxClient.GetLastError() );
-				System.exit ( 1 );
+				return res;
+				//System.exit ( 1 );
 			}
 			if ( sphinxClient.GetLastWarning()!=null && sphinxClient.GetLastWarning().length()>0 )
 				System.out.println ( "WARNING: " + sphinxClient.GetLastWarning() + "\n" );
@@ -130,12 +133,40 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 	
 	
 	public Set<Long> getMatchedIds (String query, String index){
+
+		String localeId=LanguageUtils.getLanguage(query).getLocaleId();
+		if(localeId.equals("iw_IL"))
+			query = addPreWords(query);
 		SphinxResult sphinxResult = getResult(query, index);
 		Set<Long> matchedIds = new LinkedHashSet<Long>();
+		if (sphinxResult==null) 
+			return matchedIds;
 		for ( int i=0; i<sphinxResult.matches.length; i++ ){
 			matchedIds.add(sphinxResult.matches[i].docId);
 		}
 		return matchedIds;
+	}
+	
+	public String addPreWords(String searchWords){
+		
+		String strippedFromOperators=searchWords;
+		strippedFromOperators = strippedFromOperators.replace(" ","  ");
+		strippedFromOperators = strippedFromOperators.replaceAll("(^|\\s)\".*?\"($|\\s)","");//leave phrase in brackets as is
+		strippedFromOperators = strippedFromOperators.replace("|"," ");
+		strippedFromOperators = strippedFromOperators.replace("-"," ");
+		strippedFromOperators = strippedFromOperators.replace("!"," ");
+		StringTokenizer st = new StringTokenizer(strippedFromOperators," ");
+		while( st.hasMoreTokens()){
+			String word= st.nextToken();
+			String wordOptions= "";
+			if(word.length()>1){
+				wordOptions="('ה" + word +"' | 'ו"+word +"' | 'ש"+word +"' | 'ל"+word+"' | 'מ"+word+"' | 'ב"+word+"' | 'כ"+word+"' | 'וה"+word+"' | 'ול"+word+"' | 'ומ"+word+"' | 'וב"+word+"' | 'שה"+word +"'|'" +word+"')";
+				searchWords=searchWords.replace(word,wordOptions);
+			}
+		}
+		System.out.println("sphinx: new search words:" + searchWords);
+
+		return searchWords.replace("  ", " ");
 	}
 	
 	private ConfigurationService configurationService;	

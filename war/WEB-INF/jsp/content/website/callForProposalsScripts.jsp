@@ -91,10 +91,9 @@ $(document).ready(function() {
 		});
 		$("tr.darker").each(function(){
 			showRightMultipleSelectImg($(this));
-			openSubject($(this).children("td.toggleSubject"));
+			//openSubject($(this).children("td.toggleSubject"));
 		});
 		this.checked = !this.checked;
-
 	});
 
 	$("#diselectAll").click(function(){

@@ -477,6 +477,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			whereClause +=" and " + mainTable +".deskId="+searchCriteria.getSearchByDesk();
 		if(searchCriteria.getSearchByType()>0)
 			whereClause +=" and " + mainTable +".typeId="+searchCriteria.getSearchByType();
+		if(searchCriteria.getSearchByCreator()>0)
+			whereClause +=" and " + mainTable +".creatorId="+searchCriteria.getSearchByCreator();
 		if(!searchCriteria.getSearchBySearchWords().isEmpty())
 			whereClause +=" and " + mainTable +".id in ("+searchCriteria.getSearchBySearchWords() + ")";
 		if(!searchCriteria.getSearchBySubjectIds().isEmpty())
@@ -485,6 +487,15 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		
 		logger.info(whereClause);
 		return whereClause;
+	}
+	
+	public List<CallForProposal> getCallForProposalsOnline(String ids ){
+		String query  = "select distinct callOfProposal.* from callOfProposal";
+		if(!ids.isEmpty())
+			query += " where id in ("+ids + ") order by id";
+		logger.info(query);
+		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
+		return callForProposals;
 	}
 
 	private ParameterizedRowMapper<CallForProposal> rowMapper = new ParameterizedRowMapper<CallForProposal>(){

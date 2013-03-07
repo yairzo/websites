@@ -9,7 +9,7 @@
              </tr>
 			<tr>
 		    <td colspan="2">
-            <form:form id="form" name="form" method="POST" commandName="command" action="searchPage.html">
+            <form:form id="form" name="form" method="POST" commandName="command" action="searchCallForProposals.html">
  			
  			<div id="genericDialog" title="קול קורא" style="display:none" dir="rtl"><p></p></div>
             <input type="hidden" id="listViewPage" name="listView.page" value="${command.listView.page}"/>

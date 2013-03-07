@@ -108,10 +108,10 @@
       			/conferenceProposalsGrade.html=ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_APPROVER
       			/urls.html=ROLE_WEBSITE_ADMIN
       			/active.html=ROLE_WEBSITE_ADMIN
-     			/callForProposals.html=ROLE_WEBSITE_ADMIN
-     			/editCallForProposal.html=ROLE_WEBSITE_ADMIN
-    			/textualPages.html=ROLE_WEBSITE_ADMIN
-     			/editTextualPage.html=ROLE_WEBSITE_ADMIN
+     			/callForProposals.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
+     			/editCallForProposal.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
+    			/textualPages.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
+     			/editTextualPage.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
      		</value>
   		</property>
 	</bean>

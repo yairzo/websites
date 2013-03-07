@@ -53,9 +53,10 @@
   					</tr>
   			</c:otherwise>
   			</c:choose> 
-
-
-                  </table>
+               	 		<tr>
+                 		 <td colspan="2"><button class="grey" onclick="window.location='editTextualPage.html?action=new';return false;">דף טקסט חדש</button></td>
+                		</tr>
+                 </table>
                 </td>
               </tr>
 			  <tbody>

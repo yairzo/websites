@@ -30,6 +30,8 @@ public interface CallForProposalService {
 
 	public List<CallForProposal> getCallForProposalsOnline(CallForProposalSearchCreteria searchCriteria);
 
+	public List<CallForProposal> getCallForProposalsOnline(String ids);
+
 	public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria,String localeId);
 
 	public void insertArdNum(int ardNum,int id);

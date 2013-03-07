@@ -118,7 +118,7 @@ public class EditTextualPageController extends GeneralFormController {
 			int textualPageId = textualPageService.insertTextualPage(textualPage);
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",textualPageId);
-			return new ModelAndView ( new RedirectView("textualPage.html"), newModel);
+			return new ModelAndView ( new RedirectView("editTextualPage.html"), newModel);
 		}
 		else{//show edit
 			TextualPageBean textualPageBean = (TextualPageBean) model.get("command");
@@ -130,6 +130,9 @@ public class EditTextualPageController extends GeneralFormController {
 				model.put("online", true);
 			else
 				model.put("online", false);
+			//title
+			if(textualPageBean.getTitle().startsWith("###"))
+				textualPageBean.setTitle("");
 			//templates
 			List<Template> templates = textualPageService.getTemplates();
 			model.put("templates", templates);

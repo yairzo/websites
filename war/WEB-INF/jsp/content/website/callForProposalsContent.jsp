@@ -32,7 +32,7 @@
                 		<tr class="form">
 							<td>
 						 	<fmt:message key="${lang.localeId}.callForProposal.searchWords"/>
-							<input type="text" class="green" style="width:400px" name="searchWords" value="${searchWords }"/> 
+							<input type="text" class="green" style="width:400px" name="searchWords" value="${searchWords}"/> 
 							</td>
 						</tr>
  						<tr class="form">
@@ -119,6 +119,9 @@
   							</tr>
   						</c:otherwise>
   						</c:choose> 
+               	 		<tr>
+                 		 <td colspan="2"><button class="grey" onclick="window.location='editCallForProposal.html?action=new';return false;">קול קורא חדש</button></td>
+                		</tr>
                   		</table>
                 	</td>
               </tr>

@@ -1,22 +1,29 @@
 package huard.iws.web;
 
+import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.SubjectBean;
 import huard.iws.service.CallForProposalService;
+import huard.iws.service.CategoryService;
+import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
 import huard.iws.service.SubjectService;
-import huard.iws.service.FundService;
 import huard.iws.service.SphinxSearchService;
+import huard.iws.util.BaseUtils;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.DateUtils;
-import huard.iws.util.BaseUtils;
+import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallForProposal;
+import huard.iws.model.Category;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Subject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -28,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class CallForProposalListController extends GeneralFormController {
+public class SearchCallForProposalsController extends GeneralFormController {
 
 
 	protected ModelAndView onSubmit(Object command,
@@ -42,8 +49,24 @@ public class CallForProposalListController extends GeneralFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
-		CallForProposalListControllerCommand command = (CallForProposalListControllerCommand) model.get("command");
-		List<CallForProposal> callForProposals = callForProposalService.getCallForProposals(command.getSearchCreteria());
+		SearchCallForProposalsControllerCommand command = (SearchCallForProposalsControllerCommand) model.get("command");
+		//top categories
+		Category rootCategory = categoryService.getRootCategory("iw_IL");
+		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
+		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
+		for (Category category: languageRootCategories){
+			languageRootCategoryBeans.add( new CategoryBean (category));
+		}
+		model.put("languageRootCategories", languageRootCategoryBeans);
+		//category
+		model.put("category",categoryService.getCategory(rootCategory.getId()));
+		//language
+		LanguageUtils.applyLanguage(model, request, response,userPersonBean.getPreferedLocaleId());
+		LanguageUtils.applyLanguages(model);
+		//page title
+		model.put("pageTitle", messageService.getMessage("iw_IL.website.search"));
+
+		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
 		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
 		for (CallForProposal callForProposal: callForProposals){
 			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,false);
@@ -74,12 +97,13 @@ public class CallForProposalListController extends GeneralFormController {
 		}
 		model.put("typeId",command.getSearchCreteria().getSearchByType());
 		model.put("temporaryFund",command.getSearchCreteria().getSearchByTemporaryFund());
-		return new ModelAndView ("callForProposals",model);
+
+		return new ModelAndView ("searchCallForProposals",model);
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
-		CallForProposalListControllerCommand command = new CallForProposalListControllerCommand();
+		SearchCallForProposalsControllerCommand command = new SearchCallForProposalsControllerCommand();
 		if (isFormSubmission(request.getRequest())){//on submit
 			CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
 			if(!request.getParameter("submissionDateFrom", "").equals(""))
@@ -94,12 +118,10 @@ public class CallForProposalListController extends GeneralFormController {
 			Set<Long> sphinxIds=new LinkedHashSet<Long>();
 			if(!request.getParameter("searchWords", "").isEmpty()){
 				sphinxIds.add(new Long(0));//so wont show everything when deos'nt find any ids
-				sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_draft_index"));
+				sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_index"));
 			}
 			searchCreteria.setSearchBySearchWords(sphinxIds);
 			searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
-			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
-				searchCreteria.setSearchByCreator(userPersonBean.getId());	
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 		}
 		else{//on show
@@ -108,14 +130,12 @@ public class CallForProposalListController extends GeneralFormController {
 			if (searchCreteria == null){// on first time
 				searchCreteria = new CallForProposalSearchCreteria();
 			}
-			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
-				searchCreteria.setSearchByCreator(userPersonBean.getId());	
 			command.setSearchCreteria(searchCreteria);
 		}
 		return command;
 	}
 
-	public class CallForProposalListControllerCommand{
+	public class SearchCallForProposalsControllerCommand{
 		private CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
 		private ListView listView = new ListView();
 		
@@ -134,7 +154,6 @@ public class CallForProposalListController extends GeneralFormController {
 		public List<Integer> getSubjectsIds() {
 			return BaseUtils.getIntegerList(searchCreteria.getSearchBySubjectIds(),",");//for keeping the chosen subject after searched
 		}
-
 
 	}
 	
@@ -155,6 +174,12 @@ public class CallForProposalListController extends GeneralFormController {
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
 	}
+	
+	private CategoryService categoryService;
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
+	
 	private FundService fundService;
 
 	public void setFundService(FundService fundService) {

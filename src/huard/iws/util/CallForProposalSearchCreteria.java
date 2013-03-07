@@ -13,6 +13,7 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 	protected int searchByType;
 	protected String searchBySearchWords;
 	protected String searchWords;
+	protected int searchByCreator;
 	
 	
 	public CallForProposalSearchCreteria(){
@@ -26,6 +27,7 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 		this.searchByType = 0;
 		this.searchBySearchWords= "";
 		this.searchWords="";
+		this.searchByCreator=0;
 	}
 
 	
@@ -101,6 +103,14 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 
 	public void setSearchWords(String searchWords) {
 		this.searchWords = searchWords;
+	}
+	
+	public int getSearchByCreator() {
+		return searchByCreator;
+	}
+
+	public void setSearchByCreator(int searchByCreator) {
+		this.searchByCreator = searchByCreator;
 	}
 
 }

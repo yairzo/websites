@@ -53,6 +53,10 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 	public List<CallForProposal> getCallForProposalsOnline(CallForProposalSearchCreteria searchCriteria){
 		return callForProposalDao.getCallForProposalsOnline(searchCriteria);
 	}
+	
+	public List<CallForProposal> getCallForProposalsOnline(String ids){
+		return callForProposalDao.getCallForProposalsOnline(ids);
+	}
 
 	public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria,String localeId){
 		List<CallForProposal> localeCallForProposals = new ArrayList<CallForProposal>();
