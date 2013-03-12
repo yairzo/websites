@@ -118,7 +118,10 @@ public class CallForProposalController extends GeneralFormController {
 				|| id == 0)
 			return callForProposalBean;
 		
-		callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposalOnline(id),true);
+		if(request.getParameter("draft","").equals("true"))
+			callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposal(id),true);
+		else
+			callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposalOnline(id),true);
 		logger.info("callForProposalBean id: " + callForProposalBean.getId());
 		
 		return callForProposalBean;

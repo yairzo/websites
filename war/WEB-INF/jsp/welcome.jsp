@@ -314,7 +314,7 @@ $(document).ready(function() {
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="categories.html">אתר האוניברסיטה - מפת האתר</a>
+								<a style="text-decoration: none" href="sitemap.html">אתר האוניברסיטה - מפת האתר</a>
 							</th>
 						</tr>
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
@@ -328,8 +328,6 @@ $(document).ready(function() {
 								<a style="text-decoration: none" href="textualPages.html"> עריכת דפי טקסט</a>
 							</th>
 						</tr>
-						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
 								<a style="text-decoration: none" href="categories.html">עריכת קטגוריות לאתר </a>

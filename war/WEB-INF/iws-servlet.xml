@@ -182,6 +182,16 @@
             <ref bean="sphinxSearchService"/>
         </property>
       </bean>
+	
+	<bean id="searchCallForProposalsHomePageController" class="huard.iws.web.SearchCallForProposalsHomePageController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.SearchCallForProposalsHomePageController$SearchCallForProposalsHomePageControllerCommand</value></property>
+        <property name="formView"><value>searchCallForProposalsHomePage</value></property>
+        <property name="successView"><value>searchCallForProposals.html</value></property>
+    	<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>
+      </bean>
       
  	<bean id="searchWebsiteController" class="huard.iws.web.SearchWebsiteController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
@@ -218,9 +228,6 @@
         </property>
    		<property name="categoryService">
             <ref bean="categoryService"/>
-        </property>
-        <property name="validator">
-        	<bean class="huard.iws.web.validate.TextualPageValidator"/>
         </property>
      </bean>
      
@@ -265,6 +272,16 @@
         <property name="commandClass"><value>huard.iws.web.CategoryListController$CategoryListBean</value></property>
         <property name="formView"><value>categories</value></property>
         <property name="successView"><value>categories.html</value></property>
+     	<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>
+      </bean>
+
+ 	<bean id="sitemapController" class="huard.iws.web.SitemapController" parent="generalFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.SitemapController$SitemapBean</value></property>
+        <property name="formView"><value>sitemap</value></property>
+        <property name="successView"><value>sitemap.html</value></property>
      	<property name="categoryService">
             <ref bean="categoryService"/>
         </property>
@@ -1162,10 +1179,12 @@
 				<prop key="/callForProposals.html">callForProposalListController</prop>
 				<prop key="/textualPages.html">textualPageListController</prop>
 				<prop key="/categories.html">categoryListController</prop>
+				<prop key="/sitemap.html">sitemapController</prop>
 				<prop key="/category.html">editCategoryController</prop>
 				<prop key="/temporaryFund.html">editTemporaryFundController</prop>
 				<prop key="/temporaryFunds.html">temporaryFundListController</prop>
 				<prop key="/searchCallForProposals.html">searchCallForProposalsController</prop>
+				<prop key="/searchCallForProposalsHomePage.html">searchCallForProposalsHomePageController</prop>
 				<prop key="/search.html">searchWebsiteController</prop>
 				<prop key="/sendPasswordEmail.html">sendPasswordEmailController</prop>
 				<prop key="/resetPassword.html">resetPasswordController</prop>

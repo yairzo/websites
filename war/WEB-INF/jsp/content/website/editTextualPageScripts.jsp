@@ -76,16 +76,42 @@ $(document).ready(function() {
 	});	
 
 	$('button#online').click(function(){
-		$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
-  		$(".ajaxSubmit").remove();
-  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
-		$('#form').submit();
+		var text='<fmt:message key="${lang.localeId}.callForProposal.fieldsError"/>';
+     	var errors = checkErrors();//validating fields
+		if (errors){
+		   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+			openHelp('',text);
+			return false;
+		}
+		else{
+			$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+  			$(".ajaxSubmit").remove();
+  			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+			$('#form').submit();
+    	   	return false;
+		}
 	});
 	$('button#onlineUpdate').click(function(){
-    	$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
-    	$(".ajaxSubmit").remove();
-    	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
-   		$('#form').submit();
+		var text='<fmt:message key="${lang.localeId}.callForProposal.fieldsError"/>';
+    	var errors = checkErrors();//validating fields
+		if (errors){
+		   	$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+			openHelp('',text);
+			return false;
+		}
+		else{
+   			$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+    		$(".ajaxSubmit").remove();
+    		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+   			$('#form').submit();
+			return false;
+		}
 	});	
 	$('button#offline').click(function(){
 		$('form#form').append('<input type=\"hidden\" name=\"offline\" value=\"true\"/>');
@@ -197,5 +223,23 @@ function openHelp(name,mytext){
 	    $("#genericDialog").html(mytext).dialog("open");
 } 
 
+function checkErrors(){
+	var errors=false;
+	if($("#title").val()==''){
+		errors = true;
+		$("#errortitle").html('<font color="red"><fmt:message key="iw_IL.required.titleCallOfProposal"/><font color="red"><br>');
+	}
+	else{
+		$("#errortitle").html('');
+	}
+	if($("#categoryId").val()=='0'){
+		errors = true;
+		$("#errorcategoryId").html('<font color="red"><fmt:message key="iw_IL.required.categoryId"/><font color="red"><br>');
+	}
+	else{
+		$("#errorcategoryId").html('');
+	}
+	return errors;
+}
 
 </script>

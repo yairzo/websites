@@ -10,6 +10,8 @@ public interface TextualPageDao {
 
 	public TextualPage getTextualPage(int id);
 
+	public TextualPage getTextualPageOnline(int id);
+
 	public boolean existsTextualPageOnline(int id);
 	
 	public TextualPage getTextualPage(String title);

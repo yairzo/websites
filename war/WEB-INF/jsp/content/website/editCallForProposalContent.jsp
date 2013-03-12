@@ -44,14 +44,14 @@
 					<h3><fmt:message key="${lang.localeId}.callForProposal.subtitle"/>${command.id}</h3>  
 					<c:if test="${online}">
 					<fmt:message key="${lang.localeId}.callForProposal.onSite"/> 
-					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/infoPageViewer.jsp?ardNum=${command.id}?draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>
-					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/infoPageViewer.jsp?ardNum=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>
 					&nbsp; <button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>
 					&nbsp; <button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>
+					&nbsp; <button class="grey" onclick="window.open('/iws/callForProposal.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>
 					</c:if>
 					<c:if test="${!online}">
 					&nbsp; <button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>
 					</c:if>
+					&nbsp; <button class="grey" onclick="window.open('/iws/callForProposal.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>
 					</td>
 				</tr>
 				<tr class="form">

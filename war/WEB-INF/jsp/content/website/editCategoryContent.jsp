@@ -2,12 +2,32 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	var dlg =$("#clashDialog").dialog({
+	    autoOpen: false,
+	    show: 'fade',
+	    hide: 'fade',
+	    modal: true,
+	    open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
+	});
+	dlg.parent().appendTo($("#form"));
 	$("#textualPage").change(function(){
 		var fieldName="textualPageCategory" + $("#textualPage").val();
 		var topCategory = "${topCategory}";
 		var textualPageCategory = $("#"+fieldName).val();
 		if(topCategory!=textualPageCategory && textualPageCategory>0){
-			alert('<fmt:message key="${lang.localeId}.website.categoryclash"/>');
+			var text='<fmt:message key="iw_IL.website.categoryclash"/>';
+			text += "<br> <a href=\"editTextualPage.html?id=" +$("#textualPage").val()+"\" target=\"_blank\">לצפייה ו/או עריכת העמוד</a>";
+			dlg.dialog('option', 'buttons', {
+	            "סגירה" : function() {
+	            	$(this).dialog("close");
+	            	return false;
+	             }
+	    	});			
+			dlg.dialog({ modal: true });
+			dlg.dialog({ height: 200 });
+			dlg.dialog({ width: 700 });
+			dlg.html(text).dialog("open");
+			//alert('<fmt:message key="${lang.localeId}.website.categoryclash"/>');
 		}
 	});
 });
@@ -18,6 +38,7 @@ $(document).ready(function() {
    <tr>
      <td valign="top" align="center"><br>
      <form:form id="form2" name="form2" method="POST" action="category.html" commandName="command" >
+ 			<div id="clashDialog" title="קטגוריות" style="display:none" dir="rtl"><p>text put here</p></div>
  			<form:hidden path="id"/>
  			<form:hidden path="parentId"/>
  			<form:hidden path="categoryOrder"/>

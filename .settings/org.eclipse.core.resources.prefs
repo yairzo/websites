@@ -1,4 +1,4 @@
-#Wed Feb 27 15:38:18 IST 2013
+#Sun Mar 10 20:44:02 IST 2013
 eclipse.preferences.version=1
 encoding//war/WEB-INF/jsp/content/editPerson/editPersonScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/editPost/editPost.jsp=UTF-8
@@ -9,5 +9,6 @@ encoding//war/WEB-INF/jsp/website/callForProposalContent.jsp=UTF-8
 encoding//war/WEB-INF/jsp/website/generalTemplate.jsp=UTF-8
 encoding//war/WEB-INF/jsp/website/searchCallForProposalsContent.jsp=UTF-8
 encoding//war/WEB-INF/jsp/website/sideMenu.jsp=UTF-8
+encoding//war/WEB-INF/jsp/website/sitemapContent.jsp=UTF-8
 encoding//war/WEB-INF/jsp/website/textualPageContent.jsp=UTF-8
 encoding//war/WEB-INF/messages.properties=UTF-8

@@ -12,7 +12,11 @@ public class TextualPageServiceImpl implements TextualPageService{
 	public TextualPage getTextualPage(int id){
 		return textualPageDao.getTextualPage(id);
 	}
-	
+
+	public TextualPage getTextualPageOnline(int id){
+		return textualPageDao.getTextualPageOnline(id);
+	}
+
 	public boolean existsTextualPageOnline(int id){
 		return textualPageDao.existsTextualPageOnline(id);
 	}

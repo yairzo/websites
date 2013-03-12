@@ -20,5 +20,5 @@
 			<a href="${lowerSideMenuCategory.url}">${lowerSideMenuCategory.name}</a>
 			<br/>
 		</c:forEach> -->
-		<a href="searchPage.html"><fmt:message key="${lang.localeId}.website.search"/></a>
+		<a href="search.html"><fmt:message key="${lang.localeId}.website.search"/></a>
 	</p>

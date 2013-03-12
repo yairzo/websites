@@ -31,6 +31,14 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		return 	textualPage;	
 	}
 	
+	public TextualPage getTextualPageOnline(int id){
+		String query = "select * from textualPage where id =?";
+		TextualPage textualPage =
+					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
+		getTextualPageFile(textualPage);
+		return 	textualPage;	
+	}
+	
 	private void getTextualPageFile(TextualPage textualPage){
 		String query = "select * from textualPageFile where textualPageId = ?";
 		try{

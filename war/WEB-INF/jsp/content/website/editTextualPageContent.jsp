@@ -46,15 +46,15 @@
 					<td colspan="4" align="right"><h3> פרטי דף טקסט מספר: ${command.id}	</h3>
 					<c:if test="${online}">
 					 מוצג כרגע באתר
-					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/pubPageViewer.jsp?ardNum=${command.id}?draft=true','_blank');return false;">תצוגה מקדימה</button>
-					&nbsp; <button class="grey" onclick="window.open('http://ard.huji.ac.il/huard/pubPageViewer.jsp?ardNum=${command.id}','_blank');return false;">צפה בדף באתר</button>
 					&nbsp; <button class="grey" id="offline">הסר מהאתר</button>
 					&nbsp; <button class="grey" id="onlineUpdate">עדכן האתר</button>
+					&nbsp; <button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}','_blank');return false;">צפה בדף באתר</button>
 					</c:if>
 					<c:if test="${!online}">
 					&nbsp; <button class="grey" id="online">העלה לאתר</button>
 					</c:if>
-						</td>
+					&nbsp; <button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}&draft=true','_blank');return false;">תצוגה מקדימה</button>
+					</td>
 				</tr>
                 <tr class="form">
                 <td colspan="4">
@@ -63,7 +63,7 @@
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}כותרת:
 						<form:input htmlEscape="true" cssClass="green long800" path="title"/>
-					<br> <font color="red"><form:errors path="title" /></font>				
+					    <div id="errortitle" title="שגיאה">				
 					</td>
 				</tr>
 				<tr class="form">
@@ -88,13 +88,14 @@
 				</tr>
 				<tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
-					שיוך לקטגוריה:
+					${compulsoryFieldSign}שיוך לקטגוריה:
         				<form:select path="categoryId" id="categoryId" cssClass="green" >
       						<form:option value="0">בחר/י</form:option>
        						<c:forEach items="${categories}" var="category">
 	        					<form:option htmlEscape="true" value="${category.id}"><c:out escapeXml="false" value="${category.name}"/></form:option>
        						</c:forEach>
         		        </form:select>
+					    <div id="errorcategoryId" title="שגיאה">				
 					</td>
 				</tr>
  				<tr id="htmlDiv">
