@@ -96,6 +96,7 @@ src/huard/iws/web/EditCategoryController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/EditPersonPrivilegeController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/EditTemporaryFundController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/EditTextualPageController.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/web/GeneralWebsiteFormController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ImageActionsController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/PersonListHelperController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ResetPasswordController.java svn_mime_002dtype=text%2Fplain

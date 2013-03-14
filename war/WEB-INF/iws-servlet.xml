@@ -120,16 +120,13 @@
         </property>
      </bean>
      
-	<bean id="callForProposalController" class="huard.iws.web.CallForProposalController" parent="generalFormController">
+	<bean id="callForProposalController" class="huard.iws.web.CallForProposalController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.CallForProposalBean</value></property>
         <property name="formView"><value>callForProposal</value></property>
         <property name="successView"><value>callForProposal.html</value></property>
      	<property name="callForProposalService">
             <ref bean="callForProposalService"/>
-        </property>
-   		<property name="categoryService">
-            <ref bean="categoryService"/>
         </property>
    		<property name="fundService">
             <ref bean="fundService"/>
@@ -158,7 +155,7 @@
         </property>
       </bean>
       
-	<bean id="searchCallForProposalsController" class="huard.iws.web.SearchCallForProposalsController" parent="generalFormController">
+	<bean id="searchCallForProposalsController" class="huard.iws.web.SearchCallForProposalsController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.SearchCallForProposalsController$SearchCallForProposalsControllerCommand</value></property>
         <property name="formView"><value>searchCallForProposals</value></property>
@@ -175,25 +172,19 @@
    		<property name="fundService">
             <ref bean="fundService"/>
         </property>
-    	<property name="categoryService">
-            <ref bean="categoryService"/>
-        </property>
     	<property name="sphinxSearchService">
             <ref bean="sphinxSearchService"/>
         </property>
       </bean>
 	
-	<bean id="searchCallForProposalsHomePageController" class="huard.iws.web.SearchCallForProposalsHomePageController" parent="generalFormController">
+	<bean id="searchCallForProposalsHomePageController" class="huard.iws.web.SearchCallForProposalsHomePageController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.SearchCallForProposalsHomePageController$SearchCallForProposalsHomePageControllerCommand</value></property>
         <property name="formView"><value>searchCallForProposalsHomePage</value></property>
         <property name="successView"><value>searchCallForProposals.html</value></property>
-    	<property name="categoryService">
-            <ref bean="categoryService"/>
-        </property>
       </bean>
       
- 	<bean id="searchWebsiteController" class="huard.iws.web.SearchWebsiteController" parent="generalFormController">
+ 	<bean id="searchWebsiteController" class="huard.iws.web.SearchWebsiteController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.SearchWebsiteController$SearchWebsiteControllerCommand</value></property>
         <property name="formView"><value>searchPage</value></property>
@@ -203,9 +194,6 @@
         </property>
     	<property name="textualPageService">
             <ref bean="textualPageService"/>
-        </property>
-    	<property name="categoryService">
-            <ref bean="categoryService"/>
         </property>
     	<property name="sphinxSearchService">
             <ref bean="sphinxSearchService"/>
@@ -231,16 +219,13 @@
         </property>
      </bean>
      
-	<bean id="textualPageController" class="huard.iws.web.TextualPageController" parent="generalFormController">
+	<bean id="textualPageController" class="huard.iws.web.TextualPageController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.TextualPageBean</value></property>
         <property name="formView"><value>textualPage</value></property>
         <property name="successView"><value>textualPage.html</value></property>
      	<property name="textualPageService">
             <ref bean="textualPageService"/>
-        </property>
-   		<property name="categoryService">
-            <ref bean="categoryService"/>
         </property>
      </bean>
  
@@ -277,14 +262,11 @@
         </property>
       </bean>
 
- 	<bean id="sitemapController" class="huard.iws.web.SitemapController" parent="generalFormController">
+ 	<bean id="sitemapController" class="huard.iws.web.SitemapController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.SitemapController$SitemapBean</value></property>
         <property name="formView"><value>sitemap</value></property>
         <property name="successView"><value>sitemap.html</value></property>
-     	<property name="categoryService">
-            <ref bean="categoryService"/>
-        </property>
       </bean>
  
       <bean id="editTemporaryFundController" class="huard.iws.web.EditTemporaryFundController" parent="generalFormController">
@@ -673,7 +655,8 @@
         <property name="mailMessageService">
             <ref bean="mailMessageService"/>
         </property>
-     </bean>
+
+      </bean>
 
      <bean id="generalController" class="huard.iws.web.GeneralController" abstract="true">
     	<property name="personService">
@@ -693,6 +676,29 @@
         </property>
      </bean>
 
+    <bean id="generalWebsiteFormController" class="huard.iws.web.GeneralWebsiteFormController" abstract="true">
+     	<property name="personService">
+            <ref bean="personService"/>
+        </property>
+  		<property name="personPrivilegeService">
+            <ref bean="personPrivilegeService"/>
+        </property>
+        <property name="userMessageService">
+            <ref bean="userMessageService"/>
+        </property>
+        <property name="messageService">
+            <ref bean="messageService"/>
+        </property>
+        <property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+        <property name="mailMessageService">
+            <ref bean="mailMessageService"/>
+        </property>
+  		<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>     
+     </bean>
 
     <bean id="listController" class="huard.iws.web.ListController" parent="generalFormController">
     	<property name="commandName"><value>command</value></property>

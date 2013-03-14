@@ -1,6 +1,5 @@
 package huard.iws.web;
 
-import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.CategoryBean;
 import huard.iws.bean.TextualPageBean;
 import huard.iws.bean.PersonBean;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class TextualPageController extends GeneralFormController {
+public class TextualPageController extends GeneralWebsiteFormController {
 
 
 	protected ModelAndView onSubmit(Object command,
@@ -34,27 +33,16 @@ public class TextualPageController extends GeneralFormController {
 		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
 	}
 
-	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
+	protected ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 		TextualPageBean textualPageBean = (TextualPageBean) model.get("command");
 
-		//top categories
-		Category rootCategory = categoryService.getRootCategory("iw_IL");
-		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
-		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
-		for (Category category: languageRootCategories){
-			languageRootCategoryBeans.add( new CategoryBean (category));
-		}
-		model.put("languageRootCategories", languageRootCategoryBeans);
 		//category
 		Category category =  new Category();
 		if(textualPageBean.getCategoryId()>0)
 			category = categoryService.getCategory(textualPageBean.getCategoryId());
 		model.put("category",category);
-		//language
-		LanguageUtils.applyLanguage(model, request, response,userPersonBean.getPreferedLocaleId());
-		LanguageUtils.applyLanguages(model);
 		//page title
 		model.put("pageTitle", textualPageBean.getTitle());
 		
@@ -96,10 +84,5 @@ public class TextualPageController extends GeneralFormController {
 		this.textualPageService = textualPageService;
 	}
 	
-
-	private CategoryService categoryService;
-	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService = categoryService;
-	}
 	
 }

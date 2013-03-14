@@ -1,22 +1,17 @@
 package huard.iws.web;
 
-import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.TextualPageBean;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.TextualPageService;
-import huard.iws.service.CategoryService;
 import huard.iws.service.SphinxSearchService;
 import huard.iws.util.BaseUtils;
-import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallForProposal;
-import huard.iws.model.Category;
 import huard.iws.model.TextualPage;
 
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.List;
@@ -27,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class SearchWebsiteController extends GeneralFormController {
+public class SearchWebsiteController extends GeneralWebsiteFormController {
 
 
 	protected ModelAndView onSubmit(Object command,
@@ -47,24 +42,10 @@ public class SearchWebsiteController extends GeneralFormController {
 		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
 
-	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
+	protected ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
-		SearchWebsiteControllerCommand command = (SearchWebsiteControllerCommand) model.get("command");
-		//top categories
-		Category rootCategory = categoryService.getRootCategory("iw_IL");
-		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
-		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
-		for (Category category: languageRootCategories){
-			languageRootCategoryBeans.add( new CategoryBean (category));
-		}
-		model.put("languageRootCategories", languageRootCategoryBeans);
-		//category
-		model.put("category",categoryService.getCategory(rootCategory.getId()));
-		//language
-		LanguageUtils.applyLanguage(model, request, response,userPersonBean.getPreferedLocaleId());
-		LanguageUtils.applyLanguages(model);
 		//page title
 		model.put("pageTitle", messageService.getMessage("iw_IL.website.search"));
 
@@ -136,11 +117,6 @@ public class SearchWebsiteController extends GeneralFormController {
 		this.textualPageService = textualPageService;
 	}
 
-	private CategoryService categoryService;
-	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService = categoryService;
-	}
-	
 	private SphinxSearchService sphinxSearchService;
 
 	public void setSphinxSearchService(SphinxSearchService sphinxSearchService) {

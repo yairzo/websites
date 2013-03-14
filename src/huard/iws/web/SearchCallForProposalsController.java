@@ -1,11 +1,9 @@
 package huard.iws.web;
 
-import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.SubjectBean;
 import huard.iws.service.CallForProposalService;
-import huard.iws.service.CategoryService;
 import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
 import huard.iws.service.SubjectService;
@@ -13,17 +11,12 @@ import huard.iws.service.SphinxSearchService;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.DateUtils;
-import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallForProposal;
-import huard.iws.model.Category;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Subject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -35,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class SearchCallForProposalsController extends GeneralFormController {
+public class SearchCallForProposalsController extends GeneralWebsiteFormController {
 
 
 	protected ModelAndView onSubmit(Object command,
@@ -45,25 +38,12 @@ public class SearchCallForProposalsController extends GeneralFormController {
 		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
 	}
 
-	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
+	protected ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
 		SearchCallForProposalsControllerCommand command = (SearchCallForProposalsControllerCommand) model.get("command");
-		//top categories
-		Category rootCategory = categoryService.getRootCategory("iw_IL");
-		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
-		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
-		for (Category category: languageRootCategories){
-			languageRootCategoryBeans.add( new CategoryBean (category));
-		}
-		model.put("languageRootCategories", languageRootCategoryBeans);
-		//category
-		model.put("category",categoryService.getCategory(rootCategory.getId()));
-		//language
-		LanguageUtils.applyLanguage(model, request, response,userPersonBean.getPreferedLocaleId());
-		LanguageUtils.applyLanguages(model);
-		//page title
+
 		model.put("pageTitle", messageService.getMessage("iw_IL.website.search"));
 
 		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
@@ -129,6 +109,9 @@ public class SearchCallForProposalsController extends GeneralFormController {
 			request.getSession().setAttribute("callForProposalsSearchCreteria", null);
 			if (searchCreteria == null){// on first time
 				searchCreteria = new CallForProposalSearchCreteria();
+				if(!userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") && !userPersonBean.getSubjectsIds().isEmpty()){
+					searchCreteria.setSearchBySubjectIds(BaseUtils.getString(userPersonBean.getSubjectsIds()));
+				}
 			}
 			command.setSearchCreteria(searchCreteria);
 		}
@@ -173,11 +156,6 @@ public class SearchCallForProposalsController extends GeneralFormController {
 
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
-	}
-	
-	private CategoryService categoryService;
-	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService = categoryService;
 	}
 	
 	private FundService fundService;

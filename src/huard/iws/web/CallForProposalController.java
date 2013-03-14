@@ -1,28 +1,22 @@
 package huard.iws.web;
 
 import huard.iws.bean.CallForProposalBean;
-import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.model.Category;
 import huard.iws.model.Fund;
 import huard.iws.service.CallForProposalService;
-import huard.iws.service.CategoryService;
 import huard.iws.service.FundService;
-import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class CallForProposalController extends GeneralFormController {
+public class CallForProposalController extends GeneralWebsiteFormController {
 
 
 	protected ModelAndView onSubmit(Object command,
@@ -35,24 +29,11 @@ public class CallForProposalController extends GeneralFormController {
 		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
 	}
 
-	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
+	protected ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 		CallForProposalBean callForProposalBean = (CallForProposalBean) model.get("command");
 
-		//top categories
-		Category rootCategory = categoryService.getRootCategory("iw_IL");
-		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
-		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
-		for (Category category: languageRootCategories){
-			languageRootCategoryBeans.add( new CategoryBean (category));
-		}
-		model.put("languageRootCategories", languageRootCategoryBeans);
-		//category
-		model.put("category",categoryService.getCategory(rootCategory.getId()));
-		//language
-		LanguageUtils.applyLanguage(model, request, response,callForProposalBean.getLocaleId());
-		LanguageUtils.applyLanguages(model);
 		//page title
 		model.put("pageTitle", callForProposalBean.getTitle());
 
@@ -134,11 +115,6 @@ public class CallForProposalController extends GeneralFormController {
 		this.callForProposalService = callForProposalService;
 	}
 	
-
-	private CategoryService categoryService;
-	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService = categoryService;
-	}
 
 	private FundService fundService;
 

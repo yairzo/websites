@@ -2,6 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.MailMessageBean;
 import huard.iws.bean.PersonBean;
+import huard.iws.service.CategoryService;
 import huard.iws.service.ConfigurationService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
@@ -235,5 +236,6 @@ public abstract class GeneralFormController extends SimpleFormController
 		public void setMailMessageService(MailMessageService mailMessageService) {
 			this.mailMessageService = mailMessageService;
 		}	
+
 
 }
