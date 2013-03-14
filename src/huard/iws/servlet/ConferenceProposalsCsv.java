@@ -372,10 +372,13 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				prefferedCampus = "רחובות";
 			b.append(prefferedCampus);
 			b.append('~');
-			if(conferenceProposalBean.getRemarks().equals(""))
-				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getRemarks().trim());
+			String remarks = " ";
+			if (!conferenceProposalBean.getRemarks().equals("")){
+				remarks = conferenceProposalBean.getRemarks().trim();
+				remarks = remarks.replace('\n', ' ');
+				remarks = remarks.trim().replaceAll("\\s+", " ");
+			}
+			b.append(remarks);
 			b.append('~');
 			if(	conferenceProposalBean.getApproverId()==0)
 				b.append(" ");
