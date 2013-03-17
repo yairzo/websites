@@ -44,22 +44,20 @@ public class ConferenceProposalListController extends GeneralFormController {
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		String action = request.getParameter("action", "");
 
-		if (action.equals("save") && request.getIntParameter("conferenceProposalId", 0)>0){
+		if (action.equals("addToDeadline") && request.getIntParameter("conferenceProposalId", 0)>0){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(request.getIntParameter("conferenceProposalId", 0));
-			String insideDeadline = "insideDeadline" + new Integer(request.getIntParameter("conferenceProposalId", 0)).toString();
-			String insideDeadlineValue = request.getParameter(insideDeadline, "");
-			if(!insideDeadlineValue.isEmpty() && insideDeadlineValue.equals("on")){
-				cp.setIsInsideDeadline(true);
-				//assign default grade
-				String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
-				cp.setGrade(conferenceProposalService.getMaxGrade(cp.getApproverId(), prevdeadline)+1);
-			}
-			else{//cancel grade and rearrange grades
-				cp.setIsInsideDeadline(false);
-				String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
-				conferenceProposalService.rearangeGrades(cp.getGrade(), cp.getApproverId(), prevdeadline);
-				cp.setGrade(0);
-			}
+			cp.setIsInsideDeadline(true);
+			//assign default grade
+			String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
+			cp.setGrade(conferenceProposalService.getMaxGrade(cp.getApproverId(), prevdeadline)+1);
+			conferenceProposalService.updateConferenceProposal(cp);
+		}		
+		if (action.equals("removeFromDeadline") && request.getIntParameter("conferenceProposalId", 0)>0){
+			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(request.getIntParameter("conferenceProposalId", 0));
+			cp.setIsInsideDeadline(false);
+			String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
+			conferenceProposalService.rearangeGrades(cp.getGrade(), cp.getApproverId(), prevdeadline);
+			cp.setGrade(0);
 			conferenceProposalService.updateConferenceProposal(cp);
 		}		
 		

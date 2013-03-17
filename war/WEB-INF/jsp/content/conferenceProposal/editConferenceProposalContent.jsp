@@ -1401,7 +1401,7 @@
 						</c:if>
 						
 						<c:if test="${!command.isInsideDeadline}">			
-				   			<input type="checkbox" class="green" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
+				   			<input type="checkbox" class="green isInsideDeadline" name="isInsideDeadline"/>צרפ/י להגשות לקראת הועדה הקרובה
 						</c:if>
 				   		
 						<c:if test="${!staffReadOnly}">			

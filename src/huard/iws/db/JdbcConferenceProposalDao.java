@@ -930,13 +930,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
 		logger.info(query);
 	}
-	public int getMaxGrade(int approverId, String prevdeadline){
+	public synchronized int getMaxGrade(int approverId, String prevdeadline){
 		String query = "select max(grade) from conferenceProposal where deleted=0 and submitted = 1 and approverId=? and date(deadline)>'"+prevdeadline +"';";
 		logger.info(query);
 		logger.info("Approver id: " + approverId);
 		return getSimpleJdbcTemplate().queryForInt(query,approverId);
 	}
-	public void rearangeGrades(int grade, int approverId, String prevdeadline){
+	public synchronized void rearangeGrades(int grade, int approverId, String prevdeadline){
 		String query = "update conferenceProposal set grade=grade-1 where deleted=0 and submitted = 1 and grade>? and approverId=? and date(deadline)>'"+prevdeadline +"';";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,grade,approverId);

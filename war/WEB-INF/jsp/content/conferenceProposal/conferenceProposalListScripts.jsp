@@ -58,20 +58,20 @@ $(document).ready(function() {
 	            "כן" : function() {
 	                $(this).dialog("close");
 	     		    var options = {
-	     		       	 	url:       'conferenceProposals.html?action=save&conferenceProposalId='+ cpid,        
+	     		       	 	url:       'conferenceProposals.html?action=removeFromDeadline&conferenceProposalId='+ cpid,        
 	     		       	 	type:      'POST'
 	     		    };
 	     			$('#form').ajaxSubmit(options);
 	            }
 	           });
-			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ modal: true });
 			$("#genericDialog").dialog({ height: 300 });
 			$("#genericDialog").dialog({ width: 500 });
 			openHelp(this,'ביטול סימון של בקשה שכבר דורגה על ידי הדיקן תוציא אותה מרשימת הבקשות לדיון ותבטל את דירוגה. האם להמשיך? ');
 		}
 		else{
             var options = {
- 		       	 	url:       'conferenceProposals.html?action=save&conferenceProposalId='+ cpid,        
+ 		       	 	url:       'conferenceProposals.html?action=addToDeadline&conferenceProposalId='+ cpid,        
  		       	 	type:      'POST'
  		    };
  			$('#form').ajaxSubmit(options);	              
