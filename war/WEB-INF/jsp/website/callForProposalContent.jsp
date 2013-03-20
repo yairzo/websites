@@ -8,6 +8,7 @@
        						<c:if test="${command.typeId==2}"><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></c:if>
        						<c:if test="${command.typeId==3}"><fmt:message key="${lang.localeId}.callForProposal.conference"/></c:if>
        						<c:if test="${command.typeId==4}"><fmt:message key="${lang.localeId}.callForProposal.scholarship"/></c:if>
+       						<c:if test="${command.typeId==5}"><fmt:message key="${lang.localeId}.callForProposal.prizes"/></c:if>
  
                      		<c:if test="${command.expired}">
 		      				<fmt:message key="${lang.localeId}.website.isExpired"/>

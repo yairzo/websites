@@ -9,38 +9,24 @@
 <script type="text/javascript">
 
 function resetAutocomplete(funds){
-	$("#fundName").autocomplete( 
+	$("#searchWords").autocomplete( 
 			{ source: 'selectBoxFiller?type=fundsWithId',
 			 minLength: 2,
 			 highlight: true,				 
 			 select: function(event, ui) {
 				 	//alert(ui.item.label);
-					$("#fundName").val(ui.item.label);
+					$("#searchWords").val(ui.item.label);
 					$("#fundId").val(ui.item.id);
-				 },
-			 change: function(event, ui) {
-				 checkFund();
-				 //alert($("#fundId").val());
 				 }
 		    }
 	);
 }
-function checkFund(){
-	//alert($("#fundId").val());
-	var text='<fmt:message key="${lang.localeId}.callForProposal.typeFundName"/>';
-    if($("#fundId").val()=='0'){
-  		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
-		$("#genericDialog").dialog({ modal: false });
-			$("#genericDialog").dialog({ height: 200 });
-		$("#genericDialog").dialog({ width: 400 });
-  		openHelp("",text);
-    }
-}
+
 
 $(document).ready(function() {
 
-	$("#fundName").click(function(){
-    	$("#fundName").val('');
+	$("#searchWords").click(function(){
+    	$("#searchWords").val('');
     	resetAutocomplete();
 	});
 	

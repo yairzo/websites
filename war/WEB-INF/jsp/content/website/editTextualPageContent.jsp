@@ -98,7 +98,7 @@
 					    <div id="errorcategoryId" title="שגיאה">				
 					</td>
 				</tr>
- 				<tr id="htmlDiv">
+ 				<tr id="htmlView">
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 					<table width="950">
   					<tr>

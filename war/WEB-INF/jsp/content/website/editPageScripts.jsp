@@ -37,6 +37,18 @@ function resetAutocomplete(funds){
 
 $(document).ready(function() {
 
+	if($('.viewSubjects').is(":checked"))
+    	$("#subjectView").show();
+	else
+   		$("#subjectView").hide();
+
+	$(".viewSubjects").change(function(){		
+	    if($('.viewSubjects').is(":checked"))
+	    	$("#subjectView").show();
+		else
+	    	$("#subjectView").hide();
+	});
+	
 	if($("#fundId").val()!='0')
 		$('#searchPhrase').prop("disabled", true);
 
@@ -104,6 +116,28 @@ $(document).ready(function() {
 			//alert("not checked");
 			$('.submissionDate').css("opacity","1");
 			$('.submissionDate').prop("disabled", false);
+		}
+	});
+	
+	$(".datetime").datetimepicker({dateFormat: 'dd/mm/yy',
+		timeFormat:'hh:mm',
+		onSelect: function(){
+			var text='<fmt:message key="${lang.localeId}.callForProposal.datePassed"/>';
+	var str = $(this).val();
+   	var dt1  = str.substring(0,2); 
+   	var mon1 = str.substring(3,5); 
+   	var yr1  = str.substring(6,10);  
+   	temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
+   	var cfd = Date.parse(temp1);
+   	var date1 = new Date(cfd);
+   	var date2 = new Date();
+   	if(date2.setHours(0,0,0,0)>date1.setHours(0,0,0,0)){
+  			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+			$("#genericDialog").dialog({ modal: false });
+			$("#genericDialog").dialog({ height: 200 });
+			$("#genericDialog").dialog({ width: 400 });
+  			openHelp("",text);
+   	}
 		}
 	});
 	
@@ -186,6 +220,21 @@ $(document).ready(function() {
 		insertIds();
   		$(".ajaxSubmit").remove();
   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+		$('form#form').submit();
+	});
+	
+	$('button.delete').click(function(){
+  		$(".ajaxSubmit").remove();
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+ 		$("#form").append("<input type=\"hidden\" name=\"action\" class=\"action\" value=\"delete\"/>");
+		$('form#form').submit();
+	});
+	
+	$('button.copy').click(function(){
+		insertIds();
+		$(".ajaxSubmit").remove();
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+ 		$("#form").append("<input type=\"hidden\" name=\"action\" class=\"action\" value=\"copy\"/>");
 		$('form#form').submit();
 	});
 
@@ -353,16 +402,16 @@ $(document).ready(function() {
 	
 	var config=	{
 			toolbar_Full: [ ['Source','-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-', 'Find','Replace','-','SelectAll','RemoveFormat' ],
-			                [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-',
-			              	'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl', '-','Link','Unlink'],
-			              	['Format','Font','FontSize' ],[ 'TextColor','BGColor' ]],
+			                [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl', '-','Link','Unlink','-'],['Table'],
+			                '/',[ 'TextColor','BGColor' ],['Format','Font','FontSize']],
             uiColor:'#F4EEE4',
 			contentsCss:'js/ckeditor/_samples/assets/output_xhtml.css',
 			contentsLangDirection:'rtl',
 			height:"120", 
 			width:"800",
 			fontSize_sizes : '10/10px;12/12px;14/14px;16/16px;24/24px;48/48px;',
-			colorButton_enableMore : false
+			colorButton_enableMore : false,
+			enterMode:CKEDITOR.ENTER_BR
 	};
 
 
@@ -445,9 +494,6 @@ $(document).ready(function() {
 	        s.selectRanges(selected_ranges);  // putting the current selection there 
 	    });
 
-		/*$("#formAttach").hover(function(e){
-		    $("selector").css('cursor','pointer');
-		});*/
 });
 var fieldname=""; 
 function openHelp(name,mytext){
@@ -476,7 +522,7 @@ function checkErrors(){
 	else{
 		$("#errorpublicationTime").html('');
 	}
-	if($("#finalSubmissionTime").val()==''){
+	if($("#finalSubmissionTime").val()=='' && !$("#allYearSubmission").is(":checked")){
 		errors = true;
 		$("#errorfinalSubmissionTime").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterFinalSubmissionDate"/><font color="red"><br>');
 	}

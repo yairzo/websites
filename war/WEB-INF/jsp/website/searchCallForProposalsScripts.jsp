@@ -10,33 +10,19 @@
 <script type="text/javascript">
 
 function resetAutocomplete(funds){
-	$("#fundName").autocomplete( 
+	$("#searchWords").autocomplete( 
 			{ source: 'selectBoxFiller?type=fundsWithId',
 			 minLength: 2,
 			 highlight: true,				 
 			 select: function(event, ui) {
 				 	//alert(ui.item.label);
-					$("#fundName").val(ui.item.label);
+					$("#searchWords").val(ui.item.label);
 					$("#fundId").val(ui.item.id);
-				 },
-			 change: function(event, ui) {
-				 checkFund();
-				 //alert($("#fundId").val());
 				 }
 		    }
 	);
 }
-function checkFund(){
-	//alert($("#fundId").val());
-	var text='<fmt:message key="${lang.localeId}.callForProposal.typeFundName"/>';
-    if($("#fundId").val()=='0'){
-  		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
-		$("#genericDialog").dialog({ modal: false });
-		$("#genericDialog").dialog({ height: 200 });
-		$("#genericDialog").dialog({ width: 400 });
-  		openHelp("",text);
-    }
-}
+
 
 $(document).ready(function() {
 
@@ -66,8 +52,8 @@ $(document).ready(function() {
 			});
 	});	
 	
-	$("#fundName").click(function(){
-    	$("#fundName").val('');
+	$("#searchWords").click(function(){
+    	$("#searchWords").val('');
     	resetAutocomplete();
 	});
 	
@@ -102,7 +88,7 @@ $(document).ready(function() {
         	$.datepicker.setDefaults();
      });
 
-	$('tbody.subSubjects').hide();
+	$('div.subSubjects').hide();
 
 	$(".minus").hide();
 	$(".plus").show();
@@ -118,10 +104,8 @@ $(document).ready(function() {
 		});
 		$("tr.darker").each(function(){
 			showRightMultipleSelectImg($(this));
-			//openSubject($(this).children("td.toggleSubject"));
 		});
 		this.checked = !this.checked;
-
 	});
 
 	$("#diselectAll").click(function(){
@@ -130,12 +114,9 @@ $(document).ready(function() {
 		});
 		$("tr.darker").each(function(){
 			showRightMultipleSelectImg($(this));
-			closeSubject($(this).children("td.toggleSubject"));
 		});
 		this.checked = !this.checked;
 	});
-
-
 
 
 	$(".toggleSubject").click(function(){
@@ -156,7 +137,7 @@ $(document).ready(function() {
 			var isAllChecked = true;
 			var isUniteAction = false;
 
-			$("tbody#"+id+"Sub").children("tr").children("td").children("input:checkbox").each( function() {
+			$("div#"+id+"Sub").children("input:checkbox").each( function() {
 
 				if (this.checked){
 					isAnyChecked = true;
@@ -167,7 +148,7 @@ $(document).ready(function() {
 			});
 
 			if (isAnyChecked && ! isAllChecked){
-				$("tbody#"+id+"Sub").children("tr").children("td").children("input:checkbox").each( function() {
+				$("div#"+id+"Sub").children("input:checkbox").each( function() {
 					if (!this.checked){
 						this.checked = true;
 						isUniteAction=true;
@@ -177,7 +158,7 @@ $(document).ready(function() {
 			}
 
 			if (!isUniteAction){
-				$("tbody#"+id+"Sub").children("tr").children("td").children("input:checkbox").each( function() {
+				$("div#"+id+"Sub").children("input:checkbox").each( function() {
 					this.checked = !this.checked;
 				});
 				isAllChecked = ! isAllChecked;
@@ -186,15 +167,10 @@ $(document).ready(function() {
 
 			showRightMultipleSelectImg($(this).parent());
 
-			if (isAllChecked){
-			}
-			else if (!isAnyChecked){
-				closeSubject($(this).parent().children("td.toggleSubject"));
-			}
-			
 			return false;
 		});
-    $("#genericDialog").dialog({
+    
+	$("#genericDialog").dialog({
         autoOpen: false,
         show: 'fade',
         hide: 'fade',
@@ -229,21 +205,22 @@ $(document).ready(function() {
 		$('form#form').submit();
 	});
 	
+    $(".subSubjects").dialog({
+        autoOpen: false,
+        show: 'fade',
+        hide: 'fade',
+        modal: true,
+        open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
+  });
 	
-});
 
-function openSubject(element){
-	$(element).children("img.plus").hide();
-	$(element).children("img.minus").show();
-	var targetId = $(element).parent().attr("id");
-		$("tbody#"+targetId+"Sub").show();
-}
+});
 
 function showRightMultipleSelectImg(parent){
 	var isAnyChecked = false;
 	var isAllChecked = true;
 	var id = $(parent).attr("id");
-	$("tbody#"+id+"Sub").children("tr").children("td").children("input:checkbox").each( function() {
+	$("div#"+id+"Sub").children("input:checkbox").each( function() {
 		if (this.checked){
 			isAnyChecked = true;
 		}
@@ -255,13 +232,11 @@ function showRightMultipleSelectImg(parent){
 		$(parent).children("td").children("img.empty").hide();
 		$(parent).children("td").children("img.v").hide();
 		$(parent).children("td").children("img.partly").show();
-		openSubject($(parent));
 	}
 	else if (isAllChecked){
 		$(parent).children("td").children("img.empty").hide();
 		$(parent).children("td").children("img.partly").hide();
 		$(parent).children("td").children("img.v").show();
-
 	}
 	else{
 		$(parent).children("td").children("img.partly").hide();
@@ -271,18 +246,17 @@ function showRightMultipleSelectImg(parent){
 }
 
 
-function closeSubject(element){
-	$(element).children("img.minus").hide();
-	$(element).children("img.plus").show();
-	var targetId = $(element).parent().attr("id");
-		$("tbody#"+targetId+"Sub").hide();
-}
 
 function toggleSubject(element){
-		$(element).children("img.minus").toggle();
-		$(element).children("img.plus").toggle();
+		//$(element).children("img.minus").toggle();
+		//$(element).children("img.plus").toggle();
 		var targetId = $(element).parent().attr("id");
-		$("tbody#"+targetId+"Sub").toggle();
+		//$("div#"+targetId+"Sub").toggle();
+  		$("div#"+targetId+"Sub").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("div#"+targetId+"Sub").dialog({ modal: false });
+		$("div#"+targetId+"Sub").dialog({ height: 200 });
+		$("div#"+targetId+"Sub").dialog({ width: 400 });
+		$("div#"+targetId+"Sub").dialog("open");
 }
 
 </script>

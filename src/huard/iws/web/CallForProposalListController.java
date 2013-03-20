@@ -67,7 +67,7 @@ public class CallForProposalListController extends GeneralFormController {
 		model.put("fundId",command.getSearchCreteria().getSearchByFund());
 		try{
 			if(command.getSearchCreteria().getSearchByFund()>0 )
-				model.put("selectedFund",fundService.getFundByFinancialId(command.getSearchCreteria().getSearchByFund()).getName());
+				model.put("searchWords",fundService.getFundByFinancialId(command.getSearchCreteria().getSearchByFund()).getName());
 		}
 		catch(Exception e){
 			e.printStackTrace();	
@@ -91,13 +91,15 @@ public class CallForProposalListController extends GeneralFormController {
 			searchCreteria.setSearchByDesk(request.getIntParameter("deskId", 0));
 			searchCreteria.setSearchBySubjectIds(request.getParameter("subjectsIdsString", ""));
 			searchCreteria.setSearchByType(request.getIntParameter("typeId", 0));
-			Set<Long> sphinxIds=new LinkedHashSet<Long>();
-			if(!request.getParameter("searchWords", "").isEmpty()){
-				sphinxIds.add(new Long(0));//so wont show everything when deos'nt find any ids
-				sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_draft_index"));
+			if(request.getIntParameter("fundId", 0)==0){// when the text in searchWords is not the fund name
+				Set<Long> sphinxIds=new LinkedHashSet<Long>();
+				if(!request.getParameter("searchWords", "").isEmpty()){
+					sphinxIds.add(new Long(0));//so wont show everything when deos'nt find any ids
+					sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_draft_index"));
+				}
+				searchCreteria.setSearchBySearchWords(sphinxIds);
+				searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
 			}
-			searchCreteria.setSearchBySearchWords(sphinxIds);
-			searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
 			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
 				searchCreteria.setSearchByCreator(userPersonBean.getId());	
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);

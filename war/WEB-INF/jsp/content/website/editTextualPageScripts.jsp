@@ -8,9 +8,9 @@
 
 $(document).ready(function() {
 	if($('.disableEditor').is(":checked"))
-    	$("#htmlDiv").hide();
+    	$("#htmlView").hide();
 	else
-   		$("#htmlDiv").show();
+   		$("#htmlView").show();
 	 
 	$('form').find('input:not([type=file],[type=button])').autoSave(function(){		
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
@@ -203,9 +203,9 @@ $(document).ready(function() {
   
     $(".disableEditor").change(function(){		
    	    if($('.disableEditor').is(":checked"))
-    		$("#htmlDiv").hide();
+    		$("#htmlView").hide();
 		else
-    		$("#htmlDiv").show();
+    		$("#htmlView").show();
 	});
    
 		

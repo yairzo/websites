@@ -43,7 +43,6 @@ public class EditCallForProposalController extends GeneralFormController{
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 	throws Exception{
 		CallForProposalBean callForProposalBean = (CallForProposalBean) command;
-		
 
 		// this part saves the content type of the attachments
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
@@ -63,7 +62,7 @@ public class EditCallForProposalController extends GeneralFormController{
 					Attachment attachment = new Attachment();
 					attachment.setFile(file.getBytes());
 					attachment.setContentType(getContentType(ext));
-					attachment.setTitle(title);
+					attachment.setTitle(getIcon(ext) + title);
 					attachments.add(attachment);
 				}
 				callForProposalBean.setAttachments(attachments);
@@ -80,8 +79,12 @@ public class EditCallForProposalController extends GeneralFormController{
 			callForProposalBean.getSubjectsIds().add(subjectId);
 		}
 		
+		if(request.getParameter("action", "").equals("delete"))
+			callForProposalBean.setIsDeleted(1);
+		
 		//update
 		callForProposalService.updateCallForProposal(callForProposalBean.toCallForProposal());
+
 
 		//upload
 		if (request.getBooleanParameter("online", false)){
@@ -90,13 +93,21 @@ public class EditCallForProposalController extends GeneralFormController{
 			else
 				callForProposalService.insertCallForProposalOnline(callForProposalBean.toCallForProposal());
 		}
-		if (request.getBooleanParameter("offline", false)){
+		
+		if (request.getBooleanParameter("offline", false) || request.getParameter("action", "").equals("delete")){
 			if(callForProposalService.existsCallForProposalOnline(callForProposalBean.getId()))
 				callForProposalService.removeCallForProposalOnline(callForProposalBean.getId());
 		}
 
+		if(request.getParameter("action", "").equals("copy")){
+			int newId = callForProposalService.copyCallForProposal(callForProposalBean.toCallForProposal());
+			return new ModelAndView(new RedirectView("editCallForProposal.html?id=" + newId));
+		}
+		
+
 		if (request.getBooleanParameter("ajaxSubmit", false))
 			return null;
+		
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", callForProposalBean.getId())	;
 		return new ModelAndView(new RedirectView("editCallForProposal.html"), newModel);
@@ -235,7 +246,23 @@ public class EditCallForProposalController extends GeneralFormController{
 		else
 			return "text/html";
 	}	
-	
+	private static String getIcon(String extension){
+		String icon="<img src='image/";
+		if(extension.equals("pdf"))
+			icon+= "icon_pdf.png";
+		else if (extension.equals("doc"))
+			icon+= "icon_word.gif";
+		else if (extension.equals("docx"))
+			icon+= "icon_word.gif";
+		else if (extension.equals("xls"))
+			icon+= "icon_excel.png";
+		else if (extension.equals("xlsx"))
+			icon+= "icon_excel.png";
+		else
+			icon+= "icon_somefile.gif";
+		icon+= "' weight='15px' height='15px'/>";
+		return icon;
+	}	
 	private CallForProposalService callForProposalService;
 
 	public void setCallForProposalService(CallForProposalService callForProposalService) {

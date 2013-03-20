@@ -5,6 +5,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.model.Fund;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.FundService;
+import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 
 import java.text.SimpleDateFormat;
@@ -34,29 +35,34 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 	{
 		CallForProposalBean callForProposalBean = (CallForProposalBean) model.get("command");
 
+		//language
+		LanguageUtils.applyLanguage(model, request, response,callForProposalBean.getLocaleId());
+		LanguageUtils.applyLanguages(model);
+		
 		//page title
 		model.put("pageTitle", callForProposalBean.getTitle());
 
 		//dates
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		if (callForProposalBean.getPublicationTime()==0)
-			model.put("publicationTime", "");
-		else
-			model.put("publicationTime", formatter.format(callForProposalBean.getPublicationTime()));
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		if (callForProposalBean.getFinalSubmissionTime()==0)
 			model.put("finalSubmissionTime", "");
 		else
 			model.put("finalSubmissionTime", formatter.format(callForProposalBean.getFinalSubmissionTime()));
+		formatter = new SimpleDateFormat("dd/MM/yyyy");
+		if (callForProposalBean.getPublicationTime()==0)
+			model.put("publicationTime", "");
+		else
+			model.put("publicationTime", formatter.format(callForProposalBean.getPublicationTime()));
 		if (callForProposalBean.getUpdateTime()==0)
 			model.put("updateTime", "");
 		else
 			model.put("updateTime", formatter.format(callForProposalBean.getUpdateTime()));
-
 		//extra submission dates
 		Date tmpDate = new Date();
 		int i=1;
 		if(callForProposalBean.getSubmissionDates()!=null){
 			for(Long submissionDate: callForProposalBean.getSubmissionDates()){
+				if(submissionDate==1000) continue;
 				tmpDate = new Date(submissionDate);
 				String submissionName="submissionDate" + i;
 				model.put(submissionName, formatter.format(tmpDate));

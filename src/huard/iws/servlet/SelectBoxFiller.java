@@ -81,6 +81,7 @@ public class SelectBoxFiller extends HttpServlet {
 
 	private boolean isAuthorized(HttpServletRequest request){
 		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+
 		if (userPersonBean.isAuthorized("EQF", "ADMIN")) return true;
 		if (userPersonBean.isAuthorized("EQF", "MOP")) return true;
 		if (userPersonBean.isAuthorized("LISTS", "ADMIN")) return true;
@@ -91,7 +92,9 @@ public class SelectBoxFiller extends HttpServlet {
 		if (userPersonBean.isAuthorized("CONFERENCE", "ADMIN")) return true;
 		if (userPersonBean.isAuthorized("CONFERENCE", "APPROVER")) return true;
 		if (userPersonBean.isAuthorized("CONFERENCE", "COMMITTEE")) return true;
-
+		if (userPersonBean.isAuthorized("WEBSITE", "EDIT") || userPersonBean.isAuthorized("WEBSITE", "ADMIN"))  return true;
+		if (userPersonBean.isAuthorized("LISTS", "ANONYMOUS") && request.getParameter("type")!=null && request.getParameter("type").equals("fundsWithId")) return true;
+		
 		String proposalId;
 		int aProposalId=0;
 		if ((proposalId = request.getParameter("proposalId"))!=null){

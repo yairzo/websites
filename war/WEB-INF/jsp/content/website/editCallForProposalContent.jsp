@@ -89,7 +89,7 @@
 					</td>
 					<td width="320" style="border:1px #bca2a2 dotted" nowrap>
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.finalSubmissionTime"/>
-						<form:input htmlEscape="true" cssClass="green date submissionDate medium100" path="finalSubmissionTimeString" id="finalSubmissionTime"/>&nbsp;
+						<form:input htmlEscape="true" cssClass="green datetime submissionDate medium150" path="finalSubmissionTimeString" id="finalSubmissionTime"/>&nbsp;
 						<form:checkbox cssClass="green" path="allYearSubmission" id="allYearSubmission"/>
 						<fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/>
 					    <div id="errorfinalSubmissionTime" title="שגיאה" dir="${lang.dir}">				
@@ -121,15 +121,12 @@
       						<form:option value="2"><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></form:option>
       						<form:option value="3"><fmt:message key="${lang.localeId}.callForProposal.conference"/></form:option>
       						<form:option value="4"><fmt:message key="${lang.localeId}.callForProposal.scholarship"/></form:option>
+      						<form:option value="5"><fmt:message key="${lang.localeId}.callForProposal.prizes"/></form:option>
         		        </form:select>
 						<div id="errortype" title="שגיאה" dir="${lang.dir}">
 					</td>
 				</tr>
 				<tr class="form">
-					<td colspan="2" style="border:1px #bca2a2 dotted">
- 						<fmt:message key="${lang.localeId}.callForProposal.keepInRollingMessagesExpiryTime"/>
-						<form:input htmlEscape="true" cssClass="green date medium100" path="keepInRollingMessagesExpiryTimeString" id="keepInRollingMessagesExpiryTime"/>
- 					</td>
 					<td  style="border:1px #bca2a2 dotted" nowrap>
 						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.desk"/>
          				<form:select path="deskId" id="deskId" cssClass="green deskId" >
@@ -143,14 +140,6 @@
         		        </form:select>
 						<div id="errordesk" title="שגיאה" dir="${lang.dir}">
 					</td>
-				</tr>
-				<tr class="form">
-					<td colspan="3" style="border:1px #bca2a2 dotted">
-						<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/>  
-						<form:input htmlEscape="true" cssClass="green long500" path="originalCallWebAddress" />
-					</td>
-				</tr>
-                <tr class="form">
 					<td  style="border:1px #bca2a2 dotted" nowrap>
        					<form:checkbox cssClass="green" path="requireLogin"/>
        					<fmt:message key="${lang.localeId}.callForProposal.requireLogin"/>
@@ -159,11 +148,23 @@
        					<form:checkbox cssClass="green" path="showDescriptionOnly"/>
 						<fmt:message key="${lang.localeId}.callForProposal.showDescriptionOnly"/>
 					</td>
-					<td style="border:1px #bca2a2 dotted">
-      					<!--<form:checkbox cssClass="green" path="allYearSubmissionYearPassedAlert"/>
-						לשלוח תזכורת לקראת סיום השנה -->&nbsp;
- 					</td>
 				</tr>
+				<tr class="form">
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+						<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/>  
+						<form:input htmlEscape="true" cssClass="green long500" path="originalCallWebAddress" />
+					</td>
+				</tr>
+                <!--<tr class="form">
+					<td style="border:1px #bca2a2 dotted">
+      					<form:checkbox cssClass="green" path="allYearSubmissionYearPassedAlert"/>
+						לשלוח תזכורת לקראת סיום השנה nbsp;
+ 					</td>
+					<td colspan="2" style="border:1px #bca2a2 dotted">
+ 						<fmt:message key="${lang.localeId}.callForProposal.keepInRollingMessagesExpiryTime"/>
+						<form:input htmlEscape="true" cssClass="green date medium100" path="keepInRollingMessagesExpiryTimeString" id="keepInRollingMessagesExpiryTime"/>
+ 					</td> 
+				</tr> -->
  				</table>
 				</td>
 				</tr>
@@ -179,10 +180,11 @@
 					<table width="950">
 					<tr>
 						<td colspan="4">
+						<input type="checkbox" class="green viewSubjects"/>
 						<fmt:message key="${lang.localeId}.callForProposal.selectSubjects"/>
 						</td>
 					</tr>
-					<tr class="form">
+					<tr class="form" id="subjectView">
 						<td colspan="4" align="center">
 						<%@ include file="/WEB-INF/jsp/content/editPost/subjects.jsp" %>					
 						</td>
@@ -244,6 +246,11 @@
  					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="submissionDetails"><fmt:message key="${lang.localeId}.callForProposal.submissionCopies"/></span><br/>		
        				</td>
  					</tr>
+ 					<tr>
+					<td colspan="3" style="text-align:${lang.align}">	
+ 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="submissionDetails"><fmt:message key="${lang.localeId}.callForProposal.submissionBefore"/></span><br/>		
+       				</td>
+ 					</tr>
 					<c:forEach items="${deskAssistants}" var="deskAssistant" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:${lang.align}">
@@ -268,13 +275,49 @@
   					<tr>
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					<table width="950">
+  					<tr>
+					<td colspan="3">
+      					<fmt:message key="${lang.localeId}.callForProposal.description"/><br>
+ 					</td>
+					</tr>				
+ 					<tr>
+					<td colspan="3" align="center">
+ 					<div class="editor" style="align:center;">
+  						<div class="editorText" style="text-align:${lang.align};direction:${lang.dir};border:1px #bca2a2 dotted;width:800;padding-right: 10px;">
+ 							${command.description}
+							<c:if test="${fn:length(command.description)==0}"><p><fmt:message key="${lang.localeId}.callForProposal.noInfo"/></p></c:if>
+						</div>
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="description" name="description" cols="100" rows="1" class="green" style="display:none;">
+							${command.description}           					
+							</textarea>
+						</span>
+					</div>
+					<div style="width:800;align:center;text-align:${opositeAlign};">
+					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
+ 					</div>
+   					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+				</tr>	
+				<tr><td>&nbsp;</td></tr>	
+				<tr>
+					<td colspan="4">
+					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
   					<tr><td><fmt:message key="${lang.localeId}.callForProposal.contactPersons"/></td>
   					</tr>
  					<tr>
 					<td colspan="3" align="center">
  					<div class="editor" style="align:center;">
   						<div class="editorText" style="text-align:${lang.align};direction:${lang.dir};border:1px #bca2a2 dotted;width:800;padding-right: 10px;">
- 						${command.contactPersonDetails }
+ 						${command.contactPersonDetails}
  						<c:if test="${fn:length(command.contactPersonDetails)==0}"><p><fmt:message key="${lang.localeId}.callForProposal.noInfo"/></p></c:if>
 						</div>
  						<span class="textareaEditorSpan" style="align:center;">
@@ -286,6 +329,12 @@
  					</div>
  					</td>
  					</tr>
+ 					<tr>
+					<td colspan="3" style="text-align:${lang.align}">
+					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;
+					<span id="addedText" class="contactPersonDetails"><fmt:message key="${lang.localeId}.callForProposal.contactAtFund"/> </span>
+					</td>
+					</tr>
 					<c:forEach items="${deskPersons}" var="deskPerson" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:${lang.align}">
@@ -317,7 +366,7 @@
 					<td colspan="3" align="center">
  					<div class="editor" style="align:center;">
   						<div class="editorText" style="text-align:${lang.align};direction:${lang.dir};border:1px #bca2a2 dotted;width:800;padding-right: 10px;">
-							${command.formDetails }
+							${command.formDetails}
  							<c:if test="${fn:length(command.formDetails)==0}">
  							<p><fmt:message key="${lang.localeId}.callForProposal.noInfo"/></p>
  							</c:if>
@@ -360,42 +409,76 @@
  					</td>
  				</tr>
 				<tr><td>&nbsp;</td></tr>	
-				<tr>
+				<tr class="form">
 					<td colspan="4">
-					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					<table width="950">
   					<tr>
 					<td colspan="3">
-      					<fmt:message key="${lang.localeId}.callForProposal.description"/><br>
+      				<fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/>	<br>
  					</td>
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
- 					<div class="editor" style="align:center;">
+					<div class="editor" style="align:center;">
   						<div class="editorText" style="text-align:${lang.align};direction:${lang.dir};border:1px #bca2a2 dotted;width:800;padding-right: 10px;">
- 							${command.description }
-							<c:if test="${fn:length(command.description)==0}"><p><fmt:message key="${lang.localeId}.callForProposal.noInfo"/></p></c:if>
+ 							${command.fundingPeriod}
+							<c:if test="${fn:length(command.fundingPeriod)==0}"><p><fmt:message key="${lang.localeId}.callForProposal.noInfo"/></p></c:if>
 						</div>
  						<span class="textareaEditorSpan" style="align:center;">
-           					<textarea class="textareaEditor" id="description" name="description" cols="100" rows="1" class="green" style="display:none;">
-							${command.description }           					
-							</textarea>
+           					<textarea class="textareaEditor" id="fundingPeriod" name="fundingPeriod" cols="100" rows="1" class="green" style="display:none;">${command.fundingPeriod}
+ 							</textarea>
 						</span>
 					</div>
 					<div style="width:800;align:center;text-align:${opositeAlign};">
 					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
  					</div>
-   					</td>
- 					</tr>
- 					</table>
  					</td>
  					</tr>
- 					</table>
+  					</table>
+  					</td>
+  					</tr>
+  					</table>
  					</td>
-				</tr>	
+ 				</tr>
 				<tr><td>&nbsp;</td></tr>	
+ 				<tr>
+					<td colspan="4">
+					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr>
+					<td colspan="3">
+      				<fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/>	<br>
+ 					</td>
+					</tr>				
+ 					<tr>
+					<td colspan="3" align="center">
+					<div class="editor" style="align:center;">
+  						<div class="editorText" style="text-align:${lang.align};direction:${lang.dir};border:1px #bca2a2 dotted;width:800;padding-right: 10px;">
+ 							${command.amountOfGrant}
+							<c:if test="${fn:length(command.amountOfGrant)==0}"><p><fmt:message key="${lang.localeId}.callForProposal.noInfo"/></p></c:if>
+						</div>
+ 						<span class="textareaEditorSpan" style="align:center;">
+           					<textarea class="textareaEditor" id="amountOfGrant" name="amountOfGrant" cols="100" rows="1" class="green" style="display:none;">${command.amountOfGrant}
+ 							</textarea>
+						</span>
+					</div>
+					<div style="width:800;align:center;text-align:${opositeAlign};">
+					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
+ 					</div>
+ 					</td>
+ 					</tr>
+  					</table>
+  					</td>
+  					</tr>
+  					</table>
+ 					</td>
+				</tr>
+ 				<tr><td>&nbsp;</td></tr>	
 				<tr>
 					<td colspan="4">
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
@@ -589,76 +672,6 @@
  					</table>
  					</td>
 				</tr>											
-				<tr><td>&nbsp;</td></tr>	
-				<tr class="form">
-					<td colspan="4">
-					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-  					<tr>
-					<td colspan="3" style="border:1px #bca2a2 dotted">
-					<table width="950">
-  					<tr>
-					<td colspan="3">
-      				<fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/>	<br>
- 					</td>
-					</tr>				
- 					<tr>
-					<td colspan="3" align="center">
-					<div class="editor" style="align:center;">
-  						<div class="editorText" style="text-align:${lang.align};direction:${lang.dir};border:1px #bca2a2 dotted;width:800;padding-right: 10px;">
- 							${command.fundingPeriod}
-							<c:if test="${fn:length(command.fundingPeriod)==0}"><p><fmt:message key="${lang.localeId}.callForProposal.noInfo"/></p></c:if>
-						</div>
- 						<span class="textareaEditorSpan" style="align:center;">
-           					<textarea class="textareaEditor" id="fundingPeriod" name="fundingPeriod" cols="100" rows="1" class="green" style="display:none;">${command.fundingPeriod}
- 							</textarea>
-						</span>
-					</div>
-					<div style="width:800;align:center;text-align:${opositeAlign};">
-					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
- 					</div>
- 					</td>
- 					</tr>
-  					</table>
-  					</td>
-  					</tr>
-  					</table>
- 					</td>
- 				</tr>
- 				<tr><td>&nbsp;</td></tr>	
- 				<tr>
-					<td colspan="4">
-					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-  					<tr>
-					<td colspan="3" style="border:1px #bca2a2 dotted">
-					<table width="950">
-  					<tr>
-					<td colspan="3">
-      				<fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/>	<br>
- 					</td>
-					</tr>				
- 					<tr>
-					<td colspan="3" align="center">
-					<div class="editor" style="align:center;">
-  						<div class="editorText" style="text-align:${lang.align};direction:${lang.dir};border:1px #bca2a2 dotted;width:800;padding-right: 10px;">
- 							${command.amountOfGrant}
-							<c:if test="${fn:length(command.amountOfGrant)==0}"><p><fmt:message key="${lang.localeId}.callForProposal.noInfo"/></p></c:if>
-						</div>
- 						<span class="textareaEditorSpan" style="align:center;">
-           					<textarea class="textareaEditor" id="amountOfGrant" name="amountOfGrant" cols="100" rows="1" class="green" style="display:none;">${command.amountOfGrant}
- 							</textarea>
-						</span>
-					</div>
-					<div style="width:800;align:center;text-align:${opositeAlign};">
-					<img src="image/icon_edit.gif" class="openEditor" />&nbsp;&nbsp;&nbsp;<img src="image/icon_save.gif" class="closeEditor"/>
- 					</div>
- 					</td>
- 					</tr>
-  					</table>
-  					</td>
-  					</tr>
-  					</table>
- 					</td>
-				</tr>
 
 	
  		
@@ -668,8 +681,10 @@
 				<c:if test="${online}">
 					<button class="grey post"><fmt:message key="${lang.localeId}.callForProposal.createPost"/> </button>&nbsp;&nbsp;
 				</c:if>		
+				<button class="grey delete"><fmt:message key="${lang.localeId}.callForProposal.delete"/></button>&nbsp;&nbsp;
 				<button class="grey" onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;&nbsp;		
 				<button class="grey" onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>		
+				<button class="grey copy"><fmt:message key="${lang.localeId}.callForProposal.copy"/></button>&nbsp;&nbsp;
 			</td>
 		</tr>
     </table>

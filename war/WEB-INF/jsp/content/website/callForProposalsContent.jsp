@@ -32,7 +32,8 @@
                 		<tr class="form">
 							<td>
 						 	<fmt:message key="${lang.localeId}.callForProposal.searchWords"/>
-							<input type="text" class="green" style="width:400px" name="searchWords" value="${searchWords}"/> 
+							<input type="text" class="green" style="width:400px" id="searchWords" name="searchWords" value="${searchWords}"/> 
+							<hidden id="fundId" value="${fundId}"/>
 							</td>
 						</tr>
  						<tr class="form">
@@ -63,17 +64,11 @@
       						<option value="2" <c:if test="${typeId==2}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></option>
       						<option value="3" <c:if test="${typeId==3}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.conference"/></option>
       						<option value="4" <c:if test="${typeId==4}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.scholarship"/></option>
+      						<option value="5" <c:if test="${typeId==5}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.prizes"/></option>
         		        </select>
 						</td>
 						</tr>
-                 		<tr class="form">
-							<td>
-						 	<fmt:message key="${lang.localeId}.callForProposal.fund"/>
-							<input type="text" class="green" style="width:400px" id="fundName" value="${selectedFund}"/> 
-							<hidden id="fundId" value="${fundId}"/>
-							</td>
-						</tr>
-                 		<tr>
+                  		<tr>
 						<td align="right">
   			   			<input type="checkbox" name="searchByTemporary" id="searchByTemporary" class="green" <c:if test="${temporaryFund}">checked="checked"</c:if>/> קולות קוראים עם מממן זמני
        					</td>

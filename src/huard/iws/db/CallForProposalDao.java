@@ -35,5 +35,5 @@ public interface CallForProposalDao {
 	public void insertArdNum(int ardNum,int id);
 	
 	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment);
-
+	
 }

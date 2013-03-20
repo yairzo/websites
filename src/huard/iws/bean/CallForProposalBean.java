@@ -57,6 +57,7 @@ public class CallForProposalBean {
 	private List<Attachment> attachments;
 	private String localeId;
 	private long updateTime;
+	private int isDeleted;
 	
 	private MessageService messageService;
 	private ConfigurationService configurationService;
@@ -96,6 +97,7 @@ public class CallForProposalBean {
 		this.localeId="";
 		this.updateTime=0;
 		this.submissionDatesList=new ArrayList<String>();
+		this.isDeleted=0;
 		for (int i=0; i< 3; i++){
 			submissionDatesList.add("");
 		}
@@ -143,6 +145,7 @@ public class CallForProposalBean {
         }	
         while (submissionDatesList.size() < 3)
         	this.submissionDatesList.add("");
+        this.isDeleted=callForProposal.getIsDeleted();
         init(applyObjs);
 		
 	}
@@ -193,6 +196,7 @@ public class CallForProposalBean {
 			}
 	    }	
 		callForProposal.setSubmissionDates(submissionDates);
+		callForProposal.setIsDeleted(isDeleted);
 		return callForProposal;
 	}
 
@@ -261,13 +265,13 @@ public class CallForProposalBean {
 	public String getFinalSubmissionTimeString() {
 		if(finalSubmissionTime==0)
 			return "";
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		return formatter.format(finalSubmissionTime);
 	}
 	
 	public void setFinalSubmissionTimeString(String finalSubmissionTimeString) {
 		try{
-			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 			Date formattedDate = (Date)formatter.parse(finalSubmissionTimeString); 
 			this.finalSubmissionTime = formattedDate.getTime();
 		}
@@ -503,6 +507,14 @@ public class CallForProposalBean {
 		this.updateTime = updateTime;
 	}
 
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	
 	public Map <Integer, Attachment> getAttachmentsMap(){
 		Map<Integer, Attachment> attachmentsMap = new HashMap<Integer, Attachment>();
 		for (Attachment attachment: this.attachments){

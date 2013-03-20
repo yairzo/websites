@@ -37,6 +37,7 @@ public class CallForProposal {
 	private List<Attachment> attachments;
 	private String localeId;
 	private long updateTime;
+	private int isDeleted;
 	
 	
 
@@ -70,6 +71,7 @@ public class CallForProposal {
 		this.updateTime=0;
 		this.submissionDates=new ArrayList<Long>();
 		this.submissionDatesList=new ArrayList<String>();
+		this.isDeleted=0;
 	}
 	
 	public int getId() {
@@ -319,5 +321,11 @@ public class CallForProposal {
 		this.submissionDatesList = submissionDatesList;	
 	}
 
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 
 }

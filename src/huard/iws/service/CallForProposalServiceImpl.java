@@ -1,8 +1,10 @@
 package huard.iws.service;
 
+import huard.iws.bean.PersonBean;
 import huard.iws.db.CallForProposalDao;
 import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
+import huard.iws.model.Post;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.LanguageUtils;
 import java.util.ArrayList;
@@ -74,6 +76,19 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 		return callForProposalDao.insertAttachmentToCallForProposal(callForProposalId,attachment);
 	}
 
+	
+	public int copyCallForProposal (CallForProposal callForProposal){
+		CallForProposal newCallForProposal = callForProposal;
+		newCallForProposal.setTitle(newCallForProposal.getTitle() + " - copy");
+		int newCallForProposalId = this.insertCallForProposal(newCallForProposal);
+		newCallForProposal.setId(newCallForProposalId);
+		callForProposalDao.updateCallForProposal(newCallForProposal);
+		return newCallForProposalId;
+	}
+	
+	
+	
+	
 	private CallForProposalDao callForProposalDao;
 
 	public void setCallForProposalDao(CallForProposalDao callForProposalDao) {
