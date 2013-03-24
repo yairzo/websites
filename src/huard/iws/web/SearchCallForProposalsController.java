@@ -77,6 +77,8 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		}
 		model.put("typeId",command.getSearchCreteria().getSearchByType());
 		model.put("temporaryFund",command.getSearchCreteria().getSearchByTemporaryFund());
+		model.put("searchDeleted",command.getSearchCreteria().getSearchDeleted());
+		model.put("searchExpired",command.getSearchCreteria().getSearchExpired());
 
 		return new ModelAndView ("searchCallForProposals",model);
 	}
@@ -104,6 +106,8 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 				searchCreteria.setSearchBySearchWords(sphinxIds);
 				searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
 			}
+			searchCreteria.setSearchDeleted(request.getBooleanParameter("deleted", false));
+			searchCreteria.setSearchExpired(request.getBooleanParameter("expired", false));
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 		}
 		else{//on show

@@ -189,6 +189,16 @@ $(document).ready(function() {
 		else
 			$("#form").append("<input type=\"hidden\" name=\"temporaryFund\" value=\"false\"/>");
 
+		if($("#searchDeleted").is(":checked"))
+			$("#form").append("<input type=\"hidden\" name=\"deleted\" value=\"true\"/>");
+		else
+			$("#form").append("<input type=\"hidden\" name=\"deleted\" value=\"false\"/>");
+
+		if($("#searchExpired").is(":checked"))
+			$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"true\"/>");
+		else
+			$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"false\"/>");
+
 		var ids="";
 		$('input.subSubject').each(function(){
 				if (this.checked){

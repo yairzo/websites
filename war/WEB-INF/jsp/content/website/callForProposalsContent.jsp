@@ -79,6 +79,12 @@
 						<%@ include file="/WEB-INF/jsp/content/editPost/subjects.jsp" %>					
 						</td>
 						</tr>
+                   		<tr>
+						<td align="right">
+  			   				<input type="checkbox" name="searchDeleted" id="searchDeleted" class="green" <c:if test="${searchDeleted}">checked="checked"</c:if>/> כולל מבוטלים
+  			   				&nbsp;<input type="checkbox" name="searchExpired" id="searchExpired" class="green" <c:if test="${searchExpired}">checked="checked"</c:if>/> כולל פגי תוקף
+       					</td>
+       					</tr>
                   		<tr>
 						<td align="left">
  						<button class="grey search">חפש</button>

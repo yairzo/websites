@@ -14,6 +14,8 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 	protected String searchBySearchWords;
 	protected String searchWords;
 	protected int searchByCreator;
+	protected boolean searchDeleted;
+	protected boolean searchExpired;
 	
 	
 	public CallForProposalSearchCreteria(){
@@ -28,6 +30,8 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 		this.searchBySearchWords= "";
 		this.searchWords="";
 		this.searchByCreator=0;
+		this.searchDeleted=false;
+		this.searchExpired=false;
 	}
 
 	
@@ -111,6 +115,23 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 
 	public void setSearchByCreator(int searchByCreator) {
 		this.searchByCreator = searchByCreator;
+	}
+
+	
+	public boolean getSearchDeleted() {
+		return searchDeleted;
+	}
+
+	public void setSearchDeleted(boolean searchDeleted) {
+		this.searchDeleted = searchDeleted;
+	}
+
+	public boolean getSearchExpired() {
+		return searchExpired;
+	}
+
+	public void setSearchExpired(boolean searchExpired) {
+		this.searchExpired = searchExpired;
 	}
 
 }

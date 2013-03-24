@@ -74,6 +74,8 @@ public class CallForProposalListController extends GeneralFormController {
 		}
 		model.put("typeId",command.getSearchCreteria().getSearchByType());
 		model.put("temporaryFund",command.getSearchCreteria().getSearchByTemporaryFund());
+		model.put("searchDeleted",command.getSearchCreteria().getSearchDeleted());
+		model.put("searchExpired",command.getSearchCreteria().getSearchExpired());
 		return new ModelAndView ("callForProposals",model);
 	}
 
@@ -100,6 +102,8 @@ public class CallForProposalListController extends GeneralFormController {
 				searchCreteria.setSearchBySearchWords(sphinxIds);
 				searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
 			}
+			searchCreteria.setSearchDeleted(request.getBooleanParameter("deleted", false));
+			searchCreteria.setSearchExpired(request.getBooleanParameter("expired", false));
 			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
 				searchCreteria.setSearchByCreator(userPersonBean.getId());	
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);

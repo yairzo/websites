@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -482,7 +483,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			whereClause +=" and " + mainTable +".id in ("+searchCriteria.getSearchBySearchWords() + ")";
 		if(!searchCriteria.getSearchBySubjectIds().isEmpty())
 			whereClause +=" and subjectToCallOfProposal.subjectId in ("+searchCriteria.getSearchBySubjectIds() + ")";
-		whereClause += "  and isDeleted=0";
+		if(!searchCriteria.getSearchDeleted())//not include deleted
+			whereClause +=" and " + mainTable +".isDeleted=0";
+		if(!searchCriteria.getSearchExpired())//not include expired
+			whereClause +=" and (" + mainTable +".finalSubmissionTime < now() or " + mainTable +".finalSubmissionTime = 0)";
+			
 		whereClause += "  order by " + mainTable +".id";
 		
 		logger.info(whereClause);

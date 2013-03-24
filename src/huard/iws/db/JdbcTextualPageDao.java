@@ -358,7 +358,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		try{
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
-			String query = "SELECT * FROM PubPages,PubPagesLastUpdates WHERE isDeleted=0 AND PubPages.ardNum = PubPagesLastUpdates.ardNum and PubPages.ardNum >200 and PubPages.ardNum <250;";
+			String query = "SELECT * FROM PubPages left join PubPagesLastUpdates on PubPages.ardNum = PubPagesLastUpdates.ardNum WHERE isDeleted=0 and PubPages.ardNum<>253;";
 			ResultSet resultSet = statement.executeQuery(query);
 			return moveResultSetToPubPage(resultSet);
 		}
