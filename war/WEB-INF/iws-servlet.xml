@@ -182,6 +182,9 @@
         <property name="commandClass"><value>huard.iws.web.SearchCallForProposalsHomePageController$SearchCallForProposalsHomePageControllerCommand</value></property>
         <property name="formView"><value>searchCallForProposalsHomePage</value></property>
         <property name="successView"><value>searchCallForProposals.html</value></property>
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
+        </property>
       </bean>
       
  	<bean id="searchWebsiteController" class="huard.iws.web.SearchWebsiteController" parent="generalWebsiteFormController">

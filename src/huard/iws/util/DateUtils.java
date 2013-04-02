@@ -151,4 +151,19 @@ public class DateUtils {
 	public static String formatToSqlDate(String date, String fromFormat){
 		return formatDate(date,fromFormat,"yyyy-MM-dd");
 	}
+	
+	public static String addDay(String date){
+		try{
+			String dt = date;  // 'yyyy-MM-dd'
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar c = Calendar.getInstance();
+			c.setTime(sdf.parse(dt));
+			c.add(Calendar.DATE, 1);  // number of days to add
+			dt = sdf.format(c.getTime());
+			return dt;
+		}
+		catch(ParseException e){
+			return date;
+		}
+	}
 }

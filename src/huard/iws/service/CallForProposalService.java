@@ -40,4 +40,15 @@ public interface CallForProposalService {
 	
 	public int copyCallForProposal (CallForProposal callForProposal);
 
+	public String getFirstDayOfCalendarMonth();
+
+	public String getLastDayOfCalendarMonth();
+
+	public String getFirstDayOfCalendarMonth(String date);
+
+	public String getLastDayOfCalendarMonth(String date);
+
+	public List<CallForProposal> getCalendarMonthCallForProposals(String firstDay, String lastDay);
+
+
 }

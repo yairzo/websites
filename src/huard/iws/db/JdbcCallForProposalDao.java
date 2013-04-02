@@ -585,5 +585,36 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				keyHolder);
 		return keyHolder.getKey().intValue();
 	}
+	
+	public String getFirstDayOfCalendarMonth(){
+		String query = "select date_sub(date_format(date_add(curdate(), interval 0 month), '%Y-%m-01'), interval (dayofweek(date_format(date_add(curdate(), interval 0 month), '%Y-%m-01'))-1) day) AS a;";
+		String firstDay = getSimpleJdbcTemplate().queryForObject(query, String.class);
+		return 	firstDay;
+	}
+	
+	public String getLastDayOfCalendarMonth(){
+		String query = "select date_sub(date_format(date_add(curdate(), interval 1 month), '%Y-%m-01') + interval 7 day, interval (dayofweek(date_format(date_add(curdate(), interval 1 month), '%Y-%m-01'))-1) day) AS a;";
+		String lastDay = getSimpleJdbcTemplate().queryForObject(query, String.class);
+		return 	lastDay;	
+	}
+	
+	public List<CallForProposal> getCalendarMonthCallForProposals(String firstDay, String lastDay){
+		String query = "select * from callOfProposal where isDeleted=0 and finalSubmissionTime>='" + firstDay + "' and finalSubmissionTime<'" + lastDay + "'  order by finalSubmissionTime;";
+		System.out.println("Query:"+ query);
+		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
+		return callForProposals;
+	}
+
+	public String getFirstDayOfCalendarMonth(String date){
+		String query = "select date_sub(?, interval (dayofweek(?)-1) day) AS a;";
+		String firstDay = getSimpleJdbcTemplate().queryForObject(query, String.class,date,date);
+		return 	firstDay;
+	}
+	
+	public String getLastDayOfCalendarMonth(String date){
+		String query = "select date_sub(?, interval (dayofweek(?)-1) day) + interval 7 day AS a;";
+		String lastDay = getSimpleJdbcTemplate().queryForObject(query, String.class, date,date);
+		return 	lastDay;	
+	}
 
 }

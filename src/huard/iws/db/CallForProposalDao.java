@@ -35,5 +35,15 @@ public interface CallForProposalDao {
 	public void insertArdNum(int ardNum,int id);
 	
 	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment);
+
+	public String getFirstDayOfCalendarMonth();
+
+	public String getLastDayOfCalendarMonth();
+	
+	public String getFirstDayOfCalendarMonth(String date);
+
+	public String getLastDayOfCalendarMonth(String date);
+	
+	public List<CallForProposal> getCalendarMonthCallForProposals(String firstDay, String lastDay);
 	
 }

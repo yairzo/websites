@@ -173,6 +173,7 @@ war/WEB-INF/jsp/website/googleAnalytics.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/location.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/searchCallForProposalsContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/searchCallForProposalsHomePageContent.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/website/searchCallForProposalsHomePageScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/searchCallForProposalsScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/searchContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/searchScripts.jsp svn_mime_002dtype=text%2Fplain

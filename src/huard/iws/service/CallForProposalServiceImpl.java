@@ -86,6 +86,25 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 		return newCallForProposalId;
 	}
 	
+	public String getFirstDayOfCalendarMonth(){
+		return callForProposalDao.getFirstDayOfCalendarMonth();
+	}
+
+	public String getLastDayOfCalendarMonth(){
+		return callForProposalDao.getLastDayOfCalendarMonth();
+	}
+
+	public String getFirstDayOfCalendarMonth(String date){
+		return callForProposalDao.getFirstDayOfCalendarMonth(date);
+	}
+
+	public String getLastDayOfCalendarMonth(String date){
+		return callForProposalDao.getLastDayOfCalendarMonth(date);
+	}
+
+	public List<CallForProposal> getCalendarMonthCallForProposals(String firstDay, String lastDay){
+		return callForProposalDao.getCalendarMonthCallForProposals(firstDay,lastDay);
+	}
 	
 	
 	
