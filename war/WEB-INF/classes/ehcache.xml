@@ -9,5 +9,5 @@
         eternal="true"
         overflowToDisk="false"
         memoryStoreEvictionPolicy="LFU"
-        timeToLiveSeconds="600" />        
+        timeToLiveSeconds="60" />        
 </ehcache>
