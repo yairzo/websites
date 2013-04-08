@@ -4,10 +4,12 @@ import huard.iws.bean.PersonBean;
 import huard.iws.db.CallForProposalDao;
 import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
+import huard.iws.model.DayInCalendar;
 import huard.iws.model.Post;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.LanguageUtils;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class CallForProposalServiceImpl implements CallForProposalService{
@@ -106,6 +108,9 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 		return callForProposalDao.getCalendarMonthCallForProposals(firstDay,lastDay);
 	}
 	
+	public LinkedHashMap<String, DayInCalendar> getMonthDaysMap(String date){
+		return callForProposalDao.getMonthDaysMap(date);
+	}
 	
 	
 	private CallForProposalDao callForProposalDao;

@@ -1,9 +1,11 @@
 package huard.iws.service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import huard.iws.model.CallForProposal;
 import huard.iws.model.Attachment;
+import huard.iws.model.DayInCalendar;
 import huard.iws.util.CallForProposalSearchCreteria;
 
 public interface CallForProposalService {
@@ -50,5 +52,6 @@ public interface CallForProposalService {
 
 	public List<CallForProposal> getCalendarMonthCallForProposals(String firstDay, String lastDay);
 
+	public LinkedHashMap<String, DayInCalendar> getMonthDaysMap(String date);
 
 }

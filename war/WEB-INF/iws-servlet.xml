@@ -182,10 +182,16 @@
         <property name="commandClass"><value>huard.iws.web.SearchCallForProposalsHomePageController$SearchCallForProposalsHomePageControllerCommand</value></property>
         <property name="formView"><value>searchCallForProposalsHomePage</value></property>
         <property name="successView"><value>searchCallForProposals.html</value></property>
-     	<property name="callForProposalService">
+      </bean>
+      
+	<bean id="callForProposalCalendarController" class="huard.iws.web.CallForProposalCalendarController" parent="generalWebsiteController">
+      	<property name="callForProposalService">
             <ref bean="callForProposalService"/>
         </property>
-      </bean>
+     	<property name="fundService">
+            <ref bean="fundService"/>
+        </property>
+    </bean>
       
  	<bean id="searchWebsiteController" class="huard.iws.web.SearchWebsiteController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>
@@ -703,6 +709,27 @@
         </property>     
      </bean>
 
+     <bean id="generalWebsiteController" class="huard.iws.web.GeneralWebsiteController" abstract="true">
+    	<property name="personService">
+            <ref bean="personService"/>
+        </property>
+    	<property name="personPrivilegeService">
+            <ref bean="personPrivilegeService"/>
+        </property>
+        <property name="userMessageService">
+            <ref bean="userMessageService"/>
+        </property>
+        <property name="messageService">
+            <ref bean="messageService"/>
+        </property>
+       <property name="configurationService">
+            <ref bean="configurationService"/>
+        </property>
+  		<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>     
+     </bean>
+
     <bean id="listController" class="huard.iws.web.ListController" parent="generalFormController">
     	<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.AListBean</value></property>
@@ -1198,6 +1225,7 @@
 				<prop key="/sendPasswordEmail.html">sendPasswordEmailController</prop>
 				<prop key="/resetPassword.html">resetPasswordController</prop>
 				<prop key="/resetPasswordSuccess.html">urlFilenameViewController</prop>
+				<prop key="/callForProposalCalendar.html">callForProposalCalendarController</prop>
             </props>
         </property>
     </bean>

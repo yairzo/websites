@@ -227,7 +227,7 @@ function checkErrors(){
 	var errors=false;
 	if($("#title").val()==''){
 		errors = true;
-		$("#errortitle").html('<font color="red"><fmt:message key="iw_IL.required.titleCallOfProposal"/><font color="red"><br>');
+		$("#errortitle").html('<font color="red"><fmt:message key="iw_IL.required.titleCallForProposal"/><font color="red"><br>');
 	}
 	else{
 		$("#errortitle").html('');
