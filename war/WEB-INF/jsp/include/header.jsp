@@ -10,7 +10,6 @@
 	<link href="/iws/style/jquery.autocomplete.css" rel="stylesheet" type="text/css">
 	<link href="/iws/style/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css">
 	<link href="/iws/style/jquery-ui-timepicker-addon.css" rel="stylesheet" type="text/css">
-	
 	<script type="text/javascript" src="/iws/js/jquery-1.6.2.min.js"></script>
 	<script type="text/javascript" src="/iws/js/jquery-ui-1.8.16.custom.min.js"></script>
 	<script type="text/javascript" src="/iws/js/jquery-ui-timepicker-addon.js"></script>

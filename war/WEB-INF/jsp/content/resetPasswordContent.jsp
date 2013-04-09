@@ -22,7 +22,6 @@
 		 $(".message").html("<tr><th colspan='2' align='right'>אינך רשומ/ה במערכת</th></tr>");
 	}
 
-
 	$("#password").blur(function(){
 		var passwordRegex = /^[a-zA-Z0-9]{4,9}$/;
 		if(!passwordRegex.test($(this).val())){
@@ -38,6 +37,7 @@
 		}
 	});
 	
+
 	$("button.submit").click(function(e){
 		e.preventDefault();
 		if($("#passwordConfirm").val()=="" || $("#password").val()==""){

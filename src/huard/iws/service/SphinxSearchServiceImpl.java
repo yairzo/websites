@@ -58,6 +58,7 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 				System.out.println ( "WARNING: " + sphinxClient.GetLastWarning() + "\n" );
 
 			/* print me out */
+			
 			System.out.println ( "Query '" + query + "' retrieved " + res.total + " of " + res.totalFound + " matches in " + res.time + " sec." );
 			System.out.println ( "Query stats:" );
 			for ( int i=0; i<res.words.length; i++ )

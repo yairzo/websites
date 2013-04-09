@@ -24,8 +24,12 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 			"SAVED_REQUEST_MANDATORY_USER_DETAILS_CHANGE";
 	private boolean alwaysUseDefaultTargetUrl = false;
 	private String imposedTargetUrl;
+	
+	
+	
 
 	public Authentication attemptAuthentication(HttpServletRequest request) throws AuthenticationException {
+		
 		
 		String username = obtainUsername(request);
 		String password = obtainPassword(request);
@@ -154,20 +158,28 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 	protected String determineTargetUrl(HttpServletRequest request) {
 		// Don't attempt to obtain the url from the saved request if
 		// alwaysUsedefaultTargetUrl is set
-
+		logger.info("determineTargetUrl");
+		String fullRequestUrl = obtainFullRequestUrl(request);
+		logger.info("full " + fullRequestUrl);
+		String initiatedLoginRedirect = fullRequestUrl.replaceAll("^.*?[\\?&]ilr=(.*?)$", "$1");		
+		logger.info("initi " + initiatedLoginRedirect);
 		String targetUrl;
+		
 		if (imposedTargetUrl !=null){
 			targetUrl = imposedTargetUrl;
 			imposedTargetUrl=null;
 		}
+		else if (initiatedLoginRedirect != null){
+			targetUrl = "/"+initiatedLoginRedirect;
+		}
 		else{
-			targetUrl = alwaysUseDefaultTargetUrl ? null : obtainFullRequestUrl(request);
+			targetUrl = alwaysUseDefaultTargetUrl ? null : fullRequestUrl;
 		}
 
 		if (targetUrl == null) {
 			targetUrl = getDefaultTargetUrl();
 		}
-
+		logger.info("target url: " + targetUrl);
 		return targetUrl;
 	}
 

@@ -1,9 +1,7 @@
 package huard.iws.exec;
 
-import huard.iws.service.ImportCallForProposalsService;
 import huard.iws.service.ImportTextualPagesService;
 
-import org.apache.log4j.Logger;
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
 public class ExecImportOldWebsite {
@@ -53,9 +51,9 @@ public class ExecImportOldWebsite {
 		System.out.println("Starting...." );
 
 		
-		//if (args[0].equals("CallForProposals"))
-		//	execimport.getImportCallForProposalsService().importCallForProposals();
-		//else
+
+//		if (args[0].equals("CallForProposals"))
+//			execimport.getImportCallForProposalsService().importCallForProposals();*/
 		if(args[0].equals("TextualPages"))
 			execimport.getImportTextualPagesService().importTextualPages();
  		

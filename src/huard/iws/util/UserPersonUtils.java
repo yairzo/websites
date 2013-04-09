@@ -57,7 +57,6 @@ public class UserPersonUtils {
 						new GrantedAuthorityImpl("ROLE_LISTS_ANONYMOUS")
 				});
 		}
-
 		session.setAttribute("userPerson", personBean);
 		return personBean;
 	}

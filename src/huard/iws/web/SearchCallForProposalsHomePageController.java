@@ -25,7 +25,7 @@ public class SearchCallForProposalsHomePageController extends GeneralWebsiteForm
 	{
 		//page title
 		model.put("pageTitle", "");
-		
+
 		return new ModelAndView ("searchCallForProposalsHomePage",model);
 	}
 
@@ -38,7 +38,6 @@ public class SearchCallForProposalsHomePageController extends GeneralWebsiteForm
 	public class SearchCallForProposalsHomePageControllerCommand{
 		
 	}
-	
 
 	
 }
