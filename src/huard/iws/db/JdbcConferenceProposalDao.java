@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -321,6 +322,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			return getSimpleJdbcTemplate().queryForInt(query,confId);
 		}
 	}
+	
 	public int getNextVersion(int confId, int verId){
 		if (verId==0 || verId==getLastVersion(confId)){
 			return getLastVersion(confId);//this is latest version so there is no next
@@ -702,7 +704,12 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		insertFinancialSupports(conferenceProposal);	
 
 		//insert to version table
-		query = "insert conferenceProposalVersion set "+
+		insertVersion(conferenceProposal);
+
+	}
+
+	public void insertVersion(ConferenceProposal conferenceProposal){
+		String query ="insert conferenceProposalVersion set "+
 				" conferenceProposalId = ?" +
 				", personId = ?" + 
 				", internalId = ?" +
@@ -761,6 +768,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", acceptTerms= ?" +
 				", statusId= ?" +
 				", statusDate= ?" +
+				", lastUpdate= now()" +
 				";";
 
 		logger.info(query);
@@ -821,10 +829,9 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getCommitteeRemarks(),
 				conferenceProposal.getAcceptTerms(),
 				conferenceProposal.getStatusId(),
-				new java.sql.Timestamp(conferenceProposal.getStatusDate()));
+				new java.sql.Timestamp(conferenceProposal.getStatusDate()));		
 	}
-
-
+	
 	public void deleteConferenceProposal(int id){
 		String query = "delete from conferenceProposal where id = ?;";
 		logger.info(query);
@@ -915,32 +922,57 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 
 
 	public void gradeHigher(ConferenceProposal conferenceProposal, String prevdeadline){
-		String query = "update conferenceProposal set grade=grade - 1 where deleted=0 and approverId=? and grade=? and date(deadline)>'"+prevdeadline +"';";
-		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()+1);
+		String query = "select id from conferenceProposal where deleted=0 and submitted = 1 and approverId=? and date(deadline)>'"+prevdeadline +"' and grade=? ;";
+		int otherCPId = getSimpleJdbcTemplate().queryForInt(query, conferenceProposal.getApproverId(),conferenceProposal.getGrade()+1);
+		query = "update conferenceProposal set grade=grade - 1 where id="+otherCPId;
+		getSimpleJdbcTemplate().update(query);
 		logger.info(query);
+		insertVersion(getConferenceProposal(otherCPId));
 		query = "update conferenceProposal set grade= grade + 1 where id=?;";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
 		logger.info(query);
+		conferenceProposal.setGrade(conferenceProposal.getGrade()+1);
+		insertVersion(conferenceProposal);
 	}
+	
 	public void gradeLower(ConferenceProposal conferenceProposal, String prevdeadline){
-		String query = "update conferenceProposal set grade=grade + 1 where deleted=0 and approverId=? and grade=? and date(deadline)>'"+prevdeadline +"';";
-		getSimpleJdbcTemplate().update(query,conferenceProposal.getApproverId(),conferenceProposal.getGrade()-1);
+		String query = "select id from conferenceProposal where deleted=0 and submitted = 1 and approverId=? and date(deadline)>'"+prevdeadline +"' and grade=? ;";
+		int otherCPId = getSimpleJdbcTemplate().queryForInt(query, conferenceProposal.getApproverId(),conferenceProposal.getGrade()-1);
+		query = "update conferenceProposal set grade=grade + 1 where id="+otherCPId;
+		getSimpleJdbcTemplate().update(query);
 		logger.info(query);
+		insertVersion(getConferenceProposal(otherCPId));
 		query = "update conferenceProposal set grade= grade - 1 where id=?;";
 		getSimpleJdbcTemplate().update(query,conferenceProposal.getId());
 		logger.info(query);
+		conferenceProposal.setGrade(conferenceProposal.getGrade()-1);
+		insertVersion(conferenceProposal);
 	}
+	
 	public synchronized int getMaxGrade(int approverId, String prevdeadline){
 		String query = "select max(grade) from conferenceProposal where deleted=0 and submitted = 1 and approverId=? and date(deadline)>'"+prevdeadline +"';";
 		logger.info(query);
 		logger.info("Approver id: " + approverId);
 		return getSimpleJdbcTemplate().queryForInt(query,approverId);
 	}
+	
 	public synchronized void rearangeGrades(int grade, int approverId, String prevdeadline){
-		String query = "update conferenceProposal set grade=grade-1 where deleted=0 and submitted = 1 and grade>? and approverId=? and date(deadline)>'"+prevdeadline +"';";
-		logger.info(query);
-		getSimpleJdbcTemplate().update(query,grade,approverId);
+		String query ="select id from conferenceProposal where deleted=0 and submitted = 1 and grade>" + grade + " and approverId=" + approverId + " and date(deadline)>'"+prevdeadline +"';";
+		final List<Integer> conferenceProposalIds = new ArrayList<Integer>();
+		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
+			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{
+				conferenceProposalIds.add(rs.getInt(1));
+				return null;
+			}
+		});
+		for(Integer i : conferenceProposalIds){
+			query = "update conferenceProposal set grade=grade-1 where id=" + i;
+			getSimpleJdbcTemplate().update(query);
+			ConferenceProposal cf = getConferenceProposal(i);
+			insertVersion(cf);
+		}
 	}
+	
 	public void updateDeadlineRemarks(int approverId, String prevdeadline, String deadlineRemarks){
 		String query = "update conferenceProposal set deadlineRemarks =? where deleted=0 and approverId=? and submitted=1 and date(deadline)>'"+prevdeadline +"' and isInsideDeadline=1;";
 		logger.info(query);
@@ -948,9 +980,20 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	}
 	
 	public void updateStatusPerGrading(String prevdeadline,int approverId, int statusId){
-		String query = "update conferenceProposal set statusId =?,statusDate=now() where approverId=? and submitted=1 and date(deadline)>'"+prevdeadline +"' and isInsideDeadline=1;";
-		logger.info(query);
-		getSimpleJdbcTemplate().update(query,statusId,approverId);
+		String query ="select id from conferenceProposal where approverId=" + approverId +" and submitted=1 and date(deadline)>'"+prevdeadline +"' and isInsideDeadline=1;";
+		final List<Integer> conferenceProposalIds = new ArrayList<Integer>();
+		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
+			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{
+				conferenceProposalIds.add(rs.getInt(1));
+				return null;
+			}
+		});
+		for(Integer i : conferenceProposalIds){
+			query = "update conferenceProposal set statusId =?,statusDate=now() where id=" + i;
+			getSimpleJdbcTemplate().update(query,statusId);
+			ConferenceProposal cf = getConferenceProposal(i);
+			insertVersion(cf);
+		}
 	}
 	
 	public Map<Integer, String> getStatusMap(){

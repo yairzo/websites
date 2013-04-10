@@ -39,12 +39,12 @@ $(document).ready(function() {
 	
 	$("#searchPhrase").autocomplete({ position: { my : "right top", at: "right bottom" }});
 	
-	//alert($('input[name=searchBySubmitted]').val());
-	if($('#searchByStatus').val()==1 || ${approver})
-		$('#searchByDeadlineSpan').show();
-	else
+	if($('#searchByStatus').val()==0){
 		$('#searchByDeadlineSpan').hide();
-	
+	}
+	else{
+ 		$('#searchByDeadlineSpan').show();
+	}
 
 	$('.saveCheckbox').click(function(){
 		var insideDeadlineCheckbox=$(this);
@@ -142,12 +142,12 @@ $(document).ready(function() {
     });
     
     $('#searchByStatus').change(function(){
-    	if($('#searchByStatus').val()==1){
-			$('input[name=searchByDeadline]').val(1);
-    		$('#searchByDeadlineSpan').show();
+    	if($('#searchByStatus').val()==0){
+    		$('#searchByDeadlineSpan').hide();
     	}
    		else{
-     		$('#searchByDeadlineSpan').hide();
+			$('input[name=searchByDeadline]').val(1);
+     		$('#searchByDeadlineSpan').show();
     	}
     	//each new search should start at page 1
 		$("input#listViewPage").remove();

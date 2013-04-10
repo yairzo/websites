@@ -146,10 +146,12 @@ public class ConferenceProposalListController extends GeneralFormController {
 			if( searchByApprover > 0){
 				whereClause += " and approverId=" + request.getIntParameter("searchByApprover", 0);
 			}
-			int searchByStatus = request.getIntParameter("searchByStatus", -1);
+			int searchByStatus = request.getIntParameter("searchByStatus", -2);
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN")){
 				if(searchByStatus>=0)
 					whereClause += " and statusId =" + searchByStatus;
+				if(searchByStatus==-2)
+					whereClause += " and submitted = 1";
 			}
 			if ((userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER") || userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_COMMITTEE")) && request.getSession().getAttribute("self").equals("0") ){
 				whereClause += " and submitted = 1";
@@ -200,8 +202,8 @@ public class ConferenceProposalListController extends GeneralFormController {
 				else{
 					request.getSession().setAttribute("self", "0");
 					searchCreteria.setSelf(0);
-					whereClause = " statusId=1 and isInsideDeadline = 1 and date(deadline)>'"+previousDeadline +"'";
-					searchCreteria.setSearchByStatus(ConferenceProposalSearchCreteria.SUBMITTED);
+					whereClause = " submitted=1 and isInsideDeadline = 1 and date(deadline)>'"+previousDeadline +"'";
+					searchCreteria.setSearchByStatus(-2);
 				}
 				searchCreteria.setWhereClause(whereClause);
 				int roleFilterId = request.getIntParameter("rf", 0);

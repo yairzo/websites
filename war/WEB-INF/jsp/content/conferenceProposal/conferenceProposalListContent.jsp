@@ -58,22 +58,23 @@
  				   <br/>
  				    	
  				   <select name="searchByStatus" id="searchByStatus" class="green">
- 				   	<option value="-1" <c:if test="${searchByStatus==-1}">selected</c:if>>הכל</option>
+				   	<option value="-2" <c:if test="${searchByStatus==-2}">selected</c:if>>כל המוגשות</option>
  				   	<option value="0" <c:if test="${searchByStatus==0}">selected</c:if>>טיוטות</option>
- 				   	<option value="1" <c:if test="${searchByStatus==1}">selected</c:if>>מוגשות</option>
+ 				   	<option value="1" <c:if test="${searchByStatus==1}">selected</c:if>>מוגשות לפני שליחה לדיקן</option>
  				   	<option value="2" <c:if test="${searchByStatus==2}">selected</c:if>>נשלחו לדיקן</option>
  				  	<option value="3" <c:if test="${searchByStatus==3}">selected</c:if>>דורגו</option>
 				  	<option value="4" <c:if test="${searchByStatus==4}">selected</c:if>>מוכנות לדיון</option>
  				   	<option value="5" <c:if test="${searchByStatus==5}">selected</c:if>>נדונו</option>
  				   	<option value="6" <c:if test="${searchByStatus==6}">selected</c:if>>הטיפול הסתיים</option>
  				   	<option value="7" <c:if test="${searchByStatus==7}">selected</c:if>>מבוטלות</option>
+ 				   	<option value="-1" <c:if test="${searchByStatus==-1}">selected</c:if>>כל הבקשות</option>
  				   </select>			  
    				   </authz:authorize>
   				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
   				   	 <input type="hidden" name="searchBySubmitted" value="1"/>
   				   </authz:authorize>
   				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
-  				   <span id="searchByDeadlineSpan" style="display: none;">
+  				   <span id="searchByDeadlineSpan">
   				   <br/>  				   
  				   		 לפי דיון:  				   
  				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -81,7 +82,7 @@
   				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="2" <c:if test="${searchByDeadline==2}">checked="checked"</c:if>/> מוגשות לדיון הבא  
  				   <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 				  
-   				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="0" <c:if test="${searchByDeadline==0}">checked="checked"</c:if>/> כל הבקשות
+   				   <input class="searchByDeadline" type="radio" name="searchByDeadline" class="green" value="0" <c:if test="${searchByDeadline==0}">checked="checked"</c:if>/> כל הדיונים
 				  	</span>
 				   </authz:authorize>
   				   <authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE">
