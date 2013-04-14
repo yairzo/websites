@@ -21,4 +21,6 @@
 			<br/>
 		</c:forEach> -->
 		<a href="search.html"><fmt:message key="${lang.localeId}.website.search"/></a>
+ 		<br>
+		<a href="callForProposalCalendar.html"><fmt:message key="${lang.localeId}.website.calendar"/></a>
 	</p>

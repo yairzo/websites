@@ -1,3 +1,4 @@
+<%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 
 			<table border="0" width="100%" dir="${lang.dir}">
@@ -45,7 +46,7 @@
 						 <fmt:message key="${lang.localeId}.callForProposal.fund"/>${selectedFund}
 						</td>
 					</tr>
-					<c:if test="${!command.showDescriptionOnly}">
+					<c:if test="${authorized && !command.showDescriptionOnly}">
  					<tr>
 						<td colspan="3" style="border:1px #bca2a2 dotted">
       					<fmt:message key="${lang.localeId}.callForProposal.submissionDetails"/><br>${command.submissionDetails}
@@ -55,9 +56,16 @@
 					<tr>
 						<td colspan="3" style="border:1px #bca2a2 dotted">
       					<fmt:message key="${lang.localeId}.callForProposal.description"/><br>${command.description}
- 						</td>
-					</tr>				
-					<c:if test="${!command.showDescriptionOnly}">
+						</td>
+ 					</tr>
+					<c:if test="${!authorized}">
+					<tr>
+						<td colspan="3">
+						<fmt:message key="${lang.localeId}.callForProposal.fullDetailsLogin"/> <a href="login.html?ilr=searchCallForProposals.html?callForProposalId=${command.id}"> <fmt:message key="${lang.localeId}.callForProposal.loginLink"/></a>
+						</td>
+					</tr>
+					</c:if>			
+					<c:if test="${authorized && !command.showDescriptionOnly}">
  					<tr>
 						<td colspan="3" style="border:1px #bca2a2 dotted">
       					<fmt:message key="${lang.localeId}.callForProposal.contactPersons"/><br>${command.contactPersonDetails}

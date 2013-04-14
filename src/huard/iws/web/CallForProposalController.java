@@ -89,6 +89,11 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		stripped =callForProposalBean.getPossibleCollaboration().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedPossibleCollaboration", stripped);
 
+		boolean authorized= true;	
+		if(!userPersonBean.isAuthorized("ROLE_WEBSITE_READ") && !userPersonBean.isAuthorized("ROLE_WEBSITE_ADMIN")  && !userPersonBean.isAuthorized("ROLE_WEBSITE_HUJI"))
+			authorized= false;	
+		model.put("authorized", authorized);	
+
 		model.put("id",callForProposalBean.getId());
 		return new ModelAndView ( this.getFormView(), model);
 	}

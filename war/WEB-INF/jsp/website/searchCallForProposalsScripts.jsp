@@ -25,7 +25,7 @@ function resetAutocomplete(funds){
 
 
 $(document).ready(function() {
-
+	
 	var dlg =$("#genericDialog").dialog({
 	    autoOpen: false,
 	    show: 'fade',
@@ -34,6 +34,22 @@ $(document).ready(function() {
 	    open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
 	});
 	dlg.parent().appendTo($("#form"));
+	
+	if('${callForProposalId}'!=null && '${callForProposalId}'!=""){
+		dlg.dialog('option', 'buttons', {
+        	"סגור" : function() {
+        		dlg.dialog("close");
+        	}
+		});
+		dlg.dialog({ modal: true });
+		dlg.dialog({ height: 700 });
+		dlg.dialog({ width: 750 });
+		dlg.dialog("option", "position", "center");
+		$.get('callForProposal.html?id='+'${callForProposalId}', function(data) {
+			dlg.html(data).dialog("open");
+		});
+	}
+
 	
 	$(".viewProposal").click(function(e) {
 		e.preventDefault();
@@ -47,9 +63,9 @@ $(document).ready(function() {
 		dlg.dialog({ height: 700 });
 		dlg.dialog({ width: 750 });
 		dlg.dialog("option", "position", "center");
-			$.get('callForProposal.html?id='+proposalId, function(data) {
-				dlg.html(data).dialog("open");
-			});
+		$.get('callForProposal.html?id='+proposalId, function(data) {
+			dlg.html(data).dialog("open");
+		});
 	});	
 	
 	$("#searchWords").click(function(){

@@ -79,7 +79,8 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		model.put("temporaryFund",command.getSearchCreteria().getSearchByTemporaryFund());
 		model.put("searchDeleted",command.getSearchCreteria().getSearchDeleted());
 		model.put("searchExpired",command.getSearchCreteria().getSearchExpired());
-
+		if(request.getSession().getAttribute("callForProposalId")!=null && !request.getSession().getAttribute("callForProposalId").equals(""))
+			model.put("callForProposalId", request.getSession().getAttribute("callForProposalId"));
 		return new ModelAndView ("searchCallForProposals",model);
 	}
 
@@ -120,6 +121,11 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 				}
 			}
 			command.setSearchCreteria(searchCreteria);
+			//when returning to callForProposal after login - should open the call again
+			if(request.getParameter("callForProposalId","")!=null && !request.getParameter("callForProposalId","").equals(""))
+				request.getSession().setAttribute("callForProposalId", request.getParameter("callForProposalId",""));
+			else
+				request.getSession().setAttribute("callForProposalId", "");
 		}
 		return command;
 	}
