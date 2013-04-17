@@ -7,6 +7,9 @@ import java.util.Map;
 import java.net.*;
 import java.io.*;
 import java.util.regex.*;
+
+import org.apache.log4j.Logger;
+
 import huard.iws.util.LanguageUtils;
 
 import huard.iws.bean.PersonBean;
@@ -18,6 +21,7 @@ import huard.iws.model.Post;
 
 public class ImportCallForProposalsServiceImpl implements ImportCallForProposalsService{
 	private  static Map<String, Integer> typeMap ;
+	private static final Logger logger = Logger.getLogger(ImportCallForProposalsServiceImpl.class);
 
 	static{
 		typeMap = new HashMap<String, Integer>();
@@ -29,8 +33,11 @@ public class ImportCallForProposalsServiceImpl implements ImportCallForProposals
 
 public void importCallForProposals(){
 	
+	int matchingPostsCounter = 0;
+	int importedCallsCounter = 0;
 	List<CallForProposalOld> callForProposalsOld = callForProposalServiceOld.getCallForProposalsOldWebsite();
 	for(CallForProposalOld callForProposalOld: callForProposalsOld){
+		logger.info("Starting import call for proposal... " + callForProposalOld.getId());
 		CallForProposal callForProposal = new CallForProposal();
 		callForProposal.setTitle(callForProposalOld.getTitle());
 		String localeId=LanguageUtils.getLanguage(callForProposalOld.getTitle()).getLocaleId();
@@ -145,8 +152,11 @@ public void importCallForProposals(){
 		callForProposal.setSubmissionDates(callForProposalServiceOld.getSubmissionDates(ardNum));
 		//subjectIds
 		Post post=postService.getPostByMessageSubject(callForProposalOld.getTitle());
-		if(post.getId()>0)//found post by message class
+		if(post.getId()>0){
 			callForProposal.setSubjectsIds(post.getSubjectsIds());
+			logger.info("Found matching post, subject imported");
+			matchingPostsCounter ++;
+		}
 		//attachments and formDetails
 		String formDetails = callForProposalOld.getForms();
 		Pattern p = Pattern.compile("\\*(.*?)\\*(.*?)\\*");
@@ -184,7 +194,9 @@ public void importCallForProposals(){
 		callForProposalService.updateCallForProposal(callForProposal);
 		if(callForProposalOld.getHasTabledVersion())
 			callForProposalService.insertCallForProposalOnline(callForProposal);
+		importedCallsCounter ++;
 	}
+	logger.info("Done import. Successful calls: " + importedCallsCounter + " Matched posts: " + matchingPostsCounter);
 }
     
 public String cleanText(String text){
