@@ -1,5 +1,6 @@
 package huard.iws.exec;
 
+import huard.iws.service.ImportCallForProposalsService;
 import huard.iws.service.ImportTextualPagesService;
 
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
@@ -7,10 +8,10 @@ import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 public class ExecImportOldWebsite {
 
 
-	/*private ImportCallForProposalsService importCallForProposalsService;
+	private ImportCallForProposalsService importCallForProposalsService;
 	public ImportCallForProposalsService getImportCallForProposalsService() {
 		return importCallForProposalsService;
-	}*/
+	}
 	private ImportTextualPagesService importTextualPagesService;
 	public ImportTextualPagesService getImportTextualPagesService() {
 		return importTextualPagesService;
@@ -19,14 +20,15 @@ public class ExecImportOldWebsite {
 	public ExecImportOldWebsite(){
 		try{
 			RmiProxyFactoryBean factory = new RmiProxyFactoryBean();
-			/*factory.setServiceInterface(ImportCallForProposalsService.class);
+			factory.setServiceInterface(ImportCallForProposalsService.class);
 			factory.setServiceUrl("rmi://localhost:1199/ImportCallForProposalsService");
 			factory.afterPropertiesSet();
-			importCallForProposalsService = (ImportCallForProposalsService)factory.getObject();*/
-			factory.setServiceInterface(ImportTextualPagesService.class);
-			factory.setServiceUrl("rmi://localhost:1199/ImportTextualPagesService");
-			factory.afterPropertiesSet();
-			importTextualPagesService = (ImportTextualPagesService)factory.getObject();
+			importCallForProposalsService = (ImportCallForProposalsService)factory.getObject();
+			RmiProxyFactoryBean factory1 = new RmiProxyFactoryBean();
+			factory1.setServiceInterface(ImportTextualPagesService.class);
+			factory1.setServiceUrl("rmi://localhost:1199/ImportTextualPagesService");
+			factory1.afterPropertiesSet();
+			importTextualPagesService = (ImportTextualPagesService)factory1.getObject();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -43,17 +45,17 @@ public class ExecImportOldWebsite {
 		}
 		
 		ExecImportOldWebsite execimport = new ExecImportOldWebsite();
-		/*if (execimport.getImportCallForProposalsService() == null){
+		if (execimport.getImportCallForProposalsService() == null){
 			System.out.println("Probably rmi lookup failed. exiting !");
 			return;
-		}*/
+		}
 		long startTime = System.currentTimeMillis();
 		System.out.println("Starting...." );
 
 		
 
-//		if (args[0].equals("CallForProposals"))
-//			execimport.getImportCallForProposalsService().importCallForProposals();*/
+		if (args[0].equals("CallForProposals"))
+			execimport.getImportCallForProposalsService().importCallForProposals();
 		if(args[0].equals("TextualPages"))
 			execimport.getImportTextualPagesService().importTextualPages();
  		
