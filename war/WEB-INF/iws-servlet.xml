@@ -246,6 +246,9 @@
      	<property name="textualPageService">
             <ref bean="textualPageService"/>
         </property>
+    	<property name="sphinxSearchService">
+            <ref bean="sphinxSearchService"/>
+        </property>
       </bean>
  
 	<bean id="editCategoryController" class="huard.iws.web.EditCategoryController" parent="generalFormController">

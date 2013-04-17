@@ -86,7 +86,9 @@
    					<td class="container" style="width: 68%; vertical-align: top;text-align: center;">
      					<table style="width: 100%;">
                	 		<tr>
-                 		 <td colspan="2" align="center"><h1>רשימת דפי קולות קוראים</h1>	</td>
+                 		 <td colspan="2" align="center"><h1>רשימת דפי קולות קוראים
+                 		 ${linkToPersonPost }
+                 		 </h1>	</td>
                 		</tr>
      					<c:choose>
     					<c:when test="${fn:length(callForProposals) > 0}">

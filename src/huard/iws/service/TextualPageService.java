@@ -5,6 +5,8 @@ import java.util.List;
 import huard.iws.model.TextualPage;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPageOld;
+import huard.iws.util.ListView;
+import huard.iws.util.TextualPageSearchCreteria;
 
 public interface TextualPageService {
 
@@ -26,8 +28,10 @@ public interface TextualPageService {
 
 	public void removeTextualPageOnline(int id);
 	
-	public List<TextualPage> getTextualPages(int creatorId);
+	public List<TextualPage> getTextualPages(ListView lv,TextualPageSearchCreteria searchCreteria);
 
+	public void prepareListView(ListView lv,TextualPageSearchCreteria searchCreteria);
+	
 	public List<TextualPage> getOnlineTextualPages();
 
 	public List<TextualPage> getOnlineTextualPagesSearch(String ids);

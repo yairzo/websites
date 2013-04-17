@@ -113,7 +113,12 @@ public class CallForProposalListController extends GeneralFormController {
 			request.getSession().setAttribute("callForProposalsSearchCreteria", null);
 			if (searchCreteria == null){// on first time
 				searchCreteria = new CallForProposalSearchCreteria();
-				if(!userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") && !userPersonBean.getSubjectsIds().isEmpty()){
+				if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT") ){
+					//show all subjects
+					searchCreteria.setSearchBySubjectIds(BaseUtils.getString(subjectService.getSubjectsIds()));
+				}
+				else if (userPersonBean.isAuthorized("ROLE_WEBSITE_READ") && !userPersonBean.getSubjectsIds().isEmpty()){
+					//show researcher subjects
 					searchCreteria.setSearchBySubjectIds(BaseUtils.getString(userPersonBean.getSubjectsIds()));
 				}
 			}

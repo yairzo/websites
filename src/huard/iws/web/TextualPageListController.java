@@ -2,16 +2,25 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
+import huard.iws.service.SphinxSearchService;
 import huard.iws.service.TextualPageService;
+import huard.iws.util.BaseUtils;
+import huard.iws.util.CallForProposalSearchCreteria;
+import huard.iws.util.TextualPageSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.SearchCreteria;
+import huard.iws.web.OrganizationUnitListController.OrganizationUnitListControllerCommand;
+import huard.iws.web.PersonListController.PersonListControllerCommand;
 import huard.iws.model.TextualPage;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -19,21 +28,21 @@ import org.springframework.web.servlet.view.RedirectView;
 
 public class TextualPageListController extends GeneralFormController {
 
+    private final int ROWS_IN_PAGE=20;
 
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
-		Map<String,Object> newModel = new HashMap<String, Object>();
-		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
+		TextualPageListControllerCommand aCommand = (TextualPageListControllerCommand) model.get("command");
+
+		return new ModelAndView(new RedirectView(getSuccessView()),new HashMap<String, Object>());
 	}
 
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
-		int creatorId=0;
-		if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
-			creatorId =userPersonBean.getId();
-		List<TextualPage> textualPages = textualPageService.getTextualPages(creatorId);
+		TextualPageListControllerCommand command = (TextualPageListControllerCommand) model.get("command");
+		List<TextualPage> textualPages = textualPageService.getTextualPages(command.getListView(),command.getSearchCreteria());
 		List<TextualPageBean> textualPageBeans = new ArrayList<TextualPageBean>();
 		for (TextualPage textualPage: textualPages){
 			TextualPageBean textualPageBean = new TextualPageBean(textualPage);
@@ -43,23 +52,66 @@ public class TextualPageListController extends GeneralFormController {
 		}
 		model.put("textualPages", textualPageBeans);
 
+		//show searched words
+		model.put("searchWords",command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));
+		
 		return new ModelAndView ("textualPages",model);
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		TextualPageListControllerCommand command = new TextualPageListControllerCommand();
+
+		if (isFormSubmission(request.getRequest())){
+			TextualPageSearchCreteria searchCreteria = new TextualPageSearchCreteria();
+			Set<Long> sphinxTextualIds=new LinkedHashSet<Long>();
+			if(!request.getParameter("searchWords", "").isEmpty()){
+				sphinxTextualIds.add(new Long(0));//so wont show everything when deos'nt find any ids
+				sphinxTextualIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"textual_page_draft_index"));
+			}
+			searchCreteria.setSearchBySearchWords(sphinxTextualIds);
+			searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
+			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
+				searchCreteria.setSearchByCreator(userPersonBean.getId());	
+			request.getSession().setAttribute("textualPageSearchCreteria", searchCreteria);
+
+			ListView listView = new ListView();
+			if(request.getParameter("action", "").equals("search"))
+				listView.setPage(1);
+			else//pagination
+				listView.setPage(request.getIntParameter("listView.page", 1));			
+			request.getSession().setAttribute("textualPageListView", listView);
+		}
+		else{
+			ListView listView = (ListView) request.getSession().getAttribute("textualPageListView");
+			request.getSession().setAttribute("textualPageListView", null);
+			if (listView == null)
+				listView = new ListView();
+			//add how many rows
+			listView.setRowsInPage(ROWS_IN_PAGE);
+
+			TextualPageSearchCreteria searchCreteria = (TextualPageSearchCreteria) request.getSession().getAttribute("textualPageSearchCreteria");
+			request.getSession().setAttribute("textualPageSearchCreteria", null);
+			if (searchCreteria == null)// on first time
+				searchCreteria = new TextualPageSearchCreteria();
+			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
+				searchCreteria.setSearchByCreator(userPersonBean.getId());	
+			command.setSearchCreteria(searchCreteria);
+
+			textualPageService.prepareListView(listView,searchCreteria);
+			command.setListView(listView);
+		}
 		return command;
 	}
 
 	public class TextualPageListControllerCommand{
-		private SearchCreteria searchCreteria = new SearchCreteria();
+		private TextualPageSearchCreteria searchCreteria = new TextualPageSearchCreteria();
 		private ListView listView = new ListView();
 
-		public SearchCreteria getSearchCreteria() {
+		public TextualPageSearchCreteria getSearchCreteria() {
 			return searchCreteria;
 		}
-		public void setSearchCreteria(SearchCreteria searchCreteria) {
+		public void setSearchCreteria(TextualPageSearchCreteria searchCreteria) {
 			this.searchCreteria = searchCreteria;
 		}
 		public ListView getListView() {
@@ -75,6 +127,12 @@ public class TextualPageListController extends GeneralFormController {
 
 	public void setTextualPageService(TextualPageService textualPageService) {
 		this.textualPageService = textualPageService;
+	}
+	
+	private SphinxSearchService sphinxSearchService;
+
+	public void setSphinxSearchService(SphinxSearchService sphinxSearchService) {
+		this.sphinxSearchService = sphinxSearchService;
 	}
 
 }

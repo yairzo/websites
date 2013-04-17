@@ -73,6 +73,11 @@ public class SubjectServiceImpl implements SubjectService{
 		return commonSubjects;
 	}
 
+	
+	public List<Integer> getSubjectsIds(){
+		 return subjectDao.getSubjectsIds();
+	}
+
 	private SubjectDao subjectDao;
 
 	public void setSubjectDao(SubjectDao subjectDao) {

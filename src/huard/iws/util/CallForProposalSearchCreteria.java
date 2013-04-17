@@ -16,6 +16,7 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 	protected int searchByCreator;
 	protected boolean searchDeleted;
 	protected boolean searchExpired;
+	protected int limit;
 	
 	
 	public CallForProposalSearchCreteria(){
@@ -32,6 +33,7 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 		this.searchByCreator=0;
 		this.searchDeleted=false;
 		this.searchExpired=false;
+		this.limit=0;
 	}
 
 	
@@ -132,6 +134,14 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 
 	public void setSearchExpired(boolean searchExpired) {
 		this.searchExpired = searchExpired;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
 	}
 
 }

@@ -15,4 +15,6 @@ public interface SubjectService {
 
 	public Subject getSubjectFilterSubSubjects(int subjectId, String localeId, List<Integer> relevantSubjectsIds);
 
+	public List<Integer> getSubjectsIds();
+
 }

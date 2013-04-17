@@ -49,4 +49,16 @@ public class JdbcSubjectDao extends SimpleJdbcDaoSupport implements SubjectDao {
 			getSimpleJdbcTemplate().query(query, rowMapper, parentSubjectId);
 		return subjects;
     }
+	
+	public List<Integer> getSubjectsIds(){
+		String query = "select id from subject;";
+		return getSimpleJdbcTemplate().query(query, subjectIdRowMapper);
+	}
+	private ParameterizedRowMapper<Integer> subjectIdRowMapper = new ParameterizedRowMapper<Integer>(){
+		public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
+            Integer subjectId = rs.getInt("id");
+            return subjectId;
+		}
+	};
+
 }

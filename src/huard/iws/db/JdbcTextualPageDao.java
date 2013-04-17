@@ -1,9 +1,12 @@
 package huard.iws.db;
 
+import huard.iws.bean.PersonBean;
 import huard.iws.model.Attachment;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.TextualPageOld;
+import huard.iws.util.TextualPageSearchCreteria;
+import huard.iws.util.ListView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -240,14 +243,30 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		getSimpleJdbcTemplate().update(query,id);
 	}
 	
-	public List<TextualPage> getTextualPages(int creatorId){
+	public List<TextualPage> getTextualPages(ListView lv,TextualPageSearchCreteria searchCreteria){
 		String query = "select * from textualPageDraft";
-		if(creatorId>0)
-			query +=" where creatorId="+creatorId;
-		query+=" order by id";
+		query += getWhereClause(searchCreteria);
+		query += " limit "+ (lv.getPage()-1) * lv.getRowsInPage() + "," + lv.getRowsInPage();
 		System.out.println(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
+	}
+	public int countTextualPages(ListView lv,TextualPageSearchCreteria searchCreteria) {
+		String query = "select count(*) from conferenceProposal";
+		query += getWhereClause(searchCreteria);
+		logger.info(query);
+		return getSimpleJdbcTemplate().queryForInt(query);
+	}
+	public String getWhereClause(TextualPageSearchCreteria searchCreteria){
+		String whereClause="";
+		whereClause += " where true";
+		if(searchCreteria.getSearchByCreator()>0)
+			whereClause +=" and creatorId="+searchCreteria.getSearchByCreator();
+		if(!searchCreteria.getSearchBySearchWords().isEmpty())
+			whereClause +=" and id in ("+searchCreteria.getSearchBySearchWords() + ")";
+		whereClause += "  order by id";
+		logger.info(whereClause);
+		return whereClause;
 	}
 
 	public List<TextualPage> getOnlineTextualPages(){

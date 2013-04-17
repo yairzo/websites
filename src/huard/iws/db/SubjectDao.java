@@ -15,4 +15,6 @@ public interface SubjectDao {
 
 	public List<Subject> getSubjects(int parentId, Language language);
 
+	public List<Integer> getSubjectsIds();
+
 }

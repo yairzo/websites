@@ -30,6 +30,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 public class SearchCallForProposalsController extends GeneralWebsiteFormController {
 
+	private final int LIMIT_ROWS=20;
 
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
@@ -79,6 +80,10 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		model.put("temporaryFund",command.getSearchCreteria().getSearchByTemporaryFund());
 		model.put("searchDeleted",command.getSearchCreteria().getSearchDeleted());
 		model.put("searchExpired",command.getSearchCreteria().getSearchExpired());
+		if(!userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") && !userPersonBean.getSubjectsIds().isEmpty()){
+			String linkToPersonPost = "<a href=\"personPost.html?id="+userPersonBean.getId() +"\">"+messageService.getMessage("iw_IL.website.searchBySubjects")+"</a>";
+			model.put("linkToPersonPost",linkToPersonPost);
+		}
 		if(request.getSession().getAttribute("callForProposalId")!=null && !request.getSession().getAttribute("callForProposalId").equals(""))
 			model.put("callForProposalId", request.getSession().getAttribute("callForProposalId"));
 		return new ModelAndView ("searchCallForProposals",model);
@@ -116,9 +121,9 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			request.getSession().setAttribute("callForProposalsSearchCreteria", null);
 			if (searchCreteria == null){// on first time
 				searchCreteria = new CallForProposalSearchCreteria();
-				if(!userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") && !userPersonBean.getSubjectsIds().isEmpty()){
+				if(!userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") && !userPersonBean.getSubjectsIds().isEmpty())
 					searchCreteria.setSearchBySubjectIds(BaseUtils.getString(userPersonBean.getSubjectsIds()));
-				}
+				searchCreteria.setLimit(LIMIT_ROWS);
 			}
 			command.setSearchCreteria(searchCreteria);
 			//when returning to callForProposal after login - should open the call again

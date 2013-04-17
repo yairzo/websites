@@ -494,7 +494,10 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		if(!searchCriteria.getSearchExpired())//not include expired
 			whereClause +=" and (" + mainTable +".finalSubmissionTime < now() or " + mainTable +".finalSubmissionTime = 0)";
 			
-		whereClause += "  order by " + mainTable +".id";
+		whereClause += "  order by " + mainTable +".id desc";
+		
+		if(searchCriteria.getLimit()>0)
+			whereClause += "  limit " + searchCriteria.getLimit();
 		
 		logger.info(whereClause);
 		return whereClause;

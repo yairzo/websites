@@ -1,10 +1,16 @@
 package huard.iws.service;
 
+import huard.iws.bean.PersonBean;
 import huard.iws.db.TextualPageDao;
+import huard.iws.model.Person;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.TextualPageOld;
+import huard.iws.util.TextualPageSearchCreteria;
+import huard.iws.util.ListView;
+import huard.iws.util.SearchCreteria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TextualPageServiceImpl implements TextualPageService{
@@ -45,8 +51,15 @@ public class TextualPageServiceImpl implements TextualPageService{
 		textualPageDao.removeTextualPageOnline(id);
 	}
 	
-	public List<TextualPage> getTextualPages(int creatorId){
-		return textualPageDao.getTextualPages(creatorId);
+
+	public List<TextualPage> getTextualPages(ListView lv,TextualPageSearchCreteria searchCreteria){
+		return textualPageDao.getTextualPages(lv,searchCreteria);
+	}
+	
+	public void prepareListView(ListView lv, TextualPageSearchCreteria searchCreteria){
+		lv.setCountRows(textualPageDao.countTextualPages(lv,searchCreteria));
+		lv.setLastPage(lv.getNumOfPages());
+		lv.setNearPages(lv.getScroll());
 	}
 
 	public List<TextualPage> getOnlineTextualPagesSearch(String ids){

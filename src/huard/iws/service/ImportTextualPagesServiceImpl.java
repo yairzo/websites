@@ -49,7 +49,7 @@ public void importTextualPages(){
 	List<TextualPageOld> textualPagesOld = textualPageService.getTextualPagesOldWebsite(server);
 	for(TextualPageOld textualPageOld: textualPagesOld){
 		TextualPage textualPage = new TextualPage();
-		textualPage.setTitle(textualPageOld.getTitle().replace("'",""));
+		textualPage.setTitle(changeQuotes(textualPageOld.getTitle()));
 		String localeId=LanguageUtils.getLanguage(textualPageOld.getTitle()).getLocaleId();
 		//textualPage.setLocaleId(localeId);
 		MopDesk mopDesk =mopDeskService.getMopDesk(textualPageOld.getDeskId());
@@ -166,6 +166,12 @@ public void importTextualPages(){
 	}
 }
     
+public String changeQuotes(String text){
+	text=text.replaceAll("'", "");
+	text=text.replaceAll("&quot;", "\"");
+	return text;
+}
+
 
 private TextualPageService textualPageService;
 public void setTextualPageService(TextualPageService textualPageService) {
