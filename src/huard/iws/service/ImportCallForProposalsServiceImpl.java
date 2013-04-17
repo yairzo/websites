@@ -58,8 +58,10 @@ public void importCallForProposals(){
 		}
 		callForProposal.setCreatorId(creatorId);
 		int newid=callForProposalService.insertCallForProposal(callForProposal);
-		if(newid==0)
+		if(newid==0){
+			logger.info("Failed to insert due to duplicate title: " + callForProposalOld.getTitle());
 			continue;
+		}
 		callForProposal.setId(newid);
 		int ardNum=callForProposalOld.getId();
 		callForProposalService.insertArdNum(ardNum,newid);

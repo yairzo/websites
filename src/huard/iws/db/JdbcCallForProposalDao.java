@@ -138,7 +138,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", additionalInformation = ''"+
 				", localeId=?"+
 				", updateTime=now();";
-		logger.info(query);
+		//logger.info(query);
 		final int creatorId= callForProposal.getCreatorId();
 		final String localeId= callForProposal.getLocaleId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -191,7 +191,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", localeId = ?" + 
 				", updateTime = ?"+ 
 				", isDeleted = ?";
-		logger.info(query);
+		//logger.info(query);
 		String finalSubmissionTime="";
 		if(callForProposal.getFinalSubmissionTime()==0)
 			finalSubmissionTime="0000-00-00 00:00:00";
@@ -266,8 +266,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", updateTime = ?" +
 				", isDeleted = ?" +
 			" where id = ?;";
-		System.out.println(query);
-		logger.info(query);
+		//logger.info(query);
 		String publicationTime="";
 		if(callForProposal.getPublicationTime()==0)//
 			publicationTime="0000-00-00 00:00:00";

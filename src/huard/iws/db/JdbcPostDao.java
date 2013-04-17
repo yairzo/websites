@@ -381,7 +381,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		Post post= new Post();
 		try{
 			String query = "select * from post where messageSubject like '" + messageSubject+ "%' order by id desc limit 1";
-			logger.info(query);
+			//logger.info(query);
 			post = getSimpleJdbcTemplate().queryForObject(query, rowMapper);
 			applySubjectIds(post);
 			return post;

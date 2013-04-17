@@ -88,7 +88,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 			textualPage.setTitle("###" + new java.util.Date().getTime() + "###");
 
 		final String query = "insert ignore textualPageDraft set title='" + textualPage.getTitle() + "', creatorId = ?, html='', description='', updateTime=now();";
-		logger.info(query);
+		//logger.info(query);
 		final int creatorId= textualPage.getCreatorId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -126,7 +126,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()";
-		logger.info(query);
+		//logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getId(),
 				textualPage.getTitle(),
@@ -168,7 +168,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()" +
 			" where id = ?;";
-		logger.info(query);
+		//logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getTitle(),
 				textualPage.getCreatorId(),

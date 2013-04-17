@@ -157,7 +157,6 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "SELECT * FROM InfoPages,TabledInfoPages WHERE InfoPages.ardNum = TabledInfoPages.ardNum AND InfoPages.isDeleted=0;";
-			System.out.println(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			return moveResultSetToTabledInfoPages(resultSet);
 		}
@@ -211,7 +210,6 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "SELECT date FROM InfoPagesLastUpdates WHERE ardNum="+ardNum;
-			System.out.println(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			resultSet.next();
 			lastUpdate = resultSet.getLong("date");
@@ -229,7 +227,6 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "SELECT * FROM AdditionalSubDates WHERE ardNum="+ardNum+" ORDER BY subDate;";
-			System.out.println(query);
 			ResultSet resultSet = statement.executeQuery(query);
      		while(resultSet.next()){
      			Long additionalSubDate = new Long(resultSet.getLong("subDate"));
@@ -248,7 +245,6 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "SELECT budgetOfficer FROM Funds WHERE fundNum="+FundId;
-			System.out.println(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			resultSet.next();
 			budgetOfficerName = resultSet.getString("budgetOfficer");
