@@ -27,7 +27,6 @@ public class ArdConnectionSupplier {
 		Class.forName("org.gjt.mm.mysql.Driver");
 	}
 
-
 	public static synchronized ArdConnectionSupplier getConnectionSupplier(){
 		if (connectionSupplier==null)
 			connectionSupplier = new ArdConnectionSupplier();

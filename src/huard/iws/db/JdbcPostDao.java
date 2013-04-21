@@ -82,8 +82,9 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public void updatePost(Post post){
 		String query = "update post set creatorId = ?, senderId = ?, additionalAddresses = ?," +
-				"messageSubject = ?, message = ?, isVerified = ?, isSent = ?, isSendImmediately = ?,  sendTime = ? " +
+				"messageSubject = ?, message = ?, isVerified = ?, isSent = ?, isSendImmediately = ?,  sendTime = now() " +
 				", isSelfSend = ?, isSelfSent = ?, localeId = ?, typeId = ? where id = ?";
+		
 		getSimpleJdbcTemplate().update(query,
 				post.getCreatorId(),
 				post.getSenderId(),
@@ -93,7 +94,6 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 				post.isVerified(),
 				post.isSent(),
 				post.isSendImmediately(),
-				post.getSendTime(),
 				post.isSelfSend(),
 				post.isSelfSent(),
 				post.getLocaleId(),
@@ -113,9 +113,9 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	}
 
 	public int insertPost(int creatorId){
-		final String query = "insert post set creatorId = ?, senderId = ?, creationTime = ?,localeId='iw_IL';";
+		final String query = "insert post set creatorId = ?, senderId = ?, creationTime = now(),localeId='iw_IL'," +
+				" message='', additionalAddresses=''";
 		final int aCreatorId = creatorId;
-		final Timestamp creationDate = new Timestamp(new java.util.Date().getTime());
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -124,7 +124,6 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 							connection.prepareStatement(query, new String[] {"id"});
 						ps.setInt(1, aCreatorId);
 						ps.setInt(2, aCreatorId);
-						ps.setTimestamp(3, creationDate);
 						return ps;
 					}
 				},

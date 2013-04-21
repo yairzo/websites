@@ -5,7 +5,6 @@ import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.FinancialSupport;
-import huard.iws.model.ConferenceProposalStatus;
 import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.SQLUtils;
@@ -15,10 +14,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -538,7 +537,11 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			internalId=internalYear+1;
 		//System.out.println(internalId);
 
-		final String queryS1 = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?,auditorium=1, creatorId=?,statusDate=now();";
+		final String queryS1 = "insert conferenceProposal set personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01'," +
+				"deadline=?, internalId=?,auditorium=1, creatorId=?,statusDate=now()," +
+				"approverEvaluation='', description='', locationDetails = '', guestsAttach= ''," +
+				"programAttach = '', financeAttach = '', remarks = '', deadlineRemarks = ''," + 
+				"adminRemarks = '', committeeRemarks = '', companyAttach = ''";
 		logger.info(queryS1);
 		final int personId = conferenceProposal.getPersonId();
 		final long deadline = conferenceProposal.getDeadline();
@@ -558,7 +561,11 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				},
 				keyHolder);
 		final int key=keyHolder.getKey().intValue();
-		final String queryS2 = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?,approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01',deadline=?, internalId=?, creatorId=?,statusDate=now();";
+		final String queryS2 = "insert conferenceProposalVersion set conferenceProposalId = ?,personId = ?," +
+				"approverId=0,openDate=now(),fromDate=now(),toDate=now(),submissionDate='1970-01-01 02:00:01'" +
+				",deadline=?, internalId=?, creatorId=?,statusDate=now(), approverEvaluation=''," +
+				" description='', locationDetails = '', guestsAttach= '', programAttach = '', financeAttach = ''," +
+				" remarks = '', deadlineRemarks = '', adminRemarks = '', committeeRemarks = '', companyAttach = ''";
 		logger.info(queryS2);
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
