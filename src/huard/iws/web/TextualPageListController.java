@@ -4,14 +4,9 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
 import huard.iws.service.SphinxSearchService;
 import huard.iws.service.TextualPageService;
-import huard.iws.util.BaseUtils;
-import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.TextualPageSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
-import huard.iws.util.SearchCreteria;
-import huard.iws.web.OrganizationUnitListController.OrganizationUnitListControllerCommand;
-import huard.iws.web.PersonListController.PersonListControllerCommand;
 import huard.iws.model.TextualPage;
 
 import java.util.HashMap;
@@ -33,7 +28,6 @@ public class TextualPageListController extends GeneralFormController {
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
-		TextualPageListControllerCommand aCommand = (TextualPageListControllerCommand) model.get("command");
 
 		return new ModelAndView(new RedirectView(getSuccessView()),new HashMap<String, Object>());
 	}

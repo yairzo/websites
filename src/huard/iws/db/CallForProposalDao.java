@@ -7,6 +7,7 @@ import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.DayInCalendar;
 import huard.iws.util.CallForProposalSearchCreteria;
+import huard.iws.util.ListView;
 
 public interface CallForProposalDao {
 
@@ -28,9 +29,11 @@ public interface CallForProposalDao {
 
 	public void removeCallForProposalOnline(int id);
 	
-	public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria);
+	public List<CallForProposal> getCallForProposals(ListView lv,CallForProposalSearchCreteria searchCreteria);
 
-	public List<CallForProposal> getCallForProposalsOnline( CallForProposalSearchCreteria searchCriteria);
+	public int countCallForProposals(CallForProposalSearchCreteria searchCreteria);
+
+	public List<CallForProposal> getCallForProposalsOnline( CallForProposalSearchCreteria searchCreteria);
 
 	public List<CallForProposal> getCallForProposalsOnline( String ids);
 

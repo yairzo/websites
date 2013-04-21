@@ -8,6 +8,9 @@ import huard.iws.model.DayInCalendar;
 import huard.iws.model.Post;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.LanguageUtils;
+import huard.iws.util.ListView;
+import huard.iws.util.TextualPageSearchCreteria;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -50,26 +53,32 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 		callForProposalDao.removeCallForProposalOnline(id);
 	}
 	
-	public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria){
-		return callForProposalDao.getCallForProposals(searchCriteria);
+	public List<CallForProposal> getCallForProposals(ListView lv,CallForProposalSearchCreteria searchCreteria){
+		return callForProposalDao.getCallForProposals(lv,searchCreteria);
 	}
 
-	public List<CallForProposal> getCallForProposalsOnline(CallForProposalSearchCreteria searchCriteria){
-		return callForProposalDao.getCallForProposalsOnline(searchCriteria);
+	public void prepareListView(ListView lv, CallForProposalSearchCreteria searchCreteria){
+		lv.setCountRows(callForProposalDao.countCallForProposals(searchCreteria));
+		lv.setLastPage(lv.getNumOfPages());
+		lv.setNearPages(lv.getScroll());
+	}
+
+	public List<CallForProposal> getCallForProposalsOnline(CallForProposalSearchCreteria searchCreteria){
+		return callForProposalDao.getCallForProposalsOnline(searchCreteria);
 	}
 	
 	public List<CallForProposal> getCallForProposalsOnline(String ids){
 		return callForProposalDao.getCallForProposalsOnline(ids);
 	}
 
-	public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria,String localeId){
+	/*public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria,String localeId){
 		List<CallForProposal> localeCallForProposals = new ArrayList<CallForProposal>();
 		for (CallForProposal callForProposal: callForProposalDao.getCallForProposals(searchCriteria)){
 			if (LanguageUtils.getLanguage(callForProposal.getTitle()).getLocaleId().equals(localeId))
 				localeCallForProposals.add(callForProposal);
 		}
 		return localeCallForProposals;
-	}
+	}*/
 
 	public void insertArdNum(int ardNum,int id){
 		callForProposalDao.insertArdNum(ardNum,id);

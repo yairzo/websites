@@ -38,14 +38,14 @@
 						</tr>
  						<tr class="form">
 						<td>
-   			   			תאריך הגשה בין - <input type="text" name="submissionDateFrom" class="green date medium100" value="${submissionDateFrom}"/>
-  			   			ל - <input type="text" name="submissionDateTo" class="green date medium100" value="${submissionDateTo}"/> 
+   			   			תאריך הגשה בין - <input type="text" name="submissionDateFrom" id="submissionDateFrom" class="green date cancelExpiredCheckbox medium100" value="${submissionDateFrom}"/>
+  			   			ל - <input type="text" name="submissionDateTo" id="submissionDateTo" class="green date cancelExpiredCheckbox medium100" value="${submissionDateTo}"/> 
        					</td>
        					</tr>
 						<tr class="form">
 						<td>
 						<fmt:message key="${lang.localeId}.callForProposal.desk"/>
-         				<select name="deskId"  class="green" >
+         				<select name="deskId" id="deskId" class="green" >
       						<option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></option>
        						<c:forEach items="${mopDesks}" var="mopDesk">
  	        					<option htmlEscape="true" value="${mopDesk.id}" <c:if test="${mopDesk.id==deskId}">selected</c:if> >
@@ -58,7 +58,7 @@
  						<tr class="form">
 						<td>
 						<fmt:message key="${lang.localeId}.callForProposal.type"/>
-         				<select name="typeId"  class="green" >
+         				<select name="typeId" id="typeId" class="green" >
       						<option value="0" <c:if test="${typeId==0}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.select"/></option>
       						<option value="1" <c:if test="${typeId==1}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.researchGrant"/></option>
       						<option value="2" <c:if test="${typeId==2}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></option>
@@ -73,7 +73,7 @@
   			   			<input type="checkbox" name="searchByTemporary" id="searchByTemporary" class="green" <c:if test="${temporaryFund}">checked="checked"</c:if>/> קולות קוראים עם מממן זמני
        					</td>
        					</tr>
-						<tr class="form">
+						<tr class="form subjectsRow" style="display:none">
 						<td align="center">
 						<c:set var="callForProposalSearch" value="true"/>
 						<%@ include file="/WEB-INF/jsp/content/editPost/subjects.jsp" %>					
@@ -82,12 +82,13 @@
                    		<tr>
 						<td align="right">
   			   				<input type="checkbox" name="searchDeleted" id="searchDeleted" class="green" <c:if test="${searchDeleted}">checked="checked"</c:if>/> כולל מבוטלים
-  			   				&nbsp;<input type="checkbox" name="searchExpired" id="searchExpired" class="green" <c:if test="${searchExpired}">checked="checked"</c:if>/> כולל פגי תוקף
+  			   				<span id="searchExpiredSpan">&nbsp;<input type="checkbox" name="searchExpired" id="searchExpired" class="green" <c:if test="${searchExpired}">checked="checked"</c:if>/> כולל פגי תוקף</span>
        					</td>
        					</tr>
                   		<tr>
 						<td align="left">
- 						<button class="grey search">חפש</button>
+ 							<button class="grey search">חפש</button>&nbsp;
+ 							<button  class="grey cleanSearch" title="נקה חיפוש" >נקה חיפוש</button>		
        					</td>
        					</tr>
        					</table>
@@ -123,7 +124,12 @@
                	 		<tr>
                  		 <td colspan="2"><button class="grey" onclick="window.location='editCallForProposal.html?action=new';return false;">קול קורא חדש</button></td>
                 		</tr>
-                  		</table>
+						<tr>
+                		<td colspan="2" align="center"><br>
+							<%@ include file="/WEB-INF/jsp/include/searchPagination.jsp" %>
+               			 </td>
+                		</tr>
+                   		</table>
                 	</td>
               </tr>
 	          </table>

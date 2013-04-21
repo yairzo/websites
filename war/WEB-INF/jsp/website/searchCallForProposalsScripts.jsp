@@ -26,6 +26,11 @@ function resetAutocomplete(funds){
 
 $(document).ready(function() {
 	
+	if($("#submissionDateFrom").val()=="" && $("#submissionDateTo").val()=="")
+		$("#searchExpiredSpan").show();
+	else
+		$("#searchExpiredSpan").hide();
+	
 	var dlg =$("#genericDialog").dialog({
 	    autoOpen: false,
 	    show: 'fade',
@@ -230,7 +235,23 @@ $(document).ready(function() {
 		
 		$('form#form').submit();
 	});
+
 	
+    $(".cleanSearch").click(function(){
+    	$("#searchWords").val('');
+    	$("#submissionDateFrom").val('');
+    	$("#submissionDateTo").val('');
+    	$("#deskId").val('0');
+       	$("#typeId").val('0');
+    	$("#diselectAll").click();
+       	$("#searchExpired").prop('checked', false);
+   		$("#listViewPage").remove();
+		$("#orderBy").remove();
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+		$("#form").submit();
+    	return true;
+    });	
+ 
     $(".subSubjects").dialog({
         autoOpen: false,
         show: 'fade',
@@ -238,7 +259,15 @@ $(document).ready(function() {
         modal: true,
         open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
   });
-	
+   
+	$(".cancelExpiredCheckbox").change(function(){
+		if($("#submissionDateFrom").val()=="" && $("#submissionDateTo").val()=="")
+			$("#searchExpiredSpan").show();
+		else
+			$("#searchExpiredSpan").hide();
+	});
+
+	$(".subjectsRow").show();
 
 });
 

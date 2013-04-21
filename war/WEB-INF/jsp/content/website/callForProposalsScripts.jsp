@@ -7,6 +7,7 @@
 </style>
 
 <script type="text/javascript">
+<%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 
 function resetAutocomplete(funds){
 	$("#searchWords").autocomplete( 
@@ -24,6 +25,11 @@ function resetAutocomplete(funds){
 
 
 $(document).ready(function() {
+
+	if($("#submissionDateFrom").val()=="" && $("#submissionDateTo").val()=="")
+		$("#searchExpiredSpan").show();
+	else
+		$("#searchExpiredSpan").hide();
 
 	$("#searchWords").click(function(){
     	$("#searchWords").val('');
@@ -194,9 +200,35 @@ $(document).ready(function() {
 		$('.subjectsIdsString').remove();
 		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" class=\"subjectsIdsString\" value=\"'+ids+'\"/>');
 		
+		$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"search\"/>');
 		$('form#form').submit();
 	});
 	
+    $(".cleanSearch").click(function(){
+    	$("#searchWords").val('');
+    	$("#submissionDateFrom").val('');
+    	$("#submissionDateTo").val('');
+    	$("#deskId").val('0');
+       	$("#typeId").val('0');
+    	$("#searchByTemporary").prop('checked', false);
+    	$("#diselectAll").click();
+      	$("#searchDeleted").prop('checked', false);
+       	$("#searchExpired").prop('checked', false);
+   		$("#listViewPage").remove();
+		$("#orderBy").remove();
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+		$("#form").submit();
+    	return true;
+    });	
+    
+	$(".cancelExpiredCheckbox").change(function(){
+		if($("#submissionDateFrom").val()=="" && $("#submissionDateTo").val()=="")
+			$("#searchExpiredSpan").show();
+		else
+			$("#searchExpiredSpan").hide();
+	});
+	
+    $(".subjectsRow").show();
 	
 });
 

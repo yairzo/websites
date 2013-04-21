@@ -90,7 +90,7 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		model.put("strippedPossibleCollaboration", stripped);
 
 		boolean authorized= true;	
-		if(!userPersonBean.isAuthorized("ROLE_WEBSITE_READ") && !userPersonBean.isAuthorized("ROLE_WEBSITE_ADMIN")  && !userPersonBean.isAuthorized("ROLE_WEBSITE_HUJI"))
+		if(!userPersonBean.isAuthorized("ROLE_WEBSITE_READ") && !userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT") && !userPersonBean.isAuthorized("ROLE_WEBSITE_ADMIN")  && !userPersonBean.isAuthorized("ROLE_WEBSITE_HUJI"))
 			authorized= false;	
 		model.put("authorized", authorized);	
 

@@ -7,6 +7,8 @@ import huard.iws.model.CallForProposal;
 import huard.iws.model.Attachment;
 import huard.iws.model.DayInCalendar;
 import huard.iws.util.CallForProposalSearchCreteria;
+import huard.iws.util.ListView;
+import huard.iws.util.TextualPageSearchCreteria;
 
 public interface CallForProposalService {
 
@@ -28,13 +30,15 @@ public interface CallForProposalService {
 
 	public void removeCallForProposalOnline(int id);
 	
-	public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria);
+	public List<CallForProposal> getCallForProposals(ListView lv,CallForProposalSearchCreteria searchCriteria);
+
+	public void prepareListView(ListView lv,CallForProposalSearchCreteria searchCreteria);
 
 	public List<CallForProposal> getCallForProposalsOnline(CallForProposalSearchCreteria searchCriteria);
 
 	public List<CallForProposal> getCallForProposalsOnline(String ids);
 
-	public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria,String localeId);
+	//public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria,String localeId);
 
 	public void insertArdNum(int ardNum,int id);
 	

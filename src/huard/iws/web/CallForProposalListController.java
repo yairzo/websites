@@ -30,12 +30,12 @@ import org.springframework.web.servlet.view.RedirectView;
 
 public class CallForProposalListController extends GeneralFormController {
 
+    private final int ROWS_IN_PAGE=20;
 
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
-		Map<String,Object> newModel = new HashMap<String, Object>();
-		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
+		return new ModelAndView(new RedirectView(getSuccessView()),new HashMap<String, Object>());
 	}
 
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
@@ -43,7 +43,7 @@ public class CallForProposalListController extends GeneralFormController {
 	{
 
 		CallForProposalListControllerCommand command = (CallForProposalListControllerCommand) model.get("command");
-		List<CallForProposal> callForProposals = callForProposalService.getCallForProposals(command.getSearchCreteria());
+		List<CallForProposal> callForProposals = callForProposalService.getCallForProposals(command.getListView(),command.getSearchCreteria());
 		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
 		for (CallForProposal callForProposal: callForProposals){
 			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,false);
@@ -107,8 +107,22 @@ public class CallForProposalListController extends GeneralFormController {
 			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
 				searchCreteria.setSearchByCreator(userPersonBean.getId());	
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
+			
+			ListView listView = new ListView();
+			if(request.getParameter("action", "").equals("search"))
+				listView.setPage(1);
+			else//pagination
+				listView.setPage(request.getIntParameter("listView.page", 1));			
+			request.getSession().setAttribute("callForProposalListView", listView);
 		}
 		else{//on show
+			ListView listView = (ListView) request.getSession().getAttribute("callForProposalListView");
+			request.getSession().setAttribute("callForProposalListView", null);
+			if (listView == null)
+				listView = new ListView();
+			//add how many rows
+			listView.setRowsInPage(ROWS_IN_PAGE);
+			
 			CallForProposalSearchCreteria searchCreteria = (CallForProposalSearchCreteria) request.getSession().getAttribute("callForProposalSearchCreteria");
 			request.getSession().setAttribute("callForProposalsSearchCreteria", null);
 			if (searchCreteria == null){// on first time
@@ -125,6 +139,8 @@ public class CallForProposalListController extends GeneralFormController {
 			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
 				searchCreteria.setSearchByCreator(userPersonBean.getId());	
 			command.setSearchCreteria(searchCreteria);
+			callForProposalService.prepareListView(listView,searchCreteria);
+			command.setListView(listView);
 		}
 		return command;
 	}

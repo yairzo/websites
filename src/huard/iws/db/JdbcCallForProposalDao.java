@@ -5,7 +5,9 @@ import huard.iws.model.DayInCalendar;
 import huard.iws.model.Attachment;
 import huard.iws.model.FundInDay;
 import huard.iws.util.CallForProposalSearchCreteria;
+import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
+import huard.iws.util.TextualPageSearchCreteria;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -447,13 +449,22 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		getSimpleJdbcTemplate().update(query,id);
 	}
 	
-	public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria){
+	public List<CallForProposal> getCallForProposals(ListView lv,CallForProposalSearchCreteria searchCriteria){
 		String query  = "select distinct callForProposalDraft.* from callForProposalDraft";
 		query += getCallForProposalsWhereClause(searchCriteria,"callForProposalDraft");
+		query += " limit "+ (lv.getPage()-1) * lv.getRowsInPage() + "," + lv.getRowsInPage();
 		logger.info(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
 	}
+	
+	public int countCallForProposals(CallForProposalSearchCreteria searchCreteria) {
+		String query = "select count(*) from callForProposalDraft";
+		query += getCallForProposalsWhereClause(searchCreteria,"callForProposalDraft");
+		logger.info(query);
+		return getSimpleJdbcTemplate().queryForInt(query);
+	}
+
 	public List<CallForProposal> getCallForProposalsOnline(CallForProposalSearchCreteria searchCriteria){
 		String query  = "select distinct callForProposal.* from callForProposal";
 		query += getCallForProposalsWhereClause(searchCriteria,"callForProposal");
@@ -490,8 +501,9 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			whereClause +=" and subjectToCallForProposal.subjectId in ("+searchCriteria.getSearchBySubjectIds() + ")";
 		if(!searchCriteria.getSearchDeleted())//not include deleted
 			whereClause +=" and " + mainTable +".isDeleted=0";
-		if(!searchCriteria.getSearchExpired())//not include expired
-			whereClause +=" and (" + mainTable +".finalSubmissionTime < now() or " + mainTable +".finalSubmissionTime = 0)";
+		//,if checkbox not checked and if not added dates then show only not expired:
+		if(!searchCriteria.getSearchExpired() && searchCriteria.getSearchBySubmissionDateFrom().isEmpty() && searchCriteria.getSearchBySubmissionDateTo().isEmpty())
+			whereClause +=" and (" + mainTable +".finalSubmissionTime >= now() or " + mainTable +".finalSubmissionTime = 0)";
 			
 		whereClause += "  order by " + mainTable +".id desc";
 		

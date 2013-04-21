@@ -185,6 +185,7 @@ war/WEB-INF/jsp/website/searchContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/searchScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/sideMenu.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/sitemapContent.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/website/sitemapScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/subjects.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/textualPageContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/textualPageScripts.jsp svn_mime_002dtype=text%2Fplain
