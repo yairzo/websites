@@ -50,6 +50,9 @@ public class DateUtils {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format( new Date(timeMillis));
 	}
+	public static String formatTimestampWithoutMillis(long timeMillis){
+		return formatDate(timeMillis,"yyyy-MM-dd hh:mm:ss");
+	}
 
 	public static String formatDate(Timestamp timestamp, boolean includeTime, boolean relativeDay){
 		String date;

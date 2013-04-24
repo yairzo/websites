@@ -171,6 +171,12 @@ $(document).ready(function() {
 			alert("יש לבחור תבנית");
 		return false;
 	});
+	$('button.delete').click(function(){
+  		$(".ajaxSubmit").remove();
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+ 		$("#form").append("<input type=\"hidden\" name=\"action\" class=\"action\" value=\"delete\"/>");
+		$('form#form').submit();
+	});
 	
 
 	var config=	{

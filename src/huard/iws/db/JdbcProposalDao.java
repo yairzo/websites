@@ -3,6 +3,7 @@ package huard.iws.db;
 
 import huard.iws.model.Proposal;
 import huard.iws.model.ProposalAttachment;
+import huard.iws.util.DateUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -246,15 +247,13 @@ public class JdbcProposalDao extends SimpleJdbcDaoSupport implements ProposalDao
 	}
 
 	public int insertProposal(){
-		final String proposalInsert = "insert proposal set creationDate = ?, stateId=0 ;";
-		final Timestamp creationDate = new Timestamp(new java.util.Date().getTime());
+		final String proposalInsert = "insert proposal set creationDate = now(), stateId=0 ;";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 		            PreparedStatement ps =
 		                connection.prepareStatement(proposalInsert, new String[] {"id"});
-		            ps.setTimestamp(1, creationDate);
 		            return ps;
 		        }
 		    },

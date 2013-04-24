@@ -43,7 +43,9 @@ public interface CallForProposalService {
 	public void insertArdNum(int ardNum,int id);
 	
 	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment);
-	
+
+	public void deleteFile(int id);
+
 	public int copyCallForProposal (CallForProposal callForProposal);
 
 	public String getFirstDayOfCalendarMonth();

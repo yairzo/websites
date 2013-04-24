@@ -493,6 +493,30 @@ $(document).ready(function() {
 	        selected_ranges[0].collapse(false);  //  false collapses the range to the end of the selected node, true before the node.
 	        s.selectRanges(selected_ranges);  // putting the current selection there 
 	    });
+		
+		
+		$(".deleteAttachment").click(function(e){
+			e.preventDefault();
+			var attachId= this.id;
+			$("#genericDialog").dialog({ modal: true });
+	    	$("#genericDialog").dialog('option', 'buttons', {
+	            "לא" : function() {
+	                $(this).dialog("close");
+	                return false;
+	               },
+	            "כן" : function() {
+	                $(this).dialog("close");
+	        		insertIds();
+	           		$(".ajaxSubmit").remove();
+	           	 	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+	        		$("#form").append("<input type=\"hidden\" name=\"deleteAttachment\" value=\""+attachId +"\"/>");
+	    	   		$("#form").submit();
+	    	        return true;
+	            }
+	        });
+			openHelp(this,"האם הנך מאשר את מחיקת הקובץ?");
+	    	return false;
+		});	
 
 });
 var fieldname=""; 

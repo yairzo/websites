@@ -2,6 +2,7 @@ package huard.iws.db;
 
 import huard.iws.model.PartnerInstituteProposal;
 import huard.iws.model.PartnerProposal;
+import huard.iws.util.DateUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ public class JdbcPartnerProposalDao  extends SimpleJdbcDaoSupport implements Par
 		getSimpleJdbcTemplate().update(query,
 				partnerProposal.getPartnerId() ,
 				partnerProposal.getProposalId(),
-				new Timestamp(new java.util.Date().getTime())
+				DateUtils.formatTimestampWithoutMillis(new java.util.Date().getTime())
 		);
 	}
 
@@ -51,11 +52,10 @@ public class JdbcPartnerProposalDao  extends SimpleJdbcDaoSupport implements Par
 	};
 
 	public void insertPartnerInstituteProposal(PartnerInstituteProposal partnerInstituteProposal){
-		String query = "insert partnerInstituteToProposal set partnerInstituteId = ?, proposalId = ?, creationDate = ?";
+		String query = "insert partnerInstituteToProposal set partnerInstituteId = ?, proposalId = ?, creationDate = now()";
 		getSimpleJdbcTemplate().update(query,
 				partnerInstituteProposal.getPartnerInstituteId() ,
-				partnerInstituteProposal.getProposalId(),
-				new Timestamp(new java.util.Date().getTime())
+				partnerInstituteProposal.getProposalId()
 		);
 	}
 

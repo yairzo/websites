@@ -63,6 +63,9 @@ public class EditTextualPageController extends GeneralFormController {
 			}
 		}	
 		
+		if(request.getParameter("action", "").equals("delete"))
+			textualPageBean.setIsDeleted(1);
+		
 		//update
 		textualPageService.updateTextualPage(textualPageBean.toTextualPage());
 

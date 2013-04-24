@@ -150,6 +150,7 @@ war/WEB-INF/jsp/content/website/editCategoryContent.jsp svn_mime_002dtype=text%2
 war/WEB-INF/jsp/content/website/editPageScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/website/editTextualPageScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/content/website/textualPagesContent.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/content/website/textualPagesScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/editCallForProposal.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/editCategory.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/editConferenceProposal.jsp svn_mime_002dtype=text%2Fplain

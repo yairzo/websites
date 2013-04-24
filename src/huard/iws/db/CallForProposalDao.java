@@ -41,6 +41,8 @@ public interface CallForProposalDao {
 	
 	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment);
 
+	public void deleteFile(int id);
+
 	public String getFirstDayOfCalendarMonth();
 
 	public String getLastDayOfCalendarMonth();

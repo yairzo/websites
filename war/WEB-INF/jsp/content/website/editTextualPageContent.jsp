@@ -224,6 +224,7 @@
 		<tr class="form">
 			<td colspan="4" align="center">
 				<button title="שמירה" class="grey save" > שמירת טיוטה </button>&nbsp;&nbsp;
+				<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;&nbsp;
 				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
 				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה למסך קודם </button>		
 			</td>

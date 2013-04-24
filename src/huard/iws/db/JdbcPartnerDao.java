@@ -2,6 +2,7 @@ package huard.iws.db;
 
 import huard.iws.model.Partner;
 import huard.iws.model.PartnerInstitute;
+import huard.iws.util.DateUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,7 +45,7 @@ public class JdbcPartnerDao extends SimpleJdbcDaoSupport implements PartnerDao {
 		final String degree = partner.getDegree();
 		final String name = partner.getName();
 		final int instituteId = partner.getInstituteId();
-		final Timestamp creationDate = new Timestamp(new java.util.Date().getTime());
+		final String creationDate = DateUtils.formatTimestampWithoutMillis(new java.util.Date().getTime());
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -55,7 +56,7 @@ public class JdbcPartnerDao extends SimpleJdbcDaoSupport implements PartnerDao {
 		            ps.setString(1, degree);
 		            ps.setString(2, name);
 		            ps.setInt(3, instituteId);
-		            ps.setTimestamp(4, creationDate);
+		            ps.setString(4, creationDate);
 		            return ps;
 		        }
 		    },
@@ -90,7 +91,7 @@ public class JdbcPartnerDao extends SimpleJdbcDaoSupport implements PartnerDao {
 	public int insertPartnerInstitute(PartnerInstitute partnerInstitute){
 		final String proposalInsert = "insert partnerInstitute set name = ?, creationDate = ? ;";
 		final String name = partnerInstitute.getName();
-		final Timestamp creationDate = new Timestamp(new java.util.Date().getTime());
+		final String creationDate = DateUtils.formatTimestampWithoutMillis(new java.util.Date().getTime());
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -99,7 +100,7 @@ public class JdbcPartnerDao extends SimpleJdbcDaoSupport implements PartnerDao {
 		            PreparedStatement ps =
 		                connection.prepareStatement(proposalInsert, new String[] {"id"});
 		            ps.setString(1, name);
-		            ps.setTimestamp(2, creationDate);
+		            ps.setString(2, creationDate);
 		            return ps;
 		        }
 		    },

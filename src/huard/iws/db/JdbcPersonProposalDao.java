@@ -1,6 +1,7 @@
 package huard.iws.db;
 
 import huard.iws.model.PersonProposal;
+import huard.iws.util.DateUtils;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -35,7 +36,7 @@ public class JdbcPersonProposalDao extends SimpleJdbcDaoSupport implements Perso
 				personProposal.getRequiredActionsIdsString(),
 				personProposal.isApproval(),
 				personProposal.getTitle(),
-				new Timestamp(System.currentTimeMillis()),
+				DateUtils.formatTimestampWithoutMillis(System.currentTimeMillis()),
 				personProposal.getPersonId() ,
 				personProposal.getProposalId()
 		);

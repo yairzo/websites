@@ -387,6 +387,7 @@
 					<td colspan="3" style="text-align:${lang.align}">
 						<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="formDetails"><a style="text-decoration:underline" href="fileViewer?callForProposalId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}"
 								target="_blank">${attachment.title}</a> </span>
+						&nbsp;&nbsp;<a href="" class="deleteAttachment" id="${attachment.id}">מחק</a>
 					</td>
 					</tr>
 					</c:forEach>

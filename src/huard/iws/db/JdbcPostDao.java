@@ -250,13 +250,12 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	}
 
 	public void insertPersonPost(int personId, int postId, boolean selfSend){
-		String query = "insert ignore personToPost set personId = ?, postId = ?, creationTime = ?";
+		String query = "insert ignore personToPost set personId = ?, postId = ?, creationTime = now()";
 		if (selfSend)
 			query += ", isSelfSend = 1";
 		getSimpleJdbcTemplate().update(query,
 				personId,
-				postId,
-				new Timestamp(System.currentTimeMillis()));
+				postId);
 	}
 
 	public void deletePersonPost(int personId, int postId){

@@ -6,6 +6,7 @@ public class TextualPageSearchCreteria extends SearchCreteria{
 	protected String searchBySearchWords;
 	protected String searchWords;
 	protected int searchByCreator;
+	protected boolean searchDeleted;
 	
 	
 	public TextualPageSearchCreteria(){
@@ -13,6 +14,7 @@ public class TextualPageSearchCreteria extends SearchCreteria{
 		this.searchBySearchWords= "";
 		this.searchWords="";
 		this.searchByCreator=0;
+		this.searchDeleted=false;
 	}
 
 
@@ -39,5 +41,13 @@ public class TextualPageSearchCreteria extends SearchCreteria{
 		this.searchByCreator = searchByCreator;
 	}
 
+	
+	public boolean getSearchDeleted() {
+		return searchDeleted;
+	}
+
+	public void setSearchDeleted(boolean searchDeleted) {
+		this.searchDeleted = searchDeleted;
+	}
 
 }

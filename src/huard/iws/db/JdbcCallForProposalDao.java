@@ -6,8 +6,7 @@ import huard.iws.model.Attachment;
 import huard.iws.model.FundInDay;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.ListView;
-import huard.iws.util.SearchCreteria;
-import huard.iws.util.TextualPageSearchCreteria;
+import huard.iws.util.DateUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,10 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.LinkedHashMap;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -104,6 +100,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		callForProposal.setAttachments(files);
 	}
 	
+	public void deleteFile(int id){
+		String query = "delete from callForProposalFile where id = ?";
+		getSimpleJdbcTemplate().update(query,id);
+	}
+	
 	private ParameterizedRowMapper<Attachment> filesRowMapper = new ParameterizedRowMapper<Attachment>(){
 		public Attachment mapRow(ResultSet rs, int rowNum) throws SQLException{
 			Attachment file = new Attachment();
@@ -159,11 +160,6 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	}
 	
 	public void insertCallForProposalOnline(CallForProposal callForProposal){
-		String keepInRollingMessagesExpiryTime="";
-		if(callForProposal.getKeepInRollingMessagesExpiryTime()==0)//
-			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
-		else
-			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(callForProposal.getKeepInRollingMessagesExpiryTime()).toString();
 		final String query = "insert callForProposal set id = ?"+
 				", title = ?" +
 				", creatorId = ?" +
@@ -191,24 +187,25 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", budgetDetails = ?" +
 				", additionalInformation = ?" +
 				", localeId = ?" + 
-				", updateTime = ?"+ 
+				", updateTime = now()"+ 
 				", isDeleted = ?";
 		//logger.info(query);
+		String keepInRollingMessagesExpiryTime="";
+		if(callForProposal.getKeepInRollingMessagesExpiryTime()==0)//
+			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
+		else
+			keepInRollingMessagesExpiryTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getKeepInRollingMessagesExpiryTime());
 		String finalSubmissionTime="";
 		if(callForProposal.getFinalSubmissionTime()==0)
 			finalSubmissionTime="0000-00-00 00:00:00";
 		else
-			finalSubmissionTime=new java.sql.Timestamp(callForProposal.getFinalSubmissionTime()).toString();
-		String updateTime="";
-		if(callForProposal.getUpdateTime()==0)
-			updateTime=new java.sql.Timestamp(new java.util.Date().getTime()).toString();
-		else
-			updateTime=new java.sql.Timestamp(callForProposal.getUpdateTime()).toString();
+			finalSubmissionTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getFinalSubmissionTime());
+		String publicationTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getPublicationTime());
 		getSimpleJdbcTemplate().update(query,
 				callForProposal.getId(),
 				callForProposal.getTitle(),
 				callForProposal.getCreatorId(),
-				new java.sql.Timestamp(callForProposal.getPublicationTime()),
+				publicationTime,
 				finalSubmissionTime,
 	    		callForProposal.getAllYearSubmission(),
 	    		callForProposal.getAllYearSubmissionYearPassedAlert(),
@@ -232,7 +229,6 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getBudgetDetails().trim(),
 	    		callForProposal.getAdditionalInformation().trim(),
 	    		callForProposal.getLocaleId(),
-	    		updateTime,
 	    		callForProposal.getIsDeleted());
 	}
 	
@@ -268,28 +264,32 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", updateTime = ?" +
 				", isDeleted = ?" +
 			" where id = ?;";
-		//logger.info(query);
-		String publicationTime="";
-		if(callForProposal.getPublicationTime()==0)//
-			publicationTime="0000-00-00 00:00:00";
-		else
-			publicationTime=new java.sql.Timestamp(callForProposal.getPublicationTime()).toString();
-		String finalSubmissionTime="";
-		if(callForProposal.getFinalSubmissionTime()==0)//
-			finalSubmissionTime="0000-00-00 00:00:00";
-		else
-			finalSubmissionTime=new java.sql.Timestamp(callForProposal.getFinalSubmissionTime()).toString();
+		logger.info(query);
+
 		String keepInRollingMessagesExpiryTime="";
 		if(callForProposal.getKeepInRollingMessagesExpiryTime()==0)//
 			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
 		else
-			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(callForProposal.getKeepInRollingMessagesExpiryTime()).toString();
+			keepInRollingMessagesExpiryTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getKeepInRollingMessagesExpiryTime());
+		String finalSubmissionTime="";
+		if(callForProposal.getFinalSubmissionTime()==0)
+			finalSubmissionTime="0000-00-00 00:00:00";
+		else
+			finalSubmissionTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getFinalSubmissionTime());
+		String publicationTime="";
+		if(callForProposal.getPublicationTime()==0)
+			publicationTime="0000-00-00 00:00:00";
+		else
+			publicationTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getPublicationTime());
 		String updateTime="";
 		if(callForProposal.getUpdateTime()==0)
-			updateTime=new java.sql.Timestamp(new java.util.Date().getTime()).toString();
-		else
-			updateTime=new java.sql.Timestamp(callForProposal.getUpdateTime()).toString();
-			getSimpleJdbcTemplate().update(query,
+			updateTime=DateUtils.formatTimestampWithoutMillis(new java.util.Date().getTime());//always
+		else// when from import
+			updateTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getUpdateTime());
+		logger.info("updatetime:"+updateTime);
+
+		
+		getSimpleJdbcTemplate().update(query,
 				callForProposal.getTitle(),
 				callForProposal.getCreatorId(),
 				publicationTime,
@@ -335,7 +335,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		for (Long submissionDate: callForProposal.getSubmissionDates()){
 			query  = "insert callForProposalDate set callForProposalId = ?, submissionDate = ?";
 			if (submissionDate != null)
-				getSimpleJdbcTemplate().update(query,callForProposal.getId(), new java.sql.Timestamp(submissionDate));
+				getSimpleJdbcTemplate().update(query,callForProposal.getId(), DateUtils.formatTimestampWithoutMillis(submissionDate));
 		}
 		
 		if(callForProposal.getAttachments()!=null){
@@ -351,12 +351,13 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		if(callForProposal.getKeepInRollingMessagesExpiryTime()==0)//
 			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
 		else
-			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(callForProposal.getKeepInRollingMessagesExpiryTime()).toString();
+			keepInRollingMessagesExpiryTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getKeepInRollingMessagesExpiryTime());
 		String finalSubmissionTime="";
 		if(callForProposal.getFinalSubmissionTime()==0)//
 			finalSubmissionTime="0000-00-00 00:00:00";
 		else
-			finalSubmissionTime=new java.sql.Timestamp(callForProposal.getFinalSubmissionTime()).toString();
+			finalSubmissionTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getFinalSubmissionTime());
+		String publicationTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getPublicationTime());
 		String query = "update callForProposal set " +
 				" title = ?" +
 				", creatorId = ?" +
@@ -391,7 +392,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		getSimpleJdbcTemplate().update(query,
 				callForProposal.getTitle(),
 				callForProposal.getCreatorId(),
-				new java.sql.Timestamp(callForProposal.getPublicationTime()),
+				publicationTime,
 				finalSubmissionTime,
 	    		callForProposal.getAllYearSubmission(),
 	    		callForProposal.getAllYearSubmissionYearPassedAlert(),
@@ -433,7 +434,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		for (Long submissionDate: callForProposal.getSubmissionDates()){
 			query  = "insert callForProposalDate set callForProposalId = ?, submissionDate = ?";
 			if (submissionDate != null)
-				getSimpleJdbcTemplate().update(query,callForProposal.getId(), new java.sql.Timestamp(submissionDate));
+				getSimpleJdbcTemplate().update(query,callForProposal.getId(), DateUtils.formatTimestampWithoutMillis(submissionDate));
 		}
 		
 		for (Attachment attachment: callForProposal.getAttachments()){

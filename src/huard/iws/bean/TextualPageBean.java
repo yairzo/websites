@@ -26,6 +26,7 @@ public class TextualPageBean {
 	private int messageType;
 	private long keepInRollingMessagesExpiryTime;
 	private long updateTime;
+	private int isDeleted;
 
 	
 	public TextualPageBean(){
@@ -47,6 +48,7 @@ public class TextualPageBean {
 		this.messageType=0;
 		this.keepInRollingMessagesExpiryTime=0;
 		this.updateTime=0;
+		this.isDeleted=0;
 	}
 
 
@@ -69,6 +71,7 @@ public class TextualPageBean {
 		this.messageType= textualPage.getMessageType();
 		this.keepInRollingMessagesExpiryTime = textualPage.getKeepInRollingMessagesExpiryTime();
 		this.updateTime = textualPage.getUpdateTime();
+        this.isDeleted=textualPage.getIsDeleted();
 	}
 
 	public TextualPage toTextualPage(){
@@ -91,6 +94,7 @@ public class TextualPageBean {
 		textualPage.setMessageType(messageType);
 		textualPage.setKeepInRollingMessagesExpiryTime(keepInRollingMessagesExpiryTime);
 		textualPage.setUpdateTime(updateTime);
+		textualPage.setIsDeleted(isDeleted);
 		return textualPage;
 	}
 
@@ -238,6 +242,13 @@ public class TextualPageBean {
 	}
 	public void setUpdateTime(long updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }

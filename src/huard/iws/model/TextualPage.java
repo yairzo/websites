@@ -20,6 +20,7 @@ public class TextualPage {
 	private int messageType;
 	private long keepInRollingMessagesExpiryTime;
 	private long updateTime;
+	private int isDeleted;
 
 	public TextualPage(){
 		this.id = 0;
@@ -40,6 +41,7 @@ public class TextualPage {
 		this.messageType=0;
 		this.keepInRollingMessagesExpiryTime=0;
 		this.updateTime=0;
+		this.isDeleted=0;
 	}
 	
 	public int getId() {
@@ -179,5 +181,11 @@ public class TextualPage {
 		this.updateTime = updateTime;
 	}
 
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 
 }

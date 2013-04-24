@@ -51,7 +51,12 @@
 						<td colspan="3" style="border:1px #bca2a2 dotted">
       					<fmt:message key="${lang.localeId}.callForProposal.submissionDetails"/><br>${command.submissionDetails}
  						</td>
-					</tr>				
+					</tr>
+					<tr>
+						<td colspan="3" style="border:1px #bca2a2 dotted">
+      					<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/><br><a href="${command.originalCallWebAddress}">${command.originalCallWebAddress}</a>
+ 						</td>
+					</tr>
 					</c:if>
 					<tr>
 						<td colspan="3" style="border:1px #bca2a2 dotted">
@@ -94,9 +99,6 @@
 							</c:if>
 							<c:if test="${strippedPossibleCollaboration!=''}">
 							<li><fmt:message key="${lang.localeId}.callForProposal.possibleCollaboration"/>${strippedPossibleCollaboration}</li>
-							</c:if>
-							<c:if test="${originalCallWebAddress!=''}">
-							<li><a href="${command.originalCallWebAddress}"><fmt:message key="${lang.localeId}.website.originalCallWebAddress"/></a></li>
 							</c:if>
 							</ul>
  						</td>

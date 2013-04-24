@@ -1,10 +1,10 @@
 package huard.iws.db;
 
-import huard.iws.bean.PersonBean;
 import huard.iws.model.Attachment;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.TextualPageOld;
+import huard.iws.util.DateUtils;
 import huard.iws.util.TextualPageSearchCreteria;
 import huard.iws.util.ListView;
 
@@ -109,7 +109,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		if(textualPage.getKeepInRollingMessagesExpiryTime()==0)//
 			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
 		else
-			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(textualPage.getKeepInRollingMessagesExpiryTime()).toString();
+			keepInRollingMessagesExpiryTime=DateUtils.formatTimestampWithoutMillis(textualPage.getKeepInRollingMessagesExpiryTime());
 		final String query = "insert textualPage set id = ?"+
 				", title = ?" +
 				", creatorId = ?" +
@@ -125,7 +125,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", isMessage = ?" +
 				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
-				", updateTime = now()";
+				", updateTime = now()"+
+				", isDeleted = ?";
 		//logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getId(),
@@ -142,7 +143,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getCategoryId(),
 	    		textualPage.getIsMessage(),
 	    		textualPage.getMessageType(),
-	    		keepInRollingMessagesExpiryTime);
+	    		keepInRollingMessagesExpiryTime,
+	    		textualPage.getIsDeleted());
 	}
 	
 	public void updateTextualPage(TextualPage textualPage){
@@ -150,7 +152,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		if(textualPage.getKeepInRollingMessagesExpiryTime()==0)//
 			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
 		else
-			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(textualPage.getKeepInRollingMessagesExpiryTime()).toString();
+			keepInRollingMessagesExpiryTime=DateUtils.formatTimestampWithoutMillis(textualPage.getKeepInRollingMessagesExpiryTime());
 		String query = "update textualPageDraft set " +
 				" title = ?" +
 				", creatorId = ?" +
@@ -167,6 +169,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()" +
+				", isDeleted = ?" +
 			" where id = ?;";
 		//logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -184,6 +187,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getIsMessage(),
 	    		textualPage.getMessageType(),
 	    		keepInRollingMessagesExpiryTime,	    		
+	    		textualPage.getIsDeleted(),
 	    		textualPage.getId());
 		
 		if (textualPage.getAttachment() != null && textualPage.getAttachment().getFile()!=null){
@@ -200,7 +204,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		if(textualPage.getKeepInRollingMessagesExpiryTime()==0)//
 			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
 		else
-			keepInRollingMessagesExpiryTime=new java.sql.Timestamp(textualPage.getKeepInRollingMessagesExpiryTime()).toString();
+			keepInRollingMessagesExpiryTime=DateUtils.formatTimestampWithoutMillis(textualPage.getKeepInRollingMessagesExpiryTime());
 		String query = "update textualPage set " +
 				" title = ?" +
 				", creatorId = ?" +
@@ -217,6 +221,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()" +
+				", isDeleted = ?" +
 				" where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -234,8 +239,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getIsMessage(),
 	    		textualPage.getMessageType(),
 	    		keepInRollingMessagesExpiryTime,	    		
+	    		textualPage.getIsDeleted(),
 	    		textualPage.getId());
-	
 	}	
 	
 	public void removeTextualPageOnline(int id){
@@ -252,7 +257,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		return textualPages;
 	}
 	public int countTextualPages(ListView lv,TextualPageSearchCreteria searchCreteria) {
-		String query = "select count(*) from conferenceProposal";
+		String query = "select count(*) from textualPageDraft";
 		query += getWhereClause(searchCreteria);
 		logger.info(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
@@ -262,6 +267,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		whereClause += " where true";
 		if(searchCreteria.getSearchByCreator()>0)
 			whereClause +=" and creatorId="+searchCreteria.getSearchByCreator();
+		if(!searchCreteria.getSearchDeleted())//not include deleted
+			whereClause +=" and isDeleted=0";
 		if(!searchCreteria.getSearchBySearchWords().isEmpty())
 			whereClause +=" and id in ("+searchCreteria.getSearchBySearchWords() + ")";
 		whereClause += "  order by id";
@@ -270,7 +277,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 
 	public List<TextualPage> getOnlineTextualPages(){
-		String query = "select * from textualPage order by id";
+		String query = "select * from textualPage where isDeleted=0 order by id";
 		System.out.println(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
@@ -279,7 +286,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	public List<TextualPage> getOnlineTextualPagesSearch(String ids){
 		String query  = "select distinct textualPage.* from textualPage";
 		if(!ids.isEmpty())
-			query += " where id in ("+ids + ") order by id";
+			query += " where id in ("+ids + ") and isDeleted=0 order by id";
 		logger.info(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;

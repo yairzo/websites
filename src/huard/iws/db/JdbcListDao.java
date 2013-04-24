@@ -2,6 +2,7 @@ package huard.iws.db;
 
 import huard.iws.model.AList;
 import huard.iws.model.AListDesign;
+import huard.iws.util.DateUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -103,7 +104,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 				aList.getListTypeId(),
 				aList.getPreface(),
 				aList.getFooter(),
-				new Timestamp(aList.getLastUpdate()),
+				DateUtils.formatTimestampWithoutMillis(aList.getLastUpdate()),
 				aList.getId()
 			);
 		query = "delete from listToSublist where listId = ?";
@@ -149,7 +150,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 		            ps.setInt(10, listTypeId);
 		            ps.setString(11, preface);
 		            ps.setString(12, footer);
-		            ps.setTimestamp(13, new Timestamp(lastUpdate));
+		            ps.setString(13, DateUtils.formatTimestampWithoutMillis(lastUpdate));
 		            return ps;
 		        }
 		    },

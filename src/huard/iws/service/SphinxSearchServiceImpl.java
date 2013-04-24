@@ -16,6 +16,8 @@ import org.sphx.api.SphinxWordInfo;
 public class SphinxSearchServiceImpl implements SphinxSearchService{
 
 	private SphinxClient sphinxClient;
+	private int limit = 1000;
+	private int offset = 0;
 
 	public SphinxSearchServiceImpl () {
 		try{
@@ -23,8 +25,6 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 			//int port = configurationService.getConfigurationInt("sphinx", "port");
 			String host = "";
 			int port = 9312;
-			int offset = 0;
-			int limit = 20;
 			int sortMode = SphinxClient.SPH_SORT_RELEVANCE;
 			String sortClause = "";
 			String groupBy = "";
@@ -33,7 +33,6 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 			sphinxClient = new SphinxClient();
 			sphinxClient.SetServer ( host, port );
 			sphinxClient.SetWeights ( new int[] { 100, 1 } );
-			sphinxClient.SetLimits ( offset, limit );
 			sphinxClient.SetSortMode ( sortMode, sortClause );
 			if ( groupBy.length()>0 )
 				sphinxClient.SetGroupBy ( groupBy, SphinxClient.SPH_GROUPBY_ATTR, groupSort );
@@ -47,6 +46,7 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 	public SphinxResult getResult(String query, String index){
 		try {
 			sphinxClient.SetMatchMode ( SphinxClient.SPH_MATCH_EXTENDED );
+			sphinxClient.SetLimits(offset,limit);
 			SphinxResult res = sphinxClient.Query(query.toString(), index);
 			if ( res==null )
 			{

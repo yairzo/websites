@@ -87,6 +87,9 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 		return callForProposalDao.insertAttachmentToCallForProposal(callForProposalId,attachment);
 	}
 
+	public void deleteFile(int id){
+		callForProposalDao.deleteFile(id);
+	}
 	
 	public int copyCallForProposal (CallForProposal callForProposal){
 		CallForProposal newCallForProposal = callForProposal;

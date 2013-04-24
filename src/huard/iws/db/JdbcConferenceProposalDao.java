@@ -6,6 +6,7 @@ import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.model.FinancialSupport;
 import huard.iws.util.ConferenceProposalSearchCreteria;
+import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.SQLUtils;
 
@@ -228,8 +229,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposalGrading.getApproverId(),
 				conferenceProposalGrading.getAdminId(),
-				new java.sql.Timestamp(conferenceProposalGrading.getDeadline()),
-				new java.sql.Timestamp(conferenceProposalGrading.getFinishedGradingDate()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposalGrading.getDeadline()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposalGrading.getFinishedGradingDate()),
 				conferenceProposalGrading.getAdminSendRemark()
 				);
 	} 
@@ -553,7 +554,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 						PreparedStatement ps =
 								connection.prepareStatement(queryS1, new String[] {"id"});
 						ps.setInt(1, personId);
-						ps.setTimestamp(2, new java.sql.Timestamp(deadline));
+						ps.setString(2, DateUtils.formatTimestampWithoutMillis(deadline));
 						ps.setInt(3, internalId);
 						ps.setInt(4, creatorId);
 						return ps;
@@ -574,7 +575,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 								connection.prepareStatement(queryS2, new String[] {"id"});
 						ps.setInt(1, key);
 						ps.setInt(2, personId);
-						ps.setTimestamp(3, new java.sql.Timestamp(deadline));
+						ps.setString(3, DateUtils.formatTimestampWithoutMillis(deadline));
 						ps.setInt(4, internalId);
 						ps.setInt(5, creatorId);
 						return ps;
@@ -654,8 +655,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getGrade(),
 				conferenceProposal.getDescription(),
 				conferenceProposal.getSubject(),
-				new java.sql.Timestamp(conferenceProposal.getFromDate()),
-				new java.sql.Timestamp(conferenceProposal.getToDate()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getFromDate()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getToDate()),
 				conferenceProposal.getLocation(),
 				conferenceProposal.getLocationDetail(),
 				conferenceProposal.getForeignLecturers(),
@@ -674,8 +675,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getCompanyAttachContentType(),
 				conferenceProposal.getInitiatingBody(),
 				conferenceProposal.getInitiatingBodyRole(),
-				//new java.sql.Timestamp(conferenceProposal.getOpenDate()),
-				new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getSubmissionDate()),
 				conferenceProposal.getTotalCost(),
 				conferenceProposal.getTotalCostCurrency(),
 				conferenceProposal.getSupportSum(),
@@ -697,14 +697,14 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getContactPersonFax(),
 				conferenceProposal.getContactPersonEmail(),				
 				conferenceProposal.getAdminRemarks(),	
-				new java.sql.Timestamp(conferenceProposal.getDeadline()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getDeadline()),
 				conferenceProposal.getDeleted(),
 				conferenceProposal.getDeadlineRemarks(),
 				conferenceProposal.getIsInsideDeadline(),
 				conferenceProposal.getCommitteeRemarks(),
 				conferenceProposal.getAcceptTerms(),
 				conferenceProposal.getStatusId(),
-				new java.sql.Timestamp(conferenceProposal.getStatusDate()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getStatusDate()),
 				conferenceProposal.getId());
 
 		insertCommittees(conferenceProposal);		
@@ -787,8 +787,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getGrade(),
 				conferenceProposal.getDescription(),
 				conferenceProposal.getSubject(),
-				new java.sql.Timestamp(conferenceProposal.getFromDate()),
-				new java.sql.Timestamp(conferenceProposal.getToDate()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getFromDate()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getToDate()),
 				conferenceProposal.getLocation(),
 				conferenceProposal.getLocationDetail(),
 				conferenceProposal.getForeignLecturers(),
@@ -807,8 +807,8 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getCompanyAttachContentType(),
 				conferenceProposal.getInitiatingBody(),
 				conferenceProposal.getInitiatingBodyRole(),
-				new java.sql.Timestamp(conferenceProposal.getOpenDate()),
-				new java.sql.Timestamp(conferenceProposal.getSubmissionDate()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getOpenDate()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getSubmissionDate()),
 				conferenceProposal.getTotalCost(),
 				conferenceProposal.getTotalCostCurrency(),
 				conferenceProposal.getSupportSum(),
@@ -830,13 +830,13 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getContactPersonFax(),
 				conferenceProposal.getContactPersonEmail(),				
 				conferenceProposal.getAdminRemarks(),
-				new java.sql.Timestamp(conferenceProposal.getDeadline()),
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getDeadline()),
 				conferenceProposal.getDeadlineRemarks(),
 				conferenceProposal.getIsInsideDeadline(),
 				conferenceProposal.getCommitteeRemarks(),
 				conferenceProposal.getAcceptTerms(),
 				conferenceProposal.getStatusId(),
-				new java.sql.Timestamp(conferenceProposal.getStatusDate()));		
+				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getStatusDate()));		
 	}
 	
 	public void deleteConferenceProposal(int id){

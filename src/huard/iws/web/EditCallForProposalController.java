@@ -44,6 +44,14 @@ public class EditCallForProposalController extends GeneralFormController{
 	throws Exception{
 		CallForProposalBean callForProposalBean = (CallForProposalBean) command;
 
+		Map<String, Object> newModel = new HashMap<String, Object>();
+		newModel.put("id", callForProposalBean.getId())	;
+
+		if(request.getIntParameter("deleteAttachment", 0) > 0){
+			callForProposalService.deleteFile(request.getIntParameter("deleteAttachment", 0));
+			return new ModelAndView(new RedirectView("editCallForProposal.html"), newModel);
+		}
+		
 		// this part saves the content type of the attachments
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
@@ -108,8 +116,6 @@ public class EditCallForProposalController extends GeneralFormController{
 		if (request.getBooleanParameter("ajaxSubmit", false))
 			return null;
 		
-		Map<String, Object> newModel = new HashMap<String, Object>();
-		newModel.put("id", callForProposalBean.getId())	;
 		return new ModelAndView(new RedirectView("editCallForProposal.html"), newModel);
 	}
 	

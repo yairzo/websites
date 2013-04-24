@@ -99,7 +99,7 @@ public class FundServiceImpl implements FundService{
 		List<Fund> funds = getFunds();
 		List<Fund> filteredFunds = new ArrayList<Fund>();
 		for (Fund fund: funds){
-			if (fund !=null && (fund.getName()!=null && fund.getName().contains(term)) || (fund.getShortName()!=null && fund.getShortName().contains(term)))
+			if (fund !=null && (fund.getName()!=null && fund.getName().toLowerCase().contains(term.toLowerCase())) || (fund.getShortName()!=null && fund.getShortName().contains(term)))
 				filteredFunds.add(fund);
 		}
 		return filteredFunds;

@@ -1,15 +1,6 @@
 <%@ page  pageEncoding="UTF-8" %>
 
-<script>
-$(document).ready(function() {
 
-<%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
-$('button.search').click(function(){
-	$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"search\"/>');
-	$('form#form').submit();
-});
-});
-</script>
 
           <td align="right" bgcolor="#787669" height="20">
           		<c:set var="applicationName" value="ניהול אתר האוניברסיטה"/>
@@ -44,7 +35,8 @@ $('button.search').click(function(){
 					<td colspan="2">
 				 	<fmt:message key="${lang.localeId}.callForProposal.searchWords"/>
 					<input type="text" class="green" style="width:400px" name="searchWords" value="${searchWords}"/> 
-					<button class="grey search">חפש</button>							
+	   				<input type="checkbox" name="searchDeleted" id="searchDeleted" class="green" <c:if test="${searchDeleted}">checked="checked"</c:if>/> כולל מבוטלים
+ 					<button class="grey search">חפש</button>							
 					</td>
 				</tr>
     		<c:choose>
