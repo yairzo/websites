@@ -21,6 +21,7 @@ public class TextualPage {
 	private long keepInRollingMessagesExpiryTime;
 	private long updateTime;
 	private int isDeleted;
+	private String localeId;
 
 	public TextualPage(){
 		this.id = 0;
@@ -186,6 +187,14 @@ public class TextualPage {
 	}
 	public void setIsDeleted(int isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	
+	public String getLocaleId() {
+		return localeId;
+	}
+
+	public void setLocaleId(String localeId) {
+		this.localeId = localeId;
 	}
 
 }

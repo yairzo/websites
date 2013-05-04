@@ -58,6 +58,7 @@ public class CallForProposalBean {
 	private String localeId;
 	private long updateTime;
 	private int isDeleted;
+	private int targetAudience;
 	
 	private MessageService messageService;
 	private ConfigurationService configurationService;
@@ -98,6 +99,7 @@ public class CallForProposalBean {
 		this.updateTime=0;
 		this.submissionDatesList=new ArrayList<String>();
 		this.isDeleted=0;
+		this.targetAudience=0;
 		for (int i=0; i< 3; i++){
 			submissionDatesList.add("");
 		}
@@ -146,8 +148,8 @@ public class CallForProposalBean {
         while (submissionDatesList.size() < 3)
         	this.submissionDatesList.add("");
         this.isDeleted=callForProposal.getIsDeleted();
+        this.targetAudience=callForProposal.getTargetAudience();
         init(applyObjs);
-		
 	}
 
 	public CallForProposal toCallForProposal(){
@@ -197,6 +199,7 @@ public class CallForProposalBean {
 	    }	
 		callForProposal.setSubmissionDates(submissionDates);
 		callForProposal.setIsDeleted(isDeleted);
+		callForProposal.setTargetAudience(targetAudience);
 		return callForProposal;
 	}
 
@@ -322,6 +325,7 @@ public class CallForProposalBean {
 	public void setKeepInRollingMessagesExpiryTime(long keepInRollingMessagesExpiryTime) {
 		this.keepInRollingMessagesExpiryTime=keepInRollingMessagesExpiryTime;
 	}
+	
 	public String getKeepInRollingMessagesExpiryTimeString() {
 		if(keepInRollingMessagesExpiryTime==0)
 			return "";
@@ -512,6 +516,13 @@ public class CallForProposalBean {
 	}
 	public void setIsDeleted(int isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public int getTargetAudience() {
+		return targetAudience;
+	}
+	public void setTargetAudience(int targetAudience) {
+		this.targetAudience = targetAudience;
 	}
 
 	

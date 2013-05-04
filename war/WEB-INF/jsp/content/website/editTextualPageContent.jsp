@@ -12,7 +12,7 @@
   </tr>
   <tr>
     <td>
-      <table width="1000" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bca2a2" dir="rtl">
+      <table width="1000" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bca2a2" dir="${lang.dir}">
         <tr>
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" action="editTextualPage.html" commandName="command" enctype="multipart/form-data">
@@ -23,17 +23,17 @@
  			
             <table border="0" align="center" cellpadding="2" cellspacing="0">
 
-				<div id="templateDialog" style="display:none" dir="rtl">
-					<p>רשום כותרת לתבנית:<input type="text" name="templateTitle" id="templateTitle"/></p>
+				<div id="templateDialog" style="display:none" dir="${lang.dir}">
+					<p><fmt:message key="${lang.localeId}.textualPage.templateTitle"/><input type="text" name="templateTitle" id="templateTitle"/></p>
 				</div>
-				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"><p>text put here</p></div>
+				<div id="genericDialog" style="display:none" dir="${lang.dir}"><p>text put here</p></div>
  				
                 <tr>
                   <td colspan="4">
                 	<table width="1000" cellpadding="2" cellspacing="0" align="center">
                 	<tr VALIGN="TOP">
                  	 <td colspan="4" align="center">
-                  	<h1>עריכת דף תוכן <br/>
+                  	<h1><fmt:message key="${lang.localeId}.textualPage.pageTitle"/> <br/>
                    	</h1>
                   	</td>
                  	 </tr>
@@ -43,38 +43,48 @@
  
  
                 <tr class="form">
-					<td colspan="4" align="right"><h3> פרטי דף טקסט מספר: ${command.id}	</h3>
+					<td colspan="4" align="right"><h3> <fmt:message key="${lang.localeId}.textualPage.detailsTitle"/> ${command.id}	</h3>
 					<c:if test="${online}">
-					 מוצג כרגע באתר
-					&nbsp; <button class="grey" id="offline">הסר מהאתר</button>
-					&nbsp; <button class="grey" id="onlineUpdate">עדכן האתר</button>
-					&nbsp; <button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}','_blank');return false;">צפה בדף באתר</button>
+					 <fmt:message key="${lang.localeId}.callForProposal.onSite"/>
+					&nbsp; <button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>
+					&nbsp; <button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>
+					&nbsp; <button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>
 					</c:if>
 					<c:if test="${!online}">
-					&nbsp; <button class="grey" id="online">העלה לאתר</button>
+					&nbsp; <button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>
 					</c:if>
-					&nbsp; <button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}&draft=true','_blank');return false;">תצוגה מקדימה</button>
+					&nbsp; <button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>
 					</td>
 				</tr>
-                <tr class="form">
+				<tr class="form">
+					<td  colspan="4">
+						<fmt:message key="${lang.localeId}.callForProposal.language"/>
+						<form:select cssClass ="green langSelect" path="localeId">
+							<c:forEach items="${langs}" var="lang">
+								<form:option value="${lang.localeId}">${lang.name}</form:option>
+							</c:forEach>
+						</form:select>
+					</td>
+				</tr>
+               <tr class="form">
                 <td colspan="4">
                 <table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
                 <tr class="form">
 					<td colspan="4" style="border:1px #bca2a2 dotted">
-						 ${compulsoryFieldSign}כותרת:
+						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.title"/>
 						<form:input htmlEscape="true" cssClass="green long800" path="title"/>
-					    <div id="errortitle" title="שגיאה">				
+					    <div id="errortitle">				
 					</td>
 				</tr>
 				<tr class="form">
 					<td width="300" style="border:1px #bca2a2 dotted" nowrap>
-						בעל המסמך:
+						<fmt:message key="${lang.localeId}.callForProposal.creator"/>
 						${command.creator.degreeFullNameHebrew }
  					</td>
 					<td width="300" style="border:1px #bca2a2 dotted" nowrap>
-						מדור:
+						<fmt:message key="${lang.localeId}.callForProposal.desk"/>
          				<form:select path="deskId" cssClass="green" >
-      						<form:option value="0">בחר/י</form:option>
+      						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></form:option>
        						<c:forEach items="${mopDesks}" var="mopDesk">
 	        					<form:option htmlEscape="true" value="${mopDesk.id}"><c:out escapeXml="false" value="${mopDesk.hebrewName}"/></form:option>
        						</c:forEach>
@@ -83,14 +93,14 @@
 					</td>
 					<td width="300" style="border:1px #bca2a2 dotted" nowrap>
        					<form:checkbox cssClass="green" path="requireLogin"/>
-						להציג רק לבעלי סיסמה
+						<fmt:message key="${lang.localeId}.callForProposal.requireLogin"/>
 					</td>
 				</tr>
 				<tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
-					${compulsoryFieldSign}שיוך לקטגוריה:
+					${compulsoryFieldSign}<fmt:message key="${lang.localeId}.textualPage.inCategory"/>
         				<form:select path="categoryId" id="categoryId" cssClass="green" >
-      						<form:option value="0">בחר/י</form:option>
+      						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></form:option>
        						<c:forEach items="${categories}" var="category">
 	        					<form:option htmlEscape="true" value="${category.id}"><c:out escapeXml="false" value="${category.name}"/></form:option>
        						</c:forEach>
@@ -113,16 +123,16 @@
  					</tr>
   					<tr>
  					<td colspan="4">
-						תבנית:
+						<fmt:message key="${lang.localeId}.textualPage.template"/>
          				<select name="templateId" id="templateId" class="green" >
-      						<option value="0">בחר/י</option>
+      						<option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></option>
        						<c:forEach items="${templates}" var="template">
 	        					<option value="${template.id}"><c:out escapeXml="false" value="${template.title}"/></option>
        						</c:forEach>
         		        </select>
-  						<button class="grey showTemplate" > ייבוא תבנית לעורך </button>
- 						<button class="grey addTemplate" > שמירת תבנית </button>
- 						<button class="grey updateTemplate" > עדכון תבנית </button>
+  						<button class="grey showTemplate" ><fmt:message key="${lang.localeId}.textualPage.importTemplate"/>  </button>
+ 						<button class="grey addTemplate" ><fmt:message key="${lang.localeId}.textualPage.saveTemplate"/>  </button>
+ 						<button class="grey updateTemplate" ><fmt:message key="${lang.localeId}.textualPage.updateTemplate"/>  </button>
  					</td>
  					</tr>
  					</table>
@@ -133,7 +143,7 @@
 					<table width="950">
   					<tr>
 					<td colspan="4">
-      					תאור (לשימוש פנימי):<br>
+      					<fmt:message key="${lang.localeId}.textualPage.internalDescription"/><br>
  					</td>
 					</tr>				
  					<tr>
@@ -146,26 +156,25 @@
 				</tr>	
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted">
-        					<form:checkbox cssClass="green" path="isMessage"/>
-						הודעה
+        				<form:checkbox cssClass="green" path="isMessage"/>
+						<fmt:message key="${lang.localeId}.textualPage.isMessage"/>
 					</td>
-					<td style="border:1px #bca2a2 dotted">סוג ההודעה:
+					<td style="border:1px #bca2a2 dotted"><fmt:message key="${lang.localeId}.textualPage.messageType"/>
        					<form:select path="messageType" cssClass="green" >
-      						<form:option value="0">בחר/י</form:option>
+      						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></form:option>
       						<form:option value="1">Funding</form:option>
       						<form:option value="2">ARD</form:option>
          		        </form:select>
 					</td>
 					<td colspan="2" style="border:1px #bca2a2 dotted" nowrap>
- 						 להציג בהודעות הנגללות,
-						עד לתאריך:
+ 						<fmt:message key="${lang.localeId}.callForProposal.keepInRollingMessagesExpiryTime"/>   
 						<input type="text" class="green date medium100" name="keepInRollingMessagesExpiryTimeStr"  id="keepInRollingMessagesExpiryTime" value="${keepInRollingMessagesExpiryTime}"/>
 					</td>
 				</tr>
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted" nowrap>
        					<form:checkbox cssClass="green disableEditor" path="showFile"/>
-						דף שמציג קובץ
+						<fmt:message key="${lang.localeId}.textualPage.displayFile"/>
 					</td>
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
 						<table>
@@ -175,15 +184,15 @@
 						<form:input cssClass="green" path="fileUrl"/>
 						</td> -->
 						<td>
- 						קובץ:
+ 						<fmt:message key="${lang.localeId}.textualPage.file"/>
 						<c:if test="${fn:length(command.attachment.file)>0}">
 							<a style="text-decoration:underline" href="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"
-								target="_blank">קובץ מצורף</a>	
+								target="_blank"><fmt:message key="${lang.localeId}.textualPage.attachedFile"/></a>	
 						</c:if>	
 						</td>
 						<td>				
 						<span style="display: block; width: 60px; height: 27px; overflow: hidden;">
-							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)">עיון</a></button>
+							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)"><fmt:message key="${lang.localeId}.general.browse"/></a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="textualPageFile" id="textualPageFile"/>
 						</span>
 						</td>
@@ -194,16 +203,16 @@
 				
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted" nowrap>
-        					<form:checkbox cssClass="green" path="wrapExternalPage"/>
-						דף שמציג רשימה
+        				<form:checkbox cssClass="green" path="wrapExternalPage"/>
+						<fmt:message key="${lang.localeId}.textualPage.displayList"/>
 					</td>
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
  						<table>
 						<tr>
-						<td>בחר/י רשימה:</td>
+						<td><fmt:message key="${lang.localeId}.textualPage.selectList"/></td>
 						<td>
        					<form:select path="externalPageUrl" cssClass="green" >
-      						<form:option value="0">בחר/י</form:option>
+      						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></form:option>
        						<c:forEach items="${alists}" var="alist">
 	        					<form:option htmlEscape="true" value="${alist.id}"><c:out escapeXml="false" value="${alist.name}"/></form:option>
        						</c:forEach>
@@ -223,10 +232,10 @@
  		
 		<tr class="form">
 			<td colspan="4" align="center">
-				<button title="שמירה" class="grey save" > שמירת טיוטה </button>&nbsp;&nbsp;
+				<button class="grey save"><fmt:message key="${lang.localeId}.general.save"/></button>&nbsp;&nbsp;
 				<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;&nbsp;
-				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט ראשי </button>&nbsp;&nbsp;		
-				<button class="grey" title="חזרה"  onclick="history.back();return false;">חזרה למסך קודם </button>		
+				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;&nbsp;		
+				<button class="grey" title="חזרה"  onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>		
 			</td>
 		</tr>
     </table>

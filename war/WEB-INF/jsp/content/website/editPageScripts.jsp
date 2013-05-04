@@ -37,16 +37,17 @@ function resetAutocomplete(funds){
 
 $(document).ready(function() {
 
-	if($('.viewSubjects').is(":checked"))
-    	$("#subjectView").show();
+	if($('#showDescriptionOnly').is(":checked"))
+    	$(".notDescriptionOnly").hide();
 	else
-   		$("#subjectView").hide();
+   		$(".notDescriptionOnly").show();
 
-	$(".viewSubjects").change(function(){		
-	    if($('.viewSubjects').is(":checked"))
-	    	$("#subjectView").show();
+
+	$("#showDescriptionOnly").change(function(){		
+		if($('#showDescriptionOnly').is(":checked"))
+    		$(".notDescriptionOnly").hide();
 		else
-	    	$("#subjectView").hide();
+			$(".notDescriptionOnly").show();
 	});
 	
 	if($("#fundId").val()!='0')
@@ -73,6 +74,15 @@ $(document).ready(function() {
 		$('.submissionDate').prop("disabled", false);
 	}
 	
+	$("#editFund").click(function(e){
+		e.preventDefault();
+		window.location="fund.html?id="+$("#fundId").val();
+	});
+	
+	$("#newTempFund").click(function(e){
+		e.preventDefault();
+		window.location="fund.html?action=new&temporary=true";
+	});
 
 	$("#changeFund").click(function(e){
 		e.preventDefault();
@@ -312,16 +322,29 @@ $(document).ready(function() {
 		showRightMultipleSelectImg($('tr#subject${subject.id}'));
 	</c:forEach>
 
+	$("#openAllSubjects").click(function(e){
+		e.preventDefault();
+		$("tr.darker").each(function(){
+			showRightMultipleSelectImg($(this));
+			openSubject($(this).children("td.toggleSubject"));
+		});
+	});
+	$("#closeAllSubjects").click(function(e){
+		e.preventDefault();
+		$("tr.darker").each(function(){
+			showRightMultipleSelectImg($(this));
+			closeSubject($(this).children("td.toggleSubject"));
+		});
+	});
+	
 	$("#selectAll").click(function(){
 		$("input:checkbox.subSubject").each(function(){
 			this.checked = true;
 		});
 		$("tr.darker").each(function(){
 			showRightMultipleSelectImg($(this));
-			openSubject($(this).children("td.toggleSubject"));
 		});
 		this.checked = !this.checked;
-
 	});
 
 	$("#diselectAll").click(function(){
@@ -574,6 +597,18 @@ function checkErrors(){
 	else{
 		$("#errordesk").html('');
 	}
+	var counter =0;
+	$('input.subSubject').each(function(){
+		if (this.checked)counter++;
+	});
+	if (counter==0){
+		errors = true;
+		$("#errorsubjects").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterSubject"/><font color="red"><br>');
+	}
+	else{
+		$("#errorsubjects").html('');
+	}
+	
 	return errors;
 }
 

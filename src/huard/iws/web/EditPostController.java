@@ -174,7 +174,7 @@ public class EditPostController extends GeneralFormController {
 		model.put("rootSubject", rootSubjectBean);
 
 		model.put("sendDateTime", DateUtils.getLocaleDependentLongDateTimeFormat(
-				postBean.getSendTime().getTime(), postBean.getLocaleId()));
+				postBean.getSendTime().getTime(), postBean.getLocaleId(),false));
 
 		model.put("postTypes", postService.getPostTypes());
 		

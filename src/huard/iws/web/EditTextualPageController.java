@@ -12,6 +12,7 @@ import huard.iws.service.TextualPageService;
 import huard.iws.service.MopDeskService;
 import huard.iws.service.ListListService;
 import huard.iws.service.CategoryService;
+import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 
@@ -118,6 +119,7 @@ public class EditTextualPageController extends GeneralFormController {
 		if (request.getParameter("action", "").equals("new") || id == 0){
 			TextualPage textualPage= new TextualPage();
 			textualPage.setCreatorId(userPersonBean.getId());
+			textualPage.setLocaleId(userPersonBean.getPreferedLocaleId());
 			int textualPageId = textualPageService.insertTextualPage(textualPage);
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",textualPageId);
@@ -125,6 +127,9 @@ public class EditTextualPageController extends GeneralFormController {
 		}
 		else{//show edit
 			TextualPageBean textualPageBean = (TextualPageBean) model.get("command");
+			//language
+			LanguageUtils.applyLanguage(model, request, response, textualPageBean.getLocaleId());
+			LanguageUtils.applyLanguages(model);
 			//desks
 			List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 			model.put("mopDesks", mopDesks);

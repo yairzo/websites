@@ -56,6 +56,9 @@
                     <input id="selectAll" type="checkbox" name="checkbox" value="checkbox">
                    	<fmt:message key="${lang.localeId}.post.cleanAll"/>
                     <input id="diselectAll" type="checkbox" name="checkbox" value="checkbox">
+                   	
+                    <a href id="openAllSubjects"><fmt:message key="${lang.localeId}.post.openAllSubjects"/></a>&nbsp;
+                    <a href id="closeAllSubjects"><fmt:message key="${lang.localeId}.post.closeAllSubjects"/></a>
                  </td>
                 </tr>
                </table>

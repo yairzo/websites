@@ -281,11 +281,11 @@
         <property name="successView"><value>sitemap.html</value></property>
       </bean>
  
-      <bean id="editTemporaryFundController" class="huard.iws.web.EditTemporaryFundController" parent="generalFormController">
+      <bean id="editFundController" class="huard.iws.web.EditFundController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.FundBean</value></property>
-        <property name="formView"><value>editTemporaryFund</value></property>
-        <property name="successView"><value>temporaryFund.html</value></property>
+        <property name="formView"><value>editFund</value></property>
+        <property name="successView"><value>fund.html</value></property>
      	<property name="fundService">
             <ref bean="fundService"/>
         </property>
@@ -1220,7 +1220,7 @@
 				<prop key="/categories.html">categoryListController</prop>
 				<prop key="/sitemap.html">sitemapController</prop>
 				<prop key="/category.html">editCategoryController</prop>
-				<prop key="/temporaryFund.html">editTemporaryFundController</prop>
+				<prop key="/fund.html">editFundController</prop>
 				<prop key="/temporaryFunds.html">temporaryFundListController</prop>
 				<prop key="/searchCallForProposals.html">searchCallForProposalsController</prop>
 				<prop key="/searchCallForProposalsHomePage.html">searchCallForProposalsHomePageController</prop>

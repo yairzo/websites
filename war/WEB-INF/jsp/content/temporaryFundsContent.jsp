@@ -36,16 +36,16 @@
              <tbody>
    				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 				<td align="right">
-				<a href="temporaryFund.html?id=${temporaryFund.id}"><c:out value="${temporaryFund.id}"></c:out></a>
+				<a href="fund.html?id=${temporaryFund.financialId}"><c:out value="${temporaryFund.id}"></c:out></a>
   				</td>
   				<td align="right">
-				<a href="temporaryFund.html?id=${temporaryFund.id}"><c:out value="${temporaryFund.name}"></c:out></a>
+				<a href="fund.html?id=${temporaryFund.financialId}"><c:out value="${temporaryFund.name}"></c:out></a>
 				</td>
   				<td align="right">
-				<a href="temporaryFund.html?id=${temporaryFund.id}"><c:out value="${temporaryFund.shortName}"></c:out></a>
+				<a href="fund.html?id=${temporaryFund.financialId}"><c:out value="${temporaryFund.shortName}"></c:out></a>
 				</td>
   				<td align="right">
-				<a href="temporaryFund.html?id=${temporaryFund.id}"><c:out value="${temporaryFund.financialId}"></c:out></a>
+				<a href="fund.html?id=${temporaryFund.financialId}"><c:out value="${temporaryFund.financialId}"></c:out></a>
 				</td>
    	  			</tr>
   	  		</tbody>

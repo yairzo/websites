@@ -26,10 +26,6 @@ function resetAutocomplete(funds){
 
 $(document).ready(function() {
 
-	if($("#submissionDateFrom").val()=="" && $("#submissionDateTo").val()=="")
-		$("#searchExpiredSpan").show();
-	else
-		$("#searchExpiredSpan").hide();
 
 	$("#searchWords").click(function(){
     	$("#searchWords").val('');
@@ -83,7 +79,6 @@ $(document).ready(function() {
 		});
 		$("tr.darker").each(function(){
 			showRightMultipleSelectImg($(this));
-			//openSubject($(this).children("td.toggleSubject"));
 		});
 		this.checked = !this.checked;
 	});
@@ -99,6 +94,20 @@ $(document).ready(function() {
 		this.checked = !this.checked;
 	});
 
+	$("#openAllSubjects").click(function(e){
+		e.preventDefault();
+		$("tr.darker").each(function(){
+			showRightMultipleSelectImg($(this));
+			openSubject($(this).children("td.toggleSubject"));
+		});
+	});
+	$("#closeAllSubjects").click(function(e){
+		e.preventDefault();
+		$("tr.darker").each(function(){
+			showRightMultipleSelectImg($(this));
+			closeSubject($(this).children("td.toggleSubject"));
+		});
+	});
 
 
 
@@ -181,11 +190,26 @@ $(document).ready(function() {
 			$("#form").append("<input type=\"hidden\" name=\"deleted\" value=\"true\"/>");
 		else
 			$("#form").append("<input type=\"hidden\" name=\"deleted\" value=\"false\"/>");
+	
+		if($("#searchOpen").is(":checked"))
+			$("#form").append("<input type=\"hidden\" name=\"open\" value=\"true\"/>");
+		else
+			$("#form").append("<input type=\"hidden\" name=\"open\" value=\"false\"/>");
 
 		if($("#searchExpired").is(":checked"))
 			$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"true\"/>");
 		else
 			$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"false\"/>");
+
+		if($("#searchByAllYear").is(":checked"))
+			$("#form").append("<input type=\"hidden\" name=\"allYear\" value=\"true\"/>");
+		else
+			$("#form").append("<input type=\"hidden\" name=\"allYear\" value=\"false\"/>");
+
+		if($("#searchByAllSubjects").is(":checked"))
+			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"true\"/>");
+		else
+			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"false\"/>");
 
 		var ids="";
 		$('input.subSubject').each(function(){
@@ -208,11 +232,15 @@ $(document).ready(function() {
     	$("#searchWords").val('');
     	$("#submissionDateFrom").val('');
     	$("#submissionDateTo").val('');
-    	$("#deskId").val('0');
+       	$("#searchByAllYear").prop('checked', false);
+	   	$("#deskId").val('0');
        	$("#typeId").val('0');
+       	$("#targetAudience").val('0');
     	$("#searchByTemporary").prop('checked', false);
     	$("#diselectAll").click();
+      	$("#searchByAllSubjects").prop('checked', false);
       	$("#searchDeleted").prop('checked', false);
+     	$("#searchOpen").prop('checked', false);
        	$("#searchExpired").prop('checked', false);
    		$("#listViewPage").remove();
 		$("#orderBy").remove();
@@ -221,12 +249,6 @@ $(document).ready(function() {
     	return true;
     });	
     
-	$(".cancelExpiredCheckbox").change(function(){
-		if($("#submissionDateFrom").val()=="" && $("#submissionDateTo").val()=="")
-			$("#searchExpiredSpan").show();
-		else
-			$("#searchExpiredSpan").hide();
-	});
 	
     $(".subjectsRow").show();
 	

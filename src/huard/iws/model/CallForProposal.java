@@ -38,6 +38,7 @@ public class CallForProposal {
 	private String localeId;
 	private long updateTime;
 	private int isDeleted;
+	private int targetAudience;
 	
 	
 
@@ -72,6 +73,7 @@ public class CallForProposal {
 		this.submissionDates=new ArrayList<Long>();
 		this.submissionDatesList=new ArrayList<String>();
 		this.isDeleted=0;
+		this.targetAudience=0;
 	}
 	
 	public int getId() {
@@ -327,5 +329,14 @@ public class CallForProposal {
 	public void setIsDeleted(int isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+
+	
+	public int getTargetAudience() {
+		return targetAudience;
+	}
+	public void setTargetAudience(int targetAudience) {
+		this.targetAudience = targetAudience;
+	}
+
 
 }

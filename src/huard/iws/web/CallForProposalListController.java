@@ -11,6 +11,7 @@ import huard.iws.service.SphinxSearchService;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.DateUtils;
 import huard.iws.util.BaseUtils;
+import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallForProposal;
@@ -43,6 +44,7 @@ public class CallForProposalListController extends GeneralFormController {
 	{
 
 		CallForProposalListControllerCommand command = (CallForProposalListControllerCommand) model.get("command");
+
 		List<CallForProposal> callForProposals = callForProposalService.getCallForProposals(command.getListView(),command.getSearchCreteria());
 		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
 		for (CallForProposal callForProposal: callForProposals){
@@ -52,12 +54,15 @@ public class CallForProposalListController extends GeneralFormController {
 			callForProposalBeans.add(callForProposalBean);
 		}
 		model.put("callForProposals", callForProposalBeans);
+		//language
+		LanguageUtils.applyLanguage(model, request, response, userPersonBean.getPreferedLocaleId());
+		LanguageUtils.applyLanguages(model);
 		//desks
 		List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 		model.put("mopDesks", mopDesks);
 		//subjects
-		Subject rootSubject = subjectService.getSubject(1, "iw_IL");
-		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, "iw_IL");
+		Subject rootSubject = subjectService.getSubject(1, userPersonBean.getPreferedLocaleId());
+		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, userPersonBean.getPreferedLocaleId());
 		model.put("rootSubject", rootSubjectBean);
 		//show searched parameters
 		model.put("searchWords",command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));
@@ -76,6 +81,10 @@ public class CallForProposalListController extends GeneralFormController {
 		model.put("temporaryFund",command.getSearchCreteria().getSearchByTemporaryFund());
 		model.put("searchDeleted",command.getSearchCreteria().getSearchDeleted());
 		model.put("searchExpired",command.getSearchCreteria().getSearchExpired());
+		model.put("targetAudience",command.getSearchCreteria().getSearchByTargetAudience());
+		model.put("searchByAllYear",command.getSearchCreteria().getSearchByAllYear());
+		model.put("searchOpen",command.getSearchCreteria().getSearchOpen());
+		model.put("searchByAllSubjects",command.getSearchCreteria().getSearchByAllSubjects());
 		return new ModelAndView ("callForProposals",model);
 	}
 
@@ -88,6 +97,7 @@ public class CallForProposalListController extends GeneralFormController {
 				searchCreteria.setSearchBySubmissionDateFrom(DateUtils.formatToSqlDate(request.getParameter("submissionDateFrom", ""),"dd/MM/yyyy"));
 			if(!request.getParameter("submissionDateTo", "").equals(""))
 				searchCreteria.setSearchBySubmissionDateTo(DateUtils.formatToSqlDate(request.getParameter("submissionDateTo", ""),"dd/MM/yyyy"));
+			searchCreteria.setSearchByAllYear(request.getBooleanParameter("allYear", false));
 			searchCreteria.setSearchByTemporaryFund(request.getBooleanParameter("temporaryFund", false));
 			searchCreteria.setSearchByFund(request.getIntParameter("fundId", 0));
 			searchCreteria.setSearchByDesk(request.getIntParameter("deskId", 0));
@@ -103,9 +113,12 @@ public class CallForProposalListController extends GeneralFormController {
 				searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
 			}
 			searchCreteria.setSearchDeleted(request.getBooleanParameter("deleted", false));
+			searchCreteria.setSearchOpen(request.getBooleanParameter("open", false));
 			searchCreteria.setSearchExpired(request.getBooleanParameter("expired", false));
+			searchCreteria.setSearchByTargetAudience(request.getIntParameter("targetAudience", 0));
 			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
 				searchCreteria.setSearchByCreator(userPersonBean.getId());	
+			searchCreteria.setSearchByAllSubjects(request.getBooleanParameter("allSubjects", false));
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 			
 			ListView listView = new ListView();

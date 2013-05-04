@@ -188,7 +188,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", additionalInformation = ?" +
 				", localeId = ?" + 
 				", updateTime = now()"+ 
-				", isDeleted = ?";
+				", isDeleted = ?"+
+				", targetAudience = ?";
 		//logger.info(query);
 		String keepInRollingMessagesExpiryTime="";
 		if(callForProposal.getKeepInRollingMessagesExpiryTime()==0)//
@@ -229,7 +230,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getBudgetDetails().trim(),
 	    		callForProposal.getAdditionalInformation().trim(),
 	    		callForProposal.getLocaleId(),
-	    		callForProposal.getIsDeleted());
+	    		callForProposal.getIsDeleted(),
+	    		callForProposal.getTargetAudience());
 	}
 	
 
@@ -263,6 +265,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", localeId = ?" +
 				", updateTime = ?" +
 				", isDeleted = ?" +
+				", targetAudience = ?" +
 			" where id = ?;";
 		logger.info(query);
 
@@ -318,6 +321,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getLocaleId(),
 	    		updateTime,
 	    		callForProposal.getIsDeleted(),
+	    		callForProposal.getTargetAudience(),
 				callForProposal.getId());
 		
 		query = "delete from subjectToCallForProposal where callForProposalId = ?";
@@ -346,6 +350,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			}
 		}
 	}
+	
 	public void updateCallForProposalOnline(CallForProposal callForProposal){
 		String keepInRollingMessagesExpiryTime="";
 		if(callForProposal.getKeepInRollingMessagesExpiryTime()==0)//
@@ -387,6 +392,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", localeId = ?" +
 				", updateTime = now()" +
 				", isDeleted = ?" +
+				", targetAudience = ?" +
 			" where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -417,6 +423,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getAdditionalInformation().trim(),
 	    		callForProposal.getLocaleId(),
 	    		callForProposal.getIsDeleted(),
+	    		callForProposal.getTargetAudience(),
 				callForProposal.getId());
 		
 		/*query = "delete from subjectToCallForProposal where callForProposalId = ?";
@@ -460,8 +467,10 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	}
 	
 	public int countCallForProposals(CallForProposalSearchCreteria searchCreteria) {
-		String query = "select count(*) from callForProposalDraft";
+		String query = "select count(*) from (";
+		query += "select distinct callForProposalDraft.* from callForProposalDraft";
 		query += getCallForProposalsWhereClause(searchCreteria,"callForProposalDraft");
+		query += ") as t;";
 		logger.info(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
@@ -479,33 +488,52 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		String whereClause="";
 		if (searchCriteria.getSearchByTemporaryFund())
 			whereClause += " inner join fund on fund.financialId=" + mainTable +".fundId";
-		if(!searchCriteria.getSearchBySubjectIds().isEmpty())
+		if(!searchCriteria.getSearchBySubjectIds().isEmpty() || searchCriteria.getSearchByAllSubjects())
 			whereClause += " inner join subjectToCallForProposal on subjectToCallForProposal.callForProposalId=" + mainTable +".id";
 		whereClause += " where true";
 		if(searchCriteria.getSearchByTemporaryFund())
 			whereClause +=" and fund.isTemporary=1";
+		if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty() || !searchCriteria.getSearchBySubmissionDateTo().isEmpty())
+			whereClause +=" and (true";
 		if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty())
 			whereClause +=" and " + mainTable +".finalSubmissionTime >='"+searchCriteria.getSearchBySubmissionDateFrom()+"'";
 		if(!searchCriteria.getSearchBySubmissionDateTo().isEmpty())
 			whereClause +=" and " + mainTable +".finalSubmissionTime <='"+searchCriteria.getSearchBySubmissionDateTo()+"'";
+		if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty() || !searchCriteria.getSearchBySubmissionDateTo().isEmpty())
+			whereClause +=" or " + mainTable +".finalSubmissionTime = 0)";
 		if(searchCriteria.getSearchByFund()>0)
 			whereClause +=" and " + mainTable +".fundId="+searchCriteria.getSearchByFund();
 		if(searchCriteria.getSearchByDesk()>0)
 			whereClause +=" and " + mainTable +".deskId="+searchCriteria.getSearchByDesk();
+		if(searchCriteria.getSearchByTargetAudience()>0)
+			whereClause +=" and " + mainTable +".targetAudience="+searchCriteria.getSearchByTargetAudience();
 		if(searchCriteria.getSearchByType()>0)
 			whereClause +=" and " + mainTable +".typeId="+searchCriteria.getSearchByType();
 		if(searchCriteria.getSearchByCreator()>0)
 			whereClause +=" and " + mainTable +".creatorId="+searchCriteria.getSearchByCreator();
 		if(!searchCriteria.getSearchBySearchWords().isEmpty())
 			whereClause +=" and " + mainTable +".id in ("+searchCriteria.getSearchBySearchWords() + ")";
-		if(!searchCriteria.getSearchBySubjectIds().isEmpty())
+		if(!searchCriteria.getSearchByAllSubjects() && !searchCriteria.getSearchBySubjectIds().isEmpty())
 			whereClause +=" and subjectToCallForProposal.subjectId in ("+searchCriteria.getSearchBySubjectIds() + ")";
-		if(!searchCriteria.getSearchDeleted())//not include deleted
+		if(searchCriteria.getSearchDeleted())//not include deleted
+			whereClause +=" and " + mainTable +".isDeleted=1";
+		else
 			whereClause +=" and " + mainTable +".isDeleted=0";
-		//,if checkbox not checked and if not added dates then show only not expired:
-		if(!searchCriteria.getSearchExpired() && searchCriteria.getSearchBySubmissionDateFrom().isEmpty() && searchCriteria.getSearchBySubmissionDateTo().isEmpty())
+		if(searchCriteria.getSearchExpired()) 
+			whereClause +=" and " + mainTable +".finalSubmissionTime < now()";
+		if(searchCriteria.getSearchByAllYear())
+			whereClause +=" and " + mainTable +".finalSubmissionTime = 0";
+		if(searchCriteria.getSearchOpen()) 
 			whereClause +=" and (" + mainTable +".finalSubmissionTime >= now() or " + mainTable +".finalSubmissionTime = 0)";
 			
+		
+		if(searchCriteria.getSearchByAllSubjects()){
+			String query = "select count(*) from subject where parentId not in(-1,1)";
+			int countSubjects = getSimpleJdbcTemplate().queryForInt(query);
+			whereClause +=" group by subjectToCallForProposal.callForProposalId having count(*)="+countSubjects;
+		}
+
+		
 		whereClause += "  order by " + mainTable +".id desc";
 		
 		if(searchCriteria.getLimit()>0)
@@ -576,6 +604,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			if (updateTimeTS != null)
 				updateTime = updateTimeTS.getTime();
     		callForProposal.setUpdateTime(updateTime);
+    		callForProposal.setTargetAudience(rs.getInt("targetAudience"));
            return callForProposal;
         }
 	};

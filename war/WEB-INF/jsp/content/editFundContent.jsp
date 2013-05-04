@@ -4,10 +4,6 @@
 
 $(document).ready(function() {
 
-	$('.cancel').click(function(){
-		document.location = "temporaryFunds.html";
-    	return false;
-     });
      $('.save').click(function(){
  		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"edit\"/>");
      	$("#form").submit();
@@ -15,8 +11,7 @@ $(document).ready(function() {
 
     });
      $(".delete").click(function(){
-     	//alert("Deleting attribution");
-     	$("form#form").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
+      	$("form#form").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
      	$("form#form").submit();
      });
 
@@ -51,7 +46,7 @@ $(document).ready(function() {
 
 		<tr>
 			<td valign="top" align="center"><br>
-			<form:form name="form" id="form"  method="POST" action="temporaryFund.html"	commandName="command">
+			<form:form name="form" id="form"  method="POST" action="fund.html"	commandName="command">
 
 
 				<form:hidden path="id" />
@@ -129,7 +124,7 @@ $(document).ready(function() {
 							כתובת אתר:
 						</td>
 						<td>
-							<form:input path="webAddress"/>
+							<form:input cssClass="long500" path="webAddress"/>
 						</td>
 					</tr>
 
@@ -140,12 +135,12 @@ $(document).ready(function() {
 					</tr>
 
 					<tr>
-						<td>
+						<td colspan="2">
 						<button class="save grey">שמור</button>
 
 						&nbsp;&nbsp;
 
-						<button class="cancel grey">סיים</button>
+						<button class="grey" onclick="history.back();return false;">חזרה למסך קודם </button>		
 						</td>
 					</tr>
 

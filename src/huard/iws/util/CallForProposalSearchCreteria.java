@@ -1,6 +1,5 @@
 package huard.iws.util;
 import java.util.Set;
-import java.util.Iterator;
 
 public class CallForProposalSearchCreteria extends SearchCreteria{
 	
@@ -8,14 +7,18 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 	protected int searchByFund;
 	protected int searchByDesk;
 	protected String searchBySubjectIds;
+	protected boolean searchByAllSubjects;
 	protected String searchBySubmissionDateFrom;
 	protected String searchBySubmissionDateTo;
+	protected boolean searchByAllYear;
 	protected int searchByType;
 	protected String searchBySearchWords;
 	protected String searchWords;
 	protected int searchByCreator;
 	protected boolean searchDeleted;
 	protected boolean searchExpired;
+	protected boolean searchOpen;
+	protected int searchByTargetAudience;
 	protected int limit;
 	
 	
@@ -25,14 +28,18 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 		this.searchByFund = 0;
 		this.searchByDesk = 0;
 		this.searchBySubjectIds = "";
+		this.searchByAllSubjects =false;
 		this.searchBySubmissionDateFrom = "";
 		this.searchBySubmissionDateTo = "";
+		this.searchByAllYear = false;
 		this.searchByType = 0;
 		this.searchBySearchWords= "";
 		this.searchWords="";
 		this.searchByCreator=0;
 		this.searchDeleted=false;
 		this.searchExpired=false;
+		this.searchOpen=false;
+		this.searchByTargetAudience=0;
 		this.limit=0;
 	}
 
@@ -72,6 +79,14 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 		this.searchBySubjectIds = searchBySubjectIds;
 	}
 
+	public boolean getSearchByAllSubjects() {
+		return searchByAllSubjects;
+	}
+
+	public void setSearchByAllSubjects(boolean searchByAllSubjects) {
+		this.searchByAllSubjects = searchByAllSubjects;
+	}
+
 	public String getSearchBySubmissionDateFrom() {
 		return searchBySubmissionDateFrom;
 	}
@@ -86,6 +101,14 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 
 	public void setSearchBySubmissionDateTo(String searchBySubmissionDateTo) {
 		this.searchBySubmissionDateTo = searchBySubmissionDateTo;
+	}
+
+	public boolean getSearchByAllYear() {
+		return searchByAllYear;
+	}
+
+	public void setSearchByAllYear(boolean searchByAllYear) {
+		this.searchByAllYear = searchByAllYear;
 	}
 
 	public int getSearchByType() {
@@ -134,6 +157,23 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 
 	public void setSearchExpired(boolean searchExpired) {
 		this.searchExpired = searchExpired;
+	}
+
+	public boolean getSearchOpen() {
+		return searchOpen;
+	}
+
+	public void setSearchOpen(boolean searchOpen) {
+		this.searchOpen = searchOpen;
+	}
+	
+
+	public int getSearchByTargetAudience() {
+		return searchByTargetAudience;
+	}
+	
+	public void setSearchByTargetAudience(int searchByTargetAudience) {
+		this.searchByTargetAudience = searchByTargetAudience;
 	}
 
 	public int getLimit() {

@@ -102,12 +102,12 @@ public class DateUtils {
 		return monthsNames;
 	}
 
-	public static String getLocaleDependentLongDateTimeFormat(long timeMillis, String localeId){
+	public static String getLocaleDependentLongDateTimeFormat(long timeMillis, String localeId, boolean withMinutes){
 		DateFormatSymbols dfs = new DateFormatSymbols();
 		dfs.setMonths(getMonthsNames(localeId));
-		String format = "d בMMMM, yyyy בשעה kk:00";
+		String format = "d בMMMM, yyyy בשעה kk:"+ (withMinutes?"mm":"00");
 		if (localeId.equals("en_US"))
-			format = "MMMM d, yyyy 'at' kk:00";
+			format = "MMMM d, yyyy 'at' kk:"+ (withMinutes?"mm":"00");
 		SimpleDateFormat sdf = new SimpleDateFormat(format, dfs);
 		Date sendTime = new Date(timeMillis);
 		return sdf.format(sendTime);

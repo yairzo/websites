@@ -7,6 +7,7 @@
 
 
 $(document).ready(function() {
+	
 	if($('.disableEditor').is(":checked"))
     	$("#htmlView").hide();
 	else
@@ -176,6 +177,12 @@ $(document).ready(function() {
   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
  		$("#form").append("<input type=\"hidden\" name=\"action\" class=\"action\" value=\"delete\"/>");
 		$('form#form').submit();
+	});
+	
+	$(".langSelect").change(function(){
+ 		$(".ajaxSubmit").remove();
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+		$('#form').submit();
 	});
 	
 

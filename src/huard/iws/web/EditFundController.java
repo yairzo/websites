@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class EditTemporaryFundController extends GeneralFormController {
+public class EditFundController extends GeneralFormController {
 	private static final Logger logger = Logger.getLogger(EditPersonController.class);
 
 
@@ -35,8 +35,8 @@ public class EditTemporaryFundController extends GeneralFormController {
 		}
 
 		Map <String,Object> newModel = new HashMap<String, Object>();
-		newModel.put("id", fundBean.getId());
-		return new ModelAndView(new RedirectView("temporaryFund.html"), newModel );
+		newModel.put("id", fundBean.getFinancialId());
+		return new ModelAndView(new RedirectView("fund.html"), newModel );
 
 	}
 
@@ -48,24 +48,24 @@ public class EditTemporaryFundController extends GeneralFormController {
 		int id = request.getIntParameter("id", 0);
 		if (request.getParameter("action", "").equals("new") || id == 0){
 			Fund fund= new Fund();
-			fund.setTemporary(true);
+			if(request.getBooleanParameter("temporary", false))
+				fund.setTemporary(true);
 			fund.setHtml("");
-			int maxId=fundService.getMaxFinancialIdForTemporary();
-			System.out.println("1111111111111111:"+maxId);
 			fund.setFinancialId(fundService.getMaxFinancialIdForTemporary());
-			int temporaryFundId = fundService.insertFund(fund);
+			fundService.insertFund(fund);
 			Map<String, Object> newModel = new HashMap<String, Object>();
-			newModel.put("id",temporaryFundId);
-			return new ModelAndView ( new RedirectView("temporaryFund.html"), newModel);
+			newModel.put("id",fund.getFinancialId());
+			return new ModelAndView ( new RedirectView("fund.html"), newModel);
 		}
 		else{//show edit
 			FundBean fundBean = (FundBean) model.get("command");
 			//desks
 			List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 			model.put("mopDesks", mopDesks);
-			model.put("id",fundBean.getId());
+			model.put("id",fundBean.getFinancialId());
 			return new ModelAndView ( this.getFormView(), model);
-		}	}
+		}
+	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
@@ -76,7 +76,7 @@ public class EditTemporaryFundController extends GeneralFormController {
 				|| id == 0)
 			return fundBean;
 		
-		fundBean = new FundBean(fundService.getFund(id));
+		fundBean = new FundBean(fundService.getFundByFinancialId(id));
 		return fundBean;
 	}
 

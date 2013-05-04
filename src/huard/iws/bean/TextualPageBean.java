@@ -27,6 +27,7 @@ public class TextualPageBean {
 	private long keepInRollingMessagesExpiryTime;
 	private long updateTime;
 	private int isDeleted;
+	private String localeId;
 
 	
 	public TextualPageBean(){
@@ -49,6 +50,7 @@ public class TextualPageBean {
 		this.keepInRollingMessagesExpiryTime=0;
 		this.updateTime=0;
 		this.isDeleted=0;
+		this.localeId="";
 	}
 
 
@@ -72,6 +74,7 @@ public class TextualPageBean {
 		this.keepInRollingMessagesExpiryTime = textualPage.getKeepInRollingMessagesExpiryTime();
 		this.updateTime = textualPage.getUpdateTime();
         this.isDeleted=textualPage.getIsDeleted();
+		this.localeId=textualPage.getLocaleId();
 	}
 
 	public TextualPage toTextualPage(){
@@ -95,6 +98,7 @@ public class TextualPageBean {
 		textualPage.setKeepInRollingMessagesExpiryTime(keepInRollingMessagesExpiryTime);
 		textualPage.setUpdateTime(updateTime);
 		textualPage.setIsDeleted(isDeleted);
+		textualPage.setLocaleId(localeId);
 		return textualPage;
 	}
 
@@ -242,6 +246,14 @@ public class TextualPageBean {
 	}
 	public void setUpdateTime(long updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getLocaleId() {
+		return localeId;
+	}
+
+	public void setLocaleId(String localeId) {
+		this.localeId = localeId;
 	}
 
 	public int getIsDeleted() {

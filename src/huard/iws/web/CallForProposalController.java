@@ -5,6 +5,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.model.Fund;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.FundService;
+import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 
@@ -43,12 +44,11 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		model.put("pageTitle", callForProposalBean.getTitle());
 
 		//dates
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		if (callForProposalBean.getFinalSubmissionTime()==0)
 			model.put("finalSubmissionTime", "");
 		else
-			model.put("finalSubmissionTime", formatter.format(callForProposalBean.getFinalSubmissionTime()));
-		formatter = new SimpleDateFormat("dd/MM/yyyy");
+			model.put("finalSubmissionTime", DateUtils.getLocaleDependentLongDateTimeFormat(callForProposalBean.getFinalSubmissionTime(),callForProposalBean.getLocaleId(),true));
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		if (callForProposalBean.getPublicationTime()==0)
 			model.put("publicationTime", "");
 		else

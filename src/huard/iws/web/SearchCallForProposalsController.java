@@ -80,6 +80,10 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		model.put("temporaryFund",command.getSearchCreteria().getSearchByTemporaryFund());
 		model.put("searchDeleted",command.getSearchCreteria().getSearchDeleted());
 		model.put("searchExpired",command.getSearchCreteria().getSearchExpired());
+		model.put("targetAudience",command.getSearchCreteria().getSearchByTargetAudience());
+		model.put("searchByAllYear",command.getSearchCreteria().getSearchByAllYear());
+		model.put("searchOpen",command.getSearchCreteria().getSearchOpen());
+		model.put("searchByAllSubjects",command.getSearchCreteria().getSearchByAllSubjects());
 		if(!userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") && !userPersonBean.getSubjectsIds().isEmpty()){
 			String linkToPersonPost = "<a href=\"personPost.html?id="+userPersonBean.getId() +"\">"+messageService.getMessage("iw_IL.website.searchBySubjects")+"</a>";
 			model.put("linkToPersonPost",linkToPersonPost);
@@ -98,6 +102,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 				searchCreteria.setSearchBySubmissionDateFrom(DateUtils.formatToSqlDate(request.getParameter("submissionDateFrom", ""),"dd/MM/yyyy"));
 			if(!request.getParameter("submissionDateTo", "").equals(""))
 				searchCreteria.setSearchBySubmissionDateTo(DateUtils.formatToSqlDate(request.getParameter("submissionDateTo", ""),"dd/MM/yyyy"));
+			searchCreteria.setSearchByAllYear(request.getBooleanParameter("allYear", false));
 			searchCreteria.setSearchByTemporaryFund(request.getBooleanParameter("temporaryFund", false));
 			searchCreteria.setSearchByFund(request.getIntParameter("fundId", 0));
 			searchCreteria.setSearchByDesk(request.getIntParameter("deskId", 0));
@@ -113,7 +118,10 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 				searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
 			}
 			searchCreteria.setSearchDeleted(request.getBooleanParameter("deleted", false));
+			searchCreteria.setSearchOpen(request.getBooleanParameter("open", false));
 			searchCreteria.setSearchExpired(request.getBooleanParameter("expired", false));
+			searchCreteria.setSearchByTargetAudience(request.getIntParameter("targetAudience", 0));
+			searchCreteria.setSearchByAllSubjects(request.getBooleanParameter("allSubjects", false));
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 		}
 		else{//on show

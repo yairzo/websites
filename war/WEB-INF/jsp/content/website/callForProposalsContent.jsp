@@ -15,19 +15,19 @@
   </tr>
   <tr>
     <td>
-      <table width="1120" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468">
+      <table width="1120" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468" >
         <tr>
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" commandName="command" action="callForProposals.html">
             	<input type="hidden" id="listViewPage" name="listView.page" value="${command.listView.page}"/>
             	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
 
-              <table width="1120" border="0" align="center" cellpadding="3" dir="rtl">
+              <table width="1120" border="0" align="center" cellpadding="3" dir="${lang.dir}">
                <tr>
       				<td class="container" style="width: 32%; vertical-align: top">
     					<table style="width: 100%;">
                 	 	<tr>
-                 		 <td align="center"><h1>סינון קולות קוראים</h1>	</td>
+                 		 <td align="center"><h1><fmt:message key="${lang.localeId}.callForProposal.searchCallForProposals"/></h1>	</td>
                 		</tr>
                 		<tr class="form">
 							<td>
@@ -38,8 +38,20 @@
 						</tr>
  						<tr class="form">
 						<td>
-   			   			תאריך הגשה בין - <input type="text" name="submissionDateFrom" id="submissionDateFrom" class="green date cancelExpiredCheckbox medium100" value="${submissionDateFrom}"/>
-  			   			ל - <input type="text" name="submissionDateTo" id="submissionDateTo" class="green date cancelExpiredCheckbox medium100" value="${submissionDateTo}"/> 
+   			   			<fmt:message key="${lang.localeId}.callForProposal.submissionTime"/> <fmt:message key="${lang.localeId}.callForProposal.submissionTimeFrom"/>  <input type="text" name="submissionDateFrom" id="submissionDateFrom" class="green date cancelExpiredCheckbox medium80" value="${submissionDateFrom}"/>
+  			   			<fmt:message key="${lang.localeId}.callForProposal.submissionTimeTo"/> <input type="text" name="submissionDateTo" id="submissionDateTo" class="green date cancelExpiredCheckbox medium80" value="${submissionDateTo}"/> 
+       					</td>
+       					</tr>
+                 		<tr class="form">
+						<td align="${lang.align}">
+  			   				<input type="checkbox" name="searchByAllYear" id="searchByAllYear" class="green" <c:if test="${searchByAllYear}">checked="checked"</c:if>/> <fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/> 
+ 			   				<input type="checkbox" name="searchOpen" id="searchOpen" class="green" <c:if test="${searchOpen}">checked="checked"</c:if>/> <fmt:message key="${lang.localeId}.callForProposal.open"/> 
+  			   				<input type="checkbox" name="searchExpired" id="searchExpired" class="green" <c:if test="${searchExpired}">checked="checked"</c:if>/> <fmt:message key="${lang.localeId}.callForProposal.expired"/>
+       					</td>
+       					</tr>
+                   		<tr class="form">
+						<td align="${lang.align}">
+  			   				<input type="checkbox" name="searchDeleted" id="searchDeleted" class="green" <c:if test="${searchDeleted}">checked="checked"</c:if>/> <fmt:message key="${lang.localeId}.callForProposal.deleted"/> 
        					</td>
        					</tr>
 						<tr class="form">
@@ -68,9 +80,20 @@
         		        </select>
 						</td>
 						</tr>
+  						<tr class="form">
+						<td>
+						<fmt:message key="${lang.localeId}.callForProposal.targetAudience"/>
+         				<select name="targetAudience" id="targetAudience" class="green" >
+      						<option value="0" <c:if test="${targetAudience==0}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.all"/></option>
+      						<option value="1" <c:if test="${targetAudience==1}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.researcher"/></option>
+      						<option value="2" <c:if test="${targetAudience==2}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.doctoral"/></option>
+      						<option value="3" <c:if test="${targetAudience==3}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.postdoctoral"/></option>
+        		        </select>
+						</td>
+						</tr>
                   		<tr>
-						<td align="right">
-  			   			<input type="checkbox" name="searchByTemporary" id="searchByTemporary" class="green" <c:if test="${temporaryFund}">checked="checked"</c:if>/> קולות קוראים עם מממן זמני
+						<td align="${lang.align}">
+  			   			<input type="checkbox" name="searchByTemporary" id="searchByTemporary" class="green" <c:if test="${temporaryFund}">checked="checked"</c:if>/> <fmt:message key="${lang.localeId}.callForProposal.temporaryFund"/>
        					</td>
        					</tr>
 						<tr class="form subjectsRow" style="display:none">
@@ -80,15 +103,14 @@
 						</td>
 						</tr>
                    		<tr>
-						<td align="right">
-  			   				<input type="checkbox" name="searchDeleted" id="searchDeleted" class="green" <c:if test="${searchDeleted}">checked="checked"</c:if>/> כולל מבוטלים
-  			   				<span id="searchExpiredSpan">&nbsp;<input type="checkbox" name="searchExpired" id="searchExpired" class="green" <c:if test="${searchExpired}">checked="checked"</c:if>/> כולל פגי תוקף</span>
-       					</td>
+						<td align="${lang.align}">
+  			   				<input type="checkbox" name="searchByAllSubjects" id="searchByAllSubjects" class="green" <c:if test="${searchByAllSubjects}">checked="checked"</c:if>/> <fmt:message key="${lang.localeId}.callForProposal.allSubjects"/>
+        					</td>
        					</tr>
                   		<tr>
 						<td align="left">
- 							<button class="grey search">חפש</button>&nbsp;
- 							<button  class="grey cleanSearch" title="נקה חיפוש" >נקה חיפוש</button>		
+ 							<button class="grey search"><fmt:message key="${lang.localeId}.general.search"/></button>&nbsp;
+ 							<button  class="grey cleanSearch"><fmt:message key="${lang.localeId}.general.cleanSearch"/></button>		
        					</td>
        					</tr>
        					</table>
@@ -96,17 +118,17 @@
    					<td class="container" style="width: 68%; vertical-align: top;text-align: center;">
      					<table style="width: 100%;">
                	 		<tr>
-                 		 <td colspan="2" align="center"><h1>רשימת דפי קולות קוראים</h1>	</td>
+                 		 <td colspan="2" align="center"><h1><fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/></h1>	</td>
                 		</tr>
      					<c:choose>
     					<c:when test="${fn:length(callForProposals) > 0}">
 						<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
              			<tbody>
    							<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
-							<td align="right">
+							<td align="${lang.align}">
 							<a href="editCallForProposal.html?id=${callForProposal.id}"><c:out value="${callForProposal.id}"></c:out></a>
   							</td>
-  							<td align="right">
+  							<td align="${lang.align}">
 							<a href="editCallForProposal.html?id=${callForProposal.id}"><c:out value="${callForProposal.title}"></c:out></a>
 							</td>
    	  						</tr>
@@ -122,7 +144,7 @@
   						</c:otherwise>
   						</c:choose> 
                	 		<tr>
-                 		 <td colspan="2"><button class="grey" onclick="window.location='editCallForProposal.html?action=new';return false;">קול קורא חדש</button></td>
+                 		 <td colspan="2"><button class="grey" onclick="window.location='editCallForProposal.html?action=new';return false;"><fmt:message key="${lang.localeId}.callForProposal.createNew"/></button></td>
                 		</tr>
 						<tr>
                 		<td colspan="2" align="center"><br>

@@ -32,6 +32,13 @@
   			   			ל - <input type="text" name="submissionDateTo" id="submissionDateTo" class="green date cancelExpiredCheckbox medium100" value="${submissionDateTo}"/> 
        					</td>
        					</tr>
+                  		<tr class="form">
+						<td align="right">
+  			   				<input type="checkbox" name="searchByAllYear" id="searchByAllYear" class="green" <c:if test="${searchByAllYear}">checked="checked"</c:if>/>   להגשה כל השנה
+ 			   				<input type="checkbox" name="searchOpen" id="searchOpen" class="green" <c:if test="${searchOpen}">checked="checked"</c:if>/>  פתוחים להגשה
+  			   				<input type="checkbox" name="searchExpired" id="searchExpired" class="green" <c:if test="${searchExpired}">checked="checked"</c:if>/> פגי תוקף</span>
+       					</td>
+       					</tr>
 						<tr class="form">
 						<td>
 						<fmt:message key="${lang.localeId}.callForProposal.desk"/>
@@ -59,6 +66,17 @@
         		        </select>
 						</td>
 						</tr>
+   						<tr class="form">
+						<td>
+						<fmt:message key="${lang.localeId}.callForProposal.targetAudience"/>
+         				<select name="targetAudience" id="targetAudience" class="green" >
+      						<option value="0" <c:if test="${targetAudience==0}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.all"/></option>
+      						<option value="1" <c:if test="${targetAudience==1}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.researcher"/></option>
+      						<option value="2" <c:if test="${targetAudience==2}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.doctoral"/></option>
+      						<option value="3" <c:if test="${targetAudience==3}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.postdoctoral"/></option>
+        		        </select>
+						</td>
+						</tr>
                   		<!-- <tr>
 						<td align="right">
   			   			<input type="checkbox" name="searchByTemporary" id="searchByTemporary" class="green" <c:if test="${temporaryFund}">checked="checked"</c:if>/> קולות קוראים עם מממן זמני
@@ -70,13 +88,12 @@
 						<%@ include file="/WEB-INF/jsp/website/subjects.jsp" %>					
 						</td>
 						</tr>
-                   		<tr>
+                    	<tr>
 						<td align="right">
-  			   				<!-- <input type="checkbox" name="searchDeleted" id="searchDeleted" class="green" <c:if test="${searchDeleted}">checked="checked"</c:if>/> כולל מבוטלים -->
-  			   				<span id="searchExpiredSpan">&nbsp;<input type="checkbox" name="searchExpired" id="searchExpired" class="green" <c:if test="${searchExpired}">checked="checked"</c:if>/> כולל פגי תוקף</span>
-       					</td>
+  			   				<input type="checkbox" name="searchByAllSubjects" id="searchByAllSubjects" class="green" <c:if test="${searchByAllSubjects}">checked="checked"</c:if>/>  הצג רק קולות קולאים עם כל הנושאים
+        				</td>
        					</tr>
-                  		<tr>
+                   		<tr>
 						<td align="left">
  							<button class="grey search">חפש</button>&nbsp;
  							<button  class="grey cleanSearch" title="נקה חיפוש" >נקה חיפוש</button>

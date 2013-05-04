@@ -18,6 +18,7 @@
             <form:form id="form" name="form" method="POST" action="editCallForProposal.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
  			<form:hidden path="creatorId"/>
+ 			<form:hidden path="title"/>
 			
  			
  			<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"></c:set>
@@ -71,7 +72,7 @@
                 <tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.title"/>
-						<input type="text" htmlEscape="true" class="green long800" name="title" id="title" value="${title}"/>
+						<input type="text" htmlEscape="true" class="green long800" name="tempTitle" id="title" value="${title}"/>
 					    <div id="errortitle" title="שגיאה" dir="${lang.dir}">				
 					</td>
 				</tr>
@@ -80,9 +81,8 @@
 						<fmt:message key="${lang.localeId}.callForProposal.creator"/>
 						<c:if test="${lang.name=='Hebrew'}">${command.creator.degreeFullNameHebrew }</c:if>
    						<c:if test="${lang.name=='English'}">${command.creator.degreeFullNameEnglish }</c:if>
-						
 					</td>
-					<td  width="300" style="border:1px #bca2a2 dotted">
+					<td width="300" style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.publicationTime"/>
 						<form:input htmlEscape="true" cssClass="green date medium100" path="publicationTimeString" id="publicationTime"/>
 					    <div id="errorpublicationTime" title="שגיאה" dir="${lang.dir}">				
@@ -110,7 +110,8 @@
 						 <input type="text" class="green long500" id="searchPhrase" value="${selectedFund}"/> 
 						<form:hidden path="fundId" id="fundId"/>
 						<a href="" id="changeFund"><fmt:message key="${lang.localeId}.callForProposal.changeFund"/></a>&nbsp;
-						<a href="temporaryFund.html?action=new" target="_blank"><fmt:message key="${lang.localeId}.callForProposal.addFund"/></a>
+						<a href="" id="editFund" target="_blank"><fmt:message key="${lang.localeId}.callForProposal.editFund"/></a>&nbsp;
+						<a href="" id="newTempFund" target="_blank"><fmt:message key="${lang.localeId}.callForProposal.addFund"/></a>
 						<div id="errorfund" title="שגיאה" dir="${lang.dir}">
 					</td>
 					<td style="border:1px #bca2a2 dotted">
@@ -145,7 +146,7 @@
        					<fmt:message key="${lang.localeId}.callForProposal.requireLogin"/>
 					</td>
 					<td  style="border:1px #bca2a2 dotted" nowrap>
-       					<form:checkbox cssClass="green" path="showDescriptionOnly"/>
+       					<form:checkbox cssClass="green" id="showDescriptionOnly" path="showDescriptionOnly"/>
 						<fmt:message key="${lang.localeId}.callForProposal.showDescriptionOnly"/>
 					</td>
 				</tr>
@@ -154,6 +155,19 @@
 						<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/>  
 						<form:input htmlEscape="true" cssClass="green long500" path="originalCallWebAddress" />
 					</td>
+				</tr>
+				<tr class="form">
+					<td style="border:1px #bca2a2 dotted">
+  						<fmt:message key="${lang.localeId}.callForProposal.targetAudience"/>
+       					<form:select path="targetAudience" cssClass="green" >
+      						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.targetAudience.all"/></form:option>
+      						<form:option value="1"><fmt:message key="${lang.localeId}.callForProposal.targetAudience.researcher"/></form:option>
+      						<form:option value="2"><fmt:message key="${lang.localeId}.callForProposal.targetAudience.doctoral"/></form:option>
+      						<form:option value="3"><fmt:message key="${lang.localeId}.callForProposal.targetAudience.postdoctoral"/></form:option>
+        		        </form:select>					
+        		     </td>
+					<td colspan="2" style="border:1px #bca2a2 dotted">&nbsp;
+ 					</td> 
 				</tr>
                 <!--<tr class="form">
 					<td style="border:1px #bca2a2 dotted">
@@ -180,15 +194,20 @@
 					<table width="950">
 					<tr>
 						<td colspan="4">
-						<input type="checkbox" class="green viewSubjects"/>
-						<fmt:message key="${lang.localeId}.callForProposal.selectSubjects"/>
+						<!-- <input type="checkbox" class="green viewSubjects"/>-->
+						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.selectSubjects"/>
 						</td>
-					</tr>
-					<tr class="form" id="subjectView">
+					</tr> 
+					<tr class="form">
 						<td colspan="4" align="center">
 						<%@ include file="/WEB-INF/jsp/content/editPost/subjects.jsp" %>					
 						</td>
 					</tr>
+					<tr>
+						<td colspan="4">
+					    <div id="errorsubjects" title="שגיאה" dir="${lang.dir}">				
+						</td>
+					</tr> 
 					</table>
 					</td>
 				</table>
@@ -198,7 +217,7 @@
                 <tr class="form">
 					<td colspan="4" align="${lang.align}"><h3><fmt:message key="${lang.localeId}.callForProposal.details"/></h3></td>
 				</tr>
-				<tr>
+				<tr class="notDescriptionOnly">
 					<td colspan="4" >
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
@@ -268,7 +287,7 @@
  					</table>
  					</td>
 				</tr>
-				<tr><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
 				<tr>
 					<td colspan="4">
 					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
@@ -305,7 +324,7 @@
  					</td>
 				</tr>	
 				<tr><td>&nbsp;</td></tr>	
-				<tr>
+				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
@@ -353,8 +372,8 @@
  					</tr>
  					</table>
 				</tr>
-				<tr><td>&nbsp;</td></tr>	
-				<tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
@@ -409,8 +428,8 @@
   					</table>
  					</td>
  				</tr>
-				<tr><td>&nbsp;</td></tr>	
-				<tr class="form">
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
@@ -444,8 +463,8 @@
   					</table>
  					</td>
  				</tr>
-				<tr><td>&nbsp;</td></tr>	
- 				<tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+ 				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
@@ -479,8 +498,8 @@
   					</table>
  					</td>
 				</tr>
- 				<tr><td>&nbsp;</td></tr>	
-				<tr>
+ 				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
@@ -515,8 +534,8 @@
  					</table>
  					</td>
 				</tr>											
-				<tr><td>&nbsp;</td></tr>	
-				<tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
@@ -551,8 +570,8 @@
  					</table>
  					</td>
 				</tr>											
-				<tr><td>&nbsp;</td></tr>	
-				<tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
@@ -586,8 +605,8 @@
  					</table>
  					</td>
 				</tr>											
-				<tr><td>&nbsp;</td></tr>	
-				<tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
@@ -637,8 +656,8 @@
  					</table>
  					</td>
 				</tr>											
-				<tr><td>&nbsp;</td></tr>	
-				<tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>

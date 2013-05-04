@@ -87,9 +87,10 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		if(textualPage.getTitle().isEmpty())
 			textualPage.setTitle("###" + new java.util.Date().getTime() + "###");
 
-		final String query = "insert ignore textualPageDraft set title='" + textualPage.getTitle() + "', creatorId = ?, html='', description='', updateTime=now();";
+		final String query = "insert ignore textualPageDraft set title='" + textualPage.getTitle() + "', creatorId = ?, html='', description='', updateTime=now(), localeId=?;";
 		//logger.info(query);
 		final int creatorId= textualPage.getCreatorId();
+		final String localeId= textualPage.getLocaleId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -97,6 +98,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 						PreparedStatement ps =
 								connection.prepareStatement(query, new String[] {"id"});
 						ps.setInt(1, creatorId);
+						ps.setString(2, localeId);
 						return ps;
 					}
 				},
@@ -126,7 +128,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()"+
-				", isDeleted = ?";
+				", isDeleted = ?"+
+				", localeId = ?";
 		//logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getId(),
@@ -144,7 +147,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getIsMessage(),
 	    		textualPage.getMessageType(),
 	    		keepInRollingMessagesExpiryTime,
-	    		textualPage.getIsDeleted());
+	    		textualPage.getIsDeleted(),
+	    		textualPage.getLocaleId());
 	}
 	
 	public void updateTextualPage(TextualPage textualPage){
@@ -170,6 +174,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()" +
 				", isDeleted = ?" +
+				", localeId = ?" +
 			" where id = ?;";
 		//logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -188,6 +193,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getMessageType(),
 	    		keepInRollingMessagesExpiryTime,	    		
 	    		textualPage.getIsDeleted(),
+	    		textualPage.getLocaleId(),
 	    		textualPage.getId());
 		
 		if (textualPage.getAttachment() != null && textualPage.getAttachment().getFile()!=null){
@@ -222,6 +228,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", keepInRollingMessagesExpiryTime = ?" +
 				", updateTime = now()" +
 				", isDeleted = ?" +
+				", localeId = ?" +
 				" where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -240,6 +247,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getMessageType(),
 	    		keepInRollingMessagesExpiryTime,	    		
 	    		textualPage.getIsDeleted(),
+	    		textualPage.getLocaleId(),
 	    		textualPage.getId());
 	}	
 	
@@ -324,6 +332,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 			if (updateTimeTS != null)
 				updateTime = updateTimeTS.getTime();
 			textualPage.setUpdateTime(updateTime);
+			textualPage.setLocaleId(rs.getString("localeId"));
            return textualPage;
         }
 	};

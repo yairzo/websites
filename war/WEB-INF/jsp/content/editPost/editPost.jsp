@@ -188,6 +188,12 @@
 				</tr>
 				<tr>
 						<td colspan="2">
+						<input type="checkbox" class="green viewSubjects"/>
+						<fmt:message key="${lang.localeId}.callForProposal.selectSubjects"/>
+						</td>
+				</tr>
+				<tr  id="subjectView">
+						<td colspan="2" >
 							<%@ include file="/WEB-INF/jsp/content/editPost/subjects.jsp" %>
 		              </td>
 	             </tr>

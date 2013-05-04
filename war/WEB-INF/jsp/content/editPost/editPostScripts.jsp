@@ -160,24 +160,25 @@
 
 
 	$(document).ready(function() {
+
+		if($('.viewSubjects').is(":checked"))
+	    	$("#subjectView").show();
+		else
+	   		$("#subjectView").hide();
+
+		$(".viewSubjects").change(function(){		
+		    if($('.viewSubjects').is(":checked"))
+		    	$("#subjectView").show();
+			else
+		    	$("#subjectView").hide();
+		});
+
+		
 		$(".callForProposal").autocomplete({ position: { my : "right top", at: "right bottom" }});
 		$(".callForProposal").autocomplete ("widget").css("width",'auto');  
+		
 		ShowCKEDITOR();
-		/*$("input.rdoTypeTinymce").attr("cheked",true);
-		ShowTinyMCE();
-		$("input.radios").click(function(){
-	   	 if ($(this).val() == 'rdoTypeCKEDITOR' && currentEditor != 'ckeditor')
-	 		{
-	   		    ShowCKEDITOR();
-   			 }
-   		 else if ($(this).val() == 'rdoTypeTinymce' && currentEditor != 'tinymce')
-  			{
-   			 $('textarea.tinymce').ckeditor(function(){
-	 	   		this.destroy();
-			 });
-       		 ShowTinyMCE();
-    	 	}
-		});*/
+
 
 
 		$("button.addAttachEditor").click(function(event){			
@@ -426,10 +427,8 @@
 			});
 			$("tr.darker").each(function(){
 				showRightMultipleSelectImg($(this));
-				openSubject($(this).children("td.toggleSubject"));
 			});
 			this.checked = !this.checked;
-
 		});
 
 		$("#diselectAll").click(function(){
@@ -441,6 +440,21 @@
 				closeSubject($(this).children("td.toggleSubject"));
 			});
 			this.checked = !this.checked;
+		});
+
+		$("#openAllSubjects").click(function(e){
+			e.preventDefault();
+			$("tr.darker").each(function(){
+				showRightMultipleSelectImg($(this));
+				openSubject($(this).children("td.toggleSubject"));
+			});
+		});
+		$("#closeAllSubjects").click(function(e){
+			e.preventDefault();
+			$("tr.darker").each(function(){
+				showRightMultipleSelectImg($(this));
+				closeSubject($(this).children("td.toggleSubject"));
+			});
 		});
 
 

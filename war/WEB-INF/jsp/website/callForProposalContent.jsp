@@ -46,15 +46,15 @@
 						 <fmt:message key="${lang.localeId}.callForProposal.fund"/>${selectedFund}
 						</td>
 					</tr>
+					<tr>
+						<td colspan="3" style="border:1px #bca2a2 dotted">
+      					<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/><br><a href="${command.originalCallWebAddress}">${command.originalCallWebAddress}</a>
+ 						</td>
+					</tr>
 					<c:if test="${authorized && !command.showDescriptionOnly}">
  					<tr>
 						<td colspan="3" style="border:1px #bca2a2 dotted">
       					<fmt:message key="${lang.localeId}.callForProposal.submissionDetails"/><br>${command.submissionDetails}
- 						</td>
-					</tr>
-					<tr>
-						<td colspan="3" style="border:1px #bca2a2 dotted">
-      					<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/><br><a href="${command.originalCallWebAddress}">${command.originalCallWebAddress}</a>
  						</td>
 					</tr>
 					</c:if>

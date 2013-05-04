@@ -26,10 +26,6 @@ function resetAutocomplete(funds){
 
 $(document).ready(function() {
 	
-	if($("#submissionDateFrom").val()=="" && $("#submissionDateTo").val()=="")
-		$("#searchExpiredSpan").show();
-	else
-		$("#searchExpiredSpan").hide();
 	
 	var dlg =$("#genericDialog").dialog({
 	    autoOpen: false,
@@ -210,15 +206,25 @@ $(document).ready(function() {
 		else
 			$("#form").append("<input type=\"hidden\" name=\"temporaryFund\" value=\"false\"/>");
 
-		if($("#searchDeleted").is(":checked"))
-			$("#form").append("<input type=\"hidden\" name=\"deleted\" value=\"true\"/>");
+		if($("#searchOpen").is(":checked"))
+			$("#form").append("<input type=\"hidden\" name=\"open\" value=\"true\"/>");
 		else
-			$("#form").append("<input type=\"hidden\" name=\"deleted\" value=\"false\"/>");
+			$("#form").append("<input type=\"hidden\" name=\"open\" value=\"false\"/>");
 
 		if($("#searchExpired").is(":checked"))
 			$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"true\"/>");
 		else
 			$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"false\"/>");
+
+		if($("#searchByAllYear").is(":checked"))
+			$("#form").append("<input type=\"hidden\" name=\"allYear\" value=\"true\"/>");
+		else
+			$("#form").append("<input type=\"hidden\" name=\"allYear\" value=\"false\"/>");
+
+		if($("#searchByAllSubjects").is(":checked"))
+			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"true\"/>");
+		else
+			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"false\"/>");
 
 		var ids="";
 		$('input.subSubject').each(function(){
@@ -241,11 +247,15 @@ $(document).ready(function() {
     	$("#searchWords").val('');
     	$("#submissionDateFrom").val('');
     	$("#submissionDateTo").val('');
+       	$("#searchByAllYear").prop('checked', false);
     	$("#deskId").val('0');
        	$("#typeId").val('0');
+       	$("#targetAudience").val('0');
     	$("#diselectAll").click();
+      	$("#searchByAllSubjects").prop('checked', false);
        	$("#searchExpired").prop('checked', false);
-   		$("#listViewPage").remove();
+       	$("#searchOpen").prop('checked', false);
+  		$("#listViewPage").remove();
 		$("#orderBy").remove();
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
 		$("#form").submit();
@@ -260,12 +270,6 @@ $(document).ready(function() {
         open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
   });
    
-	$(".cancelExpiredCheckbox").change(function(){
-		if($("#submissionDateFrom").val()=="" && $("#submissionDateTo").val()=="")
-			$("#searchExpiredSpan").show();
-		else
-			$("#searchExpiredSpan").hide();
-	});
 
 	$(".subjectsRow").show();
 

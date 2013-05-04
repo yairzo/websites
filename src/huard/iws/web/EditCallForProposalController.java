@@ -77,6 +77,10 @@ public class EditCallForProposalController extends GeneralFormController{
 			}
 		}	
 		
+		//title
+		if(!request.getParameter("tempTitle", "").isEmpty())
+			callForProposalBean.setTitle(request.getParameter("tempTitle", ""));
+		
 		//subjectIds
 		String subjectsIdsString = request.getParameter("subjectsIdsString","");
 		List<Integer> subjectsIds = BaseUtils.getIntegerList(subjectsIdsString, ",");
