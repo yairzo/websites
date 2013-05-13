@@ -177,12 +177,21 @@
         </property>
       </bean>
 	
-	<bean id="searchCallForProposalsHomePageController" class="huard.iws.web.SearchCallForProposalsHomePageController" parent="generalWebsiteFormController">
+	<bean id="websiteHomePageController" class="huard.iws.web.WebsiteHomePageController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>
-        <property name="commandClass"><value>huard.iws.web.SearchCallForProposalsHomePageController$SearchCallForProposalsHomePageControllerCommand</value></property>
-        <property name="formView"><value>searchCallForProposalsHomePage</value></property>
+        <property name="commandClass"><value>huard.iws.web.WebsiteHomePageController$WebsiteHomePageControllerCommand</value></property>
+        <property name="formView"><value>homePage</value></property>
         <property name="successView"><value>searchCallForProposals.html</value></property>
-      </bean>
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
+        </property>
+     </bean>
+     
+	<bean id="homePageCalendarController" class="huard.iws.web.HomePageCalendarController" parent="generalWebsiteController">
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
+        </property>
+     </bean>
       
 	<bean id="callForProposalCalendarController" class="huard.iws.web.CallForProposalCalendarController" parent="generalWebsiteController">
       	<property name="callForProposalService">
@@ -1223,7 +1232,8 @@
 				<prop key="/fund.html">editFundController</prop>
 				<prop key="/temporaryFunds.html">temporaryFundListController</prop>
 				<prop key="/searchCallForProposals.html">searchCallForProposalsController</prop>
-				<prop key="/searchCallForProposalsHomePage.html">searchCallForProposalsHomePageController</prop>
+				<prop key="/homePage.html">websiteHomePageController</prop>
+				<prop key="/homePageCalendar.html">homePageCalendarController</prop>
 				<prop key="/search.html">searchWebsiteController</prop>
 				<prop key="/sendPasswordEmail.html">sendPasswordEmailController</prop>
 				<prop key="/resetPassword.html">resetPasswordController</prop>

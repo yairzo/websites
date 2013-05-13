@@ -4,6 +4,7 @@ package huard.iws.model;
 public class TextualPage {
 	private int id;
 	private String title;
+	private String urlTitle;
 	private int creatorId;
 	private long creationTime;
 	private int deskId;
@@ -26,6 +27,7 @@ public class TextualPage {
 	public TextualPage(){
 		this.id = 0;
 		this.title = "";
+		this.urlTitle="";
 		this.creatorId = 0;
 		this.creationTime = 0;
 		this.deskId=0;
@@ -56,6 +58,13 @@ public class TextualPage {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getUrlTitle() {
+		return urlTitle;
+	}
+	public void setUrlTitle(String urlTitle) {
+		this.urlTitle = urlTitle;
 	}
 
 	public int getCreatorId() {

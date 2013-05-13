@@ -29,7 +29,10 @@
 					<tr>
 						<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
 						<c:if test="${command.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/></c:if>
-						<c:if test="${!command.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.finalSubmissionTime"/>${finalSubmissionTime}</c:if>
+						<c:if test="${!command.allYearSubmission}">
+							<fmt:message key="${lang.localeId}.callForProposal.finalSubmissionTime"/>${finalSubmissionTime}&nbsp;
+							<c:if test="${fn:length(command.finalSubmissionHour)>0}"><fmt:message key="${lang.localeId}.callForProposal.finalSubmissionHour"/>${command.finalSubmissionHour}</c:if>
+						</c:if>
  						</td>
 					</tr>
 					<c:if test="${fn:length(submissionDate1)>0}">

@@ -8,6 +8,10 @@ $('button.search').click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"deleted\" value=\"true\"/>");
 	else
 		$("#form").append("<input type=\"hidden\" name=\"deleted\" value=\"false\"/>");
+	if($("#searchList").is(":checked"))
+		$("#form").append("<input type=\"hidden\" name=\"isList\" value=\"true\"/>");
+	else
+		$("#form").append("<input type=\"hidden\" name=\"isList\" value=\"false\"/>");
 	$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"search\"/>');
 	$('form#form').submit();
 });

@@ -48,4 +48,8 @@ public interface TextualPageDao {
 	
 	public void insertArdNum(int ardNum,int id);
 
+	public int countTextualPagesByUrlTitle(int id,String urlTitle);
+
+	public int countTextualPagesByTitle(int id,String title);
+
 }

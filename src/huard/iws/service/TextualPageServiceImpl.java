@@ -101,4 +101,12 @@ public class TextualPageServiceImpl implements TextualPageService{
 		textualPageDao.insertArdNum(ardNum,id);
 	}
 
+	public int countTextualPagesByUrlTitle(int id,String urlTitle){
+		return textualPageDao.countTextualPagesByUrlTitle(id,urlTitle);
+	}
+
+	public int countTextualPagesByTitle(int id,String title){
+		return textualPageDao.countTextualPagesByTitle(id,title);
+	}
+
 }

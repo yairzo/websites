@@ -35,7 +35,8 @@
 					<td colspan="2">
 				 	<fmt:message key="${lang.localeId}.callForProposal.searchWords"/>
 					<input type="text" class="green" style="width:400px" name="searchWords" value="${searchWords}"/> 
-	   				<input type="checkbox" name="searchDeleted" id="searchDeleted" class="green" <c:if test="${searchDeleted}">checked="checked"</c:if>/> כולל מבוטלים
+	   				<input type="checkbox" name="searchDeleted" id="searchDeleted" class="green" <c:if test="${searchDeleted}">checked="checked"</c:if>/> מבוטלים
+	   				<input type="checkbox" name="searchList" id="searchList" class="green" <c:if test="${searchList}">checked="checked"</c:if>/> דף שמציג רשימה
  					<button class="grey search">חפש</button>							
 					</td>
 				</tr>

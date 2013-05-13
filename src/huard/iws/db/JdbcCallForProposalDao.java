@@ -122,6 +122,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			callForProposal.setTitle("###" + new java.util.Date().getTime() + "###");
 		
 		final String query = "insert ignore callForProposalDraft set title = '" + callForProposal.getTitle().replace("'","") + "'"+
+				", urlTitle = ?" +
 				", creatorId = ?" +
 				", publicationTime = now()" +
 				", fundId = 0" +
@@ -142,6 +143,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", localeId=?"+
 				", updateTime=now();";
 		//logger.info(query);
+		final String urlTitle= callForProposal.getUrlTitle();
 		final int creatorId= callForProposal.getCreatorId();
 		final String localeId= callForProposal.getLocaleId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -150,8 +152,9 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 						PreparedStatement ps =
 								connection.prepareStatement(query, new String[] {"id"});
-						ps.setInt(1, creatorId);
-						ps.setString(2, localeId);
+						ps.setString(1, urlTitle);
+						ps.setInt(2, creatorId);
+						ps.setString(3, localeId);
 						return ps;
 					}
 				},
@@ -162,9 +165,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	public void insertCallForProposalOnline(CallForProposal callForProposal){
 		final String query = "insert callForProposal set id = ?"+
 				", title = ?" +
+				", urlTitle = ?" +
 				", creatorId = ?" +
 				", publicationTime = ?" +
 				", finalSubmissionTime = ?" +
+				", finalSubmissionHour = ?" +
 				", allYearSubmission = ?" +
 				", allYearSubmissionYearPassedAlert = ?" +
 				", hasAdditionalSubmissionDates = ?" +
@@ -205,9 +210,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		getSimpleJdbcTemplate().update(query,
 				callForProposal.getId(),
 				callForProposal.getTitle(),
+				callForProposal.getUrlTitle(),
 				callForProposal.getCreatorId(),
 				publicationTime,
 				finalSubmissionTime,
+				callForProposal.getFinalSubmissionHour(),
 	    		callForProposal.getAllYearSubmission(),
 	    		callForProposal.getAllYearSubmissionYearPassedAlert(),
 	    		callForProposal.getHasAdditionalSubmissionDates(),
@@ -236,11 +243,14 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	
 
 	public void updateCallForProposal(CallForProposal callForProposal){
+		System.out.println("111111111111:"+callForProposal.getFormDetails());
 		String query = "update callForProposalDraft set " +
 				" title = ?" +
+				", urlTitle = ?" +
 				", creatorId = ?" +
 				", publicationTime = ?" +
 				", finalSubmissionTime = ?" +
+				", finalSubmissionHour = ?" +
 				", allYearSubmission = ?" +
 				", allYearSubmissionYearPassedAlert = ?" +
 				", hasAdditionalSubmissionDates = ?" +
@@ -294,9 +304,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		
 		getSimpleJdbcTemplate().update(query,
 				callForProposal.getTitle(),
+				callForProposal.getUrlTitle(),
 				callForProposal.getCreatorId(),
 				publicationTime,
 				finalSubmissionTime,
+				callForProposal.getFinalSubmissionHour(),
 	    		callForProposal.getAllYearSubmission(),
 	    		callForProposal.getAllYearSubmissionYearPassedAlert(),
 	    		callForProposal.getHasAdditionalSubmissionDates(),
@@ -365,9 +377,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		String publicationTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getPublicationTime());
 		String query = "update callForProposal set " +
 				" title = ?" +
+				", urlTitle = ?" +
 				", creatorId = ?" +
 				", publicationTime = ?" +
 				", finalSubmissionTime = ?" +
+				", finalSubmissionHour = ?" +
 				", allYearSubmission = ?" +
 				", allYearSubmissionYearPassedAlert = ?" +
 				", hasAdditionalSubmissionDates = ?" +
@@ -397,9 +411,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				callForProposal.getTitle(),
+				callForProposal.getUrlTitle(),
 				callForProposal.getCreatorId(),
 				publicationTime,
 				finalSubmissionTime,
+				callForProposal.getFinalSubmissionHour(),
 	    		callForProposal.getAllYearSubmission(),
 	    		callForProposal.getAllYearSubmissionYearPassedAlert(),
 	    		callForProposal.getHasAdditionalSubmissionDates(),
@@ -557,6 +573,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
             CallForProposal callForProposal = new CallForProposal();
             callForProposal.setId(rs.getInt("id"));
             callForProposal.setTitle(rs.getString("title"));
+            callForProposal.setUrlTitle(rs.getString("urlTitle"));
     		callForProposal.setCreatorId(rs.getInt("creatorId"));
 			long creationTime = 0;
 			Timestamp creationTimeTS = rs.getTimestamp("creationTime");
@@ -573,6 +590,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			if (finalSubmissionTimeTS != null)
 				finalSubmissionTime = finalSubmissionTimeTS.getTime();
     		callForProposal.setFinalSubmissionTime(finalSubmissionTime);
+    		callForProposal.setFinalSubmissionHour(rs.getString("finalSubmissionHour"));
     		callForProposal.setAllYearSubmission(rs.getBoolean("allYearSubmission"));
     		callForProposal.setAllYearSubmissionYearPassedAlert(rs.getBoolean("allYearSubmissionYearPassedAlert"));
     		callForProposal.setHasAdditionalSubmissionDates(rs.getBoolean("hasAdditionalSubmissionDates"));
@@ -682,5 +700,34 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		});
 		return 	daysMap;	
 	}
-				
+
+	
+	public int countCallForProposalsByUrlTitle(int id,String urlTitle){
+		String query = "select count(*) from callForProposalDraft where urlTitle='" + urlTitle +"' and id<>"+ id;
+		return getSimpleJdbcTemplate().queryForInt(query);
+	}
+	public int countCallForProposalsByTitle(int id,String title){
+		String query = "select count(*) from callForProposalDraft where title='" + title +"' and id<>"+ id;
+		return getSimpleJdbcTemplate().queryForInt(query);
+	}
+	
+	public List<Integer> getDaysWithFunds(String month,String year){
+		String query = "SELECT distinct DAYOFMONTH(finalSubmissionTime) as day from callForProposal where isDeleted=0 and Month(finalSubmissionTime)="+month+" and YEAR(finalSubmissionTime)="+year;
+		System.out.println("Query:"+ query);
+		List<Integer> days = getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
+			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
+				Integer day = new Integer(rs.getInt("day"));
+				return day;
+			}
+		});
+		return days;
+	}
+	
+	public List<CallForProposal> getCallForProposalsPerDay(String date){
+		String query = "select * from callForProposal where isDeleted=0 and DATE(finalSubmissionTime)='" + date + "'";
+		System.out.println("Query:"+ query);
+		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
+		return callForProposals;
+	}
+
 }

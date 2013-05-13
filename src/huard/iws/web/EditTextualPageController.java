@@ -15,6 +15,7 @@ import huard.iws.service.CategoryService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
+import huard.iws.util.TextUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -67,6 +68,12 @@ public class EditTextualPageController extends GeneralFormController {
 		if(request.getParameter("action", "").equals("delete"))
 			textualPageBean.setIsDeleted(1);
 		
+		//title
+		if(!request.getParameter("tempTitle", "").isEmpty())
+			textualPageBean.setTitle(request.getParameter("tempTitle", ""));
+		if(!request.getParameter("tempUrlTitle", "").isEmpty())
+			textualPageBean.setUrlTitle(request.getParameter("tempUrlTitle", ""));
+
 		//update
 		textualPageService.updateTextualPage(textualPageBean.toTextualPage());
 
@@ -139,8 +146,14 @@ public class EditTextualPageController extends GeneralFormController {
 			else
 				model.put("online", false);
 			//title
-			if(textualPageBean.getTitle().startsWith("###"))
-				textualPageBean.setTitle("");
+			String title="";
+			if(!textualPageBean.getTitle().startsWith("###"))
+				title = textualPageBean.getTitle();
+			model.put("title", title);
+			String urlTitle="";
+			if(!textualPageBean.getUrlTitle().startsWith("###"))
+				urlTitle = textualPageBean.getUrlTitle();
+			model.put("urlTitle", urlTitle);
 			//templates
 			List<Template> templates = textualPageService.getTemplates();
 			model.put("templates", templates);
@@ -236,7 +249,7 @@ public class EditTextualPageController extends GeneralFormController {
 		else if (extension.equals("txt"))
 			return "text/plain";
 		else if (extension.equals("jpg")|| extension.equals("jpeg"))
-			return "image/jpeg ";
+			return "image/jpeg";
 		else
 			return "text/html";
 	}	

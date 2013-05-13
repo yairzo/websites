@@ -49,6 +49,7 @@ public class TextualPageListController extends GeneralFormController {
 		//show searched params
 		model.put("searchWords",command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));
 		model.put("searchDeleted",command.getSearchCreteria().getSearchDeleted());
+		model.put("searchList",command.getSearchCreteria().getSearchList());
 		
 		return new ModelAndView ("textualPages",model);
 	}
@@ -67,6 +68,7 @@ public class TextualPageListController extends GeneralFormController {
 			searchCreteria.setSearchBySearchWords(sphinxTextualIds);
 			searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
 			searchCreteria.setSearchDeleted(request.getBooleanParameter("deleted", false));
+			searchCreteria.setSearchList(request.getBooleanParameter("isList", false));
 			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
 				searchCreteria.setSearchByCreator(userPersonBean.getId());	
 			request.getSession().setAttribute("textualPageSearchCreteria", searchCreteria);

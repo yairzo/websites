@@ -8,6 +8,7 @@ import huard.iws.service.TextualPageService;
 import huard.iws.service.CategoryService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
+import huard.iws.util.TextUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,6 +53,13 @@ public class TextualPageController extends GeneralWebsiteFormController {
 			model.put("updateTime", "");
 		else
 			model.put("updateTime", formatter.format(textualPageBean.getUpdateTime()));
+
+		//if picture file
+		if(textualPageBean.getShowFile()){
+			if(TextUtils.isImage(textualPageBean.getAttachment().getContentType()))
+				model.put("isImage",true);	
+		}
+
 		model.put("id",textualPageBean.getId());
 		return new ModelAndView ( this.getFormView(), model);
 	}

@@ -17,7 +17,7 @@ import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.CallForProposalOld;
 import huard.iws.model.Post;
-
+import huard.iws.util.TextUtils;
 
 public class ImportCallForProposalsServiceImpl implements ImportCallForProposalsService{
 	private  static Map<String, Integer> typeMap ;
@@ -164,12 +164,11 @@ public void importCallForProposals(){
 		Pattern p = Pattern.compile("\\*(.*?)\\*(.*?)\\*");
 		Matcher m = p.matcher(formDetails);
 		while(m.find()){
-			String linkText = m.group(1);
+			String linkTitle = m.group(1);
 			String linkAddress = m.group(2);
 			if (linkAddress.indexOf("http://ard.huji.ac.il/docs/")>-1){
 					Attachment attachment= new Attachment();
 					int attachmentId =0;
-					String contentType ="";
 					try {
 				    	URL toDownload = new URL(linkAddress);
 				    	ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -180,16 +179,17 @@ public void importCallForProposals(){
 					        outputStream.write(chunk, 0, bytesRead);
 					    }
 						attachment.setFile(outputStream.toByteArray());
-						attachment.setTitle(linkText);
-						contentType = linkAddress.substring(linkAddress.lastIndexOf("."));
-						attachment.setContentType(contentType);
+						String ext = linkAddress.substring(linkAddress.lastIndexOf("."));
+						attachment.setContentType(TextUtils.getContentType(ext));
+						linkTitle=TextUtils.getIcon(ext) +linkTitle;
+						attachment.setTitle(linkTitle);
 						attachmentId = callForProposalService.insertAttachmentToCallForProposal(callForProposal.getId(),attachment);
-						linkAddress = "fileViewer?callForProposalId=" + callForProposal.getId() +"&attachmentId=" + attachmentId + "&contentType="+contentType;
+						linkAddress = "fileViewer?callForProposalId=" + callForProposal.getId() +"&attachmentId=" + attachmentId + "&contentType="+attachment.getContentType();
 				    } catch (Exception e) {
 					    e.printStackTrace();
 				    }
 			}
-			String newLink = "<a href=\""+linkAddress.replace("$", "\\$")+"\">"+linkText+"</a>";
+			String newLink = "<a href=\""+linkAddress.replace("$", "\\$")+"\">"+linkTitle+"</a>";
 			formDetails = formDetails.replaceFirst("\\*(.*?)\\*(.*?)\\*",newLink);
 		}
 		callForProposal.setFormDetails(cleanText(formDetails));

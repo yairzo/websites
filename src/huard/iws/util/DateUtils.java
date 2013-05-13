@@ -101,6 +101,13 @@ public class DateUtils {
 		}
 		return monthsNames;
 	}
+	public static String [] getDayNames(String localeId){
+		String [] daysNames = new String [7];
+		for (int i=0; i<7; i++){
+			daysNames [i] = messageService.getMessage(localeId+".general.dayOfWeek."+(i==0?7:i));
+		}
+		return daysNames;
+	}
 
 	public static String getLocaleDependentLongDateTimeFormat(long timeMillis, String localeId, boolean withMinutes){
 		DateFormatSymbols dfs = new DateFormatSymbols();
@@ -108,6 +115,18 @@ public class DateUtils {
 		String format = "d בMMMM, yyyy בשעה kk:"+ (withMinutes?"mm":"00");
 		if (localeId.equals("en_US"))
 			format = "MMMM d, yyyy 'at' kk:"+ (withMinutes?"mm":"00");
+		SimpleDateFormat sdf = new SimpleDateFormat(format, dfs);
+		Date sendTime = new Date(timeMillis);
+		return sdf.format(sendTime);
+	}
+	
+	public static String getLocaleLongDateTimeFormatWithDay(long timeMillis, String localeId,boolean withTime){
+		DateFormatSymbols dfs = new DateFormatSymbols();
+		dfs.setMonths(getMonthsNames(localeId));
+		dfs.setWeekdays(getDayNames(localeId));
+		String format = "יום EEEE, d בMMMM, yyyy" + (withTime?"בשעה kk:mm":"");
+		if (localeId.equals("en_US"))
+			format = "EEEE, MMMM d, yyyy" + (withTime?"'at' kk:mm":""); 
 		SimpleDateFormat sdf = new SimpleDateFormat(format, dfs);
 		Date sendTime = new Date(timeMillis);
 		return sdf.format(sendTime);

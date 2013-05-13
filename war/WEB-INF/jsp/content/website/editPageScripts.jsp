@@ -59,6 +59,9 @@ $(document).ready(function() {
 	});
 	
 	$(".langSelect").change(function(){
+		insertIds();
+  		$(".ajaxSubmit").remove();
+   	 	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('#form').submit();
 	});
 	
@@ -129,27 +132,51 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".datetime").datetimepicker({dateFormat: 'dd/mm/yy',
+	$('#tempUrlTitle').change(function(e){
+		e.preventDefault();
+		$.get('objectQuery?type=callForProposalCheckUrlTitle&id='+$("#id").val()+'&title='+$("#tempUrlTitle").val(), function(data) {
+			if(data>0){
+				$("#errorurltitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.urlTitle"/><font color="red"><br>');
+				$("#tempUrlTitle").val('');
+			}
+			else $("#errorurltitle").html('');
+		});
+	});	
+	
+	$('#tempTitle').change(function(e){
+		e.preventDefault();
+		$.get('objectQuery?type=callForProposalCheckTitle&id='+$("#id").val()+'&title='+$("#tempTitle").val(), function(data) {
+			if(data>0){
+				$("#errortitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.title"/><font color="red"><br>');
+				$("#tempTitle").val('');
+			}
+			else $("#errortitle").html('');
+		});
+	});	
+	
+	/*$(".datetime").datetimepicker({dateFormat: 'dd/mm/yy',
 		timeFormat:'hh:mm',
 		onSelect: function(){
 			var text='<fmt:message key="${lang.localeId}.callForProposal.datePassed"/>';
-	var str = $(this).val();
-   	var dt1  = str.substring(0,2); 
-   	var mon1 = str.substring(3,5); 
-   	var yr1  = str.substring(6,10);  
-   	temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
-   	var cfd = Date.parse(temp1);
-   	var date1 = new Date(cfd);
-   	var date2 = new Date();
-   	if(date2.setHours(0,0,0,0)>date1.setHours(0,0,0,0)){
-  			$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
-			$("#genericDialog").dialog({ modal: false });
-			$("#genericDialog").dialog({ height: 200 });
-			$("#genericDialog").dialog({ width: 400 });
-  			openHelp("",text);
-   	}
+			var str = $(this).val();
+   			var dt1  = str.substring(0,2); 
+   			var mon1 = str.substring(3,5); 
+   			var yr1  = str.substring(6,10);  
+   			temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
+   			var cfd = Date.parse(temp1);
+   			var date1 = new Date(cfd);
+   			var date2 = new Date();
+   			if(date2.setHours(0,0,0,0)>date1.setHours(0,0,0,0)){
+  				$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+				$("#genericDialog").dialog({ modal: false });
+				$("#genericDialog").dialog({ height: 200 });
+				$("#genericDialog").dialog({ width: 400 });
+  				openHelp("",text);
+   			}
 		}
-	});
+	});*/
+	
+	$(".time").timepicker({timeFormat:'hh:mm'});	
 	
 	$(".date").datepicker({ dateFormat: 'dd/mm/yy', onSelect: function(){
 		var text='<fmt:message key="${lang.localeId}.callForProposal.datePassed"/>';
@@ -250,6 +277,8 @@ $(document).ready(function() {
 
 	$('#formAttach').change(function(event){
 		insertIds();
+		$(".ajaxSubmit").remove();
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('form#form').append('<input type=\"hidden\" name=\"addFile\" value=\"yes\"/>');
 		$('#form').submit();
 	});	
@@ -542,6 +571,37 @@ $(document).ready(function() {
 		});	
 
 });
+
+
+function replaceURLWithHTMLLinks(text) {
+    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\">(?!<img)(.*)<\/a>/;
+    var match = exp.exec(text);
+    while (match != null) {
+        var icon=getIcon(match[2]);
+        var img= "<img src='image/"+ icon+"' weight='15px' height='15px'/>";
+        text=text.replace(exp,"<a href='$1'>"+ img +"$3</a>"); 
+        match = exp.exec(text)
+    }
+    return text;
+}
+
+function getIcon(extension){
+	var icon;
+	if(extension=="pdf")
+		icon= "icon_pdf.png";
+	else if (extension=="doc")
+		icon= "icon_word.gif";
+	else if (extension=="docx")
+		icon= "icon_word.gif";
+	else if (extension=="xls")
+		icon= "icon_excel.png";
+	else if (extension=="xlsx")
+		icon= "icon_excel.png";
+	else
+		icon+= "icon_somefile.gif";
+	return icon;
+}
+
 var fieldname=""; 
 function openHelp(name,mytext){
 	    fieldname=name;
@@ -555,13 +615,21 @@ function openHelp(name,mytext){
 
 function checkErrors(){
 	var errors=false;
-	if($("#title").val()==''){
+	if($("#tempTitle").val()==''){
 		errors = true;
 		$("#errortitle").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterFieldSubject"/><font color="red"><br>');
 	}
 	else{
 		$("#errortitle").html('');
 	}
+	if($("#tempUrlTitle").val()==''){
+		errors = true;
+		$("#errorurltitle").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterUrlTitle"/><font color="red"><br>');
+	}
+	else{
+		$("#errorurltitle").html('');
+	}
+	
 	if($("#publicationTime").val()==''){
 		errors = true;
 		$("#errorpublicationTime").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterPublicationDate"/><font color="red"><br>');
@@ -619,19 +687,23 @@ function closeEditor(){
 	}
 	var ceditor   = CKEDITOR.instances[currentInstance];	       
 	if(ceditor){
-		$(".editorText", $(ceditor_container).closest("table")).show();
- 		$(".textareaEditorSpan", $(ceditor_container).closest("table")).hide();
- 		if(ceditor.getData()!='')
- 			$(".editorText", $(ceditor_container).closest("table")).html(ceditor.getData());
+ 		if(ceditor.getData()!=''){
+ 			var afterreplace = replaceURLWithHTMLLinks(ceditor.getData());
+			$(".textareaEditor", $(ceditor_container).closest("table")).val(afterreplace);
+ 			$(".editorText", $(ceditor_container).closest("table")).html(afterreplace);
+ 		}
  		else
  			$(".editorText", $(ceditor_container).closest("table")).html('&nbsp;');
- 		ceditor.destroy();
- 		ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed by reference
- 		ceditor_container=null;
+		$(".editorText", $(ceditor_container).closest("table")).show();
+ 		$(".textareaEditorSpan", $(ceditor_container).closest("table")).hide();
 		//autosave
 		insertIds();
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
-	    $('#form').ajaxSubmit();
+		$('#form').ajaxSubmit();
+		//save must be before destroy because after destroy the last changes of icon are not remebered
+		ceditor.destroy();
+ 		ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed by reference
+ 		ceditor_container=null;
 	}
 	
 }

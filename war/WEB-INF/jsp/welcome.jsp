@@ -304,6 +304,11 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_READ,ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="homePage.html">אתר האוניברסיטה - דף הבית</a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right" style="height:35">
 								<a style="text-decoration: none" href="search.html">אתר האוניברסיטה - חיפוש כללי</a>
 							</th>
 						</tr>

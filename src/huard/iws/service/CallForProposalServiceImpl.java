@@ -124,11 +124,26 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 		return callForProposalDao.getMonthDaysMap(date);
 	}
 	
+	public int countCallForProposalsByUrlTitle(int id,String urlTitle){
+		return callForProposalDao.countCallForProposalsByUrlTitle(id,urlTitle);
+	}
+
+	public int countCallForProposalsByTitle(int id,String title){
+		return callForProposalDao.countCallForProposalsByTitle(id,title);
+	}
 	
 	private CallForProposalDao callForProposalDao;
 
 	public void setCallForProposalDao(CallForProposalDao callForProposalDao) {
 		this.callForProposalDao = callForProposalDao;
+	}
+
+	public List<Integer> getDaysWithFunds(String month,String year){
+		return callForProposalDao.getDaysWithFunds(month,year);
+	}
+
+	public List<CallForProposal> getCallForProposalsPerDay(String date){
+		return callForProposalDao.getCallForProposalsPerDay(date);
 	}
 
 }

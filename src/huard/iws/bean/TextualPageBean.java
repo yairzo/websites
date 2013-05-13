@@ -10,6 +10,7 @@ import huard.iws.util.ApplicationContextProvider;
 public class TextualPageBean {
 	private int id;
 	private String title;
+	private String urlTitle;
 	private int creatorId;
 	private long creationTime;
 	private int deskId;
@@ -33,6 +34,7 @@ public class TextualPageBean {
 	public TextualPageBean(){
 		this.id = 0;
 		this.title = "";
+		this.urlTitle = "";
 		this.creatorId = 0;
 		this.creationTime = 0;
 		this.deskId=0;
@@ -57,6 +59,7 @@ public class TextualPageBean {
 	public TextualPageBean(TextualPage textualPage){
 		this.id = textualPage.getId();
 		this.title = textualPage.getTitle();
+		this.urlTitle = textualPage.getUrlTitle();
 		this.creatorId = textualPage.getCreatorId();
 		this.creationTime = textualPage.getCreationTime();
 		this.deskId = textualPage.getDeskId();
@@ -82,6 +85,7 @@ public class TextualPageBean {
 		textualPage.setId(id);
 		textualPage.setTitle(title);
 		textualPage.setCreatorId(creatorId);
+		textualPage.setUrlTitle(urlTitle);
 		textualPage.setCreationTime(creationTime);
 		textualPage.setDeskId(deskId);
 		textualPage.setRequireLogin(requireLogin);
@@ -113,6 +117,13 @@ public class TextualPageBean {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getUrlTitle() {
+		return urlTitle;
+	}
+	public void setUrlTitle(String urlTitle) {
+		this.urlTitle = urlTitle;
 	}
 
 	public int getCreatorId() {

@@ -14,9 +14,17 @@
       						<c:choose>
     							<c:when test="${command.showFile}">
 									<fmt:message key="${lang.localeId}.website.fileNotOpen"/><a href="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"><fmt:message key="${lang.localeId}.website.fileOpen"/></a>				
-									<script language="javascript" type="text/javascript">
+									<br>
+									<c:choose>
+									<c:when test="${isImage}">
+										<img src="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"/>
+									</c:when>
+									<c:otherwise>
+										<script language="javascript" type="text/javascript">
 										document.location="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1";
-									</script>
+										</script>
+									</c:otherwise>
+									</c:choose>
 								</c:when>
     							<c:when test="${command.wrapExternalPage}">
 									<jsp:include page="/viewList.html?id=${command.externalPageUrl}&iv=1&p=1&a=1" />					

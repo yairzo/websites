@@ -64,9 +64,10 @@ $(document).ready(function() {
         modal: true,
         open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
   });
-	$('button.save').click(function(){
-  		$(".ajaxSubmit").remove();
-  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+	$('button.save').click(function(e){
+		e.preventDefault();
+		$(".ajaxSubmit").remove();
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('form#form').submit();
 	});
 
@@ -74,6 +75,28 @@ $(document).ready(function() {
   		$(".ajaxSubmit").remove();
   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('#form').submit();
+	});	
+	
+	$('#tempUrlTitle').change(function(e){
+		e.preventDefault();
+		$.get('objectQuery?type=textualPageCheckUrlTitle&id='+$("#id").val()+'&title='+$("#tempUrlTitle").val(), function(data) {
+			if(data>0){
+				$("#errorurltitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.urlTitle"/><font color="red"><br>');
+				$("#tempUrlTitle").val('');
+			}
+			else $("#errorurltitle").html('');
+		});
+	});	
+	
+	$('#tempTitle').change(function(e){
+		e.preventDefault();
+		$.get('objectQuery?type=textualPageCheckTitle&id='+$("#id").val()+'&title='+$("#tempTitle").val(), function(data) {
+			if(data>0){
+				$("#errortitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.title"/><font color="red"><br>');
+				$("#tempTitle").val('');
+			}
+			else $("#errortitle").html('');
+		});
 	});	
 
 	$('button#online').click(function(){
@@ -221,9 +244,47 @@ $(document).ready(function() {
     		$("#htmlView").show();
 	});
    
-		
-   
+	  $("body").click(function(event){
+			if ($(event.target).attr("class")!=undefined && $(event.target).attr("class").indexOf("cke_")>=0) {
+				//inside editor
+			}
+			else {//not in editor
+	          	var afterreplace = replaceURLWithHTMLLinks($(".editor").val());
+	        	$(".editor").val(afterreplace);
+			}
+	   });
+     
+    
 });
+
+function replaceURLWithHTMLLinks(text) {
+    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\">(?!<img)(.*)<\/a>/;
+    var match = exp.exec(text);
+    while (match != null) {
+        var icon=getIcon(match[2]);
+        var img= "<img src='image/"+ icon+"' weight='15px' height='15px'/>";
+        text=text.replace(exp,"<a href='$1'>"+ img +"$3</a>"); 
+        match = exp.exec(text)
+    }
+    return text;
+}
+
+function getIcon(extension){
+	var icon;
+	if(extension=="pdf")
+		icon= "icon_pdf.png";
+	else if (extension=="doc")
+		icon= "icon_word.gif";
+	else if (extension=="docx")
+		icon= "icon_word.gif";
+	else if (extension=="xls")
+		icon= "icon_excel.png";
+	else if (extension=="xlsx")
+		icon= "icon_excel.png";
+	else
+		icon+= "icon_somefile.gif";
+	return icon;
+}
 
 var fieldname=""; 
 function openHelp(name,mytext){
@@ -238,12 +299,19 @@ function openHelp(name,mytext){
 
 function checkErrors(){
 	var errors=false;
-	if($("#title").val()==''){
+	if($("#tempTitle").val()==''){
 		errors = true;
 		$("#errortitle").html('<font color="red"><fmt:message key="iw_IL.required.titleCallForProposal"/><font color="red"><br>');
 	}
 	else{
 		$("#errortitle").html('');
+	}
+	if($("#tempUrlTitle").val()==''){
+		errors = true;
+		$("#errorurltitle").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterUrlTitle"/><font color="red"><br>');
+	}
+	else{
+		$("#errorurltitle").html('');
 	}
 	if($("#categoryId").val()=='0'){
 		errors = true;
@@ -254,5 +322,6 @@ function checkErrors(){
 	}
 	return errors;
 }
+
 
 </script>

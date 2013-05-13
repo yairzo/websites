@@ -59,5 +59,13 @@ public interface CallForProposalService {
 	public List<CallForProposal> getCalendarMonthCallForProposals(String firstDay, String lastDay);
 
 	public LinkedHashMap<String, DayInCalendar> getMonthDaysMap(String date);
+	
+	public int countCallForProposalsByUrlTitle(int id,String urlTitle);
+
+	public int countCallForProposalsByTitle(int id,String title);
+
+	public List<Integer> getDaysWithFunds(String month,String year);
+
+	public List<CallForProposal> getCallForProposalsPerDay(String date);
 
 }

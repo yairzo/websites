@@ -87,8 +87,9 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		if(textualPage.getTitle().isEmpty())
 			textualPage.setTitle("###" + new java.util.Date().getTime() + "###");
 
-		final String query = "insert ignore textualPageDraft set title='" + textualPage.getTitle() + "', creatorId = ?, html='', description='', updateTime=now(), localeId=?;";
+		final String query = "insert ignore textualPageDraft set title='" + textualPage.getTitle() + "' ,urlTitle=?, creatorId = ?, html='', description='', updateTime=now(), localeId=?;";
 		//logger.info(query);
+		final String urlTitle= textualPage.getUrlTitle();
 		final int creatorId= textualPage.getCreatorId();
 		final String localeId= textualPage.getLocaleId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -97,8 +98,9 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 						PreparedStatement ps =
 								connection.prepareStatement(query, new String[] {"id"});
-						ps.setInt(1, creatorId);
-						ps.setString(2, localeId);
+						ps.setString(1, urlTitle);
+						ps.setInt(2, creatorId);
+						ps.setString(3, localeId);
 						return ps;
 					}
 				},
@@ -114,6 +116,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 			keepInRollingMessagesExpiryTime=DateUtils.formatTimestampWithoutMillis(textualPage.getKeepInRollingMessagesExpiryTime());
 		final String query = "insert textualPage set id = ?"+
 				", title = ?" +
+				", urlTitle = ?" +
 				", creatorId = ?" +
 				", deskId = ?" +
 				", requireLogin = ?" +
@@ -134,6 +137,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getId(),
 				textualPage.getTitle(),
+				textualPage.getUrlTitle(),
 				textualPage.getCreatorId(),
 				textualPage.getDeskId(),
 	    		textualPage.getRequireLogin(),
@@ -159,6 +163,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 			keepInRollingMessagesExpiryTime=DateUtils.formatTimestampWithoutMillis(textualPage.getKeepInRollingMessagesExpiryTime());
 		String query = "update textualPageDraft set " +
 				" title = ?" +
+				", urlTitle = ?" +
 				", creatorId = ?" +
 				", deskId = ?" +
 				", requireLogin = ?" +
@@ -179,6 +184,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		//logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getTitle(),
+				textualPage.getUrlTitle(),
 				textualPage.getCreatorId(),
 				textualPage.getDeskId(),
 	    		textualPage.getRequireLogin(),
@@ -213,6 +219,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 			keepInRollingMessagesExpiryTime=DateUtils.formatTimestampWithoutMillis(textualPage.getKeepInRollingMessagesExpiryTime());
 		String query = "update textualPage set " +
 				" title = ?" +
+				", urlTitle = ?" +
 				", creatorId = ?" +
 				", deskId = ?" +
 				", requireLogin = ?" +
@@ -233,6 +240,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getTitle(),
+				textualPage.getUrlTitle(),
 				textualPage.getCreatorId(),
 				textualPage.getDeskId(),
 	    		textualPage.getRequireLogin(),
@@ -270,16 +278,28 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		logger.info(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
+	
+	public int countTextualPagesByUrlTitle(int id,String urlTitle){
+		String query = "select count(*) from textualPageDraft where urlTitle='" + urlTitle +"' and id<>"+ id;
+		return getSimpleJdbcTemplate().queryForInt(query);
+	}
+	public int countTextualPagesByTitle(int id,String title){
+		String query = "select count(*) from textualPageDraft where title='" + title +"' and id<>"+ id;
+		return getSimpleJdbcTemplate().queryForInt(query);
+	}
+	
 	public String getWhereClause(TextualPageSearchCreteria searchCreteria){
 		String whereClause="";
 		whereClause += " where true";
 		if(searchCreteria.getSearchByCreator()>0)
 			whereClause +=" and creatorId="+searchCreteria.getSearchByCreator();
-		if(!searchCreteria.getSearchDeleted())//not include deleted
-			whereClause +=" and isDeleted=0";
+		if(searchCreteria.getSearchDeleted())
+			whereClause +=" and isDeleted=1";
+		if(searchCreteria.getSearchList())
+			whereClause +=" and wrapExternalPage=1";
 		if(!searchCreteria.getSearchBySearchWords().isEmpty())
 			whereClause +=" and id in ("+searchCreteria.getSearchBySearchWords() + ")";
-		whereClause += "  order by id";
+		whereClause += "  order by id desc";
 		logger.info(whereClause);
 		return whereClause;
 	}
@@ -305,6 +325,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 			TextualPage textualPage = new TextualPage();
 			textualPage.setId(rs.getInt("id"));
 			textualPage.setTitle(rs.getString("title"));
+			textualPage.setUrlTitle(rs.getString("urlTitle"));
 			textualPage.setCreatorId(rs.getInt("creatorId"));
 			long creationTime = 0;
 			Timestamp creationTimeTS = rs.getTimestamp("creationTime");

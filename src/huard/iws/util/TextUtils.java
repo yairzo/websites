@@ -128,4 +128,58 @@ public class TextUtils {
 		}
 	}
 */
+	
+	public static boolean isImage(String contentType){
+		if(contentType.equals("image/jpeg") || contentType.equals("image/tiff") || contentType.equals("image/gif") ||
+				contentType.equals("image/png") || contentType.equals("image/bmp"))
+			return true;
+		else
+			return false;
+	}
+	
+	public static String getContentType(String extension){
+		if(extension.equals("pdf"))
+			return "application/pdf";
+		else if (extension.equals("doc"))
+			return "application/msword";
+		else if (extension.equals("docx"))
+			return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+		else if (extension.equals("xls"))
+			return "application/vnd.ms-excel";
+		else if (extension.equals("xlsx"))
+			return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+		else if (extension.equals("txt"))
+			return "text/plain";
+		else if (extension.equalsIgnoreCase("jpg")|| extension.equalsIgnoreCase("jpeg"))
+			return "image/jpeg";
+		else if (extension.equalsIgnoreCase("tif")|| extension.equalsIgnoreCase("tiff"))
+			return "image/tiff";
+		else if (extension.equals("gif"))
+			return "image/gif";
+		else if (extension.equals("png"))
+			return "image/png";
+		else if (extension.equals("bmp"))
+			return "image/bmp";
+		else
+			return "text/html";
+	}	
+	
+	public static String getIcon(String extension){
+		String icon="<img src='image/";
+		if(extension.equals("pdf"))
+			icon+= "icon_pdf.png";
+		else if (extension.equals("doc"))
+			icon+= "icon_word.gif";
+		else if (extension.equals("docx"))
+			icon+= "icon_word.gif";
+		else if (extension.equals("xls"))
+			icon+= "icon_excel.png";
+		else if (extension.equals("xlsx"))
+			icon+= "icon_excel.png";
+		else
+			icon+= "icon_somefile.gif";
+		icon+= "' weight='15px' height='15px'/>";
+		return icon;
+	}	
+
 }

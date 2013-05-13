@@ -6,10 +6,12 @@ import java.util.List;
 public class CallForProposal {
 	private int id;
 	private String title;
+	private String urlTitle;
 	private int creatorId;
 	private long creationTime;
 	private long publicationTime;
 	private long finalSubmissionTime;
+	private String finalSubmissionHour;
 	private boolean allYearSubmission;
 	private boolean allYearSubmissionYearPassedAlert;
 	private boolean hasAdditionalSubmissionDates;
@@ -45,10 +47,12 @@ public class CallForProposal {
 	public CallForProposal(){
 		this.id = 0;
 		this.title = "";
+		this.urlTitle = "";
 		this.creatorId = 0;
 		this.creationTime = 0;
 		this.publicationTime = 0;
 		this.finalSubmissionTime = 0;
+		this.finalSubmissionHour ="";
 		this.allYearSubmission = false;
 		this.allYearSubmissionYearPassedAlert=true;
 		this.hasAdditionalSubmissionDates=false;
@@ -89,6 +93,13 @@ public class CallForProposal {
 		this.title = title;
 	}
 
+	public String getUrlTitle() {
+		return urlTitle;
+	}
+	public void setUrlTitle(String urlTitle) {
+		this.urlTitle = urlTitle;
+	}
+
 	public int getCreatorId() {
 		return creatorId;
 	}
@@ -115,6 +126,13 @@ public class CallForProposal {
 	}
 	public void setFinalSubmissionTime(long finalSubmissionTime) {
 		this.finalSubmissionTime = finalSubmissionTime;
+	}
+	
+	public String getFinalSubmissionHour() {
+		return finalSubmissionHour;
+	}
+	public void setFinalSubmissionHour(String finalSubmissionHour) {
+		this.finalSubmissionHour = finalSubmissionHour;
 	}
 
 	public boolean getAllYearSubmission() {

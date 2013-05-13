@@ -23,12 +23,14 @@ import java.util.Map;
 public class CallForProposalBean {
 	private int id;
 	private String title;
+	private String urlTitle;
 	private int creatorId;
 	private long creationTime;
 	private long publicationTime;
 	private String publicationTimeString;
 	private long finalSubmissionTime;
 	private String finalSubmissionTimeString;
+	private String finalSubmissionHour;
 	private boolean allYearSubmission;
 	private boolean allYearSubmissionYearPassedAlert;
 	private boolean hasAdditionalSubmissionDates;
@@ -68,10 +70,12 @@ public class CallForProposalBean {
 	public CallForProposalBean(){
 		this.id = 0;
 		this.title = "";
+		this.urlTitle = "";
 		this.creatorId = 0;
 		this.creationTime = 0;
 		this.publicationTime = 0;
 		this.finalSubmissionTime = 0;
+		this.finalSubmissionHour = "";
 		this.allYearSubmission = false;
 		this.allYearSubmissionYearPassedAlert=true;
 		this.hasAdditionalSubmissionDates=false;
@@ -109,10 +113,12 @@ public class CallForProposalBean {
 	public CallForProposalBean(CallForProposal callForProposal, boolean applyObjs){
 		this.id = callForProposal.getId();
 		this.title = callForProposal.getTitle();
+		this.urlTitle = callForProposal.getUrlTitle();
 		this.creatorId = callForProposal.getCreatorId();
 		this.creationTime = callForProposal.getCreationTime();
 		this.publicationTime = callForProposal.getPublicationTime();
 		this.finalSubmissionTime =callForProposal.getFinalSubmissionTime();
+		this.finalSubmissionHour = callForProposal.getFinalSubmissionHour();
 		this.allYearSubmission = callForProposal.getAllYearSubmission();
 		this.allYearSubmissionYearPassedAlert=callForProposal.getAllYearSubmissionYearPassedAlert();
 		this.hasAdditionalSubmissionDates=callForProposal.getHasAdditionalSubmissionDates();
@@ -156,10 +162,12 @@ public class CallForProposalBean {
 		CallForProposal callForProposal = new CallForProposal();
 		callForProposal.setId(id);
 		callForProposal.setTitle(title);
+		callForProposal.setUrlTitle(urlTitle);
 		callForProposal.setCreatorId(creatorId);
 		callForProposal.setCreationTime(creationTime);
 		callForProposal.setPublicationTime(publicationTime);
 		callForProposal.setFinalSubmissionTime(finalSubmissionTime);
+		callForProposal.setFinalSubmissionHour(finalSubmissionHour);
 		callForProposal.setAllYearSubmission(allYearSubmission);
 		callForProposal.setAllYearSubmissionYearPassedAlert(allYearSubmissionYearPassedAlert);
 		callForProposal.setHasAdditionalSubmissionDates(hasAdditionalSubmissionDates);
@@ -217,6 +225,13 @@ public class CallForProposalBean {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	public String getUrlTitle() {
+		return urlTitle;
+	}
+	public void setUrlTitle(String urlTitle) {
+		this.urlTitle = urlTitle;
+	}
 
 	public int getCreatorId() {
 		return creatorId;
@@ -268,13 +283,13 @@ public class CallForProposalBean {
 	public String getFinalSubmissionTimeString() {
 		if(finalSubmissionTime==0)
 			return "";
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		return formatter.format(finalSubmissionTime);
 	}
-	
+
 	public void setFinalSubmissionTimeString(String finalSubmissionTimeString) {
 		try{
-			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			Date formattedDate = (Date)formatter.parse(finalSubmissionTimeString); 
 			this.finalSubmissionTime = formattedDate.getTime();
 		}
@@ -282,6 +297,14 @@ public class CallForProposalBean {
 			this.finalSubmissionTime=0;
 		}
 	}
+	
+	public String getFinalSubmissionHour() {
+		return finalSubmissionHour;
+	}
+	public void setFinalSubmissionHour(String finalSubmissionHour) {
+		this.finalSubmissionHour = finalSubmissionHour;
+	}
+	
 
 	public boolean getAllYearSubmission() {
 		return allYearSubmission;

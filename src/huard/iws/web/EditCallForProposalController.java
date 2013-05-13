@@ -16,6 +16,7 @@ import huard.iws.service.MopDeskService;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
+import huard.iws.util.TextUtils;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -69,8 +70,8 @@ public class EditCallForProposalController extends GeneralFormController{
 						title = originalName.substring(0,originalName.lastIndexOf("."));
 					Attachment attachment = new Attachment();
 					attachment.setFile(file.getBytes());
-					attachment.setContentType(getContentType(ext));
-					attachment.setTitle(getIcon(ext) + title);
+					attachment.setContentType(TextUtils.getContentType(ext));
+					attachment.setTitle(TextUtils.getIcon(ext) + title);
 					attachments.add(attachment);
 				}
 				callForProposalBean.setAttachments(attachments);
@@ -80,6 +81,8 @@ public class EditCallForProposalController extends GeneralFormController{
 		//title
 		if(!request.getParameter("tempTitle", "").isEmpty())
 			callForProposalBean.setTitle(request.getParameter("tempTitle", ""));
+		if(!request.getParameter("tempUrlTitle", "").isEmpty())
+			callForProposalBean.setUrlTitle(request.getParameter("tempUrlTitle", ""));
 		
 		//subjectIds
 		String subjectsIdsString = request.getParameter("subjectsIdsString","");
@@ -157,6 +160,10 @@ public class EditCallForProposalController extends GeneralFormController{
 			if(!callForProposal.getTitle().startsWith("###"))
 				title = callForProposal.getTitle();
 			model.put("title", title);
+			String urlTitle="";
+			if(!callForProposal.getUrlTitle().startsWith("###"))
+				urlTitle = callForProposal.getUrlTitle();
+			model.put("urlTitle", urlTitle);
 			
 			//desk contact persons
 			String budgetTitle="Budget";
@@ -238,41 +245,7 @@ public class EditCallForProposalController extends GeneralFormController{
 		// now Spring knows how to handle multipart object and convert them
 	}	
 	
-	private static String getContentType(String extension){
-		if(extension.equals("pdf"))
-			return "application/pdf";
-		else if (extension.equals("doc"))
-			return "application/msword";
-		else if (extension.equals("docx"))
-			return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-		else if (extension.equals("xls"))
-			return "application/vnd.ms-excel";
-		else if (extension.equals("xlsx"))
-			return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-		else if (extension.equals("txt"))
-			return "text/plain";
-		else if (extension.equals("jpg")|| extension.equals("jpeg"))
-			return "image/jpeg ";
-		else
-			return "text/html";
-	}	
-	private static String getIcon(String extension){
-		String icon="<img src='image/";
-		if(extension.equals("pdf"))
-			icon+= "icon_pdf.png";
-		else if (extension.equals("doc"))
-			icon+= "icon_word.gif";
-		else if (extension.equals("docx"))
-			icon+= "icon_word.gif";
-		else if (extension.equals("xls"))
-			icon+= "icon_excel.png";
-		else if (extension.equals("xlsx"))
-			icon+= "icon_excel.png";
-		else
-			icon+= "icon_somefile.gif";
-		icon+= "' weight='15px' height='15px'/>";
-		return icon;
-	}	
+
 	private CallForProposalService callForProposalService;
 
 	public void setCallForProposalService(CallForProposalService callForProposalService) {

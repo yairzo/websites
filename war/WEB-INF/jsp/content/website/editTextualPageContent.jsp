@@ -18,6 +18,8 @@
             <form:form id="form" name="form" method="POST" action="editTextualPage.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
  			<form:hidden path="creatorId"/>
+ 			<form:hidden path="title"/>
+ 			<form:hidden path="urlTitle"/>
  			
  			<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"></c:set>
  			
@@ -41,22 +43,32 @@
                  	</td>
                 </tr>
  
+              <tr class="form">
+					<td colspan="4" align="${lang.align}"><h3> <fmt:message key="${lang.localeId}.textualPage.detailsTitle"/> ${command.id}	</h3>
+ 					<c:if test="${online}">
+					<fmt:message key="${lang.localeId}.callForProposal.onSite"/>
+ 					</c:if>
+ 				</td>
+				</tr>
  
-                <tr class="form">
-					<td colspan="4" align="right"><h3> <fmt:message key="${lang.localeId}.textualPage.detailsTitle"/> ${command.id}	</h3>
+              <tr class="form">
+					<td colspan="4" align="${lang.align}">
+					<button class="grey save"><fmt:message key="${lang.localeId}.general.save"/></button>&nbsp;
 					<c:if test="${online}">
-					 <fmt:message key="${lang.localeId}.callForProposal.onSite"/>
-					&nbsp; <button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>
-					&nbsp; <button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>
-					&nbsp; <button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>
+					<button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp; 
+					<button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp; 
+					<button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp; 
 					</c:if>
 					<c:if test="${!online}">
-					&nbsp; <button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>
+					<button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp; 
 					</c:if>
-					&nbsp; <button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>
-					</td>
-				</tr>
-				<tr class="form">
+					<button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp; 
+					<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;
+					<button class="grey" onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;		
+					<button class="grey" onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>		
+				</td>
+			</tr>
+ 			<tr class="form">
 					<td  colspan="4">
 						<fmt:message key="${lang.localeId}.callForProposal.language"/>
 						<form:select cssClass ="green langSelect" path="localeId">
@@ -72,8 +84,15 @@
                 <tr class="form">
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.title"/>
-						<form:input htmlEscape="true" cssClass="green long800" path="title"/>
+						<input type="text" htmlEscape="true" class="green long800" name="tempTitle" id="tempTitle" value="${title}"/>
 					    <div id="errortitle">				
+					</td>
+				</tr>
+                <tr class="form">
+					<td colspan="4" style="border:1px #bca2a2 dotted">
+						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.urlTitle"/>
+						<input type="text" htmlEscape="true" class="green long800" name="tempUrlTitle" id="tempUrlTitle" value="${urlTitle}"/>
+					    <div id="errorurltitle">				
 					</td>
 				</tr>
 				<tr class="form">
@@ -230,14 +249,23 @@
 
 	
  		
-		<tr class="form">
-			<td colspan="4" align="center">
-				<button class="grey save"><fmt:message key="${lang.localeId}.general.save"/></button>&nbsp;&nbsp;
-				<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;&nbsp;
-				<button class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;&nbsp;		
-				<button class="grey" title="חזרה"  onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>		
-			</td>
-		</tr>
+              <tr class="form">
+					<td colspan="4" align="${lang.align}">
+					<button class="grey save"><fmt:message key="${lang.localeId}.general.save"/></button>&nbsp;
+					<c:if test="${online}">
+					<button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp; 
+					<button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp; 
+					<button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp; 
+					</c:if>
+					<c:if test="${!online}">
+					<button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp; 
+					</c:if>
+					<button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp; 
+					<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;
+					<button class="grey" onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;		
+					<button class="grey" onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>		
+				</td>
+			</tr>
     </table>
 </form:form>
     </td>

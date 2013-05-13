@@ -11,7 +11,9 @@
 		    <td colspan="2">
             <form:form id="form" name="form" method="POST" commandName="command" action="searchCallForProposals.html">
  			
-              <table width="1000" border="0" align="center" cellpadding="3" dir="rtl">
+ 			<div id="genericDialog" style="display:none" dir="rtl"><p></p></div>
+ 
+              <table width="800" border="0" align="center" cellpadding="3" dir="rtl">
                <tr>
       				<td class="container" style="width: 32%; vertical-align: top">
     					<table style="width: 100%;">
@@ -21,7 +23,23 @@
 							<input type="text" class="green" style="width:400px" name="searchWords"/> 
 							</td>
 							<td align="left">
- 							<button class="grey">חפש</button>
+ 							<button class="grey search">חפש</button>
+       						</td>
+       					</tr>
+       					</table>
+       				</td>
+               </tr>
+	          </table>
+              <table width="800" border="0" align="center" cellpadding="3" dir="rtl">
+               <tr>
+      				<td class="container" style="width: 32%; vertical-align: top">
+    					<table style="width: 100%;">
+                		<tr class="form">
+							<td>
+						 	<span class="date"></span>
+							</td>
+							<td>
+       						<span class="callForProposalsPerDay"></span>
        						</td>
        					</tr>
        					</table>

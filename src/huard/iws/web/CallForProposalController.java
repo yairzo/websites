@@ -47,7 +47,7 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		if (callForProposalBean.getFinalSubmissionTime()==0)
 			model.put("finalSubmissionTime", "");
 		else
-			model.put("finalSubmissionTime", DateUtils.getLocaleDependentLongDateTimeFormat(callForProposalBean.getFinalSubmissionTime(),callForProposalBean.getLocaleId(),true));
+			model.put("finalSubmissionTime", DateUtils.getLocaleLongDateTimeFormatWithDay(callForProposalBean.getFinalSubmissionTime(),callForProposalBean.getLocaleId(),false));
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		if (callForProposalBean.getPublicationTime()==0)
 			model.put("publicationTime", "");
