@@ -11,72 +11,11 @@
 
 </style>
 
-<!-- <script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script> -->
+
 <script type="text/javascript" src="js/ckeditor_3.4/ckeditor.js"></script>
 <script type="text/javascript" src="js/ckeditor_3.4/adapters/jquery.js"></script>
 
 <script language="Javascript">
-
-	var ckeditor;
-	var currentEditor;
-
-	function ShowCKEDITOR()
-	{
-		currentEditor = "ckeditor";
-		
-		var config=	{
-				
-			toolbar_Full: [ ['Source','-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-', 'Find','Replace','-','SelectAll','RemoveFormat' ],
-			                [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-','Outdent','Indent','-',
-			              	'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl', '-','Link','Unlink'],
-			              	['Table','HorizontalRule','SpecialChar'],
-			              	[ 'Styles','Format','Font','FontSize' ],[ 'TextColor','BGColor' ],[ 'Maximize', 'ShowBlocks','-','About' ]],
-           
-            uiColor:'#F4EEE4',
-			contentsCss:'js/ckeditor/_samples/assets/output_xhtml.css',
-			height:"190", width:"700",
-
-			fontSize_sizes : '10/10px;12/12px;14/14px;16/16px;24/24px;48/48px;',
-
-			colorButton_enableMore : false,
-
-			stylesSet :
-			[
-			{ name : 'Strong Emphasis', element : 'strong' },
-			{ name : 'Emphasis', element : 'em' },
-			{ name : 'Computer Code', element : 'code' },
-			{ name : 'Keyboard Phrase', element : 'kbd' },
-			{ name : 'Sample Text', element : 'samp' },
-			{ name : 'Variable', element : 'var' },
-			{ name : 'Deleted Text', element : 'del' },
-			{ name : 'Inserted Text', element : 'ins' },
-			{ name : 'Cited Work', element : 'cite' },
-			{ name : 'Inline Quotation', element : 'q' }
-			]
-		};
-		ckeditor = $('textarea.tinymce').ckeditor(config);
-	}
-
-	function ShowTinyMCE()
-	{
-		currentEditor = "tinymce";
-		$('textarea.tinymce').tinymce
-		({
-
-		script_url : 'js/tiny_mce/tiny_mce.js',
-		theme : "advanced",
-		plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-		heme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
-		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_statusbar_location : "bottom",
-		theme_advanced_resizing : true
-		});
-	}
-
 
 	function openSubject(element){
 		$(element).children("img.plus").hide();
@@ -157,6 +96,7 @@
 			return false;
 		} 
 	};
+	
 
 
 	$(document).ready(function() {
@@ -177,16 +117,17 @@
 		$(".callForProposal").autocomplete({ position: { my : "right top", at: "right bottom" }});
 		$(".callForProposal").autocomplete ("widget").css("width",'auto');  
 		
-		ShowCKEDITOR();
+		
+		
+		CKEDITOR.disableAutoInline = true;
+		CKEDITOR.inline( 'editable' );
+	
 
 
 
 		$("button.addAttachEditor").click(function(event){			
-
 			var html = $("td.attach").html();
-			var ckeditorHtml = CKEDITOR.dom.element.createFromHtml('<span>&nbsp;#@# ' + html + '</span>');
-			CKEDITOR.instances.body.insertElement(ckeditorHtml);
-			return false;
+			$('div#editable').append(' ' + '<span>&nbsp;#@# ' + html + '</span>');			
 		});
 
 		<c:if test="$false && ${command.typeId == 2}">
@@ -294,7 +235,8 @@
 
 		$(".langSelect").change(function(){
 				formExit = false;
-				$.alerts.confirm('<fmt:message key="${lang.localeId}.post.changeLanguage.confirm"/>',
+				console.log('change language');
+				jQuery.alerts.confirm('<fmt:message key="${lang.localeId}.post.changeLanguage.confirm"/>',
 		    			'<fmt:message key="iw_IL.eqfSystem.editProposal.confirm.title"/>',
 		    			function(confirm){
 		    				if (confirm==1){

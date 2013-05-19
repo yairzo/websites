@@ -102,8 +102,9 @@
 				<tr>
 						<td colspan="2">
 
-								<div class="bodyTA">
-									<form:textarea id="body" path="message" cssClass="tinymce message"/>
+								<div id="editable" contenteditable="true">
+    								<h1>Inline Editing in Action!</h1>
+    								<p>The div element that holds this text is now editable.
 								</div>
 						</td>
 				</tr>
