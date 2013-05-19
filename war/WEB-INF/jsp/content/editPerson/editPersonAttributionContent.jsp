@@ -94,7 +94,7 @@
 					תפקיד:
 				</td>
 				<td width="120">
-					<form:input htmlEscape="true" cssClass="green" path="title"/>
+					<form:input  cssClass="green" path="title"/>
 				</td>
 				<td width="330">
 					<form:errors path="title"/>

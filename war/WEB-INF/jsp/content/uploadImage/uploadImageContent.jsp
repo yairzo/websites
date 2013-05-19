@@ -93,9 +93,18 @@
 		</tr>
 	</table>
 	</form:form>
-		<form:form id="editImage" name="editImage" method="POST" action="editImage.html" commandName="command" >
+	
+	<form:form id="editImage" name="editImage" method="POST" action="editImage.html" commandName="command" >
 
-            <table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
+  	<div id="editCaptionsDialog" style="display:none" dir="${lang.dir}">
+	<table>
+		<tr class="form"><td>שם:<br><input type="text" class="green" id="ename"/></td></tr>
+		<tr class="form"><td>כותרת תמונה בעברית:<input type="text" class="green" id="ecaptionHebrew"/></td></tr>
+		<tr class="form"><td>כותרת תמונה באנגלית:<input type="text" class="green" id="ecaptionEnglish"/></td></tr>
+	</table>  	
+	</div>
+	
+   	<table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
 
 		<tr>
 			<td colspan="2" style="border: black dotted 1px;">
@@ -115,9 +124,11 @@
   								<img id="${image.id}" style="${borderStyle}" src="imageViewer?imageId=${image.id}&attachType=bodyImage" width="72" height="72">
   								<input name="chkboxName" id="chkboxName" type="checkbox" value="${image.id}"/>
 	  							<br/>
-  								${image.name}<br/>
+  								${image.name}&nbsp;
+  								<a href="" onclick="editCaptions(${image.id},'${image.name}','${image.captionHebrew}','${image.captionEnglish}');return false;" id="${image.id}">ערוך</a>
+  								<br/>
   							</span>
-  						</td>
+    						</td>
  				</c:forEach>
 			  	</tr>
 			   	<tr>

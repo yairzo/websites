@@ -24,7 +24,14 @@ public class PageBodyImageBean {
 	}
 
 	public PageBodyImageBean(){
-
+		this.id = 0;
+		this.name="";
+		this.captionHebrew="";
+		this.captionEnglish="";
+		this.image=new byte[0];
+		this.uploaderPersonId=0;
+		this.approved=0;
+		this.url="";
 	}
 
 	public PageBodyImageBean( PageBodyImage pageBodyImage){

@@ -32,7 +32,6 @@ public class EditPersonAttributionController extends GeneralFormController{
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 	throws Exception{
 		PersonListAttributionBean personAttributionBean = (PersonListAttributionBean) command;
-
 		Map<String, Object> newModel = new HashMap<String, Object>();
 
 		String callerPage = request.getParameter("cp", "person.html");
@@ -56,6 +55,7 @@ public class EditPersonAttributionController extends GeneralFormController{
 			connectedPersonAttributionBean.setId(personAttributionBean.getId());
 			connectedPersonAttributionBean.setPersonId(personAttributionBean.getPersonId());
 			connectedPersonAttributionBean.setListId(personAttributionBean.getListId());
+			connectedPersonAttributionBean.setPlaceInList(personAttributionBean.getPlaceInList());
 			connectedPersonAttributionBean.setConnectDetails(personAttributionBean.isConnectDetails());
 			connectedPersonAttributionBean.setTitle(personAttributionBean.getTitle());
 			connectedPersonAttributionBean.setTitleId(personAttributionBean.getTitleId());

@@ -21,4 +21,6 @@ public interface PageBodyImageService {
 
 	public int countImages();
 
+	public void updatePageBodyImage(PageBodyImage pageBodyImage);
+
 }

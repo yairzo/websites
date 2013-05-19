@@ -91,40 +91,7 @@ $(document).ready(function() {
     	return true;
     });
 
-    $("#buttonDelete").click(function(){
-    	$.alerts.confirm('<fmt:message key="iw_IL.eqfSystem.editProposal.deleteProposal.confirm"/>', "מחיקת הצעה",
-        function(confirm){
-         	 	if (confirm==1){
-         	      	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
-             	   	$("#form").submit();
-             	   	return true;
-         	 	}
-         	 	else{
-     				return false;
-         	 	}
-        });
-    	return false;
-    });
-
-    $("#buttonSearch").click(function(){
-    	$("input#listViewPage").remove();
-		$("input#orderBy").remove();
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-		$("#form").submit();
-    	return true;
-    });
-
-    $("#buttonCleanSearch").click(function(){
-    	$("input#searchPhrase").val('');
-       	$("#searchByApprover").val('0');
-       	$("#searchByStatus").val('1');
-       	$("#searchByDeadline").val('0');
-   		$("input#listViewPage").remove();
-		$("input#orderBy").remove();
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-		$("#form").submit();
-    	return true;
-    });
+    
     $("#searchPhrase").click(function(){
     	cleanSearch();
     });

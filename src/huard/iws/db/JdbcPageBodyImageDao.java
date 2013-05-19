@@ -91,6 +91,7 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
             pageBodyImage.setImage(rs.getBytes("image"));
             pageBodyImage.setUploaderPersonId(rs.getInt("uploaderPersonId"));
             pageBodyImage.setApproved(rs.getInt("approved"));
+            pageBodyImage.setUrl(rs.getString("url"));
             return pageBodyImage;
         }
 	};
@@ -110,6 +111,15 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		//String query = "select count(*) from image where websiteId = ?";
 		String query = "select count(*) from image";
 		return getSimpleJdbcTemplate().queryForInt(query);
+	}
+	
+	public void updatePageBodyImage(PageBodyImage pageBodyImage){
+		String query = "update image set name=?, captionHebrew = ?, captionEnglish = ? where id=?";
+		getSimpleJdbcTemplate().update(query,
+			pageBodyImage.getName(),
+			pageBodyImage.getCaptionHebrew(),
+			pageBodyImage.getCaptionEnglish(),
+			pageBodyImage.getId());
 	}
 
 

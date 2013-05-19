@@ -48,7 +48,7 @@
 	              <tr>
 	              	<td colspan="2">
 	              		<button class="grey" onclick="submit()">שמור</button>
-						<a style="text-decoration: none" href="list.html?id=<c:out value="${command.id}"/>"><button class="grey" onclick="submit()">סיים</button></a>
+						<button class="grey" onclick="document.location='list.html?id=${command.id}';return false;">סיים</button>
 					</td>
 				</tr>
 				</c:when>

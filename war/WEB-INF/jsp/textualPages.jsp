@@ -1,5 +1,5 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 <%@ include file="/WEB-INF/jsp/include/header.jsp" %>
-<%@ include file="/WEB-INF/jsp/content/website/textualPagesContent.jsp" %>
-<%@ include file="/WEB-INF/jsp/content/website/textualPagesScripts.jsp" %>
+<%@ include file="/WEB-INF/jsp/content/editWebsite/textualPagesContent.jsp" %>
+<%@ include file="/WEB-INF/jsp/content/editWebsite/textualPagesScripts.jsp" %>

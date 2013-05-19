@@ -1,4 +1,4 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 <%@ include file="/WEB-INF/jsp/include/header.jsp" %>
-<%@ include file="/WEB-INF/jsp/content/website/categoriesContent.jsp" %>
+<%@ include file="/WEB-INF/jsp/content/editWebsite/categoriesContent.jsp" %>

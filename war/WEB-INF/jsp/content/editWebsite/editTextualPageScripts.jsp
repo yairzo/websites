@@ -1,6 +1,6 @@
 <%@ page  pageEncoding="UTF-8" %>
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" src="js/ckeditor_3.4/ckeditor.js"></script>
+<script type="text/javascript" src="js/ckeditor_3.4/adapters/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.autosave.js"></script>
 
 <script language="Javascript">

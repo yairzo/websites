@@ -35,6 +35,10 @@ public class PageBodyImageServiceImpl implements PageBodyImageService{
 	public int countImages (){
 		return pageBodyImageDao.countImages ();
 	}
+	
+	public void updatePageBodyImage(PageBodyImage pageBodyImage){
+		pageBodyImageDao.updatePageBodyImage(pageBodyImage);
+	}
 
 	PageBodyImageDao pageBodyImageDao;
 

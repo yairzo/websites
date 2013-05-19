@@ -12,8 +12,8 @@
 </style>
 
 <!-- <script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script> -->
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" src="js/ckeditor_3.4/ckeditor.js"></script>
+<script type="text/javascript" src="js/ckeditor_3.4/adapters/jquery.js"></script>
 
 <script language="Javascript">
 
