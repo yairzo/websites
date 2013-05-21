@@ -1,12 +1,12 @@
 <%@ page  pageEncoding="UTF-8" %>
-<script type="text/javascript" src="js/ckeditor_3.4/ckeditor.js"></script>
-<script type="text/javascript" src="js/ckeditor_3.4/adapters/jquery.js"></script>
+<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="js/jquery.autosave.js"></script>
 
 <script language="Javascript">
 
 
 $(document).ready(function() {
+
 	
 	if($('.disableEditor').is(":checked"))
     	$("#htmlView").hide();
@@ -209,7 +209,7 @@ $(document).ready(function() {
 	});
 	
 
-	var config=	{
+	/*var config=	{
 			toolbar_Full: [ ['Source','-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-', 'Find','Replace','-','SelectAll','RemoveFormat' ],
 			                [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-',
 			              	'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl', '-','Link','Unlink'],
@@ -226,17 +226,20 @@ $(document).ready(function() {
 			colorButton_enableMore : false
 	};
 
-    $(".editor").ckeditor(config);
+    $(".editor").ckeditor(config);*/
+	CKEDITOR.disableAutoInline = true;
+	CKEDITOR.inline( 'htmlEditor' );
 	
 	
    CKEDITOR.on('instanceReady', function() {//(for ie) 
     if('${showTemplate}'){
-		var ceditor   = CKEDITOR.instances['html'];	  
+		var ceditor   = CKEDITOR.instances['htmlEditor'];	  
    		ceditor.setData('${templateHtml}');
+        $("#html").val('${templateHtml}');
     }
-
    });
-  
+   
+   
     $(".disableEditor").change(function(){		
    	    if($('.disableEditor').is(":checked"))
     		$("#htmlView").hide();
@@ -244,7 +247,8 @@ $(document).ready(function() {
     		$("#htmlView").show();
 	});
    
-	  $("body").click(function(event){
+	 
+    /*$("body").click(function(event){
 			if ($(event.target).attr("class")!=undefined && $(event.target).attr("class").indexOf("cke_")>=0) {
 				//inside editor
 			}
@@ -252,13 +256,20 @@ $(document).ready(function() {
 	          	var afterreplace = replaceURLWithHTMLLinks($(".editor").val());
 	        	$(".editor").val(afterreplace);
 			}
-	   });
-     
+	});*/
+	   
+    CKEDITOR.instances['htmlEditor'].on('blur', function() {
+      	var afterreplace = replaceURLWithHTMLLinks($("#htmlEditor").html());
+      	var ceditor   = CKEDITOR.instances['htmlEditor'];	 
+      	ceditor.setData(afterreplace);
+        $("#html").val(afterreplace);
+    });  
+    
     
 });
 
 function replaceURLWithHTMLLinks(text) {
-    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\">(?!<img)(.*)<\/a>/;
+    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\".*>(?!<img)(.*)<\/a>/;
     var match = exp.exec(text);
     while (match != null) {
         var icon=getIcon(match[2]);

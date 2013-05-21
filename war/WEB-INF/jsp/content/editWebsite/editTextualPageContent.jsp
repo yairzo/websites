@@ -137,7 +137,8 @@
 					</tr>				
  					<tr>
  					<td colspan="4" align="center">
-           				<textarea class="green editor" id="html" name="html" cols="100" rows="1">${command.html }</textarea>
+ 						<div id="htmlEditor" contenteditable="true" style="border:black thin dotted">${command.html}&nbsp;</div>
+           				<textarea class="green" id="html" name="html" cols="100" rows="1" style="display:none"></textarea>
    					</td>
  					</tr>
   					<tr>
