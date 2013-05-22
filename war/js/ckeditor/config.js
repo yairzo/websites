@@ -8,7 +8,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 	config.removeButtons = 'NewPage,Templates,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,'
-		+'Anchor,Flash,Smiley,PageBreak,Iframe,SpecialChar,Underline,Subscript,Superscript,ShowBlocks,Styles';
+		+'Anchor,Flash,Smiley,PageBreak,Iframe,SpecialChar,Blockquote,CreateDiv,Underline,Subscript,Superscript,ShowBlocks,Styles';
 
 	config.format_tags = 'p;h1;h2;h3;pre';
 	

@@ -209,24 +209,6 @@ $(document).ready(function() {
 	});
 	
 
-	/*var config=	{
-			toolbar_Full: [ ['Source','-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-', 'Find','Replace','-','SelectAll','RemoveFormat' ],
-			                [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-',
-			              	'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl', '-','Link','Unlink'],
-			              	['Format','Font','FontSize' ],[ 'TextColor','BGColor' ]],
-            uiColor:'#F4EEE4',
-            //scayt_autoStartup:true,
-            //scayt_sLang:'iw_IL',
-            disableNativeSpellChecker:false,
-            contentsCss:'js/ckeditor/_samples/assets/output_xhtml.css',
-			contentsLangDirection:'rtl',
-			height:"120", 
-			width:"800",
-			fontSize_sizes : '10/10px;12/12px;14/14px;16/16px;24/24px;48/48px;',
-			colorButton_enableMore : false
-	};
-
-    $(".editor").ckeditor(config);*/
 	CKEDITOR.disableAutoInline = true;
 	CKEDITOR.inline( 'htmlEditor' );
 	
@@ -247,22 +229,14 @@ $(document).ready(function() {
     		$("#htmlView").show();
 	});
    
-	 
-    /*$("body").click(function(event){
-			if ($(event.target).attr("class")!=undefined && $(event.target).attr("class").indexOf("cke_")>=0) {
-				//inside editor
-			}
-			else {//not in editor
-	          	var afterreplace = replaceURLWithHTMLLinks($(".editor").val());
-	        	$(".editor").val(afterreplace);
-			}
-	});*/
-	   
     CKEDITOR.instances['htmlEditor'].on('blur', function() {
-      	var afterreplace = replaceURLWithHTMLLinks($("#htmlEditor").html());
-      	var ceditor   = CKEDITOR.instances['htmlEditor'];	 
-      	ceditor.setData(afterreplace);
-        $("#html").val(afterreplace);
+      	var text = replaceURLWithHTMLLinks($("#htmlEditor").html());
+      	var ceditor   = CKEDITOR.instances['htmlEditor'];
+      	if(text.length==0) text+="&nbsp;";
+      	ceditor.setData(text);
+        $("#html").val(text);
+		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+	    $('#form').ajaxSubmit();
     });  
     
     

@@ -137,7 +137,9 @@
 					</tr>				
  					<tr>
  					<td colspan="4" align="center">
- 						<div id="htmlEditor" contenteditable="true" style="border:black thin dotted">${command.html}&nbsp;</div>
+ 						<div id="htmlEditor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align};">
+ 							${command.html}	<c:if test="${fn:length(command.html)==0}">&nbsp;</c:if>
+  						</div>
            				<textarea class="green" id="html" name="html" cols="100" rows="1" style="display:none"></textarea>
    					</td>
  					</tr>

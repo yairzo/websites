@@ -1,6 +1,5 @@
 <%@ page  pageEncoding="UTF-8" %>
-<script type="text/javascript" src="js/ckeditor_3.4/ckeditor.js"></script>
-<script type="text/javascript" src="js/ckeditor_3.4/adapters/jquery.js"></script>
+<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="js/jquery.autosave.js"></script>
 <style>
 	.ui-autocomplete li {
@@ -10,8 +9,6 @@
 </style>
 
 <script language="Javascript">
-var ceditor; //This is for our CKEditor editor
-var ceditor_container; //Saves the container of our editor (DIV).
 
 function resetAutocomplete(funds){
 	$("#searchPhrase").autocomplete( 
@@ -452,101 +449,35 @@ $(document).ready(function() {
 			return false;
 		});
 	
-	var config=	{
-			toolbar_Full: [ ['Source','-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-', 'Find','Replace','-','SelectAll','RemoveFormat' ],
-			                [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl', '-','Link','Unlink','-'],['Table'],
-			                '/',[ 'TextColor','BGColor' ],['Format','Font','FontSize']],
-            uiColor:'#F4EEE4',
-			contentsCss:'js/ckeditor/_samples/assets/output_xhtml.css',
-			contentsLangDirection:'rtl',
-			height:"120", 
-			width:"800",
-			fontSize_sizes : '10/10px;12/12px;14/14px;16/16px;24/24px;48/48px;',
-			colorButton_enableMore : false,
-			enterMode:CKEDITOR.ENTER_BR
-	};
+		//for ie - distroy existing editors before opening them 
+		for(name in CKEDITOR.instances){
+	    	CKEDITOR.instances[name]=null;
+		}    	
+	
+		CKEDITOR.disableAutoInline = true;
+		CKEDITOR.inlineAll;
+	   
+	    $(".editor").on('blur', function() {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+			//autosave 
+			insertIds();
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+		    $('#form').ajaxSubmit();
+	    });  
 
-
-	$(".editor").click(function(e){
-			e.stopPropagation();//so not to start body click
-		 	// pressed editor icons
-		    if ($(e.target).attr("class")!=undefined && $(e.target).attr("class").indexOf("cke_")>=0) 
-					return;
-	        //if another editor is already open, close it
-        	closeEditor();
- 		   //open editor
-	        $(".editorText", $(this).closest("table")).hide();
-           $(".textareaEditorSpan", $(this).closest("table")).show();
-            var textAreaId = $(".textareaEditor", $(this).closest("table")).attr("id");
-	        ceditor =  CKEDITOR.replace(textAreaId,config);
-	        //Save the div container to know which one to close later
-            ceditor_container = $(this);
-	  });
-		
-		$(".openEditor").click(function(e){
-			e.stopPropagation();//so not to start body click
-	    	e.preventDefault();//so href doesnt submit
-	    	$('.editor', $(this).closest("td")).click();
-		});
-		$(".closeEditor").click(function(e){
-		    e.preventDefault();//so href doesnt submit
-			closeEditor();
-		});
-	 
-	  $("body").click(function(event){
-			if ($(event.target).attr("class")!=undefined && $(event.target).attr("class").indexOf("cke_")>=0) {
-				//inside editor
-			}
-			else {
-				closeEditor();
-			}
-	   });
-
-    
-		$(".add").click(function(e){
-		    e.stopPropagation();//so not to start body click 
+ 		$(".add").click(function(e){
 		    e.preventDefault();//no refresh page 
 		    var addedText= $('#addedText', $(this).closest("tr")).html();
-		    var instance = $('#addedText', $(this).closest("tr")).attr("class");
-	    	var ceditor   = CKEDITOR.instances[instance];	       
-	    	if(!ceditor){
-		    	$(".editor", $(this).closest("table")).click();//open editor 
-			    ceditor   = CKEDITOR.instances[instance];	       
-			    //add text - insertHtml doesnt work just after opening so setData instead 
-			    var oldstr=ceditor.getData();
-			    oldstr=	oldstr.replace("</p>","");
-		    	ceditor.setData( oldstr + "<br>" +addedText);	
-	    	}
-	    	else
-	    		ceditor.insertHtml( "<br>" +addedText);	
+		    $(".editor", $(this).closest("table")).html($(".editor", $(this).closest("table")).html() + "<br>" +addedText);
 		});
+		
 
-		CKEDITOR.on('instanceReady', function(ev) {//putting cursor at end of text (for ie) 
-			 
-	        ev.editor.focus();
-	 
-	        var s = ev.editor.getSelection(); // getting selection
-	        var selected_ranges = s.getRanges(); // getting ranges
-	        var node = selected_ranges[0].startContainer; // selecting the starting node
-	        var parents = node.getParents(true);
-	 
-	        node = parents[parents.length - 2].getFirst();
-	 
-	        while (true) {
-	            var x = node.getNext();
-	            if (x == null) {
-	                break;
-	            }
-	            node = x;
-	        }
-	 
-	        s.selectElement(node);
-	        selected_ranges = s.getRanges();
-	        selected_ranges[0].collapse(false);  //  false collapses the range to the end of the selected node, true before the node.
-	        s.selectRanges(selected_ranges);  // putting the current selection there 
-	    });
+
 		
-		
+	    
 		$(".deleteAttachment").click(function(e){
 			e.preventDefault();
 			var attachId= this.id;
@@ -574,7 +505,7 @@ $(document).ready(function() {
 
 
 function replaceURLWithHTMLLinks(text) {
-    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\">(?!<img)(.*)<\/a>/;
+    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\".*>(?!<img)(.*)<\/a>/;
     var match = exp.exec(text);
     while (match != null) {
         var icon=getIcon(match[2]);
@@ -678,34 +609,6 @@ function checkErrors(){
 	}
 	
 	return errors;
-}
-
-function closeEditor(){
-	for ( var i in CKEDITOR.instances ){
-	   var currentInstance = i;
-	   break;
-	}
-	var ceditor   = CKEDITOR.instances[currentInstance];	       
-	if(ceditor){
- 		if(ceditor.getData()!=''){
- 			var afterreplace = replaceURLWithHTMLLinks(ceditor.getData());
-			$(".textareaEditor", $(ceditor_container).closest("table")).val(afterreplace);
- 			$(".editorText", $(ceditor_container).closest("table")).html(afterreplace);
- 		}
- 		else
- 			$(".editorText", $(ceditor_container).closest("table")).html('&nbsp;');
-		$(".editorText", $(ceditor_container).closest("table")).show();
- 		$(".textareaEditorSpan", $(ceditor_container).closest("table")).hide();
-		//autosave
-		insertIds();
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
-		//save must be before destroy because after destroy the last changes of icon are not remebered
-		ceditor.destroy();
- 		ceditor = null; //Set it to null since upon the destroying the CKEditor, the value of the variable is not destroyed by reference
- 		ceditor_container=null;
-	}
-	
 }
 
 function openSubject(element){

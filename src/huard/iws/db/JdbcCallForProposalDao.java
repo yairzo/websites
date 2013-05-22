@@ -550,7 +550,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		}
 
 		
-		whereClause += "  order by " + mainTable +".id desc";
+		whereClause += "  order by " + mainTable +".localeId," +mainTable +".id desc";
 		
 		if(searchCriteria.getLimit()>0)
 			whereClause += "  limit " + searchCriteria.getLimit();
@@ -562,7 +562,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	public List<CallForProposal> getCallForProposalsOnline(String ids ){
 		String query  = "select distinct callForProposal.* from callForProposal";
 		if(!ids.isEmpty())
-			query += " where id in ("+ids + ") and isDeleted=0 order by id";
+			query += " where id in ("+ids + ") and isDeleted=0";
+		query+=" order by localeId, id desc";
 		logger.info(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
