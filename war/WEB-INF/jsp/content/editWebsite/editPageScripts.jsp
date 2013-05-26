@@ -449,24 +449,23 @@ $(document).ready(function() {
 			return false;
 		});
 	
-		//for ie - distroy existing editors before opening them 
-		for(name in CKEDITOR.instances){
-	    	CKEDITOR.instances[name]=null;
-		}    	
 	
-		CKEDITOR.disableAutoInline = true;
-		CKEDITOR.inlineAll;
-	   
-	    $(".editor").on('blur', function() {
+		
+     
+ 	    $(".editor").on('click', function(e) {
+ 	    	e.stopPropagation();
+	    }); 
+         
+	    $(".editor").on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($(this).html());
 	      	if(text.length==0) text+="&nbsp;";
 	      	$(this).html(text);
 			$('.editorTextarea', $(this).closest("table")).val(text);
-			//autosave 
+	    	//autosave 
 			insertIds();
 			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
 		    $('#form').ajaxSubmit();
-	    });  
+	    }); 
 
  		$(".add").click(function(e){
 		    e.preventDefault();//no refresh page 
@@ -505,7 +504,7 @@ $(document).ready(function() {
 
 
 function replaceURLWithHTMLLinks(text) {
-    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\".*>(?!<img)(.*)<\/a>/;
+    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\".*>(?!<img)(.*)<\/a>/i;
     var match = exp.exec(text);
     while (match != null) {
         var icon=getIcon(match[2]);

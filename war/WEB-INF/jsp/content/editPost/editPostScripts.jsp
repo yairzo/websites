@@ -12,8 +12,7 @@
 </style>
 
 
-<script type="text/javascript" src="js/ckeditor_3.4/ckeditor.js"></script>
-<script type="text/javascript" src="js/ckeditor_3.4/adapters/jquery.js"></script>
+<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 
 <script language="Javascript">
 
@@ -120,8 +119,18 @@
 		
 		
 		CKEDITOR.disableAutoInline = true;
-		CKEDITOR.inline( 'editable' );
-	
+		if(CKEDITOR.instances['editable']==null)
+			CKEDITOR.inline('editable');
+
+    	CKEDITOR.instances['editable'].on('blur', function() {
+      		var text = $("#editable").html();
+      		var ceditor   = CKEDITOR.instances['editable'];
+      		if(text.length==0) text+="&nbsp;";
+      		ceditor.setData(text);
+        	$("#message").val(text);
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+	    	$('#form').ajaxSubmit();
+   	 	});  
 
 
 

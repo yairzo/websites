@@ -209,9 +209,6 @@ $(document).ready(function() {
 	});
 	
 
-	CKEDITOR.disableAutoInline = true;
-	CKEDITOR.inline( 'htmlEditor' );
-	
 	
    CKEDITOR.on('instanceReady', function() {//(for ie) 
     if('${showTemplate}'){
@@ -229,7 +226,13 @@ $(document).ready(function() {
     		$("#htmlView").show();
 	});
    
-    CKEDITOR.instances['htmlEditor'].on('blur', function() {
+    
+	CKEDITOR.disableAutoInline = true;
+	if(CKEDITOR.instances['htmlEditor']==null)
+		CKEDITOR.inline('htmlEditor');
+
+	
+	CKEDITOR.instances['htmlEditor'].on('blur', function() {
       	var text = replaceURLWithHTMLLinks($("#htmlEditor").html());
       	var ceditor   = CKEDITOR.instances['htmlEditor'];
       	if(text.length==0) text+="&nbsp;";
