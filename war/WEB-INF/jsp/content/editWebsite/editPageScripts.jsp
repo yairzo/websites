@@ -537,7 +537,7 @@ $(document).ready(function() {
 			$('.editorTextarea', $(this).closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
-	    */
+	    
 	    $("#editor9").on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($(this).html());
 	      	if(text.length==0) text+="&nbsp;";
