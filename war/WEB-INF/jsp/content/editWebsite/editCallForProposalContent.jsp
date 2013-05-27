@@ -253,7 +253,7 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
- 						<div class="editor" contenteditable="true" tabindex="1" style="border:black thin dotted;text-align:${lang.align}">
+ 						<div class="editor" id="editor1" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.submissionDetails}<c:if test="${fn:length(command.submissionDetails)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="submissionDetails" name="submissionDetails" cols="100" rows="1" style="display:none">${command.submissionDetails}</textarea>
@@ -310,7 +310,7 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
- 						<div class="editor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+ 						<div class="editor" id="editor2" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.description}	<c:if test="${fn:length(command.description)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="description" name="description" cols="100" rows="1" style="display:none">${command.description}</textarea>
@@ -333,7 +333,7 @@
   					</tr>
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+						<div class="editor" id="editor3" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.contactPersonDetails}	<c:if test="${fn:length(command.contactPersonDetails)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="contactPersonDetails" name="contactPersonDetails" cols="100" rows="1" style="display:none">${command.contactPersonDetails}</textarea>
@@ -374,7 +374,7 @@
   					</tr>
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+						<div class="editor" id="editor4" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.formDetails}	<c:if test="${fn:length(command.formDetails)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="formDetails" name="formDetails" cols="100" rows="1" style="display:none">${command.formDetails}</textarea>
@@ -422,7 +422,7 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+						<div class="editor" id="editor5" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.fundingPeriod}	<c:if test="${fn:length(command.fundingPeriod)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="fundingPeriod" name="fundingPeriod" cols="100" rows="1" style="display:none">${command.fundingPeriod}</textarea>
@@ -448,7 +448,7 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+						<div class="editor" id="editor6" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.amountOfGrant}	<c:if test="${fn:length(command.amountOfGrant)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="amountOfGrant" name="amountOfGrant" cols="100" rows="1" style="display:none">${command.amountOfGrant}</textarea>
@@ -474,7 +474,7 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+						<div class="editor" id="editor7" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.eligibilityRequirements}	<c:if test="${fn:length(command.eligibilityRequirements)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="eligibilityRequirements" name="eligibilityRequirements" cols="100" rows="1" style="display:none">${command.eligibilityRequirements}</textarea>
@@ -500,7 +500,7 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+						<div class="editor" id="editor8" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.activityLocation}	<c:if test="${fn:length(command.activityLocation)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="activityLocation" name="activityLocation" cols="100" rows="1" style="display:none">${command.activityLocation}</textarea>
@@ -526,7 +526,7 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+						<div class="editor" id="editor9" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.possibleCollaboration}<c:if test="${fn:length(command.possibleCollaboration)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="possibleCollaboration" name="possibleCollaboration" cols="100" rows="1" style="display:none">${command.possibleCollaboration}</textarea>
@@ -552,7 +552,7 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+						<div class="editor" id="editor10" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.budgetDetails}<c:if test="${fn:length(command.budgetDetails)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="budgetDetails" name="budgetDetails" cols="100" rows="1" style="display:none">${command.budgetDetails}</textarea>
@@ -594,7 +594,7 @@
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+						<div class="editor" id="editor11" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.additionalInformation}<c:if test="${fn:length(command.additionalInformation)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="additionalInformation" name="additionalInformation" cols="100" rows="1" style="display:none">${command.additionalInformation }</textarea>

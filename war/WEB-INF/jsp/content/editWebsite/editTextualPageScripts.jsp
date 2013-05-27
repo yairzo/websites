@@ -246,7 +246,7 @@ $(document).ready(function() {
 });
 
 function replaceURLWithHTMLLinks(text) {
-    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\".*>(?!<img)(.*)<\/a>/;
+    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\".*>(?!<img)(.*)<\/a>/i;
     var match = exp.exec(text);
     while (match != null) {
         var icon=getIcon(match[2]);

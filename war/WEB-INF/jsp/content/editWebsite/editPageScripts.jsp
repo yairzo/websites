@@ -450,21 +450,116 @@ $(document).ready(function() {
 		});
 	
 	
-		
-     
- 	    $(".editor").on('click', function(e) {
- 	    	e.stopPropagation();
-	    }); 
-         
-	    $(".editor").on('blur', function(e) {
+		CKEDITOR.disableAutoInline = true;
+		if(CKEDITOR.instances['editor1']==null)
+			CKEDITOR.inline('editor1');
+		if(CKEDITOR.instances['editor2']==null)
+			CKEDITOR.inline('editor2');
+		if(CKEDITOR.instances['editor3']==null)
+			CKEDITOR.inline('editor3');
+		if(CKEDITOR.instances['editor4']==null)
+			CKEDITOR.inline('editor4');
+		if(CKEDITOR.instances['editor5']==null)
+			CKEDITOR.inline('editor5');
+		if(CKEDITOR.instances['editor6']==null)
+			CKEDITOR.inline('editor6');
+		if(CKEDITOR.instances['editor7']==null)
+			CKEDITOR.inline('editor7');
+		if(CKEDITOR.instances['editor8']==null)
+			CKEDITOR.inline('editor8');
+		if(CKEDITOR.instances['editor9']==null)
+			CKEDITOR.inline('editor9');
+		if(CKEDITOR.instances['editor10']==null)
+			CKEDITOR.inline('editor10');
+		if(CKEDITOR.instances['editor11']==null)
+			CKEDITOR.inline('editor11');
+
+	    $("#editor1").on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($(this).html());
 	      	if(text.length==0) text+="&nbsp;";
 	      	$(this).html(text);
 			$('.editorTextarea', $(this).closest("table")).val(text);
-	    	//autosave 
-			insertIds();
-			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
-		    $('#form').ajaxSubmit();
+	    	autoSave(); 
+	    }); 
+
+		$("#editor2").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
+
+	    $("#editor3").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
+
+	    $("#editor4").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
+
+	    $("#editor5").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
+
+	    $("#editor6").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
+
+	    $("#editor7").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
+
+	    $("#editor8").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
+	    */
+	    $("#editor9").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
+
+	    $("#editor10").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
+
+	    $("#editor11").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
 	    }); 
 
  		$(".add").click(function(e){
@@ -697,4 +792,11 @@ function checkFund(){
 	    $('#form').ajaxSubmit();
     }
 }
+
+function autoSave(){
+	insertIds();
+	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+    $('#form').ajaxSubmit();
+}
+
 </script>

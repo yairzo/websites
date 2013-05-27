@@ -119,6 +119,7 @@
 		
 		
 		CKEDITOR.disableAutoInline = true;
+		
 		if(CKEDITOR.instances['editable']==null)
 			CKEDITOR.inline('editable');
 
