@@ -41,6 +41,7 @@ public class CallForProposal {
 	private long updateTime;
 	private int isDeleted;
 	private int targetAudience;
+	private List<Integer> countryIds;
 	
 	
 
@@ -78,6 +79,7 @@ public class CallForProposal {
 		this.submissionDatesList=new ArrayList<String>();
 		this.isDeleted=0;
 		this.targetAudience=0;
+		this.countryIds=new ArrayList<Integer>();
 	}
 	
 	public int getId() {
@@ -355,6 +357,15 @@ public class CallForProposal {
 	public void setTargetAudience(int targetAudience) {
 		this.targetAudience = targetAudience;
 	}
+
+	public List<Integer> getCountryIds() {
+		return countryIds;
+	}
+
+	public void setCountryIds(List<Integer> countryIds) {
+		this.countryIds = countryIds;
+	}
+	
 
 
 }

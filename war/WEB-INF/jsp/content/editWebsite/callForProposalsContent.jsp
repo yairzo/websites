@@ -105,15 +105,39 @@
                    		<tr>
 						<td align="${lang.align}">
   			   				<input type="checkbox" name="searchByAllSubjects" id="searchByAllSubjects" class="green" <c:if test="${searchByAllSubjects}">checked="checked"</c:if>/> <fmt:message key="${lang.localeId}.callForProposal.allSubjects"/>
-        					</td>
+        				</td>
        					</tr>
+       					<tr>
+       					<td>
+       					<fmt:message key="${lang.localeId}.callForProposal.selectCountry"/>
+						 <input type="text" class="green" style="width:130" id="selectCountry"/> 
+						 <hidden id="countryId" name="countryId" />
+						 <button class="grey addCountry"><fmt:message key="${lang.localeId}.callForProposal.addCountry"/></button>
+						<div id="countryDiv">
+							<c:forEach items="${countries}" var="country" varStatus="varStatus">
+							<p><input type="checkbox" class="countryCheck" id="${country.id}">
+								<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${country.nameHebrew}"/></c:if>
+	        					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${country.name}"/></c:if>
+							</p>
+							</c:forEach> 
+						</div>
+						<div id="deleteCountry" style="display:none">
+							<a href="" class="deleteCountry"><fmt:message key="${lang.localeId}.callForProposal.deleteCountry"/></a>
+						</div>
+       					</td>
+       					</tr>
+                  		<!-- <tr>
+						<td align="${lang.align}">
+  			   				<input type="checkbox" name="searchByAllCountries" id="searchByAllCountries" class="green" <c:if test="${searchByAllCountries}">checked="checked"</c:if>/> <fmt:message key="${lang.localeId}.callForProposal.allSelectedCountries"/>
+        				</td>
+       					</tr> -->
                   		<tr>
 						<td align="left">
  							<button class="grey search"><fmt:message key="${lang.localeId}.general.search"/></button>&nbsp;
  							<button  class="grey cleanSearch"><fmt:message key="${lang.localeId}.general.cleanSearch"/></button>		
        					</td>
        					</tr>
-       					</table>
+      					</table>
        				</td>
    					<td class="container" style="width: 68%; vertical-align: top;text-align: center;">
      					<table style="width: 100%;">

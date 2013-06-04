@@ -32,6 +32,20 @@ function resetAutocomplete(funds){
 	);
 }
 
+function countryAutocomplete(){
+	$("#selectCountry").autocomplete( 
+		{ source: 'selectBoxFiller?type=countries&localeId=${lang.localeId}',
+			 minLength: 2,
+			 highlight: true,				 
+			 select: function(event, ui) {
+				//alert(ui.item.label);
+				$("#selectCountry").val(ui.item.label);
+				$("#countryId").val(ui.item.id);
+			 }
+		}
+	);
+}
+
 $(document).ready(function() {
 
 	if($('#showDescriptionOnly').is(":checked"))
@@ -54,7 +68,12 @@ $(document).ready(function() {
 	    	$("#searchPhrase").val('');
 	    	resetAutocomplete();
 	});
-	
+
+	$("#selectCountry").click(function(){
+    	$("#selectCountry").val('');
+    	countryAutocomplete();
+	});
+
 	$(".langSelect").change(function(){
 		insertIds();
   		$(".ajaxSubmit").remove();
@@ -271,6 +290,48 @@ $(document).ready(function() {
  		$("#form").append("<input type=\"hidden\" name=\"action\" class=\"action\" value=\"copy\"/>");
 		$('form#form').submit();
 	});
+	
+	var countryArr= new Array();
+	<c:forEach items="${countries}" var="country" varStatus="varStatus">
+	countryArr.push(${country.id});
+	</c:forEach> 
+	$(".countryArr").remove();
+	$("#form").append("<input type=\"hidden\" name=\"countryArr\" class=\"countryArr\" value=\""+countryArr + "\"/>");
+	if(countryArr.length>0)
+		$("#deleteCountry").show();
+
+	$('button.addCountry').click(function(e){
+		e.preventDefault();
+ 		if($("#countryId").val()!='' && !contains(countryArr,$("#countryId").val())){
+ 			$("#countryDiv").html($("#countryDiv").html() + "<p><input type='checkbox' class='countryCheck' id='"+$("#countryId").val()+"'>"+ $("#selectCountry").val()+"</p>");
+ 			$("#deleteCountry").show(); 			
+			countryArr.push($("#countryId").val());
+ 			//alert(countryArr);
+ 			$(".countryArr").remove();
+ 			$("#form").append("<input type=\"hidden\" name=\"countryArr\" class=\"countryArr\" value=\""+countryArr + "\"/>");
+	 		$("#form").ajaxSubmit();
+ 		}
+	});
+	
+	$(".deleteCountry").click(function(e){
+		e.preventDefault();
+		$('input.countryCheck').each(function(){
+			if (this.checked){
+				var id = this.id;
+				for (var i = 0; i < countryArr.length; i++) {
+			        if (countryArr[i] == id) 
+		        		countryArr.splice(i,1);
+			    }
+				if(countryArr.length==0)
+		 			$("#deleteCountry").hide(); 			
+				$(".countryArr").remove();
+		 		$("#form").append("<input type=\"hidden\" name=\"countryArr\" class=\"countryArr\" value=\""+countryArr + "\"/>"); 
+		 		$("#form").ajaxSubmit();
+		 		$(this).parents('p').remove(); 
+			}
+		});
+		return false;
+ 	});
 
 	$('#formAttach').change(function(event){
 		insertIds();
@@ -765,7 +826,7 @@ function insertIds(){
 				var id = this.id;
 				id = id.substring(id.indexOf('.') + 1);
 				if (ids !="")
-					ids = ids + ","
+					ids = ids + ",";
 				ids = ids +id;
 			}
 	});
@@ -798,5 +859,12 @@ function autoSave(){
 	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
     $('#form').ajaxSubmit();
 }
-
+function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
 </script>

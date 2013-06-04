@@ -4,6 +4,7 @@ import huard.iws.model.CallForProposal;
 import huard.iws.model.DayInCalendar;
 import huard.iws.model.Attachment;
 import huard.iws.model.FundInDay;
+import huard.iws.util.BaseUtils;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.DateUtils;
@@ -33,6 +34,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		applySubjectIds(callForProposal);
 		applySubmissionDates(callForProposal);
 		applyFiles(callForProposal);
+		applyCountries(callForProposal);
 		return 	callForProposal;	
 	}
 	
@@ -43,14 +45,14 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		applySubjectIds(callForProposal);
 		applySubmissionDates(callForProposal);
 		applyFiles(callForProposal);
+		applyCountries(callForProposal);
 		return 	callForProposal;	
 	}
 	
 	public boolean existsCallForProposalOnline(int id){
 		String query = "select * from callForProposal where id =?";
 		try{
-			CallForProposal callForProposal =
-					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
+			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 			return true;
 		}
 		catch(Exception e){
@@ -65,6 +67,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		applySubjectIds(callForProposal);
 		applySubmissionDates(callForProposal);
 		applyFiles(callForProposal);
+		applyCountries(callForProposal);
 		return 	callForProposal;	
 	}
 
@@ -115,7 +118,25 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
             return file;
 		}
 	};
-
+	
+	private void applyCountries(CallForProposal callForProposal){
+		String query = "select * from callForProposalCountry where callForProposalId = ?";
+		List<Integer> countries =  getSimpleJdbcTemplate().query(query, countryRowMapper, callForProposal.getId());
+		callForProposal.setCountryIds(countries);
+	}
+	
+	public void deleteCountry(int id){
+		String query = "delete from callForProposalCountry where id = ?";
+		getSimpleJdbcTemplate().update(query,id);
+	}
+	
+	private ParameterizedRowMapper<Integer> countryRowMapper = new ParameterizedRowMapper<Integer>(){
+		public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
+            Integer countryId = rs.getInt("countryId");
+            return countryId;
+		}
+	};
+	
 	public int insertCallForProposal(CallForProposal callForProposal){
 
 		if(callForProposal.getTitle().isEmpty())
@@ -243,7 +264,6 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	
 
 	public void updateCallForProposal(CallForProposal callForProposal){
-		System.out.println("111111111111:"+callForProposal.getFormDetails());
 		String query = "update callForProposalDraft set " +
 				" title = ?" +
 				", urlTitle = ?" +
@@ -345,7 +365,17 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 					getSimpleJdbcTemplate().update(query,callForProposal.getId(), subjectId);
 			}
 		}
-		
+
+		query = "delete from callForProposalCountry where callForProposalId = ?";
+		getSimpleJdbcTemplate().update(query,callForProposal.getId());
+		if(callForProposal.getCountryIds()!=null){
+			for (Integer countryId: callForProposal.getCountryIds()){
+				query  = "insert callForProposalCountry set callForProposalId = ?, countryId = ?";
+				if (countryId != null)
+					getSimpleJdbcTemplate().update(query,callForProposal.getId(), countryId);
+			}
+		}
+
 		query = "delete from callForProposalDate where callForProposalId = ?";
 		getSimpleJdbcTemplate().update(query,callForProposal.getId());
 		for (Long submissionDate: callForProposal.getSubmissionDates()){
@@ -506,6 +536,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			whereClause += " inner join fund on fund.financialId=" + mainTable +".fundId";
 		if(!searchCriteria.getSearchBySubjectIds().isEmpty() || searchCriteria.getSearchByAllSubjects())
 			whereClause += " inner join subjectToCallForProposal on subjectToCallForProposal.callForProposalId=" + mainTable +".id";
+		if(!searchCriteria.getSearchByCountryIds().isEmpty())
+			whereClause += " inner join callForProposalCountry on callForProposalCountry.callForProposalId=" + mainTable +".id";
 		whereClause += " where true";
 		if(searchCriteria.getSearchByTemporaryFund())
 			whereClause +=" and fund.isTemporary=1";
@@ -531,6 +563,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			whereClause +=" and " + mainTable +".id in ("+searchCriteria.getSearchBySearchWords() + ")";
 		if(!searchCriteria.getSearchByAllSubjects() && !searchCriteria.getSearchBySubjectIds().isEmpty())
 			whereClause +=" and subjectToCallForProposal.subjectId in ("+searchCriteria.getSearchBySubjectIds() + ")";
+		if(!searchCriteria.getSearchByCountryIds().isEmpty())
+			whereClause +=" and callForProposalCountry.countryId in ("+searchCriteria.getSearchByCountryIds() + ")";
 		if(searchCriteria.getSearchDeleted())//not include deleted
 			whereClause +=" and " + mainTable +".isDeleted=1";
 		else
@@ -548,6 +582,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			int countSubjects = getSimpleJdbcTemplate().queryForInt(query);
 			whereClause +=" group by subjectToCallForProposal.callForProposalId having count(*)="+countSubjects;
 		}
+		
+		/*if(!searchCriteria.getSearchByCountryIds().isEmpty() && searchCriteria.getSearchByAllCountries()){
+			List <Integer> list =BaseUtils.getIntegerList(searchCriteria.getSearchByCountryIds(),",");
+			whereClause +=" group by callForProposalCountry.callForProposalId having count(*)="+list.size();
+		}*/
 
 		
 		whereClause += "  order by " + mainTable +".localeId," +mainTable +".id desc";

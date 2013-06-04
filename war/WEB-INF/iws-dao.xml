@@ -257,6 +257,13 @@
         </property>
      </bean>
 
+    <bean id="countryDao" class="huard.iws.db.JdbcCountryDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+     </bean>
+
+
     <jee:jndi-lookup id="dataSource"
     jndi-name="/jdbc/iws"
     resource-ref="true" />

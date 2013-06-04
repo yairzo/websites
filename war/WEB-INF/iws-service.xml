@@ -540,4 +540,12 @@
     		<ref bean="conferenceProposalDao"/>
     	</property>
 	</bean>
+	
+	<bean id="countryService" class="huard.iws.service.CountryServiceImpl">
+		<property name="countryDao">
+    		<ref bean="countryDao"/>
+    	</property>
+	</bean>
+	
+	
 </beans>

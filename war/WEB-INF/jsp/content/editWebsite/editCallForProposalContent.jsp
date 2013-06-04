@@ -532,6 +532,25 @@
            				<textarea class="green editorTextarea" id="possibleCollaboration" name="possibleCollaboration" cols="100" rows="1" style="display:none">${command.possibleCollaboration}</textarea>
   					</td>
  					</tr>
+ 					<tr>
+ 						<td>
+						<fmt:message key="${lang.localeId}.callForProposal.selectCountry"/>
+						 <input type="text" class="green" style="width:130" id="selectCountry"/> 
+						 <hidden id="countryId" name="countryId" />
+						 <button class="grey addCountry"><fmt:message key="${lang.localeId}.callForProposal.addCountry"/></button>
+						<div id="countryDiv">
+							<c:forEach items="${countries}" var="country" varStatus="varStatus">
+							<p><input type="checkbox" class="countryCheck" id="${country.id}">
+								<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${country.nameHebrew}"/></c:if>
+	        					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${country.name}"/></c:if>
+							</p>
+							</c:forEach> 
+						</div>
+						<div id="deleteCountry" style="display:none">
+							<a href="" class="deleteCountry"><fmt:message key="${lang.localeId}.callForProposal.deleteCountry"/></a>
+						</div>
+						</td>
+ 					</tr>
  					</table>
  					</td>
  					</tr>

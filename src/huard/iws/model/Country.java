@@ -4,6 +4,7 @@ public class Country {
 	private int id;
 	private String name;
 	private int continentId;
+	private String nameHebrew;
 
 
 	public int getId() {
@@ -23,6 +24,12 @@ public class Country {
 	}
 	public void setContinentId(int continentId) {
 		this.continentId = continentId;
+	}
+	public String getNameHebrew() {
+		return nameHebrew;
+	}
+	public void setNameHebrew(String nameHebrew) {
+		this.nameHebrew = nameHebrew;
 	}
 
 }

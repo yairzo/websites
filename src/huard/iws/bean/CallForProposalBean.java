@@ -61,6 +61,7 @@ public class CallForProposalBean {
 	private long updateTime;
 	private int isDeleted;
 	private int targetAudience;
+	private List<Integer> countryIds;
 	
 	private MessageService messageService;
 	private ConfigurationService configurationService;
@@ -107,6 +108,7 @@ public class CallForProposalBean {
 		for (int i=0; i< 3; i++){
 			submissionDatesList.add("");
 		}
+		this.countryIds=new ArrayList<Integer>();
 	}
 
 
@@ -155,6 +157,7 @@ public class CallForProposalBean {
         	this.submissionDatesList.add("");
         this.isDeleted=callForProposal.getIsDeleted();
         this.targetAudience=callForProposal.getTargetAudience();
+        this.countryIds=callForProposal.getCountryIds();
         init(applyObjs);
 	}
 
@@ -208,6 +211,7 @@ public class CallForProposalBean {
 		callForProposal.setSubmissionDates(submissionDates);
 		callForProposal.setIsDeleted(isDeleted);
 		callForProposal.setTargetAudience(targetAudience);
+		callForProposal.setCountryIds(countryIds);
 		return callForProposal;
 	}
 
@@ -548,6 +552,15 @@ public class CallForProposalBean {
 		this.targetAudience = targetAudience;
 	}
 
+	public List<Integer> getCountryIds() {
+		return countryIds;
+	}
+
+	public void setCountryIds(List<Integer> countryIds) {
+		this.countryIds = countryIds;
+	}
+	
+	
 	
 	public Map <Integer, Attachment> getAttachmentsMap(){
 		Map<Integer, Attachment> attachmentsMap = new HashMap<Integer, Attachment>();

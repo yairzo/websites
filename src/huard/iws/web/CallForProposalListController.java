@@ -4,6 +4,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.SubjectBean;
 import huard.iws.service.CallForProposalService;
+import huard.iws.service.CountryService;
 import huard.iws.service.MopDeskService;
 import huard.iws.service.SubjectService;
 import huard.iws.service.FundService;
@@ -15,6 +16,7 @@ import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallForProposal;
+import huard.iws.model.Country;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Subject;
 
@@ -85,6 +87,13 @@ public class CallForProposalListController extends GeneralFormController {
 		model.put("searchByAllYear",command.getSearchCreteria().getSearchByAllYear());
 		model.put("searchOpen",command.getSearchCreteria().getSearchOpen());
 		model.put("searchByAllSubjects",command.getSearchCreteria().getSearchByAllSubjects());
+		//model.put("searchByAllCountries",command.getSearchCreteria().getSearchByAllCountries());
+		//countries
+		List<Country> countries = new ArrayList<Country>();
+		for(Integer countryId:BaseUtils.getIntegerList(command.getSearchCreteria().getSearchByCountryIds(),",")){
+			countries.add(countryService.getCountry(countryId));
+		}
+		model.put("countries", countries);
 		return new ModelAndView ("callForProposals",model);
 	}
 
@@ -102,6 +111,7 @@ public class CallForProposalListController extends GeneralFormController {
 			searchCreteria.setSearchByFund(request.getIntParameter("fundId", 0));
 			searchCreteria.setSearchByDesk(request.getIntParameter("deskId", 0));
 			searchCreteria.setSearchBySubjectIds(request.getParameter("subjectsIdsString", ""));
+			searchCreteria.setSearchByCountryIds(request.getParameter("countryArr", ""));
 			searchCreteria.setSearchByType(request.getIntParameter("typeId", 0));
 			if(request.getIntParameter("fundId", 0)==0){// when the text in searchWords is not the fund name
 				Set<Long> sphinxIds=new LinkedHashSet<Long>();
@@ -119,6 +129,7 @@ public class CallForProposalListController extends GeneralFormController {
 			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
 				searchCreteria.setSearchByCreator(userPersonBean.getId());	
 			searchCreteria.setSearchByAllSubjects(request.getBooleanParameter("allSubjects", false));
+			//searchCreteria.setSearchByAllCountries(request.getBooleanParameter("allCountries", false));
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 			
 			ListView listView = new ListView();
@@ -209,5 +220,12 @@ public class CallForProposalListController extends GeneralFormController {
 	public void setSphinxSearchService(SphinxSearchService sphinxSearchService) {
 		this.sphinxSearchService = sphinxSearchService;
 	}
+	
+	private CountryService countryService;
+
+	public void setCountryService(CountryService countryService) {
+		this.countryService = countryService;
+	}
+	
 
 }

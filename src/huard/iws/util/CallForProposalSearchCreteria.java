@@ -19,6 +19,8 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 	protected boolean searchExpired;
 	protected boolean searchOpen;
 	protected int searchByTargetAudience;
+	protected String searchByCountryIds;
+	protected boolean searchByAllCountries;
 	protected int limit;
 	
 	
@@ -40,6 +42,8 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 		this.searchExpired=false;
 		this.searchOpen=false;
 		this.searchByTargetAudience=0;
+		this.searchByCountryIds="";
+		this.searchByAllCountries =false;
 		this.limit=0;
 	}
 
@@ -174,6 +178,22 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 	
 	public void setSearchByTargetAudience(int searchByTargetAudience) {
 		this.searchByTargetAudience = searchByTargetAudience;
+	}
+
+	public void setSearchByCountryIds(String searchByCountryIds) {
+		this.searchByCountryIds = searchByCountryIds;
+	}
+
+	public String getSearchByCountryIds() {
+		return searchByCountryIds;
+	}
+	
+	public boolean getSearchByAllCountries() {
+		return searchByAllCountries;
+	}
+
+	public void setSearchByAllCountries(boolean searchByAllCountries) {
+		this.searchByAllCountries = searchByAllCountries;
 	}
 
 	public int getLimit() {

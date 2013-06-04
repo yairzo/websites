@@ -9,10 +9,12 @@ import huard.iws.bean.SubjectBean;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.Subject;
 import huard.iws.model.Attachment;
+import huard.iws.model.Country;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.SubjectService;
 import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
+import huard.iws.service.CountryService;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
@@ -93,6 +95,11 @@ public class EditCallForProposalController extends GeneralFormController{
 		for (int subjectId: subjectsIds){
 			callForProposalBean.getSubjectsIds().add(subjectId);
 		}
+		
+		//countries
+		String countryArr = request.getParameter("countryArr","");
+		callForProposalBean.setCountryIds(BaseUtils.getIntegerList(countryArr, ","));
+		
 		
 		if(request.getParameter("action", "").equals("delete"))
 			callForProposalBean.setIsDeleted(1);
@@ -205,6 +212,13 @@ public class EditCallForProposalController extends GeneralFormController{
 			//desks
 			List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 			model.put("mopDesks", mopDesks);
+			
+			//countries
+			List<Country> countries = new ArrayList<Country>();
+			for(Integer countryId:callForProposal.getCountryIds())
+				countries.add(countryService.getCountry(countryId));
+			model.put("countries", countries);
+
 			//online
 			if(callForProposalService.existsCallForProposalOnline(callForProposal.getId()))
 				model.put("online", true);
@@ -270,6 +284,11 @@ public class EditCallForProposalController extends GeneralFormController{
 		this.mopDeskService = mopDeskService;
 	}
 	
+	private CountryService countryService;
+
+	public void setCountryService(CountryService countryService) {
+		this.countryService = countryService;
+	}
 	
 
 }

@@ -22,7 +22,19 @@ function resetAutocomplete(funds){
 		    }
 	);
 }
-
+function countryAutocomplete(){
+	$("#selectCountry").autocomplete( 
+		{ source: 'selectBoxFiller?type=countries&localeId=${lang.localeId}',
+			 minLength: 2,
+			 highlight: true,				 
+			 select: function(event, ui) {
+				//alert(ui.item.label);
+				$("#selectCountry").val(ui.item.label);
+				$("#countryId").val(ui.item.id);
+			 }
+		}
+	);
+}
 
 $(document).ready(function() {
 
@@ -32,6 +44,49 @@ $(document).ready(function() {
     	resetAutocomplete();
 	});
 	
+	$("#selectCountry").click(function(){
+    	$("#selectCountry").val('');
+    	countryAutocomplete();
+	});
+	
+	var countryArr= new Array();
+	<c:forEach items="${countries}" var="country" varStatus="varStatus">
+	countryArr.push(${country.id});
+	</c:forEach>
+	$(".countryArr").remove();
+	$("#form").append("<input type=\"hidden\" name=\"countryArr\" class=\"countryArr\" value=\""+countryArr + "\"/>");
+	if(countryArr.length>0)
+		$("#deleteCountry").show();
+
+	$('button.addCountry').click(function(e){
+		e.preventDefault();
+ 		if($("#countryId").val()!='' && !contains(countryArr,$("#countryId").val())){
+ 			$("#countryDiv").html($("#countryDiv").html() + "<p><input type='checkbox' class='countryCheck' id='"+$("#countryId").val()+"'>"+ $("#selectCountry").val()+"</p>");
+ 			$("#deleteCountry").show(); 			
+ 			countryArr.push($("#countryId").val());
+ 			$(".countryArr").remove();
+ 			$("#form").append("<input type=\"hidden\" name=\"countryArr\" class=\"countryArr\" value=\""+countryArr + "\"/>");
+ 		}
+	});
+	
+	$(".deleteCountry").click(function(e){
+		e.preventDefault();
+		$('input.countryCheck').each(function(){
+			if (this.checked){
+				var id = this.id;
+				for (var i = 0; i < countryArr.length; i++) {
+			        if (countryArr[i] == id) 
+		        		countryArr.splice(i,1);
+			    }
+				if(countryArr.length==0)
+		 			$("#deleteCountry").hide(); 			
+				$(".countryArr").remove(); 
+				$("#form").append("<input type=\"hidden\" name=\"countryArr\" class=\"countryArr\" value=\""+countryArr + "\"/>"); 
+		 		$(this).parents('p').remove(); 
+			}
+		});
+		return false;
+ 	});
 	
 	$(function() {
 		$(".date").datepicker({ dateFormat: 'dd/mm/yy'});	
@@ -211,6 +266,12 @@ $(document).ready(function() {
 		else
 			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"false\"/>");
 
+		//if($("#searchByAllCountries").is(":checked"))
+			//$("#form").append("<input type=\"hidden\" name=\"allCountries\" value=\"true\"/>");
+		//else
+			//$("#form").append("<input type=\"hidden\" name=\"allCountries\" value=\"false\"/>");
+
+
 		var ids="";
 		$('input.subSubject').each(function(){
 				if (this.checked){
@@ -223,7 +284,6 @@ $(document).ready(function() {
 		});
 		$('.subjectsIdsString').remove();
 		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" class=\"subjectsIdsString\" value=\"'+ids+'\"/>');
-		
 		$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"search\"/>');
 		$('form#form').submit();
 	});
@@ -239,10 +299,14 @@ $(document).ready(function() {
     	$("#searchByTemporary").prop('checked', false);
     	$("#diselectAll").click();
       	$("#searchByAllSubjects").prop('checked', false);
+      	//$("#searchByAllCountries").prop('checked', false);
       	$("#searchDeleted").prop('checked', false);
      	$("#searchOpen").prop('checked', false);
        	$("#searchExpired").prop('checked', false);
-   		$("#listViewPage").remove();
+       	countryArr= new Array();
+    	$(".countryArr").remove();
+    	$("#form").append("<input type=\"hidden\" name=\"countryArr\" class=\"countryArr\" value=\""+countryArr + "\"/>");
+       	$("#listViewPage").remove();
 		$("#orderBy").remove();
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
 		$("#form").submit();
@@ -306,5 +370,12 @@ function toggleSubject(element){
 		var targetId = $(element).parent().attr("id");
 		$("tbody#"+targetId+"Sub").toggle();
 }
-
+function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
 </script>

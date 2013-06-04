@@ -17,6 +17,7 @@ import huard.iws.service.PersonProposalService;
 import huard.iws.service.PersonService;
 import huard.iws.service.UniverseService;
 import huard.iws.service.PostService;
+import huard.iws.service.CountryService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.ListView;
 import huard.iws.util.UserPersonUtils;
@@ -45,6 +46,7 @@ public class SelectBoxFiller extends HttpServlet {
 	private OrganizationUnitService organizationUnitService;
 	private CallForProposalServiceOld callForProposalServiceOld;
 	private PostService postService;
+	private CountryService countryService;
 
 	final static long serialVersionUID = 0;
 
@@ -76,6 +78,9 @@ public class SelectBoxFiller extends HttpServlet {
 		
 		obj  = context.getBean("postService");
 		postService = (PostService)obj;
+
+		obj  = context.getBean("countryService");
+		countryService = (CountryService)obj;
 
 	}
 
@@ -185,6 +190,34 @@ public class SelectBoxFiller extends HttpServlet {
 					sb.append(",");
 				first = false;
 				String listItem = "{\"label\":\"" + fund.getName() + "\",\"id\":"+fund.getFinancialId()+"}";
+				sb.append(listItem);
+			}
+			sb.append("]");
+
+			ServletOutputStream out = response.getOutputStream();
+			out.print(sb.toString());
+			out.flush();
+			out.close();
+		}
+		if (type.equals("countries")){
+			String term = request.getParameter("term");
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html");
+			response.setStatus(HttpServletResponse.SC_OK);
+			StringBuilder sb = new StringBuilder();
+			String localeId = request.getParameter("localeId");
+			boolean first = true;
+			sb.append("[");		
+			List<Country> countries = countryService.getFilteredCountries(term);
+			for (Country country: countries){
+				if (!first)
+					sb.append(",");
+				first = false;
+				String listItem ="";
+				if(localeId.equals("en_US"))
+					listItem = "{\"label\":\"" + country.getName() + "\",\"id\":"+country.getId()+"}";
+				else
+					listItem = "{\"label\":\"" + country.getNameHebrew() + "\",\"id\":"+country.getId()+"}";
 				sb.append(listItem);
 			}
 			sb.append("]");

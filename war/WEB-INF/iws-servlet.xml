@@ -118,6 +118,9 @@
    		<property name="mopDeskService">
             <ref bean="mopDeskService"/>
         </property>
+   		<property name="countryService">
+            <ref bean="countryService"/>
+        </property>
      </bean>
      
 	<bean id="callForProposalController" class="huard.iws.web.CallForProposalController" parent="generalWebsiteFormController">
@@ -152,6 +155,9 @@
         </property>
     	<property name="sphinxSearchService">
             <ref bean="sphinxSearchService"/>
+        </property>
+   		<property name="countryService">
+            <ref bean="countryService"/>
         </property>
       </bean>
       
