@@ -35,8 +35,8 @@
             The rule means that requests to /test/status/ will be redirected to /rewrite-status
             the url will be rewritten.
         </note>
-        <from>/call_for_proposal/([\d]+)</from>
-        <to>/callForProposal.html?id=$1</to>
+        <from>/call_for_proposal/([^\s]+)</from>
+        <to>/callForProposal.html?urlTitle=$1</to>
     </rule>
     <rule>
         <note>
