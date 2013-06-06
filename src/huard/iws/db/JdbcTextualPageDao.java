@@ -41,7 +41,26 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		getTextualPageFile(textualPage);
 		return 	textualPage;	
 	}
+
+	public TextualPage getTextualPageOnline(String urlTitle){
+		String query = "select * from textualPage where urlTitle =?";
+		TextualPage textualPage =
+					getSimpleJdbcTemplate().queryForObject(query, rowMapper, urlTitle);
+		getTextualPageFile(textualPage);
+		return 	textualPage;	
+	}
 	
+	public String getTextualPageUrlTitleByArdNum(int ardNum){
+		String query = "select urlTitle from textualPage inner join textualPageHistoryId on" +
+				" textualPage.id=textualPageHistoryId.textualPageId where textualPageHistoryId.textualPageHistoryId =?";
+		try{
+			return getSimpleJdbcTemplate().queryForObject(query, String.class, ardNum);
+		}
+		catch(Exception e){
+			return "";
+		}
+	}
+
 	private void getTextualPageFile(TextualPage textualPage){
 		String query = "select * from textualPageFile where textualPageId = ?";
 		try{

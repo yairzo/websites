@@ -28,17 +28,6 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
-		Set<Long> sphinxIds=new LinkedHashSet<Long>();
-		Set<Long> sphinxTextualIds=new LinkedHashSet<Long>();
-		if(!request.getParameter("searchWords", "").isEmpty()){
-			sphinxIds.add(new Long(0));//so wont show everything when deos'nt find any ids
-			sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_index"));
-			sphinxTextualIds.add(new Long(0));//so wont show everything when deos'nt find any ids
-			sphinxTextualIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"textual_page_index"));
-		}
-		request.getSession().setAttribute("callForProposalIds", BaseUtils.getStringFromLongSet(sphinxIds));
-		request.getSession().setAttribute("textualPageIds", BaseUtils.getStringFromLongSet(sphinxTextualIds));
-		request.getSession().setAttribute("searchWords", request.getParameter("searchWords", ""));
 		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
 
@@ -89,6 +78,19 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		SearchWebsiteControllerCommand command = new SearchWebsiteControllerCommand();
+		if(request.getSession().getAttribute("callForProposalIds")==null && request.getSession().getAttribute("textualPageIds")==null){
+			Set<Long> sphinxIds=new LinkedHashSet<Long>();
+			Set<Long> sphinxTextualIds=new LinkedHashSet<Long>();
+			if(!request.getParameter("searchWords", "").isEmpty()){
+				sphinxIds.add(new Long(0));//so wont show everything when deos'nt find any ids
+				sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_index"));
+				sphinxTextualIds.add(new Long(0));//so wont show everything when deos'nt find any ids
+				sphinxTextualIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"textual_page_index"));
+			}
+			request.getSession().setAttribute("callForProposalIds", BaseUtils.getStringFromLongSet(sphinxIds));
+			request.getSession().setAttribute("textualPageIds", BaseUtils.getStringFromLongSet(sphinxTextualIds));
+			request.getSession().setAttribute("searchWords", request.getParameter("searchWords", ""));
+		}
 		return command;
 	}
 

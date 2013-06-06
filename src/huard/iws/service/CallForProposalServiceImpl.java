@@ -25,6 +25,15 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 		return callForProposalDao.getCallForProposalOnline(id);
 	}
 	
+	public CallForProposal getCallForProposalOnline(String urlTitle){
+		return callForProposalDao.getCallForProposalOnline(urlTitle);
+	}
+	
+	public String getCallForProposalUrlTitleByArdNum(int ardNum){
+		return callForProposalDao.getCallForProposalUrlTitleByArdNum(ardNum);
+	}
+	
+	
 	public boolean existsCallForProposalOnline(int id){
 		return callForProposalDao.existsCallForProposalOnline(id);
 	}

@@ -49,6 +49,28 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		return 	callForProposal;	
 	}
 	
+	public CallForProposal getCallForProposalOnline(String urlTitle){
+		String query = "select * from callForProposal where urlTitle =?";
+		CallForProposal callForProposal =
+					getSimpleJdbcTemplate().queryForObject(query, rowMapper, urlTitle);
+		applySubjectIds(callForProposal);
+		applySubmissionDates(callForProposal);
+		applyFiles(callForProposal);
+		applyCountries(callForProposal);
+		return 	callForProposal;	
+	}
+	
+	public String getCallForProposalUrlTitleByArdNum(int ardNum){
+		String query = "select urlTitle from callForProposal inner join callForProposalHistoryId on" +
+				" callForProposal.id=callForProposalHistoryId.callForProposalId where callForProposalHistoryId.callForProposalHistoryId =?";
+		try{
+			return getSimpleJdbcTemplate().queryForObject(query, String.class, ardNum);
+		}
+		catch(Exception e){
+			return "";
+		}
+	}
+	
 	public boolean existsCallForProposalOnline(int id){
 		String query = "select * from callForProposal where id =?";
 		try{

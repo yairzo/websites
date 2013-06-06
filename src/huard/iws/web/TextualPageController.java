@@ -1,19 +1,15 @@
 package huard.iws.web;
 
-import huard.iws.bean.CategoryBean;
 import huard.iws.bean.TextualPageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Category;
 import huard.iws.service.TextualPageService;
-import huard.iws.service.CategoryService;
-import huard.iws.util.LanguageUtils;
+import huard.iws.util.RedirectViewExtended;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.TextUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +34,14 @@ public class TextualPageController extends GeneralWebsiteFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 		TextualPageBean textualPageBean = (TextualPageBean) model.get("command");
+
+		//when coming from old site:
+		int ardNum = (Integer) request.getSession().getAttribute("ardNum");
+		request.getSession().setAttribute("ardNum",0);
+		if (ardNum > 0){
+			String urlTitle=textualPageService.getTextualPageUrlTitleByArdNum(ardNum);
+			return new ModelAndView ( new RedirectViewExtended("page/"+urlTitle), new HashMap<String, Object>());
+		}
 
 		//category
 		Category category =  new Category();
@@ -70,16 +74,22 @@ public class TextualPageController extends GeneralWebsiteFormController {
 
 		int id = request.getIntParameter("id", 0);
 		logger.info("id: " + id);
-		
+		String urlTitle = request.getParameter("urlTitle", "");
+		//when coming from old site
+		request.getSession().setAttribute("ardNum", request.getIntParameter("ardNum", 0));
 			
 		if ( isFormSubmission(request.getRequest()) 
-				|| id == 0)
+				|| (id == 0 && urlTitle.isEmpty()))
 			return textualPageBean;
 		
 		if(request.getParameter("draft","").equals("true"))
 			textualPageBean = new TextualPageBean(textualPageService.getTextualPage(id));
-		else
-			textualPageBean = new TextualPageBean(textualPageService.getTextualPageOnline(id));
+		else{
+			if(id>0)
+				textualPageBean = new TextualPageBean(textualPageService.getTextualPageOnline(id));
+			else if(!urlTitle.isEmpty())
+				textualPageBean = new TextualPageBean(textualPageService.getTextualPageOnline(urlTitle));
+		}
 		logger.info("textualPageBean id: " + textualPageBean.getId());
 		
 		return textualPageBean;

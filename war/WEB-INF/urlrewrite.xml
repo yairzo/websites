@@ -43,8 +43,8 @@
             The rule means that requests to /test/status/ will be redirected to /rewrite-status
             the url will be rewritten.
         </note>
-        <from>/page/([\d]+)</from>
-        <to>/textualPage.html?id=$1</to>
+        <from>/page/([^\s]+)</from>
+        <to>/textualPage.html?urlTitle=$1</to>
     </rule>
     <rule>
         <note>
@@ -52,7 +52,7 @@
             the url will be rewritten.
         </note>
         <from>/search/(.*)</from>
-        <to>/search.html?q=$1</to>
+        <to>/search.html?searchWords=$1</to>
     </rule>
 
 

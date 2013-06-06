@@ -111,10 +111,10 @@ $(document).ready(function() {
 			return false;
 		}
 		else{
-			$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+			$("#form").append("<input type=\"hidden\" name=\"online\" value=\"true\"/>");
   			$(".ajaxSubmit").remove();
   			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
-			$('#form').submit();
+			$("#form").submit();
     	   	return false;
 		}
 	});
@@ -130,10 +130,10 @@ $(document).ready(function() {
 			return false;
 		}
 		else{
-   			$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+   			$("#form").append("<input type=\"hidden\" name=\"online\" value=\"true\"/>");
     		$(".ajaxSubmit").remove();
     		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
-   			$('#form').submit();
+   			$("#form").submit();
 			return false;
 		}
 	});	

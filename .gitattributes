@@ -86,6 +86,7 @@ src/huard/iws/servlet/ImageViewer.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/CallForProposalSearchCreteria.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/ConferenceProposalSearchCreteria.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/ImageHandler.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/util/RedirectViewExtended.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/TextualPageSearchCreteria.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/util/WordsTokenizer.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ActivePersonsController.java svn_mime_002dtype=text%2Fplain

@@ -14,6 +14,10 @@ public interface TextualPageService {
 
 	public TextualPage getTextualPageOnline(int id);
 
+	public TextualPage getTextualPageOnline(String urlTitle);
+
+	public String getTextualPageUrlTitleByArdNum(int ardNum);
+
 	public boolean existsTextualPageOnline(int id);
 	
 	public TextualPage getTextualPage(String title);

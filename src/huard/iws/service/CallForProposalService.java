@@ -16,6 +16,10 @@ public interface CallForProposalService {
 
 	public CallForProposal getCallForProposalOnline(int id);
 
+	public CallForProposal getCallForProposalOnline(String urlTitle);
+	
+	public String getCallForProposalUrlTitleByArdNum(int ardNum);
+	
 	public boolean existsCallForProposalOnline(int id);
 	
 	public CallForProposal getCallForProposal(String title);

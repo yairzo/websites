@@ -8,6 +8,7 @@ import huard.iws.service.FundService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
+import huard.iws.util.RedirectViewExtended;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
 
 public class CallForProposalController extends GeneralWebsiteFormController {
 
@@ -36,6 +38,14 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 	{
 		CallForProposalBean callForProposalBean = (CallForProposalBean) model.get("command");
 
+		//when coming from old site:
+		int ardNum = (Integer) request.getSession().getAttribute("ardNum");
+		request.getSession().setAttribute("ardNum",0);
+		if (ardNum > 0){
+			String urlTitle=callForProposalService.getCallForProposalUrlTitleByArdNum(ardNum);
+			return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+urlTitle), new HashMap<String, Object>());
+		}
+		
 		//language
 		LanguageUtils.applyLanguage(model, request, response,callForProposalBean.getLocaleId());
 		LanguageUtils.applyLanguages(model);
@@ -104,16 +114,22 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 
 		int id = request.getIntParameter("id", 0);
 		logger.info("id: " + id);
-		
+		String urlTitle = request.getParameter("urlTitle", "");
+		//when coming from old site
+		request.getSession().setAttribute("ardNum", request.getIntParameter("ardNum", 0));
+	
 			
-		if ( isFormSubmission(request.getRequest()) 
-				|| id == 0)
+		if ( isFormSubmission(request.getRequest()) || (id == 0 && urlTitle.isEmpty()))
 			return callForProposalBean;
 		
 		if(request.getParameter("draft","").equals("true"))
 			callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposal(id),true);
-		else
-			callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposalOnline(id),true);
+		else{
+			if(id>0)
+				callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposalOnline(id),true);
+			else if(!urlTitle.isEmpty())
+				callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposalOnline(urlTitle),true);
+		}
 		logger.info("callForProposalBean id: " + callForProposalBean.getId());
 		
 		return callForProposalBean;
