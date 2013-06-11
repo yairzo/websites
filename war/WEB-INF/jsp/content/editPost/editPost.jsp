@@ -101,10 +101,10 @@
           		</tr>  -->
 				<tr>
 					<td colspan="2">
-						<div id="editable" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+						<div id="editable" contenteditable="true" style="height: 100px; border:black thin dotted;text-align:${lang.align}">
  							${command.message}<c:if test="${fn:length(command.message)<5}">&nbsp;&nbsp;</c:if>
 						</div>
-           				<textarea class="green" id="message" name="message" cols="100" rows="1" style="display:none">${command.message}</textarea>
+           				<textarea class="green" id="message" name="message" cols="100" rows="12" style="display:none">${command.message}</textarea>
 					</td>
 				</tr>
 

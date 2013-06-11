@@ -14,7 +14,8 @@
 
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 
-<script language="Javascript">
+
+<script>
 
 	function openSubject(element){
 		$(element).children("img.plus").hide();
@@ -174,14 +175,14 @@
 				for (var j=0; j<cplist.length; j++) {
         			if (cplist[j].substring(cplist[j].length-(id.length+2))=="- "+id){
         				valid=true;
-    					$("div.callForProposalImportBox").load("objectQuery?type=callForProposal&id="+id, function(data){
+    					$("div#editable").load("objectQuery?type=callForProposal&id="+id, function(data){
     						var senderId= $("select.sender").val();
     						var email = $("#sender" + senderId).val();
     						var name = $('.sender').find(":selected").text();
     						data= data.replace("#mu# #mp##mue#","<a class=\"underline\" href=\"mailto:" + email + "\">"+name+"</a>")
     						$("textarea.tinymce").val('<p dir="${lang.dir}"> ' + data + ' </p>');				
     					});
-    					$("div.callForProposalImportBox").load("objectQuery?type=callForProposalTitle&id="+id, function(data){
+    					$("div#editable").load("objectQuery?type=callForProposalTitle&id="+id, function(data){
     						$("input.messageSubject").val(data);
     					});
        				}
@@ -312,7 +313,7 @@
 		        return false;
 	 		}
 			else{
-				var messageText = $('.message').val();
+				var messageText = $('#message').val();
 				if(messageText.indexOf("xxxxx")>0 ){
 				   	$("#genericDialog").dialog({ modal: true });
 		 	    	$("#genericDialog").dialog('option', 'buttons',{
