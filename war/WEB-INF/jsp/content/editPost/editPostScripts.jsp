@@ -169,29 +169,29 @@
 			if ($("input.callForProposal").val() == "") return;
 			var callForProposalTitle = $("input.callForProposal").val();
 			var id = callForProposalTitle.replace(/.+ - /,"");
-			$.get('selectBoxFiller',{type:'callForProposal',localeId:'${command.localeId}'},function(data){
-				var cplist=data.split(",,");
-				var valid=false;
-				for (var j=0; j<cplist.length; j++) {
-        			if (cplist[j].substring(cplist[j].length-(id.length+2))=="- "+id){
-        				valid=true;
-    					$("div#editable").load("objectQuery?type=callForProposal&id="+id, function(data){
+			//$.get('selectBoxFiller',{type:'callForProposal',localeId:'${command.localeId}'},function(data){
+			//	var cplist=data.split(",,");
+			//	var valid=false;
+			//	for (var j=0; j<cplist.length; j++) {
+        	//		if (cplist[j].substring(cplist[j].length-(id.length+2))=="- "+id){
+        	//			valid=true;
+     					$.get("objectQuery?type=callForProposal&id="+id, function(data){
     						var senderId= $("select.sender").val();
     						var email = $("#sender" + senderId).val();
     						var name = $('.sender').find(":selected").text();
     						data= data.replace("#mu# #mp##mue#","<a class=\"underline\" href=\"mailto:" + email + "\">"+name+"</a>")
-    						$("textarea.tinymce").val('<p dir="${lang.dir}"> ' + data + ' </p>');				
+    						$("div#editable").html('<p dir="${lang.dir}"> ' + data + ' </p>');	
     					});
-    					$("div#editable").load("objectQuery?type=callForProposalTitle&id="+id, function(data){
+      					$.get("objectQuery?type=callForProposalTitle&id="+id, function(data){
     						$("input.messageSubject").val(data);
     					});
-       				}
-    			}
-				if (!valid){
-					$("textarea.tinymce").val('');
-					$("input.messageSubject").val('');
-				}
-	          });
+        			//	} 
+    			//}  
+				//if (!valid){ 
+				//	$("textarea#message").val(''); 
+				//	$("input.messageSubject").val(''); 
+				//} 
+	         // }); 
 			return false;
 		});
 

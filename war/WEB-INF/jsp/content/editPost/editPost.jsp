@@ -108,12 +108,12 @@
 					</td>
 				</tr>
 
-				<tr>
+				<!-- <tr>
 						<td>
 							&nbsp;
 							<div style="visibility: hidden" class="callForProposalImportBox"/>
 						</td>
-				</tr>
+				</tr> -->
 				<tr>
 						<td>
 							<fmt:message key="${lang.localeId}.post.files"/>
