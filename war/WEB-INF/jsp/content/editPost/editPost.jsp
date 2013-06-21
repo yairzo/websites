@@ -101,19 +101,13 @@
           		</tr>  -->
 				<tr>
 					<td colspan="2">
-						<div id="editable" contenteditable="true" style="height: 100px; border:black thin dotted;text-align:${lang.align}">
+						<div id="editable" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
  							${command.message}<c:if test="${fn:length(command.message)<5}">&nbsp;&nbsp;</c:if>
 						</div>
            				<textarea class="green" id="message" name="message" cols="100" rows="12" style="display:none">${command.message}</textarea>
 					</td>
 				</tr>
 
-				<!-- <tr>
-						<td>
-							&nbsp;
-							<div style="visibility: hidden" class="callForProposalImportBox"/>
-						</td>
-				</tr> -->
 				<tr>
 						<td>
 							<fmt:message key="${lang.localeId}.post.files"/>
@@ -141,8 +135,8 @@
 						<td colspan="2" class="addFile">
 							<!--<fmt:message key="${lang.localeId}.post.addAttach"/>
 							 <input class="green" type="file" name="file1"  /> &nbsp; <button class="save grey" onclick=""><fmt:message key="${lang.localeId}.post.addFile"/></button> -->
-						<span style="display: block; width: 60px; height: 27px; overflow: hidden;">
-							<button class="green" style="width: 59px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)"><fmt:message key="${lang.localeId}.post.addFile"/></a></button>
+						<span style="display: block; width: 80px; height: 27px; overflow: hidden;">
+							<button class="green" style="width: 79px; height: 27px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)"><fmt:message key="${lang.localeId}.post.addFile"/></a></button>
 							<input type="file" style="font-size: 50px; width: 70px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="file1" id="file1"/>
 						</span>
 						</td>

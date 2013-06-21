@@ -79,11 +79,25 @@
 			    }
 		);
 	}
+	function insertIds(){
+		var ids="";
+		$('input.subSubject').each(function(){
+				if (this.checked){
+					var id = this.id;
+					id = id.substring(id.indexOf('.') + 1);
+					if (ids !="")
+						ids = ids + ",";
+					ids = ids +id;
+				}
+		});
+		$('.subjectsIdsString').remove();
+		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" class=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+	}
 
 	var formExit=true;//formExit is when form exits by pressing menu or back, and not pressing any form button 
 
 	window.onunload = function() {
-		if (formExit && $('.messageSubject').val()==''  && $('.message').val()==''){
+		if (formExit && $('.messageSubject').val()==''  && $('#message').val()==''){
 			//alert('הודעה ללא נושא ותוכן תמחק');
 	 		$('form#form').append('<input type="hidden" name="deletePost" value="true"/>');
 			$('form#form').submit();
@@ -91,6 +105,7 @@
 
 		}
 		else if(formExit){//other exits already contain submit 
+			insertIds();			
 			$('form#form').append('<input type="hidden" name="action" value="save"/>');
 			$('form#form').ajaxSubmit();
 			return false;
@@ -125,11 +140,12 @@
 			CKEDITOR.inline('editable');
 
     	CKEDITOR.instances['editable'].on('blur', function() {
-      		var text = $("#editable").html();
+    		var text = $("#editable").html();
       		var ceditor   = CKEDITOR.instances['editable'];
       		if(text.length==0) text+="&nbsp;";
       		ceditor.setData(text);
         	$("#message").val(text);
+			insertIds();			
 			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
 	    	$('#form').ajaxSubmit();
    	 	});  
@@ -181,6 +197,7 @@
     						var name = $('.sender').find(":selected").text();
     						data= data.replace("#mu# #mp##mue#","<a class=\"underline\" href=\"mailto:" + email + "\">"+name+"</a>")
     						$("div#editable").html('<p dir="${lang.dir}"> ' + data + ' </p>');	
+    						$("textarea#message").html('<p dir="${lang.dir}"> ' + data + ' </p>');	
     					});
       					$.get("objectQuery?type=callForProposalTitle&id="+id, function(data){
     						$("input.messageSubject").val(data);
@@ -252,6 +269,7 @@
 		    			function(confirm){
 		    				if (confirm==1){
 		   						$("textarea#body").html('');
+		   						insertIds();			
 								$('form#form').append('<input type="hidden" name="action" value="save"/>');
 								$('form#form').submit();
 							}
@@ -271,10 +289,12 @@
 		});
 
 		$('#file1').change(function(event){
+			insertIds();			
 			$('#form').submit();
 		});	
 
 		$('button.cancel').click(function(){
+			insertIds();			
 			$('form#form').append('<input type="hidden" name="action" value="cancel"/>');
 			$('form#form').submit();
 		});
@@ -288,18 +308,8 @@
 		        return false;
 	 		}
 			else{
+				insertIds();			
 				$('form#form').append('<input type="hidden" name="action" value="save"/>');
-				var ids="";
-				$('input.subSubject').each(function(){
-					if (this.checked){
-						var id = this.id;
-						id = id.substring(id.indexOf('.') + 1);
-						if (ids !="")
-							ids = ids + ","
-						ids = ids +id;
-					}
-				});
-				$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
 				$('form#form').submit();
 			}
 		});
@@ -319,17 +329,7 @@
 		 	    	$("#genericDialog").dialog('option', 'buttons',{
 						"המשך לשליחת ההודעה": function() {
 							$('form#form').append('<input type="hidden" name="action" value="sendme"/>');
-							var ids="";
-							$('input.subSubject').each(function(){
-								if (this.checked){
-									var id = this.id;
-									id = id.substring(id.indexOf('.') + 1);
-									if (ids !="")
-										ids = ids + ","
-									ids = ids +id;
-								}
-							});
-							$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+							insertIds();			
 							$('form#form').submit();
 							return false;
 		 	    		},
@@ -342,17 +342,7 @@
 				}
 				else{
 					$('form#form').append('<input type="hidden" name="action" value="sendme"/>');
-					var ids="";
-					$('input.subSubject').each(function(){
-						if (this.checked){
-							var id = this.id;
-							id = id.substring(id.indexOf('.') + 1);
-							if (ids !="")
-								ids = ids + ","
-							ids = ids +id;
-						}
-					});
-					$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+					insertIds();			
 					$('form#form').submit();
 
 				}

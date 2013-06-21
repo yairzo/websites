@@ -44,6 +44,7 @@ public class CallForProposalBean {
 	private boolean showDescriptionOnly;
 	private String submissionDetails;
 	private String contactPersonDetails;
+	private String fundContact;
 	private String formDetails;
 	private String description;
 	private String fundingPeriod;
@@ -89,6 +90,7 @@ public class CallForProposalBean {
 		this.showDescriptionOnly=true;
 		this.submissionDetails="";
 		this.contactPersonDetails="";
+		this.fundContact="";
 		this.formDetails="";
 		this.description="";
 		this.fundingPeriod="";
@@ -133,6 +135,7 @@ public class CallForProposalBean {
 		this.showDescriptionOnly=callForProposal.getShowDescriptionOnly();
 		this.submissionDetails=callForProposal.getSubmissionDetails();
 		this.contactPersonDetails=callForProposal.getContactPersonDetails();
+		this.fundContact=callForProposal.getFundContact();
 		this.formDetails=callForProposal.getFormDetails();
 		this.description=callForProposal.getDescription();
 		this.fundingPeriod=callForProposal.getFundingPeriod();
@@ -183,6 +186,7 @@ public class CallForProposalBean {
 		callForProposal.setShowDescriptionOnly(showDescriptionOnly);
 		callForProposal.setSubmissionDetails(submissionDetails);
 		callForProposal.setContactPersonDetails(contactPersonDetails);
+		callForProposal.setFundContact(fundContact);
 		callForProposal.setFormDetails(formDetails);
 		callForProposal.setDescription(description);
 		callForProposal.setFundingPeriod(fundingPeriod);
@@ -416,6 +420,13 @@ public class CallForProposalBean {
 		this.contactPersonDetails = contactPersonDetails;
 	}
 
+	public String getFundContact() {
+		return fundContact;
+	}
+
+	public void setFundContact(String fundContact) {
+		this.fundContact = fundContact;
+	}
 	public String getFormDetails() {
 		return formDetails;
 	}

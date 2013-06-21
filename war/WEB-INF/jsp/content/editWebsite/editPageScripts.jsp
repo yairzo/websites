@@ -341,7 +341,7 @@ $(document).ready(function() {
 		$('#form').submit();
 	});	
 
-	$('button#online').click(function(){
+	$('button.online').click(function(){
 		var text='<fmt:message key="${lang.localeId}.callForProposal.fieldsError"/>';
       	var errors = checkErrors();//validating fields
 		if (errors){
@@ -349,7 +349,7 @@ $(document).ready(function() {
 			$("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
-			openHelp('',text);
+			openHelp($(this),text);
 			return false;
 		}
 		else{
@@ -362,7 +362,7 @@ $(document).ready(function() {
 		 }//else no errors
 	});
 	
-	$('button#onlineUpdate').click(function(){
+	$('button.onlineUpdate').click(function(){
 		var text='<fmt:message key="${lang.localeId}.callForProposal.fieldsError"/>';
       	var errors = checkErrors();//validating fields
 		if (errors){
@@ -370,7 +370,7 @@ $(document).ready(function() {
 			$("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
-			openHelp('',text);
+			openHelp($(this),text);
 			return false;
 		}
 		else{
@@ -383,7 +383,7 @@ $(document).ready(function() {
 		 }//else no errors 
 	});
 	
-	$('button#offline').click(function(){
+	$('button.offline').click(function(){
 		insertIds();
 		$('form#form').append('<input type=\"hidden\" name=\"offline\" value=\"true\"/>');
    		$(".ajaxSubmit").remove();
@@ -534,6 +534,8 @@ $(document).ready(function() {
 			CKEDITOR.inline('editor10');
 		if(CKEDITOR.instances['editor11']==null)
 			CKEDITOR.inline('editor11');
+		if(CKEDITOR.instances['editor12']==null)
+			CKEDITOR.inline('editor12');
 
 	    $("#editor1").on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($(this).html());
@@ -622,6 +624,13 @@ $(document).ready(function() {
 			$('.editorTextarea', $(this).closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
+	    $("#editor12").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
 
  		$(".add").click(function(e){
 		    e.preventDefault();//no refresh page 
@@ -690,6 +699,7 @@ function getIcon(extension){
 
 var fieldname=""; 
 function openHelp(name,mytext){
+	
 	    fieldname=name;
 	 	if(fieldname=="")
 	    	$("#genericDialog").dialog("option", "position", "center");
@@ -699,7 +709,7 @@ function openHelp(name,mytext){
 	    $("#genericDialog").html(mytext).dialog("open");
 } 
 
-function checkErrors(){
+function checkErrors(){ 
 	var errors=false;
 	if($("#tempTitle").val()==''){
 		errors = true;
@@ -751,6 +761,14 @@ function checkErrors(){
 	else{
 		$("#errordesk").html('');
 	}
+	//if(countryArr.length==0){ 
+	//	errors = true;
+	//	$("#errorcountries").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterCountry"/><font color="red"><br>');
+	//} 
+	//else{ 
+	//	$("#errorcountries").html(''); 
+	//} 
+
 	var counter =0;
 	$('input.subSubject').each(function(){
 		if (this.checked)counter++;

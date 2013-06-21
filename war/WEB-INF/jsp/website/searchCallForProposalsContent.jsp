@@ -114,10 +114,10 @@
              			<tbody>
    							<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 							<td align="right">
-							<a href="" class="viewProposal" id="${callForProposal.id}"><c:out value="${callForProposal.id}"></c:out></a>
-  							</td>
+							<a href="" class="viewProposal" id="${callForProposal.id}" <c:if test="${callForProposal.expired}">style="color:red"</c:if>><c:out value="${callForProposal.id}"></c:out></a>
+ 							</td>
   							<td align="right">
-							<a href="" class="viewProposal" id="${callForProposal.id}"><c:out value="${callForProposal.title}"></c:out></a>
+							<a href="" class="viewProposal" id="${callForProposal.id}" <c:if test="${callForProposal.expired}">style="color:red"</c:if>><c:out value="${callForProposal.title}"></c:out></a>
 							</td>
    	  						</tr>
   	  					</tbody>

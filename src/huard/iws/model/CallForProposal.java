@@ -24,6 +24,7 @@ public class CallForProposal {
 	private boolean showDescriptionOnly;
 	private String submissionDetails;
 	private String contactPersonDetails;
+	private String fundContact;
 	private String formDetails;
 	private String description;
 	private String fundingPeriod;
@@ -222,6 +223,14 @@ public class CallForProposal {
 
 	public void setContactPersonDetails(String contactPersonDetails) {
 		this.contactPersonDetails = contactPersonDetails;
+	}
+
+	public String getFundContact() {
+		return fundContact;
+	}
+
+	public void setFundContact(String fundContact) {
+		this.fundContact = fundContact;
 	}
 
 	public String getFormDetails() {

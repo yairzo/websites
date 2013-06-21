@@ -95,9 +95,8 @@
         #set ($mailtoUrl = $mailtoUrl + "&body=\">")
 
 
-        #set ($replaceWith = "<div$1>")
 		#set ($postMessage = $post.message)
-		#set ($postMessage = $postMessage.replaceAll("<p(.*?)>", $replaceWith))
+		#set ($postMessage = $postMessage.replaceAll("<p(.*?)>","<div$1>"))
 		#set ($postMessage = $postMessage.replaceAll("</p>","</div>"))
 		#set ($postMessage = $postMessage.replaceAll(";;", $bulletImg))
 		#set ($postMessage = $postMessage.replaceAll("#@#", $attach))
@@ -106,8 +105,8 @@
 		#set ($postMessage = $postMessage.replaceAll("#mue#","</a>"))
 
 		#if ($personMD5)
-       		#set ($infoPageUrlReplacement = "ardNum=$1&md5="+$personMD5+"\">")
-       		#set ($postMessage = $postMessage.replaceAll("ardNum=(.*?)\">", $infoPageUrlReplacement))
+       		#set ($infoPageUrlReplacement = "ardNum=$1&md5="+$personMD5+"\"")
+       		#set ($postMessage = $postMessage.replaceAll("ardNum=(.*?)\"", $infoPageUrlReplacement))
        	#end
 
        	#set ($cannotReadPost = !$recipient.readsUTF8Mails && $post.language.UTF8)

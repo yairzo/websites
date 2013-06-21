@@ -53,12 +53,12 @@
 					<td colspan="4" align="${lang.align}">
 						<button class="grey save"><fmt:message key="${lang.localeId}.callForProposal.save"/></button>&nbsp;
 						<c:if test="${online}">
-						<button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp;
-						<button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp;
+						<button class="grey offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp;
+						<button class="grey onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp;
 						<button class="grey" onclick="window.open('/iws/callForProposal.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp;
 						</c:if>
 						<c:if test="${!online}">
-						<button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp;
+						<button class="grey online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp;
 						</c:if>
 						<button class="grey" onclick="window.open('/iws/callForProposal.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp;
 						<c:if test="${online}">
@@ -176,7 +176,7 @@
 				<tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted;text-align:${lang.align}">
 						<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/>  
-						<form:input htmlEscape="true" cssClass="green long500" path="originalCallWebAddress" />
+						<form:input htmlEscape="true" cssClass="green long950" path="originalCallWebAddress" />
 					</td>
 				</tr>
 				<tr class="form">
@@ -339,12 +339,6 @@
            				<textarea class="green editorTextarea" id="contactPersonDetails" name="contactPersonDetails" cols="100" rows="1" style="display:none">${command.contactPersonDetails}</textarea>
  					</td>
  					</tr>
- 					<tr>
-					<td colspan="3" style="text-align:${lang.align}">
-					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;
-					<span id="addedText" class="contactPersonDetails"><fmt:message key="${lang.localeId}.callForProposal.contactAtFund"/> </span>
-					</td>
-					</tr>
 					<c:forEach items="${deskPersons}" var="deskPerson" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:${lang.align}">
@@ -359,6 +353,28 @@
 					</tr>
 					</c:forEach>
  					</table>
+ 					</td>
+ 					</tr>
+ 					</table>
+				</tr>
+				<tr><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
+					<td colspan="4">
+					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr><td align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactAtFund"/></td>
+  					</tr>
+ 					<tr>
+					<td colspan="3" align="center">
+						<div class="editor" id="editor12" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+ 							${command.fundContact}	<c:if test="${fn:length(command.fundContact)<5}">&nbsp;&nbsp;</c:if>
+  						</div>
+           				<textarea class="green editorTextarea" id="fundContact" name="fundContact" cols="100" rows="1" style="display:none">${command.fundContact}</textarea>
+ 					</td>
+ 					</tr>
+  					</table>
  					</td>
  					</tr>
  					</table>
@@ -534,7 +550,7 @@
  					</tr>
  					<tr>
  						<td>
-						<fmt:message key="${lang.localeId}.callForProposal.selectCountry"/>
+						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.selectCountry"/>
 						 <input type="text" class="green" style="width:130" id="selectCountry"/> 
 						 <hidden id="countryId" name="countryId" />
 						 <button class="grey addCountry"><fmt:message key="${lang.localeId}.callForProposal.addCountry"/></button>
@@ -549,6 +565,7 @@
 						<div id="deleteCountry" style="display:none">
 							<a href="" class="deleteCountry"><fmt:message key="${lang.localeId}.callForProposal.deleteCountry"/></a>
 						</div>
+					    <div id="errorcountries" title="שגיאה" dir="${lang.dir}">				
 						</td>
  					</tr>
  					</table>
@@ -630,12 +647,12 @@
 					<td colspan="4" align="${lang.align}">
 						<button class="grey save"><fmt:message key="${lang.localeId}.callForProposal.save"/></button>&nbsp;
 						<c:if test="${online}">
-						<button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp;
-						<button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp;
+						<button class="grey offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp;
+						<button class="grey onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp;
 						<button class="grey" onclick="window.open('/iws/callForProposal.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp;
 						</c:if>
 						<c:if test="${!online}">
-						<button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp;
+						<button class="grey online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp;
 						</c:if>
 						<button class="grey" onclick="window.open('/iws/callForProposal.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp;
 						<c:if test="${online}">

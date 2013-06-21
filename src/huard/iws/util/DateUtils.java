@@ -102,9 +102,9 @@ public class DateUtils {
 		return monthsNames;
 	}
 	public static String [] getDayNames(String localeId){
-		String [] daysNames = new String [7];
-		for (int i=0; i<7; i++){
-			daysNames [i] = messageService.getMessage(localeId+".general.dayOfWeek."+(i==0?7:i));
+		String [] daysNames = new String [8];
+		for (int i=1; i<8; i++){
+			daysNames [i] = messageService.getMessage(localeId+".general.dayOfWeek."+i);
 		}
 		return daysNames;
 	}

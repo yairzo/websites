@@ -81,6 +81,11 @@
 					</tr>				
  					<tr>
 						<td colspan="3" style="border:1px #bca2a2 dotted">
+      					<fmt:message key="${lang.localeId}.callForProposal.contactAtFund"/><br>${command.fundContact}
+ 						</td>
+					</tr>				
+ 					<tr>
+						<td colspan="3" style="border:1px #bca2a2 dotted">
       					<fmt:message key="${lang.localeId}.callForProposal.forms"/><br>${command.formDetails}
  						</td>
 					</tr>				

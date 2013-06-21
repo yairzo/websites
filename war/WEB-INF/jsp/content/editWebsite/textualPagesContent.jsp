@@ -64,7 +64,9 @@
   			</c:otherwise>
   			</c:choose> 
                	 		<tr>
-                 		 <td colspan="2"><button class="grey" onclick="window.location='editTextualPage.html?action=new';return false;">דף טקסט חדש</button></td>
+                 		 <td colspan="2">
+                 		 <button class="grey" onclick="window.location='editTextualPage.html?action=new';return false;">דף טקסט חדש</button>
+                 		 </td>
                 		</tr>
 						<tr>
                 		<td colspan="2" align="center"><br>

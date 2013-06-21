@@ -105,6 +105,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	public int insertTextualPage(TextualPage textualPage){
 		if(textualPage.getTitle().isEmpty())
 			textualPage.setTitle("###" + new java.util.Date().getTime() + "###");
+		if(textualPage.getUrlTitle().isEmpty())
+			textualPage.setUrlTitle("###" + textualPage.getTitle() + "###");
 
 		final String query = "insert ignore textualPageDraft set title='" + textualPage.getTitle() + "' ,urlTitle=?, creatorId = ?, html='', description='', updateTime=now(), localeId=?;";
 		//logger.info(query);

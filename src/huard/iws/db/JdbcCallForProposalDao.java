@@ -163,7 +163,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 
 		if(callForProposal.getTitle().isEmpty())
 			callForProposal.setTitle("###" + new java.util.Date().getTime() + "###");
-		
+		if(callForProposal.getUrlTitle().isEmpty())
+			callForProposal.setUrlTitle(callForProposal.getTitle());
 		final String query = "insert ignore callForProposalDraft set title = '" + callForProposal.getTitle().replace("'","") + "'"+
 				", urlTitle = ?" +
 				", creatorId = ?" +
@@ -174,6 +175,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", originalCallWebAddress = ''" +
 				", submissionDetails = ''" +
 				", contactPersonDetails = ''" +
+				", fundContact = ''" +
 				", formDetails = ''" +
 				", description = ''" +
 				", fundingPeriod = ''" +
@@ -185,7 +187,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", additionalInformation = ''"+
 				", localeId=?"+
 				", updateTime=now();";
-		//logger.info(query);
+		logger.info(query);
 		final String urlTitle= callForProposal.getUrlTitle();
 		final int creatorId= callForProposal.getCreatorId();
 		final String localeId= callForProposal.getLocaleId();
@@ -225,6 +227,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", showDescriptionOnly = ?" +				
 				", submissionDetails= ?" +
 				", contactPersonDetails= ?" +
+				", fundContact= ?" +
 				", formDetails= ?" +
 				", description = ?" +
 				", fundingPeriod = ?" +
@@ -270,6 +273,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getShowDescriptionOnly(),
 	    		callForProposal.getSubmissionDetails().trim(),
 	    		callForProposal.getContactPersonDetails().trim(),
+	    		callForProposal.getFundContact(),
 	    		callForProposal.getFormDetails().trim(),
 	    		callForProposal.getDescription().trim(),
 	    		callForProposal.getFundingPeriod().trim(),
@@ -305,6 +309,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", showDescriptionOnly = ?" +				
 				", submissionDetails= ?" +
 				", contactPersonDetails= ?" +
+				", fundContact= ?" +
 				", formDetails= ?" +
 				", description = ?" +
 				", fundingPeriod = ?" +
@@ -363,6 +368,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getShowDescriptionOnly(),
 	    		callForProposal.getSubmissionDetails().trim(),
 	    		callForProposal.getContactPersonDetails().trim(),
+	    		callForProposal.getFundContact(),
 	    		callForProposal.getFormDetails().trim(),
 	    		callForProposal.getDescription().trim(),
 	    		callForProposal.getFundingPeriod().trim(),
@@ -446,6 +452,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", showDescriptionOnly = ?" +
 				", submissionDetails= ?" +
 				", contactPersonDetails= ?" +
+				", fundContact= ?" +
 				", formDetails= ?" +
 				", description = ?" +
 				", fundingPeriod = ?" +
@@ -480,6 +487,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getShowDescriptionOnly(),
 	    		callForProposal.getSubmissionDetails().trim(),
 	    		callForProposal.getContactPersonDetails().trim(),
+	    		callForProposal.getFundContact(),
 	    		callForProposal.getFormDetails().trim(),
 	    		callForProposal.getDescription().trim(),
 	    		callForProposal.getFundingPeriod().trim(),
@@ -592,7 +600,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		else
 			whereClause +=" and " + mainTable +".isDeleted=0";
 		if(searchCriteria.getSearchExpired()) 
-			whereClause +=" and " + mainTable +".finalSubmissionTime < now()";
+			whereClause +=" and " + mainTable +".finalSubmissionTime < now() and " + mainTable +".finalSubmissionTime <> 0";
 		if(searchCriteria.getSearchByAllYear())
 			whereClause +=" and " + mainTable +".finalSubmissionTime = 0";
 		if(searchCriteria.getSearchOpen()) 
@@ -669,6 +677,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
     		callForProposal.setShowDescriptionOnly(rs.getBoolean("showDescriptionOnly"));
     		callForProposal.setSubmissionDetails(rs.getString("submissionDetails"));
     		callForProposal.setContactPersonDetails(rs.getString("contactPersonDetails"));
+       		callForProposal.setFundContact(rs.getString("fundContact"));
     		callForProposal.setFormDetails(rs.getString("formDetails"));
     		callForProposal.setDescription(rs.getString("description"));
     		callForProposal.setFundingPeriod(rs.getString("fundingPeriod"));
