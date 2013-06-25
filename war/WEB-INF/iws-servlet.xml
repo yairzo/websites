@@ -194,6 +194,9 @@
      	<property name="textualPageService">
             <ref bean="textualPageService"/>
         </property>
+     	<property name="pageBodyImageService">
+            <ref bean="pageBodyImageService"/>
+        </property>
      </bean>
      
 	<bean id="homePageCalendarController" class="huard.iws.web.HomePageCalendarController" parent="generalWebsiteController">

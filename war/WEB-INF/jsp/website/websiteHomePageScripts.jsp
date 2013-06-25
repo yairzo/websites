@@ -13,13 +13,21 @@
 
 $(document).ready(function() {
 	
-	$('.bxslider').bxSlider({
+	$('.messageslider').show();
+	$('.messageslider').bxSlider({
+		controls:false,
+		mode:'horizontal',
+		auto : true,
+		slideWidth:300
+		});
+	$('.pictureslider').show();
+	$('.pictureslider').bxSlider({
+		captions:true,
 		controls:false,
 		mode:'fade',
 		auto : true,
-		slideWidth:600
-		});
-	
+		video:true
+		});	
 	var daysWithFunds=[${daysWithFunds}];
 
 	$(".date").datepicker({dateFormat: 'yy-mm-dd',

@@ -18,4 +18,4 @@
 	<script type="text/javascript" src="/iws/js/jquery.alerts.js"></script>
 	<script type="text/javascript" src="/iws/js/date.js"></script>
 	<script type="text/javascript" src="/iws/js/jquery.bxslider.js"></script>
-	
+	<script type="text/javascript" src="/iws/js/jquery.fitvids.js"></script>

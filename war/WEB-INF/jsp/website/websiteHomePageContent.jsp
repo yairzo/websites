@@ -15,22 +15,26 @@
  
              <table width="800" border="0" align="center" cellpadding="3" dir="rtl">
                <tr>
-      				<td class="container" style="vertical-align: top">
-    					<table style="width: 100%;">
-                		<tr class="form">
-							<td>
-							<div class="bxslider">
+      				<td class="container" style="vertical-align: top;width: 40%;direction:ltr">
+							<div class="messageslider" style="display:none;">
   								<c:forEach items="${textualPages}" var="textualPage">
   								<c:set var="direction" value="rtl"/>
   								<c:if test="${textualPage.localeId=='en_US'}">
   									<c:set var="direction" value="ltr"/>
   								</c:if>
-  								<div style="direction:${direction};">${textualPage.title}</div>
-								</c:forEach>
+  								<div style="width:300;direction:${direction};">${textualPage.title}</div>
+ 								</c:forEach>
 							</div>
-       						</td>
-       					</tr>
-       					</table>
+       				</td>
+      				<td class="container" style="vertical-align: top;">
+ 							<div class="pictureslider" style="display:none;">
+  								<c:forEach items="${images}" var="image">
+  								<div><img width="100%" title="${image.captionHebrew}" src="imageViewer?imageId=${image.id}&attachType=bodyImage" /></div>
+								</c:forEach>
+  								<div>
+    							<iframe src="http://player.vimeo.com/video/17914974" width="500" height="400" frameborder="0"></iframe>
+  								</div>
+							</div>
        				</td>
                </tr>
 	          </table>
