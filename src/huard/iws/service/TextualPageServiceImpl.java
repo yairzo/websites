@@ -73,6 +73,10 @@ public class TextualPageServiceImpl implements TextualPageService{
 	public List<TextualPage> getOnlineTextualPages(){
 		return textualPageDao.getOnlineTextualPages();
 	}
+	
+	public List<TextualPage> getOnlineMessages(){
+		return textualPageDao.getOnlineMessages();
+	}
 
 
 	private TextualPageDao textualPageDao;

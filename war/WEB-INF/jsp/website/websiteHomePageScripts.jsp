@@ -7,10 +7,19 @@
 
 </style>
 
+
 <script type="text/javascript">
 
 
 $(document).ready(function() {
+	
+	$('.bxslider').bxSlider({
+		controls:false,
+		mode:'fade',
+		auto : true,
+		slideWidth:600
+		});
+	
 	var daysWithFunds=[${daysWithFunds}];
 
 	$(".date").datepicker({dateFormat: 'yy-mm-dd',

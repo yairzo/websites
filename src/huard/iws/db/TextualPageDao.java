@@ -38,6 +38,8 @@ public interface TextualPageDao {
 
 	public List<TextualPage> getOnlineTextualPages();
 
+	public List<TextualPage> getOnlineMessages();
+
 	public List<TextualPage> getOnlineTextualPagesSearch(String ids);
 
 	public void addTemplate(Template template);

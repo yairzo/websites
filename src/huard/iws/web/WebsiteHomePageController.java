@@ -1,9 +1,13 @@
 package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
+import huard.iws.bean.TextualPageBean;
+import huard.iws.model.TextualPage;
 import huard.iws.service.CallForProposalService;
+import huard.iws.service.TextualPageService;
 import huard.iws.util.RequestWrapper;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -41,7 +45,11 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		if(sb.length()>1)
 			sb.deleteCharAt(sb.length()-1);
 		model.put("daysWithFunds", sb.toString());
-		
+
+		//messages
+		List<TextualPage> textualPages = textualPageService.getOnlineMessages();
+		model.put("textualPages", textualPages);
+
 		return new ModelAndView ("websiteHomePage",model);
 	}
 
@@ -58,6 +66,11 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 
 	public void setCallForProposalService(CallForProposalService callForProposalService) {
 		this.callForProposalService = callForProposalService;
+	}
+	private TextualPageService textualPageService;
+
+	public void setTextualPageService(TextualPageService textualPageService) {
+		this.textualPageService = textualPageService;
 	}
 
 	

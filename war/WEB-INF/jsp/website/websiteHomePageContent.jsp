@@ -13,9 +13,30 @@
  			
  			<div id="genericDialog" style="display:none" dir="rtl"><p></p></div>
  
+             <table width="800" border="0" align="center" cellpadding="3" dir="rtl">
+               <tr>
+      				<td class="container" style="vertical-align: top">
+    					<table style="width: 100%;">
+                		<tr class="form">
+							<td>
+							<div class="bxslider">
+  								<c:forEach items="${textualPages}" var="textualPage">
+  								<c:set var="direction" value="rtl"/>
+  								<c:if test="${textualPage.localeId=='en_US'}">
+  									<c:set var="direction" value="ltr"/>
+  								</c:if>
+  								<div style="direction:${direction};">${textualPage.title}</div>
+								</c:forEach>
+							</div>
+       						</td>
+       					</tr>
+       					</table>
+       				</td>
+               </tr>
+	          </table>
               <table width="800" border="0" align="center" cellpadding="3" dir="rtl">
                <tr>
-      				<td class="container" style="width: 32%; vertical-align: top">
+      				<td class="container" style="vertical-align: top">
     					<table style="width: 100%;">
                 		<tr class="form">
 							<td>
@@ -32,7 +53,7 @@
 	          </table>
               <table width="800" border="0" align="center" cellpadding="3" dir="rtl">
                <tr>
-      				<td class="container" style="width: 32%; vertical-align: top">
+      				<td class="container" style="vertical-align: top">
     					<table style="width: 100%;">
                 		<tr class="form">
 							<td>
