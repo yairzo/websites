@@ -27,19 +27,29 @@ import org.springframework.jdbc.support.KeyHolder;
 public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualPageDao {
 
 	public TextualPage getTextualPage(int id){
-		String query = "select * from textualPageDraft where id =?";
-		TextualPage textualPage =
+		try{
+			String query = "select * from textualPageDraft where id =?";
+			TextualPage textualPage =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
-		getTextualPageFile(textualPage);
-		return 	textualPage;	
+			getTextualPageFile(textualPage);
+			return textualPage;	
+		}
+		catch(Exception e){
+			return new TextualPage();
+		}
 	}
 	
 	public TextualPage getTextualPageOnline(int id){
-		String query = "select * from textualPage where id =?";
-		TextualPage textualPage =
+		try{
+			String query = "select * from textualPage where id =?";
+			TextualPage textualPage =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
-		getTextualPageFile(textualPage);
-		return 	textualPage;	
+			getTextualPageFile(textualPage);
+			return 	textualPage;	
+		}
+		catch(Exception e){
+			return new TextualPage();
+		}
 	}
 
 	public TextualPage getTextualPageOnline(String urlTitle){
@@ -151,6 +161,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", isMessage = ?" +
 				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
+				", neverExpires= ?" +
 				", updateTime = now()"+
 				", isDeleted = ?"+
 				", localeId = ?";
@@ -172,6 +183,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getIsMessage(),
 	    		textualPage.getMessageType(),
 	    		keepInRollingMessagesExpiryTime,
+	    		textualPage.getNeverExpires(),
 	    		textualPage.getIsDeleted(),
 	    		textualPage.getLocaleId());
 	}
@@ -198,6 +210,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", isMessage = ?" +
 				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
+				", neverExpires= ?" +
 				", updateTime = now()" +
 				", isDeleted = ?" +
 				", localeId = ?" +
@@ -218,7 +231,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getCategoryId(),
 	    		textualPage.getIsMessage(),
 	    		textualPage.getMessageType(),
-	    		keepInRollingMessagesExpiryTime,	    		
+	    		keepInRollingMessagesExpiryTime,
+	    		textualPage.getNeverExpires(),
 	    		textualPage.getIsDeleted(),
 	    		textualPage.getLocaleId(),
 	    		textualPage.getId());
@@ -254,6 +268,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", isMessage = ?" +
 				", messageType = ?" +
 				", keepInRollingMessagesExpiryTime = ?" +
+				", neverExpires= ?" +
 				", updateTime = now()" +
 				", isDeleted = ?" +
 				", localeId = ?" +
@@ -274,7 +289,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getCategoryId(),
 	    		textualPage.getIsMessage(),
 	    		textualPage.getMessageType(),
-	    		keepInRollingMessagesExpiryTime,	    		
+	    		keepInRollingMessagesExpiryTime,
+	    		textualPage.getNeverExpires(),
 	    		textualPage.getIsDeleted(),
 	    		textualPage.getLocaleId(),
 	    		textualPage.getId());
@@ -332,7 +348,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		return textualPages;
 	}
 	public List<TextualPage> getOnlineMessages(){
-		String query = "select * from textualPage where isDeleted=0 and isMessage=1 order by id";
+		String query = "select * from textualPage where isDeleted=0 and isMessage=1 and (neverExpires=1 or keepInRollingMessagesExpiryTime >= now()) order by id";
 		System.out.println(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
@@ -375,6 +391,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 			if (keepInRollingMessagesExpiryTimeTS != null)
 				keepInRollingMessagesExpiryTime = keepInRollingMessagesExpiryTimeTS.getTime();
 			textualPage.setKeepInRollingMessagesExpiryTime(keepInRollingMessagesExpiryTime);
+			textualPage.setNeverExpires(rs.getBoolean("neverExpires"));
 			long updateTime = 0;
 			Timestamp updateTimeTS = rs.getTimestamp("updateTime");
 			if (updateTimeTS != null)

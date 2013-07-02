@@ -1231,6 +1231,8 @@
 				<prop key="/postReports.html">postReportsController</prop>
 				<prop key="/error404.html">urlFilenameViewController</prop>
 				<prop key="/error500.html">urlFilenameViewController</prop>
+				<prop key="/pageNotFound.html">urlFilenameViewController</prop>
+				<prop key="/websitePageNotFound.html">urlFilenameViewController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>
 				<prop key="/editCallForProposal.html">editCallForProposalController</prop>
 				<prop key="/callForProposal.html">callForProposalController</prop>

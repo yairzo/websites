@@ -34,6 +34,8 @@ public class TextualPageController extends GeneralWebsiteFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 		TextualPageBean textualPageBean = (TextualPageBean) model.get("command");
+		if(textualPageBean.getId()==0)//someone entered non-existing id
+			return new ModelAndView ( "websitePageNotFound", model);
 
 		//when coming from old site:
 		int ardNum = (Integer) request.getSession().getAttribute("ardNum");
@@ -42,6 +44,8 @@ public class TextualPageController extends GeneralWebsiteFormController {
 			String urlTitle=textualPageService.getTextualPageUrlTitleByArdNum(ardNum);
 			return new ModelAndView ( new RedirectViewExtended("page/"+urlTitle), new HashMap<String, Object>());
 		}
+		if(request.getIntParameter("id", 0)>0)//if link was written with id and not with url title
+			return new ModelAndView ( new RedirectViewExtended("page/"+textualPageBean.getUrlTitle()), new HashMap<String, Object>());
 
 		//category
 		Category category =  new Category();

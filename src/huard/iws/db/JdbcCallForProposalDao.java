@@ -4,6 +4,7 @@ import huard.iws.model.CallForProposal;
 import huard.iws.model.DayInCalendar;
 import huard.iws.model.Attachment;
 import huard.iws.model.FundInDay;
+import huard.iws.model.TextualPage;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.ListView;
@@ -28,25 +29,35 @@ import org.springframework.jdbc.support.KeyHolder;
 public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements CallForProposalDao {
 
 	public CallForProposal getCallForProposal(int id){
-		String query = "select * from callForProposalDraft where id =?";
-		CallForProposal callForProposal =
+		try{
+			String query = "select * from callForProposalDraft where id =?";
+			CallForProposal callForProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
-		applySubjectIds(callForProposal);
-		applySubmissionDates(callForProposal);
-		applyFiles(callForProposal);
-		applyCountries(callForProposal);
-		return 	callForProposal;	
+			applySubjectIds(callForProposal);
+			applySubmissionDates(callForProposal);
+			applyFiles(callForProposal);
+			applyCountries(callForProposal);
+			return 	callForProposal;	
+		}
+		catch(Exception e){
+			return new CallForProposal();
+		}
 	}
 	
 	public CallForProposal getCallForProposalOnline(int id){
-		String query = "select * from callForProposal where id =?";
-		CallForProposal callForProposal =
+		try{
+			String query = "select * from callForProposal where id =?";
+			CallForProposal callForProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
-		applySubjectIds(callForProposal);
-		applySubmissionDates(callForProposal);
-		applyFiles(callForProposal);
-		applyCountries(callForProposal);
-		return 	callForProposal;	
+			applySubjectIds(callForProposal);
+			applySubmissionDates(callForProposal);
+			applyFiles(callForProposal);
+			applyCountries(callForProposal);
+			return 	callForProposal;	
+		}
+		catch(Exception e){
+			return new CallForProposal();
+		}
 	}
 	
 	public CallForProposal getCallForProposalOnline(String urlTitle){

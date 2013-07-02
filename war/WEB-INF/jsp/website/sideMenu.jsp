@@ -8,7 +8,7 @@
 	</p>
 	<p align="center">
     	<img src="image/hr.gif" width="185" height="5"><br>
-    	<a href="textualPage.html?id=1"><fmt:message key="${lang.localeId}.website.homePage"/></a>
+    	<a href="homePage.html"><fmt:message key="${lang.localeId}.website.homePage"/></a>
     	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     	<a href="textualPage.html?id=1"><fmt:message key="${lang.localeId}.website.language"/></a>
     	<img src="image/hr.gif" width="185" height="5">

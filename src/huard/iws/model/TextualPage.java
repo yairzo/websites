@@ -20,6 +20,7 @@ public class TextualPage {
 	private boolean isMessage;
 	private int messageType;
 	private long keepInRollingMessagesExpiryTime;
+	private boolean neverExpires;
 	private long updateTime;
 	private int isDeleted;
 	private String localeId;
@@ -43,6 +44,7 @@ public class TextualPage {
 		this.isMessage=false;
 		this.messageType=0;
 		this.keepInRollingMessagesExpiryTime=0;
+		this.neverExpires=false;
 		this.updateTime=0;
 		this.isDeleted=0;
 	}
@@ -182,6 +184,13 @@ public class TextualPage {
 	
 	public void setKeepInRollingMessagesExpiryTime(long keepInRollingMessagesExpiryTime) {
 		this.keepInRollingMessagesExpiryTime=keepInRollingMessagesExpiryTime;
+	}
+	
+	public boolean getNeverExpires() {
+		return neverExpires;
+	}
+	public void setNeverExpires(boolean neverExpires) {
+		this.neverExpires = neverExpires;
 	}
 
 	public long getUpdateTime() {

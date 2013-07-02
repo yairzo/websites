@@ -191,6 +191,8 @@
 					<td colspan="2" style="border:1px #bca2a2 dotted" nowrap>
  						<fmt:message key="${lang.localeId}.callForProposal.keepInRollingMessagesExpiryTime"/>   
 						<input type="text" class="green date medium100" name="keepInRollingMessagesExpiryTimeStr"  id="keepInRollingMessagesExpiryTime" value="${keepInRollingMessagesExpiryTime}"/>
+						<br><form:checkbox cssClass="green" path="neverExpires" id="neverExpires"/>
+						<fmt:message key="${lang.localeId}.textualPage.neverExpires"/>
 					</td>
 				</tr>
 				<tr class="form">

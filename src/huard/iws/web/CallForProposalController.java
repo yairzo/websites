@@ -37,6 +37,8 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 		CallForProposalBean callForProposalBean = (CallForProposalBean) model.get("command");
+		if(callForProposalBean.getId()==0)//someone entered non-existing id
+			return new ModelAndView ( "websitePageNotFound", model);
 
 		//when coming from old site:
 		int ardNum = (Integer) request.getSession().getAttribute("ardNum");
@@ -45,6 +47,8 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 			String urlTitle=callForProposalService.getCallForProposalUrlTitleByArdNum(ardNum);
 			return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+urlTitle), new HashMap<String, Object>());
 		}
+		if(request.getIntParameter("id", 0)>0)//if link was written with id and not with url title
+			return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+callForProposalBean.getUrlTitle()), new HashMap<String, Object>());
 		
 		//language
 		LanguageUtils.applyLanguage(model, request, response,callForProposalBean.getLocaleId());
@@ -115,6 +119,7 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		int id = request.getIntParameter("id", 0);
 		logger.info("id: " + id);
 		String urlTitle = request.getParameter("urlTitle", "");
+		logger.info("urlTitle: " + urlTitle);
 		//when coming from old site
 		request.getSession().setAttribute("ardNum", request.getIntParameter("ardNum", 0));
 	
@@ -131,7 +136,6 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 				callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposalOnline(urlTitle),true);
 		}
 		logger.info("callForProposalBean id: " + callForProposalBean.getId());
-		
 		return callForProposalBean;
 	}
 

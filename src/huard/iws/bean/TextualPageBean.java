@@ -26,6 +26,7 @@ public class TextualPageBean {
 	private boolean isMessage;
 	private int messageType;
 	private long keepInRollingMessagesExpiryTime;
+	private boolean neverExpires;
 	private long updateTime;
 	private int isDeleted;
 	private String localeId;
@@ -50,6 +51,7 @@ public class TextualPageBean {
 		this.isMessage=false;
 		this.messageType=0;
 		this.keepInRollingMessagesExpiryTime=0;
+		this.neverExpires=false;
 		this.updateTime=0;
 		this.isDeleted=0;
 		this.localeId="";
@@ -75,6 +77,7 @@ public class TextualPageBean {
 		this.isMessage = textualPage.getIsMessage();
 		this.messageType= textualPage.getMessageType();
 		this.keepInRollingMessagesExpiryTime = textualPage.getKeepInRollingMessagesExpiryTime();
+		this.neverExpires = textualPage.getNeverExpires();
 		this.updateTime = textualPage.getUpdateTime();
         this.isDeleted=textualPage.getIsDeleted();
 		this.localeId=textualPage.getLocaleId();
@@ -100,6 +103,7 @@ public class TextualPageBean {
 		textualPage.setIsMessage(isMessage);
 		textualPage.setMessageType(messageType);
 		textualPage.setKeepInRollingMessagesExpiryTime(keepInRollingMessagesExpiryTime);
+		textualPage.setNeverExpires(neverExpires);
 		textualPage.setUpdateTime(updateTime);
 		textualPage.setIsDeleted(isDeleted);
 		textualPage.setLocaleId(localeId);
@@ -242,6 +246,13 @@ public class TextualPageBean {
 	
 	public void setKeepInRollingMessagesExpiryTime(long keepInRollingMessagesExpiryTime) {
 		this.keepInRollingMessagesExpiryTime=keepInRollingMessagesExpiryTime;
+	}
+
+	public boolean getNeverExpires() {
+		return neverExpires;
+	}
+	public void setNeverExpires(boolean neverExpires) {
+		this.neverExpires = neverExpires;
 	}
 
 	public PersonBean getCreator() {

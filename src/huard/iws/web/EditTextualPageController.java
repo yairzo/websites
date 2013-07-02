@@ -120,10 +120,13 @@ public class EditTextualPageController extends GeneralFormController {
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
+		TextualPageBean textualPageBean = (TextualPageBean) model.get("command");
+		if(textualPageBean.getId()==0 && !request.getParameter("action", "").equals("new"))//someone entered non-existing id
+			return new ModelAndView ( "pageNotFound", model);
 		
 		int id = request.getIntParameter("id", 0);
 		// if new proposal Create a new proposal and write it to db
-		if (request.getParameter("action", "").equals("new") || id == 0){
+		if (request.getParameter("action", "").equals("new") || id == 0){//if new or no id passed in url
 			TextualPage textualPage= new TextualPage();
 			textualPage.setCreatorId(userPersonBean.getId());
 			textualPage.setLocaleId(userPersonBean.getPreferedLocaleId());
@@ -133,7 +136,6 @@ public class EditTextualPageController extends GeneralFormController {
 			return new ModelAndView ( new RedirectView("editTextualPage.html"), newModel);
 		}
 		else{//show edit
-			TextualPageBean textualPageBean = (TextualPageBean) model.get("command");
 			//language
 			LanguageUtils.applyLanguage(model, request, response, textualPageBean.getLocaleId());
 			LanguageUtils.applyLanguages(model);
@@ -149,10 +151,12 @@ public class EditTextualPageController extends GeneralFormController {
 			String title="";
 			if(!textualPageBean.getTitle().startsWith("###"))
 				title = textualPageBean.getTitle();
+			title= title.replace("\"","&quot;");
 			model.put("title", title);
 			String urlTitle="";
 			if(!textualPageBean.getUrlTitle().startsWith("###"))
 				urlTitle = textualPageBean.getUrlTitle();
+			urlTitle= urlTitle.replace("\"","&quot;");
 			model.put("urlTitle", urlTitle);
 			//templates
 			List<Template> templates = textualPageService.getTemplates();

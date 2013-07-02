@@ -12,7 +12,34 @@ $(document).ready(function() {
     	$("#htmlView").hide();
 	else
    		$("#htmlView").show();
-	 
+	
+	if($('#neverExpires').is(":checked")){
+		//alert("checked");
+		$('#keepInRollingMessagesExpiryTime').css("opacity","0.3");
+		$('#keepInRollingMessagesExpiryTime').prop("disabled", true);
+		$('#keepInRollingMessagesExpiryTime').val("");
+	}
+	else{
+		//alert("not checked");
+		$('#keepInRollingMessagesExpiryTime').css("opacity","1");
+		$('#keepInRollingMessagesExpiryTime').prop("disabled", false);
+	}
+
+	$('#neverExpires').change(function(){
+		if($('#neverExpires').is(":checked")){
+			//alert("checked");
+			$('#keepInRollingMessagesExpiryTime').css("opacity","0.3");
+			$('#keepInRollingMessagesExpiryTime').prop("disabled", true);
+			$('#keepInRollingMessagesExpiryTime').val("");
+		}
+		else{
+			//alert("not checked");
+			$('#keepInRollingMessagesExpiryTime').css("opacity","1");
+			$('#keepInRollingMessagesExpiryTime').prop("disabled", false);
+		}
+	});
+
+	
 	$('form').find('input:not([type=file],[type=button])').autoSave(function(){		
 		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
 		$('#form').ajaxSubmit();

@@ -103,6 +103,7 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 	public int copyCallForProposal (CallForProposal callForProposal){
 		CallForProposal newCallForProposal = callForProposal;
 		newCallForProposal.setTitle(newCallForProposal.getTitle() + " - copy");
+		newCallForProposal.setUrlTitle(newCallForProposal.getUrlTitle() + " - copy");
 		int newCallForProposalId = this.insertCallForProposal(newCallForProposal);
 		newCallForProposal.setId(newCallForProposalId);
 		callForProposalDao.updateCallForProposal(newCallForProposal);

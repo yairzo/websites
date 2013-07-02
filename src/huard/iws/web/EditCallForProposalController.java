@@ -136,9 +136,11 @@ public class EditCallForProposalController extends GeneralFormController{
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception	{
 		
+		CallForProposalBean callForProposalBean = (CallForProposalBean) model.get("command");
+		if(callForProposalBean.getId()==0 && !request.getParameter("action", "").equals("new"))//someone entered non-existing id
+			return new ModelAndView ( "pageNotFound", model);
+		
 		int id = request.getIntParameter("id", 0);
-		
-		
 		// if new proposal Create a new proposal and write it to db
 		if (request.getParameter("action", "").equals("new") || id == 0){
 			CallForProposal callForProposal= new CallForProposal();
@@ -151,25 +153,26 @@ public class EditCallForProposalController extends GeneralFormController{
 			return new ModelAndView ( new RedirectView("editCallForProposal.html"), newModel);
 		}
 		else{//show edit
-			CallForProposalBean callForProposal = (CallForProposalBean) model.get("command");
 			
 			//language
-			LanguageUtils.applyLanguage(model, request, response, callForProposal.getLocaleId());
+			LanguageUtils.applyLanguage(model, request, response, callForProposalBean.getLocaleId());
 			LanguageUtils.applyLanguages(model);
 
 			//subjects
-			Subject rootSubject = subjectService.getSubject(1, callForProposal.getLocaleId());
-			SubjectBean rootSubjectBean = new SubjectBean(rootSubject, callForProposal.getLocaleId());
+			Subject rootSubject = subjectService.getSubject(1, callForProposalBean.getLocaleId());
+			SubjectBean rootSubjectBean = new SubjectBean(rootSubject, callForProposalBean.getLocaleId());
 			model.put("rootSubject", rootSubjectBean);
 
 			//title
 			String title="";
-			if(!callForProposal.getTitle().startsWith("###"))
-				title = callForProposal.getTitle();
+			if(!callForProposalBean.getTitle().startsWith("###"))
+				title = callForProposalBean.getTitle();
+			title= title.replace("\"","&quot;");
 			model.put("title", title);
 			String urlTitle="";
-			if(!callForProposal.getUrlTitle().startsWith("###"))
-				urlTitle = callForProposal.getUrlTitle();
+			if(!callForProposalBean.getUrlTitle().startsWith("###"))
+				urlTitle = callForProposalBean.getUrlTitle();
+			urlTitle= urlTitle.replace("\"","&quot;");
 			model.put("urlTitle", urlTitle);
 			
 			//desk contact persons
@@ -181,10 +184,10 @@ public class EditCallForProposalController extends GeneralFormController{
 			if(language.getLocaleId().equals("iw_IL")){
 				budgetTitle="תקציב";
 				assistantTitle="עוזר";
-				deskPersons=mopDeskService.getPersonsList(callForProposal.getDeskId(),0);
+				deskPersons=mopDeskService.getPersonsList(callForProposalBean.getDeskId(),0);
 			}
 			else
-				deskPersons=mopDeskService.getPersonsListEnglish(callForProposal.getDeskId(),0);
+				deskPersons=mopDeskService.getPersonsListEnglish(callForProposalBean.getDeskId(),0);
 			model.put("deskPersons", deskPersons);
 			//desk budget officers
 			List<PersonBean> deskBudgetPersons = new ArrayList<PersonBean>();
@@ -203,8 +206,8 @@ public class EditCallForProposalController extends GeneralFormController{
 			
 			//funds
 			String selectedFund="";
-			if(callForProposal.getFundId()>0){
-				Fund fund = fundService.getFundByFinancialId(callForProposal.getFundId());
+			if(callForProposalBean.getFundId()>0){
+				Fund fund = fundService.getFundByFinancialId(callForProposalBean.getFundId());
 				if (fund.getId()>0)
 					selectedFund=fund.getName();
 			}
@@ -215,17 +218,17 @@ public class EditCallForProposalController extends GeneralFormController{
 			
 			//countries
 			List<Country> countries = new ArrayList<Country>();
-			for(Integer countryId:callForProposal.getCountryIds())
+			for(Integer countryId:callForProposalBean.getCountryIds())
 				countries.add(countryService.getCountry(countryId));
 			model.put("countries", countries);
 
 			//online
-			if(callForProposalService.existsCallForProposalOnline(callForProposal.getId()))
+			if(callForProposalService.existsCallForProposalOnline(callForProposalBean.getId()))
 				model.put("online", true);
 			else
 				model.put("online", false);
 			
-			model.put("id",callForProposal.getId());
+			model.put("id",callForProposalBean.getId());
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		

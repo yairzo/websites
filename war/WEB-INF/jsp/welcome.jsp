@@ -137,6 +137,13 @@ $(document).ready(function() {
 					</table>
 					<table width="<c:choose><c:when test="${titleCode==2}">600</c:when><c:otherwise>400</c:otherwise></c:choose>" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
 						<c:if test="${titleCode!=2}">
+						<authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR,ROLE_LISTS_MOP">
+						<tr>
+							<th align="right" style="height:35">
+								<h1>מערכת הרשימות</h1>
+							</th>
+						</tr>
+						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
 						<tr>
 							<th align="right" style="height:35">
@@ -145,19 +152,19 @@ $(document).ready(function() {
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a  style="text-decoration: none" href="lists.html">מערכת רשימות - טיפול במאגר הרשימות</a>
+								<a  style="text-decoration: none" href="lists.html">טיפול במאגר הרשימות</a>
 							</th>
 						</tr>
 						<tr>
 							<th  align="right" style="height:35">
-								<a  style="text-decoration: none" href="organizationUnits.html">מערכת רשימות - טיפול במאגר היחידות</a>
+								<a  style="text-decoration: none" href="organizationUnits.html">טיפול במאגר היחידות</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_LISTS_MOP">
 						<tr>
 							<th  align="right" style="height:35">
-								<a  style="text-decoration: none" href="lists.html">מערכת רשימות - צפייה ברשימות</a>
+								<a  style="text-decoration: none" href="lists.html">צפייה ברשימות</a>
 							</th>
 						</tr>
 						</authz:authorize>
@@ -168,33 +175,6 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR">
-						<tr>
-							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="post.html?action=new">מערכת דיוור - שליחת הודעה חדשה</a>
-							</th>
-						</tr>
-						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR,ROLE_POST_SENDER,ROLE_POST_READER">
-						<tr>
-							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="posts.html">מערכת דיוור - דפדוף במאגר ההודעות</a>
-							</th>
-						</tr>
-						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN">
-						<tr>
-							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="persons.html?rf=1">מערכת דיוור - דפדוף במאגר הרשומים</a>
-							</th>
-						</tr>
-						<tr>
-							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="postReports.html">מערכת דיוור - מסך בקרה</a>
-							</th>
-						</tr>
-						</authz:authorize>
-						
 						<authz:authorize ifAnyGranted="ROLE_EQF_DEAN,ROLE_EQF_YISSUM,ROLE_EQF_RESEARCHER">
 						<tr>
 							<th align="right" style="height:35">
@@ -202,10 +182,97 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR,ROLE_POST_SENDER,ROLE_POST_READER">
+						<tr>
+							<th align="right" style="height:35">
+								<h1>מערכת דיוור</h1>
+							</th>
+						</tr>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR">
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="post.html?action=new">שליחת הודעה חדשה</a>
+							</th>
+						</tr>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR,ROLE_POST_SENDER,ROLE_POST_READER">
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="posts.html">דפדוף במאגר ההודעות</a>
+							</th>
+						</tr>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN">
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="persons.html?rf=1">דפדוף במאגר הרשומים</a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="postReports.html">מסך בקרה</a>
+							</th>
+						</tr>
+						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_POST_READER,ROLE_POST_CREATOR,ROLE_POST_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
 								<a style="text-decoration: none" href="personPost.html?id=${userPersonBean.id}">עריכת פרטי רישום לדיוור הישיר</a>
+							</th>
+						</tr>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_READ,ROLE_WEBSITE_EDIT">
+						<tr>
+							<th align="right" style="height:35">
+								<h1>אתר האוניברסיטה</h1>
+							</th>
+						</tr>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_WEBSITE_READ,ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="homePage.html">אתר האוניברסיטה - דף הבית</a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="search.html">אתר האוניברסיטה - חיפוש כללי</a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="searchCallForProposals.html">אתר האוניברסיטה - חיפוש קולות קוראים</a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="sitemap.html">אתר האוניברסיטה - מפת האתר</a>
+							</th>
+						</tr>
+						<authz:authorize ifAnyGranted="ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="callForProposals.html"> עריכת קולות קוראים</a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="textualPages.html"> עריכת דפי טקסט</a>
+							</th>
+						</tr>
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="categories.html">עריכת קטגוריות לאתר </a>
+							</th>
+						</tr>
+						</authz:authorize>
+						</authz:authorize>
+
+						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN,ROLE_IMAGE_ADMIN,ROLE_IMAGE_RESEARCHER">
+						<tr>
+							<th align="right" style="height:35">
+								<h1>ניהול אתר</h1>
 							</th>
 						</tr>
 						</authz:authorize>
@@ -243,6 +310,15 @@ $(document).ready(function() {
 						<tr>
 							<th align="right" style="height:35">
 								בחר את הפעולה שברצונך לבצע במערכת:
+							</th>
+						</tr>
+						</authz:authorize>
+						</c:if>
+						<c:if test="${titleCode!=2}">
+						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_RESEARCHER,ROLE_CONFERENCE_ADMIN,ROLE_CONFERENCE_COMMITTEE">
+						<tr>
+							<th align="right" style="height:35">
+								<h1>מערכת כנסים</h1>
 							</th>
 						</tr>
 						</authz:authorize>
@@ -301,45 +377,12 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						</authz:authorize>
-						<authz:authorize ifAnyGranted="ROLE_WEBSITE_READ,ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
+
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="homePage.html">אתר האוניברסיטה - דף הבית</a>
+								&nbsp;
 							</th>
 						</tr>
-						<tr>
-							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="search.html">אתר האוניברסיטה - חיפוש כללי</a>
-							</th>
-						</tr>
-						<tr>
-							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="searchCallForProposals.html">אתר האוניברסיטה - חיפוש קולות קוראים</a>
-							</th>
-						</tr>
-						<tr>
-							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="sitemap.html">אתר האוניברסיטה - מפת האתר</a>
-							</th>
-						</tr>
-						<authz:authorize ifAnyGranted="ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
-						<tr>
-							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="callForProposals.html"> עריכת קולות קוראים</a>
-							</th>
-						</tr>
-						<tr>
-							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="textualPages.html"> עריכת דפי טקסט</a>
-							</th>
-						</tr>
-						<tr>
-							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="categories.html">עריכת קטגוריות לאתר </a>
-							</th>
-						</tr>
-						</authz:authorize>
-						</authz:authorize>
 					
 						<tr>
 							<th align="right" style="height:35">
