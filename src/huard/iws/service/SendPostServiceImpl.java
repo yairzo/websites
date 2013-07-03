@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+ 
 import org.apache.log4j.Logger;
 
 
@@ -22,22 +26,35 @@ public class SendPostServiceImpl implements SendPostService{
 
 	private void markSentPosts(List<Post> yetSentPosts, List<PersonBean> persons){
 		// get posts yet to be marked as sent, part of them may have been sent already
-
+	try{
+		FileWriter fstream = new FileWriter("/home/mop/work/postlog.txt", true); 
+		BufferedWriter out = new BufferedWriter(fstream);
 		for (Post post: yetSentPosts){
 			boolean preparedSendToAll = true;
 			for (PersonBean person: persons){
+				//out.write("\n post:"+post.getId() +",person:"+person.getId());
 				if (isToBeSentTo(post, person)){
-					if (isPreparedToSend(post,person))
+					if (isPreparedToSend(post,person)){
 						continue;
-					else
+					}
+					else{
 						preparedSendToAll = false;
+						out.write("\n else. post:"+post.getId() +",person:"+person.getId());
+					}
 				}
 			}
+			out.write("\n preparedSendToAll:"+preparedSendToAll);
 			if (preparedSendToAll){
 				post.setSent(true);
 				postService.updatePost(post);
 			}
+			out.close();
 		}
+	}
+	catch (Exception e){
+		System.err.println("Error: " + e.getMessage());
+	}
+	    
 	}
 
 	private boolean isPreparedToSend(Post post, PersonBean person){
@@ -90,6 +107,7 @@ public class SendPostServiceImpl implements SendPostService{
 		markSentPosts(yetSentPosts, persons);
 		int prepareSendPostCounter = 0;
 		for (Post post: yetSentPosts){
+			logger.info("post isVerified?"+post.isVerified());
 			if (! post.isSent() && post.isVerified()){
 				for (PersonBean person: persons){
 					if (person.getId() == 3650 && post.getId() == 1482){

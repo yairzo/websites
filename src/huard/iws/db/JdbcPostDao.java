@@ -265,7 +265,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	}
 
 	public void markPersonPostAsSent(int personId, int postId){
-		String query = "update personToPost set isSent = 1 where personId = ? and postId = ?;";
+		String query = "update personToPost set isSent = 1,sendingTime=now() where personId = ? and postId = ?;";
 		getSimpleJdbcTemplate().update(query,
 				personId,
 				postId);
