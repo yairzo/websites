@@ -135,7 +135,7 @@ public class SendPostServiceImpl implements SendPostService{
 		preparedPostPersonsMap = postDao.getPreparedPostPersonsMap();
 		List<Post> yetSentPosts = postService.getSelfSendPosts();
 		List<PersonBean> personsBeans = personListService.getPersonsList(configurationService.getConfigurationInt("post", "postCreatorsListId"));
-		markSentPosts(yetSentPosts, personsBeans);
+		//markSentPosts(yetSentPosts, personsBeans);
 		for (Post post: yetSentPosts){
 			if (post.isSelfSend() && ! post.isVerified() && ! post.isSelfSent()){
 				postDao.deletePersonPost(post.getCreatorId(), post.getId());
