@@ -59,10 +59,13 @@ public class LanguageUtils {
 	private static String getLocaleId(String textSample){
 		if (textSample !=null && textSample.length() > 0){
 			try{
-				byte[] utf8 = textSample.getBytes("UTF-8");
-				for (byte b : utf8){
-					if ((256+b) >=144 && (256+b)<=170) return "iw_IL";
+				for (int i=0;i< textSample.length();i++){
+					if (textSample.codePointAt(i) > 0x590 && textSample.codePointAt(i) < 0x5FF) return "iw_IL";
 				}
+				//byte[] utf8 = textSample.getBytes("UTF-8");
+				//for (byte b : utf8){
+				//	if ((256+b) >=144 && (256+b)<=170) return "iw_IL";
+				//}
 				return "en_US";
 			}
 			catch (Exception e){

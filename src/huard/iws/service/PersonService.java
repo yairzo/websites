@@ -54,7 +54,7 @@ public interface PersonService {
 
 	public List<PersonBean> getUsers (String role, boolean enabled);
 
-	public List<PersonBean> getUsers (String role, boolean enabled, String additionalCondition);
+	public List<PersonBean> getUsers (String role, boolean enabled, String additionalCondition, String joinTable);
 	
 	public int getOnBehalfOf(String module,int personId);
 

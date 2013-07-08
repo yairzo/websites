@@ -465,12 +465,14 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	}
 
 	public List<Person> getUsers (String role, boolean enabled){
-		return getUsers(role, enabled, null);
+		return getUsers(role, enabled, null,null);
 	}
 
-	public List<Person> getUsers (String role, boolean enabled, String additionalCondition){
-		String query = "select * from person inner join personPrivilege on person.id = personPrivilege.personId"
-			+ " where personPrivilege.privilege = ? and enabled = " + (enabled ? 1: 0);
+	public List<Person> getUsers (String role, boolean enabled, String additionalCondition, String joinPhrase){
+		String query = "select * from person inner join personPrivilege on person.id = personPrivilege.personId";
+		if (joinPhrase != null)
+			query	+= joinPhrase;
+		query += " where personPrivilege.privilege = ? and enabled = " + (enabled ? 1: 0);
 		if (additionalCondition != null)
 			query += " and " + additionalCondition;
 		query += " order by lastLogin desc;";

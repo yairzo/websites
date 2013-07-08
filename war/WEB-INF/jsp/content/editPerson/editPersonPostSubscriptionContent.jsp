@@ -102,7 +102,8 @@
     					function(confirm2){
     						if(confirm2==1){
     							submission = true;
-    							$('form#form').append('<input type=\"hidden\" name=\"postReceiveImmediately\" value=\"true\"/>');
+    							$('#postReceiveImmediately').prop('checked', true);
+    							//$('form#form').append('<input type=\"hidden\" name=\"postReceiveImmediately\" value=\"true\"/>');
     							$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"done\"/>');
     							$('form#form').submit();
 	    					}

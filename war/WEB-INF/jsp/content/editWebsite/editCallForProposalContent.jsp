@@ -296,7 +296,7 @@
  					</table>
  					</td>
 				</tr>
-				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr><td>&nbsp;</td></tr>	
 				<tr>
 					<td colspan="4">
 					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
@@ -322,7 +322,7 @@
  					</table>
  					</td>
 				</tr>	
-				<tr><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
 				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
@@ -357,7 +357,7 @@
  					</tr>
  					</table>
 				</tr>
-				<tr><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
 				<tr class="notDescriptionOnly">
 					<td colspan="4">
 					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
@@ -528,8 +528,8 @@
  					</table>
  					</td>
 				</tr>											
-				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
-				<tr class="notDescriptionOnly">
+				<tr><td>&nbsp;</td></tr>	
+				<tr>
 					<td colspan="4">
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>

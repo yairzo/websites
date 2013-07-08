@@ -98,14 +98,14 @@ public class PostServiceImpl implements PostService{
 	}
 
 	public List<PersonBean> getSubscribers(){
-		String usersAdditionalCondition = "personId in (select personId from subjectToPerson)";
-		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, usersAdditionalCondition);
+		String joinPhrase = " inner join subjectToPerson on person.id = personPrivilege.personId";
+		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, null, joinPhrase);
 		return subscribers;
 	}
 
 	public List<PersonBean> getSubscribersNoSubjects(){
 		String usersAdditionalCondition = "personId not in (select personId from subjectToPerson)";
-		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, usersAdditionalCondition);
+		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, usersAdditionalCondition, null);
 		return subscribers;
 	}
 
@@ -115,8 +115,9 @@ public class PostServiceImpl implements PostService{
 	}
 
 	public List<PersonBean> getSubscribersSubject(int subjectId){
-		String usersAdditionalCondition = "personId in (select personId from subjectToPerson where subjectId = " + subjectId + ")";
-		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, usersAdditionalCondition);
+		String joinPhrase = " inner join subjectToPerson on person.id = personPrivilege.personId";
+		String usersAdditionalCondition = " subjectToPerson.subjectId = " + subjectId;
+		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, usersAdditionalCondition, joinPhrase);
 		return subscribers;
 	}
 

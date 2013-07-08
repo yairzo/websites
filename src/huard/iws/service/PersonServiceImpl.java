@@ -115,8 +115,8 @@ public class PersonServiceImpl implements PersonService {
 		return personDao.authenticate(personId, encodedPassword);
 	}
 
-	public List<PersonBean> getUsers (String role, boolean enabled, String additionaCondition){
-		List<Person> usersPersons = personDao.getUsers(role, enabled, additionaCondition);
+	public List<PersonBean> getUsers (String role, boolean enabled, String additionaCondition, String joinTable){
+		List<Person> usersPersons = personDao.getUsers(role, enabled, additionaCondition,joinTable);
 		return applyLastLogins(usersPersons);
 	}
 

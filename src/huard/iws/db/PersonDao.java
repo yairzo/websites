@@ -60,7 +60,7 @@ public interface PersonDao {
 
 	public List<Person> getUsers (String role, boolean enabled);
 
-	public List<Person> getUsers (String role, boolean enabled, String additionalCondition);
+	public List<Person> getUsers (String role, boolean enabled, String additionalCondition,  String joinTable);
 
 	public Map<Integer, Timestamp> getPersonsLastLogins();
 	

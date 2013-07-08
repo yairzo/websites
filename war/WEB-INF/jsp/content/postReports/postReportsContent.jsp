@@ -198,7 +198,7 @@
 							<tr>
 								<td colspan="2">
 								
-									${post.messageSubject}
+									<a href="post.html?id=${post.id}">${post.messageSubject}</a>
 								</td>
 								<td>
 									${post.sendTime}
