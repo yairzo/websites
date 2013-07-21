@@ -97,14 +97,14 @@ $(document).ready(function() {
 		var numberRegex=/^\d+$/;
 		if(!numberRegex.test($(this).val())){
 			 $(this).val('0');
-			 openHelp('','נא להכניס ערך מספרי שלם');
+			 openHelp(this,'נא להכניס ערך מספרי שלם');
 			 calcParticipants();
 			 return false;
 		}
 		calcParticipants();
 		if(totalParticipantsCounter>10000){
 			 $(this).val('0');
-			 openHelp('','כלל המשתתפים בכנס לא יעלה על 1000');
+			 openHelp(this,'כלל המשתתפים בכנס לא יעלה על 10000');
 			 calcParticipants();
 			 return false;
 		}		
@@ -487,7 +487,7 @@ $(document).ready(function() {
 			$("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
-		 	openHelp(this,'נא לצרף קובץ מסוג PDF');
+			openHelp(this,"נא לצרף קובץ מסוג PDF");
 			return false;
 		}
 	});	
@@ -803,7 +803,7 @@ $(document).ready(function() {
     			return false;
                }
             });
-    	openHelp('','האם הנך מאשר/ת את ביטול הבקשה?');
+    	openHelp(this,'האם הנך מאשר/ת את ביטול הבקשה?');
         return false;
    	});	
 	
@@ -823,7 +823,7 @@ $(document).ready(function() {
 	    			$("#genericDialog").dialog({ modal: false });
 	    			$("#genericDialog").dialog({ height: 200 });
 	    			$("#genericDialog").dialog({ width: 400 });
-	    			openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
+	    			openHelp(this,'ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
 	    			return false;
 	    		}
 	    		else{
@@ -846,7 +846,7 @@ $(document).ready(function() {
 	    	    	    		return false;
 	    	               }
 	    	         });
-	    			openHelp('','האם ברצונך להגיש את הבקשה?');
+	    			openHelp(this,'האם ברצונך להגיש את הבקשה?');
 	    	        return false;
 	    		}
 	          }
@@ -855,7 +855,7 @@ $(document).ready(function() {
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
 			var text ='אתה נמצא בגרסה ישנה של הבקשה. בלחיצה על כן תוגש הבקשה עם הנתונים של גרסה זו והיא תהפוך לגירסה העדכנית. האם להמשיך?';
-			openHelp('',text);
+			openHelp(this,text);
 			return false;
 		}
 		else{//not version
@@ -865,7 +865,7 @@ $(document).ready(function() {
 				$("#genericDialog").dialog({ modal: false });
 				$("#genericDialog").dialog({ height: 200 });
 				$("#genericDialog").dialog({ width: 400 });
-				openHelp('','ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
+				openHelp(this,'ההצעה לא הוגשה: נא להתייחס להערות באדום ולהגיש שוב');
 				return false;
 			}
 			else{
@@ -888,7 +888,7 @@ $(document).ready(function() {
 	    	    	return false;
 	            }
 	           });
-			   openHelp('','האם ברצונך להגיש את הבקשה?');
+			   openHelp(this,'האם ברצונך להגיש את הבקשה?');
 	           return false;
 			 }//else no errors
 		}//else not version
@@ -922,7 +922,7 @@ $(document).ready(function() {
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
 			var text ='אתה נמצא בגרסה ישנה של הבקשה. בלחיצה על כן תשמר הבקשה עם הנתונים של גרסה זו והיא תהפוך לגירסה העדכנית. האם להמשיך?';
-			openHelp('',text);
+			openHelp(this,text);
 			return false;
 		}
 		var options = { 
@@ -954,7 +954,7 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-		openHelp('',userMessage);
+		openHelp('#form',userMessage);
 		</c:if>
 
 		<c:if test="${researcherDeclaration}">
@@ -984,7 +984,7 @@ $(document).ready(function() {
   			text+="<li> איש משותפי לארגון הכנס לא זכה בתמיכת ועדת הכנסים במהלך השנה שחלפה.</li><br/>";
 			text+="<li> אמלא את טופס הבקשה בהתאם ל<a style='text-decoration:underline;color:#0000FF' href='http://admin-regulations.huji.ac.il/17-011.pdf' target='_blank'>הוראות הנהלה מספר 17-011</a> , <a style='text-decoration:underline;color:#0000FF' href='http://ard.huji.ac.il/huard/pubPageViewer.jsp?ardNum=440&category=harashut_lemop' target='_blank'>לאמות המידה</a> של הועדה ולהנחיות (המסומנות ב <img src='image/questionmark.png' width='25' height='25'>) שבגוף הטופס.</li></br> ";
 			text+="</ol>";
-			openHelp('',text);
+			openHelp('#form',text);
 		</c:if>
 
    $(".ui-dialog-titlebar").hide();
@@ -1140,7 +1140,7 @@ $(document).ready(function() {
    		texts +='לצורך הסדרת הפטור, יש לצרף לחשבונית המס רשימה מפורטת של המשתתפים, בציון המוסדות והארצות מהם הם באים ולציין את המספר הכולל של המשתתפים.</li>';
    		texts +='<li>יש לתכנן את הכנס כך <u>שההוצאות הצפויות תכוסנה ע"י ההכנסות הוודאיות</u>.</li>';
 		texts+='</ol></p>';	    
-	    openHelp('',texts);
+	    openHelp(this,texts);
 	    return false;
 	   });
    
@@ -1298,10 +1298,10 @@ $(document).ready(function() {
 	   });
    
     
-    $(window).scroll(function() {
-    	if (fieldname=="") 
-    		$("#genericDialog").dialog("option", "position", "center");
-    }); 
+    //$(window).scroll(function() {
+    //	if (fieldname=="") 
+    //		$("#genericDialog").dialog("option", "position", "center");
+    //}); 
     
 
    
@@ -1317,7 +1317,7 @@ function textlimiter(){
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-		openHelp("","שדה התוכן העיוני מוגבל ל 1000 תווים");
+		openHelp("#description","שדה התוכן העיוני מוגבל ל 1000 תווים");
 	}
     return false;
 }
