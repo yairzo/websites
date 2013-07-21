@@ -452,8 +452,8 @@ $(document).ready(function() {
 			$("#genericDialog").dialog({ modal: false });
 			$("#genericDialog").dialog({ height: 200 });
 			$("#genericDialog").dialog({ width: 400 });
-		 	openHelp(this,'נא לצרף קובץ מסוג PDF');
-			return false;
+		 	openHelp(this,'נא לצרף קובץ מסוג PDF', function(){ window.location.reload(); });
+		 	
 		}
 	});	
 	$('#deleteGuestsAttach').click(function(event){
@@ -1323,12 +1323,12 @@ function textlimiter(){
 }
 
 var fieldname=""; 
-function openHelp(name,mytext){
+function openHelp(name,mytext,closeCallback){
 	    fieldname=name;
 	 	if(fieldname=="")
 	    	$("#genericDialog").dialog("option", "position", "center");
 	    else
-	 		$('#genericDialog').dialog({position: { my: 'top', at: 'top', of: $(name)} });
+	 		$('#genericDialog').dialog({position: { my: 'top', at: 'top', of: $(name)}, close: closeCallback });
 	 	
 	    $("#genericDialog").html(mytext).dialog("open");
 } 
