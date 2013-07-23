@@ -15,7 +15,7 @@
 
 function resetAutocomplete(){		
 	$("#searchResearcher").autocomplete( 
-		{source: "/iws/personsHelper.html?role=ROLE_CONFERENCE_RESEARCHER",
+		{source: "selectBoxFiller?type=conference researchers",
 		 minLength: 2,
 		 highlight: true,
 		 select: function(event, ui) {
@@ -25,6 +25,7 @@ function resetAutocomplete(){
 		 }
 	    }
 	);
+	$("#searchResearcher").autocomplete("option", "appendTo", "#conferenceProposalResearcherDialog");
 }
 
 
@@ -42,7 +43,6 @@ $(document).ready(function() {
       autoOpen: false,
       show: 'fade',
       hide: 'fade',
-      modal: true,
       width: 400,
       height:350,
       title: "מערכת הכנסים"
@@ -63,6 +63,8 @@ $(document).ready(function() {
 		            	window.location.href = targetUrl;
 		             }
 		    });
+		   	
+		   	$("#conferenceProposalResearcherDialog").dialog({position: { my: "bottom",at: "bottom",of:".chooseResearcher"}});
 		   	$("#conferenceProposalResearcherDialog").dialog("open");
 		   	return false;
 	});	

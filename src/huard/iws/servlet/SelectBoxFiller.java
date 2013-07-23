@@ -251,13 +251,20 @@ public class SelectBoxFiller extends HttpServlet {
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
 			StringBuilder sb = new StringBuilder();
-			List<Person> persons = personListService.getConferenceResearchers(new String [] { "lastNameHebrew", "firstNameHebrew"});
+			sb.append("[");		
+			String term = request.getParameter("term");
+			List<Person> persons = personListService.getFilteredPersons(new String [] { "lastNameHebrew", "firstNameHebrew"},
+					term, "ROLE_CONFERENCE_RESEARCHER");
+			boolean first = true;
 			for (Person person: persons){
+				if (!first)
+					sb.append(",");
+				first = false;
 				PersonBean personBean = new PersonBean(person);
-				String listItem = personBean.getLastNameHebrew() + " " + personBean.getFirstNameHebrew();
-				sb.append(listItem + ",,");
+				String listItem = "{\"label\":\"" + personBean.getFullNameHebrew() + "\",\"id\":"+personBean.getId()+"}";
+				sb.append(listItem);
 			}
-			sb.delete(sb.length()-2, sb.length());
+			sb.append("]");
 			ServletOutputStream out = response.getOutputStream();
 			out.print(sb.toString());
 			out.flush();
