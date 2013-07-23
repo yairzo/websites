@@ -90,15 +90,7 @@
 							<fmt:message key="${lang.localeId}.post.content"/>
 						</td>
 				</tr>
-				<!--  <tr>
-						<td width="90%" colspan="2">
-							<input type="radio"  name="radios" class="radios rdoTypeTinymce" value="rdoTypeTinymce" checked="checked" >
-           					  <fmt:message key="${lang.localeId}.general.oldEditor"/>
-            				&nbsp;
-            				<input type="radio" name="radios" class="radios rdoTypeCKEDITOR" value="rdoTypeCKEDITOR">
-          					  <fmt:message key="${lang.localeId}.general.newEditor"/>
-          				</td>
-          		</tr>  -->
+				
 				<tr>
 					<td colspan="2">
 						<div id="editable" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">

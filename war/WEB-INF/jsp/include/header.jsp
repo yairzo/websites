@@ -2,9 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
 	<title>הרשות למחקר ופיתוח - מערכת אינטרנט משולבת</title>
 	
 	<c:if test="${!ajaxView}">

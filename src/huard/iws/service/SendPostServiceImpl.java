@@ -27,9 +27,11 @@ public class SendPostServiceImpl implements SendPostService{
 	private void markSentPosts(List<Post> yetSentPosts, List<PersonBean> persons){
 		// get posts yet to be marked as sent, part of them may have been sent already
 	try{
-		FileWriter fstream = new FileWriter("/home/mop/work/postlog.txt", true); 
+		FileWriter fstream = new FileWriter("/home/tomcat/tmp/postlog.txt", true); 
 		BufferedWriter out = new BufferedWriter(fstream);
 		for (Post post: yetSentPosts){
+			if (!post.isVerified())
+				continue;
 			boolean preparedSendToAll = true;
 			for (PersonBean person: persons){
 				//out.write("\n post:"+post.getId() +",person:"+person.getId());
@@ -39,17 +41,19 @@ public class SendPostServiceImpl implements SendPostService{
 					}
 					else{
 						preparedSendToAll = false;
-						out.write("\n else. post:"+post.getId() +",person:"+person.getId());
+						out.write("else. post:"+post.getId() +",person:"+person.getId());
+						out.newLine();
 					}
 				}
 			}
-			out.write("\n preparedSendToAll:"+preparedSendToAll);
+			out.newLine();
+			out.write("preparedSendToAll:"+preparedSendToAll);
 			if (preparedSendToAll){
 				post.setSent(true);
 				postService.updatePost(post);
-			}
-			out.close();
+			}			
 		}
+		out.close();
 	}
 	catch (Exception e){
 		System.err.println("Error: " + e.getMessage());
@@ -107,16 +111,8 @@ public class SendPostServiceImpl implements SendPostService{
 		markSentPosts(yetSentPosts, persons);
 		int prepareSendPostCounter = 0;
 		for (Post post: yetSentPosts){
-			logger.info("post isVerified?"+post.isVerified());
 			if (! post.isSent() && post.isVerified()){
 				for (PersonBean person: persons){
-					if (person.getId() == 3650 && post.getId() == 1482){
-						logger.info("Person: 3650 Post: 1482 will check if should send");
-						logger.info("is already prepared to send ? " + isPreparedToSend(post, person));
-						logger.info("is to be sent to ? " + isToBeSentTo(post, person));
-						logger.info("is hours fit ? " + (post.isSendImmediately() || person.isPostReceiveImmediately() || (person.getPostReceiveDays().contains(dayOfWeek)
-								&& person.getPostReceiveHour() == hourOfDay)));
-					}
 					if (!isPreparedToSend(post, person) && isToBeSentTo(post, person)){
 						if (post.isSendImmediately() || person.isPostReceiveImmediately() || (person.getPostReceiveDays().contains(dayOfWeek)
 								&& person.getPostReceiveHour() == hourOfDay)){
