@@ -85,9 +85,9 @@
 						<a href="#" class="last_calls">קולות קוראים שעודכנו לאחרונה</a>
 						<div class="board_search">
 							<h3>חיפוש</h3>
-							<a href="#" class="board_search_advanced">חיפוש מתקדם</a>
-							<form action="#" method="post" class="board_form">
-								<input type="text" name="" onFocus="if(this.value==this.defaultValue)this.value=''"    
+							<a href="searchCallForProposals.html" class="board_search_advanced">חיפוש מתקדם</a>
+							<form action="searchCallForProposals.html" method="post" class="board_form">
+								<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
 onblur="if(this.value=='')this.value=this.defaultValue" value="הקלידו נושא לחיפוש ..." class="input_text" />
 								<input type="submit" value="חיפוש" class="input_submit" />
 							</form>
