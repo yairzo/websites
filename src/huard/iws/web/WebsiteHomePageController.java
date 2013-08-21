@@ -56,7 +56,10 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		List<PageBodyImage> pageBodyImages = pageBodyImageService.getApprovedPageBodyImages();
 		model.put("images", pageBodyImages);
 
-		return new ModelAndView ("websiteHomePage",model);
+		if(request.getParameter("t", "").equals("1"))
+			return new ModelAndView ("websiteHomePage1",model);
+		else
+			return new ModelAndView ("websiteHomePage",model);
 	}
 
 	protected Object getFormBackingObject(
