@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_25"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/acegi-security-1.0.5.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/aspectjrt.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/aspectjweaver.jar"/>
@@ -19,11 +19,15 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/standard.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/velocity-1.5.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.15.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/servlet-api.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jasper-runtime.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-logging.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/sphinxapi.jar"/>
+	<classpathentry kind="lib" path="/home/mop/tomcat/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="/home/mop/tomcat/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jasper-runtime.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/mysql-connector-java-3.0.15-ga-bin.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-el.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-io.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/urlrewritefilter-4.0.3.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

@@ -179,15 +179,15 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 
   	<taglib>
    	 <taglib-uri>/spring</taglib-uri>
-   	 <taglib-location>/WEB-INF/spring.tld</taglib-location>
+   	 <taglib-location>/WEB-INF/tld/spring.tld</taglib-location>
   	</taglib>
 
-  <resource-ref>
+   <resource-ref>
     	<description>DB Connection</description>
         <res-ref-name>jdbc/iws</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Application</res-auth>
-  </resource-ref>
+   </resource-ref>
 
   <error-page>
         <error-code>500</error-code>

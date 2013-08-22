@@ -23,7 +23,7 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 		try{
 			//String host = configurationService.getConfigurationString("sphinx", "host");
 			//int port = configurationService.getConfigurationInt("sphinx", "port");
-			String host = "";
+			String host = "localhost";
 			int port = 9312;
 			int sortMode = SphinxClient.SPH_SORT_RELEVANCE;
 			String sortClause = "";

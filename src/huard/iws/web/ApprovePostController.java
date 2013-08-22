@@ -11,13 +11,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
 public class ApprovePostController extends GeneralController{
 
-	//private static final Logger logger = Logger.getLogger(ProposalStateHistoryController.class);
+	private static final Logger logger = Logger.getLogger(ProposalStateHistoryController.class);
 
-	@SuppressWarnings("unchecked")
 	public ModelAndView handleRequest(RequestWrapper request, HttpServletResponse response,
 			Map<String, Object> model, PersonBean userPersonBean){
 
@@ -32,6 +32,7 @@ public class ApprovePostController extends GeneralController{
 		else{
 			post.setVerified(true);
 			postService.updatePost(post);
+			
 
 			//Let's immediatly send the post to the additional addresses, they don't depend on the recieving habits of
 			//out 'regular' subscribers
