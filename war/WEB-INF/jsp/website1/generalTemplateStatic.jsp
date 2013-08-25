@@ -9,7 +9,7 @@
         <title>הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="style/style1.css">
+        <link rel="stylesheet" href="style/style1Static.css">
         <script src="js/modernizr-2.6.2.min.js"></script>
     </head>
     <body>

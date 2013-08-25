@@ -27,8 +27,10 @@
 				$('.messageslider').show();
 				$('.messageslider').bxSlider({
 					controls:false,
-					mode:'fade',
-					auto: true 
+					mode:'horizontal',
+					auto: true ,
+					slideWidth:406,
+					auto_direction: 'prev' 
 					});
 				$('.pictureslider').show();
 				$('.pictureslider').bxSlider({

@@ -53,18 +53,20 @@
 					<div class="mainbox">
 						<div class="title">
 							<h2>עדכונים אחרונים</h2>
-							<a href="#">לכל ההודעות</a>
+							<a href="textualPages.html">לכל ההודעות</a>
 						</div>
-						<div class="mainbox_news">
+						<div class="mainbox_news" style="direction:ltr">
 							<div class="bx-wrapper">
-								<div class="bx-viewport">
+								<div class="bx-viewport"  >
 									<div class="messageslider" style="display:none;">
-  										<c:forEach items="${textualPages}" var="textualPage">
-  										<!--<c:set var="direction" value="rtl"/>
+  										<c:forEach items="${textualPages}" var="textualPage" varStatus="textualIndex">
+  										<c:set var="direction" value="rtl"/>
   										<c:if test="${textualPage.localeId=='en_US'}">
   											<c:set var="direction" value="ltr"/>
-  										</c:if>-->
-  										<div style="height:80px">${textualPage.title}</div>
+  										</c:if>
+  										<div style="height:80px;width:396px;direction:${direction};">
+  											${textualPage.title}
+										</div>
  										</c:forEach>
 									</div>
 								</div>
