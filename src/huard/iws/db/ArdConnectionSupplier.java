@@ -60,7 +60,7 @@ public class ArdConnectionSupplier {
 
 	private Connection createConnection(String database, String privileges, String server){
 		try{
-			String url="jdbc:mysql://"+server+":3306/"+database+"?characterEncoding=UTF-8&characterSetResults=UTF-8";
+			String url="jdbc:mysql://"+server+":5152/"+database+"?characterEncoding=UTF-8&characterSetResults=UTF-8";
 			System.out.println(url);
 			Connection connection = DriverManager.getConnection(url,DB_USERNAME,DB_PASSWORD);
 			// add the possibility for different username and password by database and privileges
