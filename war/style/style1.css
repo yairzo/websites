@@ -1100,7 +1100,7 @@ line-height:47px;
 background:#f2f2f2;
 }
 
-.calendar .board_calendar .ui-datepicker td span, .calendar .board_calendar .ui-datepicker td a{
+.calendar .board_calendar .ui-datepicker td span{
 padding:8px;
 width:81px;
 height:81px;

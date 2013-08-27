@@ -37,11 +37,10 @@
         					<c:forEach items="${calendarList}" var="calendarDay" varStatus="varStatus">
         						<c:if test="${varStatus.index%7==0}"></tr><tr style="vertical-align: top"></c:if>
 								<td>
-									<a href="" class="ui-state-default">${calendarDay.day}</a>
-
+								<span>
+									<c:out escapeXml="false" value="${calendarDay.day}"/>
 									<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay" varStatus="varStatusFund">
-        								<br>
-        								<c:if test="${varStatusFund.index<3}">
+         								<c:if test="${varStatusFund.index<3}">
           								<c:if test="${fn:length(fundInDay.callForProposals)==1}">
        										<a href="" class="viewProposal" id="${fundInDay.callForProposals[0].id}"><c:out escapeXml="false" value="${fundInDay.fundShortName}"/></a>
          								</c:if>
@@ -60,6 +59,7 @@
         								</c:forEach>
         							</c:forEach>
          							</div>
+         							</span>
  								</td>
         					</c:forEach>
         					</tr>
