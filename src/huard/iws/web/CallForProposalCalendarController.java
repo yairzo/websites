@@ -124,7 +124,13 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		model.put("month", request.getSession().getAttribute("month"));
 		model.put("year", request.getSession().getAttribute("year"));
 	
-		return new ModelAndView ("callForProposalCalendar",model);
+		if(request.getParameter("t", "").equals("1"))
+			return new ModelAndView ("callForProposalCalendar1",model);
+		else if(request.getParameter("t", "").equals("0"))
+			return new ModelAndView ("callForProposalCalendarStatic",model);
+		else
+			return new ModelAndView ("callForProposalCalendar",model);		
+		//return new ModelAndView ("callForProposalCalendar",model);
 	}
 
 

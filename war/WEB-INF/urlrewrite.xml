@@ -22,6 +22,10 @@
         <from>/.*/image/(.*)</from>
         <to last="true">/image/$1</to>
     </rule>
+    <rule>
+        <from>/.*/font/(.*)</from>
+        <to last="true">/font/$1</to>
+    </rule>
     
     <!-- Spring Security Servlets -->
     

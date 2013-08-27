@@ -29,17 +29,7 @@
 			</div>
 			
 			<div class="container clearfix">
-				<div class="side sidelinks">
-					<h3>קישורים מהירים</h3>
-					<ul>
-						<li class="link_research"><a href="#">מערכת המחקרים</a></li>
-						<li class="link_budget"><a href="#">תקציבים אישיים</a></li>
-						<li class="link_mail"><a href="#">דיוור ישיר</a></li>
-						<li class="link_guidelines"><a href="#">הנחיות להגשה</a></li>
-						<li class="link_grant"><a href="#">הנחיות למענקים</a></li>
-						<li class="link_application"><a href="#">חברת יישום</a></li>
-					</ul>
-				</div>
+				<jsp:include page="sideLinks.jsp"/>
 				<div class="main">
 					<div class="mainbox">
 						<div class="title">
