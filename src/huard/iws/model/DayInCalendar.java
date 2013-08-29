@@ -4,6 +4,8 @@ import java.util.List;
 
 public class DayInCalendar{
 	String day;
+	String dayOnly;
+	String monthOnly;
 	List<FundInDay> fundsInDay;
 	
 	public String getDay(){
@@ -11,6 +13,18 @@ public class DayInCalendar{
 	}
 	public void setDay(String day){
 		this.day= day;
+	}
+	public String getDayOnly(){
+		return dayOnly;
+	}
+	public void setDayOnly(String dayOnly){
+		this.dayOnly= dayOnly;
+	}
+	public String getMonthOnly(){
+		return monthOnly;
+	}
+	public void setMonthOnly(String monthOnly){
+		this.monthOnly= monthOnly;
 	}
 	
 	public List<FundInDay> getFundsInDay() {

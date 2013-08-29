@@ -8,35 +8,27 @@
 $(document).ready(function() {
 
 	
-	$(".viewProposal").click(function(e) {
-		e.preventDefault();
-		
-		var proposalId=$(this).attr("id");	
-		dlg.dialog('option', 'buttons', {
-        	"סגור" : function() {
-        		dlg.dialog("close");
-        	}
-		});
-		dlg.dialog({ modal: true });
-		dlg.dialog({ height: 700 });
-		dlg.dialog({ width: 700 });
-		dlg.dialog("option", "position", "center");
-		$.get('callForProposal.html?id='+proposalId, function(data) {
-			dlg.html(data).dialog("open");
-		});
-	});	
-	
+
 	$(".viewAll").click(function(e) {
 		e.preventDefault();
-		if($(".moreCalls", $(this).closest("td")).css('display')=='block')
-			$(".moreCalls", $(this).closest("td")).hide();
-		else
-			$(".moreCalls", $(this).closest("td")).show();
+		if($(".callForProposalsPerDay", $(this).closest("td")).css('display')=='block')
+			$(".callForProposalsPerDay").hide();
+		else{
+			$(".callForProposalsPerDay").hide();
+			$(".callForProposalsPerDay", $(this).closest("td")).show();
+			var rowPos = $(this).position();
+			bottomTop = rowPos.top - $(".callForProposalsPerDay", $(this).closest("td")).height();
+			bottomLeft = rowPos.left - 100;
+			$(".callForProposalsPerDay").css({
+			    top: bottomTop,
+			    left: bottomLeft
+			});
+		}
 	});	
-	$(".moreCalls").click(function(e) {
+	$(".callForProposalsPerDay").click(function(e) {
 		e.preventDefault();
-		if($(".moreCalls", $(this).closest("td")).css('display')=='block')
-			$(".moreCalls", $(this).closest("td")).hide();
+		if($(".callForProposalsPerDay", $(this).closest("td")).css('display')=='block')
+			$(".callForProposalsPerDay", $(this).closest("td")).hide();
 	});	
 
 });

@@ -35,32 +35,42 @@
 							<tbody>
                 			<tr style="vertical-align: top">
         					<c:forEach items="${calendarList}" var="calendarDay" varStatus="varStatus">
-        						<c:if test="${varStatus.index%7==0}"></tr><tr style="vertical-align: top"></c:if>
-								<td>
-								<span>
-									<c:out escapeXml="false" value="${calendarDay.day}"/>
+        						<c:if test="${varStatus.index%7==0}">
+        							</tr><tr style="vertical-align: top">
+        						</c:if>
+							 	<c:if test="${month!=calendarDay.monthOnly}">
+							 		<td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
+							 		<span>${calendarDay.dayOnly}</span>
+							 		</td>
+							 	</c:if>
+								<c:if test="${month==calendarDay.monthOnly}">
+							   	<td>
+									<a href="#" class="ui-state-default viewAll">${calendarDay.dayOnly}
+									<dfn class="day_details" style="direction:ltr;text-align:left">
 									<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay" varStatus="varStatusFund">
          								<c:if test="${varStatusFund.index<3}">
-          								<c:if test="${fn:length(fundInDay.callForProposals)==1}">
-       										<a href="" class="viewProposal" id="${fundInDay.callForProposals[0].id}"><c:out escapeXml="false" value="${fundInDay.fundShortName}"/></a>
+            								${fundInDay.fundShortName}<br>
          								</c:if>
-        								<c:if test="${fn:length(fundInDay.callForProposals)>1}">
-      										<a href="" class="viewAll"><c:out escapeXml="false" value="${fundInDay.fundShortName}"/>&nbsp;<c:out escapeXml="false" value="(${fn:length(fundInDay.callForProposals)})"/></a>
+         								<c:if test="${varStatusFund.index==3}">
+         									...
          								</c:if>
-         								</c:if>
-         								<c:if test="${varStatusFund.index==3}"><a href="" class="viewAll">...</a></c:if>
         							</c:forEach>
-        							<div class="moreCalls" style="padding:10px;display:none;position:absolute;text-align:right;background-color:white;border: 1px solid black;">
-									<u> קולות קוראים להגשה עד ${calendarDay.day}</u></br>	
-									<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay">
-  										<c:forEach items="${fundInDay.callForProposals}" var="callForProposal">
-        									<a href="" class="viewProposal" id="${callForProposal.id}"><c:out escapeXml="false" value="${callForProposal.title}"/></a>
-  											<br>
+        							</dfn>
+        							</a>
+        							<div class="callForProposalsPerDay" style="display:none;direction:ltr;text-align:left">
+										<div class="clearfix">
+										<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay">
+											<h4><c:out escapeXml="false" value="${fundInDay.fundShortName}"/></h4>
+  											<c:forEach items="${fundInDay.callForProposals}" var="callForProposal">
+        										<dfn class="viewProposal" id="${callForProposal.id}"><c:out escapeXml="false" value="${callForProposal.title}"/></dfn>
+  												<br>
+        									</c:forEach>
         								</c:forEach>
-        							</c:forEach>
-         							</div>
-         							</span>
+									</div>
+									<div class="triangle"></div>
+									</div>
  								</td>
+ 								</c:if>
         					</c:forEach>
         					</tr>
         					</tbody>

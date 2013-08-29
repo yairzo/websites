@@ -846,13 +846,13 @@ td.dayWithFund {
 .callForProposalsPerDay{
 display:block;
 position:absolute;
-top:50px;
-left:-100px;
+/***hadar top:50px;* for popup dynamic position */
+/***hadar left:-100px;* for popup dynamic position*/
 width:223px;
 color:#ffffff;
 font-size:13px;
-/***hadar direction:rtl;* for popup align*/
-/***hadar text-align:right;* for popup align*/
+/***hadar direction:rtl;* for popup text align*/
+/***hadar text-align:right;* for popup text align*/
 }
 
 .lt-ie9 .callForProposalsPerDay{background:url(../image/website1/trans_black.png) repeat top;}
@@ -1100,7 +1100,7 @@ line-height:47px;
 background:#f2f2f2;
 }
 
-.calendar .board_calendar .ui-datepicker td span{
+.calendar .board_calendar .ui-datepicker td span,.calendar .board_calendar .ui-datepicker td a{
 padding:8px;
 width:81px;
 height:81px;

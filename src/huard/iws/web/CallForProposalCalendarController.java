@@ -97,6 +97,7 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 			DayInCalendar dayInCalendar = dayMap.get(finalSubmission);
 			List<FundInDay> dayFunds = dayInCalendar.getFundsInDay();
 			Fund fund= fundsMap.get(callForProposal.getFundId());
+			if (fund==null) continue;
 			boolean existsFundOnDay=false;
 			for(FundInDay dayFund: dayFunds){//find same fund
 				if (dayFund.getFundShortName().equals(fund.getShortName())){
@@ -119,7 +120,11 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		}
 		
 		calendarList.addAll(dayMap.values());
-
+		//put day,month only for display in calendar
+		for(DayInCalendar dayInCalendar:calendarList){
+			dayInCalendar.setDayOnly(dayInCalendar.getDay().substring(8));
+			dayInCalendar.setMonthOnly(dayInCalendar.getDay().substring(5, 7));
+		}
 		model.put("calendarList", calendarList);
 		model.put("month", request.getSession().getAttribute("month"));
 		model.put("year", request.getSession().getAttribute("year"));
