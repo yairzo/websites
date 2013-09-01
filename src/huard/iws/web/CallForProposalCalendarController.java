@@ -120,12 +120,22 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		}
 		
 		calendarList.addAll(dayMap.values());
-		//put day,month only for display in calendar
+		
+		//put day,month for display in calendar + limit weeks if too long
+		int calendarLength=0;
+		List<DayInCalendar> shortCalendarList= new ArrayList<DayInCalendar>();
 		for(DayInCalendar dayInCalendar:calendarList){
 			dayInCalendar.setDayOnly(dayInCalendar.getDay().substring(8));
 			dayInCalendar.setMonthOnly(dayInCalendar.getDay().substring(5, 7));
+			shortCalendarList.add(dayInCalendar);
+			calendarLength++;
+			if(calendarLength==35){
+				int monthNow = new Integer(dayInCalendar.getDay().substring(5, 7)).intValue();
+				if (monthNow>request.getSessionIntParameter("month", 0))
+					break;
+			}
 		}
-		model.put("calendarList", calendarList);
+		model.put("calendarList", shortCalendarList);
 		model.put("month", request.getSession().getAttribute("month"));
 		model.put("year", request.getSession().getAttribute("year"));
 	

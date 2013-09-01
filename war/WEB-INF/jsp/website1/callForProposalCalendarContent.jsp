@@ -60,7 +60,7 @@
         							<div class="callForProposalsPerDay" style="display:none;direction:ltr;text-align:left">
 										<div class="clearfix">
 										<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay">
-											<h4><c:out escapeXml="false" value="${fundInDay.fundShortName}"/></h4>
+											<h4>${fundInDay.fundShortName}</h4>
   											<c:forEach items="${fundInDay.callForProposals}" var="callForProposal">
         										<dfn class="viewProposal" id="${callForProposal.id}"><c:out escapeXml="false" value="${callForProposal.title}"/></dfn>
   												<br>
@@ -83,12 +83,12 @@
 						<!---->
 					</div>
 					<div class="clearfix mar_30">
-						<form action="#" method="post" class="calendar_form">
-							<input type="text" name="" onFocus="if(this.value==this.defaultValue)this.value=''"    
+						<form action="searchCallForProposals.html" method="post" class="calendar_form">
+							<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
 onblur="if(this.value=='')this.value=this.defaultValue" value="הקלידו נושא לחיפוש ..." class="calendar_text" />
 							<input type="submit" value="חיפוש" class="calendar_submit" />
 						</form>
-						<a href="#" class="calendar_advanced">הצג חיפוש מתקדם</a>
+						<a href="searchCallForProposals.html" class="calendar_advanced">הצג חיפוש מתקדם</a>
 					</div>
 				</div>
 			</div>

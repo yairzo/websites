@@ -6,8 +6,8 @@
 					<jsp:include page="location.jsp"/>
 				</div>
 				<jsp:include page="sideLinks.jsp"/>
-				<div class="content" align="${lang.align}">
-					<h1 class="maintitle">${command.title}</h1>
+				<div class="content" style="align:${lang.align}">
+					<h1 class="maintitle" text-align="${lang.align}">${command.title}</h1>
 					<div class="clearfix mar_20">
        						<c:choose>
     							<c:when test="${command.showFile}">

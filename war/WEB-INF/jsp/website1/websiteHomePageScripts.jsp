@@ -84,13 +84,19 @@
 						return [true, daysWithFunds.indexOf(date.getDate())>-1?'dayWithFund' : ''];
 					}
 				});
-				
-				$(".date").change(function(){
+
+				$(".date").change(function(e){
 					$.get('homePageCalendar.html?type=callForProposalsPerDay&date='+$(this).val(), function(data) {
 						$(".callForProposalsPerDay").html(
 								"<div class=\"clearfix\">"+data+"</div><div class=\"triangle\"></div>");
-						if(data.length>2)
+						if(data.length>2){
 							$('.callForProposalsPerDay').show();
+							$(".callForProposalsPerDay").css({
+								position:"absolute",
+								top:e.pageY, 
+								left: e.pageX
+							});
+						}
 						else
 							$('.callForProposalsPerDay').hide();
 				 	});

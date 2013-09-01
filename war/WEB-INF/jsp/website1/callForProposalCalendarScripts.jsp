@@ -15,14 +15,16 @@ $(document).ready(function() {
 			$(".callForProposalsPerDay").hide();
 		else{
 			$(".callForProposalsPerDay").hide();
-			$(".callForProposalsPerDay", $(this).closest("td")).show();
-			var rowPos = $(this).position();
-			bottomTop = rowPos.top - $(".callForProposalsPerDay", $(this).closest("td")).height();
-			bottomLeft = rowPos.left - 100;
-			$(".callForProposalsPerDay").css({
-			    top: bottomTop,
-			    left: bottomLeft
-			});
+			if($(".clearfix", $(this).closest("td")).html().length>21){
+				$(".callForProposalsPerDay", $(this).closest("td")).show();
+				var rowPos = $(this).position();
+				bottomTop = rowPos.top - $(".callForProposalsPerDay", $(this).closest("td")).height();
+				bottomLeft = rowPos.left - 100;
+				$(".callForProposalsPerDay").css({
+			   	 	top: bottomTop,
+			    	left: bottomLeft
+				});
+			}
 		}
 	});	
 	$(".callForProposalsPerDay").click(function(e) {

@@ -846,8 +846,9 @@ td.dayWithFund {
 .callForProposalsPerDay{
 display:block;
 position:absolute;
-/***hadar top:50px;* for popup dynamic position */
-/***hadar left:-100px;* for popup dynamic position*/
+top:50px;
+left:-100px;
+z-index:2;
 width:223px;
 color:#ffffff;
 font-size:13px;
