@@ -33,6 +33,12 @@ $(document).ready(function() {
 			$(".callForProposalsPerDay", $(this).closest("td")).hide();
 	});	
 
+	
+	$(".viewProposal").click(function(e) {
+		e.preventDefault();
+		var proposalId=$(this).attr("id");	
+		window.open('callForProposal.html?id='+proposalId+'&t=1');
+	});	
 });
 
 

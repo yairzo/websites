@@ -343,12 +343,15 @@
 					<tr>
 					<td colspan="3" style="text-align:${lang.align}">
 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="contactPersonDetails">
+					~
 					<a href="mailto:${deskPerson.email}">
 					<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskPerson.degreeFullNameHebrew}"/></c:if>
    					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskPerson.degreeFullNameEnglish}"/></c:if>
 					</a>
-					<img src="image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskPerson.title}"></c:out>
-					<img src="image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskPerson.phone}"></c:out></span>
+					// <c:out value="${deskPerson.title}"></c:out>
+					// <c:out value="${deskPerson.phone}"></c:out>
+					~
+					</span>
 					</td>
 					</tr>
 					</c:forEach>

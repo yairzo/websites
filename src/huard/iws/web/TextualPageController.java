@@ -42,10 +42,11 @@ public class TextualPageController extends GeneralWebsiteFormController {
 		request.getSession().setAttribute("ardNum",0);
 		if (ardNum > 0){
 			String urlTitle=textualPageService.getTextualPageUrlTitleByArdNum(ardNum);
-			return new ModelAndView ( new RedirectViewExtended("page/"+urlTitle), new HashMap<String, Object>());
+		//	return new ModelAndView ( new RedirectViewExtended("page/"+urlTitle), new HashMap<String, Object>());
+			return new ModelAndView ( new RedirectViewExtended("textualPage.html?urlTitle="+urlTitle), new HashMap<String, Object>());
 		}
-		if(request.getIntParameter("id", 0)>0)//if link was written with id and not with url title
-			return new ModelAndView ( new RedirectViewExtended("page/"+textualPageBean.getUrlTitle()), new HashMap<String, Object>());
+		//if(request.getIntParameter("id", 0)>0)//if link was written with id and not with url title
+		//	return new ModelAndView ( new RedirectViewExtended("page/"+textualPageBean.getUrlTitle()), new HashMap<String, Object>());
 
 		//category
 		Category category =  new Category();

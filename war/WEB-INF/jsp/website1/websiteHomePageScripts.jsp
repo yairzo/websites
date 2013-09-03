@@ -102,28 +102,7 @@
 				 	});
 				});
 				
-							
-				
-				
-				
-				/*$(".viewProposal").click(function(e) {
-					alert($(this).attr("id"));	
-					e.preventDefault();
-					var proposalId=$(this).attr("id");	   		
-					dlg.dialog('option', 'buttons', {
-			        	"סגור" : function() {
-			        		dlg.dialog("close");
-			        	}
-					});
-					dlg.dialog({ modal: true });
-					dlg.dialog({ height: 700 });
-					dlg.dialog({ width: 750 });
-					dlg.dialog("option", "position", "center");
-					$.get('callForProposal.html?id='+proposalId, function(data) {
-						dlg.html(data).dialog("open");
-					});
-				});	*/
-
+						
 
 			});
 	</script>

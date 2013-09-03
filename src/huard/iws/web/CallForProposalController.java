@@ -2,6 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PersonBean;
+import huard.iws.model.Attachment;
 import huard.iws.model.Fund;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.FundService;
@@ -9,11 +10,18 @@ import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.RedirectViewExtended;
+import huard.iws.util.TextUtils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -45,10 +53,11 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		request.getSession().setAttribute("ardNum",0);
 		if (ardNum > 0){
 			String urlTitle=callForProposalService.getCallForProposalUrlTitleByArdNum(ardNum);
-			return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+urlTitle), new HashMap<String, Object>());
+			//return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+urlTitle), new HashMap<String, Object>());
+			return new ModelAndView ( new RedirectViewExtended("callForProposal.html?urlTitle="+urlTitle), new HashMap<String, Object>());
 		}
-		if(request.getIntParameter("id", 0)>0)//if link was written with id and not with url title
-			return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+callForProposalBean.getUrlTitle()), new HashMap<String, Object>());
+		//if(request.getIntParameter("id", 0)>0)//if link was written with id and not with url title
+		//	return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+callForProposalBean.getUrlTitle()), new HashMap<String, Object>());
 		
 		//language
 		LanguageUtils.applyLanguage(model, request, response,callForProposalBean.getLocaleId());
@@ -58,11 +67,11 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		model.put("pageTitle", callForProposalBean.getTitle());
 
 		//dates
+		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 		if (callForProposalBean.getFinalSubmissionTime()==0)
 			model.put("finalSubmissionTime", "");
 		else
-			model.put("finalSubmissionTime", DateUtils.getLocaleLongDateTimeFormatWithDay(callForProposalBean.getFinalSubmissionTime(),callForProposalBean.getLocaleId(),false));
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			model.put("finalSubmissionTime", formatter.format(callForProposalBean.getFinalSubmissionTime()));
 		if (callForProposalBean.getPublicationTime()==0)
 			model.put("publicationTime", "");
 		else
@@ -103,6 +112,20 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		stripped =callForProposalBean.getPossibleCollaboration().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedPossibleCollaboration", stripped);
 
+		String contactPersonDetails =callForProposalBean.getContactPersonDetails();
+		contactPersonDetails=contactPersonDetails.replace("~(.*?)~","<table class=\"table_kol\"><tr><th class=\"table_one\">שם</th><th class=\"table_two\">תפקיד</th><th class=\"table_three\">טלפון</th></tr>~$1~</table>");
+		contactPersonDetails=contactPersonDetails.replaceAll("~(.*?)//(.*?)//(.*?)~","<tr><td class=\"table_one\">$1</td><td class=\"table_two\">$2</td><td class=\"table_three\">$3</td></tr>");
+		contactPersonDetails=contactPersonDetails.replaceAll("<br>","");
+		model.put("parsedContactPersonDetails", contactPersonDetails);	
+		
+		/*String contactPersonDetails = callForProposalBean.getContactPersonDetails();
+		contactPersonDetails=contactPersonDetails.replaceAll("<br>","");
+		Pattern p = Pattern.compile("(?s)~(.*?)//(.*?)//(.*?)~");
+		Matcher m = p.matcher(contactPersonDetails);
+		while(m.find())
+			contactPersonDetails = contactPersonDetails.replaceFirst("~(.*?)//(.*?)//(.*?)~","<tr><td class=\"table_one\">$1</td><td class=\"table_two\">$2</td><td class=\"table_three\">$3</td></tr>");
+		model.put("parsedContactPersonDetails", contactPersonDetails);*/
+		
 		boolean authorized= true;	
 		if(!userPersonBean.isAuthorized("ROLE_WEBSITE_READ") && !userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT") && !userPersonBean.isAuthorized("ROLE_WEBSITE_ADMIN")  && !userPersonBean.isAuthorized("ROLE_WEBSITE_HUJI"))
 			authorized= false;	
