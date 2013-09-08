@@ -88,8 +88,8 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			String linkToPersonPost = "<a href=\"personPost.html?id="+userPersonBean.getId() +"\">"+messageService.getMessage("iw_IL.website.searchBySubjects")+"</a>";
 			model.put("linkToPersonPost",linkToPersonPost);
 		}
-		if(request.getSession().getAttribute("callForProposalId")!=null && !request.getSession().getAttribute("callForProposalId").equals(""))
-			model.put("callForProposalId", request.getSession().getAttribute("callForProposalId"));
+		//if(request.getSession().getAttribute("callForProposalId")!=null && !request.getSession().getAttribute("callForProposalId").equals(""))
+		//	model.put("callForProposalId", request.getSession().getAttribute("callForProposalId"));
 		return new ModelAndView ("searchCallForProposals",model);
 	}
 
@@ -135,10 +135,10 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			}
 			command.setSearchCreteria(searchCreteria);
 			//when returning to callForProposal after login - should open the call again
-			if(request.getParameter("callForProposalId","")!=null && !request.getParameter("callForProposalId","").equals(""))
+			/*if(request.getParameter("callForProposalId","")!=null && !request.getParameter("callForProposalId","").equals(""))
 				request.getSession().setAttribute("callForProposalId", request.getParameter("callForProposalId",""));
 			else
-				request.getSession().setAttribute("callForProposalId", "");
+				request.getSession().setAttribute("callForProposalId", "");*/
 		}
 		return command;
 	}

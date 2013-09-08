@@ -132,6 +132,15 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		model.put("authorized", authorized);	
 
 		model.put("id",callForProposalBean.getId());
+		if (request.getParameter("p", "").equals("1")){
+			if(request.getParameter("t", "").equals("1"))
+				return new ModelAndView ("callForProposalPopup1",model);
+			else if(request.getParameter("t", "").equals("0"))
+				return new ModelAndView ("callForProposalPopupStatic",model);
+			else
+				return new ModelAndView ("callForProposal",model);		
+		}
+			
 		if(request.getParameter("t", "").equals("1"))
 			return new ModelAndView ("callForProposal1",model);
 		else if(request.getParameter("t", "").equals("0"))

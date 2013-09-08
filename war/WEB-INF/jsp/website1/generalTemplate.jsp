@@ -11,6 +11,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="style/style1.css">
+        <c:if test="${lang.localeId=='en_US'}">
+       		<link rel="stylesheet" href="style/styleCallForProposalEnglish.css">
+       	</c:if>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -44,7 +47,7 @@
 			<div class="container">
 				<div class="footer_bg clearfix">
 					<div class="pull-right"><a href="sitemap.html">מפת אתר</a>&nbsp; /  &nbsp;<a href="#">צור קשר</a>&nbsp; /  &nbsp;<a href="#">הוסף למועדפים</a></div>
-					<div class="pull-left">עודכן ופורסם לאחרונה ב-18/07/13</div>
+					<div class="pull-left">עודכן ופורסם לאחרונה ב-${updateTime}</div>
 				</div>
 				<div class="footer_bottom clearfix mar_10">
 					<div class="pull-right">&copy; כל הזכויות שמורות לאוניברסיטה העברית בירושלים</div>

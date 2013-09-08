@@ -1,0 +1,42 @@
+.container{
+display:block;
+width:960px;
+margin:0 auto;
+direction:ltr;
+}
+
+.kol{
+margin:0 0 0 8px;
+border-left:solid 3px #ededed;
+}
+
+.kol_title{
+float:left;
+margin:0 0 3px -11px;
+padding:0 14px 10px 14px;
+width:260px;
+height:41px;
+background:url(../image/website1/title_blue_left.png) no-repeat top;
+font-family:"almoni-tzar";
+font-weight:normal;
+font-size:21px;
+color:#ffffff;
+line-height:43px;
+}
+
+.kol_arrow{
+float:left;
+margin:0 4px 0 0;
+width:42px;
+height:42px;
+background:#f0f0f0 url(../image/website1/open.png) no-repeat center center;
+}
+
+.kolkore_date{
+margin:0 0 0 5px;
+padding:0 0 0 17px;
+font-size:14px;
+font-weight:normal;
+color:#666666;
+background:url(../image/website1/calendar_small.png) no-repeat left 4px;
+}

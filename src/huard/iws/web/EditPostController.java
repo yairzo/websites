@@ -132,7 +132,7 @@ public class EditPostController extends GeneralFormController {
 				CallForProposal callForProposal = callForProposalService.getCallForProposal(request.getIntParameter("callForProposal", 0));
 				CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal, true);
 				tmpPost.setMessageSubject(callForProposalBean.getId() + " - " + callForProposalBean.getTitle());
-				tmpPost.setMessage(callForProposalBean.toString());
+				tmpPost.setMessage(callForProposalBean.toPostMessage());
 				List<Integer> subjectsIds = callForProposalBean.getSubjectsIds();
 				for (int subjectId: subjectsIds){
 					tmpPost.getSubjectsIds().add(subjectId);

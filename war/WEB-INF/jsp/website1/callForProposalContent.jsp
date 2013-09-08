@@ -57,7 +57,7 @@
 							</div>
 							
 							<c:if test="${!authorized}">
-							<fmt:message key="${lang.localeId}.callForProposal.fullDetailsLogin"/> <a href="login.html?ilr=searchCallForProposals.html?callForProposalId=${command.id}"> <fmt:message key="${lang.localeId}.callForProposal.loginLink"/></a>
+							<fmt:message key="${lang.localeId}.callForProposal.fullDetailsLogin"/> <a href="login.html?ilr=callForProposal.html?id=${command.id}&t=1"> <fmt:message key="${lang.localeId}.callForProposal.loginLink"/></a>
 							</c:if>			
 							
 							<c:if test="${authorized && !command.showDescriptionOnly}">

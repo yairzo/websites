@@ -76,7 +76,7 @@ public class ObjectQuery extends HttpServlet{
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
 			ServletOutputStream out = response.getOutputStream();
-			out.print(callForProposalBean.toString());
+			out.print(callForProposalBean.toPostMessage());
 			out.flush();
 			out.close();
 		}

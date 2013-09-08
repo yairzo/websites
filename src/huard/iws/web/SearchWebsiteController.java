@@ -72,7 +72,13 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 		model.put("searchWords",searchWords);
 		request.getSession().setAttribute("searchWords", "");
 
-		return new ModelAndView ("searchPage",model);
+		if(request.getParameter("t", "").equals("1"))
+			return new ModelAndView ("searchPage1",model);
+		else if(request.getParameter("t", "").equals("0"))
+			return new ModelAndView ("searchPageStatic",model);
+		else
+			return new ModelAndView ("searchPage",model);
+		//return new ModelAndView ("searchPage",model);
 	}
 
 	protected Object getFormBackingObject(

@@ -604,7 +604,7 @@ public class CallForProposalBean {
 		}
 	}
 	
-	public String toString(){
+	public String toPostMessage(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("website", "webServer") +
 				"/huard/infoPageViewer.jsp?ardNum=" + this.id + "\">" + title + "</a><br/> ");

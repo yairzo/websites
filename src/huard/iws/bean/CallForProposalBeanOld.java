@@ -73,7 +73,7 @@ public class CallForProposalBeanOld {
 		return callForProposal;
 	}
 
-	public String toString(){
+	public String toPostMessage(){
 		//StringBuilder sb = new StringBuilder(messageService.getMessage("general.callForProposal.titlePrefix", getLocaleId()));
 		StringBuilder sb = new StringBuilder();
 		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("website", "webServer") +
