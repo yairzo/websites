@@ -478,5 +478,6 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 	public void setLastUpdate(Timestamp lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+		
 
 }

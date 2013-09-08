@@ -2,39 +2,34 @@ package huard.iws.web;
 
 import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.model.Attachment;
 import huard.iws.model.Fund;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.FundService;
-import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
-import huard.iws.util.RequestWrapper;
 import huard.iws.util.RedirectViewExtended;
-import huard.iws.util.TextUtils;
+import huard.iws.util.RequestWrapper;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 
 public class CallForProposalController extends GeneralWebsiteFormController {
-
+	private static final Logger logger = Logger.getLogger(CallForProposalController.class);
 
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
 		CallForProposalBean callForProposalBean = (CallForProposalBean)command;
+		
+		logger.info("Contacts: " + callForProposalBean.getContactPersonDetails());
 	
 		Map<String,Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", callForProposalBean.getId())	;
@@ -100,6 +95,12 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 				selectedFund=fund.getName();
 		}
 		model.put("selectedFund", selectedFund);
+		
+		//TODO: avoid using the 'stripped' word in the model.
+		// callForProposalBean should be able to return it's fields clean from html tags.
+		// for example you can use callForProposalBean.getFundingPeriodStripped()
+		// it should do it by using a static 'clean html' method in TextUtils. 
+		
 		//stripped fields
 		String stripped =callForProposalBean.getFundingPeriod().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedFundingPeriod", stripped);
@@ -112,10 +113,15 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		stripped =callForProposalBean.getPossibleCollaboration().replaceAll("<[/]{0,1}p.*?>","");
 		model.put("strippedPossibleCollaboration", stripped);
 
-		String contactPersonDetails =callForProposalBean.getContactPersonDetails();
-		contactPersonDetails=contactPersonDetails.replace("~(.*?)~","<table class=\"table_kol\"><tr><th class=\"table_one\">שם</th><th class=\"table_two\">תפקיד</th><th class=\"table_three\">טלפון</th></tr>~$1~</table>");
+		//TODO: since the contacts are in a table, additional text can be in a seperate field.
+		// Let's parse the contacts into a list of CallForProposalContact objects.
+		// and iterate the list in the jsp. In that way we avoid hard coded html in Java.
+		// additional text will come from a separate field after the table.
+		
+		String contactPersonDetails = callForProposalBean.getContactPersonDetails();
+		contactPersonDetails=contactPersonDetails.replaceAll("~(.*?)~","<table class=\"table_kol\"><tr><th class=\"table_one\">שם</th><th class=\"table_two\">תפקיד</th><th class=\"table_three\">טלפון</th></tr>~$1~</table>");
 		contactPersonDetails=contactPersonDetails.replaceAll("~(.*?)//(.*?)//(.*?)~","<tr><td class=\"table_one\">$1</td><td class=\"table_two\">$2</td><td class=\"table_three\">$3</td></tr>");
-		contactPersonDetails=contactPersonDetails.replaceAll("<br>","");
+		//contactPersonDetails=contactPersonDetails.replaceAll("<br>","");
 		model.put("parsedContactPersonDetails", contactPersonDetails);	
 		
 		/*String contactPersonDetails = callForProposalBean.getContactPersonDetails();

@@ -1,8 +1,6 @@
 package huard.iws.web;
 
-import huard.iws.bean.PageBodyImageBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.bean.TextualPageBean;
 import huard.iws.model.PageBodyImage;
 import huard.iws.model.TextualPage;
 import huard.iws.service.CallForProposalService;
@@ -10,12 +8,11 @@ import huard.iws.service.PageBodyImageService;
 import huard.iws.service.TextualPageService;
 import huard.iws.util.RequestWrapper;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
