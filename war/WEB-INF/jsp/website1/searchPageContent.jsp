@@ -1,28 +1,20 @@
+<%@ page  pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 			<div class="container clearfix">
-				<div class="breadcrumbs clearfix">
-					<a href="#">עמוד הבית</a> &rsaquo;  חיפוש מתקדם
+				<div class="breadcrumbs clearfix" dir="${lang.dir}" align="${lang.align}">
+					<jsp:include page="location.jsp"/>
 				</div>
-				<div class="side sidelinks">
-					<h3>קישורים מהירים</h3>
-					<ul>
-						<li class="link_research"><a href="#">מערכת המחקרים</a></li>
-						<li class="link_budget"><a href="#">תקציבים אישיים</a></li>
-						<li class="link_mail"><a href="#">דיוור ישיר</a></li>
-						<li class="link_guidelines"><a href="#">הנחיות להגשה</a></li>
-						<li class="link_grant"><a href="#">הנחיות למענקים</a></li>
-						<li class="link_application"><a href="#">חברת יישום</a></li>
-					</ul>
-				</div>
+				<jsp:include page="sideLinks.jsp"/>
 				<div class="content">
-					<h1 class="maintitle">חיפוש באתר</h1>
+					<h1 class="maintitle">${pageTitle}</h1>
 					
 					<div class="clearfix mar_20">
 						<div class="advanced">
 							<form action="#" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
-										<label for="advanced_subject">נושא לחיפוש</label>
-										<input type="text" name="" value="" id="advanced_subject" />
+										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>
+										<input type="text" name="searchWords" value="${searchWords}" id="advanced_subject" />
 									</div>
 									<div class="advanced_date">
 										<label for="advanced_date_from">טווח תאריכי הגשה</label>

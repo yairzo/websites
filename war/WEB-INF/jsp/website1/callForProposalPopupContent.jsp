@@ -10,6 +10,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="style/style1.css">
+        <c:if test="${lang.localeId=='en_US'}">
+       		<link rel="stylesheet" href="style/styleCallForProposalEnglish.css">
+       	</c:if>
         <script src="js/modernizr-2.6.2.min.js"></script>
     </head>
     <body style="background:#7b7b7b;">
@@ -38,7 +41,7 @@
 			<div class="clearfix popup_sum">
 				<p>${command.description}</p>
 			</div>
-			<a href="#" onclick="window.opener.location.href='callForProposal.html?id=${command.id}&t=1';self.close();" class="popup_more">לפרטים נוספים</a>
+			<a href="#" onclick="window.opener.location.href='callForProposal.html?id=${command.id}&t=1';self.close();" class="popup_more"><fmt:message key="${lang.localeId}.callForProposal.furtherDetails"/></a>
 		</div>
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
