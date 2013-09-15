@@ -23,6 +23,7 @@ public class CallForProposal {
 	private boolean requireLogin;
 	private boolean showDescriptionOnly;
 	private String submissionDetails;
+	private String contactPersons;
 	private String contactPersonDetails;
 	private String fundContact;
 	private String formDetails;
@@ -66,6 +67,7 @@ public class CallForProposal {
 		this.requireLogin=false;
 		this.showDescriptionOnly=true;
 		this.submissionDetails="";
+		this.contactPersons="";
 		this.contactPersonDetails="";
 		this.description="";
 		this.fundingPeriod="";
@@ -216,7 +218,15 @@ public class CallForProposal {
 	public void setSubmissionDetails(String submissionDetails) {
 		this.submissionDetails = submissionDetails;
 	}
-	
+
+	public String getContactPersons() {
+		return contactPersons;
+	}
+
+	public void setContactPersons(String contactPersons) {
+		this.contactPersons = contactPersons;
+	}
+
 	public String getContactPersonDetails() {
 		return contactPersonDetails;
 	}

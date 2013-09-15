@@ -64,6 +64,10 @@ public class TextUtils {
 	    return html;
 	}
 
+	public static String cleanHtmlFromEditor(String html){
+		html=html.replaceAll("<[/]{0,1}p.*?>","");
+		return html;
+	}
 
 	public static String readFile(){
 		try{

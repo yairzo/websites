@@ -40,7 +40,7 @@
 										${submissionDate2}&nbsp;
 										${submissionDate3}<br/>
 										</c:if>
-										<strong><fmt:message key="${lang.localeId}.callForProposal.fund"/></strong>${selectedFund}<br/>
+										<strong><fmt:message key="${lang.localeId}.callForProposal.fund"/></strong>${command.fund.name}<br/>
      									<strong><fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/></strong><a href="${command.originalCallWebAddress}">${command.originalCallWebAddress}</a><br>
 										</p>
 								</div>
@@ -68,11 +68,11 @@
 								</div>
 								<div class="kol_content kol_content_i">
 									<p>
-										<strong><fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/> </strong>${strippedFundingPeriod}<br />
-										<strong><fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/> </strong>${strippedAmountOfGrant}<br />
-										<strong><fmt:message key="${lang.localeId}.callForProposal.eligibilityRequirements"/> </strong>${strippedEligibilityRequirements}<br />
-										<strong><fmt:message key="${lang.localeId}.callForProposal.activityLocation"/></strong>${strippedActivityLocation}<br />
-										<strong><fmt:message key="${lang.localeId}.callForProposal.possibleCollaboration"/> </strong>${strippedPossibleCollaboration}</p>
+										<strong><fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/> </strong>${command.strippedFundingPeriod}<br />
+										<strong><fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/> </strong>${command.strippedAmountOfGrant}<br />
+										<strong><fmt:message key="${lang.localeId}.callForProposal.eligibilityRequirements"/> </strong>${command.strippedEligibilityRequirements}<br />
+										<strong><fmt:message key="${lang.localeId}.callForProposal.activityLocation"/></strong>${command.strippedActivityLocation}<br />
+										<strong><fmt:message key="${lang.localeId}.callForProposal.possibleCollaboration"/> </strong>${command.strippedPossibleCollaboration}</p>
 								</div>
 							</div>
 							
@@ -112,9 +112,35 @@
 									<a href="#" class="kol_arrow"></a>
 								</div>
 								<div class="kol_content">
-									${parsedContactPersonDetails}
+									<c:if test="${fn:length(callForProposalContacts)>0}">
+									<table class="table_kol">
+										<tr>
+											<th class="table_one"><fmt:message key="${lang.localeId}.callForProposal.contactPersonName"/></th>
+											<th class="table_two"><fmt:message key="${lang.localeId}.callForProposal.contactPersonPosition"/></th>
+											<th class="table_three"><fmt:message key="${lang.localeId}.callForProposal.contactPersonPhone"/></th>
+										</tr>
+								    	<c:forEach items="${callForProposalContacts}" var="callForProposalContact">
+								    	<tr>
+											<td class="table_one">${callForProposalContact.name}</td>
+											<td class="table_two">${callForProposalContact.position}</td>
+											<td class="table_three">${callForProposalContact.phone}</td>
+										</tr>
+								    	</c:forEach>
+									</table>
+									</c:if>
 								</div>
 							</div>
+							
+							<div class="kol">
+								<div class="clearfix">
+									<h3 class="kol_title kol_chart"><img src="image/website1/kol_man.png" alt="" />&nbsp;&nbsp; <fmt:message key="${lang.localeId}.callForProposal.contactPersonDetails"/></h3>
+									<a href="#" class="kol_arrow"></a>
+								</div>
+								<div class="kol_content">
+								<p>${command.contactPersonDetails }</p>
+								</div>
+							</div>
+	
 							
 							<div class="kol">
 								<div class="clearfix">

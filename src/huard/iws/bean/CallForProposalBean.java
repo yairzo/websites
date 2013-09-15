@@ -11,6 +11,7 @@ import huard.iws.service.MopDeskService;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.DateUtils;
+import huard.iws.util.TextUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,6 +44,7 @@ public class CallForProposalBean {
 	private boolean requireLogin;
 	private boolean showDescriptionOnly;
 	private String submissionDetails;
+	private String contactPersons;
 	private String contactPersonDetails;
 	private String fundContact;
 	private String formDetails;
@@ -89,6 +91,7 @@ public class CallForProposalBean {
 		this.requireLogin=false;
 		this.showDescriptionOnly=true;
 		this.submissionDetails="";
+		this.contactPersons="";
 		this.contactPersonDetails="";
 		this.fundContact="";
 		this.formDetails="";
@@ -134,6 +137,7 @@ public class CallForProposalBean {
 		this.requireLogin=callForProposal.getRequireLogin();
 		this.showDescriptionOnly=callForProposal.getShowDescriptionOnly();
 		this.submissionDetails=callForProposal.getSubmissionDetails();
+		this.contactPersons=callForProposal.getContactPersons();
 		this.contactPersonDetails=callForProposal.getContactPersonDetails();
 		this.fundContact=callForProposal.getFundContact();
 		this.formDetails=callForProposal.getFormDetails();
@@ -185,6 +189,7 @@ public class CallForProposalBean {
 		callForProposal.setRequireLogin(requireLogin);
 		callForProposal.setShowDescriptionOnly(showDescriptionOnly);
 		callForProposal.setSubmissionDetails(submissionDetails);
+		callForProposal.setContactPersons(contactPersons);
 		callForProposal.setContactPersonDetails(contactPersonDetails);
 		callForProposal.setFundContact(fundContact);
 		callForProposal.setFormDetails(formDetails);
@@ -342,6 +347,17 @@ public class CallForProposalBean {
 		this.fundId = fundId;
 	}
 
+	public Fund getFund(){
+		Fund fund=new Fund();
+		try{
+			fund=fundService.getFund(fundId);
+		}
+		catch(Exception e){
+			return fund;
+		}
+		return fund;
+	}
+	
 	public int getTypeId() {
 		return typeId;
 	}
@@ -411,7 +427,15 @@ public class CallForProposalBean {
 	public void setSubmissionDetails(String submissionDetails) {
 		this.submissionDetails = submissionDetails;
 	}
-	
+
+	public String getContactPersons() {
+		return contactPersons;
+	}
+
+	public void setContactPersons(String contactPersons) {
+		this.contactPersons = contactPersons;
+	}
+
 	public String getContactPersonDetails() {
 		return contactPersonDetails;
 	}
@@ -448,12 +472,20 @@ public class CallForProposalBean {
 		return fundingPeriod;
 	}
 
+	public String getStrippedFundingPeriod() {
+		return TextUtils.cleanHtmlFromEditor(fundingPeriod);
+	}
+
 	public void setFundingPeriod(String fundingPeriod) {
 		this.fundingPeriod = fundingPeriod;
 	}
 	
 	public String getAmountOfGrant() {
 		return amountOfGrant;
+	}
+
+	public String getStrippedAmountOfGrant() {
+		return TextUtils.cleanHtmlFromEditor(amountOfGrant);
 	}
 
 	public void setAmountOfGrant(String amountOfGrant) {
@@ -464,12 +496,20 @@ public class CallForProposalBean {
 		return eligibilityRequirements;
 	}
 
+	public String getStrippedEligibilityRequirements() {
+		return TextUtils.cleanHtmlFromEditor(eligibilityRequirements);
+	}
+
 	public void setEligibilityRequirements(String eligibilityRequirements) {
 		this.eligibilityRequirements = eligibilityRequirements;
 	}
 
 	public String getActivityLocation() {
 		return activityLocation;
+	}
+	
+	public String getStrippedActivityLocation() {
+		return TextUtils.cleanHtmlFromEditor(activityLocation);
 	}
 
 	public void setActivityLocation(String activityLocation) {
@@ -478,6 +518,10 @@ public class CallForProposalBean {
 
 	public String getPossibleCollaboration() {
 		return possibleCollaboration;
+	}
+
+	public String getStrippedPossibleCollaboration() {
+		return TextUtils.cleanHtmlFromEditor(possibleCollaboration);
 	}
 
 	public void setPossibleCollaboration(String possibleCollaboration) {

@@ -536,6 +536,8 @@ $(document).ready(function() {
 			CKEDITOR.inline('editor11');
 		if(CKEDITOR.instances['editor12']==null)
 			CKEDITOR.inline('editor12');
+		if(CKEDITOR.instances['editor13']==null)
+			CKEDITOR.inline('editor13');
 
 	    $("#editor1").on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($(this).html());
@@ -625,6 +627,13 @@ $(document).ready(function() {
 	    	autoSave(); 
 	    }); 
 	    $("#editor12").on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($(this).html());
+	      	if(text.length==0) text+="&nbsp;";
+	      	$(this).html(text);
+			$('.editorTextarea', $(this).closest("table")).val(text);
+	    	autoSave(); 
+	    }); 
+	    $("#editor13").on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($(this).html());
 	      	if(text.length==0) text+="&nbsp;";
 	      	$(this).html(text);

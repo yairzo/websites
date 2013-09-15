@@ -50,7 +50,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
 		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
 		for (CallForProposal callForProposal: callForProposals){
-			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,false);
+			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,true);
 			if(callForProposalBean.getTitle().startsWith("###"))
 				callForProposalBean.setTitle("");
 			callForProposalBeans.add(callForProposalBean);

@@ -185,6 +185,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", deskId = 0" +
 				", originalCallWebAddress = ''" +
 				", submissionDetails = ''" +
+				", contactPersons = ''" +
 				", contactPersonDetails = ''" +
 				", fundContact = ''" +
 				", formDetails = ''" +
@@ -237,6 +238,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", requireLogin = ?" +
 				", showDescriptionOnly = ?" +				
 				", submissionDetails= ?" +
+				", contactPersons=?" +
 				", contactPersonDetails= ?" +
 				", fundContact= ?" +
 				", formDetails= ?" +
@@ -283,6 +285,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getRequireLogin(),
 	    		callForProposal.getShowDescriptionOnly(),
 	    		callForProposal.getSubmissionDetails().trim(),
+	    		callForProposal.getContactPersons().trim(),
 	    		callForProposal.getContactPersonDetails().trim(),
 	    		callForProposal.getFundContact(),
 	    		callForProposal.getFormDetails().trim(),
@@ -319,6 +322,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", requireLogin = ?" +
 				", showDescriptionOnly = ?" +				
 				", submissionDetails= ?" +
+				", contactPersons= ?" +
 				", contactPersonDetails= ?" +
 				", fundContact= ?" +
 				", formDetails= ?" +
@@ -378,6 +382,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getRequireLogin(),
 	    		callForProposal.getShowDescriptionOnly(),
 	    		callForProposal.getSubmissionDetails().trim(),
+	    		callForProposal.getContactPersons().trim(),
 	    		callForProposal.getContactPersonDetails().trim(),
 	    		callForProposal.getFundContact(),
 	    		callForProposal.getFormDetails().trim(),
@@ -462,6 +467,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", requireLogin = ?" +
 				", showDescriptionOnly = ?" +
 				", submissionDetails= ?" +
+				", contactPersons= ?" +
 				", contactPersonDetails= ?" +
 				", fundContact= ?" +
 				", formDetails= ?" +
@@ -497,6 +503,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getRequireLogin(),
 	    		callForProposal.getShowDescriptionOnly(),
 	    		callForProposal.getSubmissionDetails().trim(),
+	    		callForProposal.getContactPersons().trim(),
 	    		callForProposal.getContactPersonDetails().trim(),
 	    		callForProposal.getFundContact(),
 	    		callForProposal.getFormDetails().trim(),
@@ -640,10 +647,10 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	}
 	
 	public List<CallForProposal> getCallForProposalsOnline(String ids ){
-		String query  = "select distinct callForProposal.* from callForProposal";
+		String query  = "select distinct callForProposal.* from callForProposal where isDeleted=0";
 		if(!ids.isEmpty())
-			query += " where id in ("+ids + ") and isDeleted=0";
-		query+=" order by localeId, id desc";
+			query += " and id in ("+ids + ")";
+		query+="  order by localeId, id desc";
 		logger.info(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
@@ -687,6 +694,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
     		callForProposal.setRequireLogin(rs.getBoolean("requireLogin"));
     		callForProposal.setShowDescriptionOnly(rs.getBoolean("showDescriptionOnly"));
     		callForProposal.setSubmissionDetails(rs.getString("submissionDetails"));
+    		callForProposal.setContactPersons(rs.getString("contactPersons"));
     		callForProposal.setContactPersonDetails(rs.getString("contactPersonDetails"));
        		callForProposal.setFundContact(rs.getString("fundContact"));
     		callForProposal.setFormDetails(rs.getString("formDetails"));

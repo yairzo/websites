@@ -10,9 +10,12 @@ import huard.iws.util.RedirectViewExtended;
 import huard.iws.util.RequestWrapper;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -87,50 +90,19 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 				i++;
 			}
 		}
-		//funds
-		String selectedFund="";
-		if(callForProposalBean.getFundId()>0){
-			Fund fund = fundService.getFundByFinancialId(callForProposalBean.getFundId());
-			if (fund.getId()>0)
-				selectedFund=fund.getName();
-		}
-		model.put("selectedFund", selectedFund);
 		
-		//TODO: avoid using the 'stripped' word in the model.
-		// callForProposalBean should be able to return it's fields clean from html tags.
-		// for example you can use callForProposalBean.getFundingPeriodStripped()
-		// it should do it by using a static 'clean html' method in TextUtils. 
-		
-		//stripped fields
-		String stripped =callForProposalBean.getFundingPeriod().replaceAll("<[/]{0,1}p.*?>","");
-		model.put("strippedFundingPeriod", stripped);
-		stripped =callForProposalBean.getAmountOfGrant().replaceAll("<[/]{0,1}p.*?>","");
-		model.put("strippedAmountOfGrant", stripped);
-		stripped =callForProposalBean.getEligibilityRequirements().replaceAll("<[/]{0,1}p.*?>","");
-		model.put("strippedEligibilityRequirements", stripped);
-		stripped =callForProposalBean.getActivityLocation().replaceAll("<[/]{0,1}p.*?>","");
-		model.put("strippedActivityLocation", stripped);
-		stripped =callForProposalBean.getPossibleCollaboration().replaceAll("<[/]{0,1}p.*?>","");
-		model.put("strippedPossibleCollaboration", stripped);
 
-		//TODO: since the contacts are in a table, additional text can be in a seperate field.
-		// Let's parse the contacts into a list of CallForProposalContact objects.
-		// and iterate the list in the jsp. In that way we avoid hard coded html in Java.
-		// additional text will come from a separate field after the table.
-		
-		String contactPersonDetails = callForProposalBean.getContactPersonDetails();
-		contactPersonDetails=contactPersonDetails.replaceAll("~(.*?)~","<table class=\"table_kol\"><tr><th class=\"table_one\">שם</th><th class=\"table_two\">תפקיד</th><th class=\"table_three\">טלפון</th></tr>~$1~</table>");
-		contactPersonDetails=contactPersonDetails.replaceAll("~(.*?)//(.*?)//(.*?)~","<tr><td class=\"table_one\">$1</td><td class=\"table_two\">$2</td><td class=\"table_three\">$3</td></tr>");
-		//contactPersonDetails=contactPersonDetails.replaceAll("<br>","");
-		model.put("parsedContactPersonDetails", contactPersonDetails);	
-		
-		/*String contactPersonDetails = callForProposalBean.getContactPersonDetails();
-		contactPersonDetails=contactPersonDetails.replaceAll("<br>","");
+		List <CallForProposalContact> callForProposalContacts= new ArrayList<CallForProposalContact>();
 		Pattern p = Pattern.compile("(?s)~(.*?)//(.*?)//(.*?)~");
-		Matcher m = p.matcher(contactPersonDetails);
-		while(m.find())
-			contactPersonDetails = contactPersonDetails.replaceFirst("~(.*?)//(.*?)//(.*?)~","<tr><td class=\"table_one\">$1</td><td class=\"table_two\">$2</td><td class=\"table_three\">$3</td></tr>");
-		model.put("parsedContactPersonDetails", contactPersonDetails);*/
+		Matcher m = p.matcher(callForProposalBean.getContactPersons());
+		while(m.find()){
+			CallForProposalContact callForProposalContact= new CallForProposalContact();
+			callForProposalContact.setName(m.group(1));
+			callForProposalContact.setPosition(m.group(2));
+			callForProposalContact.setPhone(m.group(3));
+			callForProposalContacts.add(callForProposalContact);
+		}
+		model.put("callForProposalContacts", callForProposalContacts);
 		
 		boolean authorized= true;	
 		if(!userPersonBean.isAuthorized("ROLE_WEBSITE_READ") && !userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT") && !userPersonBean.isAuthorized("ROLE_WEBSITE_ADMIN")  && !userPersonBean.isAuthorized("ROLE_WEBSITE_HUJI"))
@@ -183,6 +155,40 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		return callForProposalBean;
 	}
 
+	public class CallForProposalContact{
+		public String name;
+		public String position;
+		public String phone;
+		
+		public CallForProposalContact() {
+			this.name = "";
+			this.position = "";
+			this.phone = "";
+		}
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getPosition() {
+			return position;
+		}
+
+		public void setPosition(String position) {
+			this.position = position;
+		}		
+		
+		public String getPhone() {
+			return phone;
+		}
+
+		public void setPhone(String phone) {
+			this.phone = phone;
+		}
+	}
 	
 	private CallForProposalService callForProposalService;
 

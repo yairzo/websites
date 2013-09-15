@@ -1,6 +1,6 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
-			<div class="container clearfix">
+ 			<div class="container clearfix">
 				<div class="breadcrumbs clearfix" dir="${lang.dir}" align="${lang.align}">
 					<jsp:include page="location.jsp"/>
 				</div>
@@ -10,144 +10,20 @@
 					
 					<div class="clearfix mar_20">
 						<div class="advanced">
-							<form action="#" method="post">
+							<form action="search.html?t=1" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>
 										<input type="text" name="searchWords" value="${searchWords}" id="advanced_subject" />
 									</div>
-									<div class="advanced_date">
-										<label for="advanced_date_from">טווח תאריכי הגשה</label>
-										<div class="clearfix">
-											<input type="text" name="" value="מתאריך" id="advanced_date_from" />
-											<a href="#" class="advanced_cal"></a>
-											<span class="advanced_date_sep">-</span>
-											<input type="text" name="" value="עד תאריך" id="advanced_date_from" />
-											<a href="#" class="advanced_cal"></a>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix checks mar_15">
-									<div class="check">
-										<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-										<label>להגשה כל השנה</label>
-									</div>
-									<div class="check">
-										<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-										<label>פתוחים להגשה</label>
-									</div>
-									<div class="check">
-										<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-										<label>פגי תוקף</label>
-									</div>
-								</div>
-								<div class="clearfix mar_5">
-									<div class="advanced_select">
-										<label>שולחן</label>
-										<div class="advanced_select_select">
-											<select name="table" class="styled">
-												<option>בחירה</option>
-												<option>אופציה 1</option>
-												<option>אופציה 2</option>
-												<option>אופציה 3</option>
-											</select>
-										</div>
-										<a href="#" class="advanced_select_arrow"></a>
-									</div>
-									<div class="advanced_select">
-										<label>סוג קול קורא</label>
-										<div class="advanced_select_select">
-											<select name="type" class="styled">
-												<option>בחירה</option>
-												<option>אופציה 1</option>
-												<option>אופציה 2</option>
-												<option>אופציה 3</option>
-											</select>
-										</div>
-										<a href="#" class="advanced_select_arrow"></a>
-									</div>
-									<div class="advanced_select nomar">
-										<label>קהלי יעד</label>
-										<div class="advanced_select_select">
-											<select name="public" class="styled">
-												<option>בחירה</option>
-												<option>אופציה 1</option>
-												<option>אופציה 2</option>
-												<option>אופציה 3</option>
-											</select>
-										</div>
-										<a href="#" class="advanced_select_arrow"></a>
-									</div>
-								</div>
-								<div class="clearfix checks mar_15">
-									<h3 class="search_choose">בחירת נושאים</h3>
-									<div class="checks_left">
-										<div class="check check_all">
-											<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-											<label>סמן הכל</label>
-										</div>
-										<div class="check check_only">
-											<div class="checkbox_box "><input type="checkbox" name="" value="" class="styled" /></div>
-											<label>הצג רק קולות קולאים עם כל הנושאים</label>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix scrollbox">
-									<div class="scroll_bar">
-										<div class="scroll_arrow"></div>
-									</div>
-									<div class="scroll_content">
-										<div class="clearfix mar_10">
-											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>נושאים רב תחומיים</label>
-											</div>
-											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעי החיים, רפואה, חקלאות, מזון וסביבה</label>
-											</div>
-											<div class="check scroll_col scroll_col_last">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעים מדוייקים וטכנולוגיה</label>
-											</div>
-										</div>
-										<div class="clearfix mar_10">
-											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעי הרוח</label>
-											</div>
-											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעי החברה</label>
-											</div>
-											<div class="check scroll_col scroll_col_last">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>משפטים</label>
-											</div>
-										</div>
-										<div class="clearfix mar_10">
-											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעי הרוח</label>
-											</div>
-											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעי החברה</label>
-											</div>
-											<div class="check scroll_col scroll_col_last">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>משפטים</label>
-											</div>
-										</div>
-									</div>
 								</div>
 								<div class="clearfix mar_15">
-									<input type="submit" name="" value="חיפוש" class="advanced_submit" />
-									<a href="#" class="advanced_clear">נקה חיפוש</a>
+									<input type="submit" value="חיפוש" class="advanced_submit" />
+									<a href="#" onClick="javascript:${'.advanced_subject'}.html('');" class="advanced_clear">נקה חיפוש</a>
 								</div>
 							</form>
 							<div class="clearfix">
-								<a href="#" class="advanced_close">הסתר חיפוש מתקדם</a>
+								<a href="searchCallForProposals.html?t=1" class="advanced_close">חיפוש מתקדם של קולות קוראים</a>
 							</div>
 						</div>
 						
@@ -156,68 +32,69 @@
 								<div class="clearfix">
 									<h3 class="kol_title"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp; קולות קוראים</h3>
 								</div>
-								<a href="#" class="search_content">
-									<span class="clearfix">זוהי כותרת של קול קורא בעברית ומיושרת לימין</span>
+    							<c:choose>
+    							<c:when test="${fn:length(callForProposals) > 0}">
+								<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
+								<a href="#" class="search_content viewProposal" id="${callForProposal.id}">
+									<span class="clearfix <c:if test="${callForProposal.localeId=='en_US'}">search_eng</c:if>">${callForProposal.title}</span>
 									<span class="clearfix search_icons">
-										<span class="search_financing">ממנן <strong>FP7</strong></span>
-										<span class="search_date">תאריך הגשה <strong>1.9.2013</strong></span>
+										<span class="search_financing">מממן <strong>${callForProposal.fund.name}</strong></span>
+										<span class="search_date">תאריך הגשה <strong><c:choose><c:when test="${callForProposal.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/></c:when><c:otherwise>${callForProposal.finalSubmissionTimeString}</c:otherwise></c:choose></strong></span>
 									</span>
 								</a>
-								<a href="#" class="search_content">
-									<span class="clearfix search_eng">MARD - the Multinational Agricultural Research and Development program</span>
-									<span class="clearfix search_icons">
-										<span class="search_financing">ממנן <strong>MARD</strong></span>
-										<span class="search_date">תאריך הגשה <strong>כל השנה</strong></span>
-									</span>
-								</a>
-								<a href="#" class="search_content">
-									<span class="clearfix search_eng">Mercator Foundation - Project Funding in the fields of Science and Humanities, Education and International Affairs</span>
-									<span class="clearfix search_icons">
-										<span class="search_financing">ממנן <strong>Mercator Foundation</strong></span>
-										<span class="search_date">תאריך הגשה <strong>כל השנה</strong></span>
-									</span>
-								</a>
+	   							</c:forEach>
+ 	  							</c:when>
+  	  							<c:otherwise>
+  								לא נמצאו קולות קוראים 
+  								</c:otherwise>
+	  							</c:choose> 								
+								
 							</div>
 							
 							<div class="kol search_result open">
 								<div class="clearfix">
 									<h3 class="kol_title"><img src="image/website1/search_balloon.png" alt="" /> &nbsp; הודעות</h3>
 								</div>
-								<a href="#" class="search_content">
-									<span class="clearfix">מתן בה קבלו פיסול למחיקה אל פנאי כלכלה זאת פיסיקה בויקיפדיה</span>
+								<c:choose>
+    							<c:when test="${fn:length(textualMessages) > 0}">
+								<c:forEach items="${textualMessages}" var="textualMessage" varStatus="varStatus">
+								<a href="textualPage.html?id=${textualMessage.id}&t=1" class="search_content">
+									<span class="clearfix">${textualMessage.title}</span>
 									<span class="clearfix search_icons">
-										<span class="search_from">מאת <strong>יוסי חרסונסקי</strong></span>
-										<span class="search_date">תאריך ההודעה <strong>1.9.2013</strong></span>
+										<span class="search_from">מאת <strong>${textualMessage.creator.degreeFullNameHebrew }</strong></span>
+										<span class="search_date">תאריך ההודעה <strong>${textualMessage.creationTimeString }</strong></span>
 									</span>
 								</a>
-								<a href="#" class="search_content">
-									<span class="clearfix">תרבות עסקים מלא דת, כדי על ספרות תקשורת, תורת בישול ויקיפדיה ב עזה</span>
-									<span class="clearfix search_icons">
-										<span class="search_from">מאת <strong>עופרי חן</strong></span>
-										<span class="search_date">תאריך ההודעה <strong>10.8.2013</strong></span>
-									</span>
-								</a>
+	   							</c:forEach>
+ 	  							</c:when>
+  	  							<c:otherwise>לא נמצאו הודעות 
+  								</c:otherwise>
+  								</c:choose> 
 							</div>
 							
 							<div class="kol search_result open">
 								<div class="clearfix">
 									<h3 class="kol_title"><img src="image/website1/search_text.png" alt="" /> &nbsp; עמודי תוכן</h3>
 								</div>
-								<a href="#" class="search_content">
-									<span class="clearfix">מתן בה קבלו פיסול למחיקה אל פנאי כלכלה זאת פיסיקה בויקיפדיה</span>
+								<c:choose>
+    							<c:when test="${fn:length(textualPages) > 0}">
+								<c:forEach items="${textualPages}" var="textualPage" varStatus="varStatus">
+								<a href="textualPage.html?id=${textualPage.id}&t=1" class="search_content">
+									<span class="clearfix">${textualPage.title}</span>
 									<span class="clearfix search_icons">
 										<span class="search_info">מידע כללי</span>
 									</span>
 								</a>
-								<a href="#" class="search_content">
-									<span class="clearfix">ארץ ב מיותר הראשי, בה קסאם לעריכה ביולוגיה אחר</span>
-									<span class="clearfix search_icons">
-										<span class="search_info">מידע כללי</span>
-									</span>
-								</a>
+	   							</c:forEach>
+ 	  							</c:when>
+  	  							<c:otherwise>לא נמצאו עמודי תוכן 
+  								</c:otherwise>
+  								</c:choose> 
 							</div>
 							
 						</div>
 					</div>
 				</div>
 			</div>
+						<div class="popup_placeholder" style="display:none"></div>
+			

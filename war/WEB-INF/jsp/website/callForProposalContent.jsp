@@ -93,20 +93,20 @@
 						<td colspan="3" style="border:1px #bca2a2 dotted">
       					<fmt:message key="${lang.localeId}.callForProposal.fundingDetails"/><br>
 							<ul>
-							<c:if test="${strippedFundingPeriod!=''}">
-							<li><fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/>${strippedFundingPeriod}</li>
+							<c:if test="${command.strippedFundingPeriod!=''}">
+							<li><fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/>${command.strippedFundingPeriod}</li>
 							</c:if>
-							<c:if test="${strippedAmountOfGrant!=''}">
-							<li><fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/>${strippedAmountOfGrant}</li>
+							<c:if test="${command.strippedAmountOfGrant!=''}">
+							<li><fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/>${command.strippedAmountOfGrant}</li>
 							</c:if>
-							<c:if test="${strippedEligibilityRequirements!=''}">
-							<li><fmt:message key="${lang.localeId}.callForProposal.eligibilityRequirements"/>${strippedEligibilityRequirements}</li>
+							<c:if test="${command.strippedEligibilityRequirements!=''}">
+							<li><fmt:message key="${lang.localeId}.callForProposal.eligibilityRequirements"/>${command.strippedEligibilityRequirements}</li>
 							</c:if>
-							<c:if test="${strippedActivityLocation!=''}">
-							<li><fmt:message key="${lang.localeId}.callForProposal.activityLocation"/>${strippedActivityLocation}</li>
+							<c:if test="${command.strippedActivityLocation!=''}">
+							<li><fmt:message key="${lang.localeId}.callForProposal.activityLocation"/>${command.strippedActivityLocation}</li>
 							</c:if>
-							<c:if test="${strippedPossibleCollaboration!=''}">
-							<li><fmt:message key="${lang.localeId}.callForProposal.possibleCollaboration"/>${strippedPossibleCollaboration}</li>
+							<c:if test="${command.strippedPossibleCollaboration!=''}">
+							<li><fmt:message key="${lang.localeId}.callForProposal.possibleCollaboration"/>${command.strippedPossibleCollaboration}</li>
 							</c:if>
 							</ul>
  						</td>

@@ -41,37 +41,13 @@ color:#666666;
 background:url(../image/website1/calendar_small.png) no-repeat left 4px;
 }
 
-.popup{
-display:block;
-direction:ltr;
-width:600px;
-padding:18px;
-background:#ffffff;
-font-size:15px;
-}
-
-.popup_title{
-float:left;
-margin:0 0 0 -27px;
-padding:0 0 0 20px;
-width:492px;
-height:51px;
-background:url(../image/website1/popup_title_left.png) no-repeat top;
-font-size:21px;
-font-family:"almoni-tzar";
+.table_kol th{
+padding:0 0 0 7px;
+height:33px;
+background:#f2f2f2;
+border-left:solid 1px #ffffff;
+text-align:left;
 font-weight:normal;
-color:#ffffff;
-line-height:42px;
-}
-
-.popup_close{
-float:right;
-width:38px;
-height:38px;
-text-decoration:none;
-text-indent:-1000px;
-overflow:hidden;
-background:url(../image/website1/advanced_close.png) no-repeat right;
 }
 
 .search_date,
@@ -87,3 +63,5 @@ font-weight:normal;
 color:#666666;
 background:url(../image/website1/search_date.png) no-repeat left 2px;
 }
+
+

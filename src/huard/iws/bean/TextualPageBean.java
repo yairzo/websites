@@ -1,5 +1,6 @@
 package huard.iws.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import huard.iws.model.TextualPage;
@@ -142,6 +143,12 @@ public class TextualPageBean {
 	}
 	public void setCreationTime(long creationTime) {
 		this.creationTime = creationTime;
+	}
+	public String getCreationTimeString() {
+		if(creationTime==0)
+			return "";
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(creationTime);
 	}
 
 

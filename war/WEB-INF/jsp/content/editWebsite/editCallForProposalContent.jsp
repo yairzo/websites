@@ -130,7 +130,7 @@
                 <tr class="form">
 					<td colspan="2" style="border:1px #bca2a2 dotted;text-align:${lang.align}">
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.fund"/>
-						 <input type="text" class="green long500" id="searchPhrase" value="${selectedFund}"/> 
+						 <input type="text" class="green long500" id="searchPhrase" value="${command.fund.name}"/> 
 						<form:hidden path="fundId" id="fundId"/>
 						<a href="" id="changeFund"><fmt:message key="${lang.localeId}.callForProposal.changeFund"/></a>&nbsp;
 						<a href="" id="editFund" target="_blank"><fmt:message key="${lang.localeId}.callForProposal.editFund"/></a>&nbsp;
@@ -329,7 +329,7 @@
   					<tr>
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					<table width="950">
-  					<tr><td align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactPersons"/></td>
+  					<tr><td align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactPersonDetails"/></td>
   					</tr>
  					<tr>
 					<td colspan="3" align="center">
@@ -337,6 +337,28 @@
  							${command.contactPersonDetails}	<c:if test="${fn:length(command.contactPersonDetails)<5}">&nbsp;&nbsp;</c:if>
   						</div>
            				<textarea class="green editorTextarea" id="contactPersonDetails" name="contactPersonDetails" cols="100" rows="1" style="display:none">${command.contactPersonDetails}</textarea>
+ 					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+ 					</tr>
+ 					</table>
+				</tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
+					<td colspan="4">
+					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr><td align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactPersons"/></td>
+  					</tr>
+ 					<tr>
+					<td colspan="3" align="center">
+						<div class="editor" id="editor13" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+ 							${command.contactPersons}<c:if test="${fn:length(command.contactPersons)<5}">&nbsp;&nbsp;</c:if>
+  						</div>
+           				<textarea class="green editorTextarea" id="contactPersons" name="contactPersons" cols="100" rows="1" style="display:none">${command.contactPersons}</textarea>
  					</td>
  					</tr>
 					<c:forEach items="${deskPersons}" var="deskPerson" varStatus="varStatus">

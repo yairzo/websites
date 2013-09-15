@@ -42,6 +42,8 @@ public interface TextualPageService {
 
 	public List<TextualPage> getOnlineTextualPagesSearch(String ids);
  
+	public List<TextualPage> getOnlineMessagesSearch(String ids);
+	
 	public void addTemplate(Template template);
 
 	public Template getTemplate(int id);

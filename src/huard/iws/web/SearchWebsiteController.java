@@ -46,7 +46,7 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(callForProposalIds);
 		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
 		for (CallForProposal callForProposal: callForProposals){
-			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,false);
+			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,true);
 			if(callForProposalBean.getTitle().startsWith("###")) callForProposalBean.setTitle("");
 			callForProposalBeans.add(callForProposalBean);
 		}
@@ -65,6 +65,15 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 		}
 		model.put("textualPages", textualPageBeans);
 		
+		//messages
+		List<TextualPage> textualMessages = textualPageService.getOnlineMessagesSearch(textualPageIds);
+		List<TextualPageBean> textualMessageBeans = new ArrayList<TextualPageBean>();
+		for (TextualPage textualMessage: textualMessages){
+			TextualPageBean textualMessageBean = new TextualPageBean(textualMessage);
+			textualMessageBeans.add(textualMessageBean);
+		}
+		model.put("textualMessages", textualMessageBeans);
+		
 		//show searched words
 		String searchWords="";
 		if(request.getSession().getAttribute("searchWords")!=null)
@@ -72,10 +81,14 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 		model.put("searchWords",searchWords);
 		request.getSession().setAttribute("searchWords", "");
 
-		if(request.getParameter("t", "").equals("1"))
+		if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("1")){
+			request.getSession().setAttribute("t","");
 			return new ModelAndView ("searchPage1",model);
-		else if(request.getParameter("t", "").equals("0"))
+		}
+		else if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("0")){
+			request.getSession().setAttribute("t","");
 			return new ModelAndView ("searchPageStatic",model);
+		}
 		else
 			return new ModelAndView ("searchPage",model);
 		//return new ModelAndView ("searchPage",model);
@@ -83,6 +96,10 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
+		
+		if(request.getSession().getAttribute("t")==null || request.getSession().getAttribute("t").equals(""))
+			request.getSession().setAttribute("t",request.getParameter("t", ""));
+
 		SearchWebsiteControllerCommand command = new SearchWebsiteControllerCommand();
 		if(request.getSession().getAttribute("callForProposalIds")==null && request.getSession().getAttribute("textualPageIds")==null){
 			Set<Long> sphinxIds=new LinkedHashSet<Long>();
@@ -93,6 +110,7 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 				sphinxTextualIds.add(new Long(0));//so wont show everything when deos'nt find any ids
 				sphinxTextualIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"textual_page_index"));
 			}
+			
 			request.getSession().setAttribute("callForProposalIds", BaseUtils.getStringFromLongSet(sphinxIds));
 			request.getSession().setAttribute("textualPageIds", BaseUtils.getStringFromLongSet(sphinxTextualIds));
 			request.getSession().setAttribute("searchWords", request.getParameter("searchWords", ""));

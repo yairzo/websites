@@ -130,19 +130,20 @@ public void importCallForProposals(){
 		budgetDetails += "<br>" + cleanText(callForProposalOld.getBudgetDetails());
 		callForProposal.setBudgetDetails(budgetDetails);
 		//contact persons
-		String contactPersonDetails=cleanText(callForProposalOld.getDeskAndContact());
+		callForProposal.setContactPersonDetails(callForProposalOld.getDeskAndContact());
+		String contactPersons="";
 		for(PersonBean personBean:deskPersons){
 			if(personBean.getTitle().indexOf("עוזר")>=0 || personBean.getTitle().indexOf("Assistant")>=0 ||
 					personBean.getTitle().indexOf("ראש מדור")>=0 || personBean.getTitle().indexOf("Coordinator")>=0 ||
 					budgetOfficer.getId()==personBean.getId()){
-				contactPersonDetails += "<br>" + "<a href=\"mailto:" + personBean.getEmail()+ "\">";
-				if(localeId.equals("iw_IL")) contactPersonDetails += personBean.getDegreeFullNameHebrew();
-				else contactPersonDetails += personBean.getDegreeFullNameEnglish();
-				contactPersonDetails += "</a><img src=\"image/bullet_orange_website.gif\" width=\"12\" height=\"8\">" + personBean.getTitle()
+				contactPersons += "<br>" + "<a href=\"mailto:" + personBean.getEmail()+ "\">";
+				if(localeId.equals("iw_IL")) contactPersons += personBean.getDegreeFullNameHebrew();
+				else contactPersons += personBean.getDegreeFullNameEnglish();
+				contactPersons += "</a><img src=\"image/bullet_orange_website.gif\" width=\"12\" height=\"8\">" + personBean.getTitle()
 						+ "<img src=\"image/bullet_orange_website.gif\" width=\"12\" height=\"8\">" + personBean.getPhone();  
 			}
 		}
-		callForProposal.setContactPersonDetails(contactPersonDetails);
+		callForProposal.setContactPersons(contactPersons);
 		callForProposal.setDescription(cleanText(callForProposalOld.getDescription()));
 		callForProposal.setFundingPeriod(cleanText(callForProposalOld.getFundingPeriod()));
 		callForProposal.setAmountOfGrant(cleanText(callForProposalOld.getAmountOfGrant()));

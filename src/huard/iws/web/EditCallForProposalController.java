@@ -204,14 +204,6 @@ public class EditCallForProposalController extends GeneralFormController{
 			}
 			model.put("deskAssistants", deskAssistants);
 			
-			//funds
-			String selectedFund="";
-			if(callForProposalBean.getFundId()>0){
-				Fund fund = fundService.getFundByFinancialId(callForProposalBean.getFundId());
-				if (fund.getId()>0)
-					selectedFund=fund.getName();
-			}
-			model.put("selectedFund", selectedFund);
 			//desks
 			List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 			model.put("mopDesks", mopDesks);
@@ -249,7 +241,7 @@ public class EditCallForProposalController extends GeneralFormController{
 				|| id == 0)
 			return callForProposalBean;
 		
-		callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposal(id),false);
+		callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposal(id),true);
 		
 		return callForProposalBean;
 	}
