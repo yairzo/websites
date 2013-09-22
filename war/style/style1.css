@@ -157,7 +157,7 @@ clear:both;
 width:100%;
 border-top:solid 2px #ffffff;
 background:url(../image/website1/menu_bg.png) repeat-x center top;
-z-index:2;
+/*z-index:2;*/ /* for datepicker on top of logo and nav menu on top of slider*/
 position:relative;
 }
 
@@ -221,6 +221,7 @@ top:48px;
 right: 0;
 background:#f5f5f5;
 border:solid 1px #dedfdf;
+z-index:10;
 }
 
 .nav ul li ul li {
