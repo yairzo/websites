@@ -92,7 +92,7 @@
 									<h3 class="search_choose">בחירת נושאים</h3>
 									<div class="checks_left">
 										<div class="check check_all">
-											<div class="checkbox_box"><input type="checkbox" id="selectAll" class="styled" /></div>
+											<div class="checkbox_box"><input type="checkbox" id="selectAll" class="styled" <c:choose><c:when test="${selectAll}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose>/></div>
 											<label>סמן הכל</label>
 										</div>
 										<div class="check check_only">
@@ -113,16 +113,17 @@
 											</c:if>	
 															
 											<div class="check scroll_col <c:if test='${varStatus.index%3==0}'>scroll_col_last</c:if>">
-												<div class="checkbox_box subject">
-													<input type="checkbox" id="${subject.id}" class="styled" />
+												<div class="checkbox_box subjectBox">
+													<input type="checkbox" id="${subject.id}" class="subject styled" />
 												</div>
 												<label>${subject.name}</label>
-												<div title="<fmt:message key='${lang.localeId}.post.selectSubjects'/>" id="${subject.id}Sub" class="subSubjects" style="text-align:${lang.align};direction:${lang.dir}" > 
+												<div id="${subject.id}Sub" class="subSubjects" style="text-align:${lang.align};direction:${lang.dir}" > 
                    								<c:forEach items="${subject.subSubjectsBeans}" var="subSubject">
-                     								<div class="checkbox_box">
-                     								<input type="checkbox"  id="${subject.id}.${subSubject.id}" class="subSubject" value="${subSubject.id}"/>
+													<div class="checkbox_box">
+                     								<input type="checkbox"  id="${subject.id}.${subSubject.id}" class="subSubject styled" value="${subSubject.id}"/>
                      								</div>
                     								<label><c:out value="${subSubject.name}"/></label>
+													<br>	
                  								</c:forEach>
                  								</div>
 											</div>

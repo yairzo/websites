@@ -134,7 +134,7 @@ $(document).ready(function() {
 
 	
 
-	/*$('div.checkbox_box').on('click',function () {
+	/*$('div.check_all').on('click',function () {
 		 var checkBox = $(this).find("input:checkbox");
 		alert(checkBox.is(":checked"));
 		});	*/
@@ -166,8 +166,28 @@ $(document).ready(function() {
 	$('div.subSubjects').hide();
 	
 	$(".scroll_col").click(function(){
-		//alert($(this).children(".subSubjects").attr("id"));
-		$(this).children(".subSubjects").show();
+		var rowPos = $(this).position();
+		bottomTop = rowPos.top+20;
+		bottomLeft = rowPos.left;
+		$(this).children(".subSubjects").css({
+			position:'absolute',
+			top: bottomTop,
+	    	left: bottomLeft,
+			background:'#ffffff'
+		});
+		$(this).children(".subSubjects").toggle();
+	});
+	
+	$(".check_all").click(function(){
+		$("input:checkbox.subject").each(function(){
+			this.checked = true;
+			$(this).change();
+		});
+		$("input:checkbox.subSubject").each(function(){
+			this.checked = true;
+			$(this).change();
+		});
+		this.checked = !this.checked;
 	});
 
 });
