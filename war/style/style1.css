@@ -1492,7 +1492,7 @@ background:#f8f8f8;
 border:solid 1px #ededed;
 }
 
-.checkbox_box.selected{background:#f8f8f8 url(../image/website1/checkbox.png) no-repeat center center;}
+/*.checkbox_box.selected{background:#f8f8f8 url(../image/website1/checkbox.png) no-repeat center center;}*/
 
 .check label{
 float:right;
@@ -1696,6 +1696,13 @@ line-height:38px;
 	clear: left;
 	float: left;
 }
+
+.checkboxPartial {
+	background: url(../image/website1/dot.png) no-repeat;
+}
+
+
+
 .radio {
 	background: url(radio.png) no-repeat;
 }

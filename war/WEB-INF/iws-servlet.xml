@@ -272,6 +272,16 @@
         </property>
       </bean>
  
+   	<bean id="textualPageMessagesController" class="huard.iws.web.TextualPageMessagesController" parent="generalWebsiteFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.web.TextualPageMessagesController$TextualPageMessagesControllerCommand</value></property>
+        <property name="formView"><value>messages</value></property>
+        <property name="successView"><value>messages.html</value></property>
+     	<property name="textualPageService">
+            <ref bean="textualPageService"/>
+        </property>
+     </bean>
+ 
 	<bean id="editCategoryController" class="huard.iws.web.EditCategoryController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.CategoryBean</value></property>
@@ -1253,6 +1263,7 @@
 				<prop key="/resetPassword.html">resetPasswordController</prop>
 				<prop key="/resetPasswordSuccess.html">urlFilenameViewController</prop>
 				<prop key="/callForProposalCalendar.html">callForProposalCalendarController</prop>
+				<prop key="/messages.html">textualPageMessagesController</prop>
             </props>
         </property>
     </bean>

@@ -11,7 +11,7 @@
 					
 					<div class="clearfix mar_20">
 						<div class="advanced">
-							<form action="#" method="post">
+							<form id="form" action="searchCallForProposals.html?t=1" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>
@@ -21,11 +21,11 @@
 									<div class="advanced_date">
 										<label for="advanced_date_from">טווח תאריכי הגשה</label>
 										<div class="clearfix">
-											<input type="text" name="submissionDateFrom" value="מתאריך" id="advanced_date_from" class="date"/>
-											<a href="#" class="advanced_cal"></a>
+											<input type="text" name="submissionDateFrom" id="advanced_date_from" class="date" value="<c:choose><c:when test="${fn:length(submissionDateFrom)>0}">${submissionDateFrom}</c:when><c:otherwise>מתאריך</c:otherwise></c:choose>"/>
+											<a href="#" class="advanced_cal" id="advanced_cal_from"></a>
 											<span class="advanced_date_sep">-</span>
-											<input type="text" name="submissionDateTo" value="עד תאריך" id="advanced_date_to" class="date"/>
-											<dfn class="advanced_cal" onClick="$('#advanced_date_to').click();"></dfn>
+											<input type="text" name="submissionDateTo" id="advanced_date_to" class="date" value="<c:choose><c:when test="${fn:length(submissionDateTo)>0}">${submissionDateTo}</c:when><c:otherwise>עד תאריך</c:otherwise></c:choose>"/>
+											<a href="#" class="advanced_cal" id="advanced_cal_to"></a>
 										</div>
 									</div>
 								</div>
@@ -113,14 +113,14 @@
 											</c:if>	
 															
 											<div class="check scroll_col <c:if test='${varStatus.index%3==0}'>scroll_col_last</c:if>">
-												<div class="checkbox_box subjectBox">
-													<input type="checkbox" id="${subject.id}" class="subject styled" />
+												<div class="checkbox_box selectSubject">
+													<input type="checkbox" id="${subject.id}" class="subject styled" checked="false"/>
 												</div>
-												<label>${subject.name}</label>
+												<label class="openSubSubjects">${subject.name}</label>
 												<div id="${subject.id}Sub" class="subSubjects" style="text-align:${lang.align};direction:${lang.dir}" > 
                    								<c:forEach items="${subject.subSubjectsBeans}" var="subSubject">
-													<div class="checkbox_box">
-                     								<input type="checkbox"  id="${subject.id}.${subSubject.id}" class="subSubject styled" value="${subSubject.id}"/>
+													<div class="checkbox_box selectSubSubject">
+                     								<input type="checkbox" id="${subject.id}.${subSubject.id}" checked="false" class="subSubject styled" value="${subSubject.id}"/>
                      								</div>
                     								<label><c:out value="${subSubject.name}"/></label>
 													<br>	

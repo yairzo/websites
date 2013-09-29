@@ -31,7 +31,7 @@ var selectWidth = "204";
 /* No need to change anything after this */
 
 
-document.write('<style type="text/css">input.styled { display: none; } select.styled { position: relative; width: ' + selectWidth + 'px; opacity: 0; filter: alpha(opacity=0); z-index: 5;height:36px; } .disabled { opacity: 0.5; filter: alpha(opacity=50); }</style>');
+document.write('<style type="text/css">input.styled { display: none; } select.styled { position: relative; width: ' + selectWidth + 'px; opacity: 0; filter: alpha(opacity=0); z-index: 1;height:36px; } .disabled { opacity: 0.5; filter: alpha(opacity=50); }</style>');
 
 var Custom = {
 	init: function() {
@@ -42,6 +42,9 @@ var Custom = {
 				span[a].className = inputs[a].type;
 
 				if(inputs[a].checked == true) {
+					if(inputs[a].getAttribute("id")=="searchByAllYear")
+						alert("init:"+ inputs[a].getAttribute("id"));
+					
 					if(inputs[a].type == "checkbox") {
 						position = "0 -" + (checkboxHeight*2) + "px";
 						span[a].style.backgroundPosition = position;

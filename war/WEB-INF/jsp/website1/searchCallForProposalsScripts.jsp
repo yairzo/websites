@@ -58,7 +58,6 @@ $(document).ready(function() {
     	resetAutocomplete();
 	});
 	
-	$(".date").datepicker({ dateFormat: 'dd/mm/yy'});	
 	
 	$(function() {
         $.datepicker.regional['he'] = {
@@ -73,52 +72,53 @@ $(document).ready(function() {
             dayNamesShort: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
             dayNamesMin: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
             weekHeader: 'Wk',
-            dateFormat: 'dd/mm/yy',
+            dateformat: 'dd/mm/yy',
             firstDay: 0,
             isRTL: true,
             showMonthAfterYear: false,
             yearSuffix: ''
         };
-        if(${lang.localeId=='iw_IL'})
+      	if(${lang.localeId=='iw_IL'}) 
         	$.datepicker.setDefaults($.datepicker.regional['he']);
-        else
-        	$.datepicker.setDefaults();
+        else 
+        	$.datepicker.setDefaults(); 
      });
 	
-	$('button.search').click(function(){
+	$(function() {
+		$(".date").datepicker({ dateFormat: 'dd/mm/yy'});	
+		$("#advanced_cal_from").click(function(){ $("#advanced_date_from").datepicker("show"); });
+		$("#advanced_cal_to").click(function(){ $("#advanced_date_to").datepicker("show"); });
+    });	
+	
+	$('.advanced_submit').click(function(){
 		if($("#fundId").val()=='')
 			$("#form").append("<input type=\"hidden\" name=\"fundId\" value=\"0\"/>");
 		else
 			$("#form").append("<input type=\"hidden\" name=\"fundId\" value=\""+$("#fundId").val() +"\"/>");
-		
-		/*if($("#searchByTemporary").is(":checked"))
-			$("#form").append("<input type=\"hidden\" name=\"temporaryFund\" value=\"true\"/>");
-		else
-			$("#form").append("<input type=\"hidden\" name=\"temporaryFund\" value=\"false\"/>");*/
 
-		if($("#searchOpen").is(":checked"))
+		if($("#searchOpen").prop('checked')== true)
 			$("#form").append("<input type=\"hidden\" name=\"open\" value=\"false\"/>");
 		else
 			$("#form").append("<input type=\"hidden\" name=\"open\" value=\"true\"/>");
 
-		if($("#searchExpired").is(":checked"))
+		if($("#searchExpired").prop('checked')== true)
 			$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"false\"/>");
 		else
 			$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"true\"/>");
 
-		if($("#searchByAllYear").is(":checked"))
+		if($("#searchByAllYear").prop('checked')== true)
 			$("#form").append("<input type=\"hidden\" name=\"allYear\" value=\"false\"/>");
 		else
 			$("#form").append("<input type=\"hidden\" name=\"allYear\" value=\"true\"/>");
 
-		if($("#searchByAllSubjects").is(":checked"))
+		if($("#searchByAllSubjects").prop('checked')== true)
 			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"false\"/>");
 		else
 			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"true\"/>");
 
 		var ids="";
-		$('input.subSubject').each(function(){
-				if (this.checked){
+		$("input:checkbox.subject").each(function(){
+				if (this.checked=false){
 					var id = this.id;
 					id = id.substring(id.indexOf('.') + 1);
 					if (ids !="")
@@ -127,17 +127,12 @@ $(document).ready(function() {
 				}
 		});
 		$('.subjectsIdsString').remove();
-		$('form#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" class=\"subjectsIdsString\" value=\"'+ids+'\"/>');
-		
-		$('form#form').submit();
+		$('#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" class=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+
+		$('#form').submit();
 	});
 
 	
-
-	/*$('div.check_all').on('click',function () {
-		 var checkBox = $(this).find("input:checkbox");
-		alert(checkBox.is(":checked"));
-		});	*/
 	
 	$(".advanced_clear").click(function(){
 		$("#advanced_subject").val('')
@@ -149,13 +144,21 @@ $(document).ready(function() {
      	$('#deskId').change();       	
      	$("#typeId").val(0);
      	$('#typeId').change();       	
-    	
        	$("#searchByAllYear").prop('checked', true);
         $("#searchExpired").prop('checked', true);
        	$("#searchOpen").prop('checked', true);
-    	$("#diselectAll").click();
     	$("#searchByAllSubjects").prop('checked', true);
-    	
+       	$("#selectAll").prop('checked', true);
+    	$("input:checkbox.subject").each(function(){
+			$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
+			this.checked = true;
+			$(this).change();
+		});
+    	$("input:checkbox.subSubject").each(function(){
+			this.checked = true;
+			$(this).change();
+		});
+   	
   		$("#listViewPage").remove();
 		$("#orderBy").remove();
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
@@ -165,31 +168,104 @@ $(document).ready(function() {
 		
 	$('div.subSubjects').hide();
 	
-	$(".scroll_col").click(function(){
-		var rowPos = $(this).position();
-		bottomTop = rowPos.top+20;
-		bottomLeft = rowPos.left;
-		$(this).children(".subSubjects").css({
-			position:'absolute',
-			top: bottomTop,
-	    	left: bottomLeft,
-			background:'#ffffff'
+
+	$(".openSubSubjects").click(function(){
+		if($(this).parent().children(".subSubjects").css('display')=='none')	{	
+			$('div.subSubjects').hide();
+			var rowPos = $(this).position();
+			bottomTop = rowPos.top+20;
+			bottomLeft = rowPos.left-20;
+			$(this).parent().children(".subSubjects").css({
+				position:'absolute',
+				top: bottomTop,
+	    		left: bottomLeft,
+	    		boxShadow: '10px 10px 5px #888888',
+				background:'#ffffff',
+				padding:10
+			});
+			$(this).parent().children(".subSubjects").show();
+		}
+		else{
+			$('div.subSubjects').hide();
+		}
+		
+	});
+	
+	$(".selectSubject").click(function(){
+		$(this).children("span.checkbox").removeClass("checkboxPartial");
+		var id = $(this).children("input:checkbox.subject").attr("id");
+		if(!$(this).children("input:checkbox.subject").is(":checked")){
+			$("input:checkbox[id^='"+id+".']").each(function(){
+				this.checked = false;
+				$(this).change();
+			});
+		}
+		else{
+			$("input:checkbox[id^='"+id+".']").each(function(){
+				this.checked = true;
+				$(this).change();
+			});
+		}
+	});
+	
+	$(".selectSubSubject").click(function(){
+		var id = $(this).children("input:checkbox.subSubject").attr("id");
+		id=id.substring(0,id.indexOf(".")); 
+		$("input:checkbox.subject").each(function(){
+			if($(this).attr("id")==id){
+				var type = getCheckboxImage(id);
+				if(type==1){
+					this.checked = false;
+					$(this).parent().children("span.checkbox").addClass("checkboxPartial");
+					$(this).change();
+				}
+				else if (type==2){
+					this.checked = false;
+					$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
+					$(this).change();
+				}
+				else{
+					this.checked = true;
+					$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
+					$(this).change();
+				}
+			}
 		});
-		$(this).children(".subSubjects").toggle();
 	});
 	
 	$(".check_all").click(function(){
-		$("input:checkbox.subject").each(function(){
-			this.checked = true;
-			$(this).change();
-		});
-		$("input:checkbox.subSubject").each(function(){
-			this.checked = true;
-			$(this).change();
-		});
-		this.checked = !this.checked;
+		if(!$("input:checkbox#selectAll").is(":checked")){
+			$("input:checkbox.subject").each(function(){
+				$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
+				this.checked = false;
+				$(this).change();
+			});
+			$("input:checkbox.subSubject").each(function(){
+				this.checked = false;
+				$(this).change();
+			});
+		}
 	});
 
 });
+function getCheckboxImage(subjectid){
+	var isAnyChecked = false;
+	var isAllChecked = true;
+	var id = $(parent).attr("id");
+	$("input:checkbox[id^='"+subjectid+".']").each(function(){
+		if (this.checked==false){
+			isAnyChecked = true;
+		}
+		else{
+			isAllChecked = false;
+		}
+	});	
+	if (isAnyChecked && ! isAllChecked)
+		return 1;
+	else if (isAllChecked)
+		return 2;
+	else
+		return 0;
+}
 
 		</script>
