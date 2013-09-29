@@ -42,9 +42,7 @@ var Custom = {
 				span[a].className = inputs[a].type;
 
 				if(inputs[a].checked == true) {
-					if(inputs[a].getAttribute("id")=="searchByAllYear")
-						alert("init:"+ inputs[a].getAttribute("id"));
-					
+				
 					if(inputs[a].type == "checkbox") {
 						position = "0 -" + (checkboxHeight*2) + "px";
 						span[a].style.backgroundPosition = position;
