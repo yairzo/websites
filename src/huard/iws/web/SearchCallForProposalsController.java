@@ -11,6 +11,7 @@ import huard.iws.service.SphinxSearchService;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.DateUtils;
+import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallForProposal;
@@ -60,8 +61,8 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 		model.put("mopDesks", mopDesks);
 		//subjects
-		Subject rootSubject = subjectService.getSubject(1, "iw_IL");
-		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, "iw_IL");
+		Subject rootSubject = subjectService.getSubject(1, userPersonBean.getPreferedLocaleId());
+		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, userPersonBean.getPreferedLocaleId());
 		model.put("rootSubject", rootSubjectBean);
 		//show searched parameters
 		model.put("searchWords",command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));

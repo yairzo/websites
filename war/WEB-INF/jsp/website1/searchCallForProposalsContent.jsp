@@ -19,7 +19,7 @@
 										<input type="hidden" id="fundId" value="${fundId}"/>
 									</div>
 									<div class="advanced_date">
-										<label for="advanced_date_from">טווח תאריכי הגשה</label>
+										<label for="advanced_date_from"><fmt:message key="${lang.localeId}.website.submissionDatesRange"/></label>
 										<div class="clearfix">
 											<input type="text" name="submissionDateFrom" id="advanced_date_from" class="date" value="<c:choose><c:when test="${fn:length(submissionDateFrom)>0}">${submissionDateFrom}</c:when><c:otherwise>מתאריך</c:otherwise></c:choose>"/>
 											<a href="#" class="advanced_cal" id="advanced_cal_from"></a>
@@ -34,15 +34,15 @@
 										<div class="checkbox_box">
 										<input type="checkbox" name="searchByAllYear" id="searchByAllYear" <c:choose><c:when test="${searchByAllYear}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose> class="styled" />
 										</div>
-										<label>להגשה כל השנה</label>
+										<label><fmt:message key="${lang.localeId}.website.allYearSubmission"/></label>
 									</div>
 									<div class="check">
 										<div class="checkbox_box"><input type="checkbox" name="searchOpen" id="searchOpen" <c:choose><c:when test="${searchOpen}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose> class="styled" /></div>
-										<label>פתוחים להגשה</label>
+										<label><fmt:message key="${lang.localeId}.website.openForSubmission"/></label>
 									</div>
 									<div class="check">
 										<div class="checkbox_box"><input type="checkbox" name="searchExpired" id="searchExpired"  <c:choose><c:when test="${searchExpired}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose> class="styled" /></div>
-										<label>פגי תוקף</label>
+										<label><fmt:message key="${lang.localeId}.website.expired"/></label>
 									</div>
 								</div>
 								<div class="clearfix mar_5">
@@ -89,15 +89,15 @@
 									</div>
 								</div>
 								<div class="clearfix checks mar_15">
-									<h3 class="search_choose">בחירת נושאים</h3>
+									<h3 class="search_choose"><fmt:message key="${lang.localeId}.website.subjectSelection"/></h3>
 									<div class="checks_left">
 										<div class="check check_all">
 											<div class="checkbox_box"><input type="checkbox" id="selectAll" class="styled" <c:choose><c:when test="${selectAll}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose>/></div>
-											<label>סמן הכל</label>
+											<label><fmt:message key="${lang.localeId}.website.selectAll"/></label>
 										</div>
 										<div class="check check_only">
 											<div class="checkbox_box "><input type="checkbox" name="searchByAllSubjects" id="searchByAllSubjects" <c:choose><c:when test="${searchByAllSubjects}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose> class="styled" /></div>
-											<label>הצג רק קולות קוראים עם כל הנושאים</label>
+											<label><fmt:message key="${lang.localeId}.website.showCallsWithAllSubjects"/></label>
 										</div>
 									</div>
 								</div>
@@ -132,12 +132,12 @@
 									</div>
 								</div>
 								<div class="clearfix mar_15">
-									<input type="submit" value="חיפוש" class="advanced_submit" />
-									<a href="#" class="advanced_clear">נקה חיפוש</a>
+									<input type="submit" value="<fmt:message key="${lang.localeId}.website.search"/>" class="advanced_submit" />
+									<a href="#" class="advanced_clear"><fmt:message key="${lang.localeId}.website.cleanSearch"/></a>
 								</div>
 							</form>
 							<div class="clearfix">
-								<a href="search.html?t=1" class="advanced_close"> חיפוש כללי</a>
+								<a href="search.html?t=1" class="advanced_close"><fmt:message key="${lang.localeId}.website.generalSearch"/></a>
 							</div>
 						</div>
 						

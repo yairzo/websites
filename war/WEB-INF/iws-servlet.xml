@@ -257,7 +257,10 @@
      	<property name="textualPageService">
             <ref bean="textualPageService"/>
         </property>
-     </bean>
+     	<property name="listService">
+            <ref bean="listService"/>
+        </property>
+      </bean>
  
   	<bean id="textualPageListController" class="huard.iws.web.TextualPageListController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>

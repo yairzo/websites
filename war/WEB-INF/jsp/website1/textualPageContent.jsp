@@ -25,7 +25,61 @@
 									</c:choose>
 								</c:when>
     							<c:when test="${command.wrapExternalPage}">
-									<jsp:include page="/viewList.html?id=${command.externalPageUrl}&iv=1&p=1&a=1" />					
+									<!--<jsp:include page="/viewList.html?id=${command.externalPageUrl}&iv=1&p=1&a=1" />-->
+									<c:if test="${aCompoundView}">
+									<c:forEach items="${list.sublistsBeans}" var="listBean" varStatus="varStatusLists">
+										<div class="kol open">
+										<div class="clearfix">
+											<h3 class="kol_title"><c:out escapeXml="false" value="${listBean.displayName}"/></h3>
+										</div>
+										<table class="table_kol">
+										<tr>
+										<th class="table_one">שם</th>
+										<th class="table_two">תפקיד</th>
+										<th class="table_email">דוא”ל</th>
+										<th class="table_three">טלפון</th>
+										</tr>
+										
+										<c:forEach items="${listBean.viewableBeans}" var="viewableBean" varStatus="varStatus">
+										<tr>
+											<c:forEach items="${viewableBean.fields}" var="field">
+											<td align="${field.align}">
+											<c:out escapeXml="false" value="${field.prefix}"/><c:out escapeXml="false" value="${field.text}"/><c:out escapeXml="false" value="${field.suffix}"/>
+											</td>
+											</c:forEach>
+										</tr>
+										</c:forEach>
+										</table>
+										</div>
+									</c:forEach>
+									</c:if>
+									<c:if test="${!aCompoundView}">
+										<div class="kol open">
+										<div class="clearfix">
+											<h3 class="kol_title"><c:out escapeXml="false" value="${listBean.displayName}"/></h3>
+										</div>
+										<table class="table_kol">
+										<tr>
+										<th class="table_one">שם</th>
+										<th class="table_two">תפקיד</th>
+										<th class="table_email">דוא”ל</th>
+										<th class="table_three">טלפון</th>
+										</tr>
+									
+										<c:forEach items="${listBean.viewableBeans}" var="viewableBean" varStatus="varStatus">
+										<tr>
+											<c:forEach items="${viewableBean.fields}" var="field">
+											<td align="${field.align}">
+											<c:out escapeXml="false" value="${field.prefix}"/><c:out escapeXml="false" value="${field.text}"/><c:out escapeXml="false" value="${field.suffix}"/>
+											</td>
+											</c:forEach>
+										</tr>
+										</c:forEach>
+										</table>
+										</div>
+									</c:if>
+									
+									
     							</c:when>
     							<c:otherwise>
     								${command.html}
