@@ -17,6 +17,7 @@ import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Subject;
+import huard.iws.model.Language;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -45,8 +46,8 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 	{
 
 		SearchCallForProposalsControllerCommand command = (SearchCallForProposalsControllerCommand) model.get("command");
-
-		model.put("pageTitle", messageService.getMessage("iw_IL.website.search"));
+		Language lang = (huard.iws.model.Language)model.get("lang");
+		model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.search"));
 
 		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
 		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();

@@ -21,10 +21,10 @@
 									<div class="advanced_date">
 										<label for="advanced_date_from"><fmt:message key="${lang.localeId}.website.submissionDatesRange"/></label>
 										<div class="clearfix">
-											<input type="text" name="submissionDateFrom" id="advanced_date_from" class="date" value="<c:choose><c:when test="${fn:length(submissionDateFrom)>0}">${submissionDateFrom}</c:when><c:otherwise>מתאריך</c:otherwise></c:choose>"/>
+											<input type="text" name="submissionDateFrom" id="advanced_date_from" class="date" value="<c:choose><c:when test="${fn:length(submissionDateFrom)>0}">${submissionDateFrom}</c:when><c:otherwise><fmt:message key="${lang.localeId}.website.fromDate"/></c:otherwise></c:choose>"/>
 											<a href="#" class="advanced_cal" id="advanced_cal_from"></a>
 											<span class="advanced_date_sep">-</span>
-											<input type="text" name="submissionDateTo" id="advanced_date_to" class="date" value="<c:choose><c:when test="${fn:length(submissionDateTo)>0}">${submissionDateTo}</c:when><c:otherwise>עד תאריך</c:otherwise></c:choose>"/>
+											<input type="text" name="submissionDateTo" id="advanced_date_to" class="date" value="<c:choose><c:when test="${fn:length(submissionDateTo)>0}">${submissionDateTo}</c:when><c:otherwise><fmt:message key="${lang.localeId}.website.toDate"/></c:otherwise></c:choose>"/>
 											<a href="#" class="advanced_cal" id="advanced_cal_to"></a>
 										</div>
 									</div>
