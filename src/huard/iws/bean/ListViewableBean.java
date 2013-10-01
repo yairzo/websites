@@ -49,6 +49,7 @@ public abstract class ListViewableBean implements IListViewableBean{
 				field.setWidth(""+columnInstruction.getWidth());
 
 				if (columnInstruction.isMailAddress()){
+					field.setIsEmailAddress(true);
 					field.setText("<a href=\"mailto:"+field.getText()+"\" class=\"nounderline\">@</a>");
 				}
 				if (columnInstruction.isWebAddress()){
@@ -60,7 +61,7 @@ public abstract class ListViewableBean implements IListViewableBean{
 					String prefix = "";
 					String suffix = "";
 					if (! field.getText().isEmpty()){
-						if (target.indexOf('@')!=-1){
+						if (field.getIsEmailAddress()){
 							prefix = "<a href=\"mailto:"+target+"\">";
 							suffix = "</a>";
 						}

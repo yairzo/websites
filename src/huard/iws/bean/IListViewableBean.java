@@ -12,6 +12,7 @@ public interface IListViewableBean {
 		private String suffix;
 		private String align;
 		private String width;
+		private boolean isEmailAddress;
 
 		public String getWidth() {
 			return width;
@@ -29,6 +30,7 @@ public interface IListViewableBean {
 			text="";
 			prefix="";
 			suffix="";
+			isEmailAddress=false;
 		}
 		public void truncate(int num){
 			text = text.substring(0, text.length() - num);
@@ -51,6 +53,12 @@ public interface IListViewableBean {
 		}
 		public void setText(String text) {
 			this.text = text;
+		}
+		public boolean getIsEmailAddress() {
+			return isEmailAddress;
+		}
+		public void setIsEmailAddress(boolean isEmail) {
+			this.isEmailAddress = isEmail;
 		}
 	}
 

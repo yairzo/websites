@@ -27,6 +27,9 @@
     							<c:when test="${command.wrapExternalPage}">
 									<!--<jsp:include page="/viewList.html?id=${command.externalPageUrl}&iv=1&p=1&a=1" />-->
 									<c:if test="${aCompoundView}">
+									<div class="kol open">
+									${list.preface}
+									</div>
 									<c:forEach items="${list.sublistsBeans}" var="listBean" varStatus="varStatusLists">
 										<div class="kol open">
 										<div class="clearfix">
@@ -34,16 +37,16 @@
 										</div>
 										<table class="table_kol">
 										<tr>
-										<th class="table_one">שם</th>
-										<th class="table_two">תפקיד</th>
-										<th class="table_email">דוא”ל</th>
-										<th class="table_three">טלפון</th>
+											<c:forEach items="${listBean.columnBeans}" var="column" varStatus="varStatus">
+											<c:if test="${!column.hidden}">
+											<th>${column.columnDisplayName}</th>
+											</c:if>
+											</c:forEach>
 										</tr>
-										
 										<c:forEach items="${listBean.viewableBeans}" var="viewableBean" varStatus="varStatus">
 										<tr>
 											<c:forEach items="${viewableBean.fields}" var="field">
-											<td align="${field.align}">
+											<td <c:if test="${field.isEmailAddress}">class="table_email" </c:if> align="${field.align}">
 											<c:out escapeXml="false" value="${field.prefix}"/><c:out escapeXml="false" value="${field.text}"/><c:out escapeXml="false" value="${field.suffix}"/>
 											</td>
 											</c:forEach>
@@ -60,16 +63,17 @@
 										</div>
 										<table class="table_kol">
 										<tr>
-										<th class="table_one">שם</th>
-										<th class="table_two">תפקיד</th>
-										<th class="table_email">דוא”ל</th>
-										<th class="table_three">טלפון</th>
+											<c:forEach items="${listBean.columnBeans}" var="column" varStatus="varStatus">
+											<c:if test="${!column.hidden}">
+											<th>${column.columnDisplayName}</th>
+											</c:if>
+											</c:forEach>
 										</tr>
 									
 										<c:forEach items="${listBean.viewableBeans}" var="viewableBean" varStatus="varStatus">
 										<tr>
 											<c:forEach items="${viewableBean.fields}" var="field">
-											<td align="${field.align}">
+											<td <c:if test="${field.isEmailAddress}">class="table_email" </c:if> align="${field.align}">
 											<c:out escapeXml="false" value="${field.prefix}"/><c:out escapeXml="false" value="${field.text}"/><c:out escapeXml="false" value="${field.suffix}"/>
 											</td>
 											</c:forEach>
