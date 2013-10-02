@@ -3,13 +3,13 @@
 
 			
 <div class="side sidelinks">
-	<h3>קישורים מהירים</h3>
+	<h3><fmt:message key="${lang.localeId}.website.links"/></h3>
 	<ul>
-		<li class="link_research"><a href="#">מערכת המחקרים</a></li>
-		<li class="link_budget"><a href="#">תקציבים אישיים</a></li>
-		<li class="link_mail"><a href="#">דיוור ישיר</a></li>
-		<li class="link_guidelines"><a href="#">הנחיות להגשה</a></li>
-		<li class="link_grant"><a href="#">הנחיות למענקים</a></li>
-		<li class="link_application"><a href="#">חברת יישום</a></li>
+		<li class="link_research"><a href="#"><fmt:message key="${lang.localeId}.website.researchSystem"/></a></li>
+		<li class="link_budget"><a href="#"><fmt:message key="${lang.localeId}.website.personalBudget"/></a></li>
+		<li class="link_mail"><a href="#"><fmt:message key="${lang.localeId}.website.listserv"/></a></li>
+		<li class="link_guidelines"><a href="#"><fmt:message key="${lang.localeId}.website.submissionGuidelines"/></a></li>
+		<li class="link_grant"><a href="#"><fmt:message key="${lang.localeId}.website.grantGuidelines"/></a></li>
+		<li class="link_application"><a href="#"><fmt:message key="${lang.localeId}.website.yissum"/></a></li>
 	</ul>
 </div>
