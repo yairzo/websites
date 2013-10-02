@@ -144,7 +144,7 @@
 						<div class="clearfix mar_20">
 							<div class="kol search_result">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp; קולות קוראים</h3>
+									<h3 class="kol_title"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/></h3>
 								</div>
    								<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
@@ -152,14 +152,14 @@
 								<a href="#" class="search_content viewProposal" id="${callForProposal.id}">
 									<span class="clearfix <c:if test="${callForProposal.localeId=='en_US'}">search_eng</c:if>">${callForProposal.title}</span>
 									<span class="clearfix search_icons">
-										<span class="search_financing">מממן <strong>${callForProposal.fund.name}</strong></span>
-										<span class="search_date">תאריך הגשה <strong><c:choose><c:when test="${callForProposal.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/></c:when><c:otherwise>${callForProposal.finalSubmissionTimeString}</c:otherwise></c:choose></strong></span>
+										<span class="search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/> <strong>${callForProposal.fund.name}</strong></span>
+										<span class="search_date"><fmt:message key="${lang.localeId}.callForProposal.submissionTime"/> <strong><c:choose><c:when test="${callForProposal.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/></c:when><c:otherwise>${callForProposal.finalSubmissionTimeString}</c:otherwise></c:choose></strong></span>
 									</span>
 								</a>
 	   							</c:forEach>
  	  							</c:when>
   	  							<c:otherwise>
-  								לא נמצאו קולות קוראים 
+  								<fmt:message key="${lang.localeId}.website.noCallForProposals"/> 
   								</c:otherwise>
 	  							</c:choose> 								
 

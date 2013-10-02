@@ -18,19 +18,19 @@
 									</div>
 								</div>
 								<div class="clearfix mar_15">
-									<input type="submit" value="חיפוש" class="advanced_submit" />
-									<a href="#" onClick="javascript:${'.advanced_subject'}.html('');" class="advanced_clear">נקה חיפוש</a>
+									<input type="submit" value="<fmt:message key="${lang.localeId}.website.search"/>" class="advanced_submit" />
+									<a href="#" onClick="javascript:${'.advanced_subject'}.html('');" class="advanced_clear"><fmt:message key="${lang.localeId}.website.cleanSearch"/></a>
 								</div>
 							</form>
 							<div class="clearfix">
-								<a href="searchCallForProposals.html?t=1" class="advanced_close">חיפוש מתקדם של קולות קוראים</a>
+								<a href="searchCallForProposals.html?t=1" class="advanced_close"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
 							</div>
 						</div>
 						
 						<div class="clearfix mar_20">
 							<div class="kol search_result">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp; קולות קוראים</h3>
+									<h3 class="kol_title"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/></h3>
 								</div>
     							<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
@@ -38,14 +38,14 @@
 								<a href="#" class="search_content viewProposal" id="${callForProposal.id}">
 									<span class="clearfix <c:if test="${callForProposal.localeId=='en_US'}">search_eng</c:if>">${callForProposal.title}</span>
 									<span class="clearfix search_icons">
-										<span class="search_financing">מממן <strong>${callForProposal.fund.name}</strong></span>
-										<span class="search_date">תאריך הגשה <strong><c:choose><c:when test="${callForProposal.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/></c:when><c:otherwise>${callForProposal.finalSubmissionTimeString}</c:otherwise></c:choose></strong></span>
+										<span class="search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/> <strong>${callForProposal.fund.name}</strong></span>
+										<span class="search_date"><fmt:message key="${lang.localeId}.callForProposal.submissionTime"/> <strong><c:choose><c:when test="${callForProposal.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/></c:when><c:otherwise>${callForProposal.finalSubmissionTimeString}</c:otherwise></c:choose></strong></span>
 									</span>
 								</a>
 	   							</c:forEach>
  	  							</c:when>
   	  							<c:otherwise>
-  								לא נמצאו קולות קוראים 
+  								<fmt:message key="${lang.localeId}.website.noCallForProposals"/> 
   								</c:otherwise>
 	  							</c:choose> 								
 								
@@ -53,7 +53,7 @@
 							
 							<div class="kol search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_balloon.png" alt="" /> &nbsp; הודעות</h3>
+									<h3 class="kol_title"><img src="image/website1/search_balloon.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.website.messages"/></h3>
 								</div>
 								<c:choose>
     							<c:when test="${fn:length(textualMessages) > 0}">
@@ -61,20 +61,20 @@
 								<a href="textualPage.html?id=${textualMessage.id}&t=1" class="search_content">
 									<span class="clearfix">${textualMessage.title}</span>
 									<span class="clearfix search_icons">
-										<span class="search_from">מאת <strong>${textualMessage.creator.degreeFullNameHebrew }</strong></span>
-										<span class="search_date">תאריך ההודעה <strong>${textualMessage.creationTimeString }</strong></span>
+										<span class="search_from"><fmt:message key="${lang.localeId}.website.by"/> <strong>${textualMessage.creator.degreeFullNameHebrew }</strong></span>
+										<span class="search_date"><fmt:message key="${lang.localeId}.website.messageDate"/> <strong>${textualMessage.creationTimeString }</strong></span>
 									</span>
 								</a>
 	   							</c:forEach>
  	  							</c:when>
-  	  							<c:otherwise>לא נמצאו הודעות 
+  	  							<c:otherwise><fmt:message key="${lang.localeId}.website.noMessages"/> 
   								</c:otherwise>
   								</c:choose> 
 							</div>
 							
 							<div class="kol search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_text.png" alt="" /> &nbsp; עמודי תוכן</h3>
+									<h3 class="kol_title"><img src="image/website1/search_text.png" alt="" /> &nbsp; <fmt:message key="${lang.localeId}.website.textualPagesList"/></h3>
 								</div>
 								<c:choose>
     							<c:when test="${fn:length(textualPages) > 0}">
@@ -82,12 +82,12 @@
 								<a href="textualPage.html?id=${textualPage.id}&t=1" class="search_content">
 									<span class="clearfix">${textualPage.title}</span>
 									<span class="clearfix search_icons">
-										<span class="search_info">מידע כללי</span>
+										<span class="search_info"><fmt:message key="${lang.localeId}.website.generalInfo"/></span>
 									</span>
 								</a>
 	   							</c:forEach>
  	  							</c:when>
-  	  							<c:otherwise>לא נמצאו עמודי תוכן 
+  	  							<c:otherwise><fmt:message key="${lang.localeId}.website.noTextualPages"/> 
   								</c:otherwise>
   								</c:choose> 
 							</div>

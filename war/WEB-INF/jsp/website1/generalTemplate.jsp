@@ -10,10 +10,14 @@
         <title><fmt:message key="${lang.localeId}.website.title"/></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="style/style1.css">
-        <c:if test="${lang.localeId=='en_US'}">
-       		<link rel="stylesheet" href="style/styleCallForProposalEnglish.css">
-       	</c:if>
+        <c:choose>
+        <c:when test="${lang.localeId=='en_US'}">
+        	<link rel="stylesheet" href="style/style1English.css">
+        </c:when>
+        <c:otherwise>
+        	<link rel="stylesheet" href="style/style1.css">
+       	</c:otherwise>
+       	</c:choose>
     </head>
     <body>
         <!--[if lt IE 7]>

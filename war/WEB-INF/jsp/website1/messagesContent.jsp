@@ -6,7 +6,7 @@
 				</div>
 				<jsp:include page="sideLinks.jsp"/>
 				<div class="content">
-					<h1 class="maintitle">הודעות</h1>
+					<h1 class="maintitle">${pageTitle}</h1>
 					<div class="clearfix mar_20">
 						<c:choose>
     					<c:when test="${fn:length(textualMessages) > 0}">

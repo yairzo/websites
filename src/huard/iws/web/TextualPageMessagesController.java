@@ -6,6 +6,7 @@ import huard.iws.service.TextualPageService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
+import huard.iws.model.Language;
 import huard.iws.model.TextualPage;
 
 import java.util.Map;
@@ -30,7 +31,8 @@ public class TextualPageMessagesController extends GeneralWebsiteFormController 
 	{
 
 		//page title
-		model.put("pageTitle", messageService.getMessage("iw_IL.website.messages"));
+		Language lang = (huard.iws.model.Language)model.get("lang");
+		model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.messages"));
 
 	
 		//messages

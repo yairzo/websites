@@ -40,7 +40,7 @@
 										${submissionDate2}&nbsp;
 										${submissionDate3}<br/>
 										</c:if>
-										<strong><fmt:message key="${lang.localeId}.callForProposal.fund"/></strong>${command.fund.name}<br/>
+										<strong><fmt:message key="${lang.localeId}.callForProposal.fund"/>:</strong>${command.fund.name}<br/>
      									<strong><fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/></strong><a href="${command.originalCallWebAddress}">${command.originalCallWebAddress}</a><br>
 										</p>
 								</div>

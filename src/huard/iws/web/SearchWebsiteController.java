@@ -10,6 +10,7 @@ import huard.iws.util.BaseUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallForProposal;
+import huard.iws.model.Language;
 import huard.iws.model.TextualPage;
 
 import java.util.LinkedHashSet;
@@ -36,7 +37,8 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 	{
 
 		//page title
-		model.put("pageTitle", messageService.getMessage("iw_IL.website.search"));
+		Language lang = (huard.iws.model.Language)model.get("lang");
+		model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.search"));
 
 		//callForProposals
 		String callForProposalIds =  (String)request.getSession().getAttribute("callForProposalIds");
