@@ -69,6 +69,7 @@ public class CallForProposal {
 		this.submissionDetails="";
 		this.contactPersons="";
 		this.contactPersonDetails="";
+		this.fundContact="";
 		this.description="";
 		this.fundingPeriod="";
 		this.amountOfGrant="";
