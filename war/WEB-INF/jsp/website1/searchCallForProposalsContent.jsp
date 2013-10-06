@@ -15,16 +15,17 @@
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>
-										<input type="text" name="searchWords" value="${searchWords}" id="advanced_subject" />
+										<input type="text" name="searchWords" value="${searchWords}" id="advanced_subject" placeholder="<fmt:message key="${lang.localeId}.website.placeholder.search_words"/>"/>
+										
 										<input type="hidden" id="fundId" value="${fundId}"/>
 									</div>
 									<div class="advanced_date">
 										<label for="advanced_date_from"><fmt:message key="${lang.localeId}.website.submissionDatesRange"/></label>
 										<div class="clearfix">
-											<input type="text" name="submissionDateFrom" id="advanced_date_from" class="date" value="<c:choose><c:when test="${fn:length(submissionDateFrom)>0}">${submissionDateFrom}</c:when><c:otherwise><fmt:message key="${lang.localeId}.website.fromDate"/></c:otherwise></c:choose>"/>
+											<input type="text" name="submissionDateFrom" id="advanced_date_from" class="date" value="${submissionDateFrom}" placeholder="מתאריך"/>
 											<a href="#" class="advanced_cal" id="advanced_cal_from"></a>
 											<span class="advanced_date_sep">-</span>
-											<input type="text" name="submissionDateTo" id="advanced_date_to" class="date" value="<c:choose><c:when test="${fn:length(submissionDateTo)>0}">${submissionDateTo}</c:when><c:otherwise><fmt:message key="${lang.localeId}.website.toDate"/></c:otherwise></c:choose>"/>
+											<input type="text" name="submissionDateTo" id="advanced_date_to" class="date" value="${submissionDateTo}" placeholder="עד תאריך"/>
 											<a href="#" class="advanced_cal" id="advanced_cal_to"></a>
 										</div>
 									</div>
@@ -32,16 +33,20 @@
 								<div class="clearfix checks mar_15">
 									<div class="check">
 										<div class="checkbox_box">
-										<input type="checkbox" name="searchByAllYear" id="searchByAllYear" <c:choose><c:when test="${searchByAllYear}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose> class="styled" />
+											<input style="display: none"type="checkbox" name="searchByAllYear" id="searchByAllYear" class="styled" <c:if test="${!searchByAllYear}">checked="true"</c:if> />
 										</div>
 										<label><fmt:message key="${lang.localeId}.website.allYearSubmission"/></label>
 									</div>
 									<div class="check">
-										<div class="checkbox_box"><input type="checkbox" name="searchOpen" id="searchOpen" <c:choose><c:when test="${searchOpen}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose> class="styled" /></div>
+										<div class="checkbox_box">
+											<input style="display: none" type="checkbox" name="searchOpen" id="searchOpen" value="searchOpen" class="styled" <c:if test="${!searchOpen}">checked="true"</c:if> />
+										</div>
 										<label><fmt:message key="${lang.localeId}.website.openForSubmission"/></label>
 									</div>
 									<div class="check">
-										<div class="checkbox_box"><input type="checkbox" name="searchExpired" id="searchExpired"  <c:choose><c:when test="${searchExpired}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose> class="styled" /></div>
+										<div class="checkbox_box">
+											<input style="display: none" type="checkbox" name="searchExpired" id="searchExpired" class="styled" <c:if test="${!searchExpired}">checked="true"</c:if>/>
+										</div>
 										<label><fmt:message key="${lang.localeId}.website.expired"/></label>
 									</div>
 								</div>
@@ -49,7 +54,7 @@
 									<div class="advanced_select">
 										<label><fmt:message key="${lang.localeId}.callForProposal.desk"/></label>
 										<div class="advanced_select_select">
-											<select name="deskId" id="deskId" class="styled" >
+											<select style="display: none" name="deskId" id="deskId" class="styled" >
       											<option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></option>
        											<c:forEach items="${mopDesks}" var="mopDesk">
 	        										<option htmlEscape="true" value="${mopDesk.id}" <c:if test="${mopDesk.id==deskId}">selected</c:if> >
@@ -64,7 +69,7 @@
 									<div class="advanced_select">
 										<label><fmt:message key="${lang.localeId}.callForProposal.type"/></label>
 										<div class="advanced_select_select">
-											<select name="typeId" id="typeId" class="styled" >
+											<select style="display: none" name="typeId" id="typeId" class="styled" >
       											<option value="0" <c:if test="${typeId==0}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.select"/></option>
       											<option value="1" <c:if test="${typeId==1}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.researchGrant"/></option>
       											<option value="2" <c:if test="${typeId==2}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></option>
@@ -78,7 +83,7 @@
 									<div class="advanced_select nomar">
 										<label><fmt:message key="${lang.localeId}.callForProposal.targetAudience"/></label>
 										<div class="advanced_select_select">
-        									<select name="targetAudience" id="targetAudience" class="styled" >
+        									<select style="display: none" name="targetAudience" id="targetAudience" class="styled" >
       											<option value="0" <c:if test="${targetAudience==0}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.all"/></option>
       											<option value="1" <c:if test="${targetAudience==1}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.researcher"/></option>
       											<option value="2" <c:if test="${targetAudience==2}">selected</c:if>><fmt:message key="${lang.localeId}.callForProposal.targetAudience.doctoral"/></option>
@@ -92,11 +97,15 @@
 									<h3 class="search_choose"><fmt:message key="${lang.localeId}.website.subjectSelection"/></h3>
 									<div class="checks_left">
 										<div class="check check_all">
-											<div class="checkbox_box"><input type="checkbox" id="selectAll" class="styled" <c:choose><c:when test="${selectAll}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose>/></div>
+											<div class="checkbox_box">
+												<input style="display: none" type="checkbox" id="selectAll" class="styled"/>
+											</div>
 											<label><fmt:message key="${lang.localeId}.website.selectAll"/></label>
 										</div>
 										<div class="check check_only">
-											<div class="checkbox_box "><input type="checkbox" name="searchByAllSubjects" id="searchByAllSubjects" <c:choose><c:when test="${searchByAllSubjects}">checked="checked"</c:when><c:otherwise>checked="false"</c:otherwise></c:choose> class="styled" /></div>
+											<div class="checkbox_box ">
+												<input style="display: none" type="checkbox" name="searchByAllSubjects" id="searchByAllSubjects" class="styled" <c:if test="${!searchByAllSubjects}">checked="true"</c:if> />
+											</div>
 											<label><fmt:message key="${lang.localeId}.website.showCallsWithAllSubjects"/></label>
 										</div>
 									</div>
@@ -109,18 +118,22 @@
 										<div class="clearfix mar_10">
 										<c:forEach items="${rootSubject.subSubjectsBeans}" var="subject" varStatus="varStatus">		
 											<c:if test="${varStatus.index%3==0}">	
-											</div><div class="clearfix mar_10">	
+												</div>
+												<div class="clearfix mar_10">	
 											</c:if>	
 															
 											<div class="check scroll_col <c:if test='${varStatus.index%3==0}'>scroll_col_last</c:if>">
 												<div class="checkbox_box selectSubject">
-													<input type="checkbox" id="${subject.id}" class="subject styled" checked="false"/>
+													<input style="display: none" type="checkbox" id="${subject.id}" class="subject styled" <c:if test="${!subject.checked}">checked="true"</c:if>/>
+													
+													
 												</div>
 												<label class="openSubSubjects">${subject.name}</label>
-												<div id="${subject.id}Sub" class="subSubjects" style="text-align:${lang.align};direction:${lang.dir}" > 
+												<div style="display: none;" id="${subject.id}Sub" class="subSubjects" style="text-align:${lang.align};direction:${lang.dir}" > 
                    								<c:forEach items="${subject.subSubjectsBeans}" var="subSubject">
 													<div class="checkbox_box selectSubSubject">
-                     								<input type="checkbox" id="${subject.id}.${subSubject.id}" checked="false" class="subSubject styled" value="${subSubject.id}"/>
+                     									<input type="checkbox" id="${subject.id}.${subSubject.id}" class="subSubject styled" value="${subSubject.id}" <c:if test="${!subSubject.checked}">checked="true"</c:if>/>
+                     									<input style="display: none;" type="checkbox" class="${subject.id}.${subSubject.id} actual" value="${subSubject.id}" <c:if test="${subSubject.checked}">checked="true"</c:if>/>
                      								</div>
                     								<label><c:out value="${subSubject.name}"/></label>
 													<br>	

@@ -1,30 +1,30 @@
 package huard.iws.web;
 
-import huard.iws.bean.PersonBean;
 import huard.iws.bean.CallForProposalBean;
+import huard.iws.bean.PersonBean;
 import huard.iws.bean.SubjectBean;
+import huard.iws.model.CallForProposal;
+import huard.iws.model.Language;
+import huard.iws.model.MopDesk;
+import huard.iws.model.Subject;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
-import huard.iws.service.SubjectService;
 import huard.iws.service.SphinxSearchService;
+import huard.iws.service.SubjectService;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.DateUtils;
-import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
-import huard.iws.model.CallForProposal;
-import huard.iws.model.MopDesk;
-import huard.iws.model.Subject;
-import huard.iws.model.Language;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -64,6 +64,16 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		//subjects
 		Subject rootSubject = subjectService.getSubject(1, userPersonBean.getPreferedLocaleId());
 		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, userPersonBean.getPreferedLocaleId());
+		List<Integer> subjectsToCheck = new ArrayList<>();
+		logger.info("Subjects: " + command.getSearchCreteria().getSearchBySubjectIds());
+		if (!command.getSearchCreteria().getSearchBySubjectIds().isEmpty()){
+			for (String subject: command.getSearchCreteria().getSearchBySubjectIds().split(","))
+				subjectsToCheck.add(Integer.parseInt(subject));
+		}
+		else if(!userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") && !userPersonBean.getSubjectsIds().isEmpty()){
+			subjectsToCheck.addAll(userPersonBean.getSubjectsIds());
+		}
+		rootSubjectBean.checkSubjects(subjectsToCheck);
 		model.put("rootSubject", rootSubjectBean);
 		//show searched parameters
 		model.put("searchWords",command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));
@@ -145,11 +155,17 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		else{//on show
 			CallForProposalSearchCreteria searchCreteria = (CallForProposalSearchCreteria) request.getSession().getAttribute("callForProposalSearchCreteria");
 			request.getSession().setAttribute("callForProposalsSearchCreteria", null);
-			if (searchCreteria == null){// on first time
+			if (searchCreteria == null)// on first time
 				searchCreteria = new CallForProposalSearchCreteria();
-				if(!userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") && !userPersonBean.getSubjectsIds().isEmpty())
-					searchCreteria.setSearchBySubjectIds(BaseUtils.getString(userPersonBean.getSubjectsIds()));
+			if(searchCreteria.getSearchBySubjectIds().isEmpty() 
+					&& !userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") 
+					&& !userPersonBean.getSubjectsIds().isEmpty())
+				searchCreteria.setSearchBySubjectIds(BaseUtils.getString(userPersonBean.getSubjectsIds()));
+			if (searchCreteria.isDefault()){				
 				searchCreteria.setLimit(LIMIT_ROWS);
+			}
+			else{
+				searchCreteria.setLimit(0);
 			}
 			command.setSearchCreteria(searchCreteria);
 			//when returning to callForProposal after login - should open the call again

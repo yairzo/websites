@@ -30,7 +30,7 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 		this.searchByFund = 0;
 		this.searchByDesk = 0;
 		this.searchBySubjectIds = "";
-		this.searchByAllSubjects =false;
+		this.searchByAllSubjects = false;
 		this.searchBySubmissionDateFrom = "";
 		this.searchBySubmissionDateTo = "";
 		this.searchByAllYear = false;
@@ -38,15 +38,38 @@ public class CallForProposalSearchCreteria extends SearchCreteria{
 		this.searchBySearchWords= "";
 		this.searchWords="";
 		this.searchByCreator=0;
-		this.searchDeleted=false;
-		this.searchExpired=false;
-		this.searchOpen=false;
+		this.searchDeleted = false;
+		this.searchExpired = false;
+		this.searchOpen=true;
 		this.searchByTargetAudience=0;
 		this.searchByCountryIds="";
-		this.searchByAllCountries =false;
+		this.searchByAllCountries = false;
 		this.limit=0;
+	}	
+	
+	public boolean isDefault() {
+		return (super.isDefault()
+			&& !searchByTemporaryFund
+			&& searchByFund == 0
+			&& searchByDesk == 0
+			&& searchBySubjectIds.isEmpty()
+			&& !searchByAllSubjects
+			&& searchBySubmissionDateFrom.isEmpty()
+			&& searchBySubmissionDateTo.isEmpty()
+			&& !searchByAllYear 
+			&& searchByType == 0
+			&& searchBySearchWords.isEmpty()
+			&& searchWords.isEmpty()
+			&& searchByCreator == 0
+			&& !searchDeleted
+			&& !searchExpired
+			&& searchOpen
+			&& searchByTargetAudience == 0
+			&& searchByCountryIds.isEmpty()
+			&& !searchByAllCountries);	
 	}
-
+	
+	
 	
 	public boolean getSearchByTemporaryFund() {
 		return searchByTemporaryFund;

@@ -38,7 +38,7 @@
 					auto: true,
 					video:true,
 					pager:false
-					});	
+				});	
 				
 				var daysWithFunds=[${daysWithFunds}];
 

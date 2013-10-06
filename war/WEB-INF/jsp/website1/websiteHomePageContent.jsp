@@ -50,13 +50,13 @@
 								<div class="bx-viewport"  >
 									<div class="messageslider" style="display:none;">
   										<c:forEach items="${textualPages}" var="textualPage" varStatus="textualIndex">
-  										<c:set var="direction" value="rtl"/>
-  										<c:if test="${textualPage.localeId=='en_US'}">
-  											<c:set var="direction" value="ltr"/>
-  										</c:if>
-  										<div style="height:80px;width:396px;direction:${direction};">
-  											${textualPage.title}
-										</div>
+  											<c:set var="direction" value="rtl"/>
+  											<c:if test="${textualPage.localeId=='en_US'}">
+  												<c:set var="direction" value="ltr"/>
+  											</c:if>
+  											<div style="padding: 0px 5px; height:80px; width:380px; direction:${direction};">
+  												${textualPage.title}
+											</div>
  										</c:forEach>
 									</div>
 								</div>

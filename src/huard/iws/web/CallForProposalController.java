@@ -91,7 +91,6 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 			}
 		}
 		
-
 		List <CallForProposalContact> callForProposalContacts= new ArrayList<CallForProposalContact>();
 		Pattern p = Pattern.compile("(?s)~(.*?)//(.*?)//(.*?)~");
 		Matcher m = p.matcher(callForProposalBean.getContactPersons());

@@ -1,14 +1,12 @@
 package huard.iws.db;
 
+import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.DayInCalendar;
-import huard.iws.model.Attachment;
 import huard.iws.model.FundInDay;
-import huard.iws.model.TextualPage;
-import huard.iws.util.BaseUtils;
 import huard.iws.util.CallForProposalSearchCreteria;
-import huard.iws.util.ListView;
 import huard.iws.util.DateUtils;
+import huard.iws.util.ListView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,9 +14,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.LinkedHashMap;
+import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
@@ -27,6 +26,8 @@ import org.springframework.jdbc.support.KeyHolder;
 
 
 public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements CallForProposalDao {
+	
+	Logger logger = Logger.getLogger("JdbcCallForProposalDao");
 
 	public CallForProposal getCallForProposal(int id){
 		try{
@@ -570,7 +571,9 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	}
 
 	public List<CallForProposal> getCallForProposalsOnline(CallForProposalSearchCreteria searchCriteria){
-		String query  = "select distinct callForProposal.* from callForProposal";
+		String query  = "select distinct callForProposal.*, "
+				+ " if (callForProposal.finalSubmissionTime = 0,0,1)"
+				+ " as allYearIndicator from callForProposal";
 		query += getCallForProposalsWhereClause(searchCriteria,"callForProposal");
 		logger.info(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
@@ -589,14 +592,14 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		whereClause += " where true";
 		if(searchCriteria.getSearchByTemporaryFund())
 			whereClause +=" and fund.isTemporary=1";
-		if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty() || !searchCriteria.getSearchBySubmissionDateTo().isEmpty())
-			whereClause +=" and (true";
-		if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty())
-			whereClause +=" and " + mainTable +".finalSubmissionTime >='"+searchCriteria.getSearchBySubmissionDateFrom()+"'";
-		if(!searchCriteria.getSearchBySubmissionDateTo().isEmpty())
-			whereClause +=" and " + mainTable +".finalSubmissionTime <='"+searchCriteria.getSearchBySubmissionDateTo()+"'";
-		if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty() || !searchCriteria.getSearchBySubmissionDateTo().isEmpty())
-			whereClause +=" or " + mainTable +".finalSubmissionTime = 0)";
+		if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty() || !searchCriteria.getSearchBySubmissionDateTo().isEmpty()){
+			whereClause +=" and (true and (";
+			if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty())
+				whereClause += mainTable +".finalSubmissionTime >='"+searchCriteria.getSearchBySubmissionDateFrom()+"'";
+			if(!searchCriteria.getSearchBySubmissionDateTo().isEmpty())
+				whereClause += mainTable +".finalSubmissionTime <='"+searchCriteria.getSearchBySubmissionDateTo()+"'";
+			whereClause += ") or " + mainTable +".finalSubmissionTime = 0)";
+		}
 		if(searchCriteria.getSearchByFund()>0)
 			whereClause +=" and " + mainTable +".fundId="+searchCriteria.getSearchByFund();
 		if(searchCriteria.getSearchByDesk()>0)
@@ -637,7 +640,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		}*/
 
 		
-		whereClause += "  order by " + mainTable +".localeId," +mainTable +".id desc";
+		whereClause += "  order by " + mainTable +".localeId,";
+		if (searchCriteria.isDefault())
+			whereClause += mainTable +".publicationTime desc";
+		else
+			whereClause += "allYearIndicator desc, " + mainTable +".finalSubmissionTime";
 		
 		if(searchCriteria.getLimit()>0)
 			whereClause += "  limit " + searchCriteria.getLimit();
@@ -650,7 +657,9 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		String query  = "select distinct callForProposal.* from callForProposal where isDeleted=0";
 		if(!ids.isEmpty())
 			query += " and id in ("+ids + ")";
-		query+="  order by localeId, id desc";
+		query+="  order by localeId, publicationTime desc";
+		if(ids.isEmpty())
+			query += " limit 20";
 		logger.info(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;

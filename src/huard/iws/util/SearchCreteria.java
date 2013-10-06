@@ -22,6 +22,13 @@ public class SearchCreteria {
 		whereClause = "";
 	}
 	
+	public boolean isDefault(){
+		return (searchField.isEmpty() 
+			&& searchPhrase.isEmpty()
+			&& roleFilter.isEmpty()
+			&& whereClause.isEmpty());
+	}
+	
 	public String getFullWhereCluase(){
 		String whereCluase = "";
 		if (this.whereClause.isEmpty() && searchPhrase.isEmpty())

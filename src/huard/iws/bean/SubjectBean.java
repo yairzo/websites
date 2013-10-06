@@ -12,8 +12,10 @@ public class SubjectBean {
 	private String nameEnglish;
 	private String descriptionEnglish;
 	private int parentId;
-	private List<Subject> subSubjects;
+	private List<SubjectBean> subSubjects;
+	private boolean checked;
 
+	
 	private String localeId;
 
 
@@ -28,7 +30,11 @@ public class SubjectBean {
 		this.nameEnglish = subject.getNameEnglish();
 		this.descriptionEnglish = subject.getDescriptionEnglish();
 		this.parentId = subject.getParentId();
-		this.subSubjects = subject.getSubSubjects();
+		this.subSubjects = new ArrayList<>();
+		for (Subject aSubject: subject.getSubSubjects()){
+			SubjectBean aSubjectBean = new SubjectBean(aSubject, localeId);
+			this.subSubjects.add(aSubjectBean);			
+		}
 		this.localeId = localeId;
 	}
 
@@ -40,16 +46,21 @@ public class SubjectBean {
 		subject.setNameEnglish(nameEnglish);
 		subject.setDescriptionEnglish(descriptionEnglish);
 		subject.setParentId(parentId);
-		subject.setSubSubjects(subSubjects);
+		for (SubjectBean subjectBean: subSubjects){
+			subject.getSubSubjects().add(subjectBean.toSubject());
+		}
 		return subject;
+	}
+	
+	public void checkSubjects(List<Integer> subjectsToCheck){
+		this.checked = subjectsToCheck.contains(this.id);
+		for (SubjectBean subjectBean: subSubjects){
+			subjectBean.checkSubjects(subjectsToCheck);
+		}
 	}
 
 	public List<SubjectBean> getSubSubjectsBeans(){
-		List<SubjectBean> subSubjectsBeans = new ArrayList<SubjectBean>();
-		for (Subject subject: subSubjects){
-			subSubjectsBeans.add( new SubjectBean(subject, localeId));
-		}
-		return subSubjectsBeans;
+		return subSubjects;
 	}
 
 	public String getName(){
@@ -106,11 +117,22 @@ public class SubjectBean {
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
-	public List<Subject> getSubSubjects() {
+	
+	
+	public List<SubjectBean> getSubSubjects() {
 		return subSubjects;
 	}
-	public void setSubSubjects(List<Subject> subSubjects) {
+
+	public void setSubSubjects(List<SubjectBean> subSubjects) {
 		this.subSubjects = subSubjects;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
 

@@ -124,6 +124,7 @@ src/huard/iws/web/validate/EditCallForProposalValidator.java svn_mime_002dtype=t
 src/huard/iws/web/validate/EditConferenceProposalValidator.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/TextualPageValidator.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/UploadImageValidator.java svn_mime_002dtype=text%2Fplain
+war/WEB-INF/classes/log4j.properties svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/activePersonsList.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/callForProposal.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/callForProposal1.jsp svn_mime_002dtype=text%2Fplain

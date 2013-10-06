@@ -117,9 +117,9 @@ $(document).ready(function() {
 			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"true\"/>");
 
 		var ids="";
-		$("input:checkbox.subject").each(function(){
-				if (this.checked=false){
-					var id = this.id;
+		$("input:checkbox.actual").each(function(){
+				if (this.checked==true){
+					var id = $(this).attr('class').split(' ')[0];
 					id = id.substring(id.indexOf('.') + 1);
 					if (ids !="")
 						ids = ids + ","
@@ -166,7 +166,7 @@ $(document).ready(function() {
     	return true;
     });	
 		
-	$('div.subSubjects').hide();
+		
 	
 
 	$(".openSubSubjects").click(function(){
@@ -192,6 +192,7 @@ $(document).ready(function() {
 	});
 	
 	$(".selectSubject").click(function(){
+		$(this).change();
 		$(this).children("span.checkbox").removeClass("checkboxPartial");
 		var id = $(this).children("input:checkbox.subject").attr("id");
 		if(!$(this).children("input:checkbox.subject").is(":checked")){
@@ -199,38 +200,30 @@ $(document).ready(function() {
 				this.checked = false;
 				$(this).change();
 			});
+			$("input:checkbox[class^='" + id + ".']").each(function(){
+				setCheckboxState($(this), "true");
+			});
 		}
 		else{
 			$("input:checkbox[id^='"+id+".']").each(function(){
 				this.checked = true;
 				$(this).change();
 			});
+			$("input:checkbox[class^='" + id + ".']").each(function(){
+				setCheckboxState($(this), "false");
+			});
 		}
 	});
 	
-	$(".selectSubSubject").click(function(){
-		var id = $(this).children("input:checkbox.subSubject").attr("id");
-		id=id.substring(0,id.indexOf(".")); 
-		$("input:checkbox.subject").each(function(){
-			if($(this).attr("id")==id){
-				var type = getCheckboxImage(id);
-				if(type==1){
-					this.checked = false;
-					$(this).parent().children("span.checkbox").addClass("checkboxPartial");
-					$(this).change();
-				}
-				else if (type==2){
-					this.checked = false;
-					$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
-					$(this).change();
-				}
-				else{
-					this.checked = true;
-					$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
-					$(this).change();
-				}
-			}
-		});
+	
+	
+	$(".selectSubSubject").click(function(e){
+		var subject_element = $(this).parents(".check").find("input:checkbox.subject");		
+		var checkbox_element = $(this).find(".actual");
+		changeCheckboxState(checkbox_element);		
+		var id = subject_element.attr("id");
+		var type = getCheckboxImage(id);
+		checkActionCheckbox(subject_element, type);		
 	});
 	
 	$(".check_all").click(function(){
@@ -238,20 +231,86 @@ $(document).ready(function() {
 			$("input:checkbox.subject").each(function(){
 				$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
 				this.checked = false;
-				$(this).change();
 			});
 			$("input:checkbox.subSubject").each(function(){
 				this.checked = false;
 				$(this).change();
+				setCheckboxState($(this), "false");
+				
+			});
+			$("input:checkbox.actual").each(function(){
+				setCheckboxState($(this), "true");
+			});
+		}
+		else{
+			$("input:checkbox.subject").each(function(){
+				$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
+				this.checked = true;
+			});
+			$("input:checkbox.subSubject").each(function(){
+				this.checked = true;
+				$(this).change();
+				setCheckboxState($(this), "true");
+				
+			});
+			$("input:checkbox.actual").each(function(){
+				setCheckboxState($(this), "false");
 			});
 		}
 	});
 
 });
+
+function changeCheckboxState(element){
+	var current_state = element.attr("checked");
+	if (current_state == "true" || current_state== "checked")
+		element.removeAttr("checked");
+	else
+		element.attr("checked","true");
+}
+
+function setCheckboxState(element, toState){
+	element.removeAttr("checked");
+	console.log("class: " + element.attr("class"));
+	if (toState == "true")
+		element.attr("checked", toState);
+}
+
+function enforceCheckboxStateFalse(element){
+	element.removeAttr("checked");
+	element.attr("checked", "false");
+}
+
+
+function checkActionCheckbox(element, type){
+	element.removeAttr("checked");
+	if(type==1){
+		element.checked = true;
+		element.prev().removeClass("checkboxUnchecked");
+		element.prev().removeClass("checkboxChecked");
+		element.prev().addClass("checkboxPartial");
+		element.prev().attr("style","");		
+	}
+	else if (type==2){
+		element.checked = false;
+		element.change();
+		element.prev().removeClass("checkboxUnchecked");
+		element.prev().removeClass("checkboxPartial");
+		element.prev().addClass("checkboxChecked");
+		element.prev().attr("style","");		
+	}
+	else{
+		element.checked = true;
+		element.attr("checked","true");
+		element.prev().removeClass("checkboxPartial");
+		element.prev().removeClass("checkboxChecked");
+		element.prev().addClass("checkboxUnchecked");
+		element.prev().attr("style","");		
+	}	
+}
 function getCheckboxImage(subjectid){
 	var isAnyChecked = false;
-	var isAllChecked = true;
-	var id = $(parent).attr("id");
+	var isAllChecked = true;	
 	$("input:checkbox[id^='"+subjectid+".']").each(function(){
 		if (this.checked==false){
 			isAnyChecked = true;
@@ -267,5 +326,47 @@ function getCheckboxImage(subjectid){
 	else
 		return 0;
 }
+
+function isAllSubSubjectsChecked(){
+	var allChecked = true;
+	$("input:checkbox.actual").each(function(){
+		
+		var checkedAttr = $(this).attr("checked");
+		console.log("xxx: " + checkedAttr);
+		if (typeof checkedAttr === "undefined" 
+				|| ($(this).attr("checked") != "true" && $(this).attr("checked") != "checked")){
+			allChecked = false;
+			return;			
+		}
+	});
+	console.log("im here");
+	return allChecked;
+}
+
+$(window).load(function(){
+	$(".selectSubject").each(function(e){
+		var element = $(this).children("input:checkbox.subject"); 
+		var id = element.attr("id");
+		var type = getCheckboxImage(id);
+		checkActionCheckbox(element, type);
+	});
+	$("select.styled").show();
+	
+	console.log("All subs: " + isAllSubSubjectsChecked());
+	if (isAllSubSubjectsChecked()){
+		console.log("All subjects checked");
+		var element = $("input:checkbox#selectAll");
+		element.checked=false;
+		setCheckboxState(element, "false");
+		element.change();
+	}
+	else {
+		console.log("Not all subjects checked");
+		var element = $("input:checkbox#selectAll");
+		element.checked=true;
+		setCheckboxState(element, "true");
+		element.change();
+	}
+});
 
 		</script>
