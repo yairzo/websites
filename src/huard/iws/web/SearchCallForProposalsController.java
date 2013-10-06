@@ -64,7 +64,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		//subjects
 		Subject rootSubject = subjectService.getSubject(1, userPersonBean.getPreferedLocaleId());
 		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, userPersonBean.getPreferedLocaleId());
-		List<Integer> subjectsToCheck = new ArrayList<>();
+		List<Integer> subjectsToCheck = new ArrayList<Integer>();
 		logger.info("Subjects: " + command.getSearchCreteria().getSearchBySubjectIds());
 		if (!command.getSearchCreteria().getSearchBySubjectIds().isEmpty()){
 			for (String subject: command.getSearchCreteria().getSearchBySubjectIds().split(","))

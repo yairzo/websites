@@ -30,7 +30,7 @@ public class SubjectBean {
 		this.nameEnglish = subject.getNameEnglish();
 		this.descriptionEnglish = subject.getDescriptionEnglish();
 		this.parentId = subject.getParentId();
-		this.subSubjects = new ArrayList<>();
+		this.subSubjects = new ArrayList<SubjectBean>();
 		for (Subject aSubject: subject.getSubSubjects()){
 			SubjectBean aSubjectBean = new SubjectBean(aSubject, localeId);
 			this.subSubjects.add(aSubjectBean);			
