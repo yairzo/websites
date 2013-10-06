@@ -10,28 +10,19 @@
 						<!---->
 						<div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
 							<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-								<a title="Prev" onClick="window.location='callForProposalCalendar.html?action=prevMonth&t=1';return false;" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
 								<a title="Next" onclick="window.location='callForProposalCalendar.html?action=nextMonth&t=1';return false;" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
-								<h3 class="transition">מעבר בין חודשים</h3>
+								<a title="Prev" onClick="window.location='callForProposalCalendar.html?action=prevMonth&t=1';return false;" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
+								<h3 class="transition"><fmt:message key="${lang.localeId}.website.changeMonth"/></h3>
 								<div class="ui-datepicker-title">
-									<h1>לוח קולות קוראים </h1>
+									<h1><fmt:message key="${lang.localeId}.website.callForProposalCalendar"/> </h1>
 									<span class="ui-datepicker-month">
-									<c:if test="${month==1 }">ינואר</c:if>
-									<c:if test="${month==2 }">פברואר</c:if>
-									<c:if test="${month==3 }">מרץ</c:if>
-									<c:if test="${month==4 }">אפריל</c:if>
-									<c:if test="${month==5 }">מאי</c:if>
-									<c:if test="${month==6 }">יוני</c:if>
-									<c:if test="${month==7 }">יולי</c:if>
-									<c:if test="${month==8 }">אוגוסט</c:if>
-									<c:if test="${month==9 }">ספטמבר</c:if>
-									<c:if test="${month==10 }">אוקטובר</c:if>
-									<c:if test="${month==11 }">נובמבר</c:if>
-									<c:if test="${month==12 }">דצמבר</c:if>
+									<fmt:message key="${lang.localeId}.general.month.${month }"/>
 									</span> / <span class="ui-datepicker-year">${year }</span>
 								</div>
 							</div>
-							<table class="ui-datepicker-calendar"><thead><tr><th class="ui-datepicker-week-end"><span title="Sunday">א</span></th><th><span title="Monday">ב</span></th><th><span title="Tuesday">ג</span></th><th><span title="Wednesday">ד</span></th><th><span title="Thursday">ה</span></th><th><span title="Friday">ו</span></th><th class="ui-datepicker-week-end"><span title="Saturday">שבת</span></th></tr></thead>
+							<table class="ui-datepicker-calendar"><thead><tr><th class="ui-datepicker-week-end"><span title="Sunday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.1"/></span></th><th><span title="Monday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.2"/></span></th>
+							<th><span title="Tuesday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.3"/></span></th><th><span title="Wednesday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.4"/></span></th><th><span title="Thursday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.5"/></span></th>
+							<th><span title="Friday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.6"/></span></th><th class="ui-datepicker-week-end"><span title="Saturday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.7"/></span></th></tr></thead>
 							<tbody>
                 			<tr style="vertical-align: top">
         					<c:forEach items="${calendarList}" var="calendarDay" varStatus="varStatus">
@@ -85,10 +76,10 @@
 					<div class="clearfix mar_30">
 						<form action="searchCallForProposals.html" method="post" class="calendar_form">
 							<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
-onblur="if(this.value=='')this.value=this.defaultValue" value="הקלידו נושא לחיפוש ..." class="calendar_text" />
+onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="calendar_text" />
 							<input type="submit" value="חיפוש" class="calendar_submit" />
 						</form>
-						<a href="searchCallForProposals.html" class="calendar_advanced">הצג חיפוש מתקדם</a>
+						<a href="searchCallForProposals.html?t=1" class="calendar_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
 					</div>
 				</div>
 			</div>

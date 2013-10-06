@@ -5,6 +5,7 @@ import huard.iws.model.CallForProposal;
 import huard.iws.model.Fund;
 import huard.iws.model.FundInDay;
 import huard.iws.model.DayInCalendar;
+import huard.iws.model.Language;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.FundService;
 import huard.iws.util.RequestWrapper;
@@ -29,7 +30,8 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 			Map<String, Object> model, PersonBean personBean) throws Exception
 	{
 		//page title
-		model.put("pageTitle", "");
+		Language lang = (huard.iws.model.Language)model.get("lang");
+		model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.callForProposalCalendar"));
 		
 		int month= request.getSessionIntParameter("month", 0);
 		int year= request.getSessionIntParameter("year", 0);

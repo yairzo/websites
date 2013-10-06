@@ -50,12 +50,12 @@
         <footer class="footer">
 			<div class="container">
 				<div class="footer_bg clearfix">
-					<div class="pull-right"><a href="sitemap.html">מפת אתר</a>&nbsp; /  &nbsp;<a href="#">צור קשר</a>&nbsp; /  &nbsp;<a href="#">הוסף למועדפים</a></div>
-					<div class="pull-left">עודכן ופורסם לאחרונה ב-${updateTime}</div>
+					<div class="pull-right"><a href="sitemap.html"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="#"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="#"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
+					<div class="pull-left"><fmt:message key="${lang.localeId}.general.lastUpdate"/>-${updateTime}</div>
 				</div>
 				<div class="footer_bottom clearfix mar_10">
-					<div class="pull-right">&copy; כל הזכויות שמורות לאוניברסיטה העברית בירושלים</div>
-					<div class="pull-left">עיצוב: למון <a href="#">עיצוב אתרים</a></div>
+					<div class="pull-right"><fmt:message key="${lang.localeId}.general.allRightsReserved"/></div>
+					<div class="pull-left"><fmt:message key="${lang.localeId}.website.designCompany"/></div>
 				</div>
 			</div>
         </footer>
