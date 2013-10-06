@@ -61,8 +61,10 @@
 			            showMonthAfterYear: false,
 			            yearSuffix: ''
 			        };
-			        $.datepicker.setDefaults($.datepicker.regional['he']);
-			        $(".date").datepicker("refresh");
+			        if(${lang.localeId=='iw_IL'}){
+			        	$.datepicker.setDefaults($.datepicker.regional['he']);
+			        	$(".date").datepicker("refresh");
+			        }
 			    });
 				
 				

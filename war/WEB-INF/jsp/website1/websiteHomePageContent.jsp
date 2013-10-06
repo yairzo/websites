@@ -33,17 +33,17 @@
 				<div class="main">
 					<div class="mainbox">
 						<div class="title">
-							<h1>ברוכים הבאים לרשות למחקר ופיתוח</h1>
-							<a href="#">קרא עוד</a>
+							<h1><fmt:message key="${lang.localeId}.website.welcome"/></h1>
+							<a href="#"><fmt:message key="${lang.localeId}.website.readMore"/></a>
 						</div>
 						<div class="mainbox_text">
-							<p>של מלא אחרים מיזמים. גם ארץ מחליטה רשימות מיוחדים. קבלו יידיש של אחד. או פנאי המשפט האנציקלופדיה מלא, מיזם לעתים עקרונות כלל אם, מבוקשים ביולוגיה אל בקר.<br />קסאם דרכה ב ארץ, מה רבה הקנאים למאמרים חרטומים. ננקטת קולנוע אדריכלות גם קרן, מה ארץ אדריכלות המקושרים.</p>
+							<p>??????????????????</p>
 						</div>
 					</div>
 					<div class="mainbox">
 						<div class="title">
-							<h2>עדכונים אחרונים</h2>
-							<a href="textualPages.html">לכל ההודעות</a>
+							<h2><fmt:message key="${lang.localeId}.website.latestUpdates"/></h2>
+							<a href="messages.html?t=1"><fmt:message key="${lang.localeId}.website.allMessages"/></a>
 						</div>
 						<div class="mainbox_news" style="direction:ltr">
 							<div class="bx-wrapper">
@@ -65,7 +65,7 @@
 					</div>
 				</div>
 				<div class="side">
-					<h3 class="board_title">לוח קולות קוראים</h3>
+					<h3 class="board_title"><fmt:message key="${lang.localeId}.website.callForProposalCalendar"/></h3>
 					<div class="board_calendar">
 						<!---->
 						<div class="date"></div>
@@ -74,14 +74,14 @@
 							<div class="triangle"></div>
 						</div>
 						<!---->
-						<a href="#" class="last_calls">קולות קוראים שעודכנו לאחרונה</a>
+						<a href="#" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
 						<div class="board_search">
-							<h3>חיפוש</h3>
-							<a href="searchCallForProposals.html?t=1" class="board_search_advanced">חיפוש מתקדם</a>
+							<h3><fmt:message key="${lang.localeId}.website.search"/></h3>
+							<a href="searchCallForProposals.html?t=1" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
 							<form action="searchCallForProposals.html?t=1" method="post" class="board_form">
 								<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
-onblur="if(this.value=='')this.value=this.defaultValue" value="הקלידו נושא לחיפוש ..." class="input_text" />
-								<input type="submit" value="חיפוש" class="input_submit" />
+onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="input_text" />
+								<input type="submit" value="<fmt:message key="${lang.localeId}.website.search"/>" class="input_submit" />
 							</form>
 						</div>
 					</div>

@@ -51,7 +51,7 @@ public void importTextualPages(){
 		TextualPage textualPage = new TextualPage();
 		textualPage.setTitle(changeQuotes(textualPageOld.getTitle()));
 		String localeId=LanguageUtils.getLanguage(textualPageOld.getTitle()).getLocaleId();
-		//textualPage.setLocaleId(localeId);
+		textualPage.setLocaleId(localeId);
 		MopDesk mopDesk =mopDeskService.getMopDesk(textualPageOld.getDeskId());
 		textualPage.setDeskId(mopDesk.getId());
 		List<PersonBean> deskPersons;

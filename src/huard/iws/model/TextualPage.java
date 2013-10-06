@@ -47,6 +47,7 @@ public class TextualPage {
 		this.neverExpires=false;
 		this.updateTime=0;
 		this.isDeleted=0;
+		this.localeId="";
 	}
 	
 	public int getId() {
