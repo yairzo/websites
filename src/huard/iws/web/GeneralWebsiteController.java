@@ -21,8 +21,13 @@ public abstract class GeneralWebsiteController extends GeneralController{
 	protected ModelAndView handleRequest(RequestWrapper request, HttpServletResponse response,
 			Map<String, Object> model, PersonBean personBean) throws Exception {
 		//language
-		LanguageUtils.applyLanguage(model, request, response,personBean.getPreferedLocaleId());
-		LanguageUtils.applyLanguages(model);
+		if(request.getParameter("locale", "").equals("en_US")){
+			LanguageUtils.applyLanguage(model, request);
+		}
+		else{
+			LanguageUtils.applyLanguage(model, request, response,personBean.getPreferedLocaleId());
+			LanguageUtils.applyLanguages(model);
+		}
 		//top categories
 		Category rootCategory = categoryService.getRootCategory(personBean.getPreferedLocaleId());
 		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());

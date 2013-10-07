@@ -21,8 +21,13 @@ public abstract class GeneralWebsiteFormController extends GeneralFormController
 		protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 				PersonBean userPersonBean, Map<String, Object> model) throws Exception{
 			//language
-			LanguageUtils.applyLanguage(model, request, response,userPersonBean.getPreferedLocaleId());
-			LanguageUtils.applyLanguages(model);
+			if(request.getParameter("locale", "").equals("en_US")){
+				LanguageUtils.applyLanguage(model, request);
+			}
+			else{
+				LanguageUtils.applyLanguage(model, request, response,userPersonBean.getPreferedLocaleId());
+				LanguageUtils.applyLanguages(model);
+			}
 			//top categories
 			Category rootCategory = categoryService.getRootCategory(userPersonBean.getPreferedLocaleId());
 			List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
