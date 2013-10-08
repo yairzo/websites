@@ -639,12 +639,15 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			whereClause +=" group by callForProposalCountry.callForProposalId having count(*)="+list.size();
 		}*/
 
-		
-		whereClause += "  order by " + mainTable +".localeId,";
-		if (searchCriteria.isDefault())
-			whereClause += mainTable +".publicationTime desc";
-		else
-			whereClause += "allYearIndicator desc, " + mainTable +".finalSubmissionTime";
+		if(mainTable.equals("callForProposalDraft"))
+			whereClause += "  order by id desc";
+		else{
+			whereClause += "  order by " + mainTable +".localeId,";
+			if (searchCriteria.isDefault())
+				whereClause += mainTable +".publicationTime desc";
+			else
+				whereClause += "allYearIndicator desc, " + mainTable +".finalSubmissionTime";
+		}
 		
 		if(searchCriteria.getLimit()>0)
 			whereClause += "  limit " + searchCriteria.getLimit();
@@ -652,6 +655,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		logger.info(whereClause);
 		return whereClause;
 	}
+
+
 	
 	public List<CallForProposal> getCallForProposalsOnline(String ids ){
 		String query  = "select distinct callForProposal.* from callForProposal where isDeleted=0";

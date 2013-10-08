@@ -645,6 +645,8 @@ $(document).ready(function() {
 		    e.preventDefault();//no refresh page 
 		    var addedText= $('#addedText', $(this).closest("tr")).html();
 		    $(".editor", $(this).closest("table")).html($(".editor", $(this).closest("table")).html() + "<br>" +addedText);
+			$('.editorTextarea', $(this).closest("table")).val($(".editor", $(this).closest("table")).html());
+	    	autoSave(); 
 		});
 		
 

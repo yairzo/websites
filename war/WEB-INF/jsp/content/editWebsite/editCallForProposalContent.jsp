@@ -60,7 +60,7 @@
 						<c:if test="${!online}">
 						<button class="grey online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp;
 						</c:if>
-						<button class="grey" onclick="window.open('/iws/callForProposal.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp;
+						<button class="grey" onclick="window.open('/iws/callForProposal.html?id=${command.id}&draft=true&t=1','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp;
 						<c:if test="${online}">
 							<button class="grey post"><fmt:message key="${lang.localeId}.callForProposal.createPost"/> </button>&nbsp;
 						</c:if>		
