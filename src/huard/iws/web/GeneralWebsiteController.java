@@ -3,6 +3,7 @@ package huard.iws.web;
 import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Category;
+import huard.iws.model.Language;
 import huard.iws.service.CategoryService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
@@ -27,7 +28,8 @@ public abstract class GeneralWebsiteController extends GeneralController{
 		LanguageUtils.applyLanguages(model);
 		
 		//top categories
-		Category rootCategory = categoryService.getRootCategory(userPersonBean.getPreferedLocaleId());
+		Language l = (Language)model.get("lang");
+		Category rootCategory = categoryService.getRootCategory(l.getLocaleId());
 		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
 		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
 		for (Category category: languageRootCategories){

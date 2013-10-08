@@ -234,17 +234,17 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_READ,ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="homePage.html">אתר האוניברסיטה - דף הבית</a>
+								<a style="text-decoration: none" href="homePage.html?t=1">אתר האוניברסיטה - דף הבית</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="search.html">אתר האוניברסיטה - חיפוש כללי</a>
+								<a style="text-decoration: none" href="search.html?t=1">אתר האוניברסיטה - חיפוש כללי</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="searchCallForProposals.html">אתר האוניברסיטה - חיפוש קולות קוראים</a>
+								<a style="text-decoration: none" href="searchCallForProposals.html?t=1">אתר האוניברסיטה - חיפוש קולות קוראים</a>
 							</th>
 						</tr>
 						<tr>

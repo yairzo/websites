@@ -6,7 +6,6 @@ $(document).ready(function() {
 	    autoOpen: false,
 	    show: 'fade',
 	    hide: 'fade',
-	    modal: true,
 	    open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
 	});
 	dlg.parent().appendTo($("#form"));
@@ -23,7 +22,7 @@ $(document).ready(function() {
 	            	return false;
 	             }
 	    	});			
-			dlg.dialog({ modal: true });
+			//dlg.dialog({ modal: true });
 			dlg.dialog({ height: 200 });
 			dlg.dialog({ width: 700 });
 			dlg.html(text).dialog("open");
