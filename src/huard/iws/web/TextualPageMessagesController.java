@@ -2,16 +2,16 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
-import huard.iws.service.TextualPageService;
-import huard.iws.util.LanguageUtils;
-import huard.iws.util.ListView;
-import huard.iws.util.RequestWrapper;
 import huard.iws.model.Language;
 import huard.iws.model.TextualPage;
+import huard.iws.service.TextualPageService;
+import huard.iws.util.ListView;
+import huard.iws.util.RequestWrapper;
 
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;

@@ -27,10 +27,12 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 public class SearchCallForProposalsController extends GeneralWebsiteFormController {
+	private static final Logger logger = Logger.getLogger(SearchCallForProposalsController.class);
 
 	private final int LIMIT_ROWS=20;
 

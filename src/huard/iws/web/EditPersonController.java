@@ -7,10 +7,7 @@ import huard.iws.model.Person;
 import huard.iws.model.PersonListAttribution;
 import huard.iws.service.FacultyService;
 import huard.iws.service.ListService;
-import huard.iws.service.MailMessageService;
-import huard.iws.service.MessageService;
 import huard.iws.service.PersonAttributionListService;
-import huard.iws.service.PersonPrivilegeService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.MD5Encoder;
 import huard.iws.util.RequestWrapper;
@@ -25,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 

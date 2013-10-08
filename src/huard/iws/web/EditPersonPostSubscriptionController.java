@@ -4,7 +4,6 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.SubjectBean;
 import huard.iws.model.Subject;
 import huard.iws.service.SubjectService;
-import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 
 import java.util.HashMap;
@@ -68,8 +67,7 @@ public class EditPersonPostSubscriptionController extends GeneralFormController 
 		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, personBean.getPreferedLocaleId());
 		model.put("rootSubject", rootSubjectBean);
 
-		LanguageUtils.applyLanguage(model, request, response, personBean.getPreferedLocaleId());
-
+		
 		return new ModelAndView("editPersonPostSubscription", model);
 	}
 

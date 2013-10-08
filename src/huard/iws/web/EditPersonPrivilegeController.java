@@ -102,8 +102,6 @@ public class EditPersonPrivilegeController extends GeneralFormController {
 		}
 		model.put("allPrivileges", allPrivilegesBeans);
 		
-		LanguageUtils.applyLanguage(model, request, response, userPersonBean.getPreferedLocaleId());
-		
 		model.put("personName", personBean.getDegreeFullNameHebrew());
 		
 		if(!personPrivilegeService.getPrivilegePassword(personBean.getId()).isEmpty())

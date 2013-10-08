@@ -7,6 +7,7 @@ import huard.iws.service.PersonPrivilegeService;
 import huard.iws.service.PersonService;
 import huard.iws.service.UserMessageService;
 import huard.iws.util.DateUtils;
+import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.UserPersonUtils;
 
@@ -41,6 +42,10 @@ public abstract class GeneralController extends AbstractController{
 
 		String lastUpdate = calculateLastUpdate(requestWrapper);
 		model.put("lastUpdate", lastUpdate);
+		
+		LanguageUtils.applyLanguage(model, requestWrapper, response, userPersonBean.getPreferedLocaleId());
+		
+		LanguageUtils.applyLanguages(model);
 
 		String showPopup =  configurationService.getConfigurationString("iws", "showPopup");
 		if(showPopup.equals("yes")){

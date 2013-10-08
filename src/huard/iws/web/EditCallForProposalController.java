@@ -2,37 +2,34 @@ package huard.iws.web;
 
 import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.model.Fund;
-import huard.iws.model.MopDesk;
-import huard.iws.model.Language;
 import huard.iws.bean.SubjectBean;
-import huard.iws.model.CallForProposal;
-import huard.iws.model.Subject;
 import huard.iws.model.Attachment;
+import huard.iws.model.CallForProposal;
 import huard.iws.model.Country;
+import huard.iws.model.Language;
+import huard.iws.model.MopDesk;
+import huard.iws.model.Subject;
 import huard.iws.service.CallForProposalService;
-import huard.iws.service.SubjectService;
+import huard.iws.service.CountryService;
 import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
-import huard.iws.service.CountryService;
+import huard.iws.service.SubjectService;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.TextUtils;
-import java.util.List;
-import java.util.ArrayList;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -41,6 +38,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 public class EditCallForProposalController extends GeneralFormController{
+	
+	private static final Logger logger = Logger.getLogger(GeneralFormController.class);
 	
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
@@ -155,8 +154,8 @@ public class EditCallForProposalController extends GeneralFormController{
 		else{//show edit
 			
 			//language
-			LanguageUtils.applyLanguage(model, request, response, callForProposalBean.getLocaleId());
-			LanguageUtils.applyLanguages(model);
+			LanguageUtils.applyLanguage(model, callForProposalBean.getLocaleId());
+			
 
 			//subjects
 			Subject rootSubject = subjectService.getSubject(1, callForProposalBean.getLocaleId());

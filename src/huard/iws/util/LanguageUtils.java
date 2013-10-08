@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 public class LanguageUtils {
 
 	private static final Logger logger = Logger.getLogger(LanguageUtils.class);
+	private static final String DEFAULT_LOCALE_ID = "en_US";
 
 	private  static Map<String, Language> languagesMap ;
 
@@ -25,19 +26,27 @@ public class LanguageUtils {
 
 	public static Language getLanguage(RequestWrapper request, HttpServletResponse response, String textSampleOrLocaleId){
 		String localeId = "";
-		if (languagesMap.containsKey(textSampleOrLocaleId))
-			localeId = textSampleOrLocaleId;
-		else
-			localeId = getLocaleId(textSampleOrLocaleId);
-
-		if (localeId.length() == 0 && request != null){
+		if (request != null){
 			localeId = request.getParameter("locale", "");
+			
+			if (localeId.isEmpty()) {
+				localeId = (String)request.getSession().getAttribute("locale");
+			}
 		}
-		if (localeId.equals("") && request != null) {
-			localeId = (String)request.getSession().getAttribute("locale");
+		logger.info("Locale id: " + localeId);
+		if ((localeId == null || localeId.isEmpty()) && textSampleOrLocaleId != null && !textSampleOrLocaleId.isEmpty()){
+			if (languagesMap.containsKey(textSampleOrLocaleId))
+				localeId = textSampleOrLocaleId;
+			else
+				localeId = getLocaleId(textSampleOrLocaleId);
 		}
-		if (localeId == null) localeId="en_US";
-
+		
+		logger.info("Locale id: " + localeId);
+		
+		
+		if (localeId == null) 
+			localeId = DEFAULT_LOCALE_ID;
+		logger.info("Locale id: " + localeId);
 		if (response != null){
 			String language = localeId.substring(0,localeId.indexOf("_"));
 			String country = localeId.substring(localeId.indexOf("_")+1);
@@ -45,6 +54,7 @@ public class LanguageUtils {
 		}
 		if (request != null)
 			request.getSession().setAttribute("locale",localeId);
+		logger.info("Locale id: " + localeId);
 		return languagesMap.get(localeId);
 	}
 
@@ -77,6 +87,10 @@ public class LanguageUtils {
 
 	public static void applyLanguage(Map<String,Object> model, RequestWrapper request, HttpServletResponse response, String textSampleOrLocaleId){
 		model.put("lang", getLanguage(request, response, textSampleOrLocaleId));
+	}
+	
+	public static void applyLanguage(Map<String,Object> model, String textSampleOrLocaleId){
+		model.put("lang", getLanguage(textSampleOrLocaleId));
 	}
 
 	public static void applyLanguage(Map<String,Object> model, RequestWrapper request){

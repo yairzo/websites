@@ -1,4 +1,6 @@
 <%@ page  pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jsp/include/include.jsp" %>
+
    <script src="js/modernizr-2.6.2.min.js"></script>
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
    <script>window.jQuery || document.write('<script src="js/jquery-1.8.3.min.js"><\/script>')</script>
@@ -29,7 +31,10 @@
 					mode:'horizontal',
 					auto: true ,
 					slideWidth:406,
-					auto_direction: 'prev' 
+<c:if test="${lang.rtl}">
+					startSlide: <c:out value="${fn:length(textualPages)-1}"/>, 
+					autoDirection: 'prev'
+</c:if>
 					});
 				$('.pictureslider').show();
 				$('.pictureslider').bxSlider({
@@ -37,7 +42,11 @@
 					mode:'fade',
 					auto: true,
 					video:true,
-					pager:false
+					pager:true,
+<c:if test="${lang.rtl}"> 
+					startSlide: <c:out value="${fn:length(images)-1}"/>, 
+					autoDirection: 'prev'
+</c:if>
 				});	
 				
 				var daysWithFunds=[${daysWithFunds}];

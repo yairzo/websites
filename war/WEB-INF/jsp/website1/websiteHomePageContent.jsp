@@ -2,30 +2,22 @@
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 
 			<div class="rotator">
-				<div class="bx-wrapper">
+				<div class="bx-wrapper pictures_slider_wrapper">
 					<div class="bx-viewport">
-						  <div class="pictureslider" style="display:none;">
+						  <div class="pictureslider bxslider" style="display:none;">
   								<c:forEach items="${images}" var="image" varStatus="imgIndex">
   								<div>
   									<img width="960" height="340" src="imageViewer?imageId=${image.id}&attachType=bodyImage" />
 									<div class="bx-caption">
 										<h3><fmt:message key="${lang.localeId}.website.pictureSliderTitle"/></h3>
 										<span><c:choose><c:when test="${lang.localeId=='iw_IL'}">${image.captionHebrew}</c:when><c:otherwise>${image.captionEnglish}</c:otherwise></c:choose></span>
-										<div class="bx-pager bx-default-pager">
-											<c:forEach items="${images}" var="image" varStatus="bulletIndex">
- 												<c:set var="activeClass" value=""/>
- 												<c:if test="${imgIndex.index==bulletIndex.index}">
-  													<c:set var="activeClass" value="active"/>
-  												</c:if>
-												<div class="bx-pager-item"><a class="bx-pager-link ${activeClass}" href="">${bulletIndex.index+1}</a></div>
-											</c:forEach>
-										</div>
+										
 									</div>
 								</div>
-								</c:forEach>
+								</c:forEach>								
 						 </div>
  					</div>
-				</div>
+ 				</div>
 			</div>
 			
 			<div class="container clearfix">
@@ -37,7 +29,7 @@
 							<a href="#"><fmt:message key="${lang.localeId}.website.readMore"/></a>
 						</div>
 						<div class="mainbox_text">
-							<p>??????????????????</p>
+							<p></p>
 						</div>
 					</div>
 					<div class="mainbox">
@@ -45,19 +37,21 @@
 							<h2><fmt:message key="${lang.localeId}.website.latestUpdates"/></h2>
 							<a href="messages.html?t=1"><fmt:message key="${lang.localeId}.website.allMessages"/></a>
 						</div>
-						<div class="mainbox_news" style="direction:ltr">
-							<div class="bx-wrapper">
-								<div class="bx-viewport"  >
-									<div class="messageslider" style="display:none;">
-  										<c:forEach items="${textualPages}" var="textualPage" varStatus="textualIndex">
-  											<c:set var="direction" value="rtl"/>
-  											<c:if test="${textualPage.localeId=='en_US'}">
-  												<c:set var="direction" value="ltr"/>
-  											</c:if>
-  											<div style="padding: 0px 5px; height:80px; width:380px; direction:${direction};">
-  												${textualPage.title}
-											</div>
- 										</c:forEach>
+						<div class="mainbox_news_wrapper">
+							<div class="mainbox_news" style="direction:ltr">
+								<div class="bx-wrapper messages_slider_wrapper">
+									<div class="bx-viewport"  >
+										<div class="messageslider" style="display:none;">
+	  										<c:forEach items="${textualPages}" var="textualPage" varStatus="textualIndex">
+	  											<c:set var="direction" value="rtl"/>
+	  											<c:if test="${textualPage.localeId=='en_US'}">
+	  												<c:set var="direction" value="ltr"/>
+	  											</c:if>
+	  											<div style="padding: 0px 5px; height:80px; width:380px; direction:${direction};">
+	  												${textualPage.title}
+												</div>
+	 										</c:forEach>
+										</div>
 									</div>
 								</div>
 							</div>

@@ -19,17 +19,15 @@ public abstract class GeneralWebsiteController extends GeneralController{
 
 	@Override
 	protected ModelAndView handleRequest(RequestWrapper request, HttpServletResponse response,
-			Map<String, Object> model, PersonBean personBean) throws Exception {
+			Map<String, Object> model, PersonBean userPersonBean) throws Exception {
 		//language
-		if(request.getParameter("locale", "").equals("en_US")){
-			LanguageUtils.applyLanguage(model, request);
-		}
-		else{
-			LanguageUtils.applyLanguage(model, request, response,personBean.getPreferedLocaleId());
-			LanguageUtils.applyLanguages(model);
-		}
+		
+		LanguageUtils.applyLanguage(model, request, response, userPersonBean.getPreferedLocaleId());
+		
+		LanguageUtils.applyLanguages(model);
+		
 		//top categories
-		Category rootCategory = categoryService.getRootCategory(personBean.getPreferedLocaleId());
+		Category rootCategory = categoryService.getRootCategory(userPersonBean.getPreferedLocaleId());
 		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
 		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
 		for (Category category: languageRootCategories){
@@ -39,7 +37,7 @@ public abstract class GeneralWebsiteController extends GeneralController{
 		//category
 		model.put("category",categoryService.getCategory(rootCategory.getId()));
 		
-		return handleRequestWebsite(request, response, model, personBean);
+		return handleRequestWebsite(request, response, model, userPersonBean);
 	}
 
 	protected abstract ModelAndView handleRequestWebsite(

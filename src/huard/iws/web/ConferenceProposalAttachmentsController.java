@@ -3,7 +3,6 @@ package huard.iws.web;
 import huard.iws.bean.ConferenceProposalBean;
 import huard.iws.bean.FinancialSupportBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.model.FinancialSupport;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.util.RequestWrapper;
 
@@ -15,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 public class ConferenceProposalAttachmentsController extends GeneralFormController{
-
+	private static final Logger logger = Logger.getLogger(ConferenceProposalAttachmentsController.class);
 	
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)

@@ -2,7 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.MailMessageBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.service.CategoryService;
+import huard.iws.model.Language;
 import huard.iws.service.ConfigurationService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
@@ -25,217 +25,221 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-public abstract class GeneralFormController extends SimpleFormController
-	{
-		private final String ERRORS_MAIL_ADDRESS = "hadar123@gmail.com,zohar.yair@gmail.com";
-		//private final String ERRORS_MAIL_ADDRESS = "hadar@localhost.localdomain";
+public abstract class GeneralFormController extends SimpleFormController{
 
-		@Override
-		protected Object formBackingObject(HttpServletRequest request)
-				throws Exception
+	private static final Logger logger = Logger.getLogger(GeneralFormController.class);
+	private final String ERRORS_MAIL_ADDRESS = "hadar123@gmail.com,zohar.yair@gmail.com";
+	//private final String ERRORS_MAIL_ADDRESS = "hadar@localhost.localdomain";
+
+	@Override
+	protected Object formBackingObject(HttpServletRequest request)
+			throws Exception
+			{
+		request.setCharacterEncoding("UTF-8");
+		RequestWrapper requestWrapper = new RequestWrapper( request);
+		logger.info("personService is null " + (personService == null));
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		try
 		{
-			request.setCharacterEncoding("UTF-8");
-			RequestWrapper requestWrapper = new RequestWrapper( request);
-			logger.info("personService is null " + (personService == null));
-			PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
-			try
-			{
-				return getFormBackingObject(requestWrapper, userPersonBean);
+			return getFormBackingObject(requestWrapper, userPersonBean);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-				return null;
-			}
+
+	/**
+	 * Overriding classes must implement this, even if no support for backing
+	 * object is required.
+	 *
+	 * @param requestWrapper
+	 * @return
+	 */
+	protected abstract Object getFormBackingObject(
+			RequestWrapper requestWrapper, PersonBean userPersonBean) throws Exception;
+
+
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	protected ModelAndView showForm(HttpServletRequest request,
+			HttpServletResponse response, BindException errors)
+					throws Exception
+					{
+		RequestWrapper requestWrapper = new RequestWrapper( request);
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		personPrivilegeService.updateLastAction(userPersonBean);
+		Object command = errors.getTarget();
+		Map<String, Object> model = errors.getModel();
+		List<FieldError> errorsList = errors.getBindingResult().getFieldErrors();
+		String errorsMessage="";
+		for (FieldError error : errorsList ) {
+			logger.info (error.getObjectName() + " - " + error.getDefaultMessage());
+			errorsMessage += "<br>" + error.getObjectName() + " - " + error.getDefaultMessage();
+		}
+		if(!errorsMessage.isEmpty()){
+			errorsMessage="User:" + userPersonBean.getDegreeFullName() + errorsMessage;
+			MailMessageBean mailMessageBean = new MailMessageBean();
+			mailMessageBean.setAdditionalAddresses(ERRORS_MAIL_ADDRESS);
+			mailMessageBean.setMessageSubject("Form Errors");
+			mailMessageBean.setMessage(errorsMessage);
+			mailMessageService.sendMailMessage(mailMessageBean);
 		}
 
-		/**
-		 * Overriding classes must implement this, even if no support for backing
-		 * object is required.
-		 *
-		 * @param requestWrapper
-		 * @return
-		 */
-		protected abstract Object getFormBackingObject(
-				RequestWrapper requestWrapper, PersonBean userPersonBean) throws Exception;
+		model.put("command", command);
+		model.put("userPersonBean", userPersonBean);
+		model.put("validationErrors", errors.hasErrors());
+
+		String callerPage = requestWrapper.getParameter("cp", "welcome.html");
+		int callerPageObjectId = requestWrapper.getIntParameter("cpoi", 0);
+		if (callerPageObjectId == 0)
+			callerPage = "welcome.html";
+		model.put("cp", callerPage);
+		model.put("cpoi", callerPageObjectId);
+		String userMessage;
+		if ((userMessage = userMessageService.getSessionUserMessage(request)) != null){
+			model.put("userMessage", userMessage);
+		}
+
+		model.put("server", configurationService.getConfigurationString("iws", "server"));
+
+		String lastUpdate = calculateLastUpdate(requestWrapper);
+		model.put("lastUpdate", lastUpdate);
+
+		LanguageUtils.applyLanguage(model, requestWrapper, response, userPersonBean.getPreferedLocaleId());
+
+		LanguageUtils.applyLanguages(model);
+
+		String showPopup =  configurationService.getConfigurationString("iws", "showPopup");
+		if(showPopup.equals("yes")){
+			String popupMessage = messageService.getMessage("iw_IL.general.popup");
+			model.put("popupMessage", popupMessage);
+		}
+		else{
+			model.put("popupMessage", "");
+		}
+
+		logger.info("Lang general: " + ((Language)model.get("lang")).getLocaleId());
+		ModelAndView modelAndView = onShowForm(requestWrapper, response, userPersonBean, model);
+		if (modelAndView != null)
+			return modelAndView;
+
+
+		return super.showForm(request, response, errors);
+					}
+
+	/**
+	 * This method must be implemented, and the implementations may choose to
+	 * return another model and view, or null.
+	 *
+	 * @param requestWrapper
+	 * @return
+	 * @throws Exception
+	 */
+	protected abstract ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
+			PersonBean userPersonBean, Map<String, Object> model) throws Exception;
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	protected ModelAndView onSubmit(HttpServletRequest request,
+			HttpServletResponse response, Object command, BindException errors)
+					throws Exception
+					{
+		RequestWrapper requestWrapper = new RequestWrapper( request );
+		Map<String, Object> model = null;
+		if (errors != null)
+			model = errors.getModel();
+		else
+			model = new HashMap<String, Object>();
+
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		return onSubmit(command, model, requestWrapper, userPersonBean);
+					}
+
+	/**
+	 * Implemening classes must implement this method, which is called on form
+	 * submit
+	 *
+	 * @param command
+	 * @param model
+	 * @param requestWrapper
+	 * @return
+	 * @throws Exception
+	 */
+	protected abstract ModelAndView onSubmit(Object command,
+			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
+					throws Exception;
 
 
 
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected ModelAndView showForm(HttpServletRequest request,
-				HttpServletResponse response, BindException errors)
-				throws Exception
-		{
-			RequestWrapper requestWrapper = new RequestWrapper( request);
-			PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
-			personPrivilegeService.updateLastAction(userPersonBean);
-			Object command = errors.getTarget();
-			Map<String, Object> model = errors.getModel();
-			List<FieldError> errorsList = errors.getBindingResult().getFieldErrors();
-		    String errorsMessage="";
-			for (FieldError error : errorsList ) {
-		        logger.info (error.getObjectName() + " - " + error.getDefaultMessage());
-		        errorsMessage += "<br>" + error.getObjectName() + " - " + error.getDefaultMessage();
-		    }
-		    if(!errorsMessage.isEmpty()){
-		    	errorsMessage="User:" + userPersonBean.getDegreeFullName() + errorsMessage;
-		    	MailMessageBean mailMessageBean = new MailMessageBean();
-		    	mailMessageBean.setAdditionalAddresses(ERRORS_MAIL_ADDRESS);
-				mailMessageBean.setMessageSubject("Form Errors");
-				mailMessageBean.setMessage(errorsMessage);
-		    	mailMessageService.sendMailMessage(mailMessageBean);
-		    }
-		    
-		    model.put("command", command);
-			model.put("userPersonBean", userPersonBean);
-			model.put("validationErrors", errors.hasErrors());
-
-			String callerPage = requestWrapper.getParameter("cp", "welcome.html");
-			int callerPageObjectId = requestWrapper.getIntParameter("cpoi", 0);
-			if (callerPageObjectId == 0)
-				callerPage = "welcome.html";
-			model.put("cp", callerPage);
-			model.put("cpoi", callerPageObjectId);
-			String userMessage;
-			if ((userMessage = userMessageService.getSessionUserMessage(request)) != null){
-				model.put("userMessage", userMessage);
-			}
-
-			model.put("server", configurationService.getConfigurationString("iws", "server"));
-
-			String lastUpdate = calculateLastUpdate(requestWrapper);
-			model.put("lastUpdate", lastUpdate);
-
-			LanguageUtils.applyLanguage(model, requestWrapper, response, userPersonBean.getPreferedLocaleId());
-
-			String showPopup =  configurationService.getConfigurationString("iws", "showPopup");
-			if(showPopup.equals("yes")){
-				String popupMessage = messageService.getMessage("iw_IL.general.popup");
-				model.put("popupMessage", popupMessage);
-			}
+	private String calculateLastUpdate(RequestWrapper request){
+		HttpSession session = request.getSession();
+		String lastUpdate = (String) session.getAttribute("lastUpdate");
+		if (lastUpdate == null){
+			Calendar c = new GregorianCalendar();
+			c.setTime ( new Date() );
+			int day = c.get(Calendar.DAY_OF_WEEK);
+			if (day == 6)
+				c.add(Calendar.DAY_OF_WEEK, -1);
+			else if (day == 7)
+				c.add(Calendar.DAY_OF_WEEK, -2);
 			else{
-				model.put("popupMessage", "");
+				int hour = c.get(Calendar.HOUR_OF_DAY);
+				int daysOffset = hour < 10 ? -1 : 0;
+				c.add(Calendar.DAY_OF_WEEK, daysOffset);
 			}
-
-			
-			ModelAndView modelAndView = onShowForm(requestWrapper, response, userPersonBean, model);
-			if (modelAndView != null)
-				return modelAndView;
-			
-
-			return super.showForm(request, response, errors);
+			lastUpdate = DateUtils.formatDate(c.getTimeInMillis(), "dd/MM/yyyy");
+			session.setAttribute("lastUpdate", lastUpdate);
 		}
-
-		/**
-		 * This method must be implemented, and the implementations may choose to
-		 * return another model and view, or null.
-		 *
-		 * @param requestWrapper
-		 * @return
-		 * @throws Exception
-		 */
-		protected abstract ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
-				PersonBean userPersonBean, Map<String, Object> model) throws Exception;
+		return lastUpdate;
+	}
 
 
-		@SuppressWarnings("unchecked")
-		@Override
-		protected ModelAndView onSubmit(HttpServletRequest request,
-				HttpServletResponse response, Object command, BindException errors)
-				throws Exception
-		{
-			RequestWrapper requestWrapper = new RequestWrapper( request );
-			Map<String, Object> model = null;
-			if (errors != null)
-				model = errors.getModel();
-			else
-				model = new HashMap<String, Object>();
+	protected PersonPrivilegeService personPrivilegeService;
 
-			PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
-			return onSubmit(command, model, requestWrapper, userPersonBean);
-		}
+	public void setPersonPrivilegeService(PersonPrivilegeService personPrivilegeService) {
+		this.personPrivilegeService = personPrivilegeService;
+	}
 
-		/**
-		 * Implemening classes must implement this method, which is called on form
-		 * submit
-		 *
-		 * @param command
-		 * @param model
-		 * @param requestWrapper
-		 * @return
-		 * @throws Exception
-		 */
-		protected abstract ModelAndView onSubmit(Object command,
-				Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
-				throws Exception;
+	protected PersonService personService;
 
+	public void setPersonService(PersonService personService) {
+		this.personService = personService;
+	}
 
+	protected UserMessageService userMessageService;
 
-		private String calculateLastUpdate(RequestWrapper request){
-			HttpSession session = request.getSession();
-			String lastUpdate = (String) session.getAttribute("lastUpdate");
-			if (lastUpdate == null){
-				Calendar c = new GregorianCalendar();
-				c.setTime ( new Date() );
-				int day = c.get(Calendar.DAY_OF_WEEK);
-				if (day == 6)
-					c.add(Calendar.DAY_OF_WEEK, -1);
-				else if (day == 7)
-					c.add(Calendar.DAY_OF_WEEK, -2);
-				else{
-					int hour = c.get(Calendar.HOUR_OF_DAY);
-					int daysOffset = hour < 10 ? -1 : 0;
-					c.add(Calendar.DAY_OF_WEEK, daysOffset);
-				}
-				lastUpdate = DateUtils.formatDate(c.getTimeInMillis(), "dd/MM/yyyy");
-				session.setAttribute("lastUpdate", lastUpdate);
-			}
-			return lastUpdate;
-		}
+	public void setUserMessageService(UserMessageService userMessageService) {
+		this.userMessageService = userMessageService;
+	}
 
+	protected MessageService messageService;
 
-		protected PersonPrivilegeService personPrivilegeService;
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
+	}
 
-		public void setPersonPrivilegeService(PersonPrivilegeService personPrivilegeService) {
-			this.personPrivilegeService = personPrivilegeService;
-		}
-		
-		protected PersonService personService;
+	protected ConfigurationService configurationService;
 
-		public void setPersonService(PersonService personService) {
-			this.personService = personService;
-		}
+	public void setConfigurationService(ConfigurationService configurationService) {
+		this.configurationService = configurationService;
+	}
 
-		protected UserMessageService userMessageService;
+	protected MailMessageService mailMessageService;
 
-		public void setUserMessageService(UserMessageService userMessageService) {
-			this.userMessageService = userMessageService;
-		}
-		
-		protected MessageService messageService;
-
-		public void setMessageService(MessageService messageService) {
-			this.messageService = messageService;
-		}
-
-		protected ConfigurationService configurationService;
-
-		public void setConfigurationService(ConfigurationService configurationService) {
-			this.configurationService = configurationService;
-		}
-
-		protected MailMessageService mailMessageService;
-
-		public void setMailMessageService(MailMessageService mailMessageService) {
-			this.mailMessageService = mailMessageService;
-		}	
+	public void setMailMessageService(MailMessageService mailMessageService) {
+		this.mailMessageService = mailMessageService;
+	}	
 
 
 }

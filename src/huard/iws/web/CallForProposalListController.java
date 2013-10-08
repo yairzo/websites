@@ -56,9 +56,7 @@ public class CallForProposalListController extends GeneralFormController {
 			callForProposalBeans.add(callForProposalBean);
 		}
 		model.put("callForProposals", callForProposalBeans);
-		//language
-		LanguageUtils.applyLanguage(model, request, response, userPersonBean.getPreferedLocaleId());
-		LanguageUtils.applyLanguages(model);
+		
 		//desks
 		List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 		model.put("mopDesks", mopDesks);

@@ -3,10 +3,10 @@ package huard.iws.web;
 import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
-import huard.iws.model.TextualPage;
 import huard.iws.model.Category;
-import huard.iws.service.TextualPageService;
+import huard.iws.model.TextualPage;
 import huard.iws.service.CategoryService;
+import huard.iws.service.TextualPageService;
 import huard.iws.util.RequestWrapper;
 
 import java.util.ArrayList;
@@ -16,11 +16,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 public class EditCategoryController extends GeneralFormController {
-
+	private static final Logger logger = Logger.getLogger(EditCategoryController.class);
 
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)

@@ -18,6 +18,7 @@
         	<link rel="stylesheet" href="style/style1.css">
        	</c:otherwise>
        	</c:choose>
+       	<jsp:include page="${templateCss}" />
     </head>
     <body>
         <!--[if lt IE 7]>

@@ -66,5 +66,11 @@ public class Language {
 	public boolean isUTF8(){
 		return name.equals("Hebrew");
 	}
+	public boolean isRtl(){
+		return dir.equals("rtl");
+	}
+	public boolean isLtr(){
+		return dir.equals("ltr");
+	}
 	
 }

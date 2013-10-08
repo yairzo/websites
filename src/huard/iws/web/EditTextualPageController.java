@@ -1,25 +1,22 @@
 package huard.iws.web;
 
-import huard.iws.bean.TextualPageBean;
 import huard.iws.bean.PersonBean;
+import huard.iws.bean.TextualPageBean;
+import huard.iws.model.AList;
 import huard.iws.model.Attachment;
+import huard.iws.model.Category;
+import huard.iws.model.MopDesk;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
-import huard.iws.model.MopDesk;
-import huard.iws.model.Category;
-import huard.iws.model.AList;
-import huard.iws.service.TextualPageService;
-import huard.iws.service.MopDeskService;
-import huard.iws.service.ListListService;
 import huard.iws.service.CategoryService;
+import huard.iws.service.ListListService;
+import huard.iws.service.MopDeskService;
+import huard.iws.service.TextualPageService;
 import huard.iws.util.LanguageUtils;
-import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
-import huard.iws.util.TextUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,6 +27,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -39,7 +37,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 public class EditTextualPageController extends GeneralFormController {
 
-
+	private static final Logger logger = Logger.getLogger(EditTextualPageController.class);
+	
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
@@ -138,7 +137,7 @@ public class EditTextualPageController extends GeneralFormController {
 		else{//show edit
 			//language
 			LanguageUtils.applyLanguage(model, request, response, textualPageBean.getLocaleId());
-			LanguageUtils.applyLanguages(model);
+			
 			//desks
 			List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 			model.put("mopDesks", mopDesks);

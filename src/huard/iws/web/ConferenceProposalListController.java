@@ -22,12 +22,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 
 public class ConferenceProposalListController extends GeneralFormController {
-
+	private static final Logger logger = Logger.getLogger(ConferenceProposalListController.class);
+	
 	//private static final Logger logger = Logger.getLogger(PersonListController.class);
     private final int ROWS_IN_PAGE=5;
 

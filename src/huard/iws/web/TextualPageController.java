@@ -1,9 +1,8 @@
 package huard.iws.web;
 
 import huard.iws.bean.AListBean;
-import huard.iws.bean.TextualPageBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.constant.Constants;
+import huard.iws.bean.TextualPageBean;
 import huard.iws.model.AList;
 import huard.iws.model.Category;
 import huard.iws.service.ListService;
@@ -19,11 +18,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 public class TextualPageController extends GeneralWebsiteFormController {
 
+	private static final Logger logger = Logger.getLogger(TextualPageController.class);
 
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
@@ -88,6 +89,9 @@ public class TextualPageController extends GeneralWebsiteFormController {
 			else{
 				model.put("listBean", listBean);
 			}
+		}
+		else{
+			LanguageUtils.applyLanguage(model, request, response, textualPageBean.getTitle());
 		}
 		
 		

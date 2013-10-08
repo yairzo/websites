@@ -2,7 +2,6 @@ package huard.iws.web;
 
 import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.model.Fund;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.FundService;
 import huard.iws.util.LanguageUtils;
@@ -15,7 +14,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -58,8 +58,8 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		//	return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+callForProposalBean.getUrlTitle()), new HashMap<String, Object>());
 		
 		//language
-		LanguageUtils.applyLanguage(model, request, response,callForProposalBean.getLocaleId());
-		LanguageUtils.applyLanguages(model);
+		LanguageUtils.applyLanguage(model, request, response, callForProposalBean.getLocaleId());
+		
 		
 		//page title
 		model.put("pageTitle", callForProposalBean.getTitle());

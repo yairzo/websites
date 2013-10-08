@@ -5,9 +5,10 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.PostBean;
 import huard.iws.bean.SubjectBean;
 import huard.iws.model.Attachment;
+import huard.iws.model.CallForProposal;
+import huard.iws.model.Language;
 import huard.iws.model.Post;
 import huard.iws.model.Subject;
-import huard.iws.model.CallForProposal;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.PersonListService;
 import huard.iws.service.PostService;
@@ -122,6 +123,7 @@ public class EditPostController extends GeneralFormController {
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
+		
 		if (request.getParameter("action", "").equals("new")){
 			int id = postService.insertPost(userPersonBean.getId());
 			Map<String, Object> newModel = new HashMap<String, Object>();
@@ -148,15 +150,14 @@ public class EditPostController extends GeneralFormController {
 		}
 
 		PostBean postBean = (PostBean) model.get("command");
+		
+		LanguageUtils.applyLanguage(model, postBean.getLocaleId());
 
 		boolean allowedToViewPost = postBean.isVerified() && sendPostService.isToBeSentTo(postBean.toPost(), userPersonBean);
 
 		if ( ! userPersonBean.isAnyAuthorized(new String []{"POST_ADMIN","POST_CREATOR","POST_SENDER","POST_READER"})
 				&& ! allowedToViewPost)
 			return new ModelAndView(new RedirectView("accessDenied.html"));
-
-		LanguageUtils.applyLanguage(model, request, response, postBean.getLocaleId());
-		LanguageUtils.applyLanguages(model);
 
 		int listId = configurationService.getConfigurationInt("post","postCreatorsListId");
 
@@ -178,7 +179,12 @@ public class EditPostController extends GeneralFormController {
 
 		model.put("postTypes", postService.getPostTypes());
 		
+		
+		logger.info("Lang: " + ((Language)model.get("lang")).getLocaleId());
+		
 		return new ModelAndView("editPost", model);
+		
+		
 	}
 
 	protected Object getFormBackingObject(

@@ -233,6 +233,7 @@ war/WEB-INF/jsp/website1/textualPageContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website1/textualPageScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website1/topMenu.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website1/websiteHomePageContent.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/website1/websiteHomePageCss.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website1/websiteHomePageScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/websiteHomePage.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/websiteHomePage1.jsp svn_mime_002dtype=text%2Fplain
