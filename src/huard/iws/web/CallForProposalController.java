@@ -2,6 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PersonBean;
+import huard.iws.model.Language;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.FundService;
 import huard.iws.util.LanguageUtils;
@@ -59,6 +60,9 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		
 		//language
 		LanguageUtils.applyLanguage(model, request, response, callForProposalBean.getLocaleId());
+		
+		Language callForProposalLanguage = LanguageUtils.getLanguage(callForProposalBean.getLocaleId());
+		model.put("copLang", callForProposalLanguage);
 		
 		
 		//page title

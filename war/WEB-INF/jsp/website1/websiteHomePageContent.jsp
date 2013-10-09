@@ -1,6 +1,5 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
-
 			<div class="rotator">
 				<div class="bx-wrapper pictures_slider_wrapper">
 					<div class="bx-viewport">

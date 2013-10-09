@@ -55,18 +55,11 @@ public class ConferenceProposalController extends GeneralFormController{
 			Iterator fileNames = multipartRequest.getFileNames();
 			while (fileNames.hasNext()) {
 				
-				String filename = (String) fileNames.next();
-
-
-				System.out.println("******************************");
-				System.out.println(" filename : " + filename );
-				System.out.println("******************************");
+				String filename = (String) fileNames.next();				
 				MultipartFile file = multipartRequest.getFile(filename);
 				String originalName = file.getOriginalFilename();
 				String ext = originalName.substring(originalName.lastIndexOf(".")+1);
-				System.out.println("******************************");
-				System.out.println(" ext: " + ext  + " content type:" + getContentType(ext));
-				System.out.println("******************************");
+				
 				if (filename.equals("guestsAttach") && conferenceProposalBean.getGuestsAttach()!=null && conferenceProposalBean.getGuestsAttach().length>0){
 					conferenceProposalBean.setGuestsAttachContentType(getContentType(ext));
 				}
@@ -314,10 +307,10 @@ public class ConferenceProposalController extends GeneralFormController{
 			conferenceProposal.setPersonId(researcherId);
 			conferenceProposal.setCreatorId(userPersonBean.getId());
 			String deadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalDeadline");
-			logger.info("Deadline on new proposal: " + deadline);
+			
 			conferenceProposal.setDeadline(DateUtils.parseDate(deadline, "yyyy-MM-dd"));
 			int conferenceProposalId = conferenceProposalService.insertConferenceProposal(conferenceProposal);
-			logger.info("conferenceProposalId " + conferenceProposalId);
+			
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",conferenceProposalId);
 			request.getSession().setAttribute("researcherDeclaration", true);
@@ -342,7 +335,6 @@ public class ConferenceProposalController extends GeneralFormController{
 			if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_APPROVER") && conferenceProposal.getApprover()!=null && conferenceProposal.getApprover().getId()!=userPersonBean.getOnBehalfOf("conferenceProposal") && conferenceProposal.getResearcher().getId()!=userPersonBean.getId()){
 				return new ModelAndView ( new RedirectView("accessDenied.html"), null);
 			}
-			logger.info("Conference proposal scientific committee: " + conferenceProposal.getScientificCommittees().size());
 			//get faculty name by user facultyId
 			Faculty faculty = facultyService.getFaculty(conferenceProposal.getResearcher().getFacultyId());
 			model.put("faculty", faculty.getNameHebrew());

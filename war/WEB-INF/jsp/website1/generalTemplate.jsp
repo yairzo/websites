@@ -33,7 +33,7 @@
 				</nav>
 				<nav class="icons">
 					<ul class="menu">
-						<li><a href="#"><img src="image/website1/menu_icon_heb.png" alt="" /></a></li>
+						<li><a onclick="changeLanguage();"><img src="image/website1/menu_icon_heb.png" alt="Change language" /></a></li>
 						<li><a href="#"><img src="image/website1/menu_icon_magnifying.png" alt="" /></a></li>
 						<li><a href="#"><img src="image/website1/menu_icon_home.png" alt="" /></a></li>
 						<li><a href="#"><img src="image/website1/menu_icon_envelope.png" alt="" /></a></li>
@@ -71,6 +71,26 @@
 			</div>
         </footer>
         
+        <script>
+        	function changeLanguage(){
+        		var location = "" + window.location;
+    			location = location.replace("&locale=${lang.localeId}","");
+        		if (location.contains("?"))
+        			location = location + "&locale=";
+        		else
+        			location = location + "?locale=";
+    			console.log(location);
+        		<c:choose>        		
+        			<c:when test="${lang.rtl}">
+        				window.location = location + "en_US";
+        			</c:when>
+        			<c:otherwise>
+        				window.location = location + "iw_IL";
+        			</c:otherwise>
+        		</c:choose>       		
+        	}
+        
+        </script>
 		<jsp:include page="${templateScripts}" />
 
     </body>

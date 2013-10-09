@@ -1268,19 +1268,37 @@ font-weight:bold;
 color:#333333;
 }
 
-.kol{
-margin:0 0 0 8px;
+.kol_rtl{
+margin:0 8px 0 0;
 border-left:solid 3px #ededed;
 }
+.kol_ltr{
+margin:0 0 0 8px;
+border-right:solid 3px #ededed;
+}
 
-.kol_title{
-float:left;
-margin:0 0 3px -11px;
+.kol_title_rtl{
+float: right;
+margin:0 -11px 3px 0;
+padding:0 14px 10px 14px;
+width:260px;
+height:41px;
+background:url(../image/website1/title_blue.png) no-repeat top;
+font-family: almoni-dl, 'PT Sans Narrow';
+font-weight:normal;
+font-size:21px;
+color:#ffffff;
+line-height:43px;
+}
+
+.kol_title_ltr{
+float: left;
+margin:0 -11px 3px 0;
 padding:0 14px 10px 14px;
 width:260px;
 height:41px;
 background:url(../image/website1/title_blue_left.png) no-repeat top;
-font-family:"PT Sans Narrow";
+font-family: almoni-dl, 'PT Sans Narrow';
 font-weight:normal;
 font-size:21px;
 color:#ffffff;
@@ -1292,7 +1310,6 @@ line-height:43px;
 .kol_chart img{padding-top:8px;}
 
 .kol_arrow{
-float:left;
 margin:0 4px 0 0;
 width:42px;
 height:42px;

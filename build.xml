@@ -95,9 +95,8 @@
 	</target>
 
 	<target name="copy-remote" depends="" description="Copy expanded web application to remote webapp folder location">
-	  <mkdir dir="${deploy.path}/${name}" />
-	  <copy todir="${deploy.path}/${name}">
-	    <fileset dir="${web.dir}"/>
+	  <copy todir="${deploy.path}/${name}/WEB-INF/jsp" force="true" overwrite="true">
+	    <fileset dir="${web.dir}/WEB-INF/jsp"/>
 	  </copy>
 	</target>
 </project>
