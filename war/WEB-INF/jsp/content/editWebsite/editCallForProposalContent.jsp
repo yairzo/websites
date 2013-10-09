@@ -176,7 +176,7 @@
 				<tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted;text-align:${lang.align}">
 						<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/> 
-						<form:input htmlEscape="true" cssClass="green long950" path="originalCallWebAddress" />
+						<form:input htmlEscape="true" cssClass="green long950" id="originalCallWebAddress" path="originalCallWebAddress" />
 					</td>
 				</tr>
 				<tr class="form">

@@ -10,7 +10,7 @@
 					<h1 class="maintitle">${command.title}</h1>
 					<div class="clearfix mar_20">
 						<div class="clearfix mar_20">
-							<div class="kol">
+							<div class="kol open">
 								<div class="clearfix">
 									<h3 class="kol_title"><img src="image/website1/kol_i.png" alt="" />&nbsp;&nbsp; <fmt:message key="${lang.localeId}.callForProposal.generalInfo"/></h3>
 									<a href="#" class="kol_arrow"></a>
@@ -37,7 +37,7 @@
 								</div>
 							</div>
 							
-							<div class="kol">
+							<div class="kol open">
 								<div class="clearfix">
 									<h3 class="kol_title"><img src="image/website1/kol_details.png" alt="" />&nbsp;&nbsp; <fmt:message key="${lang.localeId}.callForProposal.description"/></h3>
 									<a href="#" class="kol_arrow"></a>

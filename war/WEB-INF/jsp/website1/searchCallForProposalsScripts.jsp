@@ -36,6 +36,7 @@ $(document).ready(function() {
 	
 	$(".viewProposal").click(function(e) {
 		e.preventDefault();
+		
 		var proposalId=$(this).attr("id");	   		
 		var rowPos = $(this).position();
 		bottomTop = rowPos.top - 100;
@@ -52,6 +53,13 @@ $(document).ready(function() {
 		
 	});
 	
+	
+	$(document).click(function() {
+	     $(".popup_placeholder").hide();
+	});
+	$(".popup_placeholder").click(function(e) {
+		e.stopPropagation();
+	});
 	
 	$("#advanced_subject").click(function(){
     	$("#advanced_subject").val('');

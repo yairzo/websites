@@ -675,6 +675,12 @@ $(document).ready(function() {
 			openHelp(this,"האם הנך מאשר את מחיקת הקובץ?");
 	    	return false;
 		});	
+		
+		$("#originalCallWebAddress").on('blur',function(){
+			if (!/^http/.test($("#originalCallWebAddress").val())){
+				$("#originalCallWebAddress").val('http://' + $("#originalCallWebAddress").val());
+			}
+		});
 
 });
 
@@ -688,6 +694,8 @@ function replaceURLWithHTMLLinks(text) {
         text=text.replace(exp,"<a href='$1'>"+ img +"$3</a>"); 
         match = exp.exec(text)
     }
+    //add list class for design
+    text=text.replace("<ul>","<ul class=\"list_content\">");
     return text;
 }
 
@@ -791,7 +799,6 @@ function checkErrors(){
 	else{
 		$("#errorsubjects").html('');
 	}
-	
 	return errors;
 }
 

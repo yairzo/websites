@@ -61,7 +61,7 @@ public abstract class ListViewableBean implements IListViewableBean{
 					String prefix = "";
 					String suffix = "";
 					if (! field.getText().isEmpty()){
-						if (field.getIsEmailAddress()){
+						if (field.getIsEmailAddress() || target.indexOf('@')!=-1){
 							prefix = "<a href=\"mailto:"+target+"\">";
 							suffix = "</a>";
 						}
