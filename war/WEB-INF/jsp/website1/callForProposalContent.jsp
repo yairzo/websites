@@ -9,17 +9,7 @@
 				<div class="content">
 					<h1 class="maintitle">${command.title}</h1>
 					<div class="clearfix mar_20">
-						<h2 class="kolkore_date">
-						<c:if test="${command.allYearSubmission}">
-							<fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/>
-						</c:if>
-						<c:if test="${!command.allYearSubmission}">
-							<fmt:message key="${lang.localeId}.callForProposal.submissionTime"/>
-							<strong>${finalSubmissionTime}</strong>
-						</c:if> 
-						</h2>
 						<div class="clearfix mar_20">
-						
 							<div class="kol">
 								<div class="clearfix">
 									<h3 class="kol_title"><img src="image/website1/kol_i.png" alt="" />&nbsp;&nbsp; <fmt:message key="${lang.localeId}.callForProposal.generalInfo"/></h3>
@@ -27,7 +17,7 @@
 								</div>
 								<div class="kol_content kol_content_i">
 										<p>
-										<strong><fmt:message key="${lang.localeId}.callForProposal.finalSubmissionTime"/></strong>
+										<strong><fmt:message key="${lang.localeId}.callForProposal.finalSubmissionTime"/></strong>&nbsp;
 										<c:if test="${command.allYearSubmission}">
 											<fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/>
 										</c:if>
@@ -36,12 +26,13 @@
 										</c:if> 
 										<br/>
 										<c:if test="${fn:length(submissionDate1)>0}">
-										<strong><fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/></strong>${submissionDate1}&nbsp;
+										<strong><fmt:message key="${lang.localeId}.callForProposal.anotherSubmissionDate"/></strong>&nbsp;${submissionDate1}&nbsp;
 										${submissionDate2}&nbsp;
 										${submissionDate3}<br/>
 										</c:if>
-										<strong><fmt:message key="${lang.localeId}.callForProposal.fund"/>:</strong>${command.fund.name}<br/>
-     									<strong><fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/></strong><a href="${command.originalCallWebAddress}">${command.originalCallWebAddress}</a><br>
+										<strong><fmt:message key="${lang.localeId}.callForProposal.fund"/>:</strong>&nbsp;${command.fund.name}<br/>
+     									<a href="${command.originalCallWebAddress}"><fmt:message key="${lang.localeId}.website.originalCallWebAddress"/></a><br>
+     									<a href="${command.fund.webAddress}"><fmt:message key="${lang.localeId}.website.fundWebAddress"/></a><br>
 										</p>
 								</div>
 							</div>
@@ -68,11 +59,11 @@
 								</div>
 								<div class="kol_content kol_content_i">
 									<p>
-										<strong><fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/> </strong>${command.strippedFundingPeriod}<br />
-										<strong><fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/> </strong>${command.strippedAmountOfGrant}<br />
-										<strong><fmt:message key="${lang.localeId}.callForProposal.eligibilityRequirements"/> </strong>${command.strippedEligibilityRequirements}<br />
-										<strong><fmt:message key="${lang.localeId}.callForProposal.activityLocation"/></strong>${command.strippedActivityLocation}<br />
-										<strong><fmt:message key="${lang.localeId}.callForProposal.possibleCollaboration"/> </strong>${command.strippedPossibleCollaboration}</p>
+										<strong><fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/></strong>&nbsp;${command.strippedFundingPeriod}<br />
+										<strong><fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/></strong>&nbsp;${command.strippedAmountOfGrant}<br />
+										<strong><fmt:message key="${lang.localeId}.callForProposal.eligibilityRequirements"/></strong>&nbsp;${command.strippedEligibilityRequirements}<br />
+										<strong><fmt:message key="${lang.localeId}.callForProposal.activityLocation"/></strong>&nbsp;${command.strippedActivityLocation}<br />
+										<strong><fmt:message key="${lang.localeId}.callForProposal.possibleCollaboration"/></strong>&nbsp;${command.strippedPossibleCollaboration}</p>
 								</div>
 							</div>
 							

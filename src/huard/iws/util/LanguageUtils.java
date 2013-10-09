@@ -33,7 +33,6 @@ public class LanguageUtils {
 				localeId = (String)request.getSession().getAttribute("locale");
 			}
 		}
-		logger.info("Locale id: " + localeId);
 		if ((localeId == null || localeId.isEmpty()) && textSampleOrLocaleId != null && !textSampleOrLocaleId.isEmpty()){
 			if (languagesMap.containsKey(textSampleOrLocaleId))
 				localeId = textSampleOrLocaleId;
@@ -41,12 +40,11 @@ public class LanguageUtils {
 				localeId = getLocaleId(textSampleOrLocaleId);
 		}
 		
-		logger.info("Locale id: " + localeId);
 		
 		
 		if (localeId == null) 
 			localeId = DEFAULT_LOCALE_ID;
-		logger.info("Locale id: " + localeId);
+
 		if (response != null){
 			String language = localeId.substring(0,localeId.indexOf("_"));
 			String country = localeId.substring(localeId.indexOf("_")+1);
@@ -54,7 +52,7 @@ public class LanguageUtils {
 		}
 		if (request != null)
 			request.getSession().setAttribute("locale",localeId);
-		logger.info("Locale id: " + localeId);
+
 		return languagesMap.get(localeId);
 	}
 

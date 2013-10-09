@@ -36,7 +36,7 @@
 							 	</c:if>
 								<c:if test="${month==calendarDay.monthOnly}">
 							   	<td>
-									<a href="#" class="ui-state-default viewAll">${calendarDay.dayOnly}
+									<a href="#" class="ui-state-default viewAll <c:if test="${fn:length(calendarDay.fundsInDay)>0}">dayWithFund</c:if>">${calendarDay.dayOnly}
 									<dfn class="day_details" style="direction:ltr;text-align:left">
 									<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay" varStatus="varStatusFund">
          								<c:if test="${varStatusFund.index<3}">
@@ -48,7 +48,7 @@
         							</c:forEach>
         							</dfn>
         							</a>
-        							<div class="callForProposalsPerDay" style="display:none;direction:ltr;text-align:left">
+        							<div class="callForProposalsPerDay" style="display:none">
 										<div class="clearfix">
 										<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay">
 											<h4>${fundInDay.fundShortName}</h4>

@@ -860,9 +860,16 @@ color: #ffffff;
 
 /************** hadar ************/
 td.dayWithFund { 
-	border: 1px #04bde5 solid
+	/*border: 1px #04bde5 solid*/
+	background:#04bde5;
+	border:0;
+	color: #ffffff;
 }
-
+.calendar .board_calendar .ui-datepicker td a.dayWithFund {
+	background:#04bde5;
+	border:0;
+	color: #ffffff;
+}
 .callForProposalsPerDay{
 display:block;
 position:absolute;
@@ -872,10 +879,14 @@ z-index:2;
 width:223px;
 color:#ffffff;
 font-size:13px;
+direction:ltr;
+text-align:left;
 /***hadar direction:rtl;* for calendar popup text align*/
 /***hadar text-align:right;* for popup text align*/
 }
-
+.viewProposal:hover{
+	cursor:pointer;
+}
 .lt-ie9 .callForProposalsPerDay{background:url(../image/website1/trans_black.png) repeat top;}
 
 .callForProposalsPerDay .clearfix{
@@ -1136,6 +1147,7 @@ background:#ffffff;
 .calendar .board_calendar .ui-datepicker .ui-state-highlight,
 .calendar .board_calendar .ui-datepicker .ui-widget-content .ui-state-highlight,
 .calendar .board_calendar .ui-datepicker .ui-widget-header .ui-state-highlight{background:#04bde5;}
+
 
 .calendar .board_calendar .ui-datepicker td.ui-state-disabled span{color:#bababa;}
 

@@ -41,8 +41,18 @@
 				</nav>
 			</div>
         	<div class="container clearfix">
-				<a href="#" class="logo_authority"><img src="image/website1/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></a>
-				<a href="#" class="logo"><img src="image/website1/logo.png" alt="האוניברסיטה העברית בירושלים" /></a>
+				<a href="#" class="logo_authority">
+				<c:choose>
+				<c:when test="${lang.localeId=='en_US'}"><img src="image/website1/logo_authorityEN.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" style="width:80%;height:80%"/></c:when>
+				<c:otherwise><img src="image/website1/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></c:otherwise>
+				</c:choose>
+				</a>
+				<a href="#" class="logo">
+				<c:choose>
+				<c:when test="${lang.localeId=='en_US'}"><img src="image/website1/logoEN.png" alt="האוניברסיטה העברית בירושלים" /></c:when>
+				<c:otherwise><img src="image/website1/logo.png" alt="האוניברסיטה העברית בירושלים" /></c:otherwise>
+				</c:choose>
+				</a>
 			</div>
         </header>
         <section class="section">
