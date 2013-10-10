@@ -106,7 +106,10 @@
 			});
 			
 			$(window).load(function(){
-				//$('.rotator').show();
+				window.setTimeout(function(){start_slider()}, 2000);				
+			});
+			
+			function start_slider(){
 				$('div.default').hide();
 				$('.pictureslider').show().bxSlider({
 					controls:false,
@@ -138,7 +141,5 @@
 			            
 			        }
 				});
-				
-				
-			});
+			}
 	</script>
