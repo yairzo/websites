@@ -1,12 +1,13 @@
 package huard.iws.db;
 
-import java.util.List;
-
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.TextualPageOld;
 import huard.iws.util.ListView;
 import huard.iws.util.TextualPageSearchCreteria;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 public interface TextualPageDao {
 
@@ -59,5 +60,7 @@ public interface TextualPageDao {
 	public int countTextualPagesByUrlTitle(int id,String urlTitle);
 
 	public int countTextualPagesByTitle(int id,String title);
+	
+	public Timestamp getTextualPagesLastUpdate();
 
 }

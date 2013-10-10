@@ -56,6 +56,10 @@ public class Language {
 		return name.substring(0,3).toLowerCase();
 	}
 	
+	public String getNameShortCapitalized(){
+		return StringUtils.capitalize(getNameShort());
+	}
+	
 	public String getNameLowerCase(){
 		return name.toLowerCase();
 	}

@@ -816,7 +816,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	}
 	
 	public List<Integer> getDaysWithFunds(String month,String year){
-		String query = "SELECT distinct DAYOFMONTH(finalSubmissionTime) as day from callForProposal where isDeleted=0 and Month(finalSubmissionTime)="+month+" and YEAR(finalSubmissionTime)="+year;
+		String query = "select distinct dayofmonth(finalSubmissionTime) as day from callForProposal where isDeleted=0 and Month(finalSubmissionTime)="+month+" and YEAR(finalSubmissionTime)="+year;
 		System.out.println("Query:"+ query);
 		List<Integer> days = getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
 			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -832,6 +832,18 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		System.out.println("Query:"+ query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
+	}
+	
+	public Timestamp getCallForProposalsLastUpdate(){
+		String query = "select updateTime from callForProposal order by updateTime desc limit 1";
+		return getSimpleJdbcTemplate().queryForObject(query, new ParameterizedRowMapper<Timestamp>() {
+			@Override
+			public Timestamp mapRow(ResultSet r, int arg1)
+					throws SQLException {
+				Timestamp lastUpdate = r.getTimestamp("updateTime");
+				return lastUpdate;
+			}			
+		});
 	}
 
 }

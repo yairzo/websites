@@ -7,6 +7,7 @@ import huard.iws.model.TextualPageOld;
 import huard.iws.util.TextualPageSearchCreteria;
 import huard.iws.util.ListView;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class TextualPageServiceImpl implements TextualPageService{
@@ -119,6 +120,10 @@ public class TextualPageServiceImpl implements TextualPageService{
 
 	public int countTextualPagesByTitle(int id,String title){
 		return textualPageDao.countTextualPagesByTitle(id,title);
+	}
+	
+	public Timestamp getTextualPagesLastUpdate(){
+		return textualPageDao.getTextualPagesLastUpdate();
 	}
 
 }

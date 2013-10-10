@@ -30,7 +30,7 @@
 						<li><a href="#" onclick="changeLanguage();"><img src="image/website1/menu_icon_${lang.nameShort}.png" alt="Change language to ${lang.nameCapitalized}" /></a></li>
 						<li><a href="search.html?t=1"><img src="image/website1/menu_icon_magnifying.png" alt="Search this website" /></a></li>
 						<li><a href="/iws/homePage.html?t=1"><img src="image/website1/menu_icon_home.png" alt="Go to homepage" /></a></li>
-						<li><a href="textualPage.html?id=1290&t=1"><img src="image/website1/menu_icon_envelope.png" alt="" /></a></li>
+						<li><a href="textualPage.html?id=${contactsPageId}&t=1"><img src="image/website1/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -56,7 +56,7 @@
 			<div class="container">
 				<div class="footer_bg clearfix">
 					<div class="pull-right"><a href="sitemap.html"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="#"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="#"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
-					<div class="pull-left"><fmt:message key="${lang.localeId}.general.lastUpdate"/>-${updateTime}</div>
+					<div class="pull-left"><fmt:message key="${lang.localeId}.general.lastUpdate"/> - ${updateTime}</div>
 				</div>
 				<div class="footer_bottom clearfix mar_10">
 					<div class="pull-right"><fmt:message key="${lang.localeId}.general.allRightsReserved"/></div>

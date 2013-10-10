@@ -5,6 +5,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.model.Category;
 import huard.iws.model.Language;
 import huard.iws.service.CategoryService;
+import huard.iws.service.ConfigurationService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 
@@ -19,36 +20,39 @@ import org.springframework.web.servlet.ModelAndView;
 public abstract class GeneralWebsiteFormController extends GeneralFormController
 {
 
-		protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
-				PersonBean userPersonBean, Map<String, Object> model) throws Exception{
-			LanguageUtils.applyLanguage(model, request, response, userPersonBean.getPreferedLocaleId());
-			
-			LanguageUtils.applyLanguages(model);
-			
-			//top categories
-			Language l = (Language)model.get("lang");
-			Category rootCategory = categoryService.getRootCategory(l.getLocaleId());
-			List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
-			List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
-			for (Category category: languageRootCategories){
-				languageRootCategoryBeans.add( new CategoryBean (category));
-			}
-			model.put("languageRootCategories", languageRootCategoryBeans);
-			//category
-			model.put("category",categoryService.getCategory(rootCategory.getId()));
-			
-			ModelAndView modelAndView = onShowFormWebsite(request, response, userPersonBean, model);
-			return modelAndView;
-			
+	@Override
+	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
+			PersonBean userPersonBean, Map<String, Object> model) throws Exception{
+		LanguageUtils.applyLanguage(model, request, response, userPersonBean.getPreferedLocaleId());
+
+		LanguageUtils.applyLanguages(model);
+
+		//top categories
+		Language language = (Language)model.get("lang");
+		Category rootCategory = categoryService.getRootCategory(language.getLocaleId());
+		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
+		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
+		for (Category category: languageRootCategories){
+			languageRootCategoryBeans.add( new CategoryBean (category));
 		}
-		
-		protected abstract ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
-				PersonBean userPersonBean, Map<String, Object> model) throws Exception;
+		model.put("languageRootCategories", languageRootCategoryBeans);
+		//category
+		model.put("category",categoryService.getCategory(rootCategory.getId()));
+
+		model.put("contactsPageId", configurationService.getConfigurationInt("website", "contactsPage" + language.getNameShortCapitalized() + "Id"));
+
+		ModelAndView modelAndView = onShowFormWebsite(request, response, userPersonBean, model);
+		return modelAndView;
+
+	}
+
+	protected abstract ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
+			PersonBean userPersonBean, Map<String, Object> model) throws Exception;
 
 
-		public CategoryService categoryService;
-		public void setCategoryService(CategoryService categoryService) {
-			this.categoryService = categoryService;
-		}
+	public CategoryService categoryService;
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
 
 }

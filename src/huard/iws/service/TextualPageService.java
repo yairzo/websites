@@ -1,5 +1,6 @@
 package huard.iws.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import huard.iws.model.TextualPage;
@@ -59,5 +60,7 @@ public interface TextualPageService {
 	public int countTextualPagesByUrlTitle(int id,String urlTitle);
 
 	public int countTextualPagesByTitle(int id,String title);
+	
+	public Timestamp getTextualPagesLastUpdate();
 
 }

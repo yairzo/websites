@@ -2,6 +2,7 @@ package huard.iws.service;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.db.CallForProposalDao;
+import huard.iws.db.JdbcCallForProposalDao;
 import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.DayInCalendar;
@@ -11,6 +12,7 @@ import huard.iws.util.LanguageUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.TextualPageSearchCreteria;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -154,6 +156,10 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 
 	public List<CallForProposal> getCallForProposalsPerDay(String date){
 		return callForProposalDao.getCallForProposalsPerDay(date);
+	}
+	
+	public Timestamp getCallForProposalsLastUpdate(){
+		return callForProposalDao.getCallForProposalsLastUpdate();
 	}
 
 }

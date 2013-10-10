@@ -28,8 +28,8 @@ public abstract class GeneralWebsiteController extends GeneralController{
 		LanguageUtils.applyLanguages(model);
 		
 		//top categories
-		Language l = (Language)model.get("lang");
-		Category rootCategory = categoryService.getRootCategory(l.getLocaleId());
+		Language language = (Language)model.get("lang");
+		Category rootCategory = categoryService.getRootCategory(language.getLocaleId());
 		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
 		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
 		for (Category category: languageRootCategories){
@@ -38,6 +38,8 @@ public abstract class GeneralWebsiteController extends GeneralController{
 		model.put("languageRootCategories", languageRootCategoryBeans);
 		//category
 		model.put("category",categoryService.getCategory(rootCategory.getId()));
+		
+		model.put("contactsPageId", configurationService.getConfigurationInt("website", "contactsPage" + language.getNameCapitalized() + "Id"));
 		
 		return handleRequestWebsite(request, response, model, userPersonBean);
 	}
@@ -52,6 +54,5 @@ public abstract class GeneralWebsiteController extends GeneralController{
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
-
 
 }

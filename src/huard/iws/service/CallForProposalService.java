@@ -1,14 +1,14 @@
 package huard.iws.service;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-
-import huard.iws.model.CallForProposal;
 import huard.iws.model.Attachment;
+import huard.iws.model.CallForProposal;
 import huard.iws.model.DayInCalendar;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.ListView;
-import huard.iws.util.TextualPageSearchCreteria;
+
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public interface CallForProposalService {
 
@@ -71,5 +71,7 @@ public interface CallForProposalService {
 	public List<Integer> getDaysWithFunds(String month,String year);
 
 	public List<CallForProposal> getCallForProposalsPerDay(String date);
+	
+	public Timestamp getCallForProposalsLastUpdate();
 
 }

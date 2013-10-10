@@ -6,6 +6,7 @@ import huard.iws.model.TextualPage;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.PageBodyImageService;
 import huard.iws.service.TextualPageService;
+import huard.iws.util.DateUtils;
 import huard.iws.util.RequestWrapper;
 
 import java.util.Calendar;
@@ -52,6 +53,12 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		//pics
 		List<PageBodyImage> pageBodyImages = pageBodyImageService.getApprovedPageBodyImages();
 		model.put("images", pageBodyImages);
+		
+		long lastUpdateTime = Math.max(callForProposalService.getCallForProposalsLastUpdate().getTime(), 
+				textualPageService.getTextualPagesLastUpdate().getTime());
+		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
+		
+		
 
 		if(request.getParameter("t", "").equals("1"))
 			return new ModelAndView ("websiteHomePage1",model);

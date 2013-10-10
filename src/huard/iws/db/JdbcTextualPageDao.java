@@ -513,6 +513,18 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		String query  = "insert textualPageHistoryId set textualPageId = ?, textualPageHistoryId = ?";
 		getSimpleJdbcTemplate().update(query,id, ardNum);
 	}
+	
+	public Timestamp getTextualPagesLastUpdate(){
+		String query = "select updateTime from textualPage order by updateTime desc limit 1";
+		return getSimpleJdbcTemplate().queryForObject(query, new ParameterizedRowMapper<Timestamp>() {
+			@Override
+			public Timestamp mapRow(ResultSet r, int arg1)
+					throws SQLException {
+				Timestamp lastUpdate = r.getTimestamp("updateTime");
+				return lastUpdate;
+			}			
+		});
+	}
 
 	
 }

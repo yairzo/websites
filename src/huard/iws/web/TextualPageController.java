@@ -5,6 +5,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
 import huard.iws.model.AList;
 import huard.iws.model.Category;
+import huard.iws.model.Language;
 import huard.iws.service.ListService;
 import huard.iws.service.TextualPageService;
 import huard.iws.util.LanguageUtils;
@@ -75,13 +76,15 @@ public class TextualPageController extends GeneralWebsiteFormController {
 				model.put("isImage",true);	
 		}
 
+		String pageTextSample;
+		
 		//if list
 		if(textualPageBean.getWrapExternalPage()){
 			AList list = listService.getList(new Integer(textualPageBean.getExternalPageUrl()).intValue());
 			AListBean listBean = new AListBean(list, request);
 			listBean.initPersonAttributionBeans(-1,0);
 			listBean.initColumnsInstructionBeans(0);
-			LanguageUtils.applyLanguage(model, request, response, listBean.getDisplayName());
+			pageTextSample = listBean.getDisplayName();
 			if (listBean.isCompound()){
 				model.put("list", listBean);
 				model.put("aCompoundView", true);
@@ -91,8 +94,11 @@ public class TextualPageController extends GeneralWebsiteFormController {
 			}
 		}
 		else{
-			LanguageUtils.applyLanguage(model, request, response, textualPageBean.getTitle());
+			pageTextSample = textualPageBean.getTitle();
 		}
+		
+		Language pageLanguage = LanguageUtils.getLanguage(pageTextSample);
+		model.put("pageLang", pageLanguage);
 		
 		
 		model.put("id",textualPageBean.getId());

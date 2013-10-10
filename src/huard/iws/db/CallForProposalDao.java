@@ -1,5 +1,6 @@
 package huard.iws.db;
 
+import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -66,5 +67,7 @@ public interface CallForProposalDao {
 	public List<Integer> getDaysWithFunds(String month,String year);
 
 	public List<CallForProposal> getCallForProposalsPerDay(String date);
+	
+	public Timestamp getCallForProposalsLastUpdate();
 
 }

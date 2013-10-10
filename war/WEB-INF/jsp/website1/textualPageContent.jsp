@@ -2,16 +2,16 @@
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 
  			<div class="container clearfix">
-				<div class="breadcrumbs clearfix" dir="${lang.dir}" align="${lang.align}">
+				<div class="breadcrumbs clearfix" style="direction: ${pageLang.dir}; text-align: ${pageLang.align}">
 					<jsp:include page="location.jsp"/>
 				</div>
 				<jsp:include page="sideLinks.jsp"/>
-				<div class="content" style="align:${lang.align}">
-					<h1 class="maintitle" text-align="${lang.align}">${command.title}</h1>
+				<div class="content" style="text-align: ${pageLang.align}; direction: ${pageLang.dir};">
+					<h1 class="maintitle" style="text-align: ${pageLang.align}">${command.title}</h1>
 					<div class="clearfix mar_20">
        						<c:choose>
     							<c:when test="${command.showFile}">
-									<fmt:message key="${lang.localeId}.website.fileNotOpen"/><a href="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"><fmt:message key="${lang.localeId}.website.fileOpen"/></a>				
+									<fmt:message key="${pageLang.localeId}.website.fileNotOpen"/><a href="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"><fmt:message key="${pageLang.localeId}.website.fileOpen"/></a>				
 									<br>
 									<c:choose>
 									<c:when test="${isImage}">

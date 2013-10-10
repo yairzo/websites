@@ -2,8 +2,7 @@
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 
    <script src="js/modernizr-2.6.2.min.js"></script>
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-   <script>window.jQuery || document.write('<script src="js/jquery-1.8.3.min.js"><\/script>')</script>
+   <script src="js/jquery-1.10.2.min.js"></script>
    <script type="text/javascript" src="/iws/js/jquery.bxslider.js"></script>
    <script type="text/javascript" src="/iws/js/jquery.fitvids.js"></script>
    <script type="text/javascript" src="/iws/js/jquery-ui-1.10.3.custom.js"></script>
@@ -36,18 +35,8 @@
 					autoDirection: 'prev'
 </c:if>
 					});
-				$('.pictureslider').show();
-				$('.pictureslider').bxSlider({
-					controls:false,
-					mode:'fade',
-					auto: true,
-					video:true,
-					pager:true,
-<c:if test="${lang.rtl}"> 
-					startSlide: <c:out value="${fn:length(images)-1}"/>, 
-					autoDirection: 'prev'
-</c:if>
-				});	
+				
+				
 				
 				var daysWithFunds=[${daysWithFunds}];
 
@@ -114,5 +103,42 @@
 				
 						
 
+			});
+			
+			$(window).load(function(){
+				//$('.rotator').show();
+				$('div.default').hide();
+				$('.pictureslider').show().bxSlider({
+					controls:false,
+					mode:'fade',
+					auto: true,
+					video:true,
+					pager:true,
+
+<c:choose>
+<c:when test="${lang.rtl}"> 
+					startSlide: <c:out value="${fn:length(images)-1}"/>, 
+					autoDirection: 'prev',
+</c:when>
+<c:otherwise>
+					startSlide: <c:out value="${fn:length(images)-1}"/>, 
+					autoDirection: 'next',
+</c:otherwise>
+</c:choose>
+					onSlideBefore: function($slideElement, oldIndex, newIndex){
+						
+						//console.log("on slide before. element: " + $slideElement.html());
+						var $lazy = $slideElement.find('.lazy');
+						
+						
+						//console.log("img class: " + $lazy.attr('class'));
+			            var $load = $lazy.attr('data-src');
+			            
+			            $lazy.attr("src",$load).removeClass('lazy');
+			            
+			        }
+				});
+				
+				
 			});
 	</script>

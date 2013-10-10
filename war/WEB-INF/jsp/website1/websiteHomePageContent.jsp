@@ -3,17 +3,34 @@
 			<div class="rotator">
 				<div class="bx-wrapper pictures_slider_wrapper">
 					<div class="bx-viewport">
-						  <div class="pictureslider bxslider" style="display:none;">
+						  <div class="default">
+  								<img width="960" height="340" src="/iws/image/website1/default_home_page_image.jpg"/>
+								<div class="bx-caption">
+									<h3><fmt:message key="${lang.localeId}.website.pictureSliderTitle"/></h3>
+									<span>הרשות למחקר ופיתוח</span>										
+								</div>
+						 </div>
+						  <div class="pictureslider bxslider" style="display: none;">
+						  		
+  								
   								<c:forEach items="${images}" var="image" varStatus="imgIndex">
   								<div>
-  									<img width="960" height="340" src="imageViewer?imageId=${image.id}&attachType=bodyImage" />
+  								<c:choose>
+						  			<c:when test="${imgIndex.index == fn:length(images)-1}">
+						  				<img width="960" height="340" src="imageViewer?imageId=${image.id}&attachType=bodyImage" />			
+						  			</c:when>
+						  			<c:otherwise>
+						  				<img class="lazy" width="960" height="340" src="/iws/image/website1/default_home_page_image.jpg" data-src="imageViewer?imageId=${image.id}&attachType=bodyImage" />
+						  			</c:otherwise>
+						  		</c:choose>
+  								
+  									
 									<div class="bx-caption">
 										<h3><fmt:message key="${lang.localeId}.website.pictureSliderTitle"/></h3>
-										<span><c:choose><c:when test="${lang.hebrew}">${image.captionHebrew}</c:when><c:otherwise>${image.captionEnglish}</c:otherwise></c:choose></span>
-										
+										<span><c:choose><c:when test="${lang.hebrew}">${image.captionHebrew}</c:when><c:otherwise>${image.captionEnglish}</c:otherwise></c:choose></span>										
 									</div>
 								</div>
-								</c:forEach>								
+								</c:forEach>							
 						 </div>
  					</div>
  				</div>
