@@ -9,7 +9,7 @@
   									<img width="960" height="340" src="imageViewer?imageId=${image.id}&attachType=bodyImage" />
 									<div class="bx-caption">
 										<h3><fmt:message key="${lang.localeId}.website.pictureSliderTitle"/></h3>
-										<span><c:choose><c:when test="${lang.localeId=='iw_IL'}">${image.captionHebrew}</c:when><c:otherwise>${image.captionEnglish}</c:otherwise></c:choose></span>
+										<span><c:choose><c:when test="${lang.hebrew}">${image.captionHebrew}</c:when><c:otherwise>${image.captionEnglish}</c:otherwise></c:choose></span>
 										
 									</div>
 								</div>

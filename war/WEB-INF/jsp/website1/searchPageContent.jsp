@@ -28,9 +28,9 @@
 						</div>
 						
 						<div class="clearfix mar_20">
-							<div class="kol search_result">
+							<div class="kol_${lang.dir} search_result">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/></h3>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/></h3>
 								</div>
     							<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
@@ -51,9 +51,9 @@
 								
 							</div>
 							
-							<div class="kol search_result open">
+							<div class="kol_${lang.dir} search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_balloon.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.website.messages"/></h3>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_balloon.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.website.messages"/></h3>
 								</div>
 								<c:choose>
     							<c:when test="${fn:length(textualMessages) > 0}">
@@ -72,9 +72,9 @@
   								</c:choose> 
 							</div>
 							
-							<div class="kol search_result open">
+							<div class="kol_${lang.dir} search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_text.png" alt="" /> &nbsp; <fmt:message key="${lang.localeId}.website.textualPagesList"/></h3>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_text.png" alt="" /> &nbsp; <fmt:message key="${lang.localeId}.website.textualPagesList"/></h3>
 								</div>
 								<c:choose>
     							<c:when test="${fn:length(textualPages) > 0}">

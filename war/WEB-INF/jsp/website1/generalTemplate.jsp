@@ -10,14 +10,8 @@
         <title><fmt:message key="${lang.localeId}.website.title"/></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <c:choose>
-        <c:when test="${lang.localeId=='en_US'}">
-        	<link rel="stylesheet" href="style/style1English.css">
-        </c:when>
-        <c:otherwise>
-        	<link rel="stylesheet" href="style/style1.css">
-       	</c:otherwise>
-       	</c:choose>
+        <link rel="stylesheet" href="style/style_${lang.nameLowerCase}.css">
+        
        	<jsp:include page="${templateCss}" />
     </head>
     <body>
@@ -33,10 +27,10 @@
 				</nav>
 				<nav class="icons">
 					<ul class="menu">
-						<li><a onclick="changeLanguage();"><img src="image/website1/menu_icon_heb.png" alt="Change language" /></a></li>
-						<li><a href="#"><img src="image/website1/menu_icon_magnifying.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website1/menu_icon_home.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website1/menu_icon_envelope.png" alt="" /></a></li>
+						<li><a href="#" onclick="changeLanguage();"><img src="image/website1/menu_icon_${lang.nameShort}.png" alt="Change language to ${lang.nameCapitalized}" /></a></li>
+						<li><a href="search.html?t=1"><img src="image/website1/menu_icon_magnifying.png" alt="Search this website" /></a></li>
+						<li><a href="/iws/homePage.html?t=1"><img src="image/website1/menu_icon_home.png" alt="Go to homepage" /></a></li>
+						<li><a href="textualPage.html?id=1290&t=1"><img src="image/website1/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
 			</div>

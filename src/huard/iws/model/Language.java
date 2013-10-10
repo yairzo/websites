@@ -2,6 +2,8 @@ package huard.iws.model;
 
 import java.util.Locale;
 
+import org.apache.commons.lang.StringUtils;
+
 public class Language {
 	private String localeId;
 	private String name;
@@ -34,6 +36,28 @@ public class Language {
 		String language = localeId.substring(0, localeId.indexOf("_"));
 		String country = localeId.substring(localeId.indexOf("_")+1);
 		return new Locale(language, country);
+	}
+	
+	public boolean isHebrew(){
+		return localeId.equals("iw_IL");
+	}
+	
+	public boolean isEnglish(){
+		return localeId.startsWith("en_");
+	}
+	
+	public String getNameCapitalized(){
+		return StringUtils.capitalize(name);
+	}
+	
+	public String getNameShort(){
+		if (name.length() <= 3)
+			return name.toLowerCase();
+		return name.substring(0,3).toLowerCase();
+	}
+	
+	public String getNameLowerCase(){
+		return name.toLowerCase();
 	}
 
 	public String getLocaleId() {
