@@ -1270,11 +1270,11 @@ color:#333333;
 
 .kol_rtl{
 margin:0 8px 0 0;
-border-left:solid 3px #ededed;
+border-right:solid 3px #ededed;
 }
 .kol_ltr{
 margin:0 0 0 8px;
-border-right:solid 3px #ededed;
+border-left:solid 3px #ededed;
 }
 
 .kol_title_rtl{
@@ -1284,7 +1284,7 @@ padding:0 14px 10px 14px;
 width:260px;
 height:41px;
 background:url(../image/website1/title_blue_right.png) no-repeat top;
-font-family: almoni-dl, 'PT Sans Narrow';
+font-family: 'almoni-tzar', 'PT Sans Narrow';
 font-weight:normal;
 font-size:21px;
 color:#ffffff;
@@ -1298,7 +1298,7 @@ padding:0 14px 10px 14px;
 width:260px;
 height:41px;
 background:url(../image/website1/title_blue_left.png) no-repeat top;
-font-family: almoni-dl, 'PT Sans Narrow';
+font-family: 'almoni-tzar', 'PT Sans Narrow';
 font-weight:normal;
 font-size:21px;
 color:#ffffff;
