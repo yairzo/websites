@@ -5,6 +5,8 @@
 	.ui-autocomplete li {
 		list-style-type: none;
 	}
+	
+.ui-autocomplete { height: 200px; overflow-y: scroll; overflow-x: hidden;}
 
 </style>
 

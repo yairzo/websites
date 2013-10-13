@@ -8,7 +8,7 @@
 	.ui-autocomplete li {
 		list-style-type: none;
 	}
-
+.ui-autocomplete { height: 200px; overflow-y: scroll; overflow-x: hidden;}
 </style>		
 		<script type="text/javascript">
 
@@ -33,35 +33,33 @@ function resetAutocomplete(funds){
 
 $(document).ready(function() {
 	
+	
 	$(".viewProposal").click(function(e) {
 		e.preventDefault();
-		
 		var proposalId=$(this).attr("id");	   		
-		var rowPos = $(this).position();
-		bottomTop = rowPos.top - 100;
-		bottomLeft = rowPos.left - 100;
-		$(".popup_placeholder").css({
-			position:'absolute',
-			top: bottomTop,
-	    	left: bottomLeft
-		});
-		$.get('callForProposal.html?id='+proposalId+'&p=1&t=1', function(data) {
-			$(".popup_placeholder").html(data);
-			$(".popup_placeholder").show();
-		});
-		
+		$.ajax({
+		    url : 'callForProposal.html?id='+proposalId+'&p=1&t=1',
+		    type: 'GET',
+		    success : handleData
+		 })
 	});
 	
+	$(function() {
+		$(".popup_placeholder" ).draggable();
+	});	
 	
 	$(document).click(function() {
-	     $(".popup_placeholder").hide();
+	    $(".popup_placeholder").hide();
 	});
+	
 	$(".popup_placeholder").click(function(e) {
 		e.stopPropagation();
 	});
 	
+	
 	$("#advanced_subject").click(function(){
     	$("#advanced_subject").val('');
+    	$("#fundId").val("0");    	
     	resetAutocomplete();
 	});
 	
@@ -142,7 +140,7 @@ $(document).ready(function() {
 	
 	
 	$(".advanced_clear").click(function(){
-		$("#advanced_subject").val('')
+		$("#advanced_subject").val('');
     	$("#advanced_date_from").val('');
     	$("#advanced_date_to").val('');
        	$("#targetAudience").val(0);
@@ -375,5 +373,16 @@ $(window).load(function(){
 		element.change();
 	}
 });
+function handleData(data) {
+	$(".popup_placeholder").html(data);
+	$(".popup_placeholder").show();
+	var pTop = ($(window).height() - $(".popup_placeholder").height())/2;
+	var pLft = ($(window).width() - 600)/2;
+	$(".popup_placeholder").css({
+    	position: 'fixed',
+    	left: pLft,
+    	top: pTop
+	});
+}
 
 		</script>

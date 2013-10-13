@@ -53,6 +53,7 @@
 							</c:if>			
 							
 							<c:if test="${authorized && !command.showDescriptionOnly}">
+							
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
 									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_dolar.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.fundingDetails"/></h3>
@@ -60,14 +61,16 @@
 								</div>
 								<div class="kol_content kol_content_i">
 									<p>
-										<strong><fmt:message key="${copLang.localeId}.callForProposal.fundingPeriod"/></strong>&nbsp;${command.strippedFundingPeriod}<br />
-										<strong><fmt:message key="${copLang.localeId}.callForProposal.amountOfGrant"/></strong>&nbsp;${command.strippedAmountOfGrant}<br />
-										<strong><fmt:message key="${copLang.localeId}.callForProposal.eligibilityRequirements"/>&nbsp;</strong>&nbsp;${command.strippedEligibilityRequirements}<br />
-										<strong><fmt:message key="${copLang.localeId}.callForProposal.activityLocation"/>&nbsp;</strong>${command.strippedActivityLocation}<br />
-										<strong><fmt:message key="${copLang.localeId}.callForProposal.possibleCollaboration"/>&nbsp;</strong>${command.strippedPossibleCollaboration}</p>
+										<c:if test="${fn:length(command.strippedFundingPeriod)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.fundingPeriod"/></strong>&nbsp;${command.strippedFundingPeriod}<br /></c:if>
+										<c:if test="${fn:length(command.strippedAmountOfGrant)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.amountOfGrant"/></strong>&nbsp;${command.strippedAmountOfGrant}<br /></c:if>
+										<c:if test="${fn:length(command.strippedEligibilityRequirements)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.eligibilityRequirements"/>&nbsp;</strong>&nbsp;${command.strippedEligibilityRequirements}<br /></c:if>
+										<c:if test="${fn:length(command.strippedActivityLocation)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.activityLocation"/>&nbsp;</strong>${command.strippedActivityLocation}<br /></c:if>
+										<c:if test="${fn:length(command.strippedPossibleCollaboration)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.possibleCollaboration"/>&nbsp;</strong>${command.strippedPossibleCollaboration}</c:if>
+									</p>
 								</div>
 							</div>
 							
+							<c:if test="${fn:length(command.formDetails)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
 									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_v.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.forms"/></h3>
@@ -77,7 +80,9 @@
 									<p>${command.formDetails}</p>
 								</div>
 							</div>
+							</c:if>
 							
+							<c:if test="${fn:length(command.submissionDetails)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
 									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_envelope.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.submissionDetails"/></h3>
@@ -87,7 +92,9 @@
 									<p>${command.submissionDetails}</p>
 								</div>
 							</div>
+							</c:if>
 							
+							<c:if test="${fn:length(command.budgetDetails)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
 									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_chart.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.budgetDetails"/></h3>
@@ -97,7 +104,9 @@
 								<p>${command.budgetDetails }</p>
 								</div>
 							</div>
+							</c:if>
 							
+							<c:if test="${fn:length(callForProposalContacts)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
 									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_man.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.contactPersons"/></h3>
@@ -122,7 +131,9 @@
 									</c:if>
 								</div>
 							</div>
+							</c:if>
 							
+							<c:if test="${fn:length(command.contactPersonDetails)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
 									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_man.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.contactPersonDetails"/></h3>
@@ -132,8 +143,9 @@
 								<p>${command.contactPersonDetails }</p>
 								</div>
 							</div>
-	
+							</c:if>
 							
+							<c:if test="${fn:length(command.fundContact)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
 									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_man.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.contactAtFund"/></h3>
@@ -143,16 +155,20 @@
 									<p>${command.fundContact}</p>								
 								</div>
 							</div>
+							</c:if>
 							
+							<c:if test="${fn:length(command.additionalInformation)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">									
-									<h3 class="kol_title""><img src="image/website1/kol_plus.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.additionalInformation"/></h3>
-									<a href="#" class="kol_arrow"></a>									
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_plus.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.additionalInformation"/></h3>
+									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>									
 								</div>
 								<div class="kol_content">
 									<p>${command.additionalInformation }</p>
 								</div>
 							</div>
+							</c:if>
+							
 							</c:if>
 						</div>
 					</div>

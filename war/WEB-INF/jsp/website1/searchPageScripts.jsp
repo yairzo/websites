@@ -9,20 +9,38 @@
 			$(".viewProposal").click(function(e) {
 				e.preventDefault();
 				var proposalId=$(this).attr("id");	   		
-				var rowPos = $(this).position();
-				bottomTop = rowPos.top - 100;
-				bottomLeft = rowPos.left - 100;
-				$(".popup_placeholder").css({
-					position:'absolute',
-					top: bottomTop,
-			    	left: bottomLeft
-				});
-				$.get('callForProposal.html?id='+proposalId+'&p=1&t=1', function(data) {
-					$(".popup_placeholder").html(data);
-					$(".popup_placeholder").show();
-				});
-				
+				$.ajax({
+				    url : 'callForProposal.html?id='+proposalId+'&p=1&t=1',
+				    type: 'GET',
+				    success : handleData
+				 })
+			});
+			
+			$(function() {
+				$(".popup_placeholder" ).draggable();
+			});	
+			
+			$(document).click(function() {
+			    $(".popup_placeholder").hide();
+			});
+			
+			$(".popup_placeholder").click(function(e) {
+				e.stopPropagation();
+			});
+			
+			$(".advanced_clear").click(function(){
+				$("#advanced_subject").val('');
 			});
 		});
-
+		function handleData(data) {
+			$(".popup_placeholder").html(data);
+			$(".popup_placeholder").show();
+			var pTop = ($(window).height() - $(".popup_placeholder").height())/2;
+			var pLft = ($(window).width() - 600)/2;
+			$(".popup_placeholder").css({
+		    	position: 'fixed',
+		    	left: pLft,
+		    	top: pTop
+			});
+		}
 		</script>

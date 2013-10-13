@@ -19,7 +19,7 @@
 								</div>
 								<div class="clearfix mar_15">
 									<input type="submit" value="<fmt:message key="${lang.localeId}.website.search"/>" class="advanced_submit" />
-									<a href="#" onClick="javascript:${'.advanced_subject'}.html('');" class="advanced_clear"><fmt:message key="${lang.localeId}.website.cleanSearch"/></a>
+									<a href="#" class="advanced_clear"><fmt:message key="${lang.localeId}.website.cleanSearch"/></a>
 								</div>
 							</form>
 							<div class="clearfix">
