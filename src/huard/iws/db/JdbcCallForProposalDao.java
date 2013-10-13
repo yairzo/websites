@@ -7,6 +7,7 @@ import huard.iws.model.FundInDay;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
+import huard.iws.util.SQLUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -342,26 +343,12 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			" where id = ?;";
 		logger.info(query);
 
-		String keepInRollingMessagesExpiryTime="";
-		if(callForProposal.getKeepInRollingMessagesExpiryTime()==0)//
-			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
-		else
-			keepInRollingMessagesExpiryTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getKeepInRollingMessagesExpiryTime());
-		String finalSubmissionTime="";
-		if(callForProposal.getFinalSubmissionTime()==0)
-			finalSubmissionTime="0000-00-00 00:00:00";
-		else
-			finalSubmissionTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getFinalSubmissionTime());
-		String publicationTime="";
-		if(callForProposal.getPublicationTime()==0)
-			publicationTime="0000-00-00 00:00:00";
-		else
-			publicationTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getPublicationTime());
+		
 		String updateTime="";
-		if(callForProposal.getUpdateTime()==0)
-			updateTime=DateUtils.formatTimestampWithoutMillis(new java.util.Date().getTime());//always
+		if(callForProposal.getUpdateTime() == 0)
+			updateTime = SQLUtils.getTimestampString(System.currentTimeMillis());//always
 		else// when from import
-			updateTime=DateUtils.formatTimestampWithoutMillis(callForProposal.getUpdateTime());
+			updateTime = SQLUtils.getTimestampString(callForProposal.getUpdateTime());
 		logger.info("updatetime:"+updateTime);
 
 		
@@ -369,15 +356,15 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				callForProposal.getTitle(),
 				callForProposal.getUrlTitle(),
 				callForProposal.getCreatorId(),
-				publicationTime,
-				finalSubmissionTime,
+				SQLUtils.getTimestampString(callForProposal.getPublicationTime()),
+				SQLUtils.getTimestampString(callForProposal.getFinalSubmissionTime()),
 				callForProposal.getFinalSubmissionHour(),
 	    		callForProposal.getAllYearSubmission(),
 	    		callForProposal.getAllYearSubmissionYearPassedAlert(),
 	    		callForProposal.getHasAdditionalSubmissionDates(),
 	    		callForProposal.getFundId(),
 	    		callForProposal.getTypeId(),
-	    		keepInRollingMessagesExpiryTime,
+	    		SQLUtils.getTimestampString(callForProposal.getKeepInRollingMessagesExpiryTime()),
 	    		callForProposal.getDeskId(),
 	    		callForProposal.getOriginalCallWebAddress(),
 	    		callForProposal.getRequireLogin(),

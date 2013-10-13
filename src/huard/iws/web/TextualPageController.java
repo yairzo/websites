@@ -76,15 +76,12 @@ public class TextualPageController extends GeneralWebsiteFormController {
 				model.put("isImage",true);	
 		}
 
-		String pageTextSample;
-		
 		//if list
 		if(textualPageBean.getWrapExternalPage()){
 			AList list = listService.getList(new Integer(textualPageBean.getExternalPageUrl()).intValue());
 			AListBean listBean = new AListBean(list, request);
 			listBean.initPersonAttributionBeans(-1,0);
 			listBean.initColumnsInstructionBeans(0);
-			pageTextSample = listBean.getDisplayName();
 			if (listBean.isCompound()){
 				model.put("list", listBean);
 				model.put("aCompoundView", true);
@@ -92,12 +89,9 @@ public class TextualPageController extends GeneralWebsiteFormController {
 			else{
 				model.put("listBean", listBean);
 			}
-		}
-		else{
-			pageTextSample = textualPageBean.getTitle();
-		}
+		}		
 		
-		Language pageLanguage = LanguageUtils.getLanguage(pageTextSample);
+		Language pageLanguage = LanguageUtils.getLanguage(textualPageBean.getTitle());
 		model.put("pageLang", pageLanguage);
 		
 		

@@ -1,12 +1,14 @@
 package huard.iws.db;
 
 import huard.iws.model.Fund;
+import huard.iws.util.SQLUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -59,8 +61,16 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
             fund.setFinancialReporterId(rs.getInt("financialReporterId"));
 
             fund.setHtml(rs.getString("html"));
-            fund.setCreationTime(rs.getTimestamp("creationTime"));
-            fund.setUpdateTime(rs.getTimestamp("updateTime"));
+            Timestamp creationTimeTS = rs.getTimestamp("creationTime");
+			long creationTime = 0;
+            if (creationTimeTS != null)
+				creationTime = creationTimeTS.getTime();    		
+            fund.setCreationTime(creationTime);
+            Timestamp updateTimeTS = rs.getTimestamp("updateTime");
+            long updateTime = 0;
+            if (updateTimeTS != null)
+            	updateTime = updateTimeTS.getTime(); 
+            fund.setUpdateTime(updateTime);
             return fund;
         }
 	};
@@ -105,8 +115,8 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 				fund.getBudgetOfficerId(),
 				fund.getFinancialReporterId(),
 				fund.getHtml(),
-				fund.getCreationTime(),
-				fund.getUpdateTime(),
+				SQLUtils.getTimestampString(fund.getCreationTime()),
+				SQLUtils.getTimestampString(fund.getUpdateTime()),
 				fund.getId());
 	}
 

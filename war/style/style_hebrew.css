@@ -1339,15 +1339,27 @@ color:#04bde5;
 .kol.open .kol_arrow:hover{background:#04bde5 url(../image/website1/close.png) no-repeat center center;}
 .kol.open .kol_content{display:block;}
 
-.table_kol{width:657px;margin-bottom:13px;}
+.table_kol{
+	width:657px;
+	margin-bottom:13px;
+}
 
 .table_kol th{
-padding:0 7px 0 0;
-height:33px;
-background:#f2f2f2;
-border-left:solid 1px #ffffff;
-text-align:right;
-font-weight:normal;
+	height:33px;
+	background:#f2f2f2;
+	font-weight:normal;
+}
+
+.table_kol_rtl th{
+	padding:0 7px 0 0;
+	border-left:solid 1px #ffffff;
+	text-align:right;
+}
+
+.table_kol_ltr th{
+	padding:0 0 0 7px;
+	border-right:solid 1px #ffffff;
+	text-align:left;
 }
 
 .table_kol th.table_one{width:170px;}

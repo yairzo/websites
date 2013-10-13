@@ -30,12 +30,13 @@
 									<div class="kol open">
 									${list.preface}
 									</div>
+									<p>&nbsp;</p>
 									<c:forEach items="${list.sublistsBeans}" var="listBean" varStatus="varStatusLists">
 										<div class="kol open">
 										<div class="clearfix">
-											<h3 class="kol_title"><c:out escapeXml="false" value="${listBean.displayName}"/></h3>
+											<h3 class="kol_title_${pageLang.dir}"><c:out escapeXml="false" value="${listBean.displayName}"/></h3>
 										</div>
-										<table class="table_kol">
+										<table class="table_kol table_kol_${pageLang.dir}">
 										<tr>
 											<c:forEach items="${listBean.columnBeans}" var="column" varStatus="varStatus">
 											<c:if test="${!column.hidden}">

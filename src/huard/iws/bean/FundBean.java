@@ -28,8 +28,8 @@ public class FundBean {
 	private int financialReporterId;
 
 	private String html;
-	private Timestamp creationTime;
-	private Timestamp updateTime;
+	private long creationTime;
+	private long updateTime;
 
 
 
@@ -56,8 +56,8 @@ public class FundBean {
 		this.financialReporterId = 0;
 
 		this.html = "";
-		this.creationTime = new Timestamp(System.currentTimeMillis());
-		this.updateTime = new Timestamp(System.currentTimeMillis());
+		this.creationTime = System.currentTimeMillis();
+		this.updateTime = System.currentTimeMillis();
 	}
 
 	public FundBean (Fund fund){
@@ -154,11 +154,11 @@ public class FundBean {
 		this.financialId = financialId;
 	}
 
-	public Timestamp getCreationTime() {
+	public long getCreationTime() {
 		return creationTime;
 	}
 
-	public void setCreationTime(Timestamp creationTime) {
+	public void setCreationTime(long creationTime) {
 		this.creationTime = creationTime;
 	}
 
@@ -171,11 +171,11 @@ public class FundBean {
 	}
 
 
-	public Timestamp getUpdateTime() {
+	public long getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Timestamp updateTime) {
+	public void setUpdateTime(long updateTime) {
 		this.updateTime = updateTime;
 	}
 

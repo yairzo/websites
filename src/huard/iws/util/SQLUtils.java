@@ -21,5 +21,12 @@ public class SQLUtils {
 		text = text.replaceAll("'", "\\\\'");
 		return text;
 	}
+	
+	public static String getTimestampString(long timeMillis){
+		if(timeMillis == 0)//
+			 return "0000-00-00 00:00:00";
+		else
+			return DateUtils.formatTimestampWithoutMillis(timeMillis);
+	}
 
 }
