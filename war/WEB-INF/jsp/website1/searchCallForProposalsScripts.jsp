@@ -32,6 +32,19 @@ function resetAutocomplete(funds){
 
 
 $(document).ready(function() {
+	$(document).click(function() {
+		$('div.subSubjects').hide();
+	});
+	
+	$('.check .open').on('click',function(e){
+		e.stopPropagation();
+	});
+	
+	$('.checkbox_box_sub_rtl, .checkbox_box_sub_ltr, .check label').click(function(e){
+		e.stopPropagation();
+	});
+	
+	
 	
 	
 	$(".viewProposal").click(function(e) {
@@ -95,7 +108,7 @@ $(document).ready(function() {
 		$("#advanced_cal_to").click(function(){ $("#advanced_date_to").datepicker("show"); });
     });	
 	
-	$('.advanced_submit').click(function(){
+	$('.advanced_submit').click(function(e){
 		if($("#fundId").val()=='')
 			$("#form").append("<input type=\"hidden\" name=\"fundId\" value=\"0\"/>");
 		else
@@ -122,8 +135,8 @@ $(document).ready(function() {
 			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"true\"/>");
 
 		var ids="";
-		$("input:checkbox.actual").each(function(){
-				if (this.checked==true){
+		$('.selectSubSubject').each(function(){
+			if ($(this).attr('check-value') == "true"){
 					var id = $(this).attr('class').split(' ')[0];
 					id = id.substring(id.indexOf('.') + 1);
 					if (ids !="")
@@ -133,7 +146,6 @@ $(document).ready(function() {
 		});
 		$('.subjectsIdsString').remove();
 		$('#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" class=\"subjectsIdsString\" value=\"'+ids+'\"/>');
-
 		$('#form').submit();
 	});
 
@@ -174,205 +186,165 @@ $(document).ready(function() {
 		
 	
 
-	$(".openSubSubjects").click(function(){
+	$(".openSubSubjects").click(function(e){
 		if($(this).parent().children(".subSubjects").css('display')=='none')	{	
 			$('div.subSubjects').hide();
 			var rowPos = $(this).position();
-			bottomTop = rowPos.top+20;
-			bottomLeft = rowPos.left-20;
-			$(this).parent().children(".subSubjects").css({
-				position:'absolute',
+			bottomTop = rowPos.top+22;
+			bottomLeft = rowPos.left;
+			
+			$(this).parent().children(".subSubjects").addClass('open');
+			$(this).parent().children(".open").css({
 				top: bottomTop,
 	    		left: bottomLeft,
-	    		boxShadow: '10px 10px 5px #888888',
-				background:'#ffffff',
-				padding:10
-			});
+	    	});
+			
 			$(this).parent().children(".subSubjects").show();
 		}
 		else{
 			$('div.subSubjects').hide();
 		}
 		
+		e.stopPropagation();
+		
 	});
 	
-	$(".selectSubject").click(function(){
-		$(this).change();
-		$(this).children("span.checkbox").removeClass("checkboxPartial");
-		var id = $(this).children("input:checkbox.subject").attr("id");
-		if(!$(this).children("input:checkbox.subject").is(":checked")){
-			$("input:checkbox[id^='"+id+".']").each(function(){
-				this.checked = false;
-				$(this).change();
+	
+	$(".selectSubject").click(function(e){
+		$(this).removeClass("checkboxPartial");
+		if($(this).attr('check-value') == "false"){
+			$(this).siblings(".subSubjects").find(".checkbox_box").each(function(){
+				$(this).attr("check-value","true");
+				$(this).removeClass("checkboxUncheckedSub");
+				$(this).addClass("checkboxCheckedSub");
 			});
-			$("input:checkbox[class^='" + id + ".']").each(function(){
-				setCheckboxState($(this), "true");
-			});
+			$(this).attr('check-value', "true");
+			$(this).removeClass("checkboxUnchecked");
+			$(this).removeClass("checkboxPartial");
+			$(this).addClass("checkboxChecked");
+			
 		}
 		else{
-			$("input:checkbox[id^='"+id+".']").each(function(){
-				this.checked = true;
-				$(this).change();
+			$(this).siblings(".subSubjects").find(".checkbox_box").each(function(){
+				$(this).attr("check-value","false");
+				$(this).removeClass("checkboxCheckedSub");
+				$(this).addClass("checkboxUncheckedSub");
 			});
-			$("input:checkbox[class^='" + id + ".']").each(function(){
-				setCheckboxState($(this), "false");
-			});
+			$(this).attr('check-value', "false");
+			$(this).removeClass("checkboxChecked");
+			$(this).removeClass("checkboxPartial");
+			$(this).addClass("checkboxUnchecked");
 		}
+		e.stopPropagation();
 	});
 	
 	
 	
 	$(".selectSubSubject").click(function(e){
-		var subject_element = $(this).parents(".check").find("input:checkbox.subject");		
-		var checkbox_element = $(this).find(".actual");
-		changeCheckboxState(checkbox_element);		
-		var id = subject_element.attr("id");
-		var type = getCheckboxImage(id);
-		checkActionCheckbox(subject_element, type);		
-	});
-	
-	$(".check_all").click(function(){
-		if(!$("input:checkbox#selectAll").is(":checked")){
-			$("input:checkbox.subject").each(function(){
-				$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
-				this.checked = false;
-			});
-			$("input:checkbox.subSubject").each(function(){
-				this.checked = false;
-				$(this).change();
-				setCheckboxState($(this), "false");
-				
-			});
-			$("input:checkbox.actual").each(function(){
-				setCheckboxState($(this), "true");
-			});
+		if($(this).attr('check-value') == "false"){
+			$(this).attr('check-value', "true");
+			$(this).removeClass("checkboxUncheckedSub");
+			$(this).addClass("checkboxCheckedSub");
 		}
 		else{
-			$("input:checkbox.subject").each(function(){
-				$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
-				this.checked = true;
-			});
-			$("input:checkbox.subSubject").each(function(){
-				this.checked = true;
-				$(this).change();
-				setCheckboxState($(this), "true");
-				
-			});
-			$("input:checkbox.actual").each(function(){
-				setCheckboxState($(this), "false");
-			});
+			$(this).attr("check-value","false");
+			$(this).removeClass("checkboxCheckedSub");
+			$(this).addClass("checkboxUncheckedSub");
 		}
+		
+		var num_sub_subjects = $(this).parent().find(".checkbox_box").length;
+		var num_checked_sub_subjects = $(this).parent().find(".checkboxCheckedSub").length;
+		if (num_checked_sub_subjects == 0){			
+			$(this).parent().prev().prev().removeClass("checkboxChecked");
+			$(this).parent().prev().prev().removeClass("checkboxPartial");
+			$(this).parent().prev().prev().addClass("checkboxUnchecked");
+			
+		}
+		else if (num_checked_sub_subjects < num_sub_subjects){
+			$(this).parent().prev().prev().removeClass("checkboxChecked");
+			$(this).parent().prev().prev().removeClass("checkboxUnchecked");
+			$(this).parent().prev().prev().addClass("checkboxPartial");		
+		}
+		else{
+			$(this).parent().prev().prev().removeClass("checkboxUnchecked");
+			$(this).parent().prev().prev().removeClass("checkboxPartial");
+			$(this).parent().prev().prev().addClass("checkboxChecked");			
+		}		
+		e.stopPropagation();
 	});
+	
+	$(".select_all").click(function(){
+		if ($(this).attr('check-value') == "false"){
+			$('.selectSubSubject').each(function(){
+				$(this).attr("check-value", true);
+				$(this).removeClass("checkboxUncheckedSub");
+				$(this).addClass("checkboxCheckedSub");
+			});
+			$('.selectSubject').each(function(){
+				$(this).attr("check-value", true);
+				$(this).removeClass("checkboxUnchecked");
+				$(this).removeClass("checkboxPartial");
+				$(this).addClass("checkboxChecked");
+			});
+			$(this).attr("check-value", "true");
+			$(this).removeClass("checkboxUnchecked");
+			$(this).addClass("checkboxChecked");			
+		}
+		else{
+			$('.selectSubSubject').each(function(){
+				$(this).attr("check-value", false);
+				$(this).removeClass("checkboxCheckedSub");
+				$(this).addClass("checkboxUncheckedSub");
+			});
+			$('.selectSubject').each(function(){
+				$(this).attr("check-value", false);
+				$(this).removeClass("checkboxChecked");
+				$(this).removeClass("checkboxPartial");
+				$(this).addClass("checkboxUnchecked");
+			});
+			$(this).attr("check-value", "false");
+			$(this).removeClass("checkboxChecked");
+			$(this).addClass("checkboxUnchecked");
+		}
+	}); 
 
 });
 
-function changeCheckboxState(element){
-	var current_state = element.attr("checked");
-	if (current_state == "true" || current_state== "checked")
-		element.removeAttr("checked");
-	else
-		element.attr("checked","true");
-}
-
-function setCheckboxState(element, toState){
-	element.removeAttr("checked");
-	console.log("class: " + element.attr("class"));
-	if (toState == "true")
-		element.attr("checked", toState);
-}
-
-function enforceCheckboxStateFalse(element){
-	element.removeAttr("checked");
-	element.attr("checked", "false");
-}
-
-
-function checkActionCheckbox(element, type){
-	element.removeAttr("checked");
-	if(type==1){
-		element.checked = true;
-		element.prev().removeClass("checkboxUnchecked");
-		element.prev().removeClass("checkboxChecked");
-		element.prev().addClass("checkboxPartial");
-		element.prev().attr("style","");		
-	}
-	else if (type==2){
-		element.checked = false;
-		element.change();
-		element.prev().removeClass("checkboxUnchecked");
-		element.prev().removeClass("checkboxPartial");
-		element.prev().addClass("checkboxChecked");
-		element.prev().attr("style","");		
-	}
-	else{
-		element.checked = true;
-		element.attr("checked","true");
-		element.prev().removeClass("checkboxPartial");
-		element.prev().removeClass("checkboxChecked");
-		element.prev().addClass("checkboxUnchecked");
-		element.prev().attr("style","");		
-	}	
-}
-function getCheckboxImage(subjectid){
-	var isAnyChecked = false;
-	var isAllChecked = true;	
-	$("input:checkbox[id^='"+subjectid+".']").each(function(){
-		if (this.checked==false){
-			isAnyChecked = true;
-		}
-		else{
-			isAllChecked = false;
-		}
-	});	
-	if (isAnyChecked && ! isAllChecked)
-		return 1;
-	else if (isAllChecked)
-		return 2;
-	else
-		return 0;
-}
-
-function isAllSubSubjectsChecked(){
-	var allChecked = true;
-	$("input:checkbox.actual").each(function(){
-		
-		var checkedAttr = $(this).attr("checked");
-		console.log("xxx: " + checkedAttr);
-		if (typeof checkedAttr === "undefined" 
-				|| ($(this).attr("checked") != "true" && $(this).attr("checked") != "checked")){
-			allChecked = false;
-			return;			
-		}
-	});
-	console.log("im here");
-	return allChecked;
-}
 
 $(window).load(function(){
-	$(".selectSubject").each(function(e){
-		var element = $(this).children("input:checkbox.subject"); 
-		var id = element.attr("id");
-		var type = getCheckboxImage(id);
-		checkActionCheckbox(element, type);
+	$('.selectSubSubject').each(function(){
+		if ($(this).attr("check-value") == "true"){
+			$(this).removeClass("checkboxUncheckedSub");
+			$(this).addClass("checkboxCheckedSub");
+		}
 	});
-	$("select.styled").show();
 	
-	console.log("All subs: " + isAllSubSubjectsChecked());
-	if (isAllSubSubjectsChecked()){
-		console.log("All subjects checked");
-		var element = $("input:checkbox#selectAll");
-		element.checked=false;
-		setCheckboxState(element, "false");
-		element.change();
-	}
-	else {
-		console.log("Not all subjects checked");
-		var element = $("input:checkbox#selectAll");
-		element.checked=true;
-		setCheckboxState(element, "true");
-		element.change();
-	}
+ //TODO: complete this
+	$('.selectSubject').each(function(){
+		var num_sub_subjects = $(this).parent().find(".checkbox_box").length - 1;
+		var num_checked_sub_subjects = $(this).parent().find(".checkboxCheckedSub").length;
+		if (num_checked_sub_subjects == 0){			
+			$(this).removeClass("checkboxChecked");
+			$(this).removeClass("checkboxPartial");
+			$(this).addClass("checkboxUnchecked");			
+		}
+		else if (num_checked_sub_subjects > 0 && num_checked_sub_subjects < num_sub_subjects){			
+			$(this).removeClass("checkboxChecked");
+			$(this).removeClass("checkboxUnchecked");
+			$(this).addClass("checkboxPartial");		
+		}
+		else{
+			$(this).removeClass("checkboxUnchecked");
+			$(this).removeClass("checkboxPartial");
+			$(this).addClass("checkboxChecked");			
+		}
+	});
+	
+	$('select').show();
 });
+
+
+
 function handleData(data) {
 	$(".popup_placeholder").html(data);
 	$(".popup_placeholder").show();
@@ -385,4 +357,4 @@ function handleData(data) {
 	});
 }
 
-		</script>
+</script>

@@ -97,14 +97,14 @@
 									<h3 class="search_choose"><fmt:message key="${lang.localeId}.website.subjectSelection"/></h3>
 									<div class="checks_left">
 										<div class="check check_all">
-											<div class="checkbox_box">
-												<input style="display: none" type="checkbox" id="selectAll" class="styled"/>
+											<div class="checkbox_box select_all" check-value="false">
+												
 											</div>
 											<label><fmt:message key="${lang.localeId}.website.selectAll"/></label>
 										</div>
 										<div class="check check_only">
-											<div class="checkbox_box ">
-												<input style="display: none" type="checkbox" name="searchByAllSubjects" id="searchByAllSubjects" class="styled" <c:if test="${!searchByAllSubjects}">checked="true"</c:if> />
+											<div class="checkbox_box" check-value="false">
+												
 											</div>
 											<label><fmt:message key="${lang.localeId}.website.showCallsWithAllSubjects"/></label>
 										</div>
@@ -124,19 +124,19 @@
 															
 											<div class="check scroll_col <c:if test='${varStatus.index%3==0}'>scroll_col_last</c:if>">
 												<div class="checkbox_box selectSubject">
-													<input style="display: none" type="checkbox" id="${subject.id}" class="subject styled" <c:if test="${!subject.checked}">checked="true"</c:if>/>
-													
 													
 												</div>
 												<label class="openSubSubjects">${subject.name}</label>
 												<div style="display: none;" id="${subject.id}Sub" class="subSubjects" style="text-align:${lang.align};direction:${lang.dir}" > 
+                   									<div style="background: url(image/website1/menu_triangle.png) no-repeat scroll top #FFFFFF; height: 12px;">&nbsp;</div>
                    								<c:forEach items="${subject.subSubjectsBeans}" var="subSubject">
-													<div class="checkbox_box selectSubSubject">
-                     									<input type="checkbox" id="${subject.id}.${subSubject.id}" class="subSubject styled" value="${subSubject.id}" <c:if test="${!subSubject.checked}">checked="true"</c:if>/>
-                     									<input style="display: none;" type="checkbox" class="${subject.id}.${subSubject.id} actual" value="${subSubject.id}" <c:if test="${subSubject.checked}">checked="true"</c:if>/>
+													
+													<div class="${subSubject.id} checkbox_box checkbox_box_sub_${lang.dir} selectSubSubject" check-value="${subSubject.checked}">
+                     									                     									
                      								</div>
                     								<label><c:out value="${subSubject.name}"/></label>
-													<br>	
+                    								<br/>
+													
                  								</c:forEach>
                  								</div>
 											</div>
@@ -163,7 +163,7 @@
    								<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
 								<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
-								<a href="#" class="search_content viewProposal" id="${callForProposal.id}">
+									<a href="#" class="search_content viewProposal" id="${callForProposal.id}">
 									<span class="clearfix <c:if test="${callForProposal.localeId=='en_US'}">search_eng</c:if>">${callForProposal.title}</span>
 									<span class="clearfix search_icons">
 										<span class="search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/> <strong>${callForProposal.fund.name}</strong></span>
@@ -173,7 +173,9 @@
 	   							</c:forEach>
  	  							</c:when>
   	  							<c:otherwise>
-  								<fmt:message key="${lang.localeId}.website.noCallForProposals"/> 
+  									<span class="clearfix">
+  										<fmt:message key="${lang.localeId}.website.noCallForProposals"/>
+  									</span> 
   								</c:otherwise>
 	  							</c:choose> 								
 
