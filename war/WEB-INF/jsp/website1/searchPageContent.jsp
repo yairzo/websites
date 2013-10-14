@@ -72,6 +72,7 @@
   								</c:choose> 
 							</div>
 							
+							<c:if test="${!textualPagesIsDefault}">
 							<div class="kol_${lang.dir} search_result open">
 								<div class="clearfix">
 									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_text.png" alt="" /> &nbsp; <fmt:message key="${lang.localeId}.website.textualPagesList"/></h3>
@@ -91,7 +92,7 @@
   								</c:otherwise>
   								</c:choose> 
 							</div>
-							
+							</c:if>
 						</div>
 					</div>
 				</div>

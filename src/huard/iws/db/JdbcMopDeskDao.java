@@ -18,7 +18,12 @@ public class JdbcMopDeskDao extends SimpleJdbcDaoSupport implements MopDeskDao {
 			getSimpleJdbcTemplate().query(queryString, getRowMapper());
 		return mopDesks;
 	}
-
+	public List<MopDesk> getPublishingMopDesks (){
+		String queryString = "select * from desk where canPublish=1 order by appearence";
+		List<MopDesk> mopDesks =
+			getSimpleJdbcTemplate().query(queryString, getRowMapper());
+		return mopDesks;
+	}
 	ParameterizedRowMapper<MopDesk> rowMapper = new ParameterizedRowMapper<MopDesk>(){
 		public MopDesk mapRow(ResultSet rs, int rowNum) throws SQLException{
             MopDesk mopDesk = new MopDesk();
@@ -29,6 +34,7 @@ public class JdbcMopDeskDao extends SimpleJdbcDaoSupport implements MopDeskDao {
             mopDesk.setAppearence(rs.getInt("appearence"));
             mopDesk.setPersonsListId(rs.getInt("personsListId"));
             mopDesk.setPersonsListIdEnglish(rs.getInt("personsListIdEnglish"));
+            mopDesk.setCanPublish(rs.getBoolean("canPublish"));
             return mopDesk;
         }
 	};

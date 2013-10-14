@@ -367,6 +367,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		String query  = "select distinct textualPage.* from textualPage where isMessage=1 and isDeleted=0 ";
 		if(!ids.isEmpty())
 			query += " and id in ("+ids+")";
+		if(ids.isEmpty())
+			query += " and creationTime BETWEEN SUBDATE(CURDATE(), INTERVAL 1 MONTH) AND NOW()";
 		query += " order by id";
 		logger.info(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);

@@ -10,6 +10,7 @@ public class MopDesk {
 	private int appearence;
 	private int personsListId;
 	private int personsListIdEnglish;
+	private boolean canPublish;
 
 
 	public int getAppearence() {
@@ -53,6 +54,12 @@ public class MopDesk {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public boolean getCanPublish() {
+		return canPublish;
+	}
+	public void setCanPublish(boolean canPublish) {
+		this.canPublish = canPublish;
 	}
 
 }

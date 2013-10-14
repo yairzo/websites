@@ -157,7 +157,8 @@
 						<div class="clearfix mar_20">
 							<div class="kol search_result">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/></h3>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
+									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if></h3>
 								</div>
    								<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">

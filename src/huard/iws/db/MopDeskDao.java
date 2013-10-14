@@ -8,6 +8,8 @@ public interface MopDeskDao {
 
 	public List<MopDesk> getMopDesks();
 
+	public List<MopDesk> getPublishingMopDesks();
+
 	public MopDesk getMopDesk(int mopDeskId);
 
 	public MopDesk getMopDesk(String mopDeskId);

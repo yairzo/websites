@@ -350,7 +350,7 @@ public class CallForProposalBean {
 	public Fund getFund(){
 		Fund fund=new Fund();
 		try{
-			fund=fundService.getFund(fundId);
+			fund=fundService.getFundByFinancialId(fundId);
 		}
 		catch(Exception e){
 			return fund;

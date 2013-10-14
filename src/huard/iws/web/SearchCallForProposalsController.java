@@ -61,7 +61,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		}
 		model.put("callForProposals", callForProposalBeans);
 		//desks
-		List<MopDesk> mopDesks = mopDeskService.getMopDesks();
+		List<MopDesk> mopDesks = mopDeskService.getPublishingMopDesks();
 		model.put("mopDesks", mopDesks);
 		//subjects
 		Subject rootSubject = subjectService.getSubject(1, userPersonBean.getPreferedLocaleId());
@@ -98,6 +98,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		model.put("searchByAllYear",command.getSearchCreteria().getSearchByAllYear());
 		model.put("searchOpen",command.getSearchCreteria().getSearchOpen());
 		model.put("searchByAllSubjects",command.getSearchCreteria().getSearchByAllSubjects());
+		model.put("isDefault",command.getSearchCreteria().isDefault());
 		if(!userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") && !userPersonBean.getSubjectsIds().isEmpty()){
 			String linkToPersonPost = "<a href=\"personPost.html?id="+userPersonBean.getId() +"\">"+messageService.getMessage("iw_IL.website.searchBySubjects")+"</a>";
 			model.put("linkToPersonPost",linkToPersonPost);

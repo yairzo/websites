@@ -59,13 +59,16 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 		request.getSession().setAttribute("textualPageIds", null);
 		if (textualPageIds == null)// on first time
 			textualPageIds = "";
-		List<TextualPage> textualPages = textualPageService.getOnlineTextualPagesSearch(textualPageIds);
 		List<TextualPageBean> textualPageBeans = new ArrayList<TextualPageBean>();
-		for (TextualPage textualPage: textualPages){
-			TextualPageBean textualPageBean = new TextualPageBean(textualPage);
-			textualPageBeans.add(textualPageBean);
+		if(!textualPageIds.isEmpty()){//if not entered any phrase dont show any textual pages
+			List<TextualPage> textualPages = textualPageService.getOnlineTextualPagesSearch(textualPageIds);
+			for (TextualPage textualPage: textualPages){
+				TextualPageBean textualPageBean = new TextualPageBean(textualPage);
+				textualPageBeans.add(textualPageBean);
+			}
 		}
 		model.put("textualPages", textualPageBeans);
+		model.put("textualPagesIsDefault", textualPageIds.isEmpty());
 		
 		//messages
 		List<TextualPage> textualMessages = textualPageService.getOnlineMessagesSearch(textualPageIds);

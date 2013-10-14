@@ -15,6 +15,9 @@ public class MopDeskServiceImpl implements MopDeskService{
 		return mopDeskDao.getMopDesks();
 	}
 
+	public List<MopDesk> getPublishingMopDesks(){
+		return mopDeskDao.getPublishingMopDesks();
+	}
 
 	public MopDesk getMopDesk(int mopDeskId){
 		return mopDeskDao.getMopDesk(mopDeskId);

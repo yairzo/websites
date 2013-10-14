@@ -8,6 +8,7 @@ public class MopDeskBean {
 	private int id;
 	private String hebrewName;
 	private String englishName;
+	private boolean canPublish;
 
 	private LinkedHashSet<PersonBean> budgetOfficers = new LinkedHashSet<PersonBean>();
 
@@ -34,6 +35,7 @@ public class MopDeskBean {
 		this.id = mopDesk.getId();
 		this.hebrewName = mopDesk.getHebrewName();
 		this.englishName = mopDesk.getEnglishName();
+		this.canPublish = mopDesk.getCanPublish();
 	}
 
 	public MopDesk toMopDesk(){
@@ -41,6 +43,7 @@ public class MopDeskBean {
 		mopDesk.setId(id);
 		mopDesk.setHebrewName(hebrewName);
 		mopDesk.setEnglishName(englishName);
+		mopDesk.setCanPublish(canPublish);
 		return mopDesk;
 	}
 
@@ -63,6 +66,12 @@ public class MopDeskBean {
 		this.id = id;
 	}
 
+	public boolean getCanPublish() {
+		return canPublish;
+	}
+	public void setCanPublish(boolean canPublish) {
+		this.canPublish = canPublish;
+	}
 
 
 }
