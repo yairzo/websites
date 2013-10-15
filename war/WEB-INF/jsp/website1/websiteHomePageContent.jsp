@@ -7,7 +7,7 @@
   								<img width="960" height="340" src="/iws/image/website1/default_home_page_image.jpg"/>
 								<div class="bx-caption">
 									<h3><fmt:message key="${lang.localeId}.website.pictureSliderTitle"/></h3>
-									<span>הרשות למחקר ופיתוח</span>										
+									<span> הרשות למחקר ופיתוח</span>										
 								</div>
 						 </div>
 						  <div class="pictureslider bxslider" style="display: none;">

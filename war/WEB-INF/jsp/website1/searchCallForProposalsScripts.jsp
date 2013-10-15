@@ -45,8 +45,30 @@ $(document).ready(function() {
 	});
 	
 	
+	$("#deskId").change(function () {
+	    if($(this).val() == "0") 
+	    	$(this).parent("div.advanced_select_select").css("color","#AFAFAF");	
+	    else
+	    	$(this).parent("div.advanced_select_select").css("color","#666666");	
+	});
+	$("#deskId").change();	
 	
+	$("#typeId").change(function () {
+	    if($(this).val() == "0") 
+	    	$(this).parent("div.advanced_select_select").css("color","#AFAFAF");	
+	    else
+	    	$(this).parent("div.advanced_select_select").css("color","#666666");	
+	});
+	$("#typeId").change();	
 	
+	$("#targetAudience").change(function () {
+	    if($(this).val() == "0") 
+	    	$(this).parent("div.advanced_select_select").css("color","#AFAFAF");	
+	    else
+	    	$(this).parent("div.advanced_select_select").css("color","#666666");	
+	});
+	$("#targetAudience").change();
+
 	$(".viewProposal").click(function(e) {
 		e.preventDefault();
 		var proposalId=$(this).attr("id");	   		

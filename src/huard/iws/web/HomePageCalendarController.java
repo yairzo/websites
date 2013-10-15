@@ -47,13 +47,14 @@ public class HomePageCalendarController extends GeneralWebsiteController {
 		else if (type.equals("callForProposalsPerDay")){
 			List<CallForProposal> callForProposalsPerDay = callForProposalService.getCallForProposalsPerDay(request.getParameter("date",""));
 			for(CallForProposal callForProposal:callForProposalsPerDay){
-				sb.append("<ul>");
+				sb.append("<dfn class=\"viewProposal\" id=\""+callForProposal.getId()+"\">"+callForProposal.getTitle()+"</dfn><br><br>");
+				/*sb.append("<ul>");
 				String dir;
 				if(callForProposal.getLocaleId().equals("iw_IL")) dir="rtl";
 				else dir="ltr";
 				sb.append("<li dir=\""+dir+"\">" +callForProposal.getTitle()+"</li>");
 				//sb.append("<a href=\"\" class=\"viewProposal\" id=\""+callForProposal.getId()+"\">" +callForProposal.getTitle()+"</a><br>");
-				sb.append("</ul>");
+				sb.append("</ul>");*/
 			}
 			model.put("content", sb.toString());
 		}

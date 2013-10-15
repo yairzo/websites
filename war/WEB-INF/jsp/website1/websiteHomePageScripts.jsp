@@ -78,12 +78,11 @@
 						 });
 					},
 					beforeShowDay: function(date){
-						//alert(daysWithFunds);
-						//alert(daysWithFunds.indexOf(date.getDate()));
 						return [true, daysWithFunds.indexOf(date.getDate())>-1?'dayWithFund' : ''];
 					}
 				});
-
+				
+				
 				$(".date").change(function(e){
 					$.get('homePageCalendar.html?type=callForProposalsPerDay&date='+$(this).val(), function(data) {
 						$(".callForProposalsPerDay").html(
@@ -101,11 +100,15 @@
 				 	});
 				});
 				
-						
-
+				$(".callForProposalsPerDay").on("click", ".viewProposal", function(e) {
+					e.preventDefault();
+					var proposalId=$(this).attr("id");	
+					window.open('callForProposal.html?id='+proposalId+'&t=1');
+				});	
 			});
 			
 			$(window).load(function(){
+				$(".board_calendar").find('a.ui-state-hover').removeClass('ui-state-hover'); 
 				window.setTimeout(function(){start_slider()}, 2000);				
 			});
 			

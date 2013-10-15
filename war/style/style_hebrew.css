@@ -842,7 +842,7 @@ font-size:12px;
 color:#555555;
 line-height:24px;
 }
-
+	
 .board_calendar .ui-datepicker td a:hover,
 .board_calendar .ui-datepicker .ui-state-default.ui-state-hover{
 background:#04bde5;
@@ -850,22 +850,25 @@ border:0;
 color: #ffffff;
 }
 
-.board_calendar .ui-datepicker .ui-state-highlight,
+/**.board_calendar .ui-datepicker .ui-state-highlight,
 .board_calendar .ui-datepicker .ui-widget-content .ui-state-highlight,
 .board_calendar .ui-datepicker .ui-widget-header .ui-state-highlight{
 background:#04bde5;
 border:0;
 color: #ffffff;
-}
+}**/
 
 /************** hadar ************/
-td.dayWithFund { 
-	/*border: 1px #04bde5 solid*/
-	background:#04bde5;
-	border:0;
-	color: #ffffff;
+td.ui-datepicker-today{
+	border:2px solid #04bde5;	
 }
-.calendar .board_calendar .ui-datepicker td a.dayWithFund {
+
+td.dayWithFund a { /***for home page  **/
+	background:#04bde5 !important;
+	border:0;
+	color: #ffffff !important;
+}
+.calendar .board_calendar .ui-datepicker td a.dayWithFund {/**for callForProposalCalendar page**/
 	background:#04bde5;
 	border:0;
 	color: #ffffff;
@@ -1513,9 +1516,23 @@ height:16px;
 font-family: 'almoni-tzar', 'PT Sans Narrow';
 font-weight:normal;
 font-size:15px;
-color:#afafaf;
+color:#666666;
 background:#f8f8f8;
 border:solid 1px #ededed;
+}
+
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #afafaf;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #afafaf;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #afafaf;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #afafaf;
 }
 
 .advanced_date{
