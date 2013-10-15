@@ -98,5 +98,8 @@
 	  <copy todir="${deploy.path}/${name}/WEB-INF/jsp" force="true" overwrite="true">
 	    <fileset dir="${web.dir}/WEB-INF/jsp"/>
 	  </copy>
+	  <copy todir="${deploy.path}/${name}/style" force="true" overwrite="true">
+	  	<fileset dir="${web.dir}/style"/>
+	  </copy>
 	</target>
 </project>
