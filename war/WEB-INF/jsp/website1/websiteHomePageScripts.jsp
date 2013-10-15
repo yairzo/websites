@@ -78,7 +78,7 @@
 						 });
 					},
 					beforeShowDay: function(date){
-						return [true, daysWithFunds.indexOf(date.getDate())>-1?'dayWithFund' : ''];
+						return [true, daysWithFunds.indexOf(date.getDate())>-1 ? 'dayWithFund' : ''];
 					}
 				});
 				

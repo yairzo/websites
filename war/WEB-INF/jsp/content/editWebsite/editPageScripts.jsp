@@ -697,7 +697,7 @@ function replaceURLWithHTMLLinks(text) {
         match = exp.exec(text)
     }
     //add list class for design
-    text=text.replace("<ul>","<ul class=\"list_content\">");
+    //text=text.replace("<ul>","<ul class=\"list_content\">");
     return text;
 }
 

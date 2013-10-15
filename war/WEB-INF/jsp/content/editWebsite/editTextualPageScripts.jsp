@@ -260,17 +260,31 @@ $(document).ready(function() {
 
 	
 	CKEDITOR.instances['htmlEditor'].on('blur', function() {
-      	var text = replaceURLWithHTMLLinks($("#htmlEditor").html());
-      	var ceditor   = CKEDITOR.instances['htmlEditor'];
-      	if(text.length==0) text+="&nbsp;";
-      	ceditor.setData(text);
-        $("#html").val(text);
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
-	    $('#form').ajaxSubmit();
-    });  
+      	save();
+    }); 
+	
+	$('button').click(function(){
+		e.preventDefault();
+		save();
+	});
     
     
 });
+
+
+function save(){
+	var text = replaceURLWithHTMLLinks($("#htmlEditor").html());
+  	var ceditor   = CKEDITOR.instances['htmlEditor'];
+  	if(text.length==0) text+="&nbsp;";
+  	ceditor.setData(text);
+    $("#html").val(text);
+	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+    $('#form').ajaxSubmit({
+    	success: function(){
+    		window.setTimeout(function(){ return true;}, 1000);
+    	}
+    });	
+}
 
 function replaceURLWithHTMLLinks(text) {
     var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\".*>(?!<img)(.*)<\/a>/i;

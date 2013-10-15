@@ -8,7 +8,7 @@
 				<jsp:include page="sideLinks.jsp"/>
 				<div class="content" style="text-align: ${pageLang.align}; direction: ${pageLang.dir};">
 					<h1 class="maintitle" style="text-align: ${pageLang.align}">${command.title}</h1>
-					<div class="clearfix mar_20">
+					<div class="maintext_${pageLang.dir} clearfix mar_20">
        						<c:choose>
     							<c:when test="${command.showFile}">
 									<fmt:message key="${pageLang.localeId}.website.fileNotOpen"/><a href="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"><fmt:message key="${pageLang.localeId}.website.fileOpen"/></a>				

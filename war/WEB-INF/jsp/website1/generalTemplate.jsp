@@ -68,11 +68,20 @@
         <script>
         	function changeLanguage(){
         		var location = "" + window.location;
-    			location = location.replace("&locale=${lang.localeId}","");
-        		if (location.contains("?"))
-        			location = location + "&locale=";
-        		else
+        		location = location.replace("#","");
+        		location = location.replace("locale=${lang.localeId}","");
+        		if (location.contains("?")){
+        			location = location.replace("?&","?");
+        			location = location.replace("&&","&");
+        			
+        			if (location.endsWith("?") || location.endsWith("&"))
+        				location = location + "locale=";
+        			else 
+        				location = location + "&locale=";
+        		}
+        		else{
         			location = location + "?locale=";
+        		}
     			console.log(location);
         		<c:choose>        		
         			<c:when test="${lang.rtl}">

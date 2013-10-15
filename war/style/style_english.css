@@ -399,6 +399,7 @@ z-index: 2;
 .messages_slider_wrapper .bx-pager{
 display:block;
 width:100%;
+margin:20px 0 0 0;
 text-align:center;
 }
 
@@ -559,8 +560,8 @@ background:url(../image/website1/icon_balloon.png) no-repeat left 11px;
 display:block;
 padding:10px 5px;
 height:114px;
-overflow:hidden;
 border:solid 3px #ececec;
+overflow:hidden;
 border-top:0;
 width: 396px;
 }
@@ -574,14 +575,18 @@ display:block;
 width:396px;
 }
 
-.mainbox_news .bx-viewport{height:82px;}
+.mainbox_news .bx-viewport{
+	height:82px;
+}
 
 .date{
 font-size:12px;
 color:#333333;
 }
 
-.mainbox_news .bx-pager{text-align:right;}
+.mainbox_news .bx-pager{
+	text-align:right;
+}
 
 .board_title{
 display:block;
@@ -817,7 +822,8 @@ border:0 !important;
 }
 
 .board_calendar .ui-datepicker .ui-datepicker-next{
-
+right: 0;
+left: 15px;
 background:url(../image/website1/board_r.png) no-repeat top !important;
 }
 
@@ -1014,11 +1020,19 @@ line-height:22px;
 }
 
 .subtitle{
-margin:0 0 15px 0;
-font-size:17px;
-font-family:"PT Sans Narrow";
-font-weight:normal;
-color:#04bde5;
+	margin:0 0 15px 0;
+	font-size:17px;
+	font-family: 'almoni-tzar', 'PT Sans Narrow';
+	font-weight:normal;
+	color:#04bde5;
+}
+
+.maintext h3{
+	margin:0 0 15px 0;
+	font-size:17px;
+	font-family: 'almoni-tzar', 'PT Sans Narrow';
+	font-weight:normal;
+	color:#04bde5;
 }
 
 .content p{margin:0 0 15px 0;}
@@ -1031,20 +1045,41 @@ color:#04bde5;
 .content p.p_list{margin:0 0 10px 0;}
 
 ul.list_content{
-margin:0 18px 15px 0;
-padding:0;
-list-style:none;
+	margin:0 0 15px 18px;
+	padding:0;
+	list-style:none;
 }
 
 ul.list_content li{
-padding:0 0 5px 15px;
-background:url(../image/website1/dot.gif) no-repeat left 7px;
+	padding:0 0 5px 15px;
+	background:url(../image/website1/dot.gif) no-repeat left 7px;
+}
+
+ul.list_content_rtl, div.maintext_rtl ul{
+	margin:0 18px 15px 0;
+	padding:0;
+	list-style:none;
+}
+ul.list_content_ltr, div.maintext_ltr ul{
+	margin:0 0 15px 18px;
+	padding:0;
+	list-style:none;
+}
+
+ul.list_content_rtl li, div.maintext_rtl ul li, .kol_content_rtl ul li{
+	padding:0 15px 5px 0;
+	background:url(../image/website1/dot.gif) no-repeat right 7px;
+}
+
+ul.list_content_ltr li, div.maintext_ltr ul li, .kol_content_ltr ul li{
+	padding:0 0 5px 15px;
+	background:url(../image/website1/dot.gif) no-repeat left 7px;
 }
 
 .calendar{
-float: left;
-margin: 0 0 0 30px;
-width: 686px;
+	float: left;
+	margin: 0 0 0 30px;
+	width: 686px;
 }
 
 .calendar .board_calendar{
@@ -1320,7 +1355,18 @@ background:#f0f0f0 url(../image/website1/open.png) no-repeat center center;
 
 .kol_arrow:hover{background:#04bde5 url(../image/website1/open_hover.png) no-repeat center center;}
 
-.kol_content{padding:7px 0 7px 18px;display:none;}
+.kol_content{
+	padding:7px 0 7px 18px;
+	display:none;
+}
+.kol_content_rtl{
+	padding:7px 18px 7px 0;
+	display:none;
+}
+.kol_content_ltr{
+	padding:7px 0 7px 18px;
+	display:none;
+}
 
 .kol_content_i{line-height:24px;}
 
@@ -1551,18 +1597,34 @@ background:url(../image/website1/advanced_cal.png) no-repeat top;
 
 .advanced_date_sep{float:left;line-height:38px;margin:0 0 0 5px;}
 
-.checks{display:block;}
-
-.checkbox_box{
-float:left;
-margin:5px 0 0 0;
-width:13px;
-height:12px;
-background:#f8f8f8;
-border:solid 1px #ededed;
+.checks{
+	display:block;
 }
 
-/*.checkbox_box.selected{background:#f8f8f8 url(../image/website1/checkbox.png) no-repeat center center;}*/
+.checkbox_box{
+	float:left;
+	width:13px;
+	height:12px;
+	background:#f8f8f8;
+	border:solid 1px #ededed;
+	margin-top: 5px;
+}
+
+.checkbox_box_sub_rtl{
+	background:#ffffff;
+	border:solid 1px #dbdbdb;
+	margin-right: 5px;
+}
+.checkbox_box_sub_ltr{
+	background:#ffffff;
+	border:solid 1px #dbdbdb;
+	margin-right: 5px;
+}
+
+.check .open{
+	position: absolute;
+	background:#f5f5f5;
+}
 
 .check label{
 float:left;
@@ -1767,8 +1829,36 @@ line-height:38px;
 	float: left;
 }
 
-.checkboxPartial {
-	background: url(../image/website1/dot.png) no-repeat;
+.checkboxPartial{
+	background: url(../image/website1/empty_checkbox.png) no-repeat #F8F8F8;
+	border: 1px solid #04bde5;
+	background-position: 0px 0px;
+}
+.checkboxChecked{
+	background: url(../image/website1/checkbox.png) no-repeat #F8F8F8;
+	background-position: 0px 0px;
+	border: 1px solid #dbdbdb;
+}
+.checkboxUnchecked{
+	background: url(../image/website1/checkbox.png) no-repeat #F8F8F8;
+	background-position: 0px -24px;
+	border: 1px solid #dbdbdb;
+}
+
+.checkboxPartialSub{
+	background: url(../image/website1/empty_checkbox.png) no-repeat #FFFFFF;
+	border: 1px solid #04bde5;
+	background-position: 0px 0px;
+}
+.checkboxCheckedSub{
+	background: url(../image/website1/checkbox.png) no-repeat #FFFFFF;
+	background-position: 0px 0px;
+	border: 1px solid #dbdbdb;
+}
+.checkboxUncheckedSub{
+	background: url(../image/website1/checkbox.png) no-repeat #FFFFFF;
+	background-position: 0px -24px;
+	border: 1px solid #dbdbdb;
 }
 
 
