@@ -313,6 +313,12 @@
         <property name="commandClass"><value>huard.iws.web.SitemapController$SitemapBean</value></property>
         <property name="formView"><value>sitemap</value></property>
         <property name="successView"><value>sitemap.html</value></property>
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
+        </property>
+     	<property name="textualPageService">
+            <ref bean="textualPageService"/>
+        </property>
       </bean>
  
       <bean id="editFundController" class="huard.iws.web.EditFundController" parent="generalFormController">

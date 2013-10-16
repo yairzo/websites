@@ -30,7 +30,8 @@
 			
 			$(".advanced_clear").click(function(){
 				$("#advanced_subject").val('');
-			});
+				$("form").submit();
+		 	});
 		});
 		function handleData(data) {
 			$(".popup_placeholder").html(data);

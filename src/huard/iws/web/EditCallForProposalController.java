@@ -125,6 +125,9 @@ public class EditCallForProposalController extends GeneralFormController{
 			return new ModelAndView(new RedirectView("editCallForProposal.html?id=" + newId));
 		}
 		
+		if(request.getParameter("action", "").equals("delete")){
+			return new ModelAndView(new RedirectView("callForProposals.html"));
+		}
 
 		if (request.getBooleanParameter("ajaxSubmit", false))
 			return null;

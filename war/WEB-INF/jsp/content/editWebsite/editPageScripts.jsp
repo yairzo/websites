@@ -679,7 +679,7 @@ $(document).ready(function() {
 		});	
 		
 		$("#originalCallWebAddress").on('blur',function(){
-			if (!/^http/.test($("#originalCallWebAddress").val())){
+			if (!/^http/.test($("#originalCallWebAddress").val()) && $("#originalCallWebAddress").val()!=''){
 				$("#originalCallWebAddress").val('http://' + $("#originalCallWebAddress").val());
 			}
 		});
@@ -782,6 +782,14 @@ function checkErrors(){
 	else{
 		$("#errordesk").html('');
 	}
+	if($("#originalCallWebAddress").val()==''){
+		errors = true;
+		$("#errororiginalCallWebAddress").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterOriginalCallWebAddress"/><font color="red"><br>');
+	}
+	else{
+		$("#errororiginalCallWebAddress").html('');
+	}
+
 	//if(countryArr.length==0){ 
 	//	errors = true;
 	//	$("#errorcountries").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterCountry"/><font color="red"><br>');

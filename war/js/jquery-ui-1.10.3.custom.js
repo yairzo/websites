@@ -7067,6 +7067,8 @@ $.extend(Datepicker.prototype, {
 		this._setDate(inst, this._getDefaultDate(inst), true);
 		this._updateDatepicker(inst);
 		this._updateAlternate(inst);
+		var beforeShow = $.datepicker._get(inst, 'beforeShow');
+		extendRemove(inst.settings, (beforeShow ? beforeShow.apply(target, [target, inst]) : {}));
 		//If disabled option is true, disable the datepicker before showing it (see ticket #5665)
 		if( inst.settings.disabled ) {
 			this._disableDatepicker( target );

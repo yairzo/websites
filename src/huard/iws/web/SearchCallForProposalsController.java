@@ -105,6 +105,9 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		}
 		//if(request.getSession().getAttribute("callForProposalId")!=null && !request.getSession().getAttribute("callForProposalId").equals(""))
 		//	model.put("callForProposalId", request.getSession().getAttribute("callForProposalId"));
+		
+		long lastUpdateTime = callForProposalService.getCallForProposalsLastUpdate().getTime();
+		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 
 		
 		if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("1")){

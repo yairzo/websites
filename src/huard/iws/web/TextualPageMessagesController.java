@@ -36,7 +36,7 @@ public class TextualPageMessagesController extends GeneralWebsiteFormController 
 
 	
 		//messages
-		List<TextualPage> textualMessages = textualPageService.getOnlineMessagesSearch("");
+		List<TextualPage> textualMessages = textualPageService.getOnlineMessages();
 		List<TextualPageBean> textualMessageBeans = new ArrayList<TextualPageBean>();
 		for (TextualPage textualMessage: textualMessages){
 			TextualPageBean textualMessageBean = new TextualPageBean(textualMessage);

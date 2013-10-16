@@ -862,7 +862,6 @@ color: #ffffff;
 td.ui-datepicker-today{
 	border:2px solid #04bde5;	
 }
-
 td.dayWithFund a { /***for home page  **/
 	background:#04bde5 !important;
 	border:0;
@@ -889,6 +888,9 @@ text-align:left;
 /***hadar text-align:right;* for popup text align*/
 }
 .viewProposal:hover{
+	cursor:pointer;
+}
+.messagePage:hover{
 	cursor:pointer;
 }
 
@@ -1539,12 +1541,12 @@ padding:0 0 0 50px;
 font-family:Arial;
 font-size:12px;
 color:#999999;
-text-decoration:none;
+/**text-decoration:none;**/
 line-height:38px;
 /*hadar*** background:url(../image/website1/advanced_close.png) no-repeat left;**/
 }
 
-.content a.advanced_close:hover{text-decoration:underline;}
+/**.content a.advanced_close:hover{text-decoration:underline;}**/
 
 .advanced_subject{
 float:right;

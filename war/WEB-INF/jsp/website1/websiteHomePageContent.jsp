@@ -63,8 +63,12 @@
 	  											<c:if test="${textualPage.localeId=='en_US'}">
 	  												<c:set var="direction" value="ltr"/>
 	  											</c:if>
-	  											<div style="padding: 0px 5px; height:80px; width:380px; direction:${direction};">
-	  												${textualPage.title}
+	  											
+	  											<div  style="padding: 0px 5px; height:80px; width:380px; direction:${direction};overflow:hidden;">
+	  												<!--${textualPage.creationTimeString}<br>-->
+	  												${textualPage.title}<br>
+	  												${textualPage.html}
+	  												<!--<dfn class="messagePage" id="${textualPage.id}">להודעה המלאה</dfn>  -->
 												</div>
 	 										</c:forEach>
 										</div>

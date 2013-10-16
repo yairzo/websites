@@ -41,6 +41,8 @@ public interface TextualPageDao {
 
 	public List<TextualPage> getOnlineMessages();
 
+	public List<TextualPage> getOnlineMessagesRolling();
+
 	public List<TextualPage> getOnlineTextualPagesSearch(String ids);
 
 	public List<TextualPage> getOnlineMessagesSearch(String ids);

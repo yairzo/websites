@@ -1,6 +1,7 @@
 package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
+import huard.iws.bean.TextualPageBean;
 import huard.iws.model.PageBodyImage;
 import huard.iws.model.TextualPage;
 import huard.iws.service.CallForProposalService;
@@ -9,6 +10,7 @@ import huard.iws.service.TextualPageService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.RequestWrapper;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -48,8 +50,13 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		model.put("daysWithFunds", sb.toString());
 
 		//messages
-		List<TextualPage> textualPages = textualPageService.getOnlineMessages();
-		model.put("textualPages", textualPages);
+		List<TextualPage> textualPages = textualPageService.getOnlineMessagesRolling();
+		List<TextualPageBean> textualPageBeans=new ArrayList<TextualPageBean>();
+		for (TextualPage textualPage: textualPages){
+			TextualPageBean textualPageBean = new TextualPageBean(textualPage);
+			textualPageBeans.add(textualPageBean);
+		}
+		model.put("textualPages", textualPageBeans);
 		//pics
 		List<PageBodyImage> pageBodyImages = pageBodyImageService.getApprovedPageBodyImages();
 		model.put("images", pageBodyImages);

@@ -66,22 +66,30 @@
 			    });
 				
 				
-				$(".date").datepicker({dateFormat: 'yy-mm-dd',
-					onChangeMonthYear: function(year, month) {
-						 $.ajax({url:'homePageCalendar.html?type=changeMonth&month='+month+'&year='+year,
-							async: false,
-							success:function(data) {
-							    daysWithFunds = data.split(',');
-							    for(var i=0; i<daysWithFunds.length; i++){daysWithFunds[i] = parseInt(daysWithFunds[i], 10);} 						
-							    $(".date").datepicker("refresh");
-						 	}
-						 });
-					},
-					beforeShowDay: function(date){
-						return [true, daysWithFunds.indexOf(date.getDate())>-1 ? 'dayWithFund' : ''];
-					}
+				$(function () {
+					$(".date").datepicker({dateFormat: 'yy-mm-dd',
+						onChangeMonthYear: function(year, month) {
+							$.ajax({url:'homePageCalendar.html?type=changeMonth&month='+month+'&year='+year,
+								async: false,
+								success:function(data) {
+								    daysWithFunds = data.split(',');
+								    for(var i=0; i<daysWithFunds.length; i++){
+								    	daysWithFunds[i] = parseInt(daysWithFunds[i], 10);
+								    } 						
+							 	}
+							 });
+							setTimeout(function() {
+								 $('.ui-state-hover').removeClass('ui-state-hover');	
+							}, 1);
+						},
+						beforeShowDay: function(date){
+							return [true, daysWithFunds.indexOf(date.getDate())>-1 ? 'dayWithFund' : ''];
+						}
+					});	
+					
+					$('.ui-state-hover').removeClass('ui-state-hover');	
+					
 				});
-				
 				
 				$(".date").change(function(e){
 					$.get('homePageCalendar.html?type=callForProposalsPerDay&date='+$(this).val(), function(data) {
@@ -105,10 +113,15 @@
 					var proposalId=$(this).attr("id");	
 					window.open('callForProposal.html?id='+proposalId+'&t=1');
 				});	
+				
+				$(".messagePage").click(function(e){
+					e.preventDefault();
+					var messagePageId=$(this).attr("id");	
+					window.open('textualPage.html?id='+messagePageId+'&t=1');
+				});
 			});
 			
 			$(window).load(function(){
-				$(".board_calendar").find('a.ui-state-hover').removeClass('ui-state-hover'); 
 				window.setTimeout(function(){start_slider()}, 2000);				
 			});
 			

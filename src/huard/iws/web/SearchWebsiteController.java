@@ -7,6 +7,7 @@ import huard.iws.service.CallForProposalService;
 import huard.iws.service.TextualPageService;
 import huard.iws.service.SphinxSearchService;
 import huard.iws.util.BaseUtils;
+import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallForProposal;
@@ -85,6 +86,12 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 			searchWords = ((String)request.getSession().getAttribute("searchWords")).replace("\"", "&quot;");
 		model.put("searchWords",searchWords);
 		request.getSession().setAttribute("searchWords", "");
+		
+		long lastUpdateTime = Math.max(callForProposalService.getCallForProposalsLastUpdate().getTime(), 
+				textualPageService.getTextualPagesLastUpdate().getTime());
+		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
+
+		
 
 		if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("1")){
 			request.getSession().setAttribute("t","");

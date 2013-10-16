@@ -175,8 +175,9 @@
 				</tr>
 				<tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted;text-align:${lang.align}">
-						<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/> 
+						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/> 
 						<form:input htmlEscape="true" cssClass="green long950" id="originalCallWebAddress" path="originalCallWebAddress" />
+						<div id="errororiginalCallWebAddress" title="שגיאה" dir="${lang.dir}">
 					</td>
 				</tr>
 				<tr class="form">

@@ -249,7 +249,7 @@ $(document).ready(function() {
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="sitemap.html">אתר האוניברסיטה - מפת האתר</a>
+								<a style="text-decoration: none" href="sitemap.html?t=1">אתר האוניברסיטה - מפת האתר</a>
 							</th>
 						</tr>
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">

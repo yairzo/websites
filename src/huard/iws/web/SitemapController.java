@@ -2,9 +2,13 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.CategoryBean;
+import huard.iws.service.CallForProposalService;
+import huard.iws.service.TextualPageService;
+import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.model.Category;
+import huard.iws.model.Language;
 
 import java.util.Map;
 import java.util.List;
@@ -28,7 +32,9 @@ public class SitemapController extends GeneralWebsiteFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
-		model.put("pageTitle", "מפת האתר");
+		//page title
+		Language lang = (huard.iws.model.Language)model.get("lang");
+		model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".general.siteMap"));
 
 		Category rootCategoryHeb = categoryService.getRootCategory("iw_IL");
 		model.put("rootCategoryHeb", rootCategoryHeb);
@@ -47,7 +53,18 @@ public class SitemapController extends GeneralWebsiteFormController {
 		}
 		model.put("engCategories", engCategoryBeans);
 
-		return new ModelAndView (this.getFormView(),model);
+		long lastUpdateTime = Math.max(callForProposalService.getCallForProposalsLastUpdate().getTime(), 
+				textualPageService.getTextualPagesLastUpdate().getTime());
+		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
+		
+		
+		if(request.getParameter("t", "").equals("1"))
+			return new ModelAndView ("sitemap1",model);
+		else if(request.getParameter("t", "").equals("0"))
+			return new ModelAndView ("sitemapStatic",model);
+		else
+			return new ModelAndView ("sitemap",model);		
+		//return new ModelAndView (this.getFormView(),model);
 	}
 
 	protected Object getFormBackingObject(
@@ -67,5 +84,16 @@ public class SitemapController extends GeneralWebsiteFormController {
 		}
 
 	}
-	
+
+	private CallForProposalService callForProposalService;
+
+	public void setCallForProposalService(CallForProposalService callForProposalService) {
+		this.callForProposalService = callForProposalService;
+	}
+	private TextualPageService textualPageService;
+
+	public void setTextualPageService(TextualPageService textualPageService) {
+		this.textualPageService = textualPageService;
+	}
+
 }
