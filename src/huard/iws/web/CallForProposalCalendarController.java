@@ -140,7 +140,10 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		model.put("calendarList", shortCalendarList);
 		model.put("month", request.getSession().getAttribute("month"));
 		model.put("year", request.getSession().getAttribute("year"));
-	
+
+		long lastUpdateTime = callForProposalService.getCallForProposalsLastUpdate().getTime();
+		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
+
 		if(request.getParameter("t", "").equals("1"))
 			return new ModelAndView ("callForProposalCalendar1",model);
 		else if(request.getParameter("t", "").equals("0"))

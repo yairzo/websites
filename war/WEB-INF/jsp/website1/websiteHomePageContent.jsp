@@ -60,15 +60,18 @@
 										<div class="messageslider" style="display:none;">
 	  										<c:forEach items="${textualPages}" var="textualPage" varStatus="textualIndex">
 	  											<c:set var="direction" value="rtl"/>
+	  											<c:set var="left" value="10px"/>
 	  											<c:if test="${textualPage.localeId=='en_US'}">
 	  												<c:set var="direction" value="ltr"/>
+	  												<c:set var="left" value="255px"/>
 	  											</c:if>
 	  											
-	  											<div  style="padding: 0px 5px; height:80px; width:380px; direction:${direction};overflow:hidden;">
-	  												<!--${textualPage.creationTimeString}<br>-->
-	  												${textualPage.title}<br>
+	  											<div style="padding: 0px 5px; height:85px; width:380px; direction:${direction};overflow:hidden;">
+	  												<div style="padding: 0px 5px; height:65px; width:380px; direction:${direction};overflow:hidden;">
+	  												<strong>${textualPage.title}</strong><br>
 	  												${textualPage.html}
-	  												<!--<dfn class="messagePage" id="${textualPage.id}">להודעה המלאה</dfn>  -->
+	  												</div>
+	  												<div class="messagePage" id="${textualPage.id}" style="position:absolute;top:68px;left:${left};text-decoration:underline;"><fmt:message key="${textualPage.localeId}.website.forFullMessage"/></div>
 												</div>
 	 										</c:forEach>
 										</div>

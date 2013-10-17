@@ -55,6 +55,7 @@
   											<c:forEach items="${fundInDay.callForProposals}" var="callForProposal">
         										<dfn class="viewProposal" id="${callForProposal.id}"><c:out escapeXml="false" value="${callForProposal.title}"/></dfn><br>
         									</c:forEach>
+        									<br>
         								</c:forEach>
 									</div>
 									<div class="triangle"></div>

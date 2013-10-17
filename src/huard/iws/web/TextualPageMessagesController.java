@@ -5,6 +5,7 @@ import huard.iws.bean.TextualPageBean;
 import huard.iws.model.Language;
 import huard.iws.model.TextualPage;
 import huard.iws.service.TextualPageService;
+import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 
@@ -44,7 +45,10 @@ public class TextualPageMessagesController extends GeneralWebsiteFormController 
 		}
 		model.put("textualMessages", textualMessageBeans);
 		
+		long lastUpdateTime = textualPageService.getTextualPagesLastUpdate().getTime();
+		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 
+		
 		if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("1")){
 			request.getSession().setAttribute("t","");
 			return new ModelAndView ("messages",model);

@@ -7,9 +7,15 @@
 
 $(document).ready(function() {
 
+	$(document).click(function() {
+		$(".callForProposalsPerDay").each(function (e){
+			if($(this).css('display')=='block')
+				$(this).hide();
+		});
+	});
 	
-
 	$(".viewAll").click(function(e) {
+		e.stopPropagation();
 		e.preventDefault();
 		if($(".callForProposalsPerDay", $(this).closest("td")).css('display')=='block')
 			$(".callForProposalsPerDay").hide();
@@ -27,6 +33,8 @@ $(document).ready(function() {
 			}
 		}
 	});	
+	
+	
 	$(".callForProposalsPerDay").click(function(e) {
 		e.preventDefault();
 		if($(".callForProposalsPerDay", $(this).closest("td")).css('display')=='block')
