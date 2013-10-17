@@ -443,13 +443,12 @@ border-bottom:solid 24px #ececec;
 
 .sidelinks h3{
 margin:0;
-padding:0 0 0 53px;
 font-size:21px;
 font-family:'open_sanscondensed_light';
 font-weight:normal;
 color:#ffffff;
 line-height:42px;
-background:#04bde5 url(../image/website1/icon_links.png) no-repeat 210px center;
+padding:0 0 0 53px; 
 }
 
 .sidelinks ul{
@@ -559,7 +558,7 @@ background:url(../image/website1/icon_balloon.png) no-repeat left 11px;
 .mainbox_news{
 display:block;
 padding:10px 5px;
-height:114px;
+height:119px;
 border:solid 3px #ececec;
 overflow:hidden;
 border-top:0;
@@ -591,15 +590,15 @@ color:#333333;
 .board_title{
 display:block;
 margin:0 -7px;
-padding-right:47px;
-background:url(../image/website1/board.png) no-repeat top;
 width:211px;
 height:51px;
-font-size:14px;
+font-size:21px;
 font-family:'open_sanscondensed_light';
 font-weight:normal;
 color:#ffffff;
 line-height:42px;
+padding-left:47px; 
+background:url(../image/website1/board_ltr.png) no-repeat top;
 }
 
 .board_calendar{
@@ -841,6 +840,7 @@ text-align:center;
 font-size:12px;
 color:#555555;
 line-height:24px;
+font-family:"open_sanscondensed_light";
 }
 
 .board_calendar .ui-datepicker td a:hover,
@@ -877,16 +877,21 @@ td.dayWithFund a { /***for home page  **/
 display:block;
 position:absolute;
 top:50px;
-left:-100px;
+left:50px;
 z-index:2;
 width:223px;
 color:#ffffff;
 font-size:13px;
 direction:ltr;
 text-align:left;
-/***hadar direction:rtl;* for calendar popup text align*/
-/***hadar text-align:right;* for popup text align*/
 }
+
+.callForProposalsPerDayHomePage{
+	left: -30px;
+}
+
+
+
 .viewProposal:hover{
 	cursor:pointer;
 }
@@ -898,7 +903,7 @@ text-align:left;
 
 .callForProposalsPerDay .clearfix{
 background: 0 0 rgba(80, 80, 80, 0.9);
-border:solid 3px #ececec;
+border:0;
 border-bottom:0;
 padding:8px;
 min-height:10px; 
@@ -915,7 +920,22 @@ display:block;
 width:223px;
 height:19px;
 line-height:0;
-background:url(../image/website1/triangle.png) no-repeat top;
+background:url(../image/website1/triangle_down_left.png) no-repeat top;
+}
+
+.triangle_down_rtl{
+	background:url(../image/website1/triangle_down_right.png) no-repeat top;
+}
+
+.triangle_up_rtl{
+	background:url(../image/website1/triangle_up_right.png) no-repeat top;
+}
+.triangle_down_ltr{
+	background:url(../image/website1/triangle_down_left.png) no-repeat top;
+}
+
+.triangle_up_ltr{
+	background:url(../image/website1/triangle_up_left.png) no-repeat top;
 }
 
 /**/
@@ -1621,7 +1641,7 @@ background:url(../image/website1/advanced_cal.png) no-repeat top;
 .checkbox_box_sub_ltr{
 	background:#ffffff;
 	border:solid 1px #dbdbdb;
-	margin-right: 5px;
+	margin-left: 5px;
 }
 
 .check .open{
@@ -1632,6 +1652,11 @@ background:url(../image/website1/advanced_cal.png) no-repeat top;
 .check label{
 float:left;
 margin:0 23px 0 10px;
+}
+
+.openSubSubjects{
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 .search_choose{
@@ -1677,7 +1702,7 @@ background:#b7b7b7;
 float:left;
 padding:0 0 15px 10px;
 width:620px;
-font-family:Arial;
+font-family:"open_sanscondensed_light";
 font-size:14px;
 line-height:14px;
 }

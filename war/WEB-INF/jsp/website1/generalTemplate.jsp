@@ -70,11 +70,11 @@
         		var location = "" + window.location;
         		location = location.replace("#","");
         		location = location.replace("locale=${lang.localeId}","");
-        		if (location.contains("?")){
+        		if (location.indexOf("?")!=-1){
         			location = location.replace("?&","?");
         			location = location.replace("&&","&");
         			
-        			if (location.endsWith("?") || location.endsWith("&"))
+        			if (location.match("^.*?\\?$") || location.match("^.*?&$"))
         				location = location + "locale=";
         			else 
         				location = location + "&locale=";

@@ -101,4 +101,8 @@ public class Language {
 		return dir.equals("ltr");
 	}
 	
+	public String getOpDir(){
+		return StringUtils.reverse(dir);
+	}
+	
 }

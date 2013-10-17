@@ -24,6 +24,10 @@
 			
 			$(document).ready(function() {
 				
+				$(document).click(function(){
+					$('.callForProposalsPerDay').hide();
+				});
+				
 				$('.messageslider').show();
 				$('.messageslider').bxSlider({
 					controls:false,
@@ -89,23 +93,24 @@
 					
 					$('.ui-state-hover').removeClass('ui-state-hover');	
 					
-				});
+				});			
 				
-				$(".date").change(function(e){
+				
+				$(".date").change(function(e){					
 					$.get('homePageCalendar.html?type=callForProposalsPerDay&date='+$(this).val(), function(data) {
 						$(".callForProposalsPerDay").html(
 								"<div class=\"clearfix\">"+data+"</div><div class=\"triangle\"></div>");
-						if(data.length>2){
-							$('.callForProposalsPerDay').show();
-							$(".callForProposalsPerDay").css({
-								position:"absolute",
-								top:e.pageY, 
-								left: e.pageX
-							});
+						console.log(data.length);
+						var height = $(".callForProposalsPerDay").height();
+						$(".callForProposalsPerDay").css('top',-(height/2));
+												
+						if(jQuery.trim(data)){
+							$('.callForProposalsPerDay').show();							
 						}
-						else
+						else{
 							$('.callForProposalsPerDay').hide();
-				 	});
+						}						
+				 	});					
 				});
 				
 				$(".callForProposalsPerDay").on("click", ".viewProposal", function(e) {

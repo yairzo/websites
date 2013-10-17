@@ -65,7 +65,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		model.put("mopDesks", mopDesks);
 		//subjects
 		Subject rootSubject = subjectService.getSubject(1, userPersonBean.getPreferedLocaleId());
-		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, userPersonBean.getPreferedLocaleId());
+		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, lang.getLocaleId());
 		List<Integer> subjectsToCheck = new ArrayList<Integer>();
 		logger.info("Subjects: " + command.getSearchCreteria().getSearchBySubjectIds());
 		if (!command.getSearchCreteria().getSearchBySubjectIds().isEmpty()){

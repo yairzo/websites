@@ -443,13 +443,12 @@ border-bottom:solid 24px #ececec;
 
 .sidelinks h3{
 margin:0;
-padding:0 53px 0 0;
 font-size:21px;
 font-family: 'almoni-tzar', 'open_sanscondensed_light';
 font-weight:normal;
 color:#ffffff;
 line-height:42px;
-background:#04bde5 url(../image/website1/icon_links.png) no-repeat 210px center;
+padding:0 53px 0 0;
 }
 
 .sidelinks ul{
@@ -591,8 +590,6 @@ color:#333333;
 .board_title{
 display:block;
 margin:0 -7px;
-padding-right:47px;
-background:url(../image/website1/board.png) no-repeat top;
 width:211px;
 height:51px;
 font-size:21px;
@@ -600,6 +597,8 @@ font-family: 'almoni-tzar', 'open_sanscondensed_light';
 font-weight:normal;
 color:#ffffff;
 line-height:42px;
+padding-right:47px; 
+background:url(../image/website1/board_rtl.png) no-repeat top;
 }
 
 .board_calendar{
@@ -841,6 +840,7 @@ text-align:center;
 font-size:12px;
 color:#555555;
 line-height:24px;
+font-family: 'almoni-tzar', 'open_sanscondensed_light';
 }
 	
 .board_calendar .ui-datepicker td a:hover,
@@ -876,17 +876,20 @@ td.dayWithFund a { /***for home page  **/
 .callForProposalsPerDay{
 display:block;
 position:absolute;
-top:50px;
-left:-100px;
+top:-20px;
+left:50px;
 z-index:2;
 width:223px;
 color:#ffffff;
 font-size:13px;
 direction:ltr;
 text-align:left;
-/***hadar direction:rtl;* for calendar popup text align*/
-/***hadar text-align:right;* for popup text align*/
 }
+
+.callForProposalsPerDayHomePage{
+	left: 50px;
+}
+
 .viewProposal:hover{
 	cursor:pointer;
 }
@@ -898,7 +901,7 @@ text-align:left;
 
 .callForProposalsPerDay .clearfix{
 background: 0 0 rgba(80, 80, 80, 0.9);
-border:solid 3px #ececec;
+border: 0;
 border-bottom:0;
 padding:8px;
 min-height:10px; 
@@ -915,7 +918,22 @@ display:block;
 width:223px;
 height:19px;
 line-height:0;
-background:url(../image/website1/triangle.png) no-repeat top;
+background:url(../image/website1/triangle_down_right.png) no-repeat top;
+}
+
+.triangle_down_rtl{
+	background:url(../image/website1/triangle_down_right.png) no-repeat top;
+}
+
+.triangle_up_rtl{
+	background:url(../image/website1/triangle_up_right.png) no-repeat top;
+}
+.triangle_down_ltr{
+	background:url(../image/website1/triangle_down_left.png) no-repeat top;
+}
+
+.triangle_up_ltr{
+	background:url(../image/website1/triangle_up_left.png) no-repeat top;
 }
 
 /**/
@@ -1637,6 +1655,11 @@ float:right;
 margin:0 10px 0 23px;
 }
 
+.openSubSubjects{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 .search_choose{
 float:right;
 margin:0;
@@ -1680,7 +1703,7 @@ background:#b7b7b7;
 float:right;
 padding:0 10px 15px 0;
 width:620px;
-font-family:Arial;
+font-family: 'almoni-tzar', 'open_sanscondensed_light';
 font-size:14px;
 line-height:14px;
 }

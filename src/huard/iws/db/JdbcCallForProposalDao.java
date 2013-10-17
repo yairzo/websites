@@ -580,11 +580,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		if(searchCriteria.getSearchByTemporaryFund())
 			whereClause +=" and fund.isTemporary=1";
 		if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty() || !searchCriteria.getSearchBySubmissionDateTo().isEmpty()){
-			whereClause +=" and (true and (";
+			whereClause +=" and (( true ";
 			if(!searchCriteria.getSearchBySubmissionDateFrom().isEmpty())
-				whereClause += mainTable +".finalSubmissionTime >='"+searchCriteria.getSearchBySubmissionDateFrom()+"'";
+				whereClause += "and " + mainTable +".finalSubmissionTime >='"+searchCriteria.getSearchBySubmissionDateFrom()+"'";
 			if(!searchCriteria.getSearchBySubmissionDateTo().isEmpty())
-				whereClause += mainTable +".finalSubmissionTime <='"+searchCriteria.getSearchBySubmissionDateTo()+"'";
+				whereClause += "and " + mainTable +".finalSubmissionTime <='"+searchCriteria.getSearchBySubmissionDateTo()+"'";
 			whereClause += ") or " + mainTable +".finalSubmissionTime = 0)";
 		}
 		if(searchCriteria.getSearchByFund()>0)

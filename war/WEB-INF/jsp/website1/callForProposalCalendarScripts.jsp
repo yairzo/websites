@@ -14,6 +14,7 @@ $(document).ready(function() {
 		});
 	});
 	
+
 	$(".viewAll").click(function(e) {
 		e.stopPropagation();
 		e.preventDefault();
@@ -21,17 +22,59 @@ $(document).ready(function() {
 			$(".callForProposalsPerDay").hide();
 		else{
 			$(".callForProposalsPerDay").hide();
-			if($(".clearfix", $(this).closest("td")).html().length>21){
+			if(jQuery.trim($(".clearfix", $(this).closest("td")).html())){			
 				$(".callForProposalsPerDay", $(this).closest("td")).show();
-				var rowPos = $(this).position();
-				bottomTop = rowPos.top - $(".callForProposalsPerDay", $(this).closest("td")).height();
-				bottomLeft = rowPos.left - 100;
+				
+				var top_bottom = $(".callForProposalsPerDay", $(this).closest("td")).attr('class');
+				top_bottom = top_bottom.split(' ')[1];
+				var edge_middle = $(".callForProposalsPerDay", $(this).closest("td")).attr('class');
+				edge_middle = edge_middle.split(' ')[2];
+				
+				var rowPos = $(this).closest("td").position();
+				
+				var triangle_class = "triangle_";
+				
+				if (top_bottom == "bottom"){
+					bottom_top_height = rowPos.top - $(".callForProposalsPerDay", $(this).closest("td")).height();
+					triangle_class += "down_";
+				}
+				else{
+					bottom_top_height = rowPos.top + $(this).closest("td").height();
+					triangle_class += "up_";
+				}
+				
+				bottomCorner = rowPos.left;
+				
+				<c:if test="${lang.rtl}">
+					bottomCorner = bottomCorner - $(this).closest("td").width() - 20;
+				</c:if>
+				
+				
+				
+				if (edge_middle == "edge"){
+					triangle_class += "${lang.opDir}";
+					<c:choose>
+					<c:when test="${lang.rtl}">
+						bottomCorner = bottomCorner + 120;
+					</c:when>
+					<c:otherwise>
+						bottomCorner = bottomCorner - 120;
+					</c:otherwise>
+					</c:choose>
+				}
+				else{
+					triangle_class += "${lang.dir}";
+				}
+				
+				$(".callForProposalsPerDay", $(this).closest("td")).find(".triangle").addClass(triangle_class);
+				
 				$(".callForProposalsPerDay").css({
-			   	 	top: bottomTop,
-			    	left: bottomLeft
+			   	 	top: bottom_top_height,
+			    	left: bottomCorner
 				});
 			}
 		}
+		e.stopPropagation()
 	});	
 	
 	

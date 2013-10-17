@@ -22,30 +22,30 @@
 									<div class="advanced_date">
 										<label for="advanced_date_from"><fmt:message key="${lang.localeId}.website.submissionDatesRange"/></label>
 										<div class="clearfix">
-											<input type="text" name="submissionDateFrom" id="advanced_date_from" class="date" value="${submissionDateFrom}" placeholder="מתאריך"/>
+											<input type="text" name="submissionDateFrom" id="advanced_date_from" class="date" value="${submissionDateFrom}" placeholder="<fmt:message key="${lang.localeId}.website.placeholder.from_date"/>"/>
 											<a href="#" class="advanced_cal" id="advanced_cal_from"></a>
 											<span class="advanced_date_sep">-</span>
-											<input type="text" name="submissionDateTo" id="advanced_date_to" class="date" value="${submissionDateTo}" placeholder="עד תאריך"/>
+											<input type="text" name="submissionDateTo" id="advanced_date_to" class="date" value="${submissionDateTo}" placeholder="<fmt:message key="${lang.localeId}.website.placeholder.to_date"/>"/>
 											<a href="#" class="advanced_cal" id="advanced_cal_to"></a>
 										</div>
 									</div>
 								</div>
 								<div class="clearfix checks mar_15">
 									<div class="check">
-										<div class="checkbox_box">
-											<input style="display: none"type="checkbox" name="searchByAllYear" id="searchByAllYear" class="styled" <c:if test="${!searchByAllYear}">checked="true"</c:if> />
+										<div class="checkbox_box search_by_all_year" check-value="${searchByAllYear}">
+											
 										</div>
 										<label><fmt:message key="${lang.localeId}.website.allYearSubmission"/></label>
 									</div>
 									<div class="check">
-										<div class="checkbox_box">
-											<input style="display: none" type="checkbox" name="searchOpen" id="searchOpen" value="searchOpen" class="styled" <c:if test="${!searchOpen}">checked="true"</c:if> />
+										<div class="checkbox_box search_open" check-value="${searchOpen}">
+											
 										</div>
 										<label><fmt:message key="${lang.localeId}.website.openForSubmission"/></label>
 									</div>
 									<div class="check">
-										<div class="checkbox_box">
-											<input style="display: none" type="checkbox" name="searchExpired" id="searchExpired" class="styled" <c:if test="${!searchExpired}">checked="true"</c:if>/>
+										<div class="checkbox_box search_expired" check-value="${searchExpired}">
+											
 										</div>
 										<label><fmt:message key="${lang.localeId}.website.expired"/></label>
 									</div>
@@ -103,7 +103,7 @@
 											<label><fmt:message key="${lang.localeId}.website.selectAll"/></label>
 										</div>
 										<div class="check check_only">
-											<div class="checkbox_box" check-value="false">
+											<div class="checkbox_box only_all_subjects" check-value="${searchByAllSubjects}">
 												
 											</div>
 											<label><fmt:message key="${lang.localeId}.website.showCallsWithAllSubjects"/></label>
@@ -111,9 +111,6 @@
 									</div>
 								</div>
 								<div class="clearfix scrollbox">
-									<div class="scroll_bar">
-										<div class="scroll_arrow"></div>
-									</div>
 									<div class="scroll_content">
 										<div class="clearfix mar_10">
 										<c:forEach items="${rootSubject.subSubjectsBeans}" var="subject" varStatus="varStatus">		
@@ -157,7 +154,7 @@
 						<div class="clearfix mar_20">
 							<div class="kol search_result">
 								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_megaphone_${lang.dir}.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
 									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if></h3>
 								</div>
    								<c:choose>

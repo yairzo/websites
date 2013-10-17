@@ -136,25 +136,19 @@ $(document).ready(function() {
 		else
 			$("#form").append("<input type=\"hidden\" name=\"fundId\" value=\""+$("#fundId").val() +"\"/>");
 
-		if($("#searchOpen").prop('checked')== true)
-			$("#form").append("<input type=\"hidden\" name=\"open\" value=\"false\"/>");
-		else
-			$("#form").append("<input type=\"hidden\" name=\"open\" value=\"true\"/>");
+		
+		var search_open_value = $(".search_open").attr('check-value');
+		$("#form").append("<input type=\"hidden\" name=\"open\" value=\"" + search_open_value +"\"/>");
+		
+		var search_expired_value = $(".search_expired").attr('check-value');
+		$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"" + search_expired_value +"\"/>");
+		
+		var search_by_all_year_value = $(".search_by_all_year").attr('check-value');
+		$("#form").append("<input type=\"hidden\" name=\"allYear\" value=\"" + search_by_all_year_value +"\"/>");
 
-		if($("#searchExpired").prop('checked')== true)
-			$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"false\"/>");
-		else
-			$("#form").append("<input type=\"hidden\" name=\"expired\" value=\"true\"/>");
-
-		if($("#searchByAllYear").prop('checked')== true)
-			$("#form").append("<input type=\"hidden\" name=\"allYear\" value=\"false\"/>");
-		else
-			$("#form").append("<input type=\"hidden\" name=\"allYear\" value=\"true\"/>");
-
-		if($("#searchByAllSubjects").prop('checked')== true)
-			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"false\"/>");
-		else
-			$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"true\"/>");
+		var only_all_subjects_value = $(".only_all_subjects").attr('check-value');
+		$("#form").append("<input type=\"hidden\" name=\"allSubjects\" value=\"" + only_all_subjects_value +"\"/>");
+		
 
 		var ids="";
 		$('.selectSubSubject').each(function(){
@@ -257,6 +251,10 @@ $(document).ready(function() {
 			$(this).removeClass("checkboxPartial");
 			$(this).addClass("checkboxUnchecked");
 		}
+		$(".only_all_subjects").attr("check-value", "false");
+		$(".only_all_subjects").removeClass("checkboxChecked");
+		$(".only_all_subjects").addClass("checkboxUnchecked");
+		$(".only_all_subjects").attr("check-value", "false");
 		e.stopPropagation();
 	});
 	
@@ -280,19 +278,56 @@ $(document).ready(function() {
 			$(this).parent().prev().prev().removeClass("checkboxChecked");
 			$(this).parent().prev().prev().removeClass("checkboxPartial");
 			$(this).parent().prev().prev().addClass("checkboxUnchecked");
+			$(this).attr("check-value","false");
 			
 		}
 		else if (num_checked_sub_subjects < num_sub_subjects){
 			$(this).parent().prev().prev().removeClass("checkboxChecked");
 			$(this).parent().prev().prev().removeClass("checkboxUnchecked");
-			$(this).parent().prev().prev().addClass("checkboxPartial");		
+			$(this).parent().prev().prev().addClass("checkboxPartial");
+			$(this).attr("check-value","true");
 		}
 		else{
 			$(this).parent().prev().prev().removeClass("checkboxUnchecked");
 			$(this).parent().prev().prev().removeClass("checkboxPartial");
-			$(this).parent().prev().prev().addClass("checkboxChecked");			
-		}		
+			$(this).parent().prev().prev().addClass("checkboxChecked");
+			$(this).attr("check-value","true");
+		}
+		$(".only_all_subjects").attr("check-value", "false");
+		$(".only_all_subjects").removeClass("checkboxChecked");
+		$(".only_all_subjects").addClass("checkboxUnchecked");
+		$(".only_all_subjects").attr("check-value", "false");
 		e.stopPropagation();
+	});
+	
+	$(".only_all_subjects").click(function(){
+		if ($(this).attr("check-value") == "false"){
+			$('.selectSubSubject').each(function(){
+				$(this).attr("check-value", false);
+				$(this).removeClass("checkboxCheckedSub");
+				$(this).addClass("checkboxUncheckedSub");
+			});
+			$('.selectSubject').each(function(){
+				$(this).attr("check-value", false);
+				$(this).removeClass("checkboxChecked");
+				$(this).removeClass("checkboxPartial");
+				$(this).addClass("checkboxUnchecked");
+			});
+			
+			$(".select_all").attr("check-value", "false");
+			$(".select_all").removeClass("checkboxChecked");
+			$(".select_all").addClass("checkboxUnchecked");
+			
+			$(this).attr("check-value", "true");
+			$(this).removeClass("checkboxUnchecked");
+			$(this).addClass("checkboxChecked");
+		}
+		else{
+			$(this).attr("check-value", "false");
+			$(this).removeClass("checkboxChecked");
+			$(this).addClass("checkboxUnchecked");
+		}
+		
 	});
 	
 	$(".select_all").click(function(){
@@ -328,7 +363,68 @@ $(document).ready(function() {
 			$(this).removeClass("checkboxChecked");
 			$(this).addClass("checkboxUnchecked");
 		}
+		$(".only_all_subjects").attr("check-value", "false");
+		$(".only_all_subjects").removeClass("checkboxChecked");
+		$(".only_all_subjects").addClass("checkboxUnchecked");
+		$(".only_all_subjects").attr("check-value", "false");
 	}); 
+	
+	$(".search_by_all_year").click(function(){
+		if ($(this).attr("check-value") == "false"){
+			$(this).attr("check-value", "true");
+			$(this).removeClass("checkboxUnchecked");
+			$(this).addClass("checkboxChecked");
+			$(".search_open").attr("check-value","false");
+			$(".search_open").removeClass("checkboxChecked");
+			$(".search_open").addClass("checkboxUnchecked");
+			$(".search_expired").attr("check-value","false");
+			$(".search_expired").removeClass("checkboxChecked");
+			$(".search_expired").addClass("checkboxUnchecked");
+		}
+		else{
+			$(this).attr("check-value", "false");
+			$(this).removeClass("checkboxChecked");
+			$(this).addClass("checkboxUnchecked");			
+		}			
+	});
+	
+	$(".search_open").click(function(){
+		if ($(this).attr("check-value") == "false"){
+			$(this).attr("check-value", "true");
+			$(this).removeClass("checkboxUnchecked");
+			$(this).addClass("checkboxChecked");
+			$(".search_by_all_year").attr("check-value","false");
+			$(".search_by_all_year").removeClass("checkboxChecked");
+			$(".search_by_all_year").addClass("checkboxUnchecked");
+			$(".search_expired").attr("check-value","false");
+			$(".search_expired").removeClass("checkboxChecked");
+			$(".search_expired").addClass("checkboxUnchecked");
+		}
+		else{
+			$(this).attr("check-value", "false");
+			$(this).removeClass("checkboxChecked");
+			$(this).addClass("checkboxUnchecked");			
+		}			
+	});
+	
+	$(".search_expired").click(function(){
+		if ($(this).attr("check-value") == "false"){
+			$(this).attr("check-value", "true");
+			$(this).removeClass("checkboxUnchecked");
+			$(this).addClass("checkboxChecked");
+			$(".search_open").attr("check-value","false");
+			$(".search_open").removeClass("checkboxChecked");
+			$(".search_open").addClass("checkboxUnchecked");
+			$(".search_by_all_year").attr("check-value","false");
+			$(".search_by_all_year").removeClass("checkboxChecked");
+			$(".search_by_all_year").addClass("checkboxUnchecked")
+		}
+		else{
+			$(this).attr("check-value", "false");
+			$(this).removeClass("checkboxChecked");
+			$(this).addClass("checkboxUnchecked");			
+		}			
+	});
 
 });
 
@@ -348,21 +444,55 @@ $(window).load(function(){
 		if (num_checked_sub_subjects == 0){			
 			$(this).removeClass("checkboxChecked");
 			$(this).removeClass("checkboxPartial");
-			$(this).addClass("checkboxUnchecked");			
+			$(this).addClass("checkboxUnchecked");
+			$(this).attr("check-value","false");
 		}
 		else if (num_checked_sub_subjects > 0 && num_checked_sub_subjects < num_sub_subjects){			
 			$(this).removeClass("checkboxChecked");
 			$(this).removeClass("checkboxUnchecked");
-			$(this).addClass("checkboxPartial");		
+			$(this).addClass("checkboxPartial");
+			$(this).attr("check-value","true");
 		}
 		else{
 			$(this).removeClass("checkboxUnchecked");
 			$(this).removeClass("checkboxPartial");
-			$(this).addClass("checkboxChecked");			
+			$(this).addClass("checkboxChecked");
+			$(this).attr("check-value","true");
 		}
 	});
 	
 	$('select').show();
+	if ($(".only_all_subjects").attr("check-value") == "true"){
+		$(".only_all_subjects").removeClass("checkboxUnchecked");
+		$(".only_all_subjects").addClass("checkboxChecked");		
+	}
+	else{
+		$(".only_all_subjects").addClass("checkboxUnchecked");
+	}
+	
+	if ($(".search_by_all_year").attr("check-value") == "true"){
+		$(".search_by_all_year").removeClass("checkboxUnchecked");
+		$(".search_by_all_year").addClass("checkboxChecked");		
+	}
+	else{
+		$(".search_by_all_year").addClass("checkboxUnchecked");
+	}
+	
+	if ($(".search_open").attr("check-value") == "true"){
+		$(".search_open").removeClass("checkboxUnchecked");
+		$(".search_open").addClass("checkboxChecked");		
+	}
+	else{
+		$(".search_open").addClass("checkboxUnchecked");
+	}
+	
+	if ($(".search_expired").attr("check-value") == "true"){
+		$(".search_expired").removeClass("checkboxUnchecked");
+		$(".search_expired").addClass("checkboxChecked");		
+	}
+	else{
+		$(".search_expired").addClass("checkboxUnchecked");
+	}
 });
 
 
