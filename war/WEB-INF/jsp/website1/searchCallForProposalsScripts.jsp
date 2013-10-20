@@ -503,6 +503,7 @@ function handleData(data) {
 	var pTop = ($(window).height() - $(".popup_placeholder").height())/2;
 	var pLft = ($(window).width() - 600)/2;
 	$(".popup_placeholder").css({
+		zIndex:100,
     	position: 'fixed',
     	left: pLft,
     	top: pTop

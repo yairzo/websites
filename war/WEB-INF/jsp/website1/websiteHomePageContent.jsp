@@ -84,11 +84,8 @@
 				<div class="side">
 					<h3 class="board_title"><fmt:message key="${lang.localeId}.website.callForProposalCalendar"/></h3>
 					<div class="board_calendar">
-						<div class="date"></div>
-						<div class="callForProposalsPerDay callForProposalsPerDayHomePage" style="display:none;">
-							<div class="clearfix"></div>
-							<div class="triangle"></div>
-						</div>
+						<div class="homePageCalendar"></div>
+						
 						<a href="#" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
 						<div class="board_search">
 							<h3><fmt:message key="${lang.localeId}.website.search"/></h3>

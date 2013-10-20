@@ -23,6 +23,22 @@
 			
 			
 			$(document).ready(function() {
+				$.get('callForProposalCalendar.html?h=1', function(data) {
+					$("div.homePageCalendar").html(data);
+			 	});
+
+				$('.homePageCalendar').on('click','.ui-datepicker-prev',function(e){
+					e.preventDefault();
+					$.get('callForProposalCalendar.html?h=1&action=prevMonth', function(data) {
+						$("div.homePageCalendar").html(data);
+				 	});
+				});
+				$('.homePageCalendar').on('click','.ui-datepicker-next',function(e){
+					e.preventDefault();
+					$.get('callForProposalCalendar.html?h=1&action=nextMonth', function(data) {
+						$("div.homePageCalendar").html(data);
+				 	});
+				});
 				
 				$(document).click(function(){
 					$('.callForProposalsPerDay').hide();
@@ -42,82 +58,76 @@
 				
 				
 				
-				var daysWithFunds=[${daysWithFunds}];
+			
 
-				$(function() {
-			        $.datepicker.regional['he'] = {
-			            closeText: 'סגור',
-			            prevText: '&#x3c;הקודם',
-			            nextText: 'הבא&#x3e;',
-			            currentText: 'היום',
-			            monthNames: ['ינואר','פברואר','מרץ','אפריל','מאי','יוני',
-			            'יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'],
-			            monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
-			            dayNames: ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'],
-			            dayNamesShort: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
-			            dayNamesMin: ['א\'','ב\'','ג\'','ד\'','ה\'','ו\'','ש\''],
-			            weekHeader: 'Wk',
-			            dateFormat: 'yy-mm-dd',
-			            firstDay: 0,
-			            isRTL: false,
-			            showMonthAfterYear: false,
-			            yearSuffix: ''
-			        };
-			        if(${lang.localeId=='iw_IL'}){
-			        	$.datepicker.setDefaults($.datepicker.regional['he']);
-			        	$(".date").datepicker("refresh");
-			        }
-			    });
-				
-				
-				$(function () {
-					$(".date").datepicker({dateFormat: 'yy-mm-dd',
-						onChangeMonthYear: function(year, month) {
-							$.ajax({url:'homePageCalendar.html?type=changeMonth&month='+month+'&year='+year,
-								async: false,
-								success:function(data) {
-								    daysWithFunds = data.split(',');
-								    for(var i=0; i<daysWithFunds.length; i++){
-								    	daysWithFunds[i] = parseInt(daysWithFunds[i], 10);
-								    } 						
-							 	}
-							 });
-							setTimeout(function() {
-								 $('.ui-state-hover').removeClass('ui-state-hover');	
-							}, 1);
-						},
-						beforeShowDay: function(date){
-							return [true, daysWithFunds.indexOf(date.getDate())>-1 ? 'dayWithFund' : ''];
+				$('.homePageCalendar').on('click','.viewAll',function(e) {
+					e.stopPropagation();
+					e.preventDefault();
+					if($(".callForProposalsPerDay", $(this).closest("td")).css('display')=='block')
+						$(".callForProposalsPerDay").hide();
+					else{
+						$(".callForProposalsPerDay").hide();
+						if(jQuery.trim($(".clearfix", $(this).closest("td")).html())){			
+							$(".callForProposalsPerDay", $(this).closest("td")).show();
+							
+							var top_bottom = $(".callForProposalsPerDay", $(this).closest("td")).attr('class');
+							top_bottom = top_bottom.split(' ')[1];
+							var edge_middle = $(".callForProposalsPerDay", $(this).closest("td")).attr('class');
+							edge_middle = edge_middle.split(' ')[2];
+							
+							var rowPos = $(this).closest("td").position();
+							
+							var triangle_class = "triangle_";
+							
+							if (top_bottom == "bottom"){
+								bottom_top_height = rowPos.top - $(".callForProposalsPerDay", $(this).closest("td")).height();
+								triangle_class += "down_";
+							}
+							else{
+								bottom_top_height = rowPos.top + $(this).closest("td").height();
+								triangle_class += "up_";
+							}
+							
+							bottomCorner = rowPos.left;
+							
+							<c:if test="${lang.rtl}">
+								bottomCorner = bottomCorner - $(this).closest("td").width() - 20;
+							</c:if>
+							
+							
+							
+							if (edge_middle == "edge"){
+								triangle_class += "${lang.opDir}";
+								<c:choose>
+								<c:when test="${lang.rtl}">
+									bottomCorner = bottomCorner + 120;
+								</c:when>
+								<c:otherwise>
+									bottomCorner = bottomCorner - 120;
+								</c:otherwise>
+								</c:choose>
+							}
+							else{
+								triangle_class += "${lang.dir}";
+							}
+							
+							$(".callForProposalsPerDay", $(this).closest("td")).find(".triangle").addClass(triangle_class);
+							
+							$(".callForProposalsPerDay").css({
+						   	 	top: bottom_top_height,
+						    	left: bottomCorner
+							});
 						}
-					});	
-					
-					$('.ui-state-hover').removeClass('ui-state-hover');	
-					
-				});			
+					}
+					e.stopPropagation()
+				});	
 				
 				
-				$(".date").change(function(e){					
-					$.get('homePageCalendar.html?type=callForProposalsPerDay&date='+$(this).val(), function(data) {
-						$(".callForProposalsPerDay").html(
-								"<div class=\"clearfix\">"+data+"</div><div class=\"triangle\"></div>");
-						console.log(data.length);
-						var height = $(".callForProposalsPerDay").height();
-						$(".callForProposalsPerDay").css('top',-(height/2));
-												
-						if(jQuery.trim(data)){
-							$('.callForProposalsPerDay').show();							
-						}
-						else{
-							$('.callForProposalsPerDay').hide();
-						}						
-				 	});					
-				});
-				
-				$(".callForProposalsPerDay").on("click", ".viewProposal", function(e) {
+				$('.homePageCalendar').on('click','.viewProposal',function(e) {
 					e.preventDefault();
 					var proposalId=$(this).attr("id");	
 					window.open('callForProposal.html?id='+proposalId+'&t=1');
-				});	
+				});
 				
 				$(".messagePage").click(function(e){
 					e.preventDefault();

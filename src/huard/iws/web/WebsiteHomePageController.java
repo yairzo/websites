@@ -2,17 +2,24 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
+import huard.iws.model.CallForProposal;
+import huard.iws.model.DayInCalendar;
+import huard.iws.model.Fund;
+import huard.iws.model.FundInDay;
 import huard.iws.model.PageBodyImage;
 import huard.iws.model.TextualPage;
 import huard.iws.service.CallForProposalService;
+import huard.iws.service.FundService;
 import huard.iws.service.PageBodyImageService;
 import huard.iws.service.TextualPageService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.RequestWrapper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,17 +44,6 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		//page title
 		model.put("pageTitle", "");
 		
-		//call for proposal calendar
-	    int year = Calendar.getInstance().get(Calendar.YEAR);  
-	    int month = Calendar.getInstance().get(Calendar.MONTH)+1; //zero-based 		
-		StringBuilder sb = new StringBuilder();
-	    List<Integer> daysWithFunds = callForProposalService.getDaysWithFunds(String.valueOf(month),String.valueOf(year));
-		for (Integer day: daysWithFunds){
-			sb.append(day+",");
-		}
-		if(sb.length()>1)
-			sb.deleteCharAt(sb.length()-1);
-		model.put("daysWithFunds", sb.toString());
 
 		//messages
 		List<TextualPage> textualPages = textualPageService.getOnlineMessagesRolling();
@@ -101,4 +97,6 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 			PageBodyImageService pageBodyImageService) {
 		this.pageBodyImageService = pageBodyImageService;
 	}	
+	
+
 }

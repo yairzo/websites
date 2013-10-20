@@ -224,6 +224,7 @@ war/WEB-INF/jsp/website1/callForProposalContent.jsp svn_mime_002dtype=text%2Fpla
 war/WEB-INF/jsp/website1/callForProposalPopupContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website1/callForProposalScripts.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website1/generalTemplate.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/website1/homePageCalendarContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website1/location.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website1/messagesContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website1/messagesScripts.jsp svn_mime_002dtype=text%2Fplain

@@ -66,6 +66,9 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 			request.getSession().setAttribute("month", month);
 			year = now.get(Calendar.YEAR);
 			request.getSession().setAttribute("year", year);
+			int today=now.get(Calendar.DAY_OF_MONTH);
+			request.getSession().setAttribute("today", today);
+			
 		}
 
 		//get call for proposals for month
@@ -140,10 +143,14 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		model.put("calendarList", shortCalendarList);
 		model.put("month", request.getSession().getAttribute("month"));
 		model.put("year", request.getSession().getAttribute("year"));
+		model.put("today", request.getSession().getAttribute("today"));
 
 		long lastUpdateTime = callForProposalService.getCallForProposalsLastUpdate().getTime();
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 
+		if(request.getParameter("h", "").equals("1"))
+			return new ModelAndView ("homePageCalendar",model);
+		
 		if(request.getParameter("t", "").equals("1"))
 			return new ModelAndView ("callForProposalCalendar1",model);
 		else if(request.getParameter("t", "").equals("0"))

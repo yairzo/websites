@@ -16,7 +16,16 @@
 				$(".popup_search_financing").addClass("popup_search_financing_hebrew");
 				
 			}
+
+			if($('div.popup_sum').html().length>1500){
+				var cutHtml=$('div.popup_sum').html();
+				cutHtml = cutHtml.substr(0,1500)+"...";
+				$('div.popup_sum').html(cutHtml);
+			}
+
+			
 		});
+
 
 		</script>
 		<div class="popup">
