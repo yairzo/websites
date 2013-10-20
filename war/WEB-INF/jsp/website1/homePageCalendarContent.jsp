@@ -26,25 +26,12 @@
 							 	</c:if>
 								<c:if test="${month==calendarDay.monthOnly}">
 							   	<td class="<c:if test="${fn:length(calendarDay.fundsInDay)>0}">dayWithFund</c:if>  <c:if test="${calendarDay.dayOnly==today}">ui-datepicker-today</c:if>">
-							   		<a href="#" class="ui-state-default viewAll" >${calendarDay.dayOnly}
+							   		<a href="#" class="ui-state-default viewAll" >${calendarDay.dayOnly} 
 		   							</a>
-        							<c:set var="atTop" value="bottom"/>
-        							<c:set var="atEdge" value="middle"/>
         							
-        							<c:if test="${varStatus.index < 7}">
-        								<c:set var="atTop" value="top"/>
-        							</c:if>
-        							<c:if test="${(varStatus.index+1)%7==6 || (varStatus.index+1)%7==0}">
-        								<c:set var="atEdge" value="edge"/>
-        							</c:if>
-        							
-        							<div class="callForProposalsPerDay callForProposalsPerDayHomePage ${atTop} ${atEdge}" style="display:none">
-	        							<c:if test="${varStatus.index<7}">
-	        								<div class="triangle"></div>
-	        							</c:if>		
-										
+        							<div class="callForProposalsPerDay callForProposalsPerDayHomePage" style="display:none">
+									
 										<div class="clearfix">
-
 										<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay" varStatus="varStatusFund">
 											<h4>${fundInDay.fundShortName}</h4>
   											<c:forEach items="${fundInDay.callForProposals}" var="callForProposal">
@@ -53,10 +40,7 @@
         									<br>
         								</c:forEach>
 										</div>
-										
-										<c:if test="${varStatus.index>7}">
-											<div class="triangle"></div>
-										</c:if>
+										<div class="triangle"></div>
 									</div>
  								</td>
  								</c:if>

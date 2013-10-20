@@ -67,49 +67,28 @@
 						$(".callForProposalsPerDay").hide();
 					else{
 						$(".callForProposalsPerDay").hide();
-						if(jQuery.trim($(".clearfix", $(this).closest("td")).html())){			
+						if(jQuery.trim($(".clearfix", $(this).closest("td")).html())){	
 							$(".callForProposalsPerDay", $(this).closest("td")).show();
-							
-							var top_bottom = $(".callForProposalsPerDay", $(this).closest("td")).attr('class');
-							top_bottom = top_bottom.split(' ')[1];
-							var edge_middle = $(".callForProposalsPerDay", $(this).closest("td")).attr('class');
-							edge_middle = edge_middle.split(' ')[2];
-							
+						
 							var rowPos = $(this).closest("td").position();
+							bottom_top_height = rowPos.top - $(".callForProposalsPerDay", $(this).closest("td")).height();
 							
-							var triangle_class = "triangle_";
-							
-							if (top_bottom == "bottom"){
-								bottom_top_height = rowPos.top - $(".callForProposalsPerDay", $(this).closest("td")).height();
-								triangle_class += "down_";
-							}
-							else{
-								bottom_top_height = rowPos.top + $(this).closest("td").height();
-								triangle_class += "up_";
-							}
+							var triangle_class = "triangle_down_";
 							
 							bottomCorner = rowPos.left;
 							
 							<c:if test="${lang.rtl}">
 								bottomCorner = bottomCorner - $(this).closest("td").width() - 20;
 							</c:if>
-							
-							
-							
-							if (edge_middle == "edge"){
-								triangle_class += "${lang.opDir}";
-								<c:choose>
-								<c:when test="${lang.rtl}">
-									bottomCorner = bottomCorner + 120;
-								</c:when>
-								<c:otherwise>
-									bottomCorner = bottomCorner - 120;
-								</c:otherwise>
-								</c:choose>
-							}
-							else{
-								triangle_class += "${lang.dir}";
-							}
+							triangle_class += "${lang.opDir}";
+							<c:choose>
+							<c:when test="${lang.rtl}">
+								bottomCorner = bottomCorner + 20;
+							</c:when>
+							<c:otherwise>
+								bottomCorner = bottomCorner - 170;
+							</c:otherwise>
+							</c:choose>
 							
 							$(".callForProposalsPerDay", $(this).closest("td")).find(".triangle").addClass(triangle_class);
 							

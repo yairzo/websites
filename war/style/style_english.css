@@ -821,8 +821,7 @@ border:0 !important;
 }
 
 .board_calendar .ui-datepicker .ui-datepicker-next{
-right: 0;
-left: 15px;
+right: 15px;
 background:url(../image/website1/board_r.png) no-repeat top !important;
 }
 
