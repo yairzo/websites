@@ -71,7 +71,7 @@ public class OrganizationUnitListController extends GeneralFormController {
 			  itemsInPage);
 
 		List<OrganizationUnit> organizationUnits = organizationUnitService.getOrganizationUnitsPage(command.getListView(),
-				command.getSearchCreteria(),	 itemsInPage);
+				command.getSearchCreteria(), itemsInPage);
 
 		List<OrganizationUnitBean> organizationUnitBeans = new ArrayList<OrganizationUnitBean>();
 		for (OrganizationUnit organizationUnit: organizationUnits){
@@ -81,9 +81,9 @@ public class OrganizationUnitListController extends GeneralFormController {
 
 		model.put("organizationUnits", organizationUnitBeans);
 
-		List<OrganizationUnit> allOrganizationUnits = organizationUnitService.getOrganizationUnits();
+		//List<OrganizationUnit> allOrganizationUnits = organizationUnitService.getOrganizationUnits();
 
-		model.put("allOrganizationUnits", allOrganizationUnits);
+		//model.put("allOrganizationUnits", allOrganizationUnits);
 
 		return new ModelAndView ("organizationUnitList", model);
 	}

@@ -81,7 +81,7 @@ $(document).ready(function() {
 							שם בעיברית
 						</td>
 						<td>
-							<form:input cssClass="green" path="nameHebrew"/>
+							<form:input cssClass="green" htmlEscape="true" path="nameHebrew"/>
 						</td>
 					</tr>
 					<tr>

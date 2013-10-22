@@ -55,7 +55,8 @@ public class SearchCreteria {
 		this.searchField = searchField;
 	}
 	public String getSearchPhrase() {
-		return searchPhrase;
+		
+		return SQLUtils.toSQLString(searchPhrase);
 	}
 	public void setSearchPhrase(String searchPhrase) {
 		this.searchPhrase = searchPhrase;

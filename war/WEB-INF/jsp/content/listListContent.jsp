@@ -173,7 +173,7 @@ $("#searchPhrase").focus();
 
 		<td>
            <authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
-            <a style="text-decoration: none" href="list.html"><button class="grey">הוסף</button></a>
+ 			<button class="buttonAdd grey">הוסף</button>
 			<button class="buttonEdit grey"/>ערוך</button>
 			<button class="buttonDelete grey"/>מחק</button>
 			<button class="buttonCopy grey"/>שכפל</button>

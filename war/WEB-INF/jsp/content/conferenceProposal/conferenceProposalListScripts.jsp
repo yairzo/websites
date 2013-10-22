@@ -12,18 +12,17 @@
 <script>
 function resetAutocomplete(persons){		
 	$("#searchPhrase").autocomplete( 
-			{source: persons,
+			{ source: 'selectBoxFiller?type=conference researchers',
 			 minLength: 2,
-			 highlight: true,
+			 highlight: true,				 
 			 select: function(event, ui) {
-				 
-				$("input#listViewPage").remove();
-				$("input#orderBy").remove();
-				$("#searchPhrase").val(ui.item.value);
-				event.preventDefault();					
-				$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
-				$("#form").submit();				 
-			 }
+					$("input#listViewPage").remove();
+					$("input#orderBy").remove();
+					$("#searchPhrase").val(ui.item.value);
+					event.preventDefault();					
+					$("#form").append("<input type=\"hidden\" name=\"action\" value=\"search\"/>");
+					$("#form").submit();				 
+				 }
 		    }
 	);
 }
@@ -94,13 +93,9 @@ $(document).ready(function() {
     
     $("#searchPhrase").click(function(){
     	cleanSearch();
+       	resetAutocomplete();
     });
     
-    $.get('selectBoxFiller',{type:'conference researchers'},function(data){
-		var persons = data.split(",,");
-		resetAutocomplete(persons);
-		$("#searchPhrase").focus();
- 	});
     
     $("#searchByApprover").change(function(){
     	$("#searchPhrase").empty();

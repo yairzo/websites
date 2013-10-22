@@ -1,5 +1,4 @@
 var searchPhrase = '${command.searchCreteria.searchPhrase}';
-searchPhrase = searchPhrase.replace("'","\\\'");
 
 $(".rewindToFirst").click(function(){
 

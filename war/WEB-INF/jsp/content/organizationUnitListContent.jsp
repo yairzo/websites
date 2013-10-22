@@ -20,7 +20,7 @@
 
 <script language="Javascript">
 
-var organizationUnits = "<c:forEach items="${allOrganizationUnits}" var="organizationUnit"><c:out escapeXml="false" value="${organizationUnit.nameHebrew}"/>;;</c:forEach>".split(";;");
+//var organizationUnits = "<c:forEach items="${allOrganizationUnits}" var="organizationUnit"><c:out escapeXml="false" value="${organizationUnit.nameHebrew}"/>;;</c:forEach>".split(";;");
 
 function resetAutocomplete(organizationUnits){
 	$("#searchPhrase").autocomplete( 
@@ -38,7 +38,15 @@ function resetAutocomplete(organizationUnits){
 	);
 }
 $(document).ready(function() {
+	
 
+    $.get('selectBoxFiller',{type:'organizationUnit'},function(data){
+		var organizationUnits = data.split(",,");
+		resetAutocomplete(organizationUnits);
+		$("#searchPhrase").focus();
+ 	});
+    
+    
 	$(".buttonEdit").click(function(){
 	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"edit\"/>");
     $("#form").submit();
@@ -79,12 +87,6 @@ $(document).ready(function() {
     });
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
-
-
-
- 	resetAutocomplete(organizationUnits);
- 	$("#searchPhrase").focus();
-
 
 
 });
@@ -153,7 +155,7 @@ $(document).ready(function() {
 
 		<td>
            <authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
-            <a style="text-decoration: none" href="organizationUnit.html?action=open"><button class="grey">הוסף</button></a>
+            <button class="grey" onclick="window.location='organizationUnit.html?action=open';return false;">הוסף</button>
 			<button class="buttonEdit grey"/>ערוך</button>
 			<button class="buttonDelete grey"/>מחק</button>
 			</authz:authorize>
@@ -192,7 +194,7 @@ $(document).ready(function() {
 	    <tr>
 	    <td>
            <authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
-            <a style="text-decoration: none" href="list.html"><button class="grey">הוסף</button></a>
+             <button class="grey" onclick="window.location='organizationUnit.html?action=open';return false;">הוסף</button>
 			<button class="buttonEdit grey"/>ערוך</button>
 			<button class="buttonDelete grey"/>מחק</button>
 			</authz:authorize>

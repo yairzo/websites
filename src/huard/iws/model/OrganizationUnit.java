@@ -18,7 +18,7 @@ public class OrganizationUnit {
 
 
 	public void prepareForView(){
-		if (nameHebrew!=null) nameHebrew = nameHebrew.replaceAll("\"", "&quot;");
+		//if (nameHebrew!=null) nameHebrew = nameHebrew.replaceAll("\"", "&quot;");
 		if (nameEnglish!=null) nameEnglish = nameEnglish.replaceAll("\"", "&quot;");
 		if (address!=null) address = address.replaceAll("\"", "&quot;");
 	}

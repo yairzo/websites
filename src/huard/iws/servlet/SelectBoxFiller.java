@@ -23,6 +23,7 @@ import huard.iws.util.ListView;
 import huard.iws.util.UserPersonUtils;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -222,7 +223,7 @@ public class SelectBoxFiller extends HttpServlet {
 			}
 			sb.append("]");
 
-			ServletOutputStream out = response.getOutputStream();
+			PrintWriter out = response.getWriter();
 			out.print(sb.toString());
 			out.flush();
 			out.close();
@@ -240,7 +241,7 @@ public class SelectBoxFiller extends HttpServlet {
 				sb.append(listItem + ",,");
 			}
 			sb.delete(sb.length()-2, sb.length());
-			ServletOutputStream out = response.getOutputStream();
+			PrintWriter out = response.getWriter();
 			out.print(sb.toString());
 			out.flush();
 			out.close();
@@ -265,13 +266,13 @@ public class SelectBoxFiller extends HttpServlet {
 				sb.append(listItem);
 			}
 			sb.append("]");
-			ServletOutputStream out = response.getOutputStream();
+			PrintWriter out = response.getWriter();
 			out.print(sb.toString());
 			out.flush();
 			out.close();
 		}
 		
-		if (type.equals("organization unit")){
+		if (type.equals("organizationUnit")){
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -281,7 +282,7 @@ public class SelectBoxFiller extends HttpServlet {
 				sb.append(organizationUnit.getNameHebrew() + ",,");
 			}
 			sb.delete(sb.length()-2, sb.length());
-			ServletOutputStream out = response.getOutputStream();
+			PrintWriter out = response.getWriter();
 			out.print(sb.toString());
 			out.flush();
 			out.close();
@@ -301,7 +302,7 @@ public class SelectBoxFiller extends HttpServlet {
 				sb.append(callForProposal.getTitle() + " - " + callForProposal.getId() + ",,");
 			}
 			sb.delete(sb.length()-2, sb.length());
-			ServletOutputStream out = response.getOutputStream();
+			PrintWriter out = response.getWriter();
 			out.print(sb.toString());
 			out.flush();
 			out.close();
@@ -320,7 +321,7 @@ public class SelectBoxFiller extends HttpServlet {
 				sb.append(post.getMessageSubject() + ",,");
 			}
 			sb.delete(sb.length()-2, sb.length());
-			ServletOutputStream out = response.getOutputStream();
+			PrintWriter out = response.getWriter();
 			out.print(sb.toString());
 			out.flush();
 			out.close();

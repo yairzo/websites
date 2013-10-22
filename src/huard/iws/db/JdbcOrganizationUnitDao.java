@@ -4,6 +4,7 @@ import huard.iws.model.OrganizationUnit;
 import huard.iws.model.OrganizationUnitAttribution;
 import huard.iws.model.OrganizationUnit.OrganizationUnitType;
 import huard.iws.util.ListView;
+import huard.iws.util.SQLUtils;
 import huard.iws.util.SearchCreteria;
 
 import java.sql.Connection;
