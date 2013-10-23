@@ -11,7 +11,7 @@
 					
 					<div class="clearfix mar_20">
 						<div class="advanced">
-							<form id="form" action="searchCallForProposals.html?t=1" method="post">
+							<form id="form" action="searchCallForProposals.html" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>
@@ -125,7 +125,7 @@
 												</div>
 												<label class="openSubSubjects">${subject.name}</label>
 												<div style="display: none;" id="${subject.id}Sub" class="subSubjects" style="text-align:${lang.align};direction:${lang.dir}" > 
-                   									<div style="background: url(image/website1/menu_triangle.png) no-repeat scroll top #FFFFFF; height: 12px;">&nbsp;</div>
+                   									<div style="background: url(image/website/menu_triangle.png) no-repeat scroll top #FFFFFF; height: 12px;">&nbsp;</div>
                    								<c:forEach items="${subject.subSubjectsBeans}" var="subSubject">
 													
 													<div class="${subSubject.id} checkbox_box checkbox_box_sub_${lang.dir} selectSubSubject" check-value="${subSubject.checked}">
@@ -147,14 +147,14 @@
 								</div>
 							</form>
 							<div class="clearfix">
-								<a href="search.html?t=1" class="advanced_close"><fmt:message key="${lang.localeId}.website.generalSearch"/></a>
+								<a href="search.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.generalSearch"/></a>
 							</div>
 						</div>
 						
 						<div class="clearfix mar_20">
 							<div class="kol search_result">
 								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_megaphone_${lang.dir}.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website/search_megaphone_${lang.dir}.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
 									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if></h3>
 								</div>
    								<c:choose>

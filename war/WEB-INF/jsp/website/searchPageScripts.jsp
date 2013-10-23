@@ -10,7 +10,7 @@
 				e.preventDefault();
 				var proposalId=$(this).attr("id");	   		
 				$.ajax({
-				    url : 'callForProposal.html?id='+proposalId+'&p=1&t=1',
+				    url : 'callForProposal.html?id='+proposalId+'&p=1',
 				    type: 'GET',
 				    success : handleData
 				 })

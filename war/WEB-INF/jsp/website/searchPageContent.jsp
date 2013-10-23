@@ -10,7 +10,7 @@
 					
 					<div class="clearfix mar_20">
 						<div class="advanced">
-							<form action="search.html?t=1" method="post">
+							<form action="search.html" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>
@@ -23,14 +23,14 @@
 								</div>
 							</form>
 							<div class="clearfix">
-								<a href="searchCallForProposals.html?t=1" class="advanced_close"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
+								<a href="searchCallForProposals.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
 							</div>
 						</div>
 						
 						<div class="clearfix mar_20">
 							<div class="kol_${lang.dir} search_result">
 								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/></h3>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website/search_megaphone.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/></h3>
 								</div>
     							<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
@@ -53,12 +53,12 @@
 							
 							<div class="kol_${lang.dir} search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_balloon.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.website.messages"/></h3>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website/search_balloon.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.website.messages"/></h3>
 								</div>
 								<c:choose>
     							<c:when test="${fn:length(textualMessages) > 0}">
 								<c:forEach items="${textualMessages}" var="textualMessage" varStatus="varStatus">
-								<a href="textualPage.html?id=${textualMessage.id}&t=1" class="search_content">
+								<a href="textualPage.html?id=${textualMessage.id}" class="search_content">
 									<span class="clearfix">${textualMessage.title}</span>
 									<span class="clearfix search_icons">
 										<span class="search_from"><fmt:message key="${lang.localeId}.website.by"/> <strong>${textualMessage.creator.degreeFullNameHebrew }</strong></span>
@@ -75,12 +75,12 @@
 							<c:if test="${!textualPagesIsDefault}">
 							<div class="kol_${lang.dir} search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="image/website1/search_text.png" alt="" /> &nbsp; <fmt:message key="${lang.localeId}.website.textualPagesList"/></h3>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website/search_text.png" alt="" /> &nbsp; <fmt:message key="${lang.localeId}.website.textualPagesList"/></h3>
 								</div>
 								<c:choose>
     							<c:when test="${fn:length(textualPages) > 0}">
 								<c:forEach items="${textualPages}" var="textualPage" varStatus="varStatus">
-								<a href="textualPage.html?id=${textualPage.id}&t=1" class="search_content">
+								<a href="textualPage.html?id=${textualPage.id}" class="search_content">
 									<span class="clearfix">${textualPage.title}</span>
 									<span class="clearfix search_icons">
 										<span class="search_info"><fmt:message key="${lang.localeId}.website.generalInfo"/></span>

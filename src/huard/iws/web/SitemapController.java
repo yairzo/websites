@@ -58,13 +58,10 @@ public class SitemapController extends GeneralWebsiteFormController {
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 		
 		
-		if(request.getParameter("t", "").equals("1"))
-			return new ModelAndView ("sitemap1",model);
-		else if(request.getParameter("t", "").equals("0"))
+		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("sitemapStatic",model);
 		else
 			return new ModelAndView ("sitemap",model);		
-		//return new ModelAndView (this.getFormView(),model);
 	}
 
 	protected Object getFormBackingObject(

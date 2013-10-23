@@ -3,7 +3,7 @@
 
 			
 <div class="side sidelinks">
-	<h3 style="background:#04bde5 url(image/website1/icon_links_${lang.dir}.png) no-repeat <c:choose><c:when test="${lang.rtl}">210px</c:when><c:otherwise>20px</c:otherwise></c:choose>"><fmt:message key="${lang.localeId}.website.links"/></h3>
+	<h3 style="background:#04bde5 url(image/website/icon_links_${lang.dir}.png) no-repeat <c:choose><c:when test="${lang.rtl}">210px</c:when><c:otherwise>20px</c:otherwise></c:choose>"><fmt:message key="${lang.localeId}.website.links"/></h3>
 	<ul>
 		<li class="link_research"><a href="#"><fmt:message key="${lang.localeId}.website.researchSystem"/></a></li>
 		<li class="link_budget"><a href="#"><fmt:message key="${lang.localeId}.website.personalBudget"/></a></li>

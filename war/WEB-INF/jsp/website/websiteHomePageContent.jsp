@@ -4,7 +4,7 @@
 				<div class="bx-wrapper pictures_slider_wrapper">
 					<div class="bx-viewport">
 						  <div class="default">
-  								<img width="960" height="340" src="/iws/image/website1/default_home_page_image.jpg"/>
+  								<img width="960" height="340" src="/iws/image/website/default_home_page_image.jpg"/>
 								<div class="bx-caption">
 									<h3><fmt:message key="${lang.localeId}.website.pictureSliderTitle"/></h3>
 									<span> הרשות למחקר ופיתוח</span>										
@@ -20,7 +20,7 @@
 						  				<img width="960" height="340" src="imageViewer?imageId=${image.id}&attachType=bodyImage" />			
 						  			</c:when>
 						  			<c:otherwise>
-						  				<img class="lazy" width="960" height="340" src="/iws/image/website1/default_home_page_image.jpg" data-src="imageViewer?imageId=${image.id}&attachType=bodyImage" />
+						  				<img class="lazy" width="960" height="340" src="/iws/image/website/default_home_page_image.jpg" data-src="imageViewer?imageId=${image.id}&attachType=bodyImage" />
 						  			</c:otherwise>
 						  		</c:choose>
   								
@@ -51,7 +51,7 @@
 					<div class="mainbox">
 						<div class="title">
 							<h2><fmt:message key="${lang.localeId}.website.latestUpdates"/></h2>
-							<a href="messages.html?t=1"><fmt:message key="${lang.localeId}.website.allMessages"/></a>
+							<a href="messages.html"><fmt:message key="${lang.localeId}.website.allMessages"/></a>
 						</div>
 						<div class="mainbox_news_wrapper">
 							<div class="mainbox_news" style="direction:ltr">
@@ -89,8 +89,8 @@
 						<a href="#" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
 						<div class="board_search">
 							<h3><fmt:message key="${lang.localeId}.website.search"/></h3>
-							<a href="searchCallForProposals.html?t=1" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
-							<form action="searchCallForProposals.html?t=1" method="post" class="board_form">
+							<a href="searchCallForProposals.html" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
+							<form action="searchCallForProposals.html" method="post" class="board_form">
 								<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
 onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="input_text" />
 								<input type="submit" value="<fmt:message key="${lang.localeId}.website.search"/>" class="input_submit" />

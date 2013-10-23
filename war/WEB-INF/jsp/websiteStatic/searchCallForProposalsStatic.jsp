@@ -22,7 +22,7 @@
 				<nav class="nav">
 					<ul class="menu">
 						<li class="current"><a href="#">עמוד הבית</a></li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">מידע כללי</a>
 							<ul>
 								<li class="menu_drop_top"></li>
@@ -32,29 +32,29 @@
 								<li><a href="#">תת תפריט נוסף</a></li>
 							</ul>
 						</li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">אפשרויות מימון</a></li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">תקנות מחקר</a></li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">העברת טכנולוגיה</a></li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">קישורים</a></li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 					</ul>
 				</nav>
 				<nav class="icons">
 					<ul class="menu">
-						<li><a href="#"><img src="image/website1/menu_icon_heb.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website1/menu_icon_magnifying.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website1/menu_icon_home.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website1/menu_icon_envelope.png" alt="" /></a></li>
+						<li><a href="#"><img src="image/website/menu_icon_heb.png" alt="" /></a></li>
+						<li><a href="#"><img src="image/website/menu_icon_magnifying.png" alt="" /></a></li>
+						<li><a href="#"><img src="image/website/menu_icon_home.png" alt="" /></a></li>
+						<li><a href="#"><img src="image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
 			</div>
         	<div class="container clearfix">
-				<a href="#" class="logo_authority"><img src="image/website1/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></a>
-				<a href="#" class="logo"><img src="image/website1/logo.png" alt="האוניברסיטה העברית בירושלים" /></a>
+				<a href="#" class="logo_authority"><img src="image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></a>
+				<a href="#" class="logo"><img src="image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></a>
 			</div>
         </header>
         <section class="section">
@@ -222,7 +222,7 @@
 						<div class="clearfix mar_20">
 							<div class="kol search_result">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_megaphone.png" alt="" /> &nbsp; קולות קוראים</h3>
+									<h3 class="kol_title"><img src="image/website/search_megaphone.png" alt="" /> &nbsp; קולות קוראים</h3>
 								</div>
 								<a href="#" class="search_content">
 									<span class="clearfix">זוהי כותרת של קול קורא בעברית ומיושרת לימין</span>
@@ -249,7 +249,7 @@
 							
 							<div class="kol search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_balloon.png" alt="" /> &nbsp; הודעות</h3>
+									<h3 class="kol_title"><img src="image/website/search_balloon.png" alt="" /> &nbsp; הודעות</h3>
 								</div>
 								<a href="#" class="search_content">
 									<span class="clearfix">מתן בה קבלו פיסול למחיקה אל פנאי כלכלה זאת פיסיקה בויקיפדיה</span>
@@ -269,7 +269,7 @@
 							
 							<div class="kol search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/search_text.png" alt="" /> &nbsp; עמודי תוכן</h3>
+									<h3 class="kol_title"><img src="image/website/search_text.png" alt="" /> &nbsp; עמודי תוכן</h3>
 								</div>
 								<a href="#" class="search_content">
 									<span class="clearfix">מתן בה קבלו פיסול למחיקה אל פנאי כלכלה זאת פיסיקה בויקיפדיה</span>

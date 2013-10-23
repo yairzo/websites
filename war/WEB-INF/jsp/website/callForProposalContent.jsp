@@ -12,7 +12,7 @@
 						<div class="clearfix mar_20" style="direction: ${copLang.dir}; text-align: ${copLang.align};">
 							<div class="kol open kol_${copLang.dir} general_info">
 								<div class="clearfix">
-									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_i.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.generalInfo"/></h3>
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website/kol_i.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.generalInfo"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
 								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
@@ -40,7 +40,7 @@
 							
 							<div class="kol open kol_${copLang.dir} description">
 								<div class="clearfix">
-									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_details.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.description"/></h3>
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website/kol_details.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.description"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
 								<div class="kol_content kol_content_${copLang.dir}">
@@ -49,14 +49,14 @@
 							</div>
 							
 							<c:if test="${!authorized}">
-							<fmt:message key="${copLang.localeId}.callForProposal.fullDetailsLogin"/> <a href="login.html?ilr=callForProposal.html?id=${command.id}&t=1"> <fmt:message key="${copLang.localeId}.callForProposal.loginLink"/></a>
+							<fmt:message key="${copLang.localeId}.callForProposal.fullDetailsLogin"/> <a href="login.html?ilr=callForProposal.html?id=${command.id}"> <fmt:message key="${copLang.localeId}.callForProposal.loginLink"/></a>
 							</c:if>			
 							
 							<c:if test="${authorized && !command.showDescriptionOnly}">
 							
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
-									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_dolar.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.fundingDetails"/></h3>
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website/kol_dolar.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.fundingDetails"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
 								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
@@ -73,7 +73,7 @@
 							<c:if test="${fn:length(command.formDetails)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
-									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_v.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.forms"/></h3>
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website/kol_v.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.forms"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
 								<div class="kol_content kol_content_${copLang.dir}">
@@ -85,7 +85,7 @@
 							<c:if test="${fn:length(command.submissionDetails)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
-									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_envelope.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.submissionDetails"/></h3>
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website/kol_envelope.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.submissionDetails"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
 								<div class="kol_content kol_content_${copLang.dir}">
@@ -97,7 +97,7 @@
 							<c:if test="${fn:length(command.budgetDetails)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
-									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_chart.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.budgetDetails"/></h3>
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website/kol_chart.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.budgetDetails"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
 								<div class="kol_content kol_content_${copLang.dir}">
@@ -109,7 +109,7 @@
 							<c:if test="${fn:length(callForProposalContacts)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
-									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_man.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.contactPersons"/></h3>
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website/kol_man.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.contactPersons"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
 								<div class="kol_content kol_content_${copLang.dir}">
@@ -136,7 +136,7 @@
 							<c:if test="${fn:length(command.contactPersonDetails)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
-									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_man.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.contactPersonDetails"/></h3>
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website/kol_man.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.contactPersonDetails"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
 								<div class="kol_content kol_content_${copLang.dir}">
@@ -148,7 +148,7 @@
 							<c:if test="${fn:length(command.fundContact)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
-									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_man.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.contactAtFund"/></h3>
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website/kol_man.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.contactAtFund"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
 								<div class="kol_content kol_content_${copLang.dir}">
@@ -160,7 +160,7 @@
 							<c:if test="${fn:length(command.additionalInformation)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">									
-									<h3 class="kol_title_${copLang.dir}"><img src="image/website1/kol_plus.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.additionalInformation"/></h3>
+									<h3 class="kol_title_${copLang.dir}"><img src="image/website/kol_plus.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.additionalInformation"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>									
 								</div>
 								<div class="kol_content kol_content_${copLang.dir}">

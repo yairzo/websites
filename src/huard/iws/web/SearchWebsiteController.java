@@ -93,25 +93,16 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 
 		
 
-		if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("1")){
-			request.getSession().setAttribute("t","");
-			return new ModelAndView ("searchPage1",model);
-		}
-		else if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("0")){
-			request.getSession().setAttribute("t","");
+		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("searchPageStatic",model);
-		}
 		else
 			return new ModelAndView ("searchPage",model);
-		//return new ModelAndView ("searchPage",model);
+
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		
-		if(request.getSession().getAttribute("t")==null || request.getSession().getAttribute("t").equals(""))
-			request.getSession().setAttribute("t",request.getParameter("t", ""));
-
 		SearchWebsiteControllerCommand command = new SearchWebsiteControllerCommand();
 		if(request.getSession().getAttribute("callForProposalIds")==null && request.getSession().getAttribute("textualPageIds")==null){
 			Set<Long> sphinxIds=new LinkedHashSet<Long>();

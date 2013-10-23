@@ -96,9 +96,7 @@ public class TextualPageController extends GeneralWebsiteFormController {
 		
 		
 		model.put("id",textualPageBean.getId());
-		if(request.getParameter("t", "").equals("1"))
-			return new ModelAndView ("textualPage1",model);
-		else if(request.getParameter("t", "").equals("0")){
+		if(request.getParameter("t", "").equals("0")){
 			if(request.getParameter("list","").equals("1"))
 				return new ModelAndView ("textualPageWithListStatic",model);
 			else
@@ -106,7 +104,7 @@ public class TextualPageController extends GeneralWebsiteFormController {
 		}
 		else
 			return new ModelAndView ("textualPage",model);		
-		//return new ModelAndView ( this.getFormView(), model);
+
 	}
 
 	protected Object getFormBackingObject(

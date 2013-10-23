@@ -49,14 +49,8 @@ public class TextualPageMessagesController extends GeneralWebsiteFormController 
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 
 		
-		if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("1")){
-			request.getSession().setAttribute("t","");
-			return new ModelAndView ("messages",model);
-		}
-		else if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("0")){
-			request.getSession().setAttribute("t","");
+		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("messagesStatic",model);
-		}
 		else
 			return new ModelAndView ("messages",model);
 	}
@@ -64,9 +58,6 @@ public class TextualPageMessagesController extends GeneralWebsiteFormController 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		
-		if(request.getSession().getAttribute("t")==null || request.getSession().getAttribute("t").equals(""))
-			request.getSession().setAttribute("t",request.getParameter("t", ""));
-
 		TextualPageMessagesControllerCommand command = new TextualPageMessagesControllerCommand();
 		return command;
 	}

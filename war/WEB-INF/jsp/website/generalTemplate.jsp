@@ -22,29 +22,29 @@
 			<div class="container clearfix">
 				<nav class="nav">
 					<ul class="menu">
-						<%@ include file="/WEB-INF/jsp/website1/topMenu.jsp" %>
+						<%@ include file="/WEB-INF/jsp/website/topMenu.jsp" %>
 					</ul>
 				</nav>
 				<nav class="icons">
 					<ul class="menu">
-						<li><a href="#" onclick="changeLanguage();"><img src="image/website1/menu_icon_${lang.nameShort}.png" alt="Change language to ${lang.nameCapitalized}" /></a></li>
-						<li><a href="search.html?t=1"><img src="image/website1/menu_icon_magnifying.png" alt="Search this website" /></a></li>
-						<li><a href="/iws/homePage.html?t=1"><img src="image/website1/menu_icon_home.png" alt="Go to homepage" /></a></li>
-						<li><a href="textualPage.html?id=${contactsPageId}&t=1"><img src="image/website1/menu_icon_envelope.png" alt="" /></a></li>
+						<li><a href="#" onclick="changeLanguage();"><img src="image/website/menu_icon_${lang.nameShort}.png" alt="Change language to ${lang.nameCapitalized}" /></a></li>
+						<li><a href="search.html"><img src="image/website/menu_icon_magnifying.png" alt="Search this website" /></a></li>
+						<li><a href="/iws/homePage.html"><img src="image/website/menu_icon_home.png" alt="Go to homepage" /></a></li>
+						<li><a href="textualPage.html?id=${contactsPageId}"><img src="image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
 			</div>
         	<div class="container clearfix">
 				<a href="#" class="logo_authority">
 				<c:choose>
-				<c:when test="${lang.localeId=='en_US'}"><img src="image/website1/logo_authorityEN.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" style="width:80%;height:80%"/></c:when>
-				<c:otherwise><img src="image/website1/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></c:otherwise>
+				<c:when test="${lang.localeId=='en_US'}"><img src="image/website/logo_authorityEN.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" style="width:80%;height:80%"/></c:when>
+				<c:otherwise><img src="image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></c:otherwise>
 				</c:choose>
 				</a>
 				<a href="#" class="logo">
 				<c:choose>
-				<c:when test="${lang.localeId=='en_US'}"><img src="image/website1/logoEN.png" alt="האוניברסיטה העברית בירושלים" /></c:when>
-				<c:otherwise><img src="image/website1/logo.png" alt="האוניברסיטה העברית בירושלים" /></c:otherwise>
+				<c:when test="${lang.localeId=='en_US'}"><img src="image/website/logoEN.png" alt="האוניברסיטה העברית בירושלים" /></c:when>
+				<c:otherwise><img src="image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></c:otherwise>
 				</c:choose>
 				</a>
 			</div>

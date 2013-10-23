@@ -110,24 +110,16 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 
 		
-		if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("1")){
-			request.getSession().setAttribute("t","");
-			return new ModelAndView ("searchCallForProposals1",model);
-		}
-		else if(request.getSession().getAttribute("t")!=null && request.getSession().getAttribute("t").equals("0")){
-			request.getSession().setAttribute("t","");
+		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("searchCallForProposalsStatic",model);
-		}
 		else
 			return new ModelAndView ("searchCallForProposals",model);
-		//return new ModelAndView ("searchCallForProposals",model);
+		
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
-		if(request.getSession().getAttribute("t")==null || request.getSession().getAttribute("t").equals(""))
-			request.getSession().setAttribute("t",request.getParameter("t", ""));
 
 		SearchCallForProposalsControllerCommand command = new SearchCallForProposalsControllerCommand();
 		if (isFormSubmission(request.getRequest())){//on submit

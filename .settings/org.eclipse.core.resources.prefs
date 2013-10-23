@@ -1,4 +1,4 @@
-#Wed Oct 23 10:30:02 IST 2013
+#Wed Oct 23 10:33:01 IST 2013
 eclipse.preferences.version=1
 encoding//war/WEB-INF/jsp/content/editPerson/editPersonScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/editPost/editPost.jsp=UTF-8
@@ -7,15 +7,15 @@ encoding//war/WEB-INF/jsp/content/editWebsite/editTextualPageScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/uploadImage/uploadImageScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/personListHelper.jsp=UTF-8
 encoding//war/WEB-INF/jsp/textualPageStatic.jsp=UTF-8
-encoding//war/WEB-INF/jsp/website1/callForProposalCalendarContent.jsp=UTF-8
-encoding//war/WEB-INF/jsp/website1/callForProposalContent.jsp=UTF-8
-encoding//war/WEB-INF/jsp/website1/callForProposalPopupContent.jsp=UTF-8
-encoding//war/WEB-INF/jsp/website1/searchCallForProposalsScripts.jsp=UTF-8
-encoding//war/WEB-INF/jsp/website1/searchPageContent.jsp=UTF-8
-encoding//war/WEB-INF/jsp/website1/searchPageScripts.jsp=UTF-8
-encoding//war/WEB-INF/jsp/website1/textualPageContent.jsp=UTF-8
-encoding//war/WEB-INF/jsp/website1/websiteHomePageContent.jsp=UTF-8
-encoding//war/WEB-INF/jsp/website1/websiteHomePageScripts.jsp=UTF-8
+encoding//war/WEB-INF/jsp/website/callForProposalCalendarContent.jsp=UTF-8
+encoding//war/WEB-INF/jsp/website/callForProposalContent.jsp=UTF-8
+encoding//war/WEB-INF/jsp/website/callForProposalPopupContent.jsp=UTF-8
+encoding//war/WEB-INF/jsp/website/searchCallForProposalsScripts.jsp=UTF-8
+encoding//war/WEB-INF/jsp/website/searchPageContent.jsp=UTF-8
+encoding//war/WEB-INF/jsp/website/searchPageScripts.jsp=UTF-8
+encoding//war/WEB-INF/jsp/website/textualPageContent.jsp=UTF-8
+encoding//war/WEB-INF/jsp/website/websiteHomePageContent.jsp=UTF-8
+encoding//war/WEB-INF/jsp/website/websiteHomePageScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/websiteStatic/callForProposalCalendarStatic.jsp=UTF-8
 encoding//war/WEB-INF/jsp/websiteStatic/callForProposalPopupStatic.jsp=UTF-8
 encoding//war/WEB-INF/jsp/websiteStatic/callForProposalStatic.jsp=UTF-8

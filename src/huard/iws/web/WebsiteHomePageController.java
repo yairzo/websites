@@ -63,9 +63,7 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		
 		
 
-		if(request.getParameter("t", "").equals("1"))
-			return new ModelAndView ("websiteHomePage1",model);
-		else if(request.getParameter("t", "").equals("0"))
+		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("websiteHomePageStatic",model);
 		else
 			return new ModelAndView ("websiteHomePage",model);

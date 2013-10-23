@@ -21,7 +21,7 @@
 				<nav class="nav">
 					<ul class="menu">
 						<li class="current"><a href="#">עמוד הבית</a></li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">מידע כללי</a>
 							<ul>
 								<li class="menu_drop_top"></li>
@@ -31,29 +31,29 @@
 								<li><a href="#">תת תפריט נוסף</a></li>
 							</ul>
 						</li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">אפשרויות מימון</a></li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">תקנות מחקר</a></li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">העברת טכנולוגיה</a></li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">קישורים</a></li>
-						<li><img src="image/website1/menu_pipe.png" alt="" /></li>
+						<li><img src="image/website/menu_pipe.png" alt="" /></li>
 					</ul>
 				</nav>
 				<nav class="icons">
 					<ul class="menu">
-						<li><a href="#"><img src="image/website1/menu_icon_heb.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website1/menu_icon_magnifying.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website1/menu_icon_home.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website1/menu_icon_envelope.png" alt="" /></a></li>
+						<li><a href="#"><img src="image/website/menu_icon_heb.png" alt="" /></a></li>
+						<li><a href="#"><img src="image/website/menu_icon_magnifying.png" alt="" /></a></li>
+						<li><a href="#"><img src="image/website/menu_icon_home.png" alt="" /></a></li>
+						<li><a href="#"><img src="image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
 			</div>
         	<div class="container clearfix">
-				<a href="#" class="logo_authority"><img src="image/website1/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></a>
-				<a href="#" class="logo"><img src="image/website1/logo.png" alt="האוניברסיטה העברית בירושלים" /></a>
+				<a href="#" class="logo_authority"><img src="image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></a>
+				<a href="#" class="logo"><img src="image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></a>
 			</div>
         </header>
         <section class="section">
@@ -80,7 +80,7 @@
 						
 							<div class="kol open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/kol_i.png" alt="" />&nbsp;&nbsp; מידע כללי</h3>
+									<h3 class="kol_title"><img src="image/website/kol_i.png" alt="" />&nbsp;&nbsp; מידע כללי</h3>
 									<a href="#" class="kol_arrow"></a>
 								</div>
 								<div class="kol_content kol_content_i">
@@ -95,7 +95,7 @@
 							
 							<div class="kol open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/kol_details.png" alt="" />&nbsp;&nbsp; תיאור</h3>
+									<h3 class="kol_title"><img src="image/website/kol_details.png" alt="" />&nbsp;&nbsp; תיאור</h3>
 									<a href="#" class="kol_arrow"></a>
 								</div>
 								<div class="kol_content">
@@ -108,7 +108,7 @@
 							
 							<div class="kol open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/kol_dolar.png" alt="" />&nbsp;&nbsp; תנאי מימון</h3>
+									<h3 class="kol_title"><img src="image/website/kol_dolar.png" alt="" />&nbsp;&nbsp; תנאי מימון</h3>
 									<a href="#" class="kol_arrow"></a>
 								</div>
 								<div class="kol_content kol_content_i">
@@ -123,7 +123,7 @@
 							
 							<div class="kol">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/kol_v.png" alt="" />&nbsp;&nbsp; טפסים</h3>
+									<h3 class="kol_title"><img src="image/website/kol_v.png" alt="" />&nbsp;&nbsp; טפסים</h3>
 									<a href="#" class="kol_arrow"></a>
 								</div>
 								<div class="kol_content">
@@ -134,7 +134,7 @@
 							
 							<div class="kol">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/kol_envelope.png" alt="" />&nbsp;&nbsp; הנחיות להגשה</h3>
+									<h3 class="kol_title"><img src="image/website/kol_envelope.png" alt="" />&nbsp;&nbsp; הנחיות להגשה</h3>
 									<a href="#" class="kol_arrow"></a>
 								</div>
 								<div class="kol_content">
@@ -145,7 +145,7 @@
 							
 							<div class="kol">
 								<div class="clearfix">
-									<h3 class="kol_title kol_chart"><img src="image/website1/kol_chart.png" alt="" />&nbsp;&nbsp; הנחיות תקצוב</h3>
+									<h3 class="kol_title kol_chart"><img src="image/website/kol_chart.png" alt="" />&nbsp;&nbsp; הנחיות תקצוב</h3>
 									<a href="#" class="kol_arrow"></a>
 								</div>
 								<div class="kol_content">
@@ -156,7 +156,7 @@
 							
 							<div class="kol open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/kol_man.png" alt="" />&nbsp;&nbsp; אנשי קשר ברשות למחקר ופיתוח</h3>
+									<h3 class="kol_title"><img src="image/website/kol_man.png" alt="" />&nbsp;&nbsp; אנשי קשר ברשות למחקר ופיתוח</h3>
 									<a href="#" class="kol_arrow"></a>
 								</div>
 								<div class="kol_content">
@@ -187,7 +187,7 @@
 							
 							<div class="kol">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/kol_man.png" alt="" />&nbsp;&nbsp; אנשי קשר בקרן</h3>
+									<h3 class="kol_title"><img src="image/website/kol_man.png" alt="" />&nbsp;&nbsp; אנשי קשר בקרן</h3>
 									<a href="#" class="kol_arrow"></a>
 								</div>
 								<div class="kol_content">
@@ -198,7 +198,7 @@
 							
 							<div class="kol">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website1/kol_plus.png" alt="" />&nbsp;&nbsp; מידע נוסף</h3>
+									<h3 class="kol_title"><img src="image/website/kol_plus.png" alt="" />&nbsp;&nbsp; מידע נוסף</h3>
 									<a href="#" class="kol_arrow"></a>
 								</div>
 								<div class="kol_content">

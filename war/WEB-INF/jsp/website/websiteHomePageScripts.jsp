@@ -105,13 +105,13 @@
 				$('.homePageCalendar').on('click','.viewProposal',function(e) {
 					e.preventDefault();
 					var proposalId=$(this).attr("id");	
-					window.open('callForProposal.html?id='+proposalId+'&t=1');
+					window.open('callForProposal.html?id='+proposalId);
 				});
 				
 				$(".messagePage").click(function(e){
 					e.preventDefault();
 					var messagePageId=$(this).attr("id");	
-					window.open('textualPage.html?id='+messagePageId+'&t=1');
+					window.open('textualPage.html?id='+messagePageId);
 				});
 			});
 			

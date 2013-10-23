@@ -88,7 +88,7 @@ $(document).ready(function() {
 	$(".viewProposal").click(function(e) {
 		e.preventDefault();
 		var proposalId=$(this).attr("id");	
-		window.open('callForProposal.html?id='+proposalId+'&t=1');
+		window.open('callForProposal.html?id='+proposalId);
 	});	
 });
 
