@@ -114,21 +114,16 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 
 		model.put("id",callForProposalBean.getId());
 		if (request.getParameter("p", "").equals("1")){
-			if(request.getParameter("t", "").equals("1"))
-				return new ModelAndView ("callForProposalPopup1",model);
-			else if(request.getParameter("t", "").equals("0"))
+			if(request.getParameter("t", "").equals("0"))
 				return new ModelAndView ("callForProposalPopupStatic",model);
 			else
-				return new ModelAndView ("callForProposal",model);		
+				return new ModelAndView ("callForProposalPopup",model);		
 		}
 			
-		if(request.getParameter("t", "").equals("1"))
-			return new ModelAndView ("callForProposal1",model);
-		else if(request.getParameter("t", "").equals("0"))
+		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("callForProposalStatic",model);
 		else
-			return new ModelAndView ("callForProposal",model);		
-		//return new ModelAndView ( this.getFormView(), model);
+			return new ModelAndView ( this.getFormView(), model);
 	}
 
 	protected Object getFormBackingObject(

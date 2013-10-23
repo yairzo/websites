@@ -151,13 +151,10 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		if(request.getParameter("h", "").equals("1"))
 			return new ModelAndView ("homePageCalendar",model);
 		
-		if(request.getParameter("t", "").equals("1"))
-			return new ModelAndView ("callForProposalCalendar1",model);
-		else if(request.getParameter("t", "").equals("0"))
+		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("callForProposalCalendarStatic",model);
 		else
-			return new ModelAndView ("callForProposalCalendar",model);		
-		//return new ModelAndView ("callForProposalCalendar",model);
+			return new ModelAndView ("callForProposalCalendar",model);
 	}
 
 
