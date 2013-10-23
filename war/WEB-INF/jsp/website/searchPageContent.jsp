@@ -30,7 +30,10 @@
 						<div class="clearfix mar_20">
 							<div class="kol_${lang.dir} search_result">
 								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="image/website/search_megaphone.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/></h3>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website/search_megaphone.png" alt="" /> &nbsp;
+									<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
+									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if>
+									</h3>
 								</div>
     							<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
@@ -53,7 +56,8 @@
 							
 							<div class="kol_${lang.dir} search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="image/website/search_balloon.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.website.messages"/></h3>
+									<h3 class="kol_title_${lang.dir}"><img src="image/website/search_balloon.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.website.messages"/>
+									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.website.messagesNew"/></c:if></h3>
 								</div>
 								<c:choose>
     							<c:when test="${fn:length(textualMessages) > 0}">

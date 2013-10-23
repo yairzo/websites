@@ -40,6 +40,10 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
 		Map<String,Object> newModel = new HashMap<String, Object>();
+		if(request.getSession().getAttribute("cleanSearch")!=null && request.getSession().getAttribute("cleanSearch").equals("true")){
+			request.getSession().setAttribute("cleanSearch", null);
+			return null;
+		}
 		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
 	}
 
@@ -120,10 +124,13 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 
-
 		SearchCallForProposalsControllerCommand command = new SearchCallForProposalsControllerCommand();
 		if (isFormSubmission(request.getRequest())){//on submit
 			CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
+			if(request.getParameter("action", "").equals("cleanSearch")){
+				request.getSession().setAttribute("cleanSearch", "true");
+			}
+			else{
 			if(!request.getParameter("submissionDateFrom", "").equals(""))
 				searchCreteria.setSearchBySubmissionDateFrom(DateUtils.formatToSqlDate(request.getParameter("submissionDateFrom", ""),"dd/MM/yyyy"));
 			if(!request.getParameter("submissionDateTo", "").equals(""))
@@ -148,6 +155,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			searchCreteria.setSearchExpired(request.getBooleanParameter("expired", false));
 			searchCreteria.setSearchByTargetAudience(request.getIntParameter("targetAudience", 0));
 			searchCreteria.setSearchByAllSubjects(request.getBooleanParameter("allSubjects", false));
+			}
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 		}
 		else{//on show

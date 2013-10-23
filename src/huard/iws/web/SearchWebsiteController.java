@@ -91,8 +91,9 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 				textualPageService.getTextualPagesLastUpdate().getTime());
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 
+		if(searchWords.isEmpty())
+			model.put("isDefault", true);
 		
-
 		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("searchPageStatic",model);
 		else
