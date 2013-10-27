@@ -632,10 +632,10 @@ position:relative;
     top: 1px;
 }
 .ui-datepicker .ui-datepicker-prev {
-    left: 2px;
+    right: 2px;
 }
 .ui-datepicker .ui-datepicker-next {
-    right: 2px;
+    left: 2px;
 }
 .ui-datepicker .ui-datepicker-prev-hover {
     left: 1px;
@@ -820,7 +820,7 @@ cursor:pointer;
 border:0 !important;
 }
 
-.board_calendar .ui-datepicker .ui-datepicker-next{
+.board_calendar .ui-datepicker .ui-datepicker-prev{
 left:0;
 right:15px;
 background:url(../image/website/board_r.png) no-repeat top !important;
@@ -1143,7 +1143,7 @@ height:42px;
 background:#dedede url(../image/website/arrow_left.png) no-repeat center center !important;
 }
 
-.calendar .board_calendar .ui-datepicker .ui-datepicker-next{
+.calendar .board_calendar .ui-datepicker .ui-datepicker-prev{
 left:145px !important;
 background:#dedede url(../image/website/arrow_right.png) no-repeat center center !important;
 }

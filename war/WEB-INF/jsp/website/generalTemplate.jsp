@@ -67,13 +67,12 @@
         
         <script>
         	function changeLanguage(){
-        		var location = "" + window.location;
-        		location = location.replace("#","");
+        		/*var location = "" + window.location;
+         		location = location.replace("#","");
         		location = location.replace("locale=${lang.localeId}","");
         		if (location.indexOf("?")!=-1){
         			location = location.replace("?&","?");
         			location = location.replace("&&","&");
-        			
         			if (location.match("^.*?\\?$") || location.match("^.*?&$"))
         				location = location + "locale=";
         			else 
@@ -82,7 +81,8 @@
         		else{
         			location = location + "?locale=";
         		}
-    			console.log(location);
+    			console.log(location);*/
+    			var location = "homePage.html?locale=";
         		<c:choose>        		
         			<c:when test="${lang.rtl}">
         				window.location = location + "en_US";

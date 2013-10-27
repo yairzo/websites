@@ -646,7 +646,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 
 	
 	public List<CallForProposal> getCallForProposalsOnline(String ids ){
-		String query  = "select distinct callForProposal.* from callForProposal where isDeleted=0";
+		String query  = "select distinct callForProposal.* from callForProposal where isDeleted=0 and (finalSubmissionTime >= now() or finalSubmissionTime = 0)";
 		if(!ids.isEmpty())
 			query += " and id in ("+ids + ")";
 		query+="  order by localeId, publicationTime desc";

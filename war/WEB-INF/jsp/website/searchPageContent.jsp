@@ -33,6 +33,7 @@
 									<h3 class="kol_title_${lang.dir}"><img src="image/website/search_megaphone.png" alt="" /> &nbsp;
 									<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
 									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if>
+									<c:if test="${!isDefault}"><fmt:message key="${lang.localeId}.website.open"/></c:if>
 									</h3>
 								</div>
     							<c:choose>

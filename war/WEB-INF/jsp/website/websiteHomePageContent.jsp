@@ -93,6 +93,7 @@
 							<form action="searchCallForProposals.html" method="post" class="board_form">
 								<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
 onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="input_text" />
+								<input type="hidden" name="open" value="true"/>
 								<input type="submit" value="<fmt:message key="${lang.localeId}.website.search"/>" class="input_submit" />
 							</form>
 						</div>

@@ -180,21 +180,33 @@ $(document).ready(function() {
      	$('#deskId').change();       	
      	$("#typeId").val(0);
      	$('#typeId').change();       	
-       	$("#searchByAllYear").prop('checked', true);
-        $("#searchExpired").prop('checked', true);
-       	$("#searchOpen").prop('checked', true);
-    	$("#searchByAllSubjects").prop('checked', true);
-       	$("#selectAll").prop('checked', true);
-    	$("input:checkbox.subject").each(function(){
-			$(this).parent().children("span.checkbox").removeClass("checkboxPartial");
-			this.checked = true;
-			$(this).change();
+       	//$("#searchByAllYear").prop('checked', true);
+		$(".search_by_all_year").attr("check-value", "false");
+		$(".search_by_all_year").removeClass("checkboxChecked");
+		$(".search_by_all_year").addClass("checkboxUnchecked");
+ 		$(".search_expired").attr("check-value", "false");
+		$(".search_expired").removeClass("checkboxChecked");
+		$(".search_expired").addClass("checkboxUnchecked");
+       	$(".search_open").attr("check-value", "true");
+		$(".search_open").removeClass("checkboxUnchecked");
+		$(".search_open").addClass("checkboxChecked");		
+		$(".only_all_subjects").attr("check-value", "false");
+		$(".only_all_subjects").removeClass("checkboxChecked");
+		$(".only_all_subjects").addClass("checkboxUnchecked");
+		$(".select_all").attr("check-value", "false");
+		$(".select_all").removeClass("checkboxChecked");
+		$(".select_all").addClass("checkboxUnchecked");
+		$('.selectSubSubject').each(function(){
+			$(this).attr("check-value", false);
+			$(this).removeClass("checkboxCheckedSub");
+			$(this).addClass("checkboxUncheckedSub");
 		});
-    	$("input:checkbox.subSubject").each(function(){
-			this.checked = true;
-			$(this).change();
+		$('.selectSubject').each(function(){
+			$(this).attr("check-value", false);
+			$(this).removeClass("checkboxChecked");
+			$(this).removeClass("checkboxPartial");
+			$(this).addClass("checkboxUnchecked");
 		});
-   	
   		$("#listViewPage").remove();
 		$("#orderBy").remove();
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"cleanSearch\"/>");
