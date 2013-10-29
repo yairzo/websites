@@ -113,7 +113,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		long lastUpdateTime = callForProposalService.getCallForProposalsLastUpdate().getTime();
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 
-		
+	
 		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("searchCallForProposalsStatic",model);
 		else
@@ -123,7 +123,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
-
 		SearchCallForProposalsControllerCommand command = new SearchCallForProposalsControllerCommand();
 		if (isFormSubmission(request.getRequest())){//on submit
 			CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
@@ -157,12 +156,15 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			searchCreteria.setSearchByAllSubjects(request.getBooleanParameter("allSubjects", false));
 			}
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
+			request.getSession().setAttribute("newSearch", "no");
 		}
 		else{//on show
 			CallForProposalSearchCreteria searchCreteria = (CallForProposalSearchCreteria) request.getSession().getAttribute("callForProposalSearchCreteria");
 			request.getSession().setAttribute("callForProposalsSearchCreteria", null);
-			if (searchCreteria == null)// on first time
+			if (searchCreteria == null || !request.getSession().getAttribute("newSearch").equals("no"))// on first time
 				searchCreteria = new CallForProposalSearchCreteria();
+			request.getSession().setAttribute("newSearch", "");
+			
 			if(searchCreteria.getSearchBySubjectIds().isEmpty() 
 					&& !userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") 
 					&& !userPersonBean.getSubjectsIds().isEmpty())
@@ -174,11 +176,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 				searchCreteria.setLimit(0);
 			}
 			command.setSearchCreteria(searchCreteria);
-			//when returning to callForProposal after login - should open the call again
-			/*if(request.getParameter("callForProposalId","")!=null && !request.getParameter("callForProposalId","").equals(""))
-				request.getSession().setAttribute("callForProposalId", request.getParameter("callForProposalId",""));
-			else
-				request.getSession().setAttribute("callForProposalId", "");*/
 		}
 		return command;
 	}

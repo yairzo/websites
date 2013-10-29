@@ -165,6 +165,7 @@ $(document).ready(function() {
 		});
 		$('.subjectsIdsString').remove();
 		$('#form').append('<input type=\"hidden\" name=\"subjectsIdsString\" class=\"subjectsIdsString\" value=\"'+ids+'\"/>');
+		$('#action').remove();
 		$('#form').submit();
 	});
 
@@ -209,7 +210,7 @@ $(document).ready(function() {
 		});
   		$("#listViewPage").remove();
 		$("#orderBy").remove();
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"cleanSearch\"/>");
+		$("#form").append("<input type=\"hidden\" name=\"action\" id=\"action\" value=\"cleanSearch\"/>");
 		$("#form").ajaxSubmit();
     	return true;
     });	

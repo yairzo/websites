@@ -6,6 +6,9 @@
 				</div>
 				<jsp:include page="sideLinks.jsp"/>
 				<div class="content">
+					<table>
+					<tr>
+					<td style="vertical-align:top">
 				   		<ul class="list_content_${lang.dir}">
  						<li>
 						<a href="${rootCategoryHeb.url}">${rootCategoryHeb.name}</a>
@@ -43,7 +46,8 @@
   						</c:choose> 
   						</li>
   						</ul>
- 						
+ 					</td>
+ 					<td style="vertical-align:top">	
   				  		<ul class="list_content_${lang.dir}">
  						<li>
 						<a href="${rootCategoryEng.url}">${rootCategoryEng.name}</a>
@@ -81,5 +85,8 @@
   						</c:choose> 
   						</li>
   						</ul>
+  					</td>
+  					</tr>
+  					</table>
   				</div>
 			</div>

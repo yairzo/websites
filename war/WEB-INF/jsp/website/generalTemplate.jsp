@@ -55,7 +55,7 @@
         <footer class="footer">
 			<div class="container">
 				<div class="footer_bg clearfix">
-					<div class="pull-right"><a href="sitemap.html"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="#"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="#"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
+					<div class="pull-right"><a href="sitemap.html"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="textualPage.html?id=2015"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="javascript:bookmarksite();"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
 					<div class="pull-left"><fmt:message key="${lang.localeId}.general.lastUpdate"/> - ${updateTime}</div>
 				</div>
 				<div class="footer_bottom clearfix mar_10">
@@ -92,7 +92,27 @@
         			</c:otherwise>
         		</c:choose>       		
         	}
-        
+        	function bookmarksite() {
+        		if ('${lang.rtl}'=='true'){
+        			title = "הרשות למחקר ופיתוח, האוניברסיטה העברית";
+            		url = "https://ard.huji.ac.il/iws/homePage.html?locale=iw_IL";
+        		}
+        		else{
+        			title = "The Authority for Research and Development. The Hebrew University of Jerusalem";
+            		url = "https://ard.huji.ac.il/iws/homePage.html?locale=en_US";
+       			}
+        		if (window.sidebar) // firefox
+        			window.sidebar.addPanel(title, url, "");
+        		else if(window.opera && window.print){ // opera
+        			var elem = document.createElement('a');
+        			elem.setAttribute('href',url);
+        			elem.setAttribute('title',title);
+        			elem.setAttribute('rel','sidebar');
+        			elem.click();
+        		} 
+        		else if(document.all)// ie
+        			window.external.AddFavorite(url, title);
+        	}        
         </script>
 		<jsp:include page="${templateScripts}" />
 

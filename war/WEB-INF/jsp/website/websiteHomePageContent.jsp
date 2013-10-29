@@ -86,7 +86,7 @@
 					<div class="board_calendar">
 						<div class="homePageCalendar"></div>
 						
-						<a href="#" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
+						<a href="searchCallForProposals.html" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
 						<div class="board_search">
 							<h3><fmt:message key="${lang.localeId}.website.search"/></h3>
 							<a href="searchCallForProposals.html" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
