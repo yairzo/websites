@@ -35,13 +35,13 @@
 				</nav>
 			</div>
         	<div class="container clearfix">
-				<a href="#" class="logo_authority">
+				<a href="homePage.html" class="logo_authority">
 				<c:choose>
 				<c:when test="${lang.localeId=='en_US'}"><img src="image/website/logo_authorityEN.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" style="width:80%;height:80%"/></c:when>
 				<c:otherwise><img src="image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></c:otherwise>
 				</c:choose>
 				</a>
-				<a href="#" class="logo">
+				<a href="http://new.huji.ac.il/" class="logo">
 				<c:choose>
 				<c:when test="${lang.localeId=='en_US'}"><img src="image/website/logoEN.png" alt="האוניברסיטה העברית בירושלים" /></c:when>
 				<c:otherwise><img src="image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></c:otherwise>

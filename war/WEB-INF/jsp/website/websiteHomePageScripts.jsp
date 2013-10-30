@@ -50,6 +50,7 @@
 					mode:'horizontal',
 					auto: true ,
 					slideWidth:406,
+					pause:5000,
 <c:if test="${lang.rtl}">
 					startSlide: <c:out value="${fn:length(textualPages)-1}"/>, 
 					autoDirection: 'prev'
@@ -134,7 +135,7 @@
 					autoDirection: 'prev',
 </c:when>
 <c:otherwise>
-					startSlide: <c:out value="${fn:length(images)-1}"/>, 
+					startSlide: 0, 
 					autoDirection: 'next',
 </c:otherwise>
 </c:choose>

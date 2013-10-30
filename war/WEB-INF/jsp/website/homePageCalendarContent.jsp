@@ -2,8 +2,8 @@
 
 						<div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
 							<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-								<a title="Next" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
-								<a title="Prev" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
+								<a title="<c:choose><c:when test="${lang.rtl}">הבא</c:when><c:otherwise>Next</c:otherwise></c:choose>" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
+								<a title="<c:choose><c:when test="${lang.rtl}">הקודם</c:when><c:otherwise>Prev</c:otherwise></c:choose>" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
 								<div class="ui-datepicker-title">
 									<span class="ui-datepicker-month">
 									<fmt:message key="${lang.localeId}.general.month.${month}"/>

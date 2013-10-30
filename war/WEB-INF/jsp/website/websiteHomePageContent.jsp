@@ -42,7 +42,7 @@
 					<div class="mainbox">
 						<div class="title">
 							<h1><fmt:message key="${lang.localeId}.website.welcome"/></h1>
-							<a href="#"><fmt:message key="${lang.localeId}.website.readMore"/></a>
+							<a href="textualPage.html?id=1918"><fmt:message key="${lang.localeId}.website.readMore"/></a>
 						</div>
 						<div class="mainbox_text">
 							<p></p>
@@ -69,7 +69,7 @@
 	  											<div style="padding: 0px 5px; height:85px; width:380px; direction:${direction};overflow:hidden;">
 	  												<div style="padding: 0px 5px; height:65px; width:380px; direction:${direction};overflow:hidden;">
 	  												<strong>${textualPage.title}</strong><br>
-	  												${textualPage.html}
+	  												${textualPage.html}>
 	  												</div>
 	  												<div class="messagePage" id="${textualPage.id}" style="position:absolute;top:68px;left:${left};text-decoration:underline;"><fmt:message key="${textualPage.localeId}.website.forFullMessage"/></div>
 												</div>

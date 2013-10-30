@@ -892,6 +892,7 @@ text-align:left;
 
 .viewProposal:hover{
 	cursor:pointer;
+	color:#AFAFAF;
 }
 .messagePage:hover{
 	cursor:pointer;
