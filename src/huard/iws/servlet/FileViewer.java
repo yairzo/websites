@@ -11,6 +11,7 @@ import huard.iws.model.ProposalAttachment;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.TextualPage;
+import huard.iws.service.FilesService;
 import huard.iws.service.PersonProposalService;
 import huard.iws.service.PersonService;
 import huard.iws.service.PostService;
@@ -58,8 +59,9 @@ public class FileViewer extends HttpServlet {
 		int conferenceProposalId = requestWrapper.getIntParameter("conferenceProposalId", 0);
 		int callForProposalId = requestWrapper.getIntParameter("callForProposalId", 0);
 		int textualPageId = requestWrapper.getIntParameter("textualPageId", 0);
+		String textualPageFilename = requestWrapper.getParameter("textualPageFilename", "");
 		
-		String filename = DEFAULT_FILENAME;
+		String filenameDisplay = DEFAULT_FILENAME;
 
 		if (proposalId > 0){
 
@@ -128,43 +130,43 @@ public class FileViewer extends HttpServlet {
 			if (attachFile.equals("guestsAttach")){
 				file = conferenceProposal.getGuestsAttach();
 				contentType=conferenceProposal.getGuestsAttachContentType();
-				filename = "Guests List";
+				filenameDisplay = "Guests List";
 			}
 			else if (attachFile.equals("programAttach")){
 				file = conferenceProposal.getProgramAttach();
 				contentType=conferenceProposal.getProgramAttachContentType();
-				filename = " Conference Program";
+				filenameDisplay = " Conference Program";
 			}
 			else if (attachFile.equals("financialAttach")){
 				file = conferenceProposal.getFinancialAttach();
 				contentType=conferenceProposal.getFinancialAttachContentType();
-				filename = "Financial Program";
+				filenameDisplay = "Financial Program";
 			}
 			else if (attachFile.equals("companyAttach")){
 				file = conferenceProposal.getCompanyAttach();
 				contentType=conferenceProposal.getCompanyAttachContentType();
-				filename = "Company Agreement";
+				filenameDisplay = "Company Agreement";
 			}
 			else if (attachFile.equals("assosiateAttach") && !requestWrapper.getParameter("assosiateId","").isEmpty()){
 				int index = new Integer(requestWrapper.getParameter("assosiateId","")).intValue();
 				FinancialSupport financialSupport = conferenceProposal.getFromAssosiate().get(index);
 				file = financialSupport.getReferenceFile();
 				contentType=financialSupport.getFileContentType();
-				filename = "Assosiate reference file";
+				filenameDisplay = "Assosiate reference file";
 			}
 			else if (attachFile.equals("externalAttach") && !requestWrapper.getParameter("externalId","").isEmpty()){
 				int index = new Integer(requestWrapper.getParameter("externalId","")).intValue();
 				FinancialSupport financialSupport = conferenceProposal.getFromExternal().get(index);
 				file = financialSupport.getReferenceFile();
 				contentType=financialSupport.getFileContentType();
-				filename = "External reference file";
+				filenameDisplay = "External reference file";
 			}
 			else if (attachFile.equals("admitanceFeeAttach") && !requestWrapper.getParameter("admitanceFeeId","").isEmpty()){
 				int index = new Integer(requestWrapper.getParameter("admitanceFeeId","")).intValue();
 				FinancialSupport financialSupport = conferenceProposal.getFromAdmitanceFee().get(index);
 				file = financialSupport.getReferenceFile();
 				contentType=financialSupport.getFileContentType();
-				filename = "Admitance Fee reference file";
+				filenameDisplay = "Admitance Fee reference file";
 			}
 			else return;
 
@@ -187,15 +189,23 @@ public class FileViewer extends HttpServlet {
 
 			file = textualPage.getAttachment().getFile();
 			contentType=textualPage.getAttachment().getContentType();
-			filename = "Textual page file";
+			filenameDisplay = textualPage.getAttachment().getFilename();
 
+		}
+		
+		else if (! textualPageFilename.isEmpty()){
+			Object bean = ApplicationContextProvider.getContext().getBean("filesService");
+			FilesService filesService = (FilesService)bean;
+			file = filesService.getTextualPageFile(textualPageFilename).getFile();
+			contentType = filesService.getTextualPageFile(textualPageFilename).getContentType();
+			filenameDisplay = textualPageFilename;
 		}
 		try{
 
 		if (file !=null && file.length > 0){
 			response.setContentType(contentType);
 			response.setStatus(HttpServletResponse.SC_OK);
-			response.setHeader( "Content-Disposition", "attachment; filename=\"" + filename + "\"" );
+			response.setHeader( "Content-Disposition", "attachment; filename=\"" + filenameDisplay + "\"" );
 			ServletOutputStream out = response.getOutputStream();
 			out.write(file);
 			out.flush();

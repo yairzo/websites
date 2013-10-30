@@ -6,6 +6,13 @@ public class Attachment {
 	private String title;
 	private byte [] file;
 	private String contentType;
+	private String filename;
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 	private int place;
 
 	public int getPlace() {

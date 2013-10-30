@@ -6,6 +6,7 @@ import huard.iws.bean.TextualPageBean;
 import huard.iws.model.AList;
 import huard.iws.model.Category;
 import huard.iws.model.Language;
+import huard.iws.service.ConfigurationService;
 import huard.iws.service.ListService;
 import huard.iws.service.TextualPageService;
 import huard.iws.util.LanguageUtils;
@@ -96,6 +97,8 @@ public class TextualPageController extends GeneralWebsiteFormController {
 		
 		
 		model.put("id",textualPageBean.getId());
+		
+		
 		if(request.getParameter("t", "").equals("0")){
 			if(request.getParameter("list","").equals("1"))
 				return new ModelAndView ("textualPageWithListStatic",model);
@@ -145,6 +148,10 @@ public class TextualPageController extends GeneralWebsiteFormController {
 	public void setListService(ListService listService) {
 		this.listService = listService;
 	}
+	
+	
+	
+	
 	
 	
 }

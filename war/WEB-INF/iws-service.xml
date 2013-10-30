@@ -547,5 +547,11 @@
     	</property>
 	</bean>
 	
+	<bean id="filesService" class="huard.iws.service.FilesServiceImpl">
+		<property name="filesDao">
+    		<ref bean="filesDao"/>
+    	</property>
+	</bean>
+	
 	
 </beans>

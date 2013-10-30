@@ -5,8 +5,8 @@ import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.TextualPageOld;
 import huard.iws.util.DateUtils;
-import huard.iws.util.TextualPageSearchCreteria;
 import huard.iws.util.ListView;
+import huard.iws.util.TextualPageSearchCreteria;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -74,7 +74,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	private void getTextualPageFile(TextualPage textualPage){
 		String query = "select * from textualPageFile where textualPageId = ?";
 		try{
-		Attachment attachment =  getSimpleJdbcTemplate().queryForObject(query, attachmentRowMapper, textualPage.getId());
+		Attachment attachment =  getSimpleJdbcTemplate().queryForObject(query, JdbcFilesDao.attachmentRowMapper, textualPage.getId());
 		if(attachment!=null)
 			textualPage.setAttachment(attachment);
 		}
@@ -83,15 +83,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		}
 	}
 	
-	private ParameterizedRowMapper<Attachment> attachmentRowMapper = new ParameterizedRowMapper<Attachment>(){
-		public Attachment mapRow(ResultSet rs, int rowNum) throws SQLException{
-			Attachment file = new Attachment();
-			file.setFile(rs.getBytes("attachment"));
-			file.setContentType(rs.getString("attachmentContentType"));
-			file.setId(rs.getInt("id"));
-            return file;
-		}
-	};
+	
 	
 	public boolean existsTextualPageOnline(int id){
 		String query = "select * from textualPage where id =?";

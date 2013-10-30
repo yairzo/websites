@@ -11,6 +11,10 @@
 <urlrewrite>
 
 	<rule>
+        <from>/(.*\.pdf)$</from>
+        <to last="true">/fileViewer?textualPageFilename=$1&amp;contentType=pdf&amp;attachmentId=1</to>
+    </rule>
+<!-- <rule>
         <from>/.*/js/(.*)</from>
         <to last="true">/js/$1</to>
     </rule>
@@ -27,7 +31,7 @@
         <to last="true">/font/$1</to>
     </rule>
     
-    <!-- Spring Security Servlets -->
+   
     
     <rule>
         <from>/.*/j_acegi_security_check(.*)</from>
@@ -58,7 +62,7 @@
         <from>/search/(.*)</from>
         <to>/search.html?searchWords=$1</to>
     </rule>
-
+-->
 
   <!--<outbound-rule>
         <note>

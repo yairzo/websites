@@ -247,7 +247,7 @@
    		<property name="categoryService">
             <ref bean="categoryService"/>
         </property>
-     </bean>
+    </bean>
      
 	<bean id="textualPageController" class="huard.iws.web.TextualPageController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>

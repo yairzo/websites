@@ -11,18 +11,7 @@
 					<div class="maintext_${pageLang.dir} clearfix mar_20">
        						<c:choose>
     							<c:when test="${command.showFile}">
-									<fmt:message key="${pageLang.localeId}.website.fileNotOpen"/><a href="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"><fmt:message key="${pageLang.localeId}.website.fileOpen"/></a>				
-									<br>
-									<c:choose>
-									<c:when test="${isImage}">
-										<img src="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"/>
-									</c:when>
-									<c:otherwise>
-										<script language="javascript" type="text/javascript">
-										document.location="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1";
-										</script>
-									</c:otherwise>
-									</c:choose>
+									<iframe src="https://docs.google.com/gview?url=https%3A%2F%2F${server}%2Fiws%2F${command.attachment.filename}&amp;embedded=true" style="width:686px; height:700px;" frameborder="0"></iframe>
 								</c:when>
     							<c:when test="${command.wrapExternalPage}">
 									<!--<jsp:include page="/viewList.html?id=${command.externalPageUrl}&iv=1&p=1&a=1" />-->
