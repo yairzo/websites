@@ -2055,7 +2055,7 @@ padding:3px 0 0 0;
 
 
 
-.scroll_col .checkbox_list label{width:170px;}
+.scroll_col .checkbox_list label{width:160px;}
 
 .check.scroll_col:hover .checkbox_list{display:block;z-index:1;}
 

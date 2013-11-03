@@ -37,7 +37,7 @@
     		basedir="${build.dir}"
     	/>
     	<delete>
-    		 <fileset file="${basedir}/${name}.war"/>
+    		 <fileset file="${basedir}/iws.war"/>
     	</delete>
     	<war destfile="${name}.war"
              webxml="${web.dir}/WEB-INF/web.xml">

@@ -96,14 +96,14 @@
 								<div class="clearfix checks mar_15">
 									<h3 class="search_choose"><fmt:message key="${lang.localeId}.website.subjectSelection"/></h3>
 									<div class="checks_left">
-										<div class="check check_all">
-											<div class="checkbox_box select_all" check-value="false">
+										<div class="check scroll_col check_all">
+											<div class="select_all checkbox_box" check-value="false">
 												
 											</div>
 											<label><fmt:message key="${lang.localeId}.website.selectAll"/></label>
 										</div>
-										<div class="check check_only">
-											<div class="checkbox_box only_all_subjects" check-value="${searchByAllSubjects}">
+										<div class="check scroll_col check_only">
+											<div class="only_all_subjects checkbox_box" check-value="${searchByAllSubjects}">
 												
 											</div>
 											<label><fmt:message key="${lang.localeId}.website.showCallsWithAllSubjects"/></label>
@@ -125,14 +125,14 @@
 												<div class="checkbox_list" id="${subject.id}Sub">
                    									<div class="checkbox_list_top"></div>
 													<div class="checkbox_list_bottom">
-													<ul>
-                   									<c:forEach items="${subject.subSubjectsBeans}" var="subSubject">
-                   										<li>
-														<div class="${subSubject.id} checkbox_box checkbox_box_sub_${lang.dir} selectSubSubject" check-value="${subSubject.checked}"></div>
-                    									<label><c:out value="${subSubject.name}"/></label>
-                    									</li>
-                  									</c:forEach>
-                 									</ul>
+														<ul>
+	                   									<c:forEach items="${subject.subSubjectsBeans}" var="subSubject">
+	                   										<li>
+																<div class="${subSubject.id} checkbox_box checkbox_box_sub_${lang.dir} selectSubSubject" check-value="${subSubject.checked}"></div>
+	                    										<label><c:out value="${subSubject.name}"/></label>
+	                    									</li>
+	                  									</c:forEach>
+	                 									</ul>
                  									</div>
                  								</div>
 											</div>
