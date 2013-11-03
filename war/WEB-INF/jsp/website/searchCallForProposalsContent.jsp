@@ -96,13 +96,13 @@
 								<div class="clearfix checks mar_15">
 									<h3 class="search_choose"><fmt:message key="${lang.localeId}.website.subjectSelection"/></h3>
 									<div class="checks_left">
-										<div class="check scroll_col check_all">
+										<div class="check check_all">
 											<div class="select_all checkbox_box" check-value="false">
 												
 											</div>
 											<label><fmt:message key="${lang.localeId}.website.selectAll"/></label>
 										</div>
-										<div class="check scroll_col check_only">
+										<div class="check check_only">
 											<div class="only_all_subjects checkbox_box" check-value="${searchByAllSubjects}">
 												
 											</div>
@@ -128,7 +128,7 @@
 														<ul>
 	                   									<c:forEach items="${subject.subSubjectsBeans}" var="subSubject">
 	                   										<li>
-																<div class="${subSubject.id} checkbox_box checkbox_box_sub_${lang.dir} selectSubSubject" check-value="${subSubject.checked}"></div>
+																<div class="${subSubject.id} checkbox_box checkbox_box_sub checkbox_box_sub_${lang.dir} selectSubSubject" check-value="${subSubject.checked}"></div>
 	                    										<label><c:out value="${subSubject.name}"/></label>
 	                    									</li>
 	                  									</c:forEach>
@@ -142,7 +142,7 @@
 								</div>
 								<div class="clearfix mar_15">
 									<input type="submit" value="<fmt:message key="${lang.localeId}.website.search"/>" class="advanced_submit" />
-									<a href="#" class="advanced_clear"><fmt:message key="${lang.localeId}.website.cleanSearch"/></a>
+									<a href="" class="advanced_clear"><fmt:message key="${lang.localeId}.website.cleanSearch"/></a>
 								</div>
 							</form>
 							<div class="clearfix">
@@ -159,7 +159,7 @@
    								<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
 								<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
-									<a href="#" class="search_content viewProposal" id="${callForProposal.id}">
+									<a href="" class="search_content viewProposal" id="${callForProposal.id}">
 									<span class="clearfix <c:if test="${callForProposal.localeId=='en_US'}">search_eng</c:if>">${callForProposal.title}</span>
 									<span class="clearfix search_icons">
 										<span class="search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/> <strong>${callForProposal.fund.name}</strong></span>

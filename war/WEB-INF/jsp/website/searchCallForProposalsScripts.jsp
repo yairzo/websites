@@ -262,12 +262,9 @@ $(document).ready(function() {
 			$(this).addClass("none");
 		}
 		
-		console.log($(this).attr("check-value"));
-		
 		var num_sub_subjects = $(this).parent().parent().parent().find(".checkbox_box").length;
 		var num_checked_sub_subjects = $(this).parent().parent().parent().find(".active").length;
 		
-		console.log(num_sub_subjects + "    " + num_checked_sub_subjects);
 		var select_subject_element = $(this).parent().parent().parent().parent().prev().prev();
 		if (num_checked_sub_subjects == 0){			
 			select_subject_element.removeClass("active");
@@ -310,8 +307,8 @@ $(document).ready(function() {
 			});
 			
 			$(".select_all").attr("check-value", "false");
-			$(".select_all").removeClass("checkboxChecked");
-			$(".select_all").addClass("checkboxUnchecked");
+			$(".select_all").removeClass("active");
+			$(".select_all").addClass("none");
 			
 			$(this).attr("check-value", "true");
 			$(this).removeClass("none");
@@ -426,66 +423,77 @@ $(document).ready(function() {
 $(window).load(function(){
 	$('.selectSubSubject').each(function(){
 		if ($(this).attr("check-value") == "true"){
-			$(this).removeClass("checkboxUncheckedSub");
-			$(this).addClass("checkboxCheckedSub");
+			$(this).removeClass("none");
+			$(this).addClass("active");
 		}
 	});
 	
  //TODO: complete this
-	$('.selectSubject').each(function(){
-		var num_sub_subjects = $(this).parent().find(".checkbox_box").length - 1;
-		var num_checked_sub_subjects = $(this).parent().find(".checkboxCheckedSub").length;
+	var all_checked = true;
+ 	$('.selectSubject').each(function(){
+		num_sub_subjects = $(this).parent().find(".checkbox_box_sub").length;
+		num_checked_sub_subjects = $(this).parent().find(".active").length;
+		
+		console.log(num_sub_subjects + " " + num_checked_sub_subjects);
 		if (num_checked_sub_subjects == 0){			
-			$(this).removeClass("checkboxChecked");
-			$(this).removeClass("checkboxPartial");
-			$(this).addClass("checkboxUnchecked");
+			$(this).removeClass("active");
+			$(this).removeClass("semi");
+			$(this).addClass("none");
 			$(this).attr("check-value","false");
+			all_checked = false;
 		}
 		else if (num_checked_sub_subjects > 0 && num_checked_sub_subjects < num_sub_subjects){			
-			$(this).removeClass("checkboxChecked");
-			$(this).removeClass("checkboxUnchecked");
-			$(this).addClass("checkboxPartial");
+			$(this).removeClass("active");
+			$(this).removeClass("none");
+			$(this).addClass("semi");
 			$(this).attr("check-value","true");
+			all_checked = false;
 		}
 		else{
-			$(this).removeClass("checkboxUnchecked");
-			$(this).removeClass("checkboxPartial");
-			$(this).addClass("checkboxChecked");
+			$(this).removeClass("none");
+			$(this).removeClass("semi");
+			$(this).addClass("active");
 			$(this).attr("check-value","true");
 		}
 	});
+ 	
+ 	if (all_checked){
+ 		$(".select_all").attr("check-value","true");
+ 		$(".select_all").removeClass("none");
+ 		$(".select_all").addClass("active");
+ 	}
 	
 	$('select').show();
 	if ($(".only_all_subjects").attr("check-value") == "true"){
-		$(".only_all_subjects").removeClass("checkboxUnchecked");
-		$(".only_all_subjects").addClass("checkboxChecked");		
+		$(".only_all_subjects").removeClass("none");
+		$(".only_all_subjects").addClass("active");		
 	}
 	else{
-		$(".only_all_subjects").addClass("checkboxUnchecked");
+		$(".only_all_subjects").addClass("none");
 	}
 	
 	if ($(".search_by_all_year").attr("check-value") == "true"){
-		$(".search_by_all_year").removeClass("checkboxUnchecked");
-		$(".search_by_all_year").addClass("checkboxChecked");		
+		$(".search_by_all_year").removeClass("none");
+		$(".search_by_all_year").addClass("active");		
 	}
 	else{
-		$(".search_by_all_year").addClass("checkboxUnchecked");
+		$(".search_by_all_year").addClass("none");
 	}
 	
 	if ($(".search_open").attr("check-value") == "true"){
-		$(".search_open").removeClass("checkboxUnchecked");
-		$(".search_open").addClass("checkboxChecked");		
+		$(".search_open").removeClass("none");
+		$(".search_open").addClass("active");		
 	}
 	else{
-		$(".search_open").addClass("checkboxUnchecked");
+		$(".search_open").addClass("none");
 	}
 	
 	if ($(".search_expired").attr("check-value") == "true"){
-		$(".search_expired").removeClass("checkboxUnchecked");
-		$(".search_expired").addClass("checkboxChecked");		
+		$(".search_expired").removeClass("none");
+		$(".search_expired").addClass("active");		
 	}
 	else{
-		$(".search_expired").addClass("checkboxUnchecked");
+		$(".search_expired").addClass("none");
 	}
 });
 

@@ -1985,6 +1985,7 @@ background:url(../image/website/checkbox_scrollbox.png) no-repeat top;
 }
 
 .check.scroll_col .checkbox_box.active{background:url(../image/website/checkbox_scrollbox_active.png) no-repeat top;}
+.check_all .checkbox_box.active, .check_only .checkbox_box.active{background:url(../image/website/checkbox_scrollbox_active.png) no-repeat top;}
 
 .checkbox_list{
 display:none;
