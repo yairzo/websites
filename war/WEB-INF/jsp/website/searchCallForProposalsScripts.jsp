@@ -35,9 +35,6 @@ function resetAutocomplete(funds){
 $(document).ready(function() {
 	
 
-	$(document).click(function() {
-		$('div.subSubjects').hide();
-	});
 	
 	$('.check .open').on('click',function(e){
 		e.stopPropagation();
@@ -217,59 +214,34 @@ $(document).ready(function() {
 		
 		
 	
-
-	$(".openSubSubjects").click(function(e){
-		if($(this).parent().children(".subSubjects").css('display')=='none')	{	
-			$('div.subSubjects').hide();
-			var rowPos = $(this).position();
-			bottomTop = rowPos.top+22;
-			bottomLeft = rowPos.left;
-			
-			$(this).parent().children(".subSubjects").addClass('open');
-			$(this).parent().children(".open").css({
-				top: bottomTop,
-	    		left: bottomLeft,
-	    	});
-			
-			$(this).parent().children(".subSubjects").show();
-		}
-		else{
-			$('div.subSubjects').hide();
-		}
-		
-		e.stopPropagation();
-		
-	});
-	
-	
 	$(".selectSubject").click(function(e){
-		$(this).removeClass("checkboxPartial");
+		$(this).removeClass("semi");
 		if($(this).attr('check-value') == "false"){
-			$(this).siblings(".subSubjects").find(".checkbox_box").each(function(){
+			$(this).siblings(".checkbox_list").find(".checkbox_box").each(function(){
 				$(this).attr("check-value","true");
-				$(this).removeClass("checkboxUncheckedSub");
-				$(this).addClass("checkboxCheckedSub");
+				//$(this).removeClass("checkboxUncheckedSub");
+				$(this).addClass("active");
 			});
 			$(this).attr('check-value', "true");
-			$(this).removeClass("checkboxUnchecked");
-			$(this).removeClass("checkboxPartial");
-			$(this).addClass("checkboxChecked");
+			//$(this).removeClass("checkboxUnchecked");
+			$(this).removeClass("semi");
+			$(this).addClass("active");
 			
 		}
 		else{
-			$(this).siblings(".subSubjects").find(".checkbox_box").each(function(){
+			$(this).siblings(".checkbox_list").find(".checkbox_box").each(function(){
 				$(this).attr("check-value","false");
-				$(this).removeClass("checkboxCheckedSub");
-				$(this).addClass("checkboxUncheckedSub");
+				$(this).removeClass("active");
+				//$(this).addClass("checkboxUncheckedSub");
 			});
 			$(this).attr('check-value', "false");
-			$(this).removeClass("checkboxChecked");
-			$(this).removeClass("checkboxPartial");
-			$(this).addClass("checkboxUnchecked");
+			$(this).removeClass("active");
+			$(this).removeClass("semi");
+			//$(this).addClass("checkboxUnchecked");
 		}
 		$(".only_all_subjects").attr("check-value", "false");
-		$(".only_all_subjects").removeClass("checkboxChecked");
-		$(".only_all_subjects").addClass("checkboxUnchecked");
+		$(".only_all_subjects").removeClass("active");
+		//$(".only_all_subjects").addClass("checkboxUnchecked");
 		$(".only_all_subjects").attr("check-value", "false");
 		e.stopPropagation();
 	});
@@ -279,39 +251,40 @@ $(document).ready(function() {
 	$(".selectSubSubject").click(function(e){
 		if($(this).attr('check-value') == "false"){
 			$(this).attr('check-value', "true");
-			$(this).removeClass("checkboxUncheckedSub");
-			$(this).addClass("checkboxCheckedSub");
+			//$(this).removeClass("checkboxUncheckedSub");
+			$(this).addClass("active");
 		}
 		else{
 			$(this).attr("check-value","false");
-			$(this).removeClass("checkboxCheckedSub");
-			$(this).addClass("checkboxUncheckedSub");
+			$(this).removeClass("active");
+			//$(this).addClass("checkboxUncheckedSub");
 		}
 		
 		var num_sub_subjects = $(this).parent().find(".checkbox_box").length;
-		var num_checked_sub_subjects = $(this).parent().find(".checkboxCheckedSub").length;
+		var num_checked_sub_subjects = $(this).parent().find(".active").length;
+
 		if (num_checked_sub_subjects == 0){			
-			$(this).parent().prev().prev().removeClass("checkboxChecked");
-			$(this).parent().prev().prev().removeClass("checkboxPartial");
-			$(this).parent().prev().prev().addClass("checkboxUnchecked");
+			$(this).parent().prev().prev().removeClass("active");
+			$(this).parent().prev().prev().removeClass("semi");
+			//$(this).parent().prev().prev().addClass("checkboxUnchecked");
 			$(this).attr("check-value","false");
 			
 		}
 		else if (num_checked_sub_subjects < num_sub_subjects){
-			$(this).parent().prev().prev().removeClass("checkboxChecked");
-			$(this).parent().prev().prev().removeClass("checkboxUnchecked");
-			$(this).parent().prev().prev().addClass("checkboxPartial");
+			$(this).parent().prev().prev().removeClass("active");
+			//$(this).parent().prev().prev().removeClass("checkboxUnchecked");
+			$(this).parent().prev().prev().addClass("semi");
 			$(this).attr("check-value","true");
 		}
 		else{
-			$(this).parent().prev().prev().removeClass("checkboxUnchecked");
-			$(this).parent().prev().prev().removeClass("checkboxPartial");
-			$(this).parent().prev().prev().addClass("checkboxChecked");
+			//$(this).parent().prev().prev().removeClass("checkboxUnchecked");
+			$(this).parent().prev().prev().removeClass("semi");
+			$(this).parent().prev().prev().addClass("active");
 			$(this).attr("check-value","true");
 		}
 		$(".only_all_subjects").attr("check-value", "false");
-		$(".only_all_subjects").removeClass("checkboxChecked");
-		$(".only_all_subjects").addClass("checkboxUnchecked");
+		$(".only_all_subjects").removeClass("active");
+		//$(".only_all_subjects").addClass("checkboxUnchecked");
 		$(".only_all_subjects").attr("check-value", "false");
 		e.stopPropagation();
 	});

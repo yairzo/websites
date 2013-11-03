@@ -120,21 +120,20 @@
 											</c:if>	
 															
 											<div class="check scroll_col <c:if test='${varStatus.index%3==0}'>scroll_col_last</c:if>">
-												<div class="checkbox_box selectSubject">
-													
-												</div>
-												<label class="openSubSubjects">${subject.name}</label>
-												<div style="display: none;" id="${subject.id}Sub" class="subSubjects" style="text-align:${lang.align};direction:${lang.dir}" > 
-                   									<div style="background: url(image/website/menu_triangle.png) no-repeat scroll top #FFFFFF; height: 12px;">&nbsp;</div>
-                   								<c:forEach items="${subject.subSubjectsBeans}" var="subSubject">
-													
-													<div class="${subSubject.id} checkbox_box checkbox_box_sub_${lang.dir} selectSubSubject" check-value="${subSubject.checked}">
-                     									                     									
-                     								</div>
-                    								<label><c:out value="${subSubject.name}"/></label>
-                    								<br/>
-													
-                 								</c:forEach>
+												<div class="checkbox_box selectSubject"></div>
+												<label>${subject.name}</label>
+												<div class="checkbox_list" id="${subject.id}Sub">
+                   									<div class="checkbox_list_top"></div>
+													<div class="checkbox_list_bottom">
+													<ul>
+                   									<c:forEach items="${subject.subSubjectsBeans}" var="subSubject">
+                   										<li>
+														<div class="${subSubject.id} checkbox_box checkbox_box_sub_${lang.dir} selectSubSubject" check-value="${subSubject.checked}"></div>
+                    									<label><c:out value="${subSubject.name}"/></label>
+                    									</li>
+                  									</c:forEach>
+                 									</ul>
+                 									</div>
                  								</div>
 											</div>
 										</c:forEach>
@@ -165,8 +164,9 @@
 									<span class="clearfix search_icons">
 										<span class="search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/> <strong>${callForProposal.fund.name}</strong></span>
 										<span class="search_date"><fmt:message key="${lang.localeId}.callForProposal.submissionTime"/> <strong><c:choose><c:when test="${callForProposal.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/></c:when><c:otherwise>${callForProposal.finalSubmissionTimeString}</c:otherwise></c:choose></strong></span>
+										<c:if test="${callForProposal.expired}"><span class="search_expired"><img src="image/website/i-careful-small.png" alt=""> <fmt:message key="${lang.localeId}.website.isExpired"/></span></c:if>
 									</span>
-								</a>
+									</a>
 	   							</c:forEach>
  	  							</c:when>
   	  							<c:otherwise>

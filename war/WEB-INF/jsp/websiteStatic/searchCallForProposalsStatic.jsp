@@ -167,44 +167,99 @@
 									<div class="scroll_content">
 										<div class="clearfix mar_10">
 											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>נושאים רב תחומיים</label>
+												<div class="checkbox_box semi"><input type="checkbox" name="" value="" /></div>
+												<label><img src="image/website/select.png" alt=""> נושאים רב תחומיים</label>
 											</div>
 											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעי החיים, רפואה, חקלאות, מזון וסביבה</label>
+												<div class="checkbox_box active"><input type="checkbox" name="" value="" /></div>
+												<label><img src="image/website/select.png" alt=""> מדעי החיים, רפואה, חקלאות, מזון וסביבה</label>
 											</div>
 											<div class="check scroll_col scroll_col_last">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעים מדוייקים וטכנולוגיה</label>
+												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
+												<label><img src="image/website/select.png" alt=""> מדעים מדוייקים וטכנולוגיה</label>
 											</div>
 										</div>
 										<div class="clearfix mar_10">
 											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעי הרוח</label>
+												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
+												<label><img src="image/website/select.png" alt=""> מדעי הרוח</label>
 											</div>
 											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעי החברה</label>
+												<div class="checkbox_box semi"><input type="checkbox" name="" value="" /></div>
+												<label><img src="image/website/select.png" alt=""> מדעי החברה</label>
 											</div>
 											<div class="check scroll_col scroll_col_last">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>משפטים</label>
+												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
+												<label><img src="image/website/select.png" alt=""> משפטים</label>
 											</div>
 										</div>
 										<div class="clearfix mar_10">
 											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעי הרוח</label>
+												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
+												<label><img src="image/website/select.png" alt=""> מדעי הרוח</label>
 											</div>
 											<div class="check scroll_col">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>מדעי החברה</label>
+												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
+												<label><img src="image/website/select.png" alt=""> מדעי החברה</label>
+												<div class="checkbox_list">
+													<div class="checkbox_list_top"></div>
+													<div class="checkbox_list_bottom">
+														<ul>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> גיאוגרפיה</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> חינוך</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> יחסים בינלאומיים</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> כלכלה</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> מדיניות ציבורית</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> מדע המדינה</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> מנהל עסקים</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> סוציולוגיה ואנתרופולוגיה</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> סטטיסטיקה</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> עבודה סוציאלית</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> פסיכולוגיה</label>
+															</li>
+															<li>
+																<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled"></div>
+																<label> תקשורת ועתונאות</label>
+															</li>
+														</ul>
+													</div>
+												</div>
 											</div>
 											<div class="check scroll_col scroll_col_last">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" /></div>
-												<label>משפטים</label>
+												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
+												<label><img src="image/website/select.png" alt=""> משפטים</label>
 											</div>
 										</div>
 									</div>
@@ -243,6 +298,7 @@
 									<span class="clearfix search_icons">
 										<span class="search_financing">ממנן <strong>Mercator Foundation</strong></span>
 										<span class="search_date">תאריך הגשה <strong>כל השנה</strong></span>
+										<span class="search_expired"><img src="image/website/i-careful-small.png" alt=""> פג תוקף!</span>
 									</span>
 								</a>
 							</div>

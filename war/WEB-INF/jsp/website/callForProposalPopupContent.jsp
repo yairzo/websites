@@ -33,6 +33,11 @@
 				<h3 class="popup_title">${command.title}</h3>
 				<a onclick="$('.popup_placeholder').hide();return false;" class="popup_close">סגור</a>
 			</div>
+			<c:if test="${command.expired}">
+			<div class="clearfix">
+				<h3 class="popup_careful"><fmt:message key="${lang.localeId}.website.isExpired"/></h3>
+			</div>
+			</c:if>
 			<span class="clearfix search_icons">
 				<span class="popup_search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/></strong>${command.fund.name}</span>
 				<span class="popup_search_date"><fmt:message key="${lang.localeId}.callForProposal.submissionTime"/> 

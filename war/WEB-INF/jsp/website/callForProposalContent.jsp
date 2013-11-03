@@ -49,7 +49,14 @@
 							</div>
 							
 							<c:if test="${!authorized}">
-							<fmt:message key="${copLang.localeId}.callForProposal.fullDetailsLogin"/> <a href="login.html?ilr=callForProposal.html?id=${command.id}"> <fmt:message key="${copLang.localeId}.callForProposal.loginLink"/></a>
+							<div class="kol open kol_${copLang.dir}">
+								<div class="clearfix">
+									<a href="login.html?ilr=callForProposal.html?id=${command.id}" class="button_${copLang.dir}">
+										<span class="button_inner_${copLang.dir}"><img src="image/website/i-user.png" alt=""><fmt:message key="${copLang.localeId}.callForProposal.loginLink"/></span>
+									</a>
+									<p class="forbidden_${copLang.dir}"><fmt:message key="${copLang.localeId}.callForProposal.fullDetailsLogin"/></p>
+								</div>
+							</div>
 							</c:if>			
 							
 							<c:if test="${authorized && !command.showDescriptionOnly}">
