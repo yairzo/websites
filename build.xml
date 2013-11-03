@@ -7,7 +7,7 @@
 	<property name="src.dir" value="src"/>
     <property name="web.dir" value="war"/>
     <property name="build.dir" value="build"/>
-    <property name="name" value="iws"/>
+    <property name="name" value="ROOT"/>
 	<property name="tomcat.home" value="/home/mop/tomcat/"/>
 	<property name="war.filename" value="${name}.war"/>
 	<property name="webapp.lib.dir" value="${web.dir}/WEB-INF/lib"/>
