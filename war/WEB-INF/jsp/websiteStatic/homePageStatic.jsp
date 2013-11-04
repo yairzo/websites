@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="style/style1Static.css">
         <script src="js/modernizr-2.6.2.min.js"></script>
+        <script src="js/form.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -50,6 +51,41 @@
 						<li><a href="#"><img src="image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
+				
+				<div class="login">
+					<div class="login_left">כניסה / הרשמה &nbsp;&nbsp;&nbsp; <a href="#"><img src="image/website/login_help.png" alt=""></a></div>
+					<div class="login_box" id="login_box">
+						<div class="login_box_top"></div>
+						<div class="login_box_bottom">
+							<form action="" method="post">
+								<div class="clearfix">
+									<div class="login_box_col">
+										<label for="email" class="login_label">אימייל</label>
+										<input type="email" name="" value="" id="email" class="login_input">
+									</div>
+									<div class="login_box_col pull-left">
+										<label for="password" class="login_label">סיסמה</label>
+										<input type="paswword" name="" value="" id="password" class="login_input">
+									</div>
+									<div class="login_box_col mar_15">
+										<input type="submit" value="כניסה" class="login_submit">
+									</div>
+									<div class="login_box_col mar_15 pull-left">
+										<div class="clearfix">
+											<a href="#" class="login_forgot">שכחתי את הסיסמה שלי</a>
+										</div>
+										<div class="login_remember mar_10 clearfix">
+											<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" id="remember" /></div>
+											<label for="remember">זכור אותי בכניסה הבאה</label>
+										</div>
+									</div>
+								</div>
+								<div class="login_register mar_15 clearfix">להרשמה לאתר <a href="#">לחצו כאן</a></div>
+							</form>
+						</div>
+					</div>
+				</div>
+				
 			</div>
         	<div class="container clearfix">
 				<a href="#" class="logo_authority"><img src="image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></a>
@@ -175,6 +211,25 @@ onblur="if(this.value=='')this.value=this.defaultValue" value="הקלידו נו
 				})
 				.each(function(){
 				$(this).find("ul").hide();
+				});
+			}); 
+			var mouse_is_inside = false;
+			$(document).ready(function() {
+				$(".login_left").click(function() {
+					var loginBox = $("#login_box");
+					if (loginBox.is(":visible"))
+					loginBox.fadeOut("fast");
+					else
+					loginBox.fadeIn("fast");
+					return false;
+				});
+				$("#login_box").hover(function(){
+					mouse_is_inside=true;
+				}, function(){
+					mouse_is_inside=false;
+				});
+				$("body").click(function(){
+					if(! mouse_is_inside) $("#login_box").fadeOut("fast");
 				});
 			}); 
 		</script>

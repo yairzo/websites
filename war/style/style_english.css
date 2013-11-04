@@ -1858,38 +1858,6 @@ line-height:38px;
 	float: left;
 }
 
-.checkboxPartial{
-	background: url(../image/website/empty_checkbox.png) no-repeat #F8F8F8;
-	border: 1px solid #04bde5;
-	background-position: 0px 0px;
-}
-.checkboxChecked{
-	background: url(../image/website/checkbox.png) no-repeat #F8F8F8;
-	background-position: 0px 0px;
-	border: 1px solid #dbdbdb;
-}
-.checkboxUnchecked{
-	background: url(../image/website/checkbox.png) no-repeat #F8F8F8;
-	background-position: 0px -24px;
-	border: 1px solid #dbdbdb;
-}
-
-.checkboxPartialSub{
-	background: url(../image/website/empty_checkbox.png) no-repeat #FFFFFF;
-	border: 1px solid #04bde5;
-	background-position: 0px 0px;
-}
-.checkboxCheckedSub{
-	background: url(../image/website/checkbox.png) no-repeat #FFFFFF;
-	background-position: 0px 0px;
-	border: 1px solid #dbdbdb;
-}
-.checkboxUncheckedSub{
-	background: url(../image/website/checkbox.png) no-repeat #FFFFFF;
-	background-position: 0px -24px;
-	border: 1px solid #dbdbdb;
-}
-
 
 
 .radio {
@@ -1986,6 +1954,7 @@ background:url(../image/website/checkbox_scrollbox.png) no-repeat top;
 
 .check.scroll_col .checkbox_box.active{background:url(../image/website/checkbox_scrollbox_active.png) no-repeat top;}
 .check_all .checkbox_box.active, .check_only .checkbox_box.active{background:url(../image/website/checkbox_scrollbox_active.png) no-repeat top;}
+.search_by_all_year.checkbox_box.active, .search_open.checkbox_box.active, .search_expired.checkbox_box.active{background:url(../image/website/checkbox_scrollbox_active.png) no-repeat top;}
 
 .checkbox_list{
 display:none;
@@ -2079,6 +2048,7 @@ width:309px;
 position:absolute;
 top:44px;
 left:-85px;
+z-index:10;
 }
 
 .login_box_top{
