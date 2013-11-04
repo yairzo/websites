@@ -295,12 +295,12 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append(conferenceProposalBean.getLocalAudience());
 			b.append('~');
 			if(conferenceProposalBean.getGuestsAttach().length>0)
-				b.append("https://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=guestsAttach");
+				b.append("https://"+ server +"/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=guestsAttach");
 			else 
 				b.append(" ");
 			b.append('~');
 			if(conferenceProposalBean.getProgramAttach().length>0)
-				b.append("https://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=programAttach");
+				b.append("https://"+ server +"/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=programAttach");
 			else 
 				b.append(" ");
 			b.append('~');
@@ -318,7 +318,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				b.append(conferenceProposalBean.getOrganizingCompanyName());
 			b.append('~');
 			if(conferenceProposalBean.getCompanyAttach().length>0)
-				b.append("https://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=companyAttach");
+				b.append("https://"+ server +"/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=companyAttach");
 			else 
 				b.append(" ");
 			b.append('~');
@@ -347,7 +347,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append("דולר");
 			b.append('~');
 			if(conferenceProposalBean.getFinancialAttach().length>0)
-				b.append("https://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=financialAttach");
+				b.append("https://"+ server +"/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&attachFile=financialAttach");
 			else 
 				b.append(" ");
 			b.append('~');
@@ -492,7 +492,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append(financialSupport.getSum());
 					b.append('~');
 					if(financialSupport.getReferenceFile().length>0)
-						b.append("https://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&assosiateId=" +j +"&attachFile=assosiateAttach");
+						b.append("https://"+ server +"/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&assosiateId=" +j +"&attachFile=assosiateAttach");
 					else
 						b.append("  ");
 					b.append('~');
@@ -527,7 +527,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append(financialSupport.getSum());
 					b.append('~');
 					if(financialSupport.getReferenceFile().length>0)
-						b.append("https://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&externalId=" +j +"&attachFile=externalAttach");
+						b.append("https://"+ server +"/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&externalId=" +j +"&attachFile=externalAttach");
 					else
 						b.append("  ");
 					b.append('~');
@@ -562,7 +562,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append(financialSupport.getSum());
 					b.append('~');
 					if(financialSupport.getReferenceFile().length>0)
-						b.append("https://"+ server +"/iws/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&admitanceFeeId=" +j +"&attachFile=admitanceFeeAttach");
+						b.append("https://"+ server +"/fileViewer?conferenceProposalId="+ conferenceProposalBean.getId()+ "&admitanceFeeId=" +j +"&attachFile=admitanceFeeAttach");
 					else
 						b.append("  ");
 					b.append('~');

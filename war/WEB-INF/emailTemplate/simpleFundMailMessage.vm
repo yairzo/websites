@@ -1,2 +1,2 @@
 
-${fundMessageOpening} <a href="http://${server}/iws/fund.htm?id=${fund.id}">${fund.name}</a> ${fundProposalMessageOpening} <a href="http://${server}/iws/proposal.htm?id=${proposal.id}">${proposal.hebrewTitle}</a>
+${fundMessageOpening} <a href="http://${server}/fund.htm?id=${fund.id}">${fund.name}</a> ${fundProposalMessageOpening} <a href="http://${server}/proposal.htm?id=${proposal.id}">${proposal.hebrewTitle}</a>

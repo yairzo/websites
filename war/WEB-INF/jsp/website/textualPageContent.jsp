@@ -11,7 +11,7 @@
 					<div class="maintext_${pageLang.dir} clearfix mar_20">
        						<c:choose>
     							<c:when test="${command.showFile}">
-									<iframe src="https://docs.google.com/gview?url=https%3A%2F%2F${server}%2Fiws%2F${command.attachment.filename}&amp;embedded=true" style="width:686px; height:700px;" frameborder="0"></iframe>
+									<iframe src="https://docs.google.com/gview?url=https%3A%2F%2F${server}%2F${command.attachment.filename}&amp;embedded=true" style="width:686px; height:700px;" frameborder="0"></iframe>
 								</c:when>
     							<c:when test="${command.wrapExternalPage}">
 									<!--<jsp:include page="/viewList.html?id=${command.externalPageUrl}&iv=1&p=1&a=1" />-->

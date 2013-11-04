@@ -28,7 +28,7 @@
                  	<tr><td>&nbsp;</td></tr>
                  	<tr>
                 		<td align="justify">
-                				הנך מוזמן/נת לחזור לעמוד הראשי דרך <a href="/iws/welcome.html"> קישור זה</a>
+                				הנך מוזמן/נת לחזור לעמוד הראשי דרך <a href="/welcome.html"> קישור זה</a>
                 		</td>
                 	</tr>
                 	<tr>

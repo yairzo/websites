@@ -20,7 +20,7 @@ function resetAutocomplete(){
 		 highlight: true,
 		 select: function(event, ui) {
 			$("#searchResearcher").val(ui.item.label);
-			window.location='/iws/conferenceProposal.html?action=new&researcherId='+ui.item.id
+			window.location='/conferenceProposal.html?action=new&researcherId='+ui.item.id
 			event.preventDefault();					
 		 }
 	    }

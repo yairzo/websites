@@ -174,7 +174,7 @@ select.greennoborder
 {
 	font-size: 14px;
 	height: 23px;
-	background-image: url(/iws/image/button.gif);
+	background-image: url(/image/button.gif);
 }
 
 
@@ -305,13 +305,13 @@ td.viewList{
 }
 
 .plus{
-	list-style-image: url(/iws/image/plus.gif);
+	list-style-image: url(/image/plus.gif);
 }
 .minus{
-	list-style-image: url(/iws/image/minus.gif);
+	list-style-image: url(/image/minus.gif);
 }
 .bullet{
-	list-style-image: url(/iws/image/circle.gif);
+	list-style-image: url(/image/circle.gif);
 }
 
 .rte-toolbar p {

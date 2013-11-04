@@ -68,6 +68,9 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 	private List<AListBean> sublistsBeans;
 
 	private AListDesignBean listDesign;
+	
+	public static int LIST_TYPE_PERSON = 1;
+	public static int LIST_TYPE_ORGANIZATION_UNIT = 2;
 
 	// static final Logger logger = Logger.getLogger(AListBean.class);
 

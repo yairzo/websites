@@ -18,7 +18,7 @@ public class checkUrl {
 		
 		try {
 			System.out.println("hehre");
-		    URL myURL = new URL("https://ard.huji.ac.il/iws/fileViewer?conferenceProposalId=359&attachFile=programAttach");
+		    URL myURL = new URL("https://ard.huji.ac.il/fileViewer?conferenceProposalId=359&attachFile=programAttach");
 		    URLConnection myURLConnection = myURL.openConnection();
 		    BufferedReader in = new BufferedReader(new InputStreamReader(myURLConnection.getInputStream()));
 		    System.out.println("hehre333333" );

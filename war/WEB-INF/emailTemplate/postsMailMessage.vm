@@ -111,7 +111,7 @@
 
        	#set ($cannotReadPost = !$recipient.readsUTF8Mails && $post.language.UTF8)
        	#if ($cannotReadPost)
-       		<p>Not readable on your mail client, the information is available <a href="http://$server/iws/post.html?id=$post.id">here</a></p>
+       		<p>Not readable on your mail client, the information is available <a href="http://$server/post.html?id=$post.id">here</a></p>
        		<p>You will be required to login. username: civil id first 8 digits. password: the code from your salary flip</p>
        		<br/>
        	#else
@@ -121,7 +121,7 @@
 
 		#if ($post.verified)
 			<span class="smallmedium">
-				$messageService.getMessage($postSuffixKey, $post.localeId)&nbsp;&nbsp;<a href="http://${server}/iws/personPost.html?id=${recipient.id}">$messageService.getMessage($editSubscriptionDetailsKey, $post.localeId)</a>
+				$messageService.getMessage($postSuffixKey, $post.localeId)&nbsp;&nbsp;<a href="http://${server}/personPost.html?id=${recipient.id}">$messageService.getMessage($editSubscriptionDetailsKey, $post.localeId)</a>
 			</span>
 			<br/>
 			<span class="small">
@@ -129,9 +129,9 @@
 			</span>
 		#elseif ($post.selfSent)
 			<span class="small">
-			<a style="text-decoration: none" href="http://${server}/iws/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $post.localeId)</a>
+			<a style="text-decoration: none" href="http://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $post.localeId)</a>
 			&nbsp;<img src="${bullet}"/>&nbsp;
-			<a style="text-decoration: none" href="http://${server}/iws/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $post.localeId)</a>
+			<a style="text-decoration: none" href="http://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $post.localeId)</a>
 			</span>
 		#end
 

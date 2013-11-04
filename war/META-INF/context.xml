@@ -1,4 +1,4 @@
-<Context path="/iws" docBase="iws" debug="5" reloadable="true" crossContext="true">
+<Context path="/" docBase="iws" debug="5" reloadable="true" crossContext="true">
 
 <Resource
 name="jdbc/iws"

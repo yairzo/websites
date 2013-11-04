@@ -57,12 +57,12 @@
 					<c:if test="${online}">
 					<button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp; 
 					<button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp; 
-					<button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp; 
+					<button class="grey" onclick="window.open('/textualPage.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp; 
 					</c:if>
 					<c:if test="${!online}">
 					<button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp; 
 					</c:if>
-					<button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp; 
+					<button class="grey" onclick="window.open('/textualPage.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp; 
 					<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;
 					<button class="grey" onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;		
 					<button class="grey" onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>		
@@ -260,12 +260,12 @@
 					<c:if test="${online}">
 					<button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp; 
 					<button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp; 
-					<button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp; 
+					<button class="grey" onclick="window.open('/textualPage.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp; 
 					</c:if>
 					<c:if test="${!online}">
 					<button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp; 
 					</c:if>
-					<button class="grey" onclick="window.open('/iws/textualPage.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp; 
+					<button class="grey" onclick="window.open('/textualPage.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp; 
 					<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;
 					<button class="grey" onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;		
 					<button class="grey" onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>		

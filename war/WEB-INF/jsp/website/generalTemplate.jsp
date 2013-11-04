@@ -29,7 +29,7 @@
 					<ul class="menu">
 						<li><a href="#" onclick="changeLanguage();"><img src="image/website/menu_icon_${lang.nameShort}.png" alt="Change language to ${lang.nameCapitalized}" /></a></li>
 						<li><a href="search.html"><img src="image/website/menu_icon_magnifying.png" alt="Search this website" /></a></li>
-						<li><a href="/iws/homePage.html"><img src="image/website/menu_icon_home.png" alt="Go to homepage" /></a></li>
+						<li><a href="/homePage.html"><img src="image/website/menu_icon_home.png" alt="Go to homepage" /></a></li>
 						<li><a href="textualPage.html?id=${contactsPageId}"><img src="image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
@@ -147,11 +147,11 @@
         	function bookmarksite() {
         		if ('${lang.rtl}'=='true'){
         			title = "הרשות למחקר ופיתוח, האוניברסיטה העברית";
-            		url = "https://ard.huji.ac.il/iws/homePage.html?locale=iw_IL";
+            		url = "https://ard.huji.ac.il/homePage.html?locale=iw_IL";
         		}
         		else{
         			title = "The Authority for Research and Development. The Hebrew University of Jerusalem";
-            		url = "https://ard.huji.ac.il/iws/homePage.html?locale=en_US";
+            		url = "https://ard.huji.ac.il/homePage.html?locale=en_US";
        			}
         		if (window.sidebar) // firefox
         			window.sidebar.addPanel(title, url, "");

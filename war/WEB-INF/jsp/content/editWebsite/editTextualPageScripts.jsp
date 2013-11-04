@@ -263,7 +263,7 @@ $(document).ready(function() {
       	save();
     }); 
 	
-	$('button').click(function(){
+	$('button').click(function(e){
 		e.preventDefault();
 		save();
 	});

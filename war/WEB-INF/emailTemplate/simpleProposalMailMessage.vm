@@ -1,2 +1,2 @@
 
-${proposalMessageOpening} <a href="http://${server}/iws/proposal.htm?id=${proposal.id}">${proposal.hebrewTitle}</a>
+${proposalMessageOpening} <a href="http://${server}/proposal.htm?id=${proposal.id}">${proposal.hebrewTitle}</a>

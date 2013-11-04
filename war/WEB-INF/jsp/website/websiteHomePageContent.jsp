@@ -4,7 +4,7 @@
 				<div class="bx-wrapper pictures_slider_wrapper">
 					<div class="bx-viewport">
 						  <div class="default">
-  								<img width="960" height="340" src="/iws/image/website/default_home_page_image.jpg"/>
+  								<img width="960" height="340" src="/image/website/default_home_page_image.jpg"/>
 								<div class="bx-caption">
 									<h3><fmt:message key="${lang.localeId}.website.pictureSliderTitle"/></h3>
 									<span> הרשות למחקר ופיתוח</span>										
@@ -20,7 +20,7 @@
 						  				<img width="960" height="340" src="imageViewer?imageId=${image.id}&attachType=bodyImage" />			
 						  			</c:when>
 						  			<c:otherwise>
-						  				<img class="lazy" width="960" height="340" src="/iws/image/website/default_home_page_image.jpg" data-src="imageViewer?imageId=${image.id}&attachType=bodyImage" />
+						  				<img class="lazy" width="960" height="340" src="/image/website/default_home_page_image.jpg" data-src="imageViewer?imageId=${image.id}&attachType=bodyImage" />
 						  			</c:otherwise>
 						  		</c:choose>
   								
