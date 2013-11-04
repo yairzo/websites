@@ -33,7 +33,7 @@
                    	<table border="0" cellpadding="0" cellspacing="0">
 		                <tr>
            			        <td ><button class="grey" onclick="submit();">הסר מהרשימה</button></td>
-		                	<td><a style="text-decoration: none" href="person.html?id=<c:out value="${command.personId}"/>"><button class="grey">ביטול</button></a>
+		                	<td><a style="text-decoration: none" href="/person.html?id=<c:out value="${command.personId}"/>"><button class="grey">ביטול</button></a>
 		                </tr>
 		            </table>
            		</td>

@@ -95,7 +95,7 @@ $(document).ready(function() {
 		<p class="white">משתמש: <c:out value="${userPersonBean.degreeFullNameHebrew}"/></p>
 	</td>
 	<td align="left">
-		<a style="text-decoration: none; color: white; font-size:9pt;"  href="j_acegi_logout">צא</a>
+		<a style="text-decoration: none; color: white; font-size:9pt;"  href="/j_acegi_logout">צא</a>
 	</td>
 	</tr>
 	</table>
@@ -149,38 +149,38 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="persons.html">טיפול במאגר בעלי התפקידים</a>
+								<a style="text-decoration: none" href="/persons.html">טיפול במאגר בעלי התפקידים</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a  style="text-decoration: none" href="lists.html">טיפול במאגר הרשימות</a>
+								<a  style="text-decoration: none" href="/lists.html">טיפול במאגר הרשימות</a>
 							</th>
 						</tr>
 						<tr>
 							<th  align="right" style="height:35">
-								<a  style="text-decoration: none" href="organizationUnits.html">טיפול במאגר היחידות</a>
+								<a  style="text-decoration: none" href="/organizationUnits.html">טיפול במאגר היחידות</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_LISTS_MOP">
 						<tr>
 							<th  align="right" style="height:35">
-								<a  style="text-decoration: none" href="lists.html">צפייה ברשימות</a>
+								<a  style="text-decoration: none" href="/lists.html">צפייה ברשימות</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_EQF_ADMIN,ROLE_EQF_MOP">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="proposals.html">טופס מרובע - טיפול במאגר ההצעות</a>
+								<a style="text-decoration: none" href="/proposals.html">טופס מרובע - טיפול במאגר ההצעות</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_EQF_DEAN,ROLE_EQF_YISSUM,ROLE_EQF_RESEARCHER">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="proposals.html">טופס מרובע - הצעות מחקר לאישור</a>
+								<a style="text-decoration: none" href="/proposals.html">טופס מרובע - הצעות מחקר לאישור</a>
 							</th>
 						</tr>
 						</authz:authorize>
@@ -194,33 +194,33 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="post.html?action=new">שליחת הודעה חדשה</a>
+								<a style="text-decoration: none" href="/post.html?action=new">שליחת הודעה חדשה</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR,ROLE_POST_SENDER,ROLE_POST_READER">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="posts.html">דפדוף במאגר ההודעות</a>
+								<a style="text-decoration: none" href="/posts.html">דפדוף במאגר ההודעות</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="persons.html?rf=1">דפדוף במאגר הרשומים</a>
+								<a style="text-decoration: none" href="/persons.html?rf=1">דפדוף במאגר הרשומים</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="postReports.html">מסך בקרה</a>
+								<a style="text-decoration: none" href="/postReports.html">מסך בקרה</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_POST_READER,ROLE_POST_CREATOR,ROLE_POST_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="personPost.html?id=${userPersonBean.id}">עריכת פרטי רישום לדיוור הישיר</a>
+								<a style="text-decoration: none" href="/personPost.html?id=${userPersonBean.id}">עריכת פרטי רישום לדיוור הישיר</a>
 							</th>
 						</tr>
 						</authz:authorize>
@@ -234,38 +234,38 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_READ,ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="homePage.html">אתר האוניברסיטה - דף הבית</a>
+								<a style="text-decoration: none" href="/homePage.html">אתר האוניברסיטה - דף הבית</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="search.html">אתר האוניברסיטה - חיפוש כללי</a>
+								<a style="text-decoration: none" href="/search.html">אתר האוניברסיטה - חיפוש כללי</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="searchCallForProposals.html">אתר האוניברסיטה - חיפוש קולות קוראים</a>
+								<a style="text-decoration: none" href="/searchCallForProposals.html">אתר האוניברסיטה - חיפוש קולות קוראים</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="sitemap.html">אתר האוניברסיטה - מפת האתר</a>
+								<a style="text-decoration: none" href="/sitemap.html">אתר האוניברסיטה - מפת האתר</a>
 							</th>
 						</tr>
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="callForProposals.html"> עריכת קולות קוראים</a>
+								<a style="text-decoration: none" href="/callForProposals.html"> עריכת קולות קוראים</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="textualPages.html"> עריכת דפי טקסט</a>
+								<a style="text-decoration: none" href="/textualPages.html"> עריכת דפי טקסט</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="categories.html">עריכת קטגוריות לאתר </a>
+								<a style="text-decoration: none" href="/categories.html">עריכת קטגוריות לאתר </a>
 							</th>
 						</tr>
 						</authz:authorize>
@@ -281,19 +281,19 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_IMAGE_ADMIN,ROLE_IMAGE_RESEARCHER">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="uploadImage.html">עריכת תמונות</a>
+								<a style="text-decoration: none" href="/uploadImage.html">עריכת תמונות</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="urls.html">צפייה בקישורים </a>
+								<a style="text-decoration: none" href="/urls.html">צפייה בקישורים </a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="active.html">צפייה במשתמשים הפעילים </a>
+								<a style="text-decoration: none" href="/active.html">צפייה במשתמשים הפעילים </a>
 							</th>
 						</tr>
 						</authz:authorize>
@@ -329,26 +329,26 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="conferenceProposals.html">כחבר בועדת כנסים - ניתן לצפות בבקשות שטרם נדונו ולרשום הערות לגביהן</a>
+								<a style="text-decoration: none" href="/conferenceProposals.html">כחבר בועדת כנסים - ניתן לצפות בבקשות שטרם נדונו ולרשום הערות לגביהן</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="conferenceProposalsGrade.html">כדיקן - צפייה/כתיבת חוות דעת ודירוג הבקשות שהוגשו על ידי חוקרי יחידתך לדיון הקרוב</a>
+								<a style="text-decoration: none" href="/conferenceProposalsGrade.html">כדיקן - צפייה/כתיבת חוות דעת ודירוג הבקשות שהוגשו על ידי חוקרי יחידתך לדיון הקרוב</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="conferenceProposals.html">כדיקן - צפייה בכלל הבקשות שהוגשו על ידי חוקרי יחידתך</a>
+								<a style="text-decoration: none" href="/conferenceProposals.html">כדיקן - צפייה בכלל הבקשות שהוגשו על ידי חוקרי יחידתך</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="conferenceProposals.html">צפייה בבקשות לתמיכה בכנס מדעי</a>
+								<a style="text-decoration: none" href="/conferenceProposals.html">צפייה בבקשות לתמיכה בכנס מדעי</a>
 							</th>
 						</tr>
 						</authz:authorize>
@@ -356,7 +356,7 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 						<tr>
 						  <th align="right" style="height:35">
-								<a style="text-decoration: none" href="conferenceProposal.html?action=new">
+								<a style="text-decoration: none" href="/conferenceProposal.html?action=new">
 								<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE,ROLE_CONFERENCE_APPROVER">כחוקר - </authz:authorize>
 								פתיחת בקשה חדשה, לתמיכה בכנס מדעי, בינ"ל
 								</a>
@@ -366,14 +366,14 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
 						<tr>
 						  <th align="right" style="height:35">
-								<a style="text-decoration: none" href="conferenceProposal.html?action=new" class="chooseResearcher">פתיחת בקשה חדשה, לתמיכה בכנס מדעי, בינ"ל</a>
+								<a style="text-decoration: none" href="/conferenceProposal.html?action=new" class="chooseResearcher">פתיחת בקשה חדשה, לתמיכה בכנס מדעי, בינ"ל</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_CONFERENCE_RESEARCHER">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="conferenceProposals.html?type=self">
+								<a style="text-decoration: none" href="/conferenceProposals.html?type=self">
 								<authz:authorize ifAnyGranted="ROLE_CONFERENCE_COMMITTEE,ROLE_CONFERENCE_APPROVER">כחוקר - </authz:authorize>
 								צפייה בבקשות קודמות שלך במערכת (ואפשרות לעדכן בקשה שטרם מסרת לוועדה או שהוחזרה אליך לתיקון)</a>
 							</th>
@@ -388,7 +388,7 @@ $(document).ready(function() {
 					
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="person.html?id=${userPersonBean.id}&cp=welcome.html">עדכון פרטיך האישיים</a>
+								<a style="text-decoration: none" href="/person.html?id=${userPersonBean.id}&cp=welcome.html">עדכון פרטיך האישיים</a>
 							</th>
 						</tr>
 					</table>

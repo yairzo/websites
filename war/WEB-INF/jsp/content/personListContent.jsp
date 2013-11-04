@@ -110,7 +110,7 @@ $(document).ready(function() {
                 </tr>
 
                 <tr>
-                  <td colspan="2" style="text-align: center;"><img src="image/hrWide.gif" width="600" height="10"></td>
+                  <td colspan="2" style="text-align: center;"><img src="/image/hrWide.gif" width="600" height="10"></td>
                 </tr>
               </table>
 
@@ -124,7 +124,7 @@ $(document).ready(function() {
   						<tr>				  			
   						
   						<td style="direction: rtl;">
-  							<a href="person.html?id=${person.id}">  							
+  							<a href="/person.html?id=${person.id}">  							
   							<c:if test="${fn:length(person.firstNameHebrew)>0 || fn:length(person.lastNameHebrew)>0}">
  
   							<c:out value="${person.firstNameHebrew}"/> &nbsp;

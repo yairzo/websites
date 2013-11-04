@@ -189,8 +189,8 @@ public class PostBean {
 
 	public String getFormattedMessage(){
 		String formattedMessage = this.message;
-		formattedMessage = formattedMessage.replaceAll(";;", "<img src=\"image/bullet.gif\">");
-		formattedMessage = formattedMessage.replaceAll("#@#", "<img src=\"image/attach.jpg\">");
+		formattedMessage = formattedMessage.replaceAll(";;", "<img src=\"/image/bullet.gif\">");
+		formattedMessage = formattedMessage.replaceAll("#@#", "<img src=\"/image/attach.jpg\">");
 		formattedMessage = formattedMessage.replaceAll("#mu#", "<a class=\"underline\" href=\"mailto:" + sender.getEmail() + "\">");
 		formattedMessage = formattedMessage.replaceAll("#mp#",sender.getFullName());
 		formattedMessage = formattedMessage.replaceAll("#mue#","</a>");

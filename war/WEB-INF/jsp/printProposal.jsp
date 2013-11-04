@@ -98,23 +98,23 @@ h2 {
         </tr>
 
         <tr>
-          <td align="right" dir="rtl" colspan="2">יש לסמן ב<img src="image/v.gif" alt="" width="12" height="12" /> את המתאים
+          <td align="right" dir="rtl" colspan="2">יש לסמן ב<img src="/image/v.gif" alt="" width="12" height="12" /> את המתאים
             <table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
                 <td width="25%" valign="top" class="lineborder"><p dir="rtl"><u><strong>בטיחות:</strong></u></p>
-                  <p dir="rtl"><img src="image/v.gif" alt="" width="12" height="12" /> המחקר <strong>אינו ניסויי</strong><br />
+                  <p dir="rtl"><img src="/image/v.gif" alt="" width="12" height="12" /> המחקר <strong>אינו ניסויי</strong><br />
 
-                    <img src="image/smallSquare.gif" alt="" width="12" height="12" /> המחקר <strong>ניסויי מצורף נספח בטיחות</strong> חתום  על ידי המחלקה לבטיחות ולגיהות (מספרו 025).</p></td>
+                    <img src="/image/smallSquare.gif" alt="" width="12" height="12" /> המחקר <strong>ניסויי מצורף נספח בטיחות</strong> חתום  על ידי המחלקה לבטיחות ולגיהות (מספרו 025).</p></td>
                 <td width="25%" valign="top" class="lineborder"><p dir="rtl"><u><strong>ניסויים בבני אדם:</strong></u></p>
-                  <p dir="rtl"><img src="image/v.gif" alt="" width="12" height="12" /> המחקר <strong>אינו כרוך</strong> בניסויים בבני אדם<br />
+                  <p dir="rtl"><img src="/image/v.gif" alt="" width="12" height="12" /> המחקר <strong>אינו כרוך</strong> בניסויים בבני אדם<br />
 
-                    <img src="image/smallSquare.gif" alt="" width="12" height="12" /> המחקר <strong>כרוך</strong> בניסויים בבני אדם, <strong>מצורף</strong> אישור ועדת הלסינקי או הועדה לאתיקה של הניסויים, לא רפואיים, באדם.</p></td>
+                    <img src="/image/smallSquare.gif" alt="" width="12" height="12" /> המחקר <strong>כרוך</strong> בניסויים בבני אדם, <strong>מצורף</strong> אישור ועדת הלסינקי או הועדה לאתיקה של הניסויים, לא רפואיים, באדם.</p></td>
                 <td width="25%" valign="top" class="lineborder"><p dir="rtl"><u><strong>ניסויים בחיות מעבדה:</strong></u></p>
-                  <p dir="rtl"><img src="image/v.gif" alt="" width="12" height="12" /> המחקר <strong>אינו כרוך</strong> בניסויים בחיות<br />
+                  <p dir="rtl"><img src="/image/v.gif" alt="" width="12" height="12" /> המחקר <strong>אינו כרוך</strong> בניסויים בחיות<br />
 
-                    <img src="image/smallSquare.gif" alt="" width="12" height="12" /> המחקר <strong>כרוך</strong> בניסויים בחיות, <strong>מצורף</strong> אישור הועדה לאתיקה של טיפול וניסויים בבע&quot;ח.</p></td>
+                    <img src="/image/smallSquare.gif" alt="" width="12" height="12" /> המחקר <strong>כרוך</strong> בניסויים בחיות, <strong>מצורף</strong> אישור הועדה לאתיקה של טיפול וניסויים בבע&quot;ח.</p></td>
                 <td width="25%" valign="top"><p dir="rtl"><u><strong>התנהגות ראויה במחקר:</strong></u></p>
-                  <p dir="rtl"><img src="image/v.gif" width="12" height="12" /> <strong>מצ"ב הצהרתי</strong> בנוגע להתנהגות  ראויה במחקר ולניגוד עניינים.</p></td>
+                  <p dir="rtl"><img src="/image/v.gif" width="12" height="12" /> <strong>מצ"ב הצהרתי</strong> בנוגע להתנהגות  ראויה במחקר ולניגוד עניינים.</p></td>
 
               </tr>
             </table>

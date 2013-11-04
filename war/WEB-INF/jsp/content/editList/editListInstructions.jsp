@@ -2,7 +2,7 @@
 
 <authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN">
 				  <tr>
-                  <td colspan="3"><img src="image/hr.gif" width="580" height="10"></td>
+                  <td colspan="3"><img src="/image/hr.gif" width="580" height="10"></td>
    		        </tr>
 				<tr>
 	                <td colspan="3" align="center"><h1>הגדרות רשימה</h1>
@@ -21,12 +21,12 @@
 				</c:forEach>
 					<tr>
 						<td colspan="3">
-							<a style="text-decoration: none" href="listInstruction.html?listId=<c:out value="${command.id}"/>"><button class="grey" >הוסף</button></a>
+							<a style="text-decoration: none" href="/listInstruction.html?listId=<c:out value="${command.id}"/>"><button class="grey" >הוסף</button></a>
 							<button class="grey" onclick="onEdit();">ערוך</button>
 							<button class="grey" onclick="onDelete();">מחק</button>
 						</td>
 					</tr>
 					<tr>
-		                  <td colspan="3"><img src="image/hr.gif" width="580" height="10"></td>
+		                  <td colspan="3"><img src="/image/hr.gif" width="580" height="10"></td>
        		        </tr>
 	      </authz:authorize>

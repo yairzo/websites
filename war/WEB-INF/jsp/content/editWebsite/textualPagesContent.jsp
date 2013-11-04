@@ -46,10 +46,10 @@
              <tbody>
    				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 				<td width="70" align="right">
-				&nbsp;<a href="editTextualPage.html?id=${textualPage.id}"><c:out value="${textualPage.id}"></c:out></a>
+				&nbsp;<a href="/editTextualPage.html?id=${textualPage.id}"><c:out value="${textualPage.id}"></c:out></a>
   				</td>
   				<td align="right">
-				<a href="editTextualPage.html?id=${textualPage.id}">${textualPage.title}</a>
+				<a href="/editTextualPage.html?id=${textualPage.id}">${textualPage.title}</a>
 				</td>
    	  			</tr>
   	  		</tbody>

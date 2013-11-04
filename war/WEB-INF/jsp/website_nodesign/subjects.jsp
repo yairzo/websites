@@ -9,8 +9,8 @@
 
                  <tr class="darker" id="subject${subject.id}" style="border:1px #bca2a2 solid">
 
-                    <td width="28" align="${lang.align}" class="toggleSubject"><img id="subject${subject.id}Minus" class="minus" src="image/minus.gif" alt="-" width="25" height="25"><img id="subject${subject.id}ImgPlus" class="plus" src="image/plus.gif" alt="+" width="25" height="25"></td>
-                    <td width="20" align="${lang.align}" class="selectSubject"><img src="image/emptySquare.gif" class="empty" id="${subject.id}"><img src="image/minusSquare.gif" class="partly" id="${subject.id}"><img src="image/vSquare.gif" class="v" id="${subject.id}"></td>
+                    <td width="28" align="${lang.align}" class="toggleSubject"><img id="subject${subject.id}Minus" class="minus" src="/image/minus.gif" alt="-" width="25" height="25"><img id="subject${subject.id}ImgPlus" class="plus" src="/image/plus.gif" alt="+" width="25" height="25"></td>
+                    <td width="20" align="${lang.align}" class="selectSubject"><img src="/image/emptySquare.gif" class="empty" id="${subject.id}"><img src="/image/minusSquare.gif" class="partly" id="${subject.id}"><img src="/image/vSquare.gif" class="v" id="${subject.id}"></td>
                     <td width="18" align="${lang.align}">&nbsp;</td>
                     <td width="200" align="${lang.align}"><c:out value="${subject.name}"/></td>
  				    <td width="200" align="${lang.align}">

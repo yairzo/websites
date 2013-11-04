@@ -9,9 +9,9 @@
         <title>הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="style/style1Static.css">
-        <script src="js/modernizr-2.6.2.min.js"></script>
-		<script src="js/form.js"></script>
+        <link rel="stylesheet" href="/style/style1Static.css">
+        <script src="/js/modernizr-2.6.2.min.js"></script>
+		<script src="/js/form.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -22,7 +22,7 @@
 				<nav class="nav">
 					<ul class="menu">
 						<li class="current"><a href="#">עמוד הבית</a></li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">מידע כללי</a>
 							<ul>
 								<li class="menu_drop_top"></li>
@@ -32,29 +32,29 @@
 								<li><a href="#">תת תפריט נוסף</a></li>
 							</ul>
 						</li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">אפשרויות מימון</a></li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">תקנות מחקר</a></li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">העברת טכנולוגיה</a></li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">קישורים</a></li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 					</ul>
 				</nav>
 				<nav class="icons">
 					<ul class="menu">
-						<li><a href="#"><img src="image/website/menu_icon_heb.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website/menu_icon_magnifying.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website/menu_icon_home.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website/menu_icon_envelope.png" alt="" /></a></li>
+						<li><a href="#"><img src="/image/website/menu_icon_heb.png" alt="" /></a></li>
+						<li><a href="#"><img src="/image/website/menu_icon_magnifying.png" alt="" /></a></li>
+						<li><a href="#"><img src="/image/website/menu_icon_home.png" alt="" /></a></li>
+						<li><a href="#"><img src="/image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
 			</div>
         	<div class="container clearfix">
-				<a href="#" class="logo_authority"><img src="image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></a>
-				<a href="#" class="logo"><img src="image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></a>
+				<a href="#" class="logo_authority"><img src="/image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></a>
+				<a href="#" class="logo"><img src="/image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></a>
 			</div>
         </header>
         <section class="section">
@@ -168,39 +168,39 @@
 										<div class="clearfix mar_10">
 											<div class="check scroll_col">
 												<div class="checkbox_box semi"><input type="checkbox" name="" value="" /></div>
-												<label><img src="image/website/select.png" alt=""> נושאים רב תחומיים</label>
+												<label><img src="/image/website/select.png" alt=""> נושאים רב תחומיים</label>
 											</div>
 											<div class="check scroll_col">
 												<div class="checkbox_box active"><input type="checkbox" name="" value="" /></div>
-												<label><img src="image/website/select.png" alt=""> מדעי החיים, רפואה, חקלאות, מזון וסביבה</label>
+												<label><img src="/image/website/select.png" alt=""> מדעי החיים, רפואה, חקלאות, מזון וסביבה</label>
 											</div>
 											<div class="check scroll_col scroll_col_last">
 												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
-												<label><img src="image/website/select.png" alt=""> מדעים מדוייקים וטכנולוגיה</label>
+												<label><img src="/image/website/select.png" alt=""> מדעים מדוייקים וטכנולוגיה</label>
 											</div>
 										</div>
 										<div class="clearfix mar_10">
 											<div class="check scroll_col">
 												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
-												<label><img src="image/website/select.png" alt=""> מדעי הרוח</label>
+												<label><img src="/image/website/select.png" alt=""> מדעי הרוח</label>
 											</div>
 											<div class="check scroll_col">
 												<div class="checkbox_box semi"><input type="checkbox" name="" value="" /></div>
-												<label><img src="image/website/select.png" alt=""> מדעי החברה</label>
+												<label><img src="/image/website/select.png" alt=""> מדעי החברה</label>
 											</div>
 											<div class="check scroll_col scroll_col_last">
 												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
-												<label><img src="image/website/select.png" alt=""> משפטים</label>
+												<label><img src="/image/website/select.png" alt=""> משפטים</label>
 											</div>
 										</div>
 										<div class="clearfix mar_10">
 											<div class="check scroll_col">
 												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
-												<label><img src="image/website/select.png" alt=""> מדעי הרוח</label>
+												<label><img src="/image/website/select.png" alt=""> מדעי הרוח</label>
 											</div>
 											<div class="check scroll_col">
 												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
-												<label><img src="image/website/select.png" alt=""> מדעי החברה</label>
+												<label><img src="/image/website/select.png" alt=""> מדעי החברה</label>
 												<div class="checkbox_list">
 													<div class="checkbox_list_top"></div>
 													<div class="checkbox_list_bottom">
@@ -259,7 +259,7 @@
 											</div>
 											<div class="check scroll_col scroll_col_last">
 												<div class="checkbox_box"><input type="checkbox" name="" value="" /></div>
-												<label><img src="image/website/select.png" alt=""> משפטים</label>
+												<label><img src="/image/website/select.png" alt=""> משפטים</label>
 											</div>
 										</div>
 									</div>
@@ -277,7 +277,7 @@
 						<div class="clearfix mar_20">
 							<div class="kol search_result">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website/search_megaphone.png" alt="" /> &nbsp; קולות קוראים</h3>
+									<h3 class="kol_title"><img src="/image/website/search_megaphone.png" alt="" /> &nbsp; קולות קוראים</h3>
 								</div>
 								<a href="#" class="search_content">
 									<span class="clearfix">זוהי כותרת של קול קורא בעברית ומיושרת לימין</span>
@@ -298,14 +298,14 @@
 									<span class="clearfix search_icons">
 										<span class="search_financing">ממנן <strong>Mercator Foundation</strong></span>
 										<span class="search_date">תאריך הגשה <strong>כל השנה</strong></span>
-										<span class="search_expired"><img src="image/website/i-careful-small.png" alt=""> פג תוקף!</span>
+										<span class="search_expired"><img src="/image/website/i-careful-small.png" alt=""> פג תוקף!</span>
 									</span>
 								</a>
 							</div>
 							
 							<div class="kol search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website/search_balloon.png" alt="" /> &nbsp; הודעות</h3>
+									<h3 class="kol_title"><img src="/image/website/search_balloon.png" alt="" /> &nbsp; הודעות</h3>
 								</div>
 								<a href="#" class="search_content">
 									<span class="clearfix">מתן בה קבלו פיסול למחיקה אל פנאי כלכלה זאת פיסיקה בויקיפדיה</span>
@@ -325,7 +325,7 @@
 							
 							<div class="kol search_result open">
 								<div class="clearfix">
-									<h3 class="kol_title"><img src="image/website/search_text.png" alt="" /> &nbsp; עמודי תוכן</h3>
+									<h3 class="kol_title"><img src="/image/website/search_text.png" alt="" /> &nbsp; עמודי תוכן</h3>
 								</div>
 								<a href="#" class="search_content">
 									<span class="clearfix">מתן בה קבלו פיסול למחיקה אל פנאי כלכלה זאת פיסיקה בויקיפדיה</span>
@@ -358,7 +358,6 @@
 				</div>
 			</div>
         </footer>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/jquery-1.8.3.min.js"><\/script>')</script>
+		<script src="/js/jquery-1.10.2.min.js"></script>
     </body>
 </html>

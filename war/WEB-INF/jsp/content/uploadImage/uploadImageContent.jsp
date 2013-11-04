@@ -133,10 +133,10 @@
 			  	</tr>
 			   	<tr>
 			  		<td align="center" colspan="4">
-				  		<a href="uploadImage.html?page=${previousPage} ">&lt;</a>
+				  		<a href="/uploadImage.html?page=${previousPage} ">&lt;</a>
 				  		&nbsp;
 				  		&nbsp;
-				  		<a href="uploadImage.html?page=${nextPage}">&gt;</a>
+				  		<a href="/uploadImage.html?page=${nextPage}">&gt;</a>
 					</td>
 			  	</tr>
 		    </table>
@@ -144,15 +144,15 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<a href="#" class="delete">מחק</a>
+			<a href="" class="delete">מחק</a>
 			&nbsp;
 			&nbsp;
 			<authz:authorize ifAnyGranted="ROLE_IMAGE_ADMIN">
-			<a href="#" class="approve">אשר</a>
+			<a href="" class="approve">אשר</a>
 			&nbsp;
 			&nbsp;
 			</authz:authorize>
-			<a href="#" class="cancel">סיים</a>
+			<a href="" class="cancel">סיים</a>
 		</td>
   	</tr>
 	<tr>

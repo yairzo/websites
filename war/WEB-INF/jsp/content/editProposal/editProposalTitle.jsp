@@ -60,7 +60,7 @@
 						<c:out value="${proposalStates[command.proposalBean.stateId]}"/>
 					</td>
 					<td style="width: 100px; text-align: left; vertical-align: top;">
-						<a href="proposalStateHistory.htm?proposalId=${command.proposalBean.id}"/>היסטוריה</a>
+						<a href="/proposalStateHistory.htm?proposalId=${command.proposalBean.id}"/>היסטוריה</a>
 					</td>
 				</tr>
 				<tr>
@@ -105,7 +105,7 @@
         </tr>
 	<%--  end of message to user --%>
 	<tr>
-		<td colspan="2" >&nbsp;<br><img src="image/hr.gif" width="580" height="10"><br>&nbsp;</td>
+		<td colspan="2" >&nbsp;<br><img src="/image/hr.gif" width="580" height="10"><br>&nbsp;</td>
     </tr>
 
 	<%--  begin of title --%>

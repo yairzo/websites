@@ -10,7 +10,7 @@
 		       			<p class="white"></p>
 		       		</td>
 		       		<td align="left">
-		       			<a style="text-decoration: none; color: white; font-size:9pt;"  href="j_acegi_logout">צא</a>
+		       			<a style="text-decoration: none; color: white; font-size:9pt;"  href="/j_acegi_logout">צא</a>
 		       		</td>
 		       	</tr>
 		   </table>
@@ -30,7 +30,7 @@
                 	</tr>
                 	<tr>
                 		<th>
-                				<a href="conferenceProposal.html?action=new">המשך להצעה חדשה</a>
+                				<a href="/conferenceProposal.html?action=new">המשך להצעה חדשה</a>
                 		</th>
                 		<th>
                 				<a href="javascript:back()">בטל</a>

@@ -48,7 +48,7 @@
 			 	<tr>
 			 		<td colspan="4">
 			 			<c:if test="$fullList">
-							<a href="postReports.html">חזרה למסך הבקרה</a>
+							<a href="/postReports.html">חזרה למסך הבקרה</a>
 						</c:if>
 					</td>
 			 	</tr>
@@ -77,7 +77,7 @@
 			 	<c:forEach items="${subscribers}" var="person">
 			 		<tr>
 			 			<td>
-			 				<a href="personPost.html?id=${person.id}" target="_blank">${person.degreeFullNameHebrew}</a>
+			 				<a href="/personPost.html?id=${person.id}" target="_blank">${person.degreeFullNameHebrew}</a>
 			 			</td>
 			 			<td>
 			 				${person.civilId}
@@ -102,7 +102,7 @@
 								<a href="postReports.html">חזרה למסך הבקרה</a>
 							</c:when>
 							<c:otherwise>
-						 		<a href="postReports.html?fl=1">לרשימה המלאה של הרשומים</a>
+						 		<a href="/postReports.html?fl=1">לרשימה המלאה של הרשומים</a>
 					 		</c:otherwise>
 					 	</c:choose>
 
@@ -128,7 +128,7 @@
 			 	<c:forEach items="${subscribersNoSubjects}" var="person">
 			 		<tr>
 			 			<td>
-				 				<a href="personPost.html?id=${person.id}" target="_blank">${person.degreeFullNameHebrew}</a>
+				 				<a href="/personPost.html?id=${person.id}" target="_blank">${person.degreeFullNameHebrew}</a>
 			 			</td>
 			 			<td>
 			 				${person.civilId}
@@ -163,7 +163,7 @@
 			 	<c:forEach items="${subscribersDisabled}" var="person">
 			 		<tr>
 			 			<td>
-			 				<a href="personPost.html?id=${person.id}" target="_blank">${person.degreeFullNameHebrew}</a>
+			 				<a href="/personPost.html?id=${person.id}" target="_blank">${person.degreeFullNameHebrew}</a>
 			 			</td>
 			 			<td>
 			 				${person.civilId}
@@ -198,7 +198,7 @@
 							<tr>
 								<td colspan="2">
 								
-									<a href="post.html?id=${post.id}">${post.messageSubject}</a>
+									<a href="/post.html?id=${post.id}">${post.messageSubject}</a>
 								</td>
 								<td>
 									${post.sendTime}
@@ -234,7 +234,7 @@
 								<c:forEach items="${subscribersSubject}" var="person">
 											<tr>
 			 									<td>
-									 				<a href="personPost.html?id=${person.id}" target="_blank">${person.degreeFullNameHebrew}</a>
+									 				<a href="/personPost.html?id=${person.id}" target="_blank">${person.degreeFullNameHebrew}</a>
 			 									</td>
 			 									<td>
 			 										${person.civilId}

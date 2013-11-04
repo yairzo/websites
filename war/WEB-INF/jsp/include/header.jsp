@@ -21,7 +21,7 @@
 	<script type="text/javascript" src="/js/jquery.form.js"></script>
 	<!-- <script type="text/javascript" src="/js/jquery.field.js"></script> -->
 	<!-- <script type="text/javascript" src="/js/jquery.bgiframe.js"></script> -->
-	<!--<script type="text/javascript" src="js/jquery.dimensions.js"></script>  -->
+	<!--<script type="text/javascript" src="/js/jquery.dimensions.js"></script>  -->
 	<script type="text/javascript" src="/js/jquery.alerts.js"></script> 
 	<script type="text/javascript" src="/js/date.js"></script>
 	</c:if>
@@ -77,10 +77,10 @@
 <table width="${backgroundWidth}" border="0" align="center">
 <div id="popupDialog" title="עזרה" style="display:none" dir="rtl"><p></p></div>
    <tr>
-    <td <c:if test="${!iframeView && !print}">background="image/bg.jpg" </c:if>>
+    <td <c:if test="${!iframeView && !print}">background="/image/bg.jpg" </c:if>>
       <table width="700" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-          <td valign="top" align="center"><c:if test="${!iframeView || !ajaxView}"><img src="image/header.jpg" width="700" height="97" border="0" useMap="#Map"></c:if></td>
+          <td valign="top" align="center"><c:if test="${!iframeView || !ajaxView}"><img src="/image/header.jpg" width="700" height="97" border="0" useMap="#Map"></c:if></td>
         </tr>
      <c:if test="${iframeView || print}">
      </table>

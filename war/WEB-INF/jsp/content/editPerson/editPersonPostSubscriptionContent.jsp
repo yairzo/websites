@@ -239,7 +239,7 @@
 
 					<tr>
 						<td colspan="2">&nbsp;<br>
-						<img src="image/hr.gif" width="580" height="10"><br>
+						<img src="/image/hr.gif" width="580" height="10"><br>
 						&nbsp;</td>
 					</tr>
 

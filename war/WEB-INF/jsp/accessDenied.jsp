@@ -4,7 +4,7 @@
 
         		<tr>
 		       		<td bgcolor="#787669" height="20" align="left">
-		       			<a style="text-decoration: none; color: white; font-size:9pt;"  href="j_acegi_logout">צא</a>
+		       			<a style="text-decoration: none; color: white; font-size:9pt;"  href="/j_acegi_logout">צא</a>
 		       		</td>
 		       	</tr>
 		   </table>

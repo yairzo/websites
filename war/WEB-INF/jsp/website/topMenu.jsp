@@ -8,6 +8,6 @@
 				</c:forEach>
 			</ul>
 		</li>
-		<li><img src="image/website/menu_pipe.png" alt="" /></li>
+		<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 	</c:forEach>
 

@@ -215,7 +215,7 @@ $(document).ready(function() {
 
 					<tr>
 						<td colspan="2">&nbsp;<br>
-						<img src="image/hr.gif" width="580" height="10"><br>
+						<img src="/image/hr.gif" width="580" height="10"><br>
 						&nbsp;</td>
 					</tr>
 
@@ -235,7 +235,7 @@ $(document).ready(function() {
             <table width="600" border="0" align="center" cellpadding="3">
 
 				<tr>
-		             <td colspan="3"><img src="image/hr.gif" width="580" height="10"></td>
+		             <td colspan="3"><img src="/image/hr.gif" width="580" height="10"></td>
         		 </tr>
 
               <tr>

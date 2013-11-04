@@ -22,7 +22,7 @@
                 		  <tr>
                 			<td>
                 				<span class="footerEdit">
-                				<a href="#" class="updateFooter">עדכן</a>
+                				<a href="" class="updateFooter">עדכן</a>
                 				<span class="footerEdit">
                 			</td>
                 		  </tr>

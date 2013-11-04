@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/js/jquery.field.js"></script>
 	<script type="text/javascript" src="/js/jquery.bgiframe.js"></script>
-	<!--<script type="text/javascript" src="js/jquery.dimensions.js"></script>  -->
+	<!--<script type="text/javascript" src="/js/jquery.dimensions.js"></script>  -->
 	<script type="text/javascript" src="/js/jquery.alerts.js"></script>
 	<script type="text/javascript" src="/js/date.js"></script>
 	<script type="text/javascript" src="/js/jquery.bxslider.js"></script>

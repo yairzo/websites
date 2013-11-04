@@ -139,8 +139,8 @@ public void importCallForProposals(){
 				contactPersons += "<br>" + "<a href=\"mailto:" + personBean.getEmail()+ "\">";
 				if(localeId.equals("iw_IL")) contactPersons += personBean.getDegreeFullNameHebrew();
 				else contactPersons += personBean.getDegreeFullNameEnglish();
-				contactPersons += "</a><img src=\"image/bullet_orange_website.gif\" width=\"12\" height=\"8\">" + personBean.getTitle()
-						+ "<img src=\"image/bullet_orange_website.gif\" width=\"12\" height=\"8\">" + personBean.getPhone();  
+				contactPersons += "</a><img src=\"/image/bullet_orange_website.gif\" width=\"12\" height=\"8\">" + personBean.getTitle()
+						+ "<img src=\"/image/bullet_orange_website.gif\" width=\"12\" height=\"8\">" + personBean.getPhone();  
 			}
 		}
 		callForProposal.setContactPersons(contactPersons);

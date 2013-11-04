@@ -9,8 +9,8 @@
         <title>הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="style/style1Static.css">
-        <script src="js/modernizr-2.6.2.min.js"></script>
+        <link rel="stylesheet" href="/style/style1Static.css">
+        <script src="/js/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -21,7 +21,7 @@
 				<nav class="nav">
 					<ul class="menu">
 						<li class="current"><a href="#">עמוד הבית</a></li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">מידע כללי</a>
 							<ul>
 								<li class="menu_drop_top"></li>
@@ -31,29 +31,29 @@
 								<li><a href="#">תת תפריט נוסף</a></li>
 							</ul>
 						</li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">אפשרויות מימון</a></li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">תקנות מחקר</a></li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">העברת טכנולוגיה</a></li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 						<li><a href="#">קישורים</a></li>
-						<li><img src="image/website/menu_pipe.png" alt="" /></li>
+						<li><img src="/image/website/menu_pipe.png" alt="" /></li>
 					</ul>
 				</nav>
 				<nav class="icons">
 					<ul class="menu">
-						<li><a href="#"><img src="image/website/menu_icon_heb.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website/menu_icon_magnifying.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website/menu_icon_home.png" alt="" /></a></li>
-						<li><a href="#"><img src="image/website/menu_icon_envelope.png" alt="" /></a></li>
+						<li><a href="#"><img src="/image/website/menu_icon_heb.png" alt="" /></a></li>
+						<li><a href="#"><img src="/image/website/menu_icon_magnifying.png" alt="" /></a></li>
+						<li><a href="#"><img src="/image/website/menu_icon_home.png" alt="" /></a></li>
+						<li><a href="#"><img src="/image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
 			</div>
         	<div class="container clearfix">
-				<a href="#" class="logo_authority"><img src="image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></a>
-				<a href="#" class="logo"><img src="image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></a>
+				<a href="#" class="logo_authority"><img src="/image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></a>
+				<a href="#" class="logo"><img src="/image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></a>
 			</div>
         </header>
         <section class="section">
@@ -119,7 +119,6 @@ onblur="if(this.value=='')this.value=this.defaultValue" value="הקלידו נו
 				</div>
 			</div>
         </footer>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/jquery-1.8.3.min.js"><\/script>')</script>
+        <script src="js/jquery-1.10.2.min.js"></script>
     </body>
 </html>

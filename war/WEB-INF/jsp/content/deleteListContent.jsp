@@ -39,7 +39,7 @@
 		<td>
 
 			<button class="grey" onclick="submit()" />מחק</button>
-			<a style="text-decoration: none" href="lists.html"><button class="grey"/>בטל</button></a>
+			<a style="text-decoration: none" href="/lists.html"><button class="grey"/>בטל</button></a>
 		</td>
 		</tr>
 

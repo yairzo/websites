@@ -62,7 +62,7 @@
 
                 <tr>
                   <td colspan="2" align="center"><h1><fmt:message key="iw_IL.eqfSystem.editPerson.title"/>
- 					<c:if test="${isConference}"><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDetails"/></c:if>
+ 					<c:if test="${isConference}"><img src="/image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDetails"/></c:if>
                   </h1>
                   </td>
                 </tr>
@@ -437,7 +437,7 @@
             <table width="600" border="0" align="center" cellpadding="3">
 
 				<tr>
-		             <td colspan="3"><img src="image/hr.gif" width="580" height="10"></td>
+		             <td colspan="3"><img src="/image/hr.gif" width="580" height="10"></td>
         		 </tr>
 
               <tr>
@@ -483,7 +483,7 @@
             <authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN,ROLE_LISTS_EDITOR">
             	<table width="600" border="0" align="center" cellpadding="3">
             	<tr>
-		             <td colspan="3"><img src="image/hr.gif" width="580" height="10"></td>
+		             <td colspan="3"><img src="/image/hr.gif" width="580" height="10"></td>
         		 </tr>
             	<tr>
                 <td colspan="3" align="center"><h1>רישום למערכת הדיוור</h1>
@@ -491,7 +491,7 @@
               </tr>
               <tr>
 					<td>
-						<a href="personPost.html?id=${command.id}&cp=person.html&cpoi=${command.id}">צפייה/עריכת פרטי הרישום למערכת הדיוור</a>
+						<a href="/personPost.html?id=${command.id}&cp=person.html&cpoi=${command.id}">צפייה/עריכת פרטי הרישום למערכת הדיוור</a>
 					</td>
 				</tr>
 				</table>
@@ -499,7 +499,7 @@
             <authz:authorize ifAnyGranted="ROLE_LISTS_ADMIN">
             	<table width="600" border="0" align="center" cellpadding="3">
             	<tr>
-		             <td colspan="3"><img src="image/hr.gif" width="580" height="10"></td>
+		             <td colspan="3"><img src="/image/hr.gif" width="580" height="10"></td>
         		 </tr>
             	<tr>
                 <td colspan="3" align="center"><h1>הרשאות</h1>
@@ -507,7 +507,7 @@
               </tr>
               <tr>
 					<td>
-						<a href="personPrivilege.html?id=${command.id}">עדכון הרשאות</a>
+						<a href="/personPrivilege.html?id=${command.id}">עדכון הרשאות</a>
 					</td>
 				</tr>
 				</table>

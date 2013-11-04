@@ -246,7 +246,7 @@ $(document).ready(function() {
 									dir="rtl">
 									<tr>
 										<td colspan="2" align="center"><h1>רשימת הבקשות
-												להתייחסות הדיקן	<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeTitle"/>
+												להתייחסות הדיקן	<img src="/image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeTitle"/>
 												</h1></td>
 									</tr>
 								</table>
@@ -262,10 +262,10 @@ $(document).ready(function() {
 										<tr>
 											<td width="150">שם החוקר/ת המגיש</td>
 											<td width="350">נושא הכנס</td>
-											<td width="100">דירוג <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeHeader"/></td>
-											<td width="300">חוות דעת <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeOpinion"/></td>
+											<td width="100">דירוג <img src="/image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeHeader"/></td>
+											<td width="300">חוות דעת <img src="/image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeOpinion"/></td>
     										<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER,ROLE_CONFERENCE_ADMIN">
-											<td width="30"><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGrade"/></td>
+											<td width="30"><img src="/image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGrade"/></td>
 											</authz:authorize>
 										</tr>
 									</thead>
@@ -280,7 +280,7 @@ $(document).ready(function() {
 															value="${conferenceProposal.researcher.lastNameHebrew}" />
 												</td>
 												<td width="350" onClick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';"><a
-													href="conferenceProposal.html?id=${conferenceProposal.id}"><c:out
+													href="/conferenceProposal.html?id=${conferenceProposal.id}"><c:out
 															value="${conferenceProposal.subject}" />
 												</a></td>
 												<td width="100" align="right">&nbsp;&nbsp;<c:out
@@ -318,7 +318,7 @@ $(document).ready(function() {
 					<td colspan="5">
 						<table width="930" dir="rtl">
 							<tr>
-								<td>הערה כללית לועדה:<br/><img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDeadlineRemarks"/></td>
+								<td>הערה כללית לועדה:<br/><img src="/image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogDeadlineRemarks"/></td>
 								<td align="right">
 								<textarea class="green"	name="deadlineRemarks" id="deadlineRemarks" rows="3" cols="80">${deadlineRemarks}</textarea>
 								</td>
@@ -331,7 +331,7 @@ $(document).ready(function() {
 				<tr>
 					<td colspan="5" align="center">
 						<button id="buttonStopGrading" class="grey"/> שלח לוועדה את התייחסותך</button>
-						<img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogStopGrading"/>
+						<img src="/image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogStopGrading"/>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button  class="grey" title="חזרה לתפריט הראשי"  onclick="window.location='welcome.html';return false;">חזרה לתפריט </button>		
 					</td>

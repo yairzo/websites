@@ -155,7 +155,7 @@ $("#searchPhrase").focus();
 
 
                 <tr>
-                  <td colspan="2"><img src="image/hr.gif" width="500" height="10"></td>
+                  <td colspan="2"><img src="/image/hr.gif" width="500" height="10"></td>
                 </tr>
 
               </table>

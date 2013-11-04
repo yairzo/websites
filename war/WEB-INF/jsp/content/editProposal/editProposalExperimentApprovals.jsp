@@ -45,7 +45,7 @@
 													טרם צורף קובץ אישור בטיחות
 											</c:when>
 											<c:otherwise>
-												<a href="fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=safety&contentType=<c:out value="${command.proposalBean.safetyAttachContentType}"/>"/>צפייה בנספח הבטיחות החתום</a>
+												<a href="/fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=safety&contentType=<c:out value="${command.proposalBean.safetyAttachContentType}"/>"/>צפייה בנספח הבטיחות החתום</a>
 											</c:otherwise>
 										</c:choose>
 
@@ -99,7 +99,7 @@
 													טרם צורף קובץ אישור ועדת הלסינקי
 												</c:when>
 												<c:otherwise>
-													<a href="fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=human&contentType=<c:out value="${command.proposalBean.humanAttachContentType}"/>"/>צפייה בהצעת המחקר המצורפת</a>
+													<a href="/fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=human&contentType=<c:out value="${command.proposalBean.humanAttachContentType}"/>"/>צפייה בהצעת המחקר המצורפת</a>
 												</c:otherwise>
 											</c:choose>
 										</th>
@@ -149,7 +149,7 @@
 														טרם צורף קובץ אישור הוועדה לאתיקה של טיפול וניסויים בבע"ח
 												</c:when>
 												<c:otherwise>
-													<a href="fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=animals&contentType=<c:out value="${command.proposalBean.animalsAttachContentType}"/>"/>צפייה בהצעת המחקר המצורפת</a>
+													<a href="/fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=animals&contentType=<c:out value="${command.proposalBean.animalsAttachContentType}"/>"/>צפייה בהצעת המחקר המצורפת</a>
 												</c:otherwise>
 											</c:choose>
 										</th>
@@ -218,7 +218,7 @@
 											</span>
 										</th>
 										<th class="medium300">
-											<a href="fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=safety&contentType=<c:out value="${command.proposalBean.safetyAttachContentType}"/>"/>צפייה בניספח הבטיחות החתום</a>
+											<a href="/fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=safety&contentType=<c:out value="${command.proposalBean.safetyAttachContentType}"/>"/>צפייה בניספח הבטיחות החתום</a>
 										</th>
 									</tr>
 									<tr>
@@ -239,7 +239,7 @@
     										  </span>
 										</th>
 										<th class="medium300">
-											<a href="fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=human&contentType=<c:out value="${command.proposalBean.humanAttachContentType}"/>"/>צפייה בהצעת המחקר המצורפת</a>
+											<a href="/fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=human&contentType=<c:out value="${command.proposalBean.humanAttachContentType}"/>"/>צפייה בהצעת המחקר המצורפת</a>
 										</th>
 									</tr>
 									</c:when>
@@ -270,7 +270,7 @@
 									       </span>
 										</th>
 										<th>
-											<a href="fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=animals&contentType=<c:out value="${command.proposalBean.animalsAttachContentType}"/>"/>צפייה בהצעת המחקר המצורפת ( <c:out value="${fn:length(command.proposalBean.animalsAttach)}"/> בייטים, מסוג:  <c:out value="${command.proposalBean.safetyAttachContentType}"/>)</a>
+											<a href="/fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=animals&contentType=<c:out value="${command.proposalBean.animalsAttachContentType}"/>"/>צפייה בהצעת המחקר המצורפת ( <c:out value="${fn:length(command.proposalBean.animalsAttach)}"/> בייטים, מסוג:  <c:out value="${command.proposalBean.safetyAttachContentType}"/>)</a>
 										</th>
 									</tr>
 									</c:when>

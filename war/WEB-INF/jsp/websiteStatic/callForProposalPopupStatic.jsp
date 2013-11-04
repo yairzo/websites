@@ -9,8 +9,8 @@
         <title>הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="style/style1Static.css">
-        <script src="js/modernizr-2.6.2.min.js"></script>
+        <link rel="stylesheet" href="/style/style1Static.css">
+        <script src="/js/modernizr-2.6.2.min.js"></script>
     </head>
     <body style="background:#7b7b7b;">
         <!--[if lt IE 7]>
@@ -43,8 +43,6 @@
 			<p>תינתנה מלגות לסטודנטים במקצועות האקדמאים המתאימים אשר מגישים עבודת מחקר(תיזה) לקראת תואר שני או שלישי בנושאים הרלוונטים למטרות הקרן.</p>
 			<a href="#" class="popup_more">לפרטים נוספים</a>
 		</div>
-		
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/jquery-1.8.3.min.js"><\/script>')</script>
+        <script><script src="/js/jquery-1.10.2.min.js"></script>
     </body>
 </html>

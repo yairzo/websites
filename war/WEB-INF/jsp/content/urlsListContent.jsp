@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 				<table width="800" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
                <tr>
-                  <td colspan="4"><img src="image/hr.gif" width="800" height="10"></td>
+                  <td colspan="4"><img src="/image/hr.gif" width="800" height="10"></td>
                 </tr>
 
     		<tr>
@@ -80,7 +80,7 @@ $(document).ready(function() {
              <tbody>
   				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 				<td align="right" <c:choose><c:when test="${infoPagesURL.isDead}">style="color:red"</c:when></c:choose>>
-				<a href="http://${server}/huard/infoPageViewer.jsp?ardNum=${infoPagesURL.ardNum}" class="<c:choose><c:when test="${infoPagesURL.isDead}">red</c:when></c:choose>" target="_blank"><c:out value="${infoPagesURL.ardNum}"></c:out></a>
+				<a href="/huard/infoPageViewer.jsp?ardNum=${infoPagesURL.ardNum}" class="<c:choose><c:when test="${infoPagesURL.isDead}">red</c:when></c:choose>" target="_blank"><c:out value="${infoPagesURL.ardNum}"></c:out></a>
   				</td>
   				<td align="right" <c:choose><c:when test="${infoPagesURL.isDead}">style="color:red"</c:when></c:choose>>
 				<c:choose><c:when test="${fn:length(infoPagesURL.urlText)>0}"><c:out value="${infoPagesURL.urlText}"></c:out></c:when><c:otherwise>ללא כותרת</c:otherwise></c:choose>

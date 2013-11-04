@@ -7,11 +7,11 @@
 		</c:forEach>
 	</p>
 	<p align="center">
-    	<img src="image/hr.gif" width="185" height="5"><br>
+    	<img src="/image/hr.gif" width="185" height="5"><br>
     	<a href="homePage.html"><fmt:message key="${lang.localeId}.website.homePage"/></a>
     	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     	<a href="textualPage.html?id=1"><fmt:message key="${lang.localeId}.website.language"/></a>
-    	<img src="image/hr.gif" width="185" height="5">
+    	<img src="/image/hr.gif" width="185" height="5">
     </p>
 	<p dir="${lang.dir}" align="${lang.align}">
  		<fmt:message key="${lang.localeId}.website.usefulLinks"/>

@@ -92,7 +92,7 @@
 onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="calendar_text" />
 							<input type="submit" value="חיפוש" class="calendar_submit" />
 						</form>
-						<a href="searchCallForProposals.html" class="calendar_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
+						<a href="/searchCallForProposals.html" class="calendar_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
 					</div>
 				</div>
 			</div>

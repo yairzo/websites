@@ -17,7 +17,7 @@
           		</c:if>
 		  </td>
 		  <td align="left">
-		    	<a style="text-decoration: none; color: white; font-size:9pt;"  href="j_acegi_logout">צא</a>
+		    	<a style="text-decoration: none; color: white; font-size:9pt;"  href="/j_acegi_logout">צא</a>
 		  </td>
         </tr>
 

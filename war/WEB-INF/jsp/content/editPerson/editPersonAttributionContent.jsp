@@ -55,7 +55,7 @@
 					</c:when>
 					<c:otherwise>
 						<th colspan="3" align="right">
-							עריכת השיוך של <a href="person.html?id=${command.person.id}"><c:out value="${command.person.firstNameHebrew}"></c:out>&nbsp;<c:out value="${command.person.lastNameHebrew}"></c:out></a> לרשימת <a href="list.html?id=${command.list.id}"><c:out value="${command.list.name}"/></a>
+							עריכת השיוך של <a href="/person.html?id=${command.person.id}"><c:out value="${command.person.firstNameHebrew}"></c:out>&nbsp;<c:out value="${command.person.lastNameHebrew}"></c:out></a> לרשימת <a href="list.html?id=${command.list.id}"><c:out value="${command.list.name}"/></a>
 						</th>
 					</c:otherwise>
 				</c:choose>

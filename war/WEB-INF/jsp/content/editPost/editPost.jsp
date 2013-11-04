@@ -114,7 +114,7 @@
 									<td style="width: 30px;"><input type="checkbox"
 										name="filech${i.index}" value="true" checked="checked"></td>
 									<td class="attach"><a
-										href="http://${server}/fileViewer?postId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}&md5=${command.md5}"
+										href="/fileViewer?postId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}&md5=${command.md5}"
 										target="_blank">${attachment.title}</a></td>
 									<td>
 									<button class="addAttachEditor grey" onclick=""><fmt:message key="${lang.localeId}.post.addAttachEditor"/></button>
@@ -253,7 +253,7 @@
 
 				<tr>
 						<td colspan="2">&nbsp;<br>
-						<img src="image/hr.gif" width="580" height="10"><br>
+						<img src="/image/hr.gif" width="580" height="10"><br>
 						&nbsp;</td>
 				</tr>
 

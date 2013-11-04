@@ -1,7 +1,7 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 
-<script src="js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-1.10.2.min.js"></script>
 
 <script type="text/javascript">
 

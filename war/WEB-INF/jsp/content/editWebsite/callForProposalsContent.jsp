@@ -150,10 +150,10 @@
              			<tbody>
    							<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
 							<td align="${lang.align}">
-							<a href="editCallForProposal.html?id=${callForProposal.id}" <c:if test="${callForProposal.expired}">style="color:red"</c:if>><c:out value="${callForProposal.id}"></c:out></a>
+							<a href="/editCallForProposal.html?id=${callForProposal.id}" <c:if test="${callForProposal.expired}">style="color:red"</c:if>><c:out value="${callForProposal.id}"></c:out></a>
   							</td>
   							<td align="${lang.align}">
-							<a href="editCallForProposal.html?id=${callForProposal.id}" <c:if test="${callForProposal.expired}">style="color:red"</c:if>><c:out value="${callForProposal.title}"></c:out></a>
+							<a href="/editCallForProposal.html?id=${callForProposal.id}" <c:if test="${callForProposal.expired}">style="color:red"</c:if>><c:out value="${callForProposal.title}"></c:out></a>
 							</td>
    	  						</tr>
   	  					</tbody>

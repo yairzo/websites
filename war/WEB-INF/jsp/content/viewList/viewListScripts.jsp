@@ -21,7 +21,7 @@
 </script>
 
 <c:if test="${editMode}">
-	<script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
+	<script type="text/javascript" src="/js/tiny_mce/jquery.tinymce.js"></script>
 </c:if>
 
 <script language="Javascript">
@@ -74,7 +74,7 @@ $('textarea.tinymce').tinymce({
 
 // Location of TinyMCE script
 
-script_url : 'js/tiny_mce/tiny_mce.js',
+script_url : '/js/tiny_mce/tiny_mce.js',
 
 // General options
 

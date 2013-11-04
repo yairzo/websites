@@ -40,7 +40,7 @@
 					<form:hidden path="attribs[${varStatus.index}].id"/>
 
 					<tr>
-						<td width="150"><a style="text-decoration: none" href="person.html?id=<c:out value="${attrib.person.id}"/>"><c:out value="${attrib.person.degreeHebrew}"/>&nbsp;<c:out value="${attrib.person.firstNameHebrew}"/>&nbsp;<c:out value="${attrib.person.lastNameHebrew}"/></a></td>
+						<td width="150"><a style="text-decoration: none" href="/person.html?id=<c:out value="${attrib.person.id}"/>"><c:out value="${attrib.person.degreeHebrew}"/>&nbsp;<c:out value="${attrib.person.firstNameHebrew}"/>&nbsp;<c:out value="${attrib.person.lastNameHebrew}"/></a></td>
 				    	<td width="100" dir="ltr" align="center"><form:input cssClass="green" cssStyle="width: 40px" path="attribs[${varStatus.index}].placeInList"/></td>
 					</tr>
 				</c:forEach>
@@ -61,7 +61,7 @@
 
 					<tr>
 	              	<td colspan="2">
-						<a style="text-decoration: none" href="list.html?id=<c:out value="${command.id}"/>"><button class="grey" onclick="submit()">חזור</button></a>
+						<a style="text-decoration: none" href="/list.html?id=<c:out value="${command.id}"/>"><button class="grey" onclick="submit()">חזור</button></a>
 					</td>
 				</tr>
 				</c:otherwise>

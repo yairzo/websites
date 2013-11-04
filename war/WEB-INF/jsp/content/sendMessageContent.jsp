@@ -1,8 +1,8 @@
 <%@ page  pageEncoding="UTF-8" %>
 
-<script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
-<script type="text/javascript" src="js/ckeditor_3.4/ckeditor.js"></script>
-<script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" src="/js/tiny_mce/jquery.tinymce.js"></script>
+<script type="text/javascript" src="/js/ckeditor_3.4/ckeditor.js"></script>
+<script type="text/javascript" src="/js/ckeditor/adapters/jquery.js"></script>
 
 <script type="text/javascript">
 
@@ -82,7 +82,7 @@
   		$('textarea.tinymce').tinymce
 		({
 
-		script_url : 'js/tiny_mce/tiny_mce.js',
+		script_url : '/js/tiny_mce/tiny_mce.js',
 		theme : "advanced",
 		plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
 		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",

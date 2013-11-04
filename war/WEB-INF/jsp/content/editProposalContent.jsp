@@ -36,8 +36,8 @@
               <tr>
               		<c:set var="tabsCounter" value="1"/>
 
-                <td class="proposalDetailsTabEdge tabEdge" width="7"><img src="image/leshonit_bright_side_right.gif" width="7" height="35"></td>
-                <td class="proposalDetailsTab tab" align="right" valign="middle" background="image/leshonit_bright_left.gif">פרטי ההצעה</td>
+                <td class="proposalDetailsTabEdge tabEdge" width="7"><img src="/image/leshonit_bright_side_right.gif" width="7" height="35"></td>
+                <td class="proposalDetailsTab tab" align="right" valign="middle" background="/image/leshonit_bright_left.gif">פרטי ההצעה</td>
 
 
 				<c:set var="tabsCounter" value="${tabsCounter+1}"/>
@@ -61,8 +61,8 @@
     	         </c:choose>
 
 
-				<td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
-    	        <td class="${cssClassTab} ${cssClassTabText}" align="right" valign="middle" background="image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">הוספת מגישים</td>
+				<td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="/image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
+    	        <td class="${cssClassTab} ${cssClassTabText}" align="right" valign="middle" background="/image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">הוספת מגישים</td>
 
                 <c:choose>
 				<c:when test="${fn:length(command.proposalBean.hebrewTitle)>0}">
@@ -82,8 +82,8 @@
     	         </c:choose>
 
 					<c:set var="tabsCounter" value="${tabsCounter+1}"/>
-					<td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
-    	            <td class="${cssClassTab} ${cssClassTabText}" align="right" valign="middle" background="image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">קבצים</td>
+					<td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="/image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
+    	            <td class="${cssClassTab} ${cssClassTabText}" align="right" valign="middle" background="/image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">קבצים</td>
 
 
 
@@ -106,8 +106,8 @@
 
     	         <c:set var="tabsCounter" value="${tabsCounter+1}"/>
 
-    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
-    	            <td class="${cssClassTab} ${cssClassTabText}" align="right" valign="middle" background="image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">חוקרים שותפים</td>
+    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="/image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
+    	            <td class="${cssClassTab} ${cssClassTabText}" align="right" valign="middle" background="/image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">חוקרים שותפים</td>
 
 
 			<c:choose>
@@ -135,8 +135,8 @@
 
 				<c:set var="tabsCounter" value="${tabsCounter+1}"/>
 
-    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
-    	            <td class="${cssClassTab}" align="right" valign="middle" background="image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">תשובת הקרן</td>
+    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="/image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
+    	            <td class="${cssClassTab}" align="right" valign="middle" background="/image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">תשובת הקרן</td>
 
     	           </c:if>
 
@@ -164,8 +164,8 @@
 
 					<c:set var="tabsCounter" value="${tabsCounter+1}"/>
 
-    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
-    	            <td class="${cssClassTab}" align="right" valign="middle" background="image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">אישורים לניסויים</td>
+    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="/image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
+    	            <td class="${cssClassTab}" align="right" valign="middle" background="/image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">אישורים לניסויים</td>
 
     	           </c:if>
 
@@ -193,8 +193,8 @@
 
 				<c:set var="tabsCounter" value="${tabsCounter+1}"/>
 
-    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
-    	            <td class="${cssClassTab}" align="right" valign="middle" background="image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">&nbsp;יישום</td>
+    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="/image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
+    	            <td class="${cssClassTab}" align="right" valign="middle" background="/image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">&nbsp;יישום</td>
 
     	           </c:if>
 
@@ -222,8 +222,8 @@
 
 				<c:set var="tabsCounter" value="${tabsCounter+1}"/>
 
-    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
-    	            <td class="${cssClassTab}" align="right" valign="middle" background="image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">אישור הפקולטה</td>
+    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="/image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
+    	            <td class="${cssClassTab}" align="right" valign="middle" background="/image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">אישור הפקולטה</td>
 
     	           </c:if>
 
@@ -251,8 +251,8 @@
 
 				<c:set var="tabsCounter" value="${tabsCounter+1}"/>
 
-    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
-    	            <td class="${cssClassTab}" align="right" valign="middle" background="image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">תקציב</td>
+    	         <td class="${cssClassEdge}" width="7" alt="${title}" title="${title}"><img src="/image/leshonit_${tabColor}_side_right.gif" width="7" height="35"></td>
+    	            <td class="${cssClassTab}" align="right" valign="middle" background="/image/leshonit_${tabColor}_left.gif" alt="${title}" title="${title}"">תקציב</td>
 
     	           </c:if>
 
@@ -262,8 +262,8 @@
 
     	         <c:if test="${emptyTabsToAdd > 0}">
     	         	<c:forEach var="i" begin="1" end="${emptyTabsToAdd}">
-    	         		<td width="7"><img src="image/leshonit_grey_side_right.gif" width="7" height="35"></td>
-                		<td align="right" valign="middle" background="image/leshonit_grey_left.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    	         		<td width="7"><img src="/image/leshonit_grey_side_right.gif" width="7" height="35"></td>
+                		<td align="right" valign="middle" background="/image/leshonit_grey_left.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 	</c:forEach>
                 </c:if>
 

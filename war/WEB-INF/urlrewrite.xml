@@ -10,10 +10,43 @@
 -->
 <urlrewrite>
 
+	
 	<rule>
-        <from>/(.*\.pdf)$</from>
+        <from>^/$</from>
+        <to last="true">/homePage.html</to>
+    </rule>
+	<rule>
+        <from>^/(.*\.pdf)$</from>
         <to last="true">/fileViewer?textualPageFilename=$1&amp;contentType=pdf&amp;attachmentId=1</to>
     </rule>
+    <rule>
+        <from>^/call_for_proposal/([^\s]+)</from>
+        <to last="true">/callForProposal.html?urlTitle=$1</to>
+    </rule>
+    <rule>
+        <from>^/page/([^\s]+)</from>
+        <to last="true">/textualPage.html?urlTitle=$1</to>
+    </rule>
+    <rule>
+        <from>^/search/$</from>
+        <to last="true">/search.html</to>
+    </rule>
+    <rule>
+        <from>^/search/(.*)</from>
+        <to last="true">/search.html?searchWords=$1</to>
+    </rule>
+    <rule>
+        <from>^/search_funding/(.*)</from>
+        <to last="true">/searchCallForProposal.html?searchWords=$1</to>
+    </rule>
+    
+    
+
+
+
+
+
+
 <!-- <rule>
         <from>/.*/js/(.*)</from>
         <to last="true">/js/$1</to>

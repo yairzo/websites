@@ -146,14 +146,14 @@
 								</div>
 							</form>
 							<div class="clearfix">
-								<a href="search.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.generalSearch"/></a>
+								<a href="/search.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.generalSearch"/></a>
 							</div>
 						</div>
 						
 						<div class="clearfix mar_20">
 							<div class="kol search_result">
 								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="image/website/search_megaphone_${lang.dir}.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
+									<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_megaphone_${lang.dir}.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
 									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if></h3>
 								</div>
    								<c:choose>
@@ -164,7 +164,7 @@
 									<span class="clearfix search_icons">
 										<span class="search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/> <strong>${callForProposal.fund.name}</strong></span>
 										<span class="search_date"><fmt:message key="${lang.localeId}.callForProposal.submissionTime"/> <strong><c:choose><c:when test="${callForProposal.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/></c:when><c:otherwise>${callForProposal.finalSubmissionTimeString}</c:otherwise></c:choose></strong></span>
-										<c:if test="${callForProposal.expired}"><span class="search_expired"><img src="image/website/i-careful-small.png" alt=""> <fmt:message key="${lang.localeId}.website.isExpired"/></span></c:if>
+										<c:if test="${callForProposal.expired}"><span class="search_expired"><img src="/image/website/i-careful-small.png" alt=""> <fmt:message key="${lang.localeId}.website.isExpired"/></span></c:if>
 									</span>
 									</a>
 	   							</c:forEach>

@@ -22,7 +22,7 @@
                 			<tr>
                 				<td>
                 					<span class="prefaceEdit">
-                						<a href="#" class="updatePreface">עדכן</a>
+                						<a href="" class="updatePreface">עדכן</a>
                 					</span>
                 				</td>
                 			</tr>

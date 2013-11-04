@@ -32,11 +32,11 @@
 	<c:forEach items="${command.sublists}" var="sublist" varStatus="varStatus">
 		<c:out value="${sublist.name}"/>
 		<form:input cssClass="green" cssStyle="width: 40px" path="sublists[${varStatus.index}].location"/>
-		<img class="moveDown" src="image/icon_down.gif" alt="move down"/>
+		<img class="moveDown" src="/image/icon_down.gif" alt="move down"/>
 		&nbsp;
-		<img class="moveUp" src="image/icon_up.gif" alt="move up"/>
+		<img class="moveUp" src="/image/icon_up.gif" alt="move up"/>
 		&nbsp;
-		<img class="delete" src="image/icon_delete.gif" alt="delete"/>
+		<img class="delete" src="/image/icon_delete.gif" alt="delete"/>
 		<br>
 		<br>
 	</c:forEach>

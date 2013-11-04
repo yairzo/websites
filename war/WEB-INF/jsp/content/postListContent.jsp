@@ -195,7 +195,7 @@ $(document).ready(function() {
 
 				<table width="600" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
                <tr>
-                  <td colspan="2"><img src="image/hr.gif" width="600" height="10"></td>
+                  <td colspan="2"><img src="/image/hr.gif" width="600" height="10"></td>
                 </tr>
 
 
@@ -206,8 +206,8 @@ $(document).ready(function() {
    			<c:choose>
     		<c:when test="${fn:length(posts) > 0}">
              <tr>
-               <th align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="posts.html?orderBy=messageSubject&page=<c:out value="${listView.page}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="image/downArrow.gif" border="0"></a></th>
-                <th align="right"><a href="posts.html?orderBy=sendTime&page=<c:out value="${listView.page}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="image/downArrow.gif" border="0"></a></th>
+               <th align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/posts.html?orderBy=messageSubject&page=<c:out value="${listView.page}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="/image/downArrow.gif" border="0"></a></th>
+                <th align="right"><a href="/posts.html?orderBy=sendTime&page=<c:out value="${listView.page}"/>&searchPhrase=<c:out value="${command.searchCreteria.searchPhrase}"/>"><img src="/image/downArrow.gif" border="0"></a></th>
               </tr>
 			<c:forEach items="${posts}" var="post" varStatus="varStatus">
              <tbody>
@@ -216,7 +216,7 @@ $(document).ready(function() {
   				<authz:authorize ifAnyGranted="ROLE_POST_ADMIN,ROLE_POST_CREATOR">
  			  	<form:radiobutton path="postId" value="${post.id}"/>
 				</authz:authorize>
-				<a href="post.html?id=${post.id}"><c:choose><c:when test="${fn:length(post.messageSubject)>0}"><c:out value="${post.messageSubject}"></c:out></c:when><c:otherwise>ללא כותרת</c:otherwise></c:choose></a>
+				<a href="/post.html?id=${post.id}"><c:choose><c:when test="${fn:length(post.messageSubject)>0}"><c:out value="${post.messageSubject}"></c:out></c:when><c:otherwise>ללא כותרת</c:otherwise></c:choose></a>
 				</td>
 				<td align="right">
   				<c:out value="${post.formattedSendTime}"/>

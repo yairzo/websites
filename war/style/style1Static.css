@@ -438,7 +438,7 @@ font-family:"almoni-tzar";
 font-weight:normal;
 color:#ffffff;
 line-height:42px;
-background:#04bde5 url(../image/website/icon_links.png) no-repeat 210px center;
+background:#04bde5 url(/image/website/icon_links.png) no-repeat 210px center;
 }
 
 .sidelinks ul{

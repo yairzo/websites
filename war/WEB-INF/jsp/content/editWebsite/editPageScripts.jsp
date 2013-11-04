@@ -1,6 +1,6 @@
 <%@ page  pageEncoding="UTF-8" %>
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="js/jquery.autosave.js"></script>
+<script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/js/jquery.autosave.js"></script>
 <style>
 	.ui-autocomplete li {
 		list-style-type: none;

@@ -6,7 +6,7 @@
 	<tr>
        <td class="viewList" colspan="<c:out value="${listBean.viewableColumnsCount}"/>" align="${listBean.listDesign.displayNameAlignment}">
        		<c:if test="${editMode}">
-       		<a href="#" class="alignDisplayName">A</a>
+       		<a href="" class="alignDisplayName">A</a>
        		<a href="list.html?id=${listBean.id}">
        		</c:if>
        		<b><c:out escapeXml="false" value="${listBean.displayName}"/></b>
@@ -77,7 +77,7 @@
 						   <th class="fillWidth" style="font-size: 12pt;">
 					<c:if test="${listBean.listDesign.showTableHeader}">
 					<c:choose>
-						<c:when test="${listBean.sortEnabled && column.sortable }"><a href="viewList.html?id=${listBean.id}&oc=${varStatus.index}<c:if test="${editMode}">&em=1</c:if><c:if test="${iframeView}">&iv=1</c:if>" <c:if test="${iframeView}">target=main</c:if> class="nounderline">
+						<c:when test="${listBean.sortEnabled && column.sortable }"><a href="/viewList.html?id=${listBean.id}&oc=${varStatus.index}<c:if test="${editMode}">&em=1</c:if><c:if test="${iframeView}">&iv=1</c:if>" <c:if test="${iframeView}">target=main</c:if> class="nounderline">
 							<b><c:out value="${column.columnDisplayName}"/></b></a>
 						</c:when>
 						<c:otherwise>
@@ -118,7 +118,7 @@
 				<c:forEach items="${viewableBean.fields}" var="field" varStatus="varStatus">
 				<td class="viewList${rowBgBrightness} viewList" align="${field.align}" style="overflow: hidden;">
 					<c:if test="${editMode && varStatus.index==0 && listBean.editableAttribution}">
-						<a href="personAttribution.html?id=${viewableBean.id}&cp=viewList.html&cpoi=${listBean.id}">E</a>
+						<a href="/personAttribution.html?id=${viewableBean.id}&cp=viewList.html&cpoi=${listBean.id}">E</a>
 					</c:if>
 					<c:out escapeXml="false" value="${field.prefix}"/><c:out escapeXml="false" value="${field.text}"/><c:out escapeXml="false" value="${field.suffix}"/>
 				</td>

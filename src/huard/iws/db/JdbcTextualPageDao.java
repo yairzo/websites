@@ -53,7 +53,9 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 
 	public TextualPage getTextualPageOnline(String urlTitle){
-		String query = "select * from textualPage where urlTitle =?";
+		String query = "select * from textualPage where urlTitle = ?";
+		logger.info(query + " urlTitle: " + urlTitle);
+		
 		TextualPage textualPage =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, urlTitle);
 		getTextualPageFile(textualPage);

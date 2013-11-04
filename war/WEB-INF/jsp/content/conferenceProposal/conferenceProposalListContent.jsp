@@ -93,7 +93,7 @@
 				</c:if>
     			<td class="container" style="width: 85%; vertical-align: top;text-align: center;">
 				  	<c:if test="${researcher || self}">
-              			<h1>הבקשות שלך (${command.listView.countRows}) <img src="image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogList"/></h1> 
+              			<h1>הבקשות שלך (${command.listView.countRows}) <img src="/image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogList"/></h1> 
    					</c:if>
    					<c:if test="${!researcher && !self}">
 				  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_APPROVER">
@@ -128,7 +128,7 @@
  							<tr class="${cssClass}" style="height: 30px;">
 				  						<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
-  											<a href="person.html?id=${conferenceProposal.researcher.id}">
+  											<a href="/person.html?id=${conferenceProposal.researcher.id}">
   												<c:out value="${conferenceProposal.researcher.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.researcher.lastNameHebrew}"/>
   											</a>
   											</authz:authorize>
@@ -137,16 +137,16 @@
   											</authz:authorize>  											
   										</td>
  										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
-  											<a href="conferenceProposal.html?id=${conferenceProposal.id}"><c:choose><c:when test="${fn:length(conferenceProposal.subject)>0}"><c:out value="${conferenceProposal.subject}"></c:out></c:when><c:otherwise>ללא נושא</c:otherwise></c:choose></a>
+  											<a href="/conferenceProposal.html?id=${conferenceProposal.id}"><c:choose><c:when test="${fn:length(conferenceProposal.subject)>0}"><c:out value="${conferenceProposal.subject}"></c:out></c:when><c:otherwise>ללא נושא</c:otherwise></c:choose></a>
   										</td>
  										<td style="text-align:center" onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
-   											<a href="conferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedFromDate}"/></a>
+   											<a href="/conferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedFromDate}"/></a>
  										</td>
   										<td onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
  											<c:choose>
  											<c:when test="${conferenceProposal.approverId > 0}">
   											<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
-  													<a href="person.html?id=${conferenceProposal.approver.id}">
+  													<a href="/person.html?id=${conferenceProposal.approver.id}">
   														<c:out value="${conferenceProposal.approver.firstNameHebrew}"/>&nbsp;<c:out value="${conferenceProposal.approver.lastNameHebrew}"/>
   													</a>
   											</authz:authorize>
@@ -160,12 +160,12 @@
   											</c:choose>
   										</td>
   										<td style="text-align:center" onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
-  											<a href="conferenceProposal.html?id=${conferenceProposal.id}">
+  											<a href="/conferenceProposal.html?id=${conferenceProposal.id}">
   											${conferenceProposal.status}
   											</a>
   										</td>
  										<td style="text-align:center" onclick="document.location='conferenceProposal.html?id=${conferenceProposal.id}';">
-   											<a href="conferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedStatusDate}"/></a>
+   											<a href="/conferenceProposal.html?id=${conferenceProposal.id}">	<c:out value="${conferenceProposal.formattedStatusDate}"/></a>
  										</td>
  										<c:if test="${admin}">
   										<td style="text-align:center;">
@@ -290,7 +290,7 @@
 							</c:choose>
              			<tbody>
   						<tr>
-		  					<td class="${rowBgBrightness}"><a href="conferenceProposalsGrade.html?approverId=${conferenceProposalGrading.approver.id}">${conferenceProposalGrading.approver.degreeFullNameHebrew} - ${conferenceProposalGrading.approverFaculty}</a></td>
+		  					<td class="${rowBgBrightness}"><a href="/conferenceProposalsGrade.html?approverId=${conferenceProposalGrading.approver.id}">${conferenceProposalGrading.approver.degreeFullNameHebrew} - ${conferenceProposalGrading.approverFaculty}</a></td>
 			  				<td class="${rowBgBrightness}" style="text-align:center">${conferenceProposalGrading.formattedSentForGradingDate}</td>
 			  				<td class="${rowBgBrightness}"><font title="${conferenceProposalGrading.adminSendRemark}">${conferenceProposalGrading.adminSendRemark}</font></td>
 			  				<td class="${rowBgBrightness}" style="text-align:center">${conferenceProposalGrading.formattedFinishedGradingDate}</td>

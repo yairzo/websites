@@ -1,10 +1,10 @@
 <c:choose>
 <c:when test="${listView.firstPage==false}">
-<a href="?orderBy=<c:out value="${listView.orderBy}"/>&page=<c:out value="1"/>"><img src="image/rightArrowEnd.gif" border="0"></a>
-<a href="?orderBy=<c:out value="${listView.orderBy}"/>&page=<c:out value="${listView.page-1}"/>"><img src="image/rightArrow.gif" border="0"></a>
+<a href="?orderBy=<c:out value="${listView.orderBy}"/>&page=<c:out value="1"/>"><img src="/image/rightArrowEnd.gif" border="0"></a>
+<a href="?orderBy=<c:out value="${listView.orderBy}"/>&page=<c:out value="${listView.page-1}"/>"><img src="/image/rightArrow.gif" border="0"></a>
 </c:when>
 <c:otherwise>
-<img src="image/rightArrowEndFade.gif" border="0">  <img src="image/rightArrowFade.gif" border="0">
+<img src="/image/rightArrowEndFade.gif" border="0">  <img src="/image/rightArrowFade.gif" border="0">
 </c:otherwise>
 </c:choose>
 
@@ -15,10 +15,10 @@
 
 <c:choose>
 <c:when test="${listView.lastPage==false}">
-<a href="?orderBy=<c:out value="${listView.orderBy}"/>&page=<c:out value="${listView.page+1}"/>"><img src="image/leftArrow.gif" border="0"></a>
-<a href="?orderBy=<c:out value="${listView.orderBy}"/>&page=<c:out value="${listView.lastPage}"/>"><img src="image/leftArrowEnd.gif" border="0"></a>
+<a href="?orderBy=<c:out value="${listView.orderBy}"/>&page=<c:out value="${listView.page+1}"/>"><img src="/image/leftArrow.gif" border="0"></a>
+<a href="?orderBy=<c:out value="${listView.orderBy}"/>&page=<c:out value="${listView.lastPage}"/>"><img src="/image/leftArrowEnd.gif" border="0"></a>
 </c:when>
 <c:otherwise>
-<img src="image/leftArrowFade.gif" border="0">  <img src="image/leftArrowEndFade.gif" border="0">
+<img src="/image/leftArrowFade.gif" border="0">  <img src="/image/leftArrowEndFade.gif" border="0">
 </c:otherwise>
 </c:choose>

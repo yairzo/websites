@@ -124,7 +124,7 @@
 		<c:when test="${aCompoundView}">
 		<tr>
 			<td colspan="10" align="right">
-				<a href="sendMessage.html?listId=${list.id}&cp=viewList.html&cpoi=${list.id}"><fmt:message key="${lang.localeId}.eqfSystem.viewList.sendMailSystem"/></a>
+				<a href="/sendMessage.html?listId=${list.id}&cp=viewList.html&cpoi=${list.id}"><fmt:message key="${lang.localeId}.eqfSystem.viewList.sendMailSystem"/></a>
 				&nbsp;
 				<a href="mailto:${list.emails}"><fmt:message key="${lang.localeId}.eqfSystem.viewList.sendMailClient"/></a>
 			</td>
@@ -133,7 +133,7 @@
 		<c:otherwise>
 		<tr>
 			<td colspan="10" align="right">
-				<a href="sendMessage.html?listId=${listBean.id}&cp=viewList.html&cpoi=${listBean.id}"><fmt:message key="${lang.localeId}.eqfSystem.viewList.sendMailSystem"/></a>
+				<a href="/sendMessage.html?listId=${listBean.id}&cp=viewList.html&cpoi=${listBean.id}"><fmt:message key="${lang.localeId}.eqfSystem.viewList.sendMailSystem"/></a>
 				&nbsp;
 				<a href="mailto:${listBean.emails}"><fmt:message key="${lang.localeId}.eqfSystem.viewList.sendMailClient"/></a>
 			</td>

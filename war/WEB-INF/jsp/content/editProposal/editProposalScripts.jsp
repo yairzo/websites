@@ -2,7 +2,7 @@
 
 <%--  javascript --%>
 
-<script type="text/javascript" src="js/jquery.autosave.js"></script>
+<script type="text/javascript" src="/js/jquery.autosave.js"></script>
 
 <script language="Javascript">
 
@@ -64,7 +64,7 @@ function handleNewFund(){
 
 
 function makeTabsBright() {
-  $(".tab").attr("background","image/leshonit_bright_left.gif");
+  $(".tab").attr("background","/image/leshonit_bright_left.gif");
   $(".tabEdge img").after("<img src=image/leshonit_bright_side_right.gif width=7 height=35>").remove();
 }
 
@@ -97,7 +97,7 @@ this.sleep = function mySleep(naptime){
     	$(".editableTable").hide();
 		$("table#"+tabName+"Table").show();
 		makeTabsBright();
-		$("td."+tabName+"Tab").attr("background","image/leshonit_dark_left.gif");
+		$("td."+tabName+"Tab").attr("background","/image/leshonit_dark_left.gif");
 		$("td."+tabName+"TabEdge img").after("<img src=image/leshonit_dark_side_right.gif width=7 height=35>").remove();
 		$.post('sessionVariablesHandler',{name:'${command.proposalBean.id}_currentTab', value:tabName, action:'set'});
 	}
@@ -122,7 +122,7 @@ $(document).ready(function() {
 			data = 'proposalDetails';
 		}
 		$("table#"+data+"Table").show();
-		$("td."+data+"Tab").attr("background","image/leshonit_dark_left.gif");
+		$("td."+data+"Tab").attr("background","/image/leshonit_dark_left.gif");
 		$("td."+data+"TabEdge img").after("<img src=image/leshonit_dark_side_right.gif width=7 height=35>").remove();
 	 });
 

@@ -426,7 +426,7 @@
 					<c:forEach items="${command.attachments}" var="attachment" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:${lang.align}">
-						<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="formDetails"><a style="text-decoration:underline" href="fileViewer?callForProposalId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}"
+						<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="formDetails"><a style="text-decoration:underline" href="/fileViewer?callForProposalId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}"
 								target="_blank">${attachment.title}</a> </span>
 						&nbsp;&nbsp;<a href="" class="deleteAttachment" id="${attachment.id}">מחק</a>
 					</td>
@@ -630,8 +630,8 @@
 					<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameHebrew}"/></c:if>
    					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameEnglish}"/></c:if>
 					</a>
-					<img src="image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskBudgetPerson.title}"></c:out> 
-					<img src="image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskBudgetPerson.phone}"></c:out>
+					<img src="/image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskBudgetPerson.title}"></c:out> 
+					<img src="/image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskBudgetPerson.phone}"></c:out>
 					</span>
 					</td>
 					</tr>

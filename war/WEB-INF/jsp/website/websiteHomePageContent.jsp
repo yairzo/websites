@@ -42,7 +42,7 @@
 					<div class="mainbox">
 						<div class="title">
 							<h1><fmt:message key="${lang.localeId}.website.welcome"/></h1>
-							<a href="textualPage.html?id=1918"><fmt:message key="${lang.localeId}.website.readMore"/></a>
+							<a href="/textualPage.html?id=1918"><fmt:message key="${lang.localeId}.website.readMore"/></a>
 						</div>
 						<div class="mainbox_text">
 							<p></p>
@@ -51,7 +51,7 @@
 					<div class="mainbox">
 						<div class="title">
 							<h2><fmt:message key="${lang.localeId}.website.latestUpdates"/></h2>
-							<a href="messages.html"><fmt:message key="${lang.localeId}.website.allMessages"/></a>
+							<a href="/messages.html"><fmt:message key="${lang.localeId}.website.allMessages"/></a>
 						</div>
 						<div class="mainbox_news_wrapper">
 							<div class="mainbox_news" style="direction:ltr">
@@ -86,10 +86,10 @@
 					<div class="board_calendar">
 						<div class="homePageCalendar"></div>
 						
-						<a href="searchCallForProposals.html" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
+						<a href="/searchCallForProposals.html" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
 						<div class="board_search">
 							<h3><fmt:message key="${lang.localeId}.website.search"/></h3>
-							<a href="searchCallForProposals.html" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
+							<a href="/searchCallForProposals.html" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
 							<form action="searchCallForProposals.html" method="post" class="board_form">
 								<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
 onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="input_text" />

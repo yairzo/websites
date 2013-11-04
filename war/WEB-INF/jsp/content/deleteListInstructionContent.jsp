@@ -42,7 +42,7 @@
 		<td>
 
 			<button class="grey" onclick="submit()" />מחק</button>
-			<a style="text-decoration: none" href="list.html?id=<c:out value="${command.listId}"/>"><button class="grey"/>בטל</button></a>
+			<a style="text-decoration: none" href="/list.html?id=<c:out value="${command.listId}"/>"><button class="grey"/>בטל</button></a>
 		</td>
 		</tr>
 
@@ -63,7 +63,7 @@
 		<td>
 
 
-			<a style="text-decoration: none" href="list.html?id=<c:out value="${command.listId}"/>"><button class="grey"/>חזור</button></a>
+			<a style="text-decoration: none" href="/list.html?id=<c:out value="${command.listId}"/>"><button class="grey"/>חזור</button></a>
 		</td>
 		</tr>
 

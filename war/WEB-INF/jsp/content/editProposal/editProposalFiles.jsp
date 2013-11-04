@@ -21,7 +21,7 @@
 												<table>
 													<tr>
 														<th width="200" align="right">
-															<a href="fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=proposal&attachmentId=${researchAttachment.id}&contentType=<c:out value="${researchAttachment.contentType}"/>"/><c:out value="${researchAttachment.title}"/></a>
+															<a href="/fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=proposal&attachmentId=${researchAttachment.id}&contentType=<c:out value="${researchAttachment.contentType}"/>"/><c:out value="${researchAttachment.title}"/></a>
 														</th>
 														<td>
 															<c:if test="${command.proposalBean.stateId == DRAFT && !viewDetails}">
@@ -97,7 +97,7 @@
 										טרם צורף קובץ התנהגות ראויה במחקר
 									</c:when>
 									<c:otherwise>
-										<a href="fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=ethics&contentType=<c:out value="${command.proposalBean.ethicsAttachContentType}"/>"/>לצפייה בהתחייבות החתומה </a>
+										<a href="/fileViewer?proposalId=<c:out value="${command.proposalBean.id}"/>&attachType=ethics&contentType=<c:out value="${command.proposalBean.ethicsAttachContentType}"/>"/>לצפייה בהתחייבות החתומה </a>
 									</c:otherwise>
 								</c:choose>
         		        	</th>

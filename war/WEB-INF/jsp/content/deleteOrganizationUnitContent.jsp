@@ -34,7 +34,7 @@
                    	<table border="0" cellpadding="0" cellspacing="0">
 		                <tr>
            			        <td ><button class="grey" onclick="submit();">הסר מהמאגר</button></td>
-		                	<td><a style="text-decoration: none" href="organizationUnits.html"><button class="grey" onclick="return false;">ביטול</button></a>
+		                	<td><a style="text-decoration: none" href="/organizationUnits.html"><button class="grey" onclick="return false;">ביטול</button></a>
 		                </tr>
 		            </table>
            		</td>

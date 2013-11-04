@@ -210,7 +210,7 @@
 						<td>
  						<fmt:message key="${lang.localeId}.textualPage.file"/>
 						<c:if test="${fn:length(command.attachment.file)>0}">
-							<a style="text-decoration:underline" href="fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"
+							<a style="text-decoration:underline" href="/fileViewer?textualPageId=${command.id}&contentType=${command.attachment.contentType}&attachmentId=1"
 								target="_blank"><fmt:message key="${lang.localeId}.textualPage.attachedFile"/></a>	
 						</c:if>	
 						</td>

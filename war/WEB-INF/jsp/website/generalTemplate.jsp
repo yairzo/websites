@@ -10,7 +10,7 @@
         <title><fmt:message key="${lang.localeId}.website.title"/></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="style/style_${lang.nameLowerCase}.css">
+        <link rel="stylesheet" href="/style/style_${lang.nameLowerCase}.css">
         
        	<jsp:include page="${templateCss}" />
     </head>
@@ -27,10 +27,10 @@
 				</nav>
 				<nav class="icons">
 					<ul class="menu">
-						<li><a href="#" onclick="changeLanguage();"><img src="image/website/menu_icon_${lang.nameShort}.png" alt="Change language to ${lang.nameCapitalized}" /></a></li>
-						<li><a href="search.html"><img src="image/website/menu_icon_magnifying.png" alt="Search this website" /></a></li>
-						<li><a href="/homePage.html"><img src="image/website/menu_icon_home.png" alt="Go to homepage" /></a></li>
-						<li><a href="textualPage.html?id=${contactsPageId}"><img src="image/website/menu_icon_envelope.png" alt="" /></a></li>
+						<li><a href="#" onclick="changeLanguage();"><img src="/image/website/menu_icon_${lang.nameShort}.png" alt="Change language to ${lang.nameCapitalized}" /></a></li>
+						<li><a href="/search/"><img src="/image/website/menu_icon_magnifying.png" alt="Search this website" /></a></li>
+						<li><a href="/"><img src="/image/website/menu_icon_home.png" alt="Go to homepage" /></a></li>
+						<li><a href="/page/${contactsPageUrlTitle}"><img src="/image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
 				<div class="login">
@@ -45,11 +45,11 @@
 							&nbsp;&nbsp;<c:out value="${userPersonBean.degreeFullNameEnglish}"/>
 							</c:otherwise>
 							</c:choose>
-							<a href="j_acegi_logout" title="<fmt:message key="${lang.localeId}.general.login.logout"/>"><img src="image/website/login_x.png" alt="<fmt:message key="${lang.localeId}.general.login.logout"/>"></a>
+							<a href="/j_acegi_logout" title="<fmt:message key="${lang.localeId}.general.login.logout"/>"><img src="/image/website/login_x.png" alt="<fmt:message key="${lang.localeId}.general.login.logout"/>"></a>
 						</div>
 					</c:when>	
 					<c:otherwise>				
-					<div class="login_left"><fmt:message key="${lang.localeId}.general.login.enter"/> &nbsp;&nbsp;&nbsp; <a href="#"><img src="image/website/login_help.png" alt=""></a></div>
+					<div class="login_left"><fmt:message key="${lang.localeId}.general.login.enter"/> &nbsp;&nbsp;&nbsp; <a href="#"><img src="/image/website/login_help.png" alt=""></a></div>
 					<div class="login_box" id="login_box">
 						<div class="login_box_top"></div>
 						<div class="login_box_bottom">
@@ -85,16 +85,16 @@
 				</div>
 			</div>
         	<div class="container clearfix">
-				<a href="homePage.html" class="logo_authority">
+				<a href="/homePage.html" class="logo_authority">
 				<c:choose>
-				<c:when test="${lang.localeId=='en_US'}"><img src="image/website/logo_authorityEN.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" style="width:80%;height:80%"/></c:when>
-				<c:otherwise><img src="image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></c:otherwise>
+				<c:when test="${lang.localeId=='en_US'}"><img src="/image/website/logo_authorityEN.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" style="width:80%;height:80%"/></c:when>
+				<c:otherwise><img src="/image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></c:otherwise>
 				</c:choose>
 				</a>
 				<a href="http://new.huji.ac.il/" class="logo">
 				<c:choose>
-				<c:when test="${lang.localeId=='en_US'}"><img src="image/website/logoEN.png" alt="האוניברסיטה העברית בירושלים" /></c:when>
-				<c:otherwise><img src="image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></c:otherwise>
+				<c:when test="${lang.localeId=='en_US'}"><img src="/image/website/logoEN.png" alt="האוניברסיטה העברית בירושלים" /></c:when>
+				<c:otherwise><img src="/image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></c:otherwise>
 				</c:choose>
 				</a>
 			</div>
@@ -105,7 +105,7 @@
         <footer class="footer">
 			<div class="container">
 				<div class="footer_bg clearfix">
-					<div class="pull-right"><a href="sitemap.html"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="textualPage.html?id=2015"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="javascript:bookmarksite();"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
+					<div class="pull-right"><a href="/sitemap.html"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="textualPage.html?id=2015"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="javascript:bookmarksite();"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
 					<div class="pull-left"><fmt:message key="${lang.localeId}.general.lastUpdate"/> - ${updateTime}</div>
 				</div>
 				<div class="footer_bottom clearfix mar_10">
@@ -115,8 +115,7 @@
 			</div>
         </footer>
         
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/jquery-1.8.3.min.js"><\/script>')</script>
+        <script src="/js/jquery-1.10.2.min.js"></script>
         <script  language="Javascript">
         	function changeLanguage(){
         		/*var location = "" + window.location;
