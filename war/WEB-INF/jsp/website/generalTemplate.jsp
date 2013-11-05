@@ -33,19 +33,15 @@
 						<li><a href="/page/${contactsPageUrlTitle}"><img src="/image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
-				<div class="login">
+				<div class="login <c:if test="${userPersonBean!=null && fn:length(userPersonBean.firstNameHebrew) > 0}">logged</c:if>">
 					<c:choose>
 					<c:when test="${userPersonBean!=null && fn:length(userPersonBean.firstNameHebrew) > 0}">
 						<div class="login_left">
 							<c:choose>
-							<c:when test="${lang.rtl}">
-							&nbsp;&nbsp;<c:out value="${userPersonBean.degreeFullNameHebrew}"/>
-							</c:when>
-							<c:otherwise>
-							&nbsp;&nbsp;<c:out value="${userPersonBean.degreeFullNameEnglish}"/>
-							</c:otherwise>
+							<c:when test="${lang.rtl}"><c:out value="${userPersonBean.degreeFullNameHebrew}"/></c:when>
+							<c:otherwise><c:out value="${userPersonBean.degreeFullNameEnglish}"/></c:otherwise>
 							</c:choose>
-							<a href="/j_acegi_logout" title="<fmt:message key="${lang.localeId}.general.login.logout"/>"><img src="/image/website/login_x.png" alt="<fmt:message key="${lang.localeId}.general.login.logout"/>"></a>
+							&nbsp;&nbsp;<a href="/j_acegi_logout?s=1" class="logout" title="<fmt:message key="${lang.localeId}.general.login.logout"/>"><img src="/image/website/login_x.png" alt='<fmt:message key="${lang.localeId}.general.login.logout"/>'></a>
 						</div>
 					</c:when>	
 					<c:otherwise>				
@@ -69,10 +65,6 @@
 									<div class="login_box_col mar_15 pull-left">
 										<div class="clearfix">
 											<a class="login_forgot"><fmt:message key="${lang.localeId}.general.login.loginForgot"/></a>
-										</div>
-										<div class="login_remember mar_10 clearfix">
-											<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" id="remember" /></div>
-											<label for="remember"><fmt:message key="${lang.localeId}.general.login.rememberMe"/></label>
 										</div>
 									</div>
 								</div>
@@ -173,6 +165,9 @@
         					else
         					loginBox.fadeIn("fast");
         					return false;
+        				});
+        				$(".logout").click(function(e) {
+        					e.stopPropagation();
         				});
         				$("#login_box").hover(function(){
         					mouse_is_inside=true;

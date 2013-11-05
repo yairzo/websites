@@ -23,10 +23,9 @@
 			
 			
 			$(document).ready(function() {
-				$.get('/callForProposalCalendar.html?h=1', function(data) {
-					$("div.homePageCalendar").html(data);
-			 	});
-
+				
+				$("div.homePageCalendar").load('/callForProposalCalendar.html?h=1');
+				
 				$('.homePageCalendar').on('click','.ui-datepicker-prev',function(e){
 					e.preventDefault();
 					$.get('/callForProposalCalendar.html?h=1&action=prevMonth', function(data) {
@@ -117,7 +116,9 @@
 			});
 			
 			$(window).load(function(){
-				window.setTimeout(function(){start_slider()}, 2000);				
+				window.setTimeout(function(){start_slider()}, 2000);	
+				
+
 			});
 			
 			function start_slider(){

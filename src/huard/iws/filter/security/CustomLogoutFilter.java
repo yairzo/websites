@@ -73,7 +73,11 @@ public class CustomLogoutFilter implements Filter{
 			httpRequest.getSession().removeAttribute("userPerson");
 			httpRequest.getSession().removeAttribute("SAVED_REQUEST_MANDATORY_USER_DETAILS_CHANGE");
 			
-			logoutSuccessUrl="/welcome.html?tc="+titleCode;//override security.xml
+			if(request.getParameter("s")!=null && request.getParameter("s").equals("1")){
+				logoutSuccessUrl="/homePage.html";
+			}else
+				logoutSuccessUrl="/welcome.html?tc="+titleCode;//override security.xml
+			
 			sendRedirect(httpRequest, httpResponse, logoutSuccessUrl);
 			return;
 		}
