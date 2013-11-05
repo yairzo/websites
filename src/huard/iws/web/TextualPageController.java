@@ -95,6 +95,7 @@ public class TextualPageController extends GeneralWebsiteFormController {
 		
 		
 		model.put("id",textualPageBean.getId());
+		model.put("ilr", "/page/" + textualPageBean.getUrlTitle());
 		
 		
 		if(request.getParameter("t", "").equals("0")){

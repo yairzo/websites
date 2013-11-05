@@ -23,7 +23,6 @@
 			
 			
 			$(document).ready(function() {
-				
 				$("div.homePageCalendar").load('/callForProposalCalendar.html?h=1');
 				
 				$('.homePageCalendar').on('click','.ui-datepicker-prev',function(e){

@@ -33,10 +33,10 @@
 						<li><a href="/page/${contactsPageUrlTitle}"><img src="/image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
-				<div class="login <c:if test="${userPersonBean!=null && fn:length(userPersonBean.firstNameHebrew) > 0}">logged</c:if>">
+				<div class="login_${lang.align}">
 					<c:choose>
-					<c:when test="${userPersonBean!=null && fn:length(userPersonBean.firstNameHebrew) > 0}">
-						<div class="login_left">
+					<c:when test="${userPersonBean != null && !userPersonBean.anonymous}">
+						<div class="login_inner_${lang.alignOpp}">
 							<c:choose>
 							<c:when test="${lang.rtl}"><c:out value="${userPersonBean.degreeFullNameHebrew}"/></c:when>
 							<c:otherwise><c:out value="${userPersonBean.degreeFullNameEnglish}"/></c:otherwise>
@@ -45,39 +45,44 @@
 						</div>
 					</c:when>	
 					<c:otherwise>				
-					<div class="login_left"><fmt:message key="${lang.localeId}.general.login.enter"/> &nbsp;&nbsp;&nbsp; <a href="#"><img src="/image/website/login_help.png" alt=""></a></div>
-					<div class="login_box" id="login_box">
-						<div class="login_box_top"></div>
-						<div class="login_box_bottom">
-							<form action="/j_acegi_security_check" method="post">
-								<div class="clearfix">
-									<div class="login_box_col">
-										<label class="login_label"><fmt:message key="${lang.localeId}.general.login.username"/></label>
-										<input type="text" id="j_username" name="j_username" class="login_input">
-									</div>
-									<div class="login_box_col pull-left">
-										<label for="password" class="login_label"><fmt:message key="${lang.localeId}.general.login.password"/></label>
-										<input type="password" name="j_password" class="login_input">
-									</div>
-									<div class="login_box_col mar_15">
-										<input type="submit" value="<fmt:message key="${lang.localeId}.general.login.login"/>" class="login_submit">
-									</div>
-									<div class="login_box_col mar_15 pull-left">
-										<div class="clearfix">
-											<a class="login_forgot"><fmt:message key="${lang.localeId}.general.login.loginForgot"/></a>
+						<div class="login_inner_${lang.alignOpp} login_inner"><fmt:message key="${lang.localeId}.general.login.enter"/> &nbsp;&nbsp;&nbsp; <a href="#"><img src="/image/website/login_help.png" alt=""></a></div>
+						<div class="login_box" id="login_box">
+							<div class="login_box_top"></div>
+							<div class="login_box_bottom">
+								<form action="/j_acegi_security_check" method="post">									
+									<input type="hidden" name="ilr" value="${ilr}"/>
+									<div class="clearfix">
+										<div class="login_box_col">
+											<label class="login_label"><fmt:message key="${lang.localeId}.general.login.username"/></label>
+											<input type="text" id="j_username" name="j_username" class="login_input">
+										</div>
+										<div class="login_box_col pull-left">
+											<label for="password" class="login_label"><fmt:message key="${lang.localeId}.general.login.password"/></label>
+											<input type="password" name="j_password" class="login_input">
+										</div>
+										<div class="login_box_col mar_15">
+											<input type="submit" value="<fmt:message key="${lang.localeId}.general.login.login"/>" class="login_submit">
+										</div>
+										<div class="login_box_col mar_15 pull-left">
+											<div class="clearfix">
+												<a class="login_forgot"><fmt:message key="${lang.localeId}.general.login.loginForgot"/></a>
+											</div>
+											<div class="login_remember mar_10 clearfix">
+												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" id="remember" /></div>
+												<label for="remember"><fmt:message key="${lang.localeId}.general.login.rememberMe"/></label>
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="login_register mar_15 clearfix"><fmt:message key="${lang.localeId}.general.login.toSubscribe"/> <a href="#"><fmt:message key="${lang.localeId}.general.login.clickHere"/></a></div>
-							</form>
+									<div class="login_register mar_15 clearfix"><fmt:message key="${lang.localeId}.general.login.toSubscribe"/> <a href="#"><fmt:message key="${lang.localeId}.general.login.clickHere"/></a></div>
+								</form>
+							</div>
 						</div>
-					</div>
 					</c:otherwise>
 					</c:choose>
 				</div>
 			</div>
         	<div class="container clearfix">
-				<a href="/homePage.html" class="logo_authority">
+				<a href="/" class="logo_authority">
 				<c:choose>
 				<c:when test="${lang.localeId=='en_US'}"><img src="/image/website/logo_authorityEN.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" style="width:80%;height:80%"/></c:when>
 				<c:otherwise><img src="/image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></c:otherwise>
@@ -158,12 +163,12 @@
         	} 
         			var mouse_is_inside = false;
         			$(document).ready(function() {
-        				$(".login_left").click(function() {
+        				$(".login_inner").click(function() {
         					var loginBox = $("#login_box");
         					if (loginBox.is(":visible"))
-        					loginBox.fadeOut("fast");
+        						loginBox.fadeOut("fast");
         					else
-        					loginBox.fadeIn("fast");
+        						loginBox.fadeIn("fast");
         					return false;
         				});
         				$(".logout").click(function(e) {

@@ -11,15 +11,7 @@
 <urlrewrite>
 
 	
- 	<rule>
-        <from>^/$</from>
-        <to last="true">/homePage.html</to>
-    </rule>
-
-	<rule>
-        <from>^/([^\.]+)/$</from>
-        <to last="true">/homePage.html?locale=$1</to>
-    </rule>
+ 	
     
 
 	<rule>
@@ -43,12 +35,46 @@
         <to last="true">/search.html?searchWords=$1</to>
     </rule>
     <rule>
-        <from>^/search_funding/(.*)</from>
-        <to last="true">/searchCallForProposal.html?searchWords=$1</to>
+        <from>^/search_funding/$</from>
+        <to last="true">/searchCallForProposals.html</to>
     </rule>
+    <rule>
+        <from>^/search_funding/(.*)</from>
+        <to last="true">/searchCallForProposals.html?searchWords=$1</to>
+    </rule>
+    <rule>
+        <from>^/calendar/$</from>
+        <to last="true">/callForProposalCalendar.html</to>
+    </rule>
+    <rule>
+        <from>^/calendar/$</from>
+        <to last="true">/callForProposalCalendar.html</to>
+    </rule>
+    <rule>
+        <from>^/calendar/(.*)/$</from>
+        <to last="true">/callForProposalCalendar.html?action=$1</to>
+    </rule>
+    
+    
+    <rule>
+        <from>^/$</from>
+        <to last="true">/homePage.html</to>
+    </rule>
+
+	<rule>
+        <from>^/([^\.]+)/$</from>
+        <to last="true">/homePage.html?locale=$1</to>
+    </rule>
+    
+    <outbound-rule>
+        <from>/homePage.html</from>
+        <to>/</to>
+    </outbound-rule>
+    
+    
 <!-- <rule>
         <from>^/searchCallForProposals.html$</from>
-        <to last="true">/search_funding/</to>
+        <to redirect="true">/search_funding/</to>
     </rule>
 -->
     

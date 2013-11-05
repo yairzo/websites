@@ -36,7 +36,7 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		int month= request.getSessionIntParameter("month", 0);
 		int year= request.getSessionIntParameter("year", 0);
 		String action = request.getParameter("action", "");		
-		if(action.equals("nextMonth")){
+		if(action.equals("next")){
 			if(month==12){
 				request.getSession().setAttribute("year", year+=1);
 				month=1;
@@ -45,7 +45,7 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 				month+=1;
 			request.getSession().setAttribute("month", month);
 		}
-		else if (action.equals("prevMonth")){
+		else if (action.equals("prev")){
 			if(month==1){
 				request.getSession().setAttribute("year", year-=1);
 				month=12;

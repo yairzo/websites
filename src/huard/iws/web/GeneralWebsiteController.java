@@ -41,6 +41,9 @@ public abstract class GeneralWebsiteController extends GeneralController{
 		
 		model.put("contactsPageId", configurationService.getConfigurationInt("website", "contactsPage" + language.getNameCapitalized() + "Id"));
 		
+		model.put("request", request);
+		model.put("ilr", "");
+		
 		return handleRequestWebsite(request, response, model, userPersonBean);
 	}
 

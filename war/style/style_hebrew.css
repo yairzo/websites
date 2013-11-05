@@ -16,6 +16,7 @@ textarea {
 body {
     font-size: 1em;
     line-height: 1.4;
+    overflow-x: hidden;
 }
 
 ::-moz-selection {
@@ -2037,10 +2038,10 @@ padding:3px 0 0 0;
 
 .nav{width:620px;}
 
-.login{
+.login_right{
 float:left;
 position:relative;
-margin:6px 0 0 4px;
+margin:6px 0 0 8px;
 padding-right:34px;
 height:33px;
 background:url(/image/website/login_bt_right.png) no-repeat right;
@@ -2048,10 +2049,10 @@ line-height:33px;
 cursor:pointer;
 }
 
-.login_left{
+.login_inner_left{
 float:left;
-padding:0 6px 0 8px;
-background:url(/image/website/login_bt_left.png) no-repeat left;
+padding:0 8px 0 6px;
+background:url(/image/website/login_bt.png) no-repeat left;
 font-size:14px;
 font-family:"almoni-tzar";
 font-weight:normal;

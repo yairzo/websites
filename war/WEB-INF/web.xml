@@ -32,7 +32,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
     	<dispatcher>FORWARD</dispatcher>
   	</filter-mapping>
   	
-  	<filter>
+ <filter>
     	<filter-name>UrlRewriteFilter</filter-name>
     	<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
     	<init-param>

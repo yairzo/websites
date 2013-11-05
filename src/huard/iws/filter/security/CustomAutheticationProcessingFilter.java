@@ -157,8 +157,20 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 		// alwaysUsedefaultTargetUrl is set
 		logger.info("determineTargetUrl");
 		String fullRequestUrl = obtainFullRequestUrl(request);
+		logger.info("request uri "  + request.getRequestURI() + " " + request.getRequestURL());
 		logger.info("full " + fullRequestUrl);
-		String initiatedLoginRedirect = fullRequestUrl.replaceAll("^http[s]{0,1}://.*?\\.html\\?.*?ilr=(.*?)$", "$1");		
+		String initiatedLoginRedirect;
+		if (fullRequestUrl != null && fullRequestUrl.contains("ilr=")){
+			//in case initiated login redirect was supplied
+			initiatedLoginRedirect = fullRequestUrl.replaceAll("^http[s]{0,1}://.*?\\.html\\?.*?ilr=(.*?)$", "$1");
+		}
+		else {
+			//in case ilr param was supplied by the login form
+			initiatedLoginRedirect = request.getParameter("ilr");
+			if (initiatedLoginRedirect == null)
+				initiatedLoginRedirect = "";
+			initiatedLoginRedirect = initiatedLoginRedirect.replaceFirst("/", "");
+		}
 		logger.info("initi " + initiatedLoginRedirect);
 		String targetUrl;
 		

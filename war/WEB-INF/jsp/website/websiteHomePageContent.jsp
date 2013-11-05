@@ -86,11 +86,11 @@
 					<div class="board_calendar">
 						<div class="homePageCalendar"></div>
 						
-						<a href="/searchCallForProposals.html" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
+						<a href="/search_funding/" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
 						<div class="board_search">
 							<h3><fmt:message key="${lang.localeId}.website.search"/></h3>
-							<a href="/searchCallForProposals.html" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
-							<form action="/searchCallForProposals.html" method="post" class="board_form">
+							<a href="/search_funding/" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
+							<form action="/search/" method="post" class="board_form">
 								<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
 onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="input_text" />
 								<input type="hidden" name="open" value="true"/>

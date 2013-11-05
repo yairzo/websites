@@ -40,6 +40,9 @@ public abstract class GeneralWebsiteFormController extends GeneralFormController
 		model.put("category",categoryService.getCategory(rootCategory.getId()));
 
 		model.put("contactsPageUrlTitle", configurationService.getConfigurationString("website", "contactsPage" + language.getNameShortCapitalized() + "UrlTitle"));
+		
+		model.put("request", request);
+		model.put("ilr", "");
 
 		ModelAndView modelAndView = onShowFormWebsite(request, response, userPersonBean, model);
 		return modelAndView;

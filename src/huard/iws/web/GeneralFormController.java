@@ -127,7 +127,7 @@ public abstract class GeneralFormController extends SimpleFormController{
 		else{
 			model.put("popupMessage", "");
 		}
-
+		
 		logger.info("Lang general: " + ((Language)model.get("lang")).getLocaleId());
 		ModelAndView modelAndView = onShowForm(requestWrapper, response, userPersonBean, model);
 		if (modelAndView != null)

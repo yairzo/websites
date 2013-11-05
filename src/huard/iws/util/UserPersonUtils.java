@@ -49,13 +49,15 @@ public class UserPersonUtils {
 				aPerson = new Person();
 			personBean = new PersonBean(aPerson);
 			//if it has authorities
-			if (sc != null)
+			if (sc != null && sc.getAuthentication() != null){
 				personBean.setPersonPriviliges(sc.getAuthentication().getAuthorities());
-			//if no authorities let's give him anonymous authorities
-			else
+			}
+			else{
+				//if no authorities let's give him anonymous authorities
 				personBean.setPersonPriviliges( new GrantedAuthority [] {
 						new GrantedAuthorityImpl("ROLE_LISTS_ANONYMOUS")
 				});
+			}
 		}
 		session.setAttribute("userPerson", personBean);
 		return personBean;

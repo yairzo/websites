@@ -374,7 +374,7 @@ public class PersonBean implements Serializable {
 		}
 		return false;
 	}
-
+	
 	public boolean isAnyAuthorized(String [] authorities){
 		if (privileges == null)
 			return false;
@@ -386,6 +386,10 @@ public class PersonBean implements Serializable {
 			}
 		}
 		return false;
+	}
+	
+	public boolean isAnonymous(){
+		return isOnlyAuthorized("LISTS", "ANONYMOUS");
 	}
 
 

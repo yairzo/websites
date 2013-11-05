@@ -10,7 +10,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContextHolder;
@@ -73,11 +72,12 @@ public class CustomLogoutFilter implements Filter{
 			httpRequest.getSession().removeAttribute("userPerson");
 			httpRequest.getSession().removeAttribute("SAVED_REQUEST_MANDATORY_USER_DETAILS_CHANGE");
 			
-			if(request.getParameter("s")!=null && request.getParameter("s").equals("1")){
-				logoutSuccessUrl="/homePage.html";
-			}else
+
+			if (Integer.valueOf(titleCode) > 0)
 				logoutSuccessUrl="/welcome.html?tc="+titleCode;//override security.xml
-			
+			else
+				logoutSuccessUrl="/";
+
 			sendRedirect(httpRequest, httpResponse, logoutSuccessUrl);
 			return;
 		}
