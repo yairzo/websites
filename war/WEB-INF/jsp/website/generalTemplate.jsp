@@ -53,7 +53,7 @@
 					<div class="login_box" id="login_box">
 						<div class="login_box_top"></div>
 						<div class="login_box_bottom">
-							<form action="j_acegi_security_check" method="post">
+							<form action="/j_acegi_security_check" method="post">
 								<div class="clearfix">
 									<div class="login_box_col">
 										<label class="login_label"><fmt:message key="${lang.localeId}.general.login.username"/></label>
@@ -133,13 +133,13 @@
         			location = location + "?locale=";
         		}
     			console.log(location);*/
-    			var location = "homePage.html?locale=";
+    			var location = "/";
         		<c:choose>        		
         			<c:when test="${lang.rtl}">
-        				window.location = location + "en_US";
+        				window.location = location + "en_US/";
         			</c:when>
         			<c:otherwise>
-        				window.location = location + "iw_IL";
+        				window.location = location + "iw_IL/";
         			</c:otherwise>
         		</c:choose>       		
         	}

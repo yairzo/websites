@@ -10,7 +10,7 @@
 					
 					<div class="clearfix mar_20">
 						<div class="advanced">
-							<form action="search.html" method="post">
+							<form action="/search.html" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>

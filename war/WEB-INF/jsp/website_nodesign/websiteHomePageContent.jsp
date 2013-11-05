@@ -29,7 +29,7 @@
       				<td class="container" style="vertical-align: top;">
  							<div class="pictureslider" style="display:none;">
   								<c:forEach items="${images}" var="image">
-  								<div><img width="100%" title="${image.captionHebrew}" src="imageViewer?imageId=${image.id}&attachType=bodyImage" /></div>
+  								<div><img width="100%" title="${image.captionHebrew}" src="/imageViewer?imageId=${image.id}&attachType=bodyImage" /></div>
 								</c:forEach>
   								<div>
     							<iframe src="http://player.vimeo.com/video/17914974" width="500" height="400" frameborder="0"></iframe>

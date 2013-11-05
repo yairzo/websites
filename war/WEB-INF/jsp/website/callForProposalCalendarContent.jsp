@@ -10,8 +10,8 @@
 						<!---->
 						<div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
 							<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-								<a title="Next" onclick="window.location='callForProposalCalendar.html?action=nextMonth';return false;" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
-								<a title="Prev" onClick="window.location='callForProposalCalendar.html?action=prevMonth';return false;" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
+								<a title="Next" onclick="window.location='/callForProposalCalendar.html?action=nextMonth';return false;" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
+								<a title="Prev" onClick="window.location='/callForProposalCalendar.html?action=prevMonth';return false;" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
 								<h3 class="transition"><fmt:message key="${lang.localeId}.website.changeMonth"/></h3>
 								<div class="ui-datepicker-title">
 									<h1><fmt:message key="${lang.localeId}.website.callForProposalCalendar"/> </h1>
@@ -87,7 +87,7 @@
 						<!---->
 					</div>
 					<div class="clearfix mar_30">
-						<form action="searchCallForProposals.html" method="post" class="calendar_form">
+						<form action="/searchCallForProposals.html" method="post" class="calendar_form">
 							<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
 onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="calendar_text" />
 							<input type="submit" value="חיפוש" class="calendar_submit" />

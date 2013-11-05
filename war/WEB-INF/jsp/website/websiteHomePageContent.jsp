@@ -17,10 +17,10 @@
   								<div>
   								<c:choose>
 						  			<c:when test="${imgIndex.index == fn:length(images)-1}">
-						  				<img width="960" height="340" src="imageViewer?imageId=${image.id}&attachType=bodyImage" />			
+						  				<img width="960" height="340" src="/imageViewer?imageId=${image.id}&attachType=bodyImage" />			
 						  			</c:when>
 						  			<c:otherwise>
-						  				<img class="lazy" width="960" height="340" src="/image/website/default_home_page_image.jpg" data-src="imageViewer?imageId=${image.id}&attachType=bodyImage" />
+						  				<img class="lazy" width="960" height="340" src="/image/website/default_home_page_image.jpg" data-src="/imageViewer?imageId=${image.id}&attachType=bodyImage" />
 						  			</c:otherwise>
 						  		</c:choose>
   								
@@ -90,7 +90,7 @@
 						<div class="board_search">
 							<h3><fmt:message key="${lang.localeId}.website.search"/></h3>
 							<a href="/searchCallForProposals.html" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
-							<form action="searchCallForProposals.html" method="post" class="board_form">
+							<form action="/searchCallForProposals.html" method="post" class="board_form">
 								<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
 onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="input_text" />
 								<input type="hidden" name="open" value="true"/>

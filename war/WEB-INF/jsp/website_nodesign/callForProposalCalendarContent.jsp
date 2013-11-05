@@ -9,7 +9,7 @@
              </tr>
 			<tr>
 		    <td colspan="2">
-            <form:form id="form" name="form" method="POST" commandName="command" action="callForProposalCalendar.html">
+            <form:form id="form" name="form" method="POST" commandName="command" action="/callForProposalCalendar.html">
  			
 			<div id="genericDialog" title="קול קורא" style="display:none" dir="rtl"><p></p></div>
                <table width="1000" border="0" align="center" cellpadding="3" dir="rtl">
@@ -18,12 +18,12 @@
     					<table style="width: 100%">
                 		<tr>
                 			<td colspan="3" align="center">
-							<button class="grey" title="שנה הבאה" onclick="window.location='callForProposalCalendar.html?action=nextYear';return false;"><font size="+1">&nbsp;&#x2192;&nbsp;</font></button>
+							<button class="grey" title="שנה הבאה" onclick="window.location='/callForProposalCalendar.html?action=nextYear';return false;"><font size="+1">&nbsp;&#x2192;&nbsp;</font></button>
 							${year}
-							<button class="grey" title="שנה קודמת" onclick="window.location='callForProposalCalendar.html?action=prevYear';return false;"><font size="+1">&nbsp;&#x2190;&nbsp;</font></button>&nbsp;&nbsp;
+							<button class="grey" title="שנה קודמת" onclick="window.location='/callForProposalCalendar.html?action=prevYear';return false;"><font size="+1">&nbsp;&#x2190;&nbsp;</font></button>&nbsp;&nbsp;
                  			</td>
                 			<td colspan="4" align="center">
-							<button class="grey" title="חודש הבא" onclick="window.location='callForProposalCalendar.html?action=nextMonth';return false;"><font size="+1">&nbsp;&#x2192;&nbsp;</font></button>
+							<button class="grey" title="חודש הבא" onclick="window.location='/callForProposalCalendar.html?action=nextMonth';return false;"><font size="+1">&nbsp;&#x2192;&nbsp;</font></button>
 							<c:if test="${month==1 }">ינואר</c:if>
 							<c:if test="${month==2 }">פברואר</c:if>
 							<c:if test="${month==3 }">מרץ</c:if>
@@ -36,7 +36,7 @@
 							<c:if test="${month==10 }">אוקטובר</c:if>
 							<c:if test="${month==11 }">נובמבר</c:if>
 							<c:if test="${month==12 }">דצמבר</c:if>
-							<button class="grey" title="חודש קודם" onclick="window.location='callForProposalCalendar.html?action=prevMonth';return false;"><font size="+1">&nbsp;&#x2190;&nbsp;</font></button>&nbsp;&nbsp;
+							<button class="grey" title="חודש קודם" onclick="window.location='/callForProposalCalendar.html?action=prevMonth';return false;"><font size="+1">&nbsp;&#x2190;&nbsp;</font></button>&nbsp;&nbsp;
                  			</td>
                  		</tr>
                  		<tr style="vertical-align: top">

@@ -121,7 +121,7 @@
   						</c:choose>
   						<td>
   							<span id="img${image.id}">
-  								<img id="${image.id}" style="${borderStyle}" src="imageViewer?imageId=${image.id}&attachType=bodyImage" width="72" height="72">
+  								<img id="${image.id}" style="${borderStyle}" src="/imageViewer?imageId=${image.id}&attachType=bodyImage" width="72" height="72">
   								<input name="chkboxName" id="chkboxName" type="checkbox" value="${image.id}"/>
 	  							<br/>
   								${image.name}&nbsp;

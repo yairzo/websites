@@ -11,10 +11,17 @@
 <urlrewrite>
 
 	
-	<rule>
+ 	<rule>
         <from>^/$</from>
         <to last="true">/homePage.html</to>
     </rule>
+
+	<rule>
+        <from>^/([^\.]+)/$</from>
+        <to last="true">/homePage.html?locale=$1</to>
+    </rule>
+    
+
 	<rule>
         <from>^/(.*\.pdf)$</from>
         <to last="true">/fileViewer?textualPageFilename=$1&amp;contentType=pdf&amp;attachmentId=1</to>
@@ -39,6 +46,12 @@
         <from>^/search_funding/(.*)</from>
         <to last="true">/searchCallForProposal.html?searchWords=$1</to>
     </rule>
+<!-- <rule>
+        <from>^/searchCallForProposals.html$</from>
+        <to last="true">/search_funding/</to>
+    </rule>
+-->
+    
     
     
 

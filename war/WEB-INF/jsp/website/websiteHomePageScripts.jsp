@@ -23,19 +23,19 @@
 			
 			
 			$(document).ready(function() {
-				$.get('callForProposalCalendar.html?h=1', function(data) {
+				$.get('/callForProposalCalendar.html?h=1', function(data) {
 					$("div.homePageCalendar").html(data);
 			 	});
 
 				$('.homePageCalendar').on('click','.ui-datepicker-prev',function(e){
 					e.preventDefault();
-					$.get('callForProposalCalendar.html?h=1&action=prevMonth', function(data) {
+					$.get('/callForProposalCalendar.html?h=1&action=prevMonth', function(data) {
 						$("div.homePageCalendar").html(data);
 				 	});
 				});
 				$('.homePageCalendar').on('click','.ui-datepicker-next',function(e){
 					e.preventDefault();
-					$.get('callForProposalCalendar.html?h=1&action=nextMonth', function(data) {
+					$.get('/callForProposalCalendar.html?h=1&action=nextMonth', function(data) {
 						$("div.homePageCalendar").html(data);
 				 	});
 				});
