@@ -8,11 +8,7 @@
     http://www.tuckey.org/urlrewrite/
 
 -->
-<urlrewrite>
-
-	
- 	
-    
+<urlrewrite>    
 
 	<rule>
         <from>^/(.*\.pdf)$</from>
@@ -47,17 +43,19 @@
         <to last="true">/searchCallForProposals.html?searchWords=$1</to>
     </rule>
     <rule>
-        <from>^/calendar/$</from>
-        <to last="true">/callForProposalCalendar.html</to>
-    </rule>
-    <rule>
-        <from>^/calendar/$</from>
-        <to last="true">/callForProposalCalendar.html</to>
+        <from>^/calendar/(.*)/home$</from>
+        <to last="true">/callForProposalCalendar.html?action=$1&amp;h=1</to>
     </rule>
     <rule>
         <from>^/calendar/(.*)/$</from>
         <to last="true">/callForProposalCalendar.html?action=$1</to>
     </rule>
+    <rule>
+        <from>^/calendar/$</from>
+        <to last="true">/callForProposalCalendar.html</to>
+    </rule>
+    
+    
     
     
     <rule>
