@@ -2025,7 +2025,7 @@ cursor:pointer;
 .login_inner_right{
 float:right;
 padding:0 6px 0 8px;
-background:url(/image/website/login_bt.png) no-repeat right;
+background:url(/image/website/login_bt_inner_left.png) no-repeat right;
 font-size:14px;
 font-family:"open_sanscondensed_light";
 font-weight:normal;
