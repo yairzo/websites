@@ -8,9 +8,11 @@
 
 			$(".viewProposal").click(function(e) {
 				e.preventDefault();
-				var proposalId=$(this).attr("id");	   		
+				var element_class = $(this).attr("class");
+				var url_title = element_class.split(" ")[2];
+				
 				$.ajax({
-				    url : 'callForProposal.html?id='+proposalId+'&p=1',
+				    url : '/call_for_proposal/' + url_title + '/popup',
 				    type: 'GET',
 				    success : handleData
 				 })

@@ -54,5 +54,5 @@
 			<div class="clearfix popup_sum">
 				<p>${command.description}</p>
 			</div>
-			<a href="#" onclick="$('.popup_placeholder').hide();location.href='callForProposal.html?id=${command.id}';" class="popup_more"><fmt:message key="${lang.localeId}.callForProposal.furtherDetails"/></a>
+			<a href="#" onclick="$('.popup_placeholder').hide();location.href='/call_for_proposal/${command.urlTitle}';" class="popup_more"><fmt:message key="${lang.localeId}.callForProposal.furtherDetails"/></a>
 		</div>

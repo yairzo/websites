@@ -19,6 +19,10 @@
         <to last="true">/fileViewer?textualPageFilename=$1&amp;contentType=pdf&amp;attachmentId=1</to>
     </rule>
     <rule>
+        <from>^/call_for_proposal/([^\s]+)/popup</from>
+        <to last="true">/callForProposal.html?urlTitle=$1&amp;p=1</to>
+    </rule>
+    <rule>
         <from>^/call_for_proposal/([^\s]+)</from>
         <to last="true">/callForProposal.html?urlTitle=$1</to>
     </rule>
