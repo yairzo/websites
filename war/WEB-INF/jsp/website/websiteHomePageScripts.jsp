@@ -6,6 +6,7 @@
    <script type="text/javascript" src="/js/jquery.bxslider.js"></script>
    <script type="text/javascript" src="/js/jquery.fitvids.js"></script>
    <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.js"></script>
+   <script type="text/javascript" src="/js/jquery.form.js"></script>
    <script type="text/javascript">
 			$(function(){
 				$('ul.menu li').has('ul')
@@ -23,7 +24,9 @@
 			
 			
 			$(document).ready(function() {
-				$("div.homePageCalendar").load('/callForProposalCalendar.html?h=1');
+				$.get('/callForProposalCalendar.html?h=1', function(data) {
+					$("div.homePageCalendar").html(data);
+			 	});
 				
 				$('.homePageCalendar').on('click','.ui-datepicker-prev',function(e){
 					e.preventDefault();

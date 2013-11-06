@@ -65,7 +65,7 @@
 									</div>
 									<div class="login_box_col pull-left">
 										<label for="password" class="login_label">סיסמה</label>
-										<input type="paswword" name="" value="" id="password" class="login_input">
+										<input type="password" name="" value="" id="password" class="login_input">
 									</div>
 									<div class="login_box_col mar_15">
 										<input type="submit" value="כניסה" class="login_submit">

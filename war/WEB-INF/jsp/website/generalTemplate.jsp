@@ -41,7 +41,7 @@
 							<c:when test="${lang.rtl}"><c:out value="${userPersonBean.degreeFullNameHebrew}"/></c:when>
 							<c:otherwise><c:out value="${userPersonBean.degreeFullNameEnglish}"/></c:otherwise>
 							</c:choose>
-							&nbsp;&nbsp;<a href="/j_acegi_logout?s=1" class="logout" title="<fmt:message key="${lang.localeId}.general.login.logout"/>"><img src="/image/website/login_x.png" alt='<fmt:message key="${lang.localeId}.general.login.logout"/>'></a>
+							&nbsp;&nbsp;<a href="/j_acegi_logout" class="logout" title="<fmt:message key="${lang.localeId}.general.login.logout"/>"><img src="/image/website/login_x.png" alt='<fmt:message key="${lang.localeId}.general.login.logout"/>'></a>
 						</div>
 					</c:when>	
 					<c:otherwise>				
@@ -56,7 +56,7 @@
 											<label class="login_label"><fmt:message key="${lang.localeId}.general.login.username"/></label>
 											<input type="text" id="j_username" name="j_username" class="login_input">
 										</div>
-										<div class="login_box_col pull-left">
+										<div class="login_box_col pull-${lang.alignOpp}">
 											<label for="password" class="login_label"><fmt:message key="${lang.localeId}.general.login.password"/></label>
 											<input type="password" name="j_password" class="login_input">
 										</div>
@@ -66,10 +66,6 @@
 										<div class="login_box_col mar_15 pull-left">
 											<div class="clearfix">
 												<a class="login_forgot"><fmt:message key="${lang.localeId}.general.login.loginForgot"/></a>
-											</div>
-											<div class="login_remember mar_10 clearfix">
-												<div class="checkbox_box"><input type="checkbox" name="" value="" class="styled" id="remember" /></div>
-												<label for="remember"><fmt:message key="${lang.localeId}.general.login.rememberMe"/></label>
 											</div>
 										</div>
 									</div>
@@ -164,7 +160,12 @@
         			var mouse_is_inside = false;
         			$(document).ready(function() {
         				$(".login_inner").click(function() {
-        					var loginBox = $("#login_box");
+        					var loginBox = $(".login_box");
+        					$(".login_box").css({
+        						position: 'absolute',
+        						top:44,
+        						left:-85
+        					});
         					if (loginBox.is(":visible"))
         						loginBox.fadeOut("fast");
         					else
@@ -174,13 +175,13 @@
         				$(".logout").click(function(e) {
         					e.stopPropagation();
         				});
-        				$("#login_box").hover(function(){
+        				$(".login_box").hover(function(){
         					mouse_is_inside=true;
         				}, function(){
         					mouse_is_inside=false;
         				});
         				$("body").click(function(){
-        					if(! mouse_is_inside) $("#login_box").fadeOut("fast");
+        					if(! mouse_is_inside) $(".login_box").fadeOut("fast");
         				});
         				$('.login_forgot').click(function(e){
         	        		  e.preventDefault();
@@ -188,7 +189,7 @@
         	        		  if($("#j_username").val()=="")
         	        			  alert("הכנס שם משתמש");
         	        		  else
-        	        		 	window.location="sendPasswordEmail.html?username="+ userName;     
+        	        		 	window.location="/sendPasswordEmail.html?username="+ userName;     
         	        	  });
         			}); 
         		</script>

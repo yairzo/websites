@@ -2070,14 +2070,16 @@ color:#04bde5;
 text-shadow: 1px 1px #ffffff, -1px 0px #c0c0c0;
 }
 
-.login_box{
+.login_box,.login_box_cp{
 display:none;
 width:309px;
 position:absolute;
 top:44px;
 left:-85px;
 z-index:10;
+cursor:pointer;
 }
+
 
 .login_box_top{
 display:block;
@@ -2085,6 +2087,12 @@ margin-top:-13px;
 width:309px;
 height:13px;
 background:url(/image/website/login_box.png) no-repeat top;
+}
+
+.login_box_bottom_cp{
+background:#f5f5f5;
+border:solid 1px #e1e2e2;
+padding:15px 15px 15px 15px;
 }
 
 .login_box_bottom{

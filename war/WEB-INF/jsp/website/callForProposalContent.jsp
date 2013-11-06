@@ -51,11 +51,37 @@
 							<c:if test="${!authorized}">
 							<div class="kol open kol_${copLang.dir}">
 								<div class="clearfix">
-									<a href="/login.html?ilr=callForProposal.html?id=${command.id}" class="button_${copLang.dir}">
-										<span class="button_inner_${copLang.dir}"><img src="/image/website/i-user.png" alt=""><fmt:message key="${copLang.localeId}.callForProposal.loginLink"/></span>
+									<a class="button_${copLang.dir}">
+										<span id="login_open" class="button_inner_${copLang.dir}"><img src="/image/website/i-user.png" alt=""><fmt:message key="${copLang.localeId}.callForProposal.loginLink"/></span>
 									</a>
 									<p class="forbidden_${copLang.dir}"><fmt:message key="${copLang.localeId}.callForProposal.fullDetailsLogin"/></p>
 								</div>
+								<div class="login_box_cp">
+									<div class="login_box_bottom_cp">
+										<form action="/j_acegi_security_check" method="post">									
+										<input type="hidden" name="ilr" value="${ilr}"/>
+										<div class="clearfix">
+										<div class="login_box_col">
+											<label class="login_label"><fmt:message key="${copLang.localeId}.general.login.username"/></label>
+											<input type="text" id="j_username" name="j_username" class="login_input">
+										</div>
+										<div class="login_box_col pull-${copLang.alignOpp}">
+											<label for="password" class="login_label"><fmt:message key="${copLang.localeId}.general.login.password"/></label>
+											<input type="password" name="j_password" class="login_input">
+										</div>
+										<div class="login_box_col mar_15">
+											<input type="submit" value="<fmt:message key="${copLang.localeId}.general.login.login"/>" class="login_submit">
+										</div>
+										<div class="login_box_col mar_15 pull-left">
+											<div class="clearfix">
+												<a class="login_forgot"><fmt:message key="${copLang.localeId}.general.login.loginForgot"/></a>
+											</div>
+										</div>
+										</div>
+										<div class="login_register mar_15 clearfix"><fmt:message key="${copLang.localeId}.general.login.toSubscribe"/> <a href="#"><fmt:message key="${copLang.localeId}.general.login.clickHere"/></a></div>
+									</form>
+								</div>
+							</div>
 							</div>
 							</c:if>			
 							

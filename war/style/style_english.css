@@ -1879,7 +1879,30 @@ line-height:16px;
 	height: 16px;
 	overflow: hidden;
 }
-
+.button_rtl{
+float:right;
+clear:both;
+margin:10px 18px 0 0;
+padding:0 0 0 5px;
+background:url(/image/website/button_left.png) no-repeat left;
+font-size:14px;
+color:#04bde5;
+text-decoration:none;
+text-shadow: 1px 1px #ffffff, -1px 0px #c0c0c0;
+line-height:33px;
+}
+.button_ltr{
+float:left;
+clear:both;
+margin:10px 0 0 18px;
+padding:0 5px 0 0;
+background:url(/image/website/button_right.png) no-repeat right;
+font-size:14px;
+color:#04bde5;
+text-decoration:none;
+text-shadow: 1px 1px #ffffff, -1px 0px #c0c0c0;
+line-height:33px;
+}
 .button_inner_rtl{
 float:right;
 padding:0 10px 0 7px;
@@ -2043,13 +2066,14 @@ color:#04bde5;
 text-shadow: 1px 1px #ffffff, -1px 0px #c0c0c0;
 }
 
-.login_box{
+.login_box,.login_box_cp{
 display:none;
 width:309px;
 position:absolute;
 top:44px;
 left:-85px;
 z-index:10;
+cursor:pointer;
 }
 
 .login_box_top{
@@ -2060,6 +2084,12 @@ height:13px;
 background:url(/image/website/login_box.png) no-repeat top;
 }
 
+.login_box_bottom_cp{
+background:#f5f5f5;
+border:solid 1px #e1e2e2;
+padding:15px 15px 15px 15px;
+}
+
 .login_box_bottom{
 background:#f5f5f5;
 border:solid 1px #e1e2e2;
@@ -2068,7 +2098,7 @@ padding:15px 15px 0 15px;
 }
 
 .login_box_col{
-float:right;
+float:left;
 width:132px;
 }
 
@@ -2107,7 +2137,7 @@ color:#ffffff;
 }
 
 .login_forgot{
-float:left;
+float:right;
 font-size:12px;
 color:#949494;
 text-decoration:none;
@@ -2132,7 +2162,7 @@ background:#f2f2f2;
 border-top:solid 1px #dcdcdc;
 font-size:12px;
 color:#333333;
-text-align:left;
+text-align:right;
 line-height:35px;
 }
 
