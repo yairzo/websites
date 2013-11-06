@@ -61,6 +61,8 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 				textualPageService.getTextualPagesLastUpdate().getTime());
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 		
+		model.put("ilr", "/");
+		
 		
 
 		if(request.getParameter("t", "").equals("0"))

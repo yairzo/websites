@@ -167,9 +167,9 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 		else {
 			//in case ilr param was supplied by the login form
 			initiatedLoginRedirect = request.getParameter("ilr");
+			logger.info("ilr: " + initiatedLoginRedirect);
 			if (initiatedLoginRedirect == null)
 				initiatedLoginRedirect = "";
-			initiatedLoginRedirect = initiatedLoginRedirect.replaceFirst("/", "");
 		}
 		logger.info("initi " + initiatedLoginRedirect);
 		String targetUrl;
@@ -177,12 +177,17 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 		if (imposedTargetUrl !=null){
 			targetUrl = imposedTargetUrl;
 			imposedTargetUrl=null;
+			logger.info("target: 1" + targetUrl) ;
 		}
-		else if (! initiatedLoginRedirect.equals(fullRequestUrl)){
+		else if ( !initiatedLoginRedirect.isEmpty() && !initiatedLoginRedirect.equals(fullRequestUrl)){
+			if (initiatedLoginRedirect.startsWith("/"))
+				initiatedLoginRedirect = initiatedLoginRedirect.replaceFirst("/", "");
 			targetUrl = "/"+initiatedLoginRedirect;
+			logger.info("target: 2" + targetUrl) ;
 		}
 		else{
 			targetUrl = alwaysUseDefaultTargetUrl ? null : fullRequestUrl;
+			logger.info("target: 3" + targetUrl) ;
 		}
 
 		if (targetUrl == null) {
