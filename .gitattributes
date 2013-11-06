@@ -1,5 +1,4 @@
 .externalToolBuilders/Copy[!!-~]files[!!-~]to[!!-~]tomcat.launch svn_mime_002dtype=text%2Fplain
-/ROOT.war svn_mime_002dtype=application%2Foctet-stream
 src/huard/iws/bean/CallForProposalBean.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/bean/CategoryBean.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/bean/ConferenceProposalBean.java svn_mime_002dtype=text%2Fplain
