@@ -52,8 +52,8 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		request.getSession().setAttribute("ardNum",0);
 		if (ardNum > 0){
 			String urlTitle=callForProposalService.getCallForProposalUrlTitleByArdNum(ardNum);
-			//return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+urlTitle), new HashMap<String, Object>());
-			return new ModelAndView ( new RedirectViewExtended("callForProposal.html?urlTitle="+urlTitle), new HashMap<String, Object>());
+			return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+urlTitle), new HashMap<String, Object>());
+			//return new ModelAndView ( new RedirectViewExtended("callForProposal.html?urlTitle="+urlTitle), new HashMap<String, Object>());
 		}
 		//if(request.getIntParameter("id", 0)>0)//if link was written with id and not with url title
 		//	return new ModelAndView ( new RedirectViewExtended("call_for_proposal/"+callForProposalBean.getUrlTitle()), new HashMap<String, Object>());

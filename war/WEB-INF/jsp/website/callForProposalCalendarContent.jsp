@@ -68,10 +68,9 @@
 										<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay">
 											<h4>${fundInDay.fundShortName}</h4>
   											<c:forEach items="${fundInDay.callForProposals}" var="callForProposal">
-        										<dfn class="viewProposal" id="${callForProposal.id}"><c:out escapeXml="false" value="${callForProposal.title}"/></dfn><br>
+        										<div class="viewProposal" id="${callForProposal.urlTitle}" style="text-align:${callForProposal.align}"><c:out escapeXml="false" value="${callForProposal.title}"/><br><br></div>
         									</c:forEach>
-        									<br>
-        								</c:forEach>
+         								</c:forEach>
 										</div>
 	        							<c:if test="${varStatus.index>7}">
 											<div class="triangle"></div>

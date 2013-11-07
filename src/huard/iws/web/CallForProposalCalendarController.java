@@ -130,7 +130,7 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		int calendarLength=0;
 		List<DayInCalendar> shortCalendarList= new ArrayList<DayInCalendar>();
 		for(DayInCalendar dayInCalendar:calendarList){
-			dayInCalendar.setDayOnly(dayInCalendar.getDay().substring(8));
+			dayInCalendar.setDayOnly(dayInCalendar.getDay().substring(8).replaceFirst("^0+(?!$)", ""));
 			dayInCalendar.setMonthOnly(dayInCalendar.getDay().substring(5, 7));
 			shortCalendarList.add(dayInCalendar);
 			calendarLength++;

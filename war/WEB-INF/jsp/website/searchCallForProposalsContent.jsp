@@ -11,7 +11,7 @@
 					
 					<div class="clearfix mar_20">
 						<div class="advanced">
-							<form id="form" action="searchCallForProposals.html" method="post">
+							<form id="form" action="/search_funding/" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>

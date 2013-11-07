@@ -1,5 +1,7 @@
 package huard.iws.model;
 
+import huard.iws.util.LanguageUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -386,6 +388,9 @@ public class CallForProposal {
 		this.countryIds = countryIds;
 	}
 	
-
+	public String getAlign(){
+		Language lang= LanguageUtils.getLanguage(localeId);
+		return lang.getAlign();
+	}
 
 }

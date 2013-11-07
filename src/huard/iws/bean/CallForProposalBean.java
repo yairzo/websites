@@ -4,6 +4,7 @@ import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.Fund;
 import huard.iws.model.MopDesk;
+import huard.iws.model.Language;
 import huard.iws.service.ConfigurationService;
 import huard.iws.service.FundService;
 import huard.iws.service.MessageService;
@@ -11,6 +12,7 @@ import huard.iws.service.MopDeskService;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.DateUtils;
+import huard.iws.util.LanguageUtils;
 import huard.iws.util.TextUtils;
 
 import java.text.DateFormat;
@@ -646,6 +648,11 @@ public class CallForProposalBean {
 			configurationService = (ConfigurationService) ApplicationContextProvider.getContext().getBean("configurationService");
 			mopDeskService = (MopDeskService) ApplicationContextProvider.getContext().getBean("mopDeskService");
 		}
+	}
+	
+	public String getAlign(){
+		Language lang= LanguageUtils.getLanguage(localeId);
+		return lang.getAlign();
 	}
 	
 	public String toPostMessage(){

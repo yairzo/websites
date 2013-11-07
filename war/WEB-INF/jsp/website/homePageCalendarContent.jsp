@@ -26,19 +26,31 @@
 							 	</c:if>
 								<c:if test="${month==calendarDay.monthOnly}">
 							   	<td class="<c:if test="${fn:length(calendarDay.fundsInDay)>0}">dayWithFund</c:if>  <c:if test="${calendarDay.dayOnly==today}">ui-datepicker-today</c:if>">
-							   		<a href="#" class="ui-state-default viewAll" >${calendarDay.dayOnly} 
-		   							</a>
+							   		<a href="#" class="ui-state-default viewAll" >${calendarDay.dayOnly} </a>
         							
         							<div class="callForProposalsPerDay callForProposalsPerDayHomePage" style="display:none">
 									
 										<div class="clearfix">
+										<c:set var="CPcounter" value="0"/> 
+										<c:if test="${fn:length(calendarDay.fundsInDay)==1}">
+											<c:set var="fundMax" value="3"/> 
+										</c:if>
+										<c:if test="${fn:length(calendarDay.fundsInDay)==2}">
+											<c:set var="fundMax" value="2"/> 
+										</c:if>
+										<c:if test="${fn:length(calendarDay.fundsInDay)>=3}">
+											<c:set var="fundMax" value="1"/> 
+										</c:if>
 										<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay" varStatus="varStatusFund">
 											<h4>${fundInDay.fundShortName}</h4>
   											<c:forEach items="${fundInDay.callForProposals}" var="callForProposal">
-        										<dfn class="viewProposal" id="${callForProposal.id}"><c:out escapeXml="false" value="${callForProposal.title}"/></dfn><br>
-        									</c:forEach>
-        									<br>
-        								</c:forEach>
+        										<c:if test="${CPcounter<3 && varStatusFund.index<fundMax}">
+        										<div class="viewProposal" id="${callForProposal.urlTitle}" style="text-align:${callForProposal.align}"><c:out escapeXml="false" value="${callForProposal.title}"/><br><br></div>
+         										</c:if>
+         										<c:set var="CPcounter" value="${CPcounter+1}"/>
+         									</c:forEach>
+         								</c:forEach>
+        								<c:if test="${CPcounter>3}"><div class="allCallForProposals" id="${calendarDay.day}">...</div></c:if>
 										</div>
 										<div class="triangle"></div>
 									</div>

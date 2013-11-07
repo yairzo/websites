@@ -165,6 +165,23 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 				searchCreteria = new CallForProposalSearchCreteria();
 			request.getSession().setAttribute("newSearch", "");
 			
+			if(!request.getParameter("searchWords", "").isEmpty()){
+				long dateTime = DateUtils.parseDate(request.getParameter("searchWords", ""),"yyyyMMdd");
+				if(dateTime>0){
+					searchCreteria.setSearchBySubmissionDateFrom(DateUtils.formatToSqlDate(request.getParameter("day", ""),"dd/MM/yyyy"));
+					searchCreteria.setSearchBySubmissionDateTo(DateUtils.formatToSqlDate(request.getParameter("day", ""),"dd/MM/yyyy"));
+					searchCreteria.setSearchOpen(false);
+				}
+				else{
+					Set<Long> sphinxIds=new LinkedHashSet<Long>();
+					sphinxIds.add(new Long(0));//so wont show everything when deos'nt find any ids
+					sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_index"));
+					searchCreteria.setSearchBySearchWords(sphinxIds);
+					searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
+				}
+					
+			}
+			
 			if(searchCreteria.getSearchBySubjectIds().isEmpty() 
 					&& !userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") 
 					&& !userPersonBean.getSubjectsIds().isEmpty())
