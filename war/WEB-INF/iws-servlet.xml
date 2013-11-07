@@ -165,7 +165,7 @@
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.SearchCallForProposalsController$SearchCallForProposalsControllerCommand</value></property>
         <property name="formView"><value>searchCallForProposals</value></property>
-        <property name="successView"><value>searchCallForProposals.html</value></property>
+        <property name="successView"><value>/search_funding/</value></property>
      	<property name="callForProposalService">
             <ref bean="callForProposalService"/>
         </property>

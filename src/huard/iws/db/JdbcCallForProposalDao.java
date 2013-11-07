@@ -585,7 +585,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				whereClause += "and " + mainTable +".finalSubmissionTime >='"+searchCriteria.getSearchBySubmissionDateFrom()+"'";
 			if(!searchCriteria.getSearchBySubmissionDateTo().isEmpty())
 				whereClause += "and " + mainTable +".finalSubmissionTime <='"+searchCriteria.getSearchBySubmissionDateTo()+"'";
-			whereClause += ") or " + mainTable +".finalSubmissionTime = 0)";
+			whereClause += "))";
 		}
 		if(searchCriteria.getSearchByFund()>0)
 			whereClause +=" and " + mainTable +".fundId="+searchCriteria.getSearchByFund();

@@ -890,8 +890,10 @@ direction:ltr;
 	left: -30px;
 }
 
-
-
+.allCallForProposals{
+	text-align:right;
+	font-size:16px;
+}
 .viewProposal:hover{
 	cursor:pointer;
 	color:#AFAFAF;
@@ -899,7 +901,10 @@ direction:ltr;
 .messagePage:hover{
 	cursor:pointer;
 }
-
+.allCallForProposals:hover{
+	cursor:pointer;
+	color:#AFAFAF;
+}
 .lt-ie9 .callForProposalsPerDay{background:url(/image/website/trans_black.png) repeat top;}
 
 .callForProposalsPerDay .clearfix{

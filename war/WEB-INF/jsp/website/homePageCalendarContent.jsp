@@ -32,6 +32,7 @@
 									
 										<div class="clearfix">
 										<c:set var="CPcounter" value="0"/> 
+										<c:set var="totalCounter" value="0"/> 
 										<c:if test="${fn:length(calendarDay.fundsInDay)==1}">
 											<c:set var="fundMax" value="3"/> 
 										</c:if>
@@ -42,15 +43,18 @@
 											<c:set var="fundMax" value="1"/> 
 										</c:if>
 										<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay" varStatus="varStatusFund">
+											<c:if test="${CPcounter<3}">
 											<h4>${fundInDay.fundShortName}</h4>
-  											<c:forEach items="${fundInDay.callForProposals}" var="callForProposal">
-        										<c:if test="${CPcounter<3 && varStatusFund.index<fundMax}">
-        										<div class="viewProposal" id="${callForProposal.urlTitle}" style="text-align:${callForProposal.align}"><c:out escapeXml="false" value="${callForProposal.title}"/><br><br></div>
+  											<c:forEach items="${fundInDay.callForProposals}" var="callForProposal" varStatus="varStatusCP">
+        										<c:if test="${varStatusCP.index<fundMax}">
+        										<div class="viewProposal" id="${callForProposal.urlTitle}" style="text-align:${callForProposal.align}"><c:out escapeXml="false" value="${callForProposal.trimmedTitle}"/><br><br></div>
+          										<c:set var="CPcounter" value="${CPcounter+1}"/>
          										</c:if>
-         										<c:set var="CPcounter" value="${CPcounter+1}"/>
+         										<c:set var="totalCounter" value="${totalCounter+1}"/>
          									</c:forEach>
+         									</c:if>
          								</c:forEach>
-        								<c:if test="${CPcounter>3}"><div class="allCallForProposals" id="${calendarDay.day}">...</div></c:if>
+        								<c:if test="${totalCounter>2}"><div class="allCallForProposals" id="${calendarDay.day}">...</div></c:if>
 										</div>
 										<div class="triangle"></div>
 									</div>

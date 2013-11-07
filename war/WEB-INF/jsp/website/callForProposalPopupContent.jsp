@@ -18,9 +18,9 @@
 			}
 
 			if($('div.popup_sum').html().length>1500){
-				var cutHtml=$('div.popup_sum').html();
-				cutHtml = cutHtml.substr(0,1500)+"...";
-				$('div.popup_sum').html(cutHtml);
+				var trimmedHtml=$('div.popup_sum').html();
+				trimmedHtml = trimmedHtml.substr(0,1500)+"...";
+				$('div.popup_sum').html(trimmedHtml);
 			}
 
 			

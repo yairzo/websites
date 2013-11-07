@@ -166,10 +166,10 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			request.getSession().setAttribute("newSearch", "");
 			
 			if(!request.getParameter("searchWords", "").isEmpty()){
-				long dateTime = DateUtils.parseDate(request.getParameter("searchWords", ""),"yyyyMMdd");
+				long dateTime = DateUtils.parseDate(request.getParameter("searchWords", ""),"yyyy-MM-dd");
 				if(dateTime>0){
-					searchCreteria.setSearchBySubmissionDateFrom(DateUtils.formatToSqlDate(request.getParameter("day", ""),"dd/MM/yyyy"));
-					searchCreteria.setSearchBySubmissionDateTo(DateUtils.formatToSqlDate(request.getParameter("day", ""),"dd/MM/yyyy"));
+					searchCreteria.setSearchBySubmissionDateFrom(request.getParameter("searchWords", ""));
+					searchCreteria.setSearchBySubmissionDateTo(request.getParameter("searchWords", ""));
 					searchCreteria.setSearchOpen(false);
 				}
 				else{

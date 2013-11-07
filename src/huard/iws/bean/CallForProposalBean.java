@@ -654,7 +654,12 @@ public class CallForProposalBean {
 		Language lang= LanguageUtils.getLanguage(localeId);
 		return lang.getAlign();
 	}
-	
+	public String getTrimmedTitle(){
+		String trimmedTitle =  title.substring(0, Math.min(title.length(), 60));
+		if (title.length() > 60)
+			trimmedTitle += "...";
+		return trimmedTitle;
+	}	
 	public String toPostMessage(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("website", "webServer") +

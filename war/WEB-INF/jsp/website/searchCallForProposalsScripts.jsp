@@ -125,7 +125,16 @@ $(document).ready(function() {
      });
 	
 	$(function() {
-		$(".date").datepicker({ dateFormat: 'dd/mm/yy'});	
+		$(".date").datepicker({ dateFormat: 'dd/mm/yy', 
+			onSelect: function(){
+				$(".search_open").attr("check-value","false");
+				$(".search_open").removeClass("active");
+				$(".search_expired").attr("check-value","false");
+				$(".search_expired").removeClass("active");
+				$(".search_by_all_year").attr("check-value","false");
+				$(".search_by_all_year").removeClass("active");
+			}
+		});	
 		$("#advanced_cal_from").click(function(){ $("#advanced_date_from").datepicker("show"); });
 		$("#advanced_cal_to").click(function(){ $("#advanced_date_to").datepicker("show"); });
     });	
@@ -372,7 +381,8 @@ $(document).ready(function() {
 		else{
 			$(this).attr("check-value", "false");
 			$(this).removeClass("active");
-		}			
+		}
+		$(".date").val("");
 	});
 	
 	$(".search_open").click(function(){
@@ -388,6 +398,7 @@ $(document).ready(function() {
 			$(this).attr("check-value", "false");
 			$(this).removeClass("active");
 		}			
+		$(".date").val("");
 	});
 	
 	$(".search_expired").click(function(){
@@ -403,6 +414,7 @@ $(document).ready(function() {
 			$(this).attr("check-value", "false");
 			$(this).removeClass("active");
 		}			
+		$(".date").val("");
 	});
 
 });
