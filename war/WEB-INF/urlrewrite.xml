@@ -60,7 +60,7 @@
     
     <rule>
         <from>^/$</from>
-        <to last="true">/homePage.html</to>
+        <to type="redirect">/huard/main.jsp</to>
     </rule>
 
 	<rule>

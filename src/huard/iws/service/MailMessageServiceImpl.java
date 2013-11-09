@@ -26,10 +26,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 public class MailMessageServiceImpl implements MailMessageService{
+	private static final Logger logger = Logger.getLogger(MailMessageServiceImpl.class);
 	private final String EQF_MAIL_ADDRESS = "mop@ard.huji.ac.il";
 	private final String PROPOSAL_MAIL_MESSAGE_KEY = "iw_IL.eqfSystem.editProposal.mailMessage.";
 	private final String PARTNER_MAIL_MESSAGE_KEY = "iw_IL.eqfSystem.editProposal.mailMessage.";
@@ -84,6 +86,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("language", LanguageUtils.getLanguagesMap().get(recipient.getPreferedLocaleId()));
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleMailMessage.vm", model);
+		logger.info("recipient: " + recipient.getEmail() + " body: " + body);
 		messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, subject, body, getCommonResources());
 	}
 	

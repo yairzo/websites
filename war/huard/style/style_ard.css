@@ -1,0 +1,395 @@
+/* CSS Document */
+
+body {
+	background-color:ffffff;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.heb {
+	direction:rtl;
+	text-align: right;
+}
+.eng {
+	direction:ltr;
+	text-align: left;
+}
+p, li, td {
+	font-size: 10pt;
+	color:#44433c;
+	font-weight: normal;
+	margin: 3px 2px 3px 2px;
+}
+p.small {/* for the footer */
+	font-size: 9pt;
+	color:#383731;
+}
+p.big { /* for the EXPIRED title */
+	font-size: 20pt;
+	color:#EEA04A;
+	font-weight: bolder;
+	text-transform: capitalize;
+	font-style: normal;
+	letter-spacing: 3em;
+	text-align: center;
+}
+font.hilight { /* for the search section*/
+	color:#000000;
+	background-color:#FAF682;
+}
+font.titleHilight {/* for the search section*/
+	color:#000000;
+	background-color: #FAF682;
+}
+h1 {
+	font-size: 14pt;
+	color:#383731;
+	text-decoration:none;
+	margin: 2px 2px 2px 2px;
+	font-weight: normal;
+}
+h2 {
+	font-size: 11pt;
+	color:#57564d;
+	text-decoration:none;
+	line-height: 13px;
+	border: 0px;
+	margin: 10px 2px 5px 2px;
+	font-weight: bold;
+}
+/*h2.orange {
+	font-size: 12pt;
+	color:#FFFFFF;
+	text-decoration:none;
+	line-height: 21px;
+	background-color:#DF8522;
+}*/
+h3 { /* used in the list of call */
+	font-size:11pt;
+	font-weight: bold;
+	color:#e57813;
+	margin: 10px 2px 5px 2px;
+	line-height: 100%
+}
+h4 {
+	font-size:9pt;
+	font-weight: bold;
+	color:#8f8959;
+	background:#f3edd3;
+}
+ul {
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:square;
+}
+ol {
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:decimal;
+}
+a:link {
+	color:#44433c;
+	text-decoration:underline;
+}
+a:visited, a:hover, a:active {
+	color:#565656;
+	text-decoration:underline
+}
+a.rightmenu:link, a.rightmenu:visited, a.rightmenu:active {
+	font-size:9pt;
+	color:#44433c;
+	font-weight:normal;
+	text-decoration:none;
+	line-height: 20px;
+}
+a.rightmenu:hover {
+	color:#6c6a5f;
+	text-decoration:underline;
+}
+a.nounderline:link, a.nounderline:visited, a.nounderline:active {
+	color:#44433c;
+	text-decoration:none;
+}
+a.nounderline:hover {
+	color:#565656;
+	text-decoration:underline
+}
+.menu {
+	font-size:10pt;
+	color:#44433c;
+	font-weight:bold;
+	text-decoration:none;
+}
+a.menu:link, a.menu:visited, a.menu:active, a.menu:hover {
+	font-size:11pt;
+	color: #FFFFFF;
+	font-weight:bold;
+	text-decoration:none;
+}
+table {
+	font-size: 13pt;
+	color:#383731;
+	font-weight: 570;
+	border: 1px;
+}
+.fundingopen {/* ---דף פרטי קול קורא ---  */
+	background: #FAF4E1;
+	padding: 10px;
+	border: thin dotted #FF9966;
+	vertical-align: top;
+	width: 100%;
+}
+.fundingexpired { /* ---דף פג תוקף---  */
+	background: url(../images/bg_expired.gif);
+	padding: 10px;
+	border: thin dotted #FF9966;
+	vertical-align: top;
+	width: 100%;
+}
+.authorityopen {
+	background: #CAE0F0;
+	padding: 10px;
+	border: thin dotted #FF9966;
+	vertical-align: top;
+}
+table.funding {/* ---הטבלה הנפתחת של רשימת המענקים---  */
+	background: #FFFFFF;
+	width: 98%;
+	padding: 0px;
+}
+td.blank {
+	background: #FFFFFF;
+	padding: 2px;
+	vertical-align: top;
+}
+tr {
+	border: 0px;
+	height: 15px;
+}
+th {/* ---שים לב, כל הרקעים הפנימיים של כל הדפים הם באותו צבע---  */
+	background: #f6f2e5;
+	font-weight: bold;
+	padding: 3px;
+	vertical-align: middle;
+	border: 0px;
+}
+.red {
+	background:#d63a32;
+	background-image: url(../images/nav_bg_red.jpg);
+	background-position:right;
+	background-repeat: repeat-y;
+}
+.redeng {
+	background:#d63a32;
+	background-image: url(../images/nav_bg_red_eng.jpg);
+	background-position:left;
+	background-repeat: repeat-y;
+}
+.green {
+	background:#97b610;
+	background-image: url(../images/nav_bg_green.jpg);
+	background-position:right;
+	background-repeat: repeat-y;
+}
+.greeneng {
+	background:#97b610;
+	background-image: url(../images/nav_bg_green_eng.jpg);
+	background-position:left;
+	background-repeat: repeat-y;
+}
+.blue {
+	background:#1c6aa6;
+	background-image: url(../images/nav_bg_blue.jpg);
+	background-position:right;
+	background-repeat: repeat-y;
+}
+.blueeng {
+	background:#1c6aa6;
+	background-image: url(../images/nav_bg_blue_eng.jpg);
+	background-position:left;
+	background-repeat: repeat-y;
+}
+.turkiz {
+	background:#389e86;
+	background-image: url(../images/nav_bg_turkiz.jpg);
+	background-position:right;
+	background-repeat: repeat-y;
+}
+.turkizeng {
+	background:#389e86;
+	background-image: url(../images/nav_bg_turkiz_eng.jpg);
+	background-position:left;
+	background-repeat: repeat-y;
+}
+.purple {
+	background:#a51fa4;
+	background-image: url(../images/nav_bg_purple.jpg);
+	background-position:right;
+	background-repeat: repeat-y;
+}
+.purpleeng {
+	background:#a51fa4;
+	background-image: url(../images/nav_bg_purple_eng.jpg);
+	background-position:left;
+	background-repeat: repeat-y;
+}
+.orange {
+	background:#eea04a;
+	background-image: url(../images/nav_bg_orange.jpg);
+	background-position:right;
+	background-repeat: repeat-y;
+	height:10px;
+}
+.orangeeng {
+	background:#eea04a;
+	background-image: url(../images/nav_bg_orange_eng.jpg);
+	background-position:left;
+	background-repeat: repeat-y;
+	height:10px;
+}
+
+
+tr.viewList{
+	height: 15px;
+	border: 0px;
+}
+
+
+th.viewList{
+	/*background: #F4FBDB;*/
+	background: #f6f2e5;
+	/*background-color:#FCFAF7;*/
+	font-weight: normal;
+	/*padding: 2px;*/
+	vertical-align: middle;
+	border: 0px;
+	text-align: center;
+	font-size: 13pt;
+
+}
+td.viewListBright{
+	/*background: #F4FBDB;*/
+	background-color:#FCFAF7;
+	font-weight: normal;
+	vertical-align: middle;
+	border: 0px;
+
+}
+
+td.viewListDark{
+	background-color:#F4EEE4;
+	/*background: #deecdb;*/
+	font-weight: normal;
+	vertical-align: middle;
+	border: 0px;
+}
+
+td.viewList{
+	font-size: 13pt;
+}
+
+/*a.rollingMessages:link, a.rollingMessages:visited, a.rollingMessages:active a.rollingMessages:hover {
+	font-size:10pt;
+	color:#000000;
+	font-weight:normal;
+	text-decoration:none;
+}
+*/
+
+/*
+a.awards {
+	font-size: 11pt;
+	color:#383731;
+	text-decoration:none;
+	font-weight: bold;
+}
+span.awards {
+	font-size: 11pt;
+	color:#383731;
+	font-weight: bold;
+}*/
+
+/*td.fundingexpired {
+	background: url(../images/bg_expired.gif);
+	padding: 10px;
+	border: thin dotted #FF9966;
+	vertical-align: top;
+}*/
+/*a.mainrightmenu:link, a.mainrightmenu:visited, a.mainrightmenu:active a.mainrightmenu:hover {
+	font-size:10pt;
+	line-height:0pt;
+	color:#FFFFFF;
+	font-weight:bold;
+	text-decoration:none;
+}*/
+/*table.profiles {
+	padding: 0px;/*border: black solid 2px;
+}*/
+/*a.h2orange:link, a.h2orange:visited, a.h2orange:active a.h2orange:hover {
+	color:#FFFFFF;
+	font-weight:bold;
+	text-decoration:none;
+}*/
+/*table.title {
+	margin: 0px 2px 0px 2px;
+}*/
+/*td.title {
+	vertical-align: middle;
+}*/
+
+/*-------- -אפשר למחוק---------
+th.funding {
+	background: #f6f2e5;
+	padding: 0px;
+	vertical-align: middle;
+	font-weight: normal;
+}
+th.authority {
+	background: #f6f2e5;
+	padding: 0px;
+	vertical-align: middle;
+	font-weight: normal;
+}
+th.Funding_Opportunities, th.אפשרויות_מימון {
+	background: #f6f2e5;
+	font-size: 15px;
+	font-weight: normal;
+	padding: 3px;
+	vertical-align: middle;
+	border: 0px;
+}
+th.The_Authority, th.הרשות_למופ {
+	background: #f6f2e5;
+	font-weight: normal;
+	padding: 3px;
+	vertical-align: middle;
+	border: 0px;
+}
+th.General_Information, th.המחקר_באוניברסיטה {
+	background: #f6f2e5;
+	font-weight: normal;
+	padding: 3px;
+	vertical-align: middle;
+	border: 0px;
+}
+th.Research_Regulations, th.כללי_עבודה {
+	background: #f6f2e5;
+	font-weight: normal;
+	padding: 3px;
+	vertical-align: middle;
+	border: 0px;
+}
+th.Links, th.קישורים_שימושיים {
+	background: #f6f2e5;
+	font-weight: normal;
+	padding: 3px;
+	vertical-align: middle;
+	border: 0px;
+}
+th.Tech\._Transfer, th.העברת_ידע_וטכנולוגיה {
+	background: #f6f2e5;
+	font-weight: normal;
+	padding: 3px;
+	vertical-align: middle;
+	border: 0px;
+}
+
+--  */

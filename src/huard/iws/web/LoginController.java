@@ -41,7 +41,7 @@ public class LoginController extends GeneralController{
 			model.put("moduleToSubscribe", "conference");
 			titleCode = 2;
 		}
-		else if (titleCode == 1){
+		else if (titleCode == 1 || titleCode == 0){
 			model.put("moduleToSubscribe", "post");
 		}
 

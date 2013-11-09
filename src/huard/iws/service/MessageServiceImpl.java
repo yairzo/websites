@@ -108,14 +108,16 @@ public class MessageServiceImpl implements MessageService{
 
         helper.setText(mailMessage.getText(),true);
         if (resources != null){
-        for (FileSystemResourceWrapper resource: resources)
-        	helper.addInline(resource.getName(), resource.getFileSystemResource());
+        	for (FileSystemResourceWrapper resource: resources)
+        		helper.addInline(resource.getName(), resource.getFileSystemResource());
         }
 
-        if (attachments != null)
-			for (Attachment attachment: attachments){
+        if (attachments != null){
+        	for (Attachment attachment: attachments){
 				helper.addAttachment(encode(attachment.getTitle()), new ByteArrayResource(attachment.getFile()));
 			}
+        }
+        logger.info(mailMessage.getTo()[0] + " " + message);
         sender.send(message);
 	}
 
