@@ -41,7 +41,7 @@ public interface TextualPageService {
 	
 	public List<TextualPage> getOnlineMessages();
 
-	public List<TextualPage> getOnlineMessagesRolling();
+	public List<TextualPage> getOnlineMessagesRolling(String localeId);
 
 	public List<TextualPage> getOnlineTextualPagesSearch(String ids);
  

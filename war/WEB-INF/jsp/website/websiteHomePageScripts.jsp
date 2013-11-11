@@ -117,7 +117,7 @@
 				$(".messagePage").click(function(e){
 					e.preventDefault();
 					var messagePageId=$(this).attr("id");	
-					window.open('textualPage.html?id='+messagePageId);
+					window.open('/page/'+messagePageId);
 				});
 			});
 			

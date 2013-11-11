@@ -27,7 +27,7 @@
 				</nav>
 				<nav class="icons">
 					<ul class="menu">
-						<li><a href="#" onclick="changeLanguage();"><img src="/image/website/menu_icon_${lang.nameShort}.png" alt="Change language to ${lang.nameCapitalized}" /></a></li>
+						<li><a href="#" onclick="changeLanguage();"><img src="/image/website/menu_icon_${lang.nameShortOpp}.png" alt="Change language to ${lang.nameCapitalized}" /></a></li>
 						<li><a href="/search/"><img src="/image/website/menu_icon_magnifying.png" alt="Search this website" /></a></li>
 						<li><a href="/"><img src="/image/website/menu_icon_home.png" alt="Go to homepage" /></a></li>
 						<li><a href="/page/${contactsPageUrlTitle}"><img src="/image/website/menu_icon_envelope.png" alt="" /></a></li>
@@ -98,12 +98,12 @@
         <footer class="footer">
 			<div class="container">
 				<div class="footer_bg clearfix">
-					<div class="pull-right"><a href="/sitemap.html"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="textualPage.html?id=2015"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="javascript:bookmarksite();"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
-					<div class="pull-left"><fmt:message key="${lang.localeId}.general.lastUpdate"/> - ${updateTime}</div>
+					<div class="pull-${lang.align}"><a href="/sitemap.html"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="textualPage.html?id=2015"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="javascript:bookmarksite();"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
+					<div class="pull-${lang.alignOpp}"><fmt:message key="${lang.localeId}.general.lastUpdate"/> - ${updateTime}</div>
 				</div>
 				<div class="footer_bottom clearfix mar_10">
-					<div class="pull-right"><fmt:message key="${lang.localeId}.general.allRightsReserved"/></div>
-					<div class="pull-left"><fmt:message key="${lang.localeId}.website.designCompany"/></div>
+					<div class="pull-${lang.align}"><fmt:message key="${lang.localeId}.general.allRightsReserved"/></div>
+					<div class="pull-${lang.alignOpp}"><fmt:message key="${lang.localeId}.website.designCompany"/></div>
 				</div>
 			</div>
         </footer>

@@ -161,6 +161,7 @@ $(document).ready(function() {
 		});
 	});	
 	
+	
 	$('#tempTitle').change(function(e){
 		e.preventDefault();
 		$.get('objectQuery?type=callForProposalCheckTitle&id='+$("#id").val()+'&title='+$("#tempTitle").val(), function(data) {

@@ -132,6 +132,7 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		for(DayInCalendar dayInCalendar:calendarList){
 			dayInCalendar.setDayOnly(dayInCalendar.getDay().substring(8).replaceFirst("^0+(?!$)", ""));
 			dayInCalendar.setMonthOnly(dayInCalendar.getDay().substring(5, 7));
+			dayInCalendar.setYearOnly(dayInCalendar.getDay().substring(0, 4));
 			shortCalendarList.add(dayInCalendar);
 			calendarLength++;
 			if(calendarLength==35){

@@ -347,10 +347,10 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
 	}
-	public List<TextualPage> getOnlineMessagesRolling(){
-		String query = "select * from textualPage where isDeleted=0 and isMessage=1 and (neverExpires=1 or keepInRollingMessagesExpiryTime >= now()) order by id";
+	public List<TextualPage> getOnlineMessagesRolling(String localeId){
+		String query = "select * from textualPage where isDeleted=0 and isMessage=1 and (neverExpires=1 or keepInRollingMessagesExpiryTime >= now()) and localeId= ? order by id";
 		System.out.println(query);
-		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
+		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper, localeId);
 		return textualPages;
 	}
 

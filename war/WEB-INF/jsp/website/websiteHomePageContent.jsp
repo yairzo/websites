@@ -71,7 +71,7 @@
 	  												<strong>${textualPage.title}</strong><br>
 	  												${textualPage.html}>
 	  												</div>
-	  												<div class="messagePage" id="${textualPage.id}" style="position:absolute;top:68px;left:${left};text-decoration:underline;"><fmt:message key="${textualPage.localeId}.website.forFullMessage"/></div>
+	  												<div class="messagePage" id="${textualPage.urlTitle}" style="position:absolute;top:68px;left:${left};text-decoration:underline;"><fmt:message key="${textualPage.localeId}.website.forFullMessage"/></div>
 												</div>
 	 										</c:forEach>
 										</div>

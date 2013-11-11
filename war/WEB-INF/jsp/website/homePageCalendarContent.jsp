@@ -2,8 +2,8 @@
 
 						<div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
 							<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-								<a title="<c:choose><c:when test="${lang.rtl}">הבא</c:when><c:otherwise>Next</c:otherwise></c:choose>" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
-								<a title="<c:choose><c:when test="${lang.rtl}">הקודם</c:when><c:otherwise>Prev</c:otherwise></c:choose>" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
+								<a title="<c:choose><c:when test="${lang.rtl}">הבא</c:when><c:otherwise>Next month</c:otherwise></c:choose>" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
+								<a title="<c:choose><c:when test="${lang.rtl}">הקודם</c:when><c:otherwise>Previous month</c:otherwise></c:choose>" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
 								<div class="ui-datepicker-title">
 									<span class="ui-datepicker-month">
 									<fmt:message key="${lang.localeId}.general.month.${month}"/>
@@ -25,7 +25,7 @@
 							 		</td>
 							 	</c:if>
 								<c:if test="${month==calendarDay.monthOnly}">
-							   	<td class="<c:if test="${fn:length(calendarDay.fundsInDay)>0}">dayWithFund</c:if>  <c:if test="${calendarDay.dayOnly==today}">ui-datepicker-today</c:if>">
+							   	<td class="<c:if test="${fn:length(calendarDay.fundsInDay)>0}">dayWithFund</c:if>  <c:if test="${calendarDay.dayOnly==today && calendarDay.isCurrentMonth && calendarDay.isCurrentYear}">ui-datepicker-today</c:if>">
 							   		<a href="#" class="ui-state-default viewAll" >${calendarDay.dayOnly} </a>
         							
         							<div class="callForProposalsPerDay callForProposalsPerDayHomePage" style="display:none">

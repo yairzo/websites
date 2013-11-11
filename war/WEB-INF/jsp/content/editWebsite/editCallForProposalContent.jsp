@@ -67,7 +67,7 @@
 						<button class="grey copy"><fmt:message key="${lang.localeId}.callForProposal.copy"/></button>&nbsp;
 						<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;
 						<button class="grey" onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;		
-						<button class="grey" onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>&nbsp;		
+						<button class="grey" onclick="window.location='callForProposals.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>&nbsp;		
 					</td>
 				</tr>
 				<tr class="form">
@@ -94,7 +94,7 @@
                 <tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted;text-align:${lang.align}">
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.urlTitle"/>
-						<input type="text" htmlEscape="true" class="green long800" name="tempUrlTitle" id="tempUrlTitle" value="${urlTitle}"/>
+						<input type="text" htmlEscape="true" class="green long800" name="tempUrlTitle" id="tempUrlTitle" value="${urlTitle}" dir="ltr"/>
 					    <div id="errorurltitle" title="שגיאה" dir="${lang.dir}">				
 					</td>
 				</tr>

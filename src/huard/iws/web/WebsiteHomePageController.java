@@ -6,6 +6,7 @@ import huard.iws.model.CallForProposal;
 import huard.iws.model.DayInCalendar;
 import huard.iws.model.Fund;
 import huard.iws.model.FundInDay;
+import huard.iws.model.Language;
 import huard.iws.model.PageBodyImage;
 import huard.iws.model.TextualPage;
 import huard.iws.service.CallForProposalService;
@@ -46,13 +47,15 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		
 
 		//messages
-		List<TextualPage> textualPages = textualPageService.getOnlineMessagesRolling();
+		Language language = (Language)model.get("lang");
+		List<TextualPage> textualPages = textualPageService.getOnlineMessagesRolling(language.getLocaleId());
 		List<TextualPageBean> textualPageBeans=new ArrayList<TextualPageBean>();
 		for (TextualPage textualPage: textualPages){
 			TextualPageBean textualPageBean = new TextualPageBean(textualPage);
 			textualPageBeans.add(textualPageBean);
 		}
 		model.put("textualPages", textualPageBeans);
+		
 		//pics
 		List<PageBodyImage> pageBodyImages = pageBodyImageService.getApprovedPageBodyImages();
 		model.put("images", pageBodyImages);

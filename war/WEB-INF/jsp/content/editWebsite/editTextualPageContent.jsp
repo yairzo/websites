@@ -65,7 +65,7 @@
 					<button class="grey" onclick="window.open('/textualPage.html?id=${command.id}&draft=true','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.preview"/></button>&nbsp; 
 					<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;
 					<button class="grey" onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;		
-					<button class="grey" onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>		
+					<button class="grey" onclick="window.location='textualPages.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>		
 				</td>
 			</tr>
  			<tr class="form">

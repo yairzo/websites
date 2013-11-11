@@ -370,7 +370,7 @@ width:215px;
 height:52px;
 font-size:16px;
 font-family:'open_sanscondensed_light';
-font-weight:normal;
+font-weight:bold;
 color:#ffffff;
 line-height:52px;
 background:url(/image/website/rotator_title_left.png) no-repeat top;
@@ -830,7 +830,7 @@ background:url(/image/website/board_r.png) no-repeat top !important;
 font-family:"open_sanscondensed_light";
 font-weight:normal;
 color:#04bde5;
-font-size:15px;
+font-size:10px;
 padding:0.7em 0.3em 0.1em 0.3em;
 }
 
@@ -860,7 +860,7 @@ color: #ffffff;
 
 /************** hadar ************/
 td.ui-datepicker-today{
-	border:2px solid #04bde5;	
+	border:1px solid #04bde5;	
 }
 td.dayWithFund a { /***for home page  **/
 	background:#04bde5 !important;

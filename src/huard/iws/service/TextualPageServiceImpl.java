@@ -83,8 +83,8 @@ public class TextualPageServiceImpl implements TextualPageService{
 		return textualPageDao.getOnlineMessages();
 	}
 
-	public List<TextualPage> getOnlineMessagesRolling(){
-		return textualPageDao.getOnlineMessagesRolling();
+	public List<TextualPage> getOnlineMessagesRolling(String localeId){
+		return textualPageDao.getOnlineMessagesRolling(localeId);
 	}
 
 	private TextualPageDao textualPageDao;
