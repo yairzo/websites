@@ -94,7 +94,7 @@
 							<a href="/search_funding/" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
 							<form action="/search/" method="post" class="board_form">
 								<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
-onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="input_text" />
+onblur="if(this.value=='')this.value=this.defaultValue" placeholder="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="input_text" />
 								<input type="hidden" name="open" value="true"/>
 								<input type="submit" value="<fmt:message key="${lang.localeId}.website.search"/>" class="input_submit" />
 							</form>

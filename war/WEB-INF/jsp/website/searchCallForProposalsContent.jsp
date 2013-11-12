@@ -159,7 +159,7 @@
    								<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
 								<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
-									<a href="" class="search_content viewProposal" id="${callForProposal.id}">
+									<a href="" class="search_content viewProposal" id="${callForProposal.urlTitle}">
 									<span class="clearfix <c:if test="${callForProposal.localeId=='en_US'}">search_eng</c:if>">${callForProposal.title}</span>
 									<span class="clearfix search_icons">
 										<span class="search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/> <strong>${callForProposal.fund.name}</strong></span>

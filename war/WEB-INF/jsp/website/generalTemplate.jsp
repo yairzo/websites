@@ -29,7 +29,9 @@
 					<ul class="menu">
 						<li><a href="#" onclick="changeLanguage();"><img src="/image/website/menu_icon_${lang.nameShortOpp}.png" alt="Change language to ${lang.nameCapitalized}" /></a></li>
 						<li><a href="/search/"><img src="/image/website/menu_icon_magnifying.png" alt="Search this website" /></a></li>
+						<c:if test="${!removeHomePageLink}">
 						<li><a href="/"><img src="/image/website/menu_icon_home.png" alt="Go to homepage" /></a></li>
+						</c:if>
 						<li><a href="/page/${contactsPageUrlTitle}"><img src="/image/website/menu_icon_envelope.png" alt="" /></a></li>
 					</ul>
 				</nav>
@@ -80,13 +82,13 @@
         	<div class="container clearfix">
 				<a href="/" class="logo_authority">
 				<c:choose>
-				<c:when test="${lang.localeId=='en_US'}"><img src="/image/website/logo_authorityEN.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" style="width:80%;height:80%"/></c:when>
+				<c:when test="${lang.localeId=='en_US'}"><img src="/image/website/logo_authority_eng.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" style="width:80%;height:80%"/></c:when>
 				<c:otherwise><img src="/image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></c:otherwise>
 				</c:choose>
 				</a>
 				<a href="http://new.huji.ac.il/" class="logo">
 				<c:choose>
-				<c:when test="${lang.localeId=='en_US'}"><img src="/image/website/logoEN.png" alt="האוניברסיטה העברית בירושלים" /></c:when>
+				<c:when test="${lang.localeId=='en_US'}"><img src="/image/website/logo_eng.png" alt="האוניברסיטה העברית בירושלים" /></c:when>
 				<c:otherwise><img src="/image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></c:otherwise>
 				</c:choose>
 				</a>

@@ -71,9 +71,9 @@ $(document).ready(function() {
 
 	$(".viewProposal").click(function(e) {
 		e.preventDefault();
-		var proposalId=$(this).attr("id");	   		
+		var url_title=$(this).attr("id");	   		
 		$.ajax({
-		    url : 'callForProposal.html?id='+proposalId+'&p=1',
+		    url : '/call_for_proposal/' + url_title + '/popup',
 		    type: 'GET',
 		    success : handleData
 		 })

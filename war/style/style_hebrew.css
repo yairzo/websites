@@ -202,7 +202,7 @@ line-height:44px;
 .nav ul li a{
 margin:0 12px;
 display: block;
-font-size:15px;
+font-size:14px;
 color:#333333;
 text-decoration:none;
 text-shadow:1px 1px #ffffff;
@@ -861,8 +861,9 @@ color: #ffffff;
 
 /************** hadar ************/
 td.ui-datepicker-today{
-	border:1px solid #04bde5;	
+	border:1px solid #04bde5;
 }
+
 td.dayWithFund a { /***for home page  **/
 	background:#04bde5 !important;
 	border:0;
@@ -890,10 +891,8 @@ direction:ltr;
 .callForProposalsPerDayHomePage{
 	left: 50px;
 }
-.allCallForProposals{
-	text-align:right;
-	font-size:16px;
-}
+
+
 .viewProposal:hover{
 	cursor:pointer;
 	color:#AFAFAF;
@@ -986,7 +985,7 @@ line-height:24px;
 .board_form{
 display:block;
 clear:both;
-padding:10px;
+padding:5px 10px 10px 10px;
 width:206px;
 height:16px;
 background:#f8f8f8;
@@ -996,11 +995,11 @@ border:solid 1px #ededed;
 .input_text{
 float:right;
 width:185px;
-height:16px;
+height:19px;
 font-family: 'almoni-tzar', 'open_sanscondensed_light';
 font-weight:normal;
 font-size:15px;
-color:#afafaf;
+color:#666666;
 background:transparent;
 border:0;
 }

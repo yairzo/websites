@@ -202,7 +202,7 @@ line-height:44px;
 .nav ul li a{
 margin:0 12px;
 display: block;
-font-size:15px;
+font-size:13px;
 color:#333333;
 text-decoration:none;
 text-shadow:1px 1px #ffffff;
@@ -475,7 +475,7 @@ border:solid 3px #f0f0f0;
 background:#ffffff;
 font-size:12px;
 font-family:'open_sanscondensed_light';
-font-weight:normal;
+font-weight:bold;
 color:#666666;
 text-align:center;
 text-decoration:none;
@@ -522,7 +522,7 @@ float:left;
 margin:0;
 font-size:17px;
 font-family:'open_sanscondensed_light';
-font-weight:normal;
+font-weight:bold;
 color:#333333;
 line-height:42px;
 }
@@ -550,7 +550,7 @@ margin:0;
 padding-left:30px;
 font-size:17px;
 font-family:'open_sanscondensed_light';
-font-weight:normal;
+font-weight:bold;
 color:#333333;
 line-height:42px;
 background:url(/image/website/icon_balloon.png) no-repeat left 11px;
@@ -828,7 +828,7 @@ background:url(/image/website/board_r.png) no-repeat top !important;
 
 .board_calendar .ui-datepicker th{
 font-family:"open_sanscondensed_light";
-font-weight:normal;
+font-weight:bold;
 color:#04bde5;
 font-size:10px;
 padding:0.7em 0.3em 0.1em 0.3em;
@@ -840,7 +840,7 @@ text-align:center;
 font-size:12px;
 color:#555555;
 line-height:24px;
-font-family:"open_sanscondensed_light";
+/*font-family:"open_sanscondensed_light";*/
 }
 
 .board_calendar .ui-datepicker td a:hover,
@@ -890,10 +890,8 @@ direction:ltr;
 	left: -30px;
 }
 
-.allCallForProposals{
-	text-align:right;
-	font-size:16px;
-}
+
+
 .viewProposal:hover{
 	cursor:pointer;
 	color:#AFAFAF;
@@ -966,7 +964,7 @@ border-top:solid 1px #e3e3e3;
 float:left;
 margin:5px 0 0 0;
 font-family:"open_sanscondensed_light";
-font-weight:normal;
+font-weight:bold;
 font-size:16px;
 color:#04bde5;
 line-height:24px;
@@ -985,7 +983,7 @@ line-height:24px;
 .board_form{
 display:block;
 clear:both;
-padding:10px;
+padding:5px 10px 10px 10px;
 width:206px;
 height:16px;
 background:#f8f8f8;
@@ -995,11 +993,11 @@ border:solid 1px #ededed;
 .input_text{
 float:left;
 width:185px;
-height:16px;
+height:19px;
 font-family:"open_sanscondensed_light";
-font-weight:normal;
+font-weight:bold;
 font-size:15px;
-color:#afafaf;
+color:#666666;
 background:transparent;
 border:0;
 }
@@ -1052,7 +1050,7 @@ line-height:22px;
 	margin:0 0 15px 0;
 	font-size:17px;
 	font-family: 'almoni-tzar', 'open_sanscondensed_light';
-	font-weight:normal;
+	font-weight:bold;
 	color:#04bde5;
 }
 
@@ -1060,7 +1058,7 @@ line-height:22px;
 	margin:0 0 15px 0;
 	font-size:17px;
 	font-family: 'almoni-tzar', 'open_sanscondensed_light';
-	font-weight:normal;
+	font-weight:bold;
 	color:#04bde5;
 }
 
@@ -1235,7 +1233,7 @@ padding:10px;
 width:337px;
 height:16px;
 font-family:"open_sanscondensed_light";
-font-weight:normal;
+font-weight:bold;
 font-size:15px;
 color:#afafaf;
 background:#f8f8f8;
@@ -1258,7 +1256,7 @@ height:38px;
 float:left;
 margin:0 0 0 30px;
 font-family:"open_sanscondensed_light";
-font-weight:normal;
+font-weight:bold;
 font-size:15px;
 color:#666666;
 line-height:38px;
@@ -1402,7 +1400,7 @@ background:#f0f0f0 url(/image/website/open.png) no-repeat center center;
 .kol_subtitle{
 margin:0;
 font-family:"open_sanscondensed_light";
-font-weight:normal;
+font-weight:bold;
 font-size:17px;
 color:#04bde5;
 }
@@ -1552,7 +1550,7 @@ padding:13px;
 background:#ffffff;
 border:solid 3px #ececec;
 font-family:"open_sanscondensed_light";
-font-weight:normal;
+font-weight:bold;
 font-size:15px;
 color:#666666;
 line-height:25px;
@@ -1583,7 +1581,7 @@ width:335px;
 padding:10px;
 height:16px;
 font-family:"open_sanscondensed_light";
-font-weight:normal;
+font-weight:bold;
 font-size:15px;
 color:#666666;
 background:#f8f8f8;
@@ -1846,7 +1844,7 @@ width:150px;
 background:#04bde5;
 font-size:21px;
 font-family:"open_sanscondensed_light";
-font-weight:normal;
+font-weight:bold;
 color:#ffffff;
 text-align:center;
 text-decoration:none;
@@ -2056,7 +2054,7 @@ padding:0 6px 0 8px;
 background:url(/image/website/login_bt_inner_left.png) no-repeat right;
 font-size:14px;
 font-family:"open_sanscondensed_light";
-font-weight:normal;
+font-weight:bold;
 color:#666666;
 text-shadow: 1px 1px #ffffff, -1px 0px #c0c0c0;
 }

@@ -7,7 +7,7 @@
 								<div class="ui-datepicker-title">
 									<span class="ui-datepicker-month">
 									<fmt:message key="${lang.localeId}.general.month.${month}"/>
-									</span> / <span class="ui-datepicker-year">${year }</span>
+									</span> / <span class="ui-datepicker-year">${year}</span>
 								</div>
 							</div>
 							<table class="ui-datepicker-calendar"><thead><tr><th class="ui-datepicker-week-end"><span title="Sunday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.1"/></span></th><th><span title="Monday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.2"/></span></th>
@@ -19,9 +19,9 @@
         						<c:if test="${varStatus.index%7==0}">
         							</tr><tr style="vertical-align: top">
         						</c:if>
-							 	<c:if test="${month!=calendarDay.monthOnly}">
-							 		<td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
-							 		<span> </span>
+							 	<c:if test="${month>calendarDay.monthOnly}">
+							 	<td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
+							 		
 							 		</td>
 							 	</c:if>
 								<c:if test="${month==calendarDay.monthOnly}">
@@ -47,14 +47,14 @@
 											<h4>${fundInDay.fundShortName}</h4>
   											<c:forEach items="${fundInDay.callForProposals}" var="callForProposal" varStatus="varStatusCP">
         										<c:if test="${varStatusCP.index<fundMax}">
-        										<div class="viewProposal" id="${callForProposal.urlTitle}" style="text-align:${callForProposal.align}"><c:out escapeXml="false" value="${callForProposal.trimmedTitle}"/><br><br></div>
+        										<div class="viewProposal" id="${callForProposal.urlTitle}" style="text-align:${callForProposal.align};direction:${callForProposal.dir}"><c:out escapeXml="false" value="${callForProposal.trimmedTitle}"/><br><br></div>
           										<c:set var="CPcounter" value="${CPcounter+1}"/>
          										</c:if>
          										<c:set var="totalCounter" value="${totalCounter+1}"/>
          									</c:forEach>
          									</c:if>
          								</c:forEach>
-        								<c:if test="${totalCounter>2}"><div class="allCallForProposals" id="${calendarDay.day}">...</div></c:if>
+        								<c:if test="${totalCounter>2}"><div class="allCallForProposals" id="${calendarDay.day}" style="text-align:${lang.align};direction:${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.more"/></div></c:if>
 										</div>
 										<div class="triangle"></div>
 									</div>
