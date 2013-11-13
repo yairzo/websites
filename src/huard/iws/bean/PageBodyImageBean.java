@@ -32,6 +32,7 @@ public class PageBodyImageBean {
 		this.uploaderPersonId=0;
 		this.approved=0;
 		this.url="";
+		this.title="";
 	}
 
 	public PageBodyImageBean( PageBodyImage pageBodyImage){
@@ -43,6 +44,7 @@ public class PageBodyImageBean {
 		this.uploaderPersonId = pageBodyImage.getUploaderPersonId();
 		this.approved = pageBodyImage.getApproved();
 		this.url = pageBodyImage.getUrl();
+		this.title = pageBodyImage.getTitle();
 	}
 
 	public PageBodyImage toPageBodyImage(){
@@ -55,6 +57,7 @@ public class PageBodyImageBean {
 		pageBodyImage.setUploaderPersonId(uploaderPersonId);
 		pageBodyImage.setApproved(approved);
 		pageBodyImage.setUrl(url);
+		pageBodyImage.setTitle(title);
 
 		return pageBodyImage;
 	}

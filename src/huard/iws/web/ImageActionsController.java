@@ -6,6 +6,7 @@ import huard.iws.util.RequestWrapper;
 import huard.iws.model.PageBodyImage;
 import huard.iws.service.PageBodyImageService;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -44,19 +45,11 @@ public class ImageActionsController extends GeneralFormController {
 				pageBodyImageService.approvePageBodyImage(id);
 			}
 		}
-		else if (action != null && action.equals("edit")) {
-			int id = request.getIntParameter("id",0);
-			PageBodyImage pageBodyImage = pageBodyImageService.getPageBodyImage(id);
-			if(!(request.getParameter("ename","")).isEmpty())
-				pageBodyImage.setName(request.getParameter("ename",""));
-			if(!(request.getParameter("ecaptionHebrew","")).isEmpty())
-				pageBodyImage.setCaptionHebrew(request.getParameter("ecaptionHebrew",""));
-			if(!(request.getParameter("ecaptionEnglish","")).isEmpty())
-				pageBodyImage.setCaptionEnglish(request.getParameter("ecaptionEnglish",""));
-			pageBodyImageService.updatePageBodyImage(pageBodyImage);
-		}
 
-		return new ModelAndView(new RedirectView("uploadImage.html"));
+		Map<String, Object> newModel = new HashMap<String, Object>();
+		int mainImageId = request.getIntParameter("id", 0);
+		newModel.put("id",mainImageId);
+		return new ModelAndView ( new RedirectView("uploadImage.html"), newModel);
 	}
 
 	protected ModelAndView onShowForm(RequestWrapper request,

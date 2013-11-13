@@ -17,22 +17,26 @@ public class UploadImageValidator implements Validator {
 	}
 
 	public void validate ( Object command, Errors errors ){
-			ValidationUtils.rejectIfEmpty(errors, "name", "iw_IL.required.name");
-			ValidationUtils.rejectIfEmpty(errors, "captionHebrew", "iw_IL.required.captionHebrew");
-			ValidationUtils.rejectIfEmpty(errors, "captionEnglish", "iw_IL.required.captionEnglish");
-			ValidationUtils.rejectIfEmpty(errors, "image", "iw_IL.required.image");
-			//check image format
 			PageBodyImageBean pageBodyImageBean = (PageBodyImageBean) command;
-			if(pageBodyImageBean.getImage().length>0){
-				int imgwidth = pageBodyImageBean.getWidth();
-				int imgheight = pageBodyImageBean.getHeight();
-				int imgsize =pageBodyImageBean.getImage().length;
-				String extention = "";
-				byte [] img =  pageBodyImageBean.getImage();
-				if(img[0]==-1 && img[1]==-40 )
-					extention="jpg";
-				if(imgheight != 240 || imgwidth != 420 || imgsize > 300000 || !extention.equals("jpg"))
-					errors.rejectValue( "image", "iw_IL.uploadImage.imageNotCorrect");
+			if(pageBodyImageBean.getId()>0){
+				ValidationUtils.rejectIfEmpty(errors, "name", "iw_IL.required.name");
+				ValidationUtils.rejectIfEmpty(errors, "captionHebrew", "iw_IL.required.captionHebrew");
+				ValidationUtils.rejectIfEmpty(errors, "captionEnglish", "iw_IL.required.captionEnglish");
+				//ValidationUtils.rejectIfEmpty(errors, "image", "iw_IL.required.image");
+				ValidationUtils.rejectIfEmpty(errors, "title", "iw_IL.required.urlTitle");
+				//check image format
+				if(pageBodyImageBean.getImage().length>0){
+					int imgwidth = pageBodyImageBean.getWidth();
+					int imgheight = pageBodyImageBean.getHeight();
+					int imgsize =pageBodyImageBean.getImage().length;
+					String extention = "";
+					byte [] img =  pageBodyImageBean.getImage();
+					if(img[0]==-1 && img[1]==-40 )
+						extention="jpg";
+					//if(imgheight != 240 || imgwidth != 420 || imgsize > 300000 || !extention.equals("jpg"))
+					if(imgsize > 300000 )
+						errors.rejectValue( "image", "iw_IL.uploadImage.imageNotCorrect");
+				}
 			}
 	
 	}

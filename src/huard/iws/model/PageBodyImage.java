@@ -13,6 +13,15 @@ public class PageBodyImage implements Serializable{
 	private int uploaderPersonId;
 	private int approved;
 	private String url;
+	private String title;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public int getId() {
 		return id;

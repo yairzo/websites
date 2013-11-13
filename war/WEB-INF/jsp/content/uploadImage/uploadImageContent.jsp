@@ -18,6 +18,7 @@
           <td valign="top" align="center"><br>
 		<form:form id="form" name="form" method="POST" action="uploadImage.html" commandName="command" enctype="multipart/form-data">
 
+   			<form:hidden path="id"/>
              <table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
 				<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"/>
                 <tr class="form">
@@ -33,9 +34,22 @@
 						<font color="red"><form:errors cssClass="errors" path="name" /></font>
 					</td>
 				</tr>
+                <tr class="form">
+					<td width="250">${compulsoryFieldSign}
+						כותרת לקישור:
+					</td>
+					<td width="300">
+					 	<form:input cssClass="green" path="title"/>
+					</td>
+ 				</tr>
+ 				<tr>
+					<td colspan="2">
+						<font color="red"><form:errors cssClass="errors" path="title" /></font>
+					</td>
+				</tr>
                <tr class="form">
 					<td width="250">${compulsoryFieldSign}
-						 כותרת תמונה בעברית:
+						 תיאור בעברית:
 					</td>
 					<td width="300">
 					 	<form:input cssClass="green" path="captionHebrew" />
@@ -48,7 +62,7 @@
 				</tr>
                <tr class="form">
 					<td width="250">${compulsoryFieldSign}
-						 כותרת תמונה באנגלית:
+						 תיאור באנגלית:
 					</td>
 					<td width="300">
 					 	<form:input cssClass="green" path="captionEnglish" />
@@ -70,7 +84,7 @@
 				
 				<tr>
 					<td width="250">${compulsoryFieldSign}
-						 צרף קובץ (רוחב 420 גובה 240 גודל עד 300K):
+						 צרף קובץ (גודל עד 300K):
 					</td>
 					<td width="300">
 						<input class="green" type="file" name="image" />
@@ -84,6 +98,10 @@
 				<tr>
 					<td>
 						<input class="green" type="submit" name="Upload" value="שמור"/>
+						<input type="button" class="green" value="חדש" onclick="window.location='uploadImage.html?action=new';"/>
+ 					</td>
+ 					<td>
+						
  					</td>
 				</tr>
 		<tr>
@@ -96,15 +114,8 @@
 	
 	<form:form id="editImage" name="editImage" method="POST" action="editImage.html" commandName="command" >
 
-  	<div id="editCaptionsDialog" style="display:none" dir="${lang.dir}">
-	<table>
-		<tr class="form"><td>שם:<br><input type="text" class="green" id="ename"/></td></tr>
-		<tr class="form"><td>כותרת תמונה בעברית:<input type="text" class="green" id="ecaptionHebrew"/></td></tr>
-		<tr class="form"><td>כותרת תמונה באנגלית:<input type="text" class="green" id="ecaptionEnglish"/></td></tr>
-	</table>  	
-	</div>
-	
-   	<table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
+   			<form:hidden path="id"/>
+    	<table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
 
 		<tr>
 			<td colspan="2" style="border: black dotted 1px;">
@@ -121,11 +132,10 @@
   						</c:choose>
   						<td>
   							<span id="img${image.id}">
-  								<img id="${image.id}" style="${borderStyle}" src="/imageViewer?imageId=${image.id}&attachType=bodyImage" width="72" height="72">
+  								<a href="uploadImage.html?id=${image.id}"><img id="${image.id}" style="${borderStyle}" src="/imageViewer?imageId=${image.id}&attachType=bodyImage" width="72" height="72"></a>
   								<input name="chkboxName" id="chkboxName" type="checkbox" value="${image.id}"/>
 	  							<br/>
   								${image.name}&nbsp;
-  								<a href="" onclick="editCaptions(${image.id},'${image.name}','${image.captionHebrew}','${image.captionEnglish}');return false;" id="${image.id}">ערוך</a>
   								<br/>
   							</span>
     						</td>
@@ -133,10 +143,10 @@
 			  	</tr>
 			   	<tr>
 			  		<td align="center" colspan="4">
-				  		<a href="/uploadImage.html?page=${previousPage} ">&lt;</a>
+				  		<a href="/uploadImage.html?id=${command.id}&page=${previousPage} ">&lt;</a>
 				  		&nbsp;
 				  		&nbsp;
-				  		<a href="/uploadImage.html?page=${nextPage}">&gt;</a>
+				  		<a href="/uploadImage.html?id=${command.id}&page=${nextPage}">&gt;</a>
 					</td>
 			  	</tr>
 		    </table>

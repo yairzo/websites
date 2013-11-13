@@ -21,7 +21,9 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 
 
 	public int insertPageBodyImage( PageBodyImage pageBodyImage){
-		final String pageInsert = "insert image set name = ?, captionHebrew = ?, captionEnglish = ?, image = ?, uploaderPersonId = ?, approved = ?, url=?";
+		pageBodyImage.setTitle("###" + new java.util.Date().getTime() + "###");
+
+		final String pageInsert = "insert image set name = ?, captionHebrew = ?, captionEnglish = ?, image = ?, uploaderPersonId = ?, approved = ?, url=?, urlTitle=?";
 		final String name = pageBodyImage.getName();
 		final String captionHebrew = pageBodyImage.getCaptionHebrew();
 		final String captionEnglish = pageBodyImage.getCaptionEnglish();
@@ -29,6 +31,7 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		final int uploaderPersonId = pageBodyImage.getUploaderPersonId();
 		final int approved = pageBodyImage.getApproved();
 		final String url = pageBodyImage.getUrl();
+		final String title = pageBodyImage.getTitle();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -42,6 +45,7 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		            ps.setInt(5, uploaderPersonId);
 		            ps.setInt(6, approved);
 		            ps.setString(7, url);
+		            ps.setString(8, title);
 		            return ps;
 		        }
 		    },
@@ -92,6 +96,7 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
             pageBodyImage.setUploaderPersonId(rs.getInt("uploaderPersonId"));
             pageBodyImage.setApproved(rs.getInt("approved"));
             pageBodyImage.setUrl(rs.getString("url"));
+            pageBodyImage.setTitle(rs.getString("urlTitle"));
             return pageBodyImage;
         }
 	};
@@ -114,11 +119,14 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 	}
 	
 	public void updatePageBodyImage(PageBodyImage pageBodyImage){
-		String query = "update image set name=?, captionHebrew = ?, captionEnglish = ? where id=?";
+		String query = "update image set name=?, captionHebrew = ?, captionEnglish = ?,image = ?,  url=?, urlTitle=?  where id=?";
 		getSimpleJdbcTemplate().update(query,
 			pageBodyImage.getName(),
 			pageBodyImage.getCaptionHebrew(),
 			pageBodyImage.getCaptionEnglish(),
+			pageBodyImage.getImage(),
+			pageBodyImage.getUrl(),
+			pageBodyImage.getTitle(),
 			pageBodyImage.getId());
 	}
 
