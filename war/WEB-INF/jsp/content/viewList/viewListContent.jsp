@@ -1,6 +1,8 @@
 <%@ page  pageEncoding="UTF-8" %>
 
+<c:if test="${!ajaxView}">
 <%@ include file="/WEB-INF/jsp/content/viewList/viewListScripts.jsp" %>
+</c:if>
 
 <c:choose>
 	<c:when test="${aCompoundView}">

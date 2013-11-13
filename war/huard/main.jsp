@@ -68,7 +68,7 @@
 <% 			for(int i=0; i<randomPictures.getIWSImageIdsArray().length; i++){
 					if (i > 0)
 %>					,
-				"../../iws/imageViewer?imageId=<%=randomPictures.getIWSImageIdsArray()[i]%>&attachType=bodyImage"
+				"https://ard.huji.ac.il/imageViewer?imageId=<%=randomPictures.getIWSImageIdsArray()[i]%>&attachType=bodyImage"
 <%				}
 %>
 			 )
@@ -251,7 +251,7 @@
 							<%}%>
 							<% if (authorizer.isMopIp(request.getRemoteAddr())){%>
 								&nbsp;&nbsp;
-								<a class="rightmenu"  href="http://ard.huji.ac.il/iws/welcome.html"/>
+								<a class="rightmenu"  href="http://ard.huji.ac.il/welcome.html"/>
 									<%= language.isHebrewVer() ? "מערכת רשימות" : "Lists System" %>
 								</a>
 							<%}%>

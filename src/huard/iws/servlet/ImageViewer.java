@@ -29,25 +29,20 @@ public class ImageViewer extends HttpServlet{
 		if ((id = request.getParameter("imageId"))!=null){
 			aId = Integer.parseInt(id);
 		}
+		String urlTitle = request.getParameter("urlTitle");
 
 		String attachType  = request.getParameter("attachType");
-		if (attachType == null) return;
+		if (attachType == null) 
+			return;
 
 		try{
-
+			byte [] file = null;
 			if (aId != 0) {
-
-				byte [] file = null;
-				//logger.info("Starting to load image: " + aId);
-				file = pageBodyImageService.getPageBodyImage(aId).getImage();
-				if (file ==null || file.length == 0)
-					file = pageBodyImageService.getPageBodyImage(DEFAULT_IMG_ID).getImage();
-				response.setContentType("image/gif");
-				response.setStatus(HttpServletResponse.SC_OK);
-				ServletOutputStream out = response.getOutputStream();
-				out.write(file);
-				out.flush();
-				out.close();
+				file = pageBodyImageService.getPageBodyImage(aId).getImage();				
+			}
+			
+			else if (urlTitle != null){
+				file = pageBodyImageService.getPageBodyImage(urlTitle).getImage();
 			}
 			/*else{
 				if (attachType.equals("registration")){
@@ -62,6 +57,14 @@ public class ImageViewer extends HttpServlet{
 					ImageIO.write(img, "jpg", response.getOutputStream());
 				}
 			}*/
+			if (file ==null || file.length == 0)
+				file = pageBodyImageService.getPageBodyImage(DEFAULT_IMG_ID).getImage();
+			response.setContentType("image/gif");
+			response.setStatus(HttpServletResponse.SC_OK);
+			ServletOutputStream out = response.getOutputStream();
+			out.write(file);
+			out.flush();
+			out.close();
 
 		}catch(Exception e){
 			System.out.println("Exception------>"+e);

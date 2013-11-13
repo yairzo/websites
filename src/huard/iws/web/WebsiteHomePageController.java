@@ -2,25 +2,17 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
-import huard.iws.model.CallForProposal;
-import huard.iws.model.DayInCalendar;
-import huard.iws.model.Fund;
-import huard.iws.model.FundInDay;
 import huard.iws.model.Language;
 import huard.iws.model.PageBodyImage;
 import huard.iws.model.TextualPage;
 import huard.iws.service.CallForProposalService;
-import huard.iws.service.FundService;
 import huard.iws.service.PageBodyImageService;
 import huard.iws.service.TextualPageService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.RequestWrapper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
 public class WebsiteHomePageController extends GeneralWebsiteFormController {
 
 
@@ -64,7 +55,7 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 				textualPageService.getTextualPagesLastUpdate().getTime());
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 		
-		model.put("ilr", "/");
+		model.put("ilr", "/homePage.html");
 		
 		model.put("removeHomePageLink", "true");
 

@@ -15,6 +15,10 @@ public class PageBodyImageServiceImpl implements PageBodyImageService{
 	public synchronized PageBodyImage getPageBodyImage(int id){
 		return pageBodyImageDao.getPageBodyImage(id);
 	}
+	
+	public synchronized PageBodyImage getPageBodyImage(String urlTitle){
+		return pageBodyImageDao.getPageBodyImage(urlTitle);
+	}
 
 	public List<PageBodyImage> getPageBodyImages( int page, PersonBean personBean){
 		return pageBodyImageDao.getPageBodyImages( page,personBean);

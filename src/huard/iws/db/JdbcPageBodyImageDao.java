@@ -61,6 +61,13 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 			return pageBodyImage;
 	}
+	
+	public PageBodyImage getPageBodyImage(String urlTitle){
+		String query = "select * from image where urlTitle=?";
+		PageBodyImage pageBodyImage =
+			getSimpleJdbcTemplate().queryForObject(query, rowMapper, urlTitle);
+			return pageBodyImage;
+	}
 
 	public List<PageBodyImage> getPageBodyImages(int page, PersonBean personBean){
 		String query = "select * from image";

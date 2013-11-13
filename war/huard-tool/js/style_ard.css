@@ -1,0 +1,141 @@
+/* CSS Document */
+p,li,td
+{
+	font-size:12pt;
+	font-family:arial, helvetica;
+	color:#0F3A6A;
+}
+
+
+table.deco
+{
+	background-color: #FFFFFF;
+	width: 700px;	
+}
+
+th
+{
+	font-family:arial, helvetica;
+	font-size: 13pt;
+	color:#003366;
+	background-color: #EFD77A;
+	border-bottom-color: #003366;
+	border-bottom-width: 2px;
+}
+
+
+th.title
+{
+	font-family:arial, helvetica;
+	font-size: 15pt;
+	color: #cc3399;
+	background-color: #EFD77A;
+}
+
+p.small
+{
+	font-size: 9pt;
+	font-family: arial, helvetica;
+	color:#0F3A6A;
+}
+font.hilight 
+{
+	color:#0F3A6A;
+	background-color: #66CCFF;
+
+}
+font.titleHilight
+{
+	color:#cc3399;
+	background-color: #66CCFF;
+
+}
+
+h1
+{
+	font-size: 18pt;
+	font-family:arial, helvetica;
+	color:#cc3399;
+	text-align:center;
+	text-decoration:none;
+}
+
+h2
+{
+	font-family:arial, helvetica;
+	font-size: 15pt;
+	color:#660033;
+	text-decoration:none;
+	line-height: 0px;
+}
+
+h3
+{
+	font-family:arial, helvetica;
+	font-size:12pt;
+	font-weight: bold;
+	color:#FF9900;
+	text-decoration:underline;
+	line-height:0px;
+}
+h4
+{
+	font-family:arial, helvetica;
+	font-size:11pt;
+	color:red;
+	line-height:0px;
+}
+
+ul
+{
+	list-style:square outside; 
+	
+}
+
+ul.heb
+{
+	list-style:square outside; 
+	text-align:right;
+	direction:rtl;
+}
+
+ol.heb
+{
+	text-align:right;
+	direction:rtl;
+}
+
+
+text 
+{
+	font-size:11pt;
+	font-family:arial, helvetica;
+	color:#355246;
+}
+
+hr
+{
+	size:2;
+	color:333366;
+}
+u
+{
+	color:red;
+	font-weight: bold;
+}
+
+body
+{
+	color:#0F3A6A;
+	background-color:#FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+a:link    
+{color:660033}
+a:visited 
+{color:CC3399}
+a:active  
+{color:666666}
+a:hover   
+{color:666666;}

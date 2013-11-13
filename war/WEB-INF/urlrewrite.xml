@@ -68,11 +68,11 @@
         <to last="true">/homePage.html?locale=$1</to>
     </rule>
     
-    <outbound-rule>
+<!-- <outbound-rule>
         <from>/homePage.html</from>
         <to>/</to>
     </outbound-rule>
-    
+-->
     
 <!-- <rule>
         <from>^/searchCallForProposals.html$</from>

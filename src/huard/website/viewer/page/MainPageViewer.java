@@ -2,6 +2,7 @@ package huard.website.viewer.page;
 
 import huard.iws.model.PageBodyImage;
 import huard.iws.service.PageBodyImageService;
+import huard.iws.util.ApplicationContextProvider;
 import huard.website.model.TabledInfoPage;
 import huard.website.util.PageAccessLog;
 import huard.website.util.Utils;
@@ -10,7 +11,7 @@ import huard.website.viewer.profile.ProfilesDbHandler;
 
 import java.util.List;
 
-import org.springframework.remoting.rmi.RmiProxyFactoryBean;
+import org.springframework.context.ApplicationContext;
 
 public class MainPageViewer {
 	private final String categoryTableNameHeb = "harashut_lemop";
@@ -146,13 +147,14 @@ public class MainPageViewer {
 	}
 
 	public String[] getIWSImageIdsArray() {
-		RmiProxyFactoryBean factory = new RmiProxyFactoryBean();
+		/*RmiProxyFactoryBean factory = new RmiProxyFactoryBean();
 		factory.setServiceInterface(PageBodyImageService.class);
 		factory.setServiceUrl("rmi://localhost:1199/PageBodyImageService");
-		factory.afterPropertiesSet();
-
+		factory.afterPropertiesSet();*/
+		
 		String [] pictureIdsArray = null;
-		PageBodyImageService pageBodyImageService = (PageBodyImageService) factory.getObject();
+		ApplicationContext context = ApplicationContextProvider.getContext();		
+		PageBodyImageService pageBodyImageService = (PageBodyImageService) context.getBean("pageBodyImageService");
 	    List<PageBodyImage> pageBodyImages =  pageBodyImageService.getApprovedPageBodyImages();
 		  
 		if (pageBodyImages.size()>0){
@@ -169,13 +171,14 @@ public class MainPageViewer {
 	}
 
 	public String[] getIWSImageHebNamesArray() {
-		RmiProxyFactoryBean factory = new RmiProxyFactoryBean();
+		/*RmiProxyFactoryBean factory = new RmiProxyFactoryBean();
 		factory.setServiceInterface(PageBodyImageService.class);
 		factory.setServiceUrl("rmi://localhost:1199/PageBodyImageService");
-		factory.afterPropertiesSet();
+		factory.afterPropertiesSet();*/
 
 		String [] pictureNamesArray = null;
-		PageBodyImageService pageBodyImageService = (PageBodyImageService) factory.getObject();
+		ApplicationContext context = ApplicationContextProvider.getContext();
+		PageBodyImageService pageBodyImageService = (PageBodyImageService) context.getBean("pageBodyImageService");
 	    List<PageBodyImage> pageBodyImages =  pageBodyImageService.getApprovedPageBodyImages();
 		  
 		if (pageBodyImages.size()>0){
@@ -192,13 +195,16 @@ public class MainPageViewer {
 	}
 
 	public String[] getIWSImageEngNamesArray() {
-		RmiProxyFactoryBean factory = new RmiProxyFactoryBean();
+		/*RmiProxyFactoryBean factory = new RmiProxyFactoryBean();
 		factory.setServiceInterface(PageBodyImageService.class);
 		factory.setServiceUrl("rmi://localhost:1199/PageBodyImageService");
-		factory.afterPropertiesSet();
+		factory.afterPropertiesSet();*/
 
 		String [] pictureNamesArray = null;
-		PageBodyImageService pageBodyImageService = (PageBodyImageService) factory.getObject();
+		
+		
+		ApplicationContext context = ApplicationContextProvider.getContext();
+		PageBodyImageService pageBodyImageService = (PageBodyImageService) context.getBean("pageBodyImageService");
 	    List<PageBodyImage> pageBodyImages =  pageBodyImageService.getApprovedPageBodyImages();
 		  
 		if (pageBodyImages.size()>0){

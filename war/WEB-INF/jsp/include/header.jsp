@@ -24,7 +24,7 @@
 	<!--<script type="text/javascript" src="/js/jquery.dimensions.js"></script>  -->
 	<script type="text/javascript" src="/js/jquery.alerts.js"></script> 
 	<script type="text/javascript" src="/js/date.js"></script>
-	</c:if>
+	
 	
 
 	<script>
@@ -47,7 +47,7 @@
 		});
 
 	</script>
-
+	</c:if>
 
 
 </head>

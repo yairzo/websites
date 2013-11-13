@@ -51,10 +51,15 @@
 					auto: true ,
 					slideWidth:406,
 					pause:5000,
-<c:if test="${lang.rtl}">
+<c:choose>
+<c:when test="${lang.rtl}">
 					startSlide: <c:out value="${fn:length(textualPages)-1}"/>, 
 					autoDirection: 'prev'
-</c:if>
+</c:when>
+<c:otherwise>
+					startSlide: 0
+</c:otherwise>
+</c:choose>
 					});
 				
 				

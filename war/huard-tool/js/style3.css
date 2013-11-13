@@ -1,0 +1,22 @@
+/* CoolMenus 4 - default styles - do not edit */
+.clCMEvent{position:absolute; width:99%; height:99%; clip:rect(0,100%,100%,0); left:0; top:0; visibility:visible}
+.clCMAbs{position:absolute; visibility:hidden; left:0; top:0}
+/* CoolMenus 4 - default styles - end */
+  
+
+
+/* MENU NUMBER 2 */
+/*Style for the background-bar*/
+.cl2Bar{position:absolute; width:10; height:10; background-color:Navy; layer-background-color:Navy; visibility:hidden}
+
+/*Styles for level 0*/
+.cl2Level0,.cl2Level0over{position:absolute; padding:2px; font-family:tahoma,arial,helvetica; font-size:12px; font-weight:bold}
+.cl2Level0{background-color:Navy; layer-background-color:Navy; color:white;}
+.cl2Level0over{background-color:#336699; layer-background-color:#336699; color:Yellow; cursor:pointer; cursor:hand; }
+.cl2Level0border{position:absolute; visibility:hidden; background-color:#006699; layer-background-color:#006699}
+
+/*Styles for level 1*/
+.cl2Level1, .cl2Level1over{position:absolute; padding:2px; font-family:tahoma, arial,helvetica; font-size:11px; font-weight:bold}
+.cl2Level1{background-color:Navy; layer-background-color:Navy; color:white;}
+.cl2Level1over{background-color:#336699; layer-background-color:#336699; color:Yellow; cursor:pointer; cursor:hand; }
+.cl2Level1border{position:absolute; visibility:hidden; background-color:#006699; layer-background-color:#006699}

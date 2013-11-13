@@ -16,7 +16,7 @@
   								<c:forEach items="${images}" var="image" varStatus="imgIndex">
   								<div>
   								<c:choose>
-						  			<c:when test="${imgIndex.index == fn:length(images)-1}">
+						  			<c:when test="${(lang.rtl && imgIndex.index == fn:length(images)-1) || (lang.ltr && imgIndex.index == 0)}">
 						  				<img width="960" height="340" src="/imageViewer?imageId=${image.id}&attachType=bodyImage" />			
 						  			</c:when>
 						  			<c:otherwise>

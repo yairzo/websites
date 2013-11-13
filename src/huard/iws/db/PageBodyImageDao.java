@@ -9,6 +9,8 @@ public interface PageBodyImageDao {
 	public int insertPageBodyImage(PageBodyImage pageBodyImage);
 
 	public PageBodyImage getPageBodyImage(int id);
+	
+	public PageBodyImage getPageBodyImage(String urlTitle);
 
 	public List<PageBodyImage> getPageBodyImages( int page, PersonBean userPersonBean);
 	
