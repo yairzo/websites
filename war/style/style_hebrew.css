@@ -1999,7 +1999,7 @@ background:url(/image/website/checkbox_scrollbox.png) no-repeat top;
 display:none;
 position:absolute;
 top:31px;
-left:0px;
+right:0px;
 width:221px;
 -webkit-box-shadow:  0 0 6px 0px #e5e5e5;
         box-shadow:  0 0 6px 0px #e5e5e5;
