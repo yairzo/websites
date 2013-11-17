@@ -165,4 +165,5 @@
 			        }
 				});
 			}
+			$.ajaxSetup({ cache: false });
 	</script>

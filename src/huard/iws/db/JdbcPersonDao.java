@@ -1,10 +1,8 @@
 package huard.iws.db;
 
-import huard.iws.bean.PersonBean;
 import huard.iws.model.Person;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.ListView;
-import huard.iws.util.SQLUtils;
 import huard.iws.util.SearchCreteria;
 
 import java.sql.Connection;
@@ -304,10 +302,22 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		query += " group by civilId order by "+lv.getOrderBy();
 		query += " limit "+ (lv.getPage()-1) * lv.getRowsInPage() + "," + lv.getRowsInPage();
 
-		System.out.println(query);
-
-		List<Person> persons =
-			getSimpleJdbcTemplate().query(query, getPersonRowMapper());
+		logger.info(query);
+		
+		boolean [] searchPhraseValid = validateSearch(search);
+		
+		Object [] params = {search.getSearchPhrase(),
+				search.getSearchPhrase(),
+				search.getSearchPhrase(),
+				"%"+search.getSearchPhrase()+"%",
+				"%"+search.getSearchPhrase()+"%",
+				search.getSearchPhrase()};
+			
+		if (!searchPhraseValid[0])
+			params = new String [0];
+		
+		List<Person> persons = getSimpleJdbcTemplate().query(query, getPersonRowMapper(),
+					params);
 		applyPersonSubjectIds(persons);
 		return persons;
     }
@@ -315,14 +325,26 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	public int countPersons(ListView lv, SearchCreteria search) {
 
 		String query = "select count(*) from person";
-		//get where clause by search critieria
+		//get where clause by search criteria
 		query += getPersonsWhereClause(search);
+		
+		
+		boolean [] searchPhraseValid = validateSearch(search);
+		Object [] params = {search.getSearchPhrase(),
+					search.getSearchPhrase(),
+					search.getSearchPhrase(),
+					"%"+search.getSearchPhrase()+"%",
+					"%"+search.getSearchPhrase()+"%",
+					search.getSearchPhrase()};
+		
+		if (!searchPhraseValid[0])
+			params = new String [0];			
+		
+		int r = getSimpleJdbcTemplate().queryForInt(query,
+				params);
 
-
-		System.out.println(query);
-
-		return getSimpleJdbcTemplate().queryForInt(query);
-
+		logger.info(query);
+		return r;
     }
 
 	public String getPersonsWhereClause(SearchCreteria search){
@@ -341,12 +363,12 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				whereClause += " and";
 		}
 		if (searchPhraseValid [0])
-			whereClause +=  " (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "'"
-				+ " or concat(lastNameHebrew, ' ', firstNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
-				+ " or concat(firstNameHebrew, ' ', lastNameHebrew)='" + SQLUtils.toSQLString(search.getSearchPhrase()) + "' "
-				+ " or lastNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
-				+ " or firstNameHebrew like '%" + SQLUtils.toSQLString(search.getSearchPhrase()) + "%' "
-				+ " or email = '" + SQLUtils.toSQLString(search.getSearchPhrase()) + "') ";
+			whereClause +=  " (concat(lastNameHebrew, ' ', firstNameHebrew, ' ', email) = ?"
+				+ " or concat(lastNameHebrew, ' ', firstNameHebrew) = ? "
+				+ " or concat(firstNameHebrew, ' ', lastNameHebrew) = ?"
+				+ " or lastNameHebrew like ? "
+				+ " or firstNameHebrew like ? "
+				+ " or email = ?) ";
 		
 		if(searchPhraseValid [0] || searchPhraseValid [1])
 			whereClause += " and";

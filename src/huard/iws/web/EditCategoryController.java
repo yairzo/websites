@@ -3,7 +3,6 @@ package huard.iws.web;
 import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
-import huard.iws.model.Category;
 import huard.iws.model.TextualPage;
 import huard.iws.service.CategoryService;
 import huard.iws.service.TextualPageService;
@@ -28,9 +27,10 @@ public class EditCategoryController extends GeneralFormController {
 			throws Exception{
 
 		CategoryBean categoryBean = (CategoryBean)command;
-		if(!request.getParameter("textualPage", "").isEmpty()){
-			String textualPageId = request.getParameter("textualPage", "");
-			categoryBean.setUrl("textualPage.html?id="+textualPageId);
+		if(!request.getParameter("textualPage", "").isEmpty() && request.getIntParameter("textualPage", 0) > 0){
+			int textualPageId = request.getIntParameter("textualPage", 0);
+			TextualPage textualPage = textualPageService.getTextualPage(textualPageId);
+			categoryBean.setUrl("/page/"+textualPage.getUrlTitle());
 		}
 		
 		//update
@@ -49,7 +49,7 @@ public class EditCategoryController extends GeneralFormController {
 		int id = request.getIntParameter("id", 0);
 		// if new proposal Create a new proposal and write it to db
 		if (request.getParameter("action", "").equals("new") || id == 0){
-			Category category= new Category();
+			
 			//textualPage.setCreatorId(userPersonBean.getId());
 			//int textualPageId = textualPageService.insertTextualPage(textualPage);
 			Map<String, Object> newModel = new HashMap<String, Object>();

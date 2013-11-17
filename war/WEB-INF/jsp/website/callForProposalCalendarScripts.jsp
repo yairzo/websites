@@ -90,6 +90,8 @@ $(document).ready(function() {
 		var proposalId=$(this).attr("id");	
 		window.open('/call_for_proposal/'+proposalId);
 	});	
+	
+	$.ajaxSetup({ cache: false });
 });
 
 

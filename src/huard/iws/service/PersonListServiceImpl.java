@@ -15,8 +15,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 public class PersonListServiceImpl implements PersonListService{
-	//private static final Logger logger = Logger.getLogger(PersonListService.class);
+	private static final Logger logger = Logger.getLogger(PersonListService.class);
 	//private final int PERSONS_IN_PAGE=7;
 
 	public List<Person> getPersonsPage(ListView lv, SearchCreteria search) {
@@ -32,10 +34,7 @@ public class PersonListServiceImpl implements PersonListService{
 	}
 
 	public void prepareListView(ListView lv, SearchCreteria search){
-		//ListPaginator lp = new ListPaginator(getPersons(lv, search), PERSONS_IN_PAGE);
-		//lv.setLastPage(lp.getNumOfPages());
-		//lv.setNearPages(lp.getNearPages(lv.getPage()));
-		System.out.println("personDao.countPersons(lv,search)"+personDao.countPersons(lv,search));
+		logger.info("personDao.countPersons(lv,search)"+personDao.countPersons(lv,search));
 		lv.setCountRows(personDao.countPersons(lv,search));
 		lv.setLastPage(lv.getNumOfPages());
 		lv.setNearPages(lv.getScroll());
