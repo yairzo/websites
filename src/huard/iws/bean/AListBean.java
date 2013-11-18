@@ -1,5 +1,6 @@
 package huard.iws.bean;
 
+
 import huard.iws.model.AList;
 import huard.iws.model.AListColumnInstruction;
 import huard.iws.model.IListControllerCommand;
