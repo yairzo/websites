@@ -57,8 +57,6 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		
 		model.put("ilr", "/homePage.html");
 		
-		model.put("removeHomePageLink", "true");
-
 		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("websiteHomePageStatic",model);
 		else

@@ -20,6 +20,8 @@ public class ImageActionsController extends GeneralFormController {
 			RequestWrapper request, PersonBean userPersonBean) throws Exception {
 		String action = request.getParameter("action", "");
 
+		int mainImageId = request.getIntParameter("id", 0);
+
 		if (action.equals("cancel")){
 			return new ModelAndView( new RedirectView("welcome.html"));
 		}
@@ -32,6 +34,8 @@ public class ImageActionsController extends GeneralFormController {
 					continue;
 				int id = new Integer(tkn).intValue();
 				pageBodyImageService.deletePageBodyImage(id);
+				if(id==mainImageId)
+					mainImageId=pageBodyImageService.getMaxImageId();
 			}
 		}
 		else if (action != null && action.equals("approve")) {
@@ -47,8 +51,8 @@ public class ImageActionsController extends GeneralFormController {
 		}
 
 		Map<String, Object> newModel = new HashMap<String, Object>();
-		int mainImageId = request.getIntParameter("id", 0);
 		newModel.put("id",mainImageId);
+
 		return new ModelAndView ( new RedirectView("uploadImage.html"), newModel);
 	}
 
