@@ -39,7 +39,7 @@ public abstract class GeneralWebsiteController extends GeneralController{
 		//category
 		model.put("category",categoryService.getCategory(rootCategory.getId()));
 		
-		model.put("contactsPageId", configurationService.getConfigurationInt("website", "contactsPage" + language.getNameCapitalized() + "Id"));
+		model.put("contactsPageUrlTitle", configurationService.getConfigurationString("website", "contactsPage" + language.getNameShortCapitalized() + "UrlTitle"));
 		
 		model.put("request", request);
 		model.put("ilr", "");

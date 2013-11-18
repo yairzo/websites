@@ -53,6 +53,7 @@ public abstract class ListViewableBean implements IListViewableBean{
 					field.setText("<a href=\"mailto:"+field.getText()+"\" class=\"nounderline\">@</a>");
 				}
 				if (columnInstruction.isWebAddress()){
+					field.setIsWebAddress(true);
 					field.setText("<a href=\""+field.getText()+"\" target=\"_new\"/>W</a>");
 				}
 				String urlColumn;

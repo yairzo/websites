@@ -54,7 +54,10 @@
         <from>^/calendar/$</from>
         <to last="true">/callForProposalCalendar.html</to>
     </rule>
-    
+     <rule>
+        <from>^/sitemap/$</from>
+        <to last="true">/sitemap.html</to>
+    </rule>   
     
     
     
