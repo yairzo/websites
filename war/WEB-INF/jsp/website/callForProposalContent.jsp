@@ -56,6 +56,7 @@
 									</a>
 									<p class="forbidden_${copLang.dir}"><fmt:message key="${copLang.localeId}.callForProposal.fullDetailsLogin"/></p>
 								</div>
+								<div class="login <c:if test="${copLang.rtl=='false'}">flipped</c:if>">
 								<div class="login_box_cp">
 									<div class="login_box_bottom_cp">
 										<form action="/j_acegi_security_check" method="post">									
@@ -80,6 +81,7 @@
 										</div>
 										<div class="login_register mar_15 clearfix"><fmt:message key="${copLang.localeId}.general.login.toSubscribe"/> <a href="#"><fmt:message key="${copLang.localeId}.general.login.clickHere"/></a></div>
 									</form>
+								</div>
 								</div>
 							</div>
 							</div>

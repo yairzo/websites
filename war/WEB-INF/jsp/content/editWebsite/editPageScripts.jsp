@@ -161,6 +161,12 @@ $(document).ready(function() {
 		});
 	});	
 	
+	$('#tempUrlTitle').keypress(function(e){
+	    if(e.which >= 1488 && e.which <= 1514){
+	        alert('<fmt:message key="${lang.localeId}.callForProposal.textEnglish"/>');
+	        e.preventDefault();
+	    }
+	});
 	
 	$('#tempTitle').change(function(e){
 		e.preventDefault();

@@ -49,8 +49,6 @@ $(document).ready(function() {
  });
  
   
- 
-
   
   	$(".chooseResearcher").click(function(e){
 			e.preventDefault();
@@ -281,7 +279,7 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_IMAGE_ADMIN,ROLE_IMAGE_RESEARCHER">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="/uploadImage.html">עריכת תמונות</a>
+								<a style="text-decoration: none" href="/uploadImage.html?action=new">עריכת תמונות</a>
 							</th>
 						</tr>
 						</authz:authorize>
