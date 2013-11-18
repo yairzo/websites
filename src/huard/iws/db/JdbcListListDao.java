@@ -29,14 +29,19 @@ public class JdbcListListDao  extends SimpleJdbcDaoSupport implements ListListDa
 		public List<AList> getListList(ListView lv, SearchCreteria search,
 				boolean publicOnly) {
 			StringBuilder query = new StringBuilder("select * from list where id > 0");
+			Object[] searchParam={""};
 			if (publicOnly){
 				query.append(" and  isPublic = 1");
 			}
 			if (search != null){
-				query.append(" and " +search.getSearchField()+" like '%"+search.getSearchPhrase()+"%'");
+				query.append(" and " +search.getSearchField()+" like ?");
+				searchParam[0]=new String ("%"+search.getSearchPhrase()+"%");
 			}
+			else
+				searchParam=new String [0];
+
 			query.append(" order by name;");
-			List<AList> lists = getSimpleJdbcTemplate().query(query.toString(), listDao.getRowMapper());
+			List<AList> lists = getSimpleJdbcTemplate().query(query.toString(), listDao.getRowMapper(),searchParam);
 			return lists;
 	    }
 

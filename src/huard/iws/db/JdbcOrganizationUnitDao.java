@@ -43,10 +43,10 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 	public List<OrganizationUnit> getOrganizationUnits(ListView lv, SearchCreteria search){
 		StringBuilder query = new StringBuilder("select * from organizationUnit where id > 0");
 		if (search != null){
-			query.append(" and " +search.getSearchField()+" like '%"+search.getSearchPhrase()+"%'");
+			query.append(" and " +search.getSearchField()+" like ?");
 		}
 		query.append(" order by nameHebrew;");
-		List<OrganizationUnit> organizationUnits = getSimpleJdbcTemplate().query(query.toString(), rowMapper);
+		List<OrganizationUnit> organizationUnits = getSimpleJdbcTemplate().query(query.toString(), rowMapper,"%"+search.getSearchPhrase()+"%");
 		return organizationUnits;
 	}
 

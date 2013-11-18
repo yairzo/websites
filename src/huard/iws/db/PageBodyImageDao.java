@@ -23,5 +23,7 @@ public interface PageBodyImageDao {
 	public int countImages( );
 
 	public void updatePageBodyImage(PageBodyImage pageBodyImage);
+	
+	public int getMaxImageId();
 
 }

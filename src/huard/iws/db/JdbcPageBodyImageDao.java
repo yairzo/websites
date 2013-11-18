@@ -137,5 +137,9 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 			pageBodyImage.getId());
 	}
 
-
+	public int getMaxImageId(){
+		//String query = "select count(*) from image where websiteId = ?";
+		String query = "select max(id) from image";
+		return getSimpleJdbcTemplate().queryForInt(query);
+	}
 }
