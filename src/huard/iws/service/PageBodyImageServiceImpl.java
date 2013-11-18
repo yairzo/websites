@@ -44,6 +44,10 @@ public class PageBodyImageServiceImpl implements PageBodyImageService{
 		pageBodyImageDao.updatePageBodyImage(pageBodyImage);
 	}
 
+	public int getMaxImageId (){
+		return pageBodyImageDao.getMaxImageId ();
+	}
+
 	PageBodyImageDao pageBodyImageDao;
 
 	public void setPageBodyImageDao(PageBodyImageDao pageBodyImageDao) {

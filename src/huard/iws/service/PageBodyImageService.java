@@ -25,4 +25,6 @@ public interface PageBodyImageService {
 
 	public void updatePageBodyImage(PageBodyImage pageBodyImage);
 
+	public int getMaxImageId();
+
 }
