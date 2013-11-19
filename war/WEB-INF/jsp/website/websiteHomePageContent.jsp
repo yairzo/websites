@@ -42,10 +42,14 @@
 					<div class="mainbox">
 						<div class="title">
 							<h1><fmt:message key="${lang.localeId}.website.welcome"/></h1>
-							<a href="/textualPage.html?id=1918"><fmt:message key="${lang.localeId}.website.readMore"/></a>
+							<a href="/page/Mission_Statement_Hebrew"><fmt:message key="${lang.localeId}.website.readMore"/></a>
 						</div>
 						<div class="mainbox_text">
-							<p></p>
+							<p>הרשות למחקר ופיתוח מרכזת את הפעילות המחקרית של האוניברסיטה, כולל הפצת 'קולות קוראים' למימון מחקר, טיפול בהגשת ההצעות לגורמי המימון ופיקוח על תקציבי המחקר באוניברסיטה.
+<br><br>
+באתר הרשות למחקר ופיתוח תמצאו מידע מפורט על אפשרויות למימון מחקר, מלגות מחקר לתארים מתקדמים והודעות על כנסים מדעיים, וכן הנחיות להגשת הצעות מחקר, כללים להפעלת מענקי מחקר ומידע כללי על הסביבה המדעית באוניברסיטה.
+<br><br>
+רישום למערכת הדיוור הישיר והתחברות לאתר מאפשרים גלישה באתר מותאם אישית לפי תחומי המחקר שנבחרו.</p>
 						</div>
 					</div>
 					<div class="mainbox">
@@ -67,11 +71,11 @@
 	  											</c:if>
 	  											
 	  											<div style="padding: 0px 5px; height:85px; width:380px; direction:${direction};overflow:hidden;">
-	  												<div style="padding: 0px 5px; height:65px; width:380px; direction:${direction};overflow:hidden;">
-	  												<strong>${textualPage.title}</strong><br>
-	  												${textualPage.html}>
+	  												<div style="padding: 0px 5px; height:60px; width:380px; direction:${direction};overflow:hidden;">
+	  													<div><strong>${textualPage.title}</strong></div>
+	  													<div><br>${textualPage.html}></div>
 	  												</div>
-	  												<div class="messagePage" id="${textualPage.urlTitle}" style="position:absolute;top:68px;left:${left};text-decoration:underline;"><fmt:message key="${textualPage.localeId}.website.forFullMessage"/></div>
+	  												<div class="messagePage" id="${textualPage.urlTitle}" style="position:absolute;top:70px;left:${left};text-decoration:underline;"><fmt:message key="${textualPage.localeId}.website.forFullMessage"/></div>
 												</div>
 	 										</c:forEach>
 										</div>

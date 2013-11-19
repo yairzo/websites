@@ -22,7 +22,7 @@
 											<fmt:message key="${copLang.localeId}.callForProposal.allYearSubmission"/>
 										</c:if>
 										<c:if test="${!command.allYearSubmission}">
-											${finalSubmissionTime}
+											${finalSubmissionTime}&nbsp;<c:if test="${fn:length(command.finalSubmissionHour)>0}">${command.finalSubmissionHour} (<fmt:message key="${copLang.localeId}.callForProposal.finalSubmissionHour.${command.hourType}"/>)</c:if>
 										</c:if> 
 										<br/>
 										<c:if test="${fn:length(submissionDate1)>0}">

@@ -949,7 +949,7 @@ background:url(/image/website/triangle_down_right.png) no-repeat top;
 .last_calls{
 display:block;
 font-size:12px;
-color:#999999;
+color:#666666;
 text-align:center;
 line-height:12px;
 }
@@ -976,7 +976,7 @@ line-height:24px;
 float:left;
 margin:4px 0 0 0;
 font-size:12px;
-color:#999999;
+color:#666666;
 line-height:24px;
 }
 
@@ -2055,7 +2055,7 @@ padding:3px 0 0 0;
 
 .check.scroll_col:hover .checkbox_list{display:block;z-index:1;}
 
-.nav{width:620px;}
+.nav{width:640px;}
 
 .login{
 float:left;

@@ -46,6 +46,7 @@ public class CallForProposal {
 	private int isDeleted;
 	private int targetAudience;
 	private List<Integer> countryIds;
+	private int hourType;
 	
 	
 
@@ -67,7 +68,7 @@ public class CallForProposal {
 		this.deskId=0;
 		this.originalCallWebAddress="";
 		this.requireLogin=false;
-		this.showDescriptionOnly=true;
+		this.showDescriptionOnly=false;
 		this.submissionDetails="";
 		this.contactPersons="";
 		this.contactPersonDetails="";
@@ -86,6 +87,7 @@ public class CallForProposal {
 		this.isDeleted=0;
 		this.targetAudience=0;
 		this.countryIds=new ArrayList<Integer>();
+		this.hourType=0;
 	}
 	
 	public int getId() {
@@ -386,6 +388,13 @@ public class CallForProposal {
 
 	public void setCountryIds(List<Integer> countryIds) {
 		this.countryIds = countryIds;
+	}
+	
+	public int getHourType() {
+		return hourType;
+	}
+	public void setHourType(int hourType) {
+		this.hourType = hourType;
 	}
 	
 	public String getAlign(){

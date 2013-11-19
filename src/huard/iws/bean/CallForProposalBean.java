@@ -67,6 +67,7 @@ public class CallForProposalBean {
 	private int isDeleted;
 	private int targetAudience;
 	private List<Integer> countryIds;
+	private int hourType;
 	
 	private MessageService messageService;
 	private ConfigurationService configurationService;
@@ -91,7 +92,7 @@ public class CallForProposalBean {
 		this.deskId=0;
 		this.originalCallWebAddress="";
 		this.requireLogin=false;
-		this.showDescriptionOnly=true;
+		this.showDescriptionOnly=false;
 		this.submissionDetails="";
 		this.contactPersons="";
 		this.contactPersonDetails="";
@@ -116,6 +117,8 @@ public class CallForProposalBean {
 			submissionDatesList.add("");
 		}
 		this.countryIds=new ArrayList<Integer>();
+		this.hourType=0;
+
 	}
 
 
@@ -167,6 +170,7 @@ public class CallForProposalBean {
         this.isDeleted=callForProposal.getIsDeleted();
         this.targetAudience=callForProposal.getTargetAudience();
         this.countryIds=callForProposal.getCountryIds();
+        this.hourType=callForProposal.getHourType();
         init(applyObjs);
 	}
 
@@ -223,6 +227,7 @@ public class CallForProposalBean {
 		callForProposal.setIsDeleted(isDeleted);
 		callForProposal.setTargetAudience(targetAudience);
 		callForProposal.setCountryIds(countryIds);
+		callForProposal.setHourType(hourType);
 		return callForProposal;
 	}
 
@@ -617,6 +622,13 @@ public class CallForProposalBean {
 		this.countryIds = countryIds;
 	}
 	
+	public int getHourType() {
+		return hourType;
+	}
+	public void setHourType(int hourType) {
+		this.hourType = hourType;
+	}
+
 	
 	
 	public Map <Integer, Attachment> getAttachmentsMap(){

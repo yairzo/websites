@@ -200,7 +200,7 @@ line-height:44px;
 }
 
 .nav ul li a{
-margin:0 6px;
+margin:0 8px;
 display: block;
 font-size:15px;
 color:#333333;
@@ -939,7 +939,7 @@ background:url(/image/website/triangle_down_left.png) no-repeat top;
 .last_calls{
 display:block;
 font-size:12px;
-color:#999999;
+color:#666666;
 text-align:center;
 line-height:12px;
 }
@@ -965,7 +965,7 @@ line-height:24px;
 float:right;
 margin:4px 0 0 0;
 font-size:12px;
-color:#999999;
+color:#666666;
 line-height:24px;
 }
 
@@ -986,7 +986,7 @@ float:left;
 width:185px;
 height:19px;
 font-family:Arial;
-font-weight:bold;
+font-weight:normal;
 font-size:14px;
 color:#333333;
 background:transparent;
@@ -2013,7 +2013,7 @@ height:12px;
 
 .check.scroll_col:hover .checkbox_list{display:block;z-index:1;}
 
-.nav{width:620px;}
+.nav{width:640px;}
 
 .login{
 float:left;

@@ -285,11 +285,24 @@ $(document).ready(function() {
 		$('form#form').submit();
 	});
 	
-	$('button.delete').click(function(){
-  		$(".ajaxSubmit").remove();
-  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
- 		$("#form").append("<input type=\"hidden\" name=\"action\" class=\"action\" value=\"delete\"/>");
-		$('form#form').submit();
+	$('button.delete').click(function(e){
+		e.preventDefault();
+	   	$("#genericDialog").dialog({ modal: true });
+    	$("#genericDialog").dialog('option', 'buttons', {
+            "<fmt:message key='${lang.localeId}.general.no'/>" : function() {
+                $(this).dialog("close");
+                return false;
+               },
+            "<fmt:message key='${lang.localeId}.general.yes'/>" : function() {
+        		$(".ajaxSubmit").remove();
+          		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+         		$("#form").append("<input type=\"hidden\" name=\"action\" class=\"action\" value=\"delete\"/>");
+        		$('form#form').submit();
+              }
+            });
+
+    	openHelp(this,'<fmt:message key="${lang.localeId}.callForProposal.confirmDelete"/>');
+        return false;
 	});
 	
 	$('button.copy').click(function(){

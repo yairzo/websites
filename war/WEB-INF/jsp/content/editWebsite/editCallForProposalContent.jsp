@@ -112,7 +112,13 @@
 					<td width="320" style="border:1px #bca2a2 dotted;text-align:${lang.align}" nowrap>
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.finalSubmissionTime"/>
 						<form:input htmlEscape="true" cssClass="green date submissionDate medium100" path="finalSubmissionTimeString"/>&nbsp;
-						<fmt:message key="${lang.localeId}.callForProposal.finalSubmissionHour"/><form:input htmlEscape="true" cssClass="green time submissionDate medium50" path="finalSubmissionHour" id="finalSubmissionHour"/>&nbsp;
+						<br>
+						<fmt:message key="${lang.localeId}.callForProposal.finalSubmissionHour"/>
+						<form:input htmlEscape="true" cssClass="green time submissionDate medium50" path="finalSubmissionHour" id="finalSubmissionHour"/>&nbsp;
+						<form:select path="hourType" cssClass="green" >
+      						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.finalSubmissionHour.0"/></form:option>
+      						<form:option value="1"><fmt:message key="${lang.localeId}.callForProposal.finalSubmissionHour.1"/></form:option>
+         		        </form:select>
 						<br><form:checkbox cssClass="green" path="allYearSubmission" id="allYearSubmission"/>
 						<fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/>
 					    <div id="errorfinalSubmissionTime" title="שגיאה" dir="${lang.dir}">				
@@ -132,6 +138,7 @@
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.fund"/>
 						 <input type="text" class="green long500" id="searchPhrase" value="${command.fund.name}"/> 
 						<form:hidden path="fundId" id="fundId"/>
+						<br>
 						<a href="" id="changeFund"><fmt:message key="${lang.localeId}.callForProposal.changeFund"/></a>&nbsp;
 						<a href="" id="editFund" target="_blank"><fmt:message key="${lang.localeId}.callForProposal.editFund"/></a>&nbsp;
 						<a href="" id="newTempFund" target="_blank"><fmt:message key="${lang.localeId}.callForProposal.addFund"/></a>
@@ -141,11 +148,11 @@
 						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.type"/>
        					<form:select path="typeId" cssClass="green" >
       						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></form:option>
-      						<form:option value="1"><fmt:message key="${lang.localeId}.callForProposal.researchGrant"/></form:option>
-      						<form:option value="2"><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></form:option>
-      						<form:option value="3"><fmt:message key="${lang.localeId}.callForProposal.conference"/></form:option>
+       						<form:option value="1"><fmt:message key="${lang.localeId}.callForProposal.researchGrant"/></form:option>
       						<form:option value="4"><fmt:message key="${lang.localeId}.callForProposal.scholarship"/></form:option>
-      						<form:option value="5"><fmt:message key="${lang.localeId}.callForProposal.prizes"/></form:option>
+      						<form:option value="3"><fmt:message key="${lang.localeId}.callForProposal.conference"/></form:option>
+        					<form:option value="5"><fmt:message key="${lang.localeId}.callForProposal.prizes"/></form:option>
+      						<form:option value="2"><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></form:option>
         		        </form:select>
 						<div id="errortype" title="שגיאה" dir="${lang.dir}">
 					</td>

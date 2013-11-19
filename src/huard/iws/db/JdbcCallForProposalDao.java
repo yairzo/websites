@@ -34,7 +34,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		try{
 			String query = "select * from callForProposalDraft where id =?";
 			CallForProposal callForProposal =
-					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
+				getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 			applySubjectIds(callForProposal);
 			applySubmissionDates(callForProposal);
 			applyFiles(callForProposal);
@@ -255,7 +255,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", localeId = ?" + 
 				", updateTime = now()"+ 
 				", isDeleted = ?"+
-				", targetAudience = ?";
+				", targetAudience = ?"+
+				", hourType = ?";
 		//logger.info(query);
 		String keepInRollingMessagesExpiryTime="";
 		if(callForProposal.getKeepInRollingMessagesExpiryTime()==0)//
@@ -301,7 +302,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getAdditionalInformation().trim(),
 	    		callForProposal.getLocaleId(),
 	    		callForProposal.getIsDeleted(),
-	    		callForProposal.getTargetAudience());
+	    		callForProposal.getTargetAudience(),
+	    		callForProposal.getHourType());
 	}
 	
 
@@ -340,6 +342,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", updateTime = ?" +
 				", isDeleted = ?" +
 				", targetAudience = ?" +
+				", hourType = ?" +
 			" where id = ?;";
 		logger.info(query);
 
@@ -386,6 +389,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		updateTime,
 	    		callForProposal.getIsDeleted(),
 	    		callForProposal.getTargetAudience(),
+	    		callForProposal.getHourType(),
 				callForProposal.getId());
 		
 		query = "delete from subjectToCallForProposal where callForProposalId = ?";
@@ -471,6 +475,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", updateTime = now()" +
 				", isDeleted = ?" +
 				", targetAudience = ?" +
+				", hourType = ?" +
 			" where id = ?;";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
@@ -506,6 +511,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	    		callForProposal.getLocaleId(),
 	    		callForProposal.getIsDeleted(),
 	    		callForProposal.getTargetAudience(),
+	    		callForProposal.getHourType(),
 				callForProposal.getId());
 		
 		/*query = "delete from subjectToCallForProposal where callForProposalId = ?";
@@ -714,6 +720,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				updateTime = updateTimeTS.getTime();
     		callForProposal.setUpdateTime(updateTime);
     		callForProposal.setTargetAudience(rs.getInt("targetAudience"));
+    		callForProposal.setHourType(rs.getInt("hourType"));
            return callForProposal;
         }
 	};

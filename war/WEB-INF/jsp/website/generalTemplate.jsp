@@ -83,7 +83,7 @@
 				<c:otherwise><img src="/image/website/logo_authority.png" alt="הרשות למחקר ופיתוח, האוניברסיטה העברית בירושלים" /></c:otherwise>
 				</c:choose>
 				</a>
-				<a href="http://new.huji.ac.il/" class="logo">
+				<a href="http://new.huji.ac.il/" class="logo" target="_blank">
 				<c:choose>
 				<c:when test="${lang.localeId=='en_US'}"><img src="/image/website/logo_eng.png" alt="האוניברסיטה העברית בירושלים" /></c:when>
 				<c:otherwise><img src="/image/website/logo.png" alt="האוניברסיטה העברית בירושלים" /></c:otherwise>
