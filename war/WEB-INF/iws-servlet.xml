@@ -121,6 +121,9 @@
    		<property name="countryService">
             <ref bean="countryService"/>
         </property>
+   		<property name="personListService">
+            <ref bean="personListService"/>
+        </property>
      </bean>
      
 	<bean id="callForProposalController" class="huard.iws.web.CallForProposalController" parent="generalWebsiteFormController">

@@ -161,9 +161,11 @@ $(document).ready(function() {
 		});
 	});	
 	
-	$('#tempUrlTitle').keypress(function(e){
-	    if(e.which >= 1488 && e.which <= 1514){
-	        alert('<fmt:message key="${lang.localeId}.callForProposal.textEnglish"/>');
+	$('#tempUrlTitle').blur(function(e){
+		var regexp = /^[a-zA-Z0-9-_]+$/;
+		var check = $('#tempUrlTitle').val();
+		if (check.search(regexp) == -1){
+	        alert('<fmt:message key="${lang.localeId}.callForProposal.urlTitleFormat"/>');
 	        e.preventDefault();
 	    }
 	});

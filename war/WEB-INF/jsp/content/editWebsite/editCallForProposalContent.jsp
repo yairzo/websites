@@ -17,7 +17,6 @@
           <td valign="top" align="center"><br>
             <form:form id="form" name="form" method="POST" action="editCallForProposal.html" commandName="command" enctype="multipart/form-data">
  			<form:hidden path="id"/>
- 			<form:hidden path="creatorId"/>
  			<form:hidden path="title"/>
 			<form:hidden path="urlTitle"/>
 			
@@ -65,9 +64,9 @@
 							<button class="grey post"><fmt:message key="${lang.localeId}.callForProposal.createPost"/> </button>&nbsp;
 						</c:if>		
 						<button class="grey copy"><fmt:message key="${lang.localeId}.callForProposal.copy"/></button>&nbsp;
-						<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;
 						<button class="grey" onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;		
 						<button class="grey" onclick="window.location='callForProposals.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>&nbsp;		
+						<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;
 					</td>
 				</tr>
 				<tr class="form">
@@ -101,8 +100,13 @@
 				<tr class="form">
 					<td width="300" style="border:1px #bca2a2 dotted;text-align:${lang.align}" nowrap>
 						<fmt:message key="${lang.localeId}.callForProposal.creator"/>
-						<c:if test="${lang.name=='Hebrew'}">${command.creator.degreeFullNameHebrew }</c:if>
-   						<c:if test="${lang.name=='English'}">${command.creator.degreeFullNameEnglish }</c:if>
+						<form:select path="creatorId" cssClass="green" >
+       						<c:forEach items="${creators}" var="creator">
+	        					<form:option htmlEscape="true" value="${creator.id}">
+	        						<c:out escapeXml="false" value="${creator.fullName}"/>
+	        					</form:option>
+       						</c:forEach>
+        		        </form:select>
 					</td>
 					<td width="300" style="border:1px #bca2a2 dotted;text-align:${lang.align}">
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.publicationTime"/>
@@ -139,8 +143,8 @@
 						 <input type="text" class="green long500" id="searchPhrase" value="${command.fund.name}"/> 
 						<form:hidden path="fundId" id="fundId"/>
 						<br>
-						<a href="" id="changeFund"><fmt:message key="${lang.localeId}.callForProposal.changeFund"/></a>&nbsp;
-						<a href="" id="editFund" target="_blank"><fmt:message key="${lang.localeId}.callForProposal.editFund"/></a>&nbsp;
+						<a href="" id="changeFund"><fmt:message key="${lang.localeId}.callForProposal.changeFund"/></a>&nbsp;|&nbsp;
+						<a href="" id="editFund" target="_blank"><fmt:message key="${lang.localeId}.callForProposal.editFund"/></a>&nbsp;|&nbsp;
 						<a href="" id="newTempFund" target="_blank"><fmt:message key="${lang.localeId}.callForProposal.addFund"/></a>
 						<div id="errorfund" title="שגיאה" dir="${lang.dir}">
 					</td>
@@ -692,9 +696,9 @@
 							<button class="grey post"><fmt:message key="${lang.localeId}.callForProposal.createPost"/> </button>&nbsp;
 						</c:if>		
 						<button class="grey copy"><fmt:message key="${lang.localeId}.callForProposal.copy"/></button>&nbsp;
-						<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;
 						<button class="grey" onclick="window.location='welcome.html';return false;"><fmt:message key="${lang.localeId}.callForProposal.mainMenu"/> </button>&nbsp;		
 						<button class="grey" onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>&nbsp;		
+						<button class="grey delete"><fmt:message key="${lang.localeId}.general.delete"/></button>&nbsp;
 					</td>
 				</tr>
 				

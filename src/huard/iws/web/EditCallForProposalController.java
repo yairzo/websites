@@ -13,6 +13,7 @@ import huard.iws.service.CallForProposalService;
 import huard.iws.service.CountryService;
 import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
+import huard.iws.service.PersonListService;
 import huard.iws.service.SubjectService;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.LanguageUtils;
@@ -207,7 +208,7 @@ public class EditCallForProposalController extends GeneralFormController{
 			model.put("deskAssistants", deskAssistants);
 			
 			//desks
-			List<MopDesk> mopDesks = mopDeskService.getMopDesks();
+			List<MopDesk> mopDesks = mopDeskService.getPublishingMopDesks();
 			model.put("mopDesks", mopDesks);
 			
 			//countries
@@ -215,6 +216,13 @@ public class EditCallForProposalController extends GeneralFormController{
 			for(Integer countryId:callForProposalBean.getCountryIds())
 				countries.add(countryService.getCountry(countryId));
 			model.put("countries", countries);
+					
+			//creators
+			int listId = configurationService.getConfigurationInt("post","postCreatorsListId");
+			List<PersonBean> creators = personListService.getPersonsList(listId, language.getLocaleId());
+			model.put("creators", creators);
+
+					
 
 			//online
 			if(callForProposalService.existsCallForProposalOnline(callForProposalBean.getId()))
@@ -287,5 +295,10 @@ public class EditCallForProposalController extends GeneralFormController{
 		this.countryService = countryService;
 	}
 	
+	private PersonListService personListService;
+
+	public void setPersonListService(PersonListService personListService) {
+		this.personListService = personListService;
+	}
 
 }
