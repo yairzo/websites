@@ -895,6 +895,14 @@ direction:ltr;
 	cursor:pointer;
 	color:#AFAFAF;
 }
+.close_datepicker_dialog{
+	text-align:right;
+	float:right;
+}
+.close_datepicker_dialog:hover{
+	cursor:pointer;
+	color:#AFAFAF;
+}
 .lt-ie9 .callForProposalsPerDay{background:url(/image/website/trans_black.png) repeat top;}
 
 .callForProposalsPerDay .clearfix{
@@ -2031,7 +2039,7 @@ float:left;
 padding:0 6px 0 8px;
 background:url(/image/website/login_bt_left.png) no-repeat left;
 font-size:14px;
-font-family:"almoni-tzar";
+font-family:Arial;
 font-weight:normal;
 color:#666666;
 text-shadow: 1px 1px #ffffff, -1px 0px #c0c0c0;

@@ -904,7 +904,14 @@ direction:ltr;
 	cursor:pointer;
 	color:#AFAFAF;
 }
-
+.close_datepicker_dialog{
+	text-align:right;
+	float:right;
+}
+.close_datepicker_dialog:hover{
+	cursor:pointer;
+	color:#AFAFAF;
+}
 .lt-ie9 .callForProposalsPerDay{background:url(/image/website/trans_black.png) repeat top;}
 
 .callForProposalsPerDay .clearfix{
