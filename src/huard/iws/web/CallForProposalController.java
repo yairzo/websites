@@ -107,6 +107,10 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		}
 		model.put("callForProposalContacts", callForProposalContacts);
 		
+		if(callForProposalBean.getStrippedFundingPeriod().isEmpty() && callForProposalBean.getStrippedAmountOfGrant().isEmpty() && callForProposalBean.getStrippedEligibilityRequirements().isEmpty() && 
+				callForProposalBean.getStrippedActivityLocation().isEmpty() && callForProposalBean.getStrippedPossibleCollaboration().isEmpty())
+			model.put("fundingDetailsIsEmpty", true);
+		
 		boolean authorized= true;	
 		if(!userPersonBean.isAuthorized("ROLE_WEBSITE_READ") && !userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT") && !userPersonBean.isAuthorized("ROLE_WEBSITE_ADMIN")  && !userPersonBean.isAuthorized("ROLE_WEBSITE_HUJI"))
 			authorized= false;	

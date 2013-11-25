@@ -20,6 +20,8 @@ public interface FundDao {
 
 	public List<Fund> getTemporaryFunds();
 
+	public List<Fund> getNonTemporaryFunds();
+
 	public List<Fund> getFundsByDeskId( int mopDeskId);
 
 	public Fund getArdFund(int id, String server);

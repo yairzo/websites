@@ -66,6 +66,11 @@ public class TextUtils {
 
 	public static String cleanHtmlFromEditor(String html){
 		html=html.replaceAll("<[/]{0,1}p.*?>","");
+		html=html.replaceAll("^<br>$","");//if only break in field
+		return html;
+	}
+	public static String cleanBrFromEditor(String html){
+		html=html.replaceAll("^<br>$","");//if only break in field
 		return html;
 	}
 

@@ -5,6 +5,11 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
 
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+
 html,
 button,
 input,

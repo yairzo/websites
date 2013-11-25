@@ -11,6 +11,7 @@
 </style>
 
 <script language="Javascript">
+var countryArr= new Array();
 
 function resetAutocomplete(funds){
 	$("#searchPhrase").autocomplete( 
@@ -97,7 +98,8 @@ $(document).ready(function() {
 	
 	$("#editFund").click(function(e){
 		e.preventDefault();
-		window.location="fund.html?id="+$("#fundId").val();
+		if($("#fundId").val()!='' && $("#fundId").val()!=0)
+			window.location="fund.html?id="+$("#fundId").val();
 	});
 	
 	$("#newTempFund").click(function(e){
@@ -315,7 +317,6 @@ $(document).ready(function() {
 		$('form#form').submit();
 	});
 	
-	var countryArr= new Array();
 	<c:forEach items="${countries}" var="country" varStatus="varStatus">
 	countryArr.push(${country.id});
 	</c:forEach> 
@@ -563,105 +564,93 @@ $(document).ready(function() {
 		if(CKEDITOR.instances['editor13']==null)
 			CKEDITOR.inline('editor13');
 
-	    $("#editor1").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor1'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($("#editor1").html());
+	      	$("#editor1").html(text);
+	      	alert(text);
+			$('.editorTextarea', $("#editor1").closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 
-		$("#editor2").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor2'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($("#editor2").html());
+	      	$("#editor2").html(text);
+			$('.editorTextarea', $("#editor2").closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 
-	    $("#editor3").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor3'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($("#editor3").html());
+	      	$("#editor3").html(text);
+			$('.editorTextarea', $("#editor3").closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 
-	    $("#editor4").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor4'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($("#editor4").html());
+	      	$("#editor4").html(text);
+			$('.editorTextarea', $("#editor4").closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 
-	    $("#editor5").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor5'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($("#editor5").html());
+	      	$("#editor5").html(text);
+			$('.editorTextarea', $("#editor5").closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 
-	    $("#editor6").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor6'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($("#editor6").html());
+	      	$("#editor6").html(text);
+			$('.editorTextarea', $("#editor6").closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 
-	    $("#editor7").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor7'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($('#editor7').html());
+	      	$('#editor7').html(text);
+			$('.editorTextarea', $('#editor7').closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 
-	    $("#editor8").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor8'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($('#editor8').html());
+	      	$('#editor8').html(text);
+			$('.editorTextarea', $('#editor8').closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 	    
-	    $("#editor9").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor9'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($('#editor9').html());
+	      	$('#editor9').html(text);
+			$('.editorTextarea', $('#editor9').closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 
-	    $("#editor10").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor10'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($('#editor10').html());
+	      	$('#editor10').html(text);
+			$('.editorTextarea', $('#editor10').closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 
-	    $("#editor11").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor11'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($('#editor11').html());
+	      	$('#editor11').html(text);
+			$('.editorTextarea', $('#editor11').closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
-	    $("#editor12").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor12'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($('#editor12').html());
+	      	$('#editor12').html(text);
+			$('.editorTextarea', $('#editor12').closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
-	    $("#editor13").on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($(this).html());
-	      	if(text.length==0) text+="&nbsp;";
-	      	$(this).html(text);
-			$('.editorTextarea', $(this).closest("table")).val(text);
+		CKEDITOR.instances['editor13'].on('blur', function(e) {
+	      	var text = replaceURLWithHTMLLinks($('#editor13').html());
+	      	$('#editor13').html(text);
+			$('.editorTextarea', $('#editor13').closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
 
@@ -811,14 +800,21 @@ function checkErrors(){
 	else{
 		$("#errororiginalCallWebAddress").html('');
 	}
+	if($("#targetAudience").val()=='0'){
+		errors = true;
+		$("#errortargetAudience").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterTargetAudience"/><font color="red"><br>');
+	}
+	else{
+		$("#errortargetAudience").html('');
+	}
 
-	//if(countryArr.length==0){ 
-	//	errors = true;
-	//	$("#errorcountries").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterCountry"/><font color="red"><br>');
-	//} 
-	//else{ 
-	//	$("#errorcountries").html(''); 
-	//} 
+	if(countryArr.length==0){ 
+		errors = true;
+		$("#errorcountries").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterCountry"/><font color="red"><br>');
+	} 
+	else{ 
+		$("#errorcountries").html(''); 
+	} 
 
 	var counter =0;
 	$('input.subSubject').each(function(){

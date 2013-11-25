@@ -428,7 +428,7 @@ public class CallForProposalBean {
 	}
 
 	public String getSubmissionDetails() {
-		return submissionDetails;
+		return TextUtils.cleanBrFromEditor(submissionDetails);
 	}
 
 	public void setSubmissionDetails(String submissionDetails) {
@@ -436,7 +436,7 @@ public class CallForProposalBean {
 	}
 
 	public String getContactPersons() {
-		return contactPersons;
+		return TextUtils.cleanBrFromEditor(contactPersons);
 	}
 
 	public void setContactPersons(String contactPersons) {
@@ -444,7 +444,7 @@ public class CallForProposalBean {
 	}
 
 	public String getContactPersonDetails() {
-		return contactPersonDetails;
+		return TextUtils.cleanBrFromEditor(contactPersonDetails);
 	}
 
 	public void setContactPersonDetails(String contactPersonDetails) {
@@ -452,14 +452,14 @@ public class CallForProposalBean {
 	}
 
 	public String getFundContact() {
-		return fundContact;
+		return TextUtils.cleanBrFromEditor(fundContact);
 	}
 
 	public void setFundContact(String fundContact) {
 		this.fundContact = fundContact;
 	}
 	public String getFormDetails() {
-		return formDetails;
+		return TextUtils.cleanBrFromEditor(formDetails);
 	}
 
 	public void setFormDetails(String formDetails) {
@@ -468,7 +468,7 @@ public class CallForProposalBean {
 
 
 	public String getDescription() {
-		return description;
+		return TextUtils.cleanBrFromEditor(description);
 	}
 
 	public void setDescription(String description) {
@@ -536,7 +536,7 @@ public class CallForProposalBean {
 	}
 
 	public String getBudgetDetails() {
-		return budgetDetails;
+		return TextUtils.cleanBrFromEditor(budgetDetails);
 	}
 
 	public void setBudgetDetails(String budgetDetails) {
@@ -544,7 +544,7 @@ public class CallForProposalBean {
 	}
 	
 	public String getAdditionalInformation() {
-		return additionalInformation;
+		return TextUtils.cleanBrFromEditor(additionalInformation);
 	}
 
 	public void setAdditionalInformation(String additionalInformation) {

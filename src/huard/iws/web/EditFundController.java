@@ -27,14 +27,18 @@ public class EditFundController extends GeneralFormController {
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
 		FundBean fundBean = (FundBean) command;
+		Map <String,Object> newModel = new HashMap<String, Object>();
 
 		String action = request.getParameter("action", "");
 
 		if (action.equals("edit")){
 			fundService.updateFund(fundBean.toFund());
 		}
+		if (action.equals("delete")){
+			fundService.deleteFund(fundBean.getFinancialId());
+			return new ModelAndView(new RedirectView("funds.html"), newModel );
+		}
 
-		Map <String,Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", fundBean.getFinancialId());
 		return new ModelAndView(new RedirectView("fund.html"), newModel );
 
@@ -48,11 +52,13 @@ public class EditFundController extends GeneralFormController {
 		int id = request.getIntParameter("id", 0);
 		if (request.getParameter("action", "").equals("new") || id == 0){
 			Fund fund= new Fund();
-			if(request.getBooleanParameter("temporary", false))
+			if(request.getBooleanParameter("temporary", false)){
 				fund.setTemporary(true);
-			fund.setHtml("");
-			fund.setFinancialId(fundService.getMaxFinancialIdForTemporary());
-			fundService.insertFund(fund);
+				fund.setFinancialId(fundService.getMaxFinancialIdForTemporary());
+			}
+			int key=fundService.insertFund(fund);
+			if(fund.getFinancialId()==0)
+				fund.setFinancialId(key);
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",fund.getFinancialId());
 			return new ModelAndView ( new RedirectView("fund.html"), newModel);
@@ -75,7 +81,7 @@ public class EditFundController extends GeneralFormController {
 				|| request.getParameter("action","").equals("new")
 				|| id == 0)
 			return fundBean;
-		
+
 		fundBean = new FundBean(fundService.getFundByFinancialId(id));
 		return fundBean;
 	}

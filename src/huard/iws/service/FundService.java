@@ -23,6 +23,8 @@ public interface FundService {
 
 	public List<Fund> getTemporaryFunds();
 
+	public List<Fund> getNonTemporaryFunds();
+
 	public List<Fund> getFilteredFunds(String term);
 
 	public Map<Integer, Fund> getFundsMap();

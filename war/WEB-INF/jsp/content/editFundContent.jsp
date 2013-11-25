@@ -21,8 +21,6 @@ $(document).ready(function() {
 </script>
 
 
-
-
 <tr>
 	<td align="right" bgcolor="#787669" height="20">
 		<c:set var="applicationName" value="מערכת אינטרנט הרשות למו\"פ"/>
@@ -136,10 +134,11 @@ $(document).ready(function() {
 
 					<tr>
 						<td colspan="2">
-						<button class="save grey">שמור</button>
+						<button class="save grey">שמירה</button>
 
-						&nbsp;&nbsp;
-
+						&nbsp;
+						<button class="delete grey">מחיקה</button>
+&nbsp;
 						<button class="grey" onclick="history.back();return false;">חזרה למסך קודם </button>		
 						</td>
 					</tr>

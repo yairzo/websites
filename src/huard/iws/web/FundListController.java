@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class TemporaryFundListController extends GeneralFormController {
+public class FundListController extends GeneralFormController {
 
 
 	protected ModelAndView onSubmit(Object command,
@@ -31,25 +31,31 @@ public class TemporaryFundListController extends GeneralFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
-
+		List<Fund> funds = fundService.getNonTemporaryFunds();
+		List<FundBean> fundBeans = new ArrayList<FundBean>();
+		for (Fund fund: funds){
+			FundBean fundBean = new FundBean(fund);
+			fundBeans.add(fundBean);
+		}
+		model.put("funds", fundBeans);
 		List<Fund> temporaryFunds = fundService.getTemporaryFunds();
 		List<FundBean> temporaryFundBeans = new ArrayList<FundBean>();
-		for (Fund temporaryFund: temporaryFunds){
-			FundBean temporaryFundBean = new FundBean(temporaryFund);
-			temporaryFundBeans.add(temporaryFundBean);
+		for (Fund tempfund: temporaryFunds){
+			FundBean fundBean = new FundBean(tempfund);
+			temporaryFundBeans.add(fundBean);
 		}
 		model.put("temporaryFunds", temporaryFundBeans);
 
-		return new ModelAndView ("temporaryFunds",model);
+		return new ModelAndView ("funds",model);
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
-		TemporaryFundListControllerCommand command = new TemporaryFundListControllerCommand();
+		FundListControllerCommand command = new FundListControllerCommand();
 		return command;
 	}
 
-	public class TemporaryFundListControllerCommand{
+	public class FundListControllerCommand{
 		private SearchCreteria searchCreteria = new SearchCreteria();
 		private ListView listView = new ListView();
 

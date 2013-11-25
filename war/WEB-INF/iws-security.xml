@@ -112,6 +112,7 @@
      			/editCallForProposal.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
     			/textualPages.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
      			/editTextualPage.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
+     			/funds.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
      		</value>
   		</property>
 	</bean>

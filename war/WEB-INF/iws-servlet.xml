@@ -337,11 +337,11 @@
         </property>
      </bean>
  
-  	<bean id="temporaryFundListController" class="huard.iws.web.TemporaryFundListController" parent="generalFormController">
+  	<bean id="fundListController" class="huard.iws.web.FundListController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
-        <property name="commandClass"><value>huard.iws.web.TemporaryFundListController$TemporaryFundListControllerCommand</value></property>
-        <property name="formView"><value>temporaryFunds</value></property>
-        <property name="successView"><value>temporaryFunds.html</value></property>
+        <property name="commandClass"><value>huard.iws.web.FundListController$FundListControllerCommand</value></property>
+        <property name="formView"><value>funds</value></property>
+        <property name="successView"><value>funds.html</value></property>
      	<property name="fundService">
             <ref bean="fundService"/>
         </property>
@@ -1266,7 +1266,7 @@
 				<prop key="/sitemap.html">sitemapController</prop>
 				<prop key="/category.html">editCategoryController</prop>
 				<prop key="/fund.html">editFundController</prop>
-				<prop key="/temporaryFunds.html">temporaryFundListController</prop>
+				<prop key="/funds.html">fundListController</prop>
 				<prop key="/searchCallForProposals.html">searchCallForProposalsController</prop>
 				<prop key="/homePage.html">websiteHomePageController</prop>
 				<prop key="/homePageCalendar.html">homePageCalendarController</prop>

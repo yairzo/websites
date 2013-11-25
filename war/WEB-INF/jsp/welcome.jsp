@@ -294,6 +294,11 @@ $(document).ready(function() {
 								<a style="text-decoration: none" href="/active.html">צפייה במשתמשים הפעילים </a>
 							</th>
 						</tr>
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="/funds.html">צפייה ועריכת מממנים </a>
+							</th>
+						</tr>
 						</authz:authorize>
 						
 						</c:if><!-- end > not title code 2 (not conference proposal) -->

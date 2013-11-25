@@ -87,6 +87,7 @@
 							
 							<c:if test="${authorized && !command.showDescriptionOnly}">
 							
+							<c:if test="${!fundingDetailsIsEmpty}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_dolar.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.fundingDetails"/></h3>
@@ -102,6 +103,7 @@
 									</p>
 								</div>
 							</div>
+							</c:if>
 							
 							<c:if test="${fn:length(command.formDetails)>0}">
 							<div class="kol kol_${copLang.dir}">

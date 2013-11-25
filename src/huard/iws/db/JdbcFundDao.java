@@ -76,6 +76,7 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 	};
 
 	public void updateFund(Fund fund){
+
 		String query = "update fund set " +
 				" name = ?" +
 				", shortName = ?" +
@@ -118,6 +119,8 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 				SQLUtils.getTimestampString(fund.getCreationTime()),
 				SQLUtils.getTimestampString(fund.getUpdateTime()),
 				fund.getId());
+		
+
 	}
 
 	public int insertFund(Fund fund){
@@ -143,12 +146,18 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 		        }
 		    },
 		    keyHolder);
+		if(fund.getFinancialId()==0){
+			String query = "update fund set financialId=id where id=" +keyHolder.getKey().intValue();
+			getSimpleJdbcTemplate().update(query);
+		}
+
 		return keyHolder.getKey().intValue();
 	}
 
-	public void deleteFund(int fundId){
-		String query = "update fund set isDeleted = 1 where id = ?;";
-		getSimpleJdbcTemplate().update(query, fundId);
+	public void deleteFund(int financialId){
+		String query = "delete from fund where financialId = ?;";
+		System.out.println("111111111111:" + query+ financialId);
+		getSimpleJdbcTemplate().update(query, financialId);
 	}
 
 	public List<Fund> getFunds() {
@@ -164,7 +173,12 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 			getSimpleJdbcTemplate().query(query, rowMapper);
 		return funds;
     }
-
+	public List<Fund> getNonTemporaryFunds() {
+		String query = "select * from fund where isTemporary=0 order by shortName";
+		List<Fund> funds =
+			getSimpleJdbcTemplate().query(query, rowMapper);
+		return funds;
+    }
 	public List<Fund> getFundsByDeskId( int mopDeskId) {
 		String query = "select * from fund where deskId = ? order by shortName";
 		List<Fund> funds =

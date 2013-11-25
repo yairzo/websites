@@ -49,6 +49,9 @@ public class FundServiceImpl implements FundService{
 		return fundDao.getTemporaryFunds();
 	}
 
+	public List<Fund> getNonTemporaryFunds(){
+		return fundDao.getNonTemporaryFunds();
+	}
 
 	public Map<Integer, Fund> getFundsMap(){
 		if (fundsMap == null){

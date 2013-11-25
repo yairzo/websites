@@ -188,18 +188,20 @@
 					<td colspan="3" style="border:1px #bca2a2 dotted;text-align:${lang.align}">
 						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.originalCallWebAddress"/> 
 						<form:input htmlEscape="true" cssClass="green long950" id="originalCallWebAddress" path="originalCallWebAddress" />
-						<div id="errororiginalCallWebAddress" title="שגיאה" dir="${lang.dir}">
+						<div id="errororiginalCallWebAddress" dir="${lang.dir}">
 					</td>
 				</tr>
 				<tr class="form">
 					<td style="border:1px #bca2a2 dotted;text-align:${lang.align}">
-  						<fmt:message key="${lang.localeId}.callForProposal.targetAudience"/>
+  						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.targetAudience"/>
        					<form:select path="targetAudience" cssClass="green" >
-      						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.targetAudience.all"/></form:option>
+      						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></form:option>
+      						<form:option value="4"><fmt:message key="${lang.localeId}.callForProposal.targetAudience.all"/></form:option>
       						<form:option value="1"><fmt:message key="${lang.localeId}.callForProposal.targetAudience.researcher"/></form:option>
       						<form:option value="2"><fmt:message key="${lang.localeId}.callForProposal.targetAudience.doctoral"/></form:option>
       						<form:option value="3"><fmt:message key="${lang.localeId}.callForProposal.targetAudience.postdoctoral"/></form:option>
-        		        </form:select>					
+        		        </form:select>	
+        		        <div id="errortargetAudience" dir="${lang.dir}">
         		     </td>
 					<td colspan="2" style="border:1px #bca2a2 dotted">&nbsp;
  					</td> 
@@ -252,6 +254,228 @@
                 <tr class="form">
 					<td colspan="4" align="${lang.align}"><h3><fmt:message key="${lang.localeId}.callForProposal.details"/></h3></td>
 				</tr>
+
+				<tr>
+					<td colspan="4">
+					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr>
+					<th colspan="3" align="${lang.align}">
+      					<fmt:message key="${lang.localeId}.callForProposal.description"/><br>
+ 					</th>
+					</tr>				
+ 					<tr>
+					<td colspan="3" align="center">
+ 						<div class="editor" id="editor2" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.description}
+  						</div>
+           				<textarea class="green editorTextarea" id="description" name="description" cols="100" rows="1" style="display:none">${command.description}</textarea>
+   					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+				</tr>	
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
+					<td colspan="4">
+					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr>
+					<th colspan="3" align="${lang.align}">
+      				<fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/>	<br>
+ 					</th>
+					</tr>				
+ 					<tr>
+					<td colspan="3" align="center">
+						<div class="editor" id="editor5" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.fundingPeriod}
+  						</div>
+           				<textarea class="green editorTextarea" id="fundingPeriod" name="fundingPeriod" cols="100" rows="1" style="display:none">${command.fundingPeriod}</textarea>
+ 					</td>
+ 					</tr>
+  					</table>
+  					</td>
+  					</tr>
+  					</table>
+ 					</td>
+ 				</tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+ 				<tr class="notDescriptionOnly">
+					<td colspan="4">
+					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr>
+					<th colspan="3" align="${lang.align}">
+      				<fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/>	<br>
+ 					</th>
+					</tr>				
+ 					<tr>
+					<td colspan="3" align="center">
+						<div class="editor" id="editor6" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.amountOfGrant}
+  						</div>
+           				<textarea class="green editorTextarea" id="amountOfGrant" name="amountOfGrant" cols="100" rows="1" style="display:none">${command.amountOfGrant}</textarea>
+ 					</td>
+ 					</tr>
+  					</table>
+  					</td>
+  					</tr>
+  					</table>
+ 					</td>
+				</tr>
+ 				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
+					<td colspan="4">
+					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr>
+					<th colspan="3" align="${lang.align}">
+      					<fmt:message key="${lang.localeId}.callForProposal.eligibilityRequirements"/><br>
+ 					</th>
+					</tr>				
+ 					<tr>
+					<td colspan="3" align="center">
+						<div class="editor" id="editor7" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.eligibilityRequirements}
+  						</div>
+           				<textarea class="green editorTextarea" id="eligibilityRequirements" name="eligibilityRequirements" cols="100" rows="1" style="display:none">${command.eligibilityRequirements}</textarea>
+					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+				</tr>											
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
+					<td colspan="4">
+					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr>
+					<th colspan="3" align="${lang.align}">
+      				<fmt:message key="${lang.localeId}.callForProposal.activityLocation"/>	<br>
+ 					</th>
+					</tr>				
+ 					<tr>
+					<td colspan="3" align="center">
+						<div class="editor" id="editor8" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.activityLocation}
+  						</div>
+           				<textarea class="green editorTextarea" id="activityLocation" name="activityLocation" cols="100" rows="1" style="display:none">${command.activityLocation}</textarea>
+ 					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+				</tr>											
+				<tr><td>&nbsp;</td></tr>	
+				<tr>
+					<td colspan="4">
+					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr>
+					<th colspan="3" align="${lang.align}">
+      				<fmt:message key="${lang.localeId}.callForProposal.possibleCollaboration"/>	<br>
+ 					</th>
+					</tr>				
+ 					<tr>
+					<td colspan="3" align="center">
+						<div class="editor" id="editor9" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.possibleCollaboration}
+  						</div>
+           				<textarea class="green editorTextarea" id="possibleCollaboration" name="possibleCollaboration" cols="100" rows="1" style="display:none">${command.possibleCollaboration}</textarea>
+  					</td>
+ 					</tr>
+ 					<tr>
+ 						<td>
+						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.selectCountry"/>
+						 <input type="text" class="green" style="width:130" id="selectCountry"/> 
+						 <hidden id="countryId" name="countryId" />
+						 <button class="grey addCountry"><fmt:message key="${lang.localeId}.callForProposal.addCountry"/></button>
+						<div id="countryDiv">
+							<c:forEach items="${countries}" var="country" varStatus="varStatus">
+							<p><input type="checkbox" class="countryCheck" id="${country.id}">
+								<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${country.nameHebrew}"/></c:if>
+	        					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${country.name}"/></c:if>
+							</p>
+							</c:forEach> 
+						</div>
+						<div id="deleteCountry" style="display:none">
+							<a href="" class="deleteCountry"><fmt:message key="${lang.localeId}.callForProposal.deleteCountry"/></a>
+						</div>
+					    <div id="errorcountries" title="שגיאה" dir="${lang.dir}">				
+						</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+ 					</tr>
+ 					</table>
+ 					</td>
+				</tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
+					<td colspan="4">
+					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+  					<tr>
+					<td colspan="3" style="border:1px #bca2a2 dotted">
+					<table width="950">
+  					<tr><th align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.forms"/></th>
+  					</tr>
+ 					<tr>
+					<td colspan="3" align="center">
+						<div class="editor" id="editor4" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.formDetails}
+  						</div>
+           				<textarea class="green editorTextarea" id="formDetails" name="formDetails" cols="100" rows="1" style="display:none">${command.formDetails}</textarea>
+  					</td>
+ 					</tr>
+  					<tr><td align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.uploadForms"/></td></tr>
+					<c:forEach items="${command.attachments}" var="attachment" varStatus="varStatus">
+					<tr>
+					<td colspan="3" style="text-align:${lang.align}">
+						<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="formDetails"><a style="text-decoration:underline" href="/fileViewer?callForProposalId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}"
+								target="_blank">${attachment.title}</a> </span>
+						&nbsp;&nbsp;<a href="" class="deleteAttachment" id="${attachment.id}">מחק</a>
+					</td>
+					</tr>
+					</c:forEach>
+					<tr>
+  					<tr>
+  					<td colspan="2" text-align="${lang.align}">
+  						<div style="display: block; width: 90px; height: 27px; overflow: hidden;">
+							<button class="grey" style="width: 90px; height: 24px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)"><fmt:message key="${lang.localeId}.callForProposal.addFile"/></a></button>
+							<input type="file" style="font-size: 50px; width: 90px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="formAttach" id="formAttach"/> 
+						</div>
+  					</td>
+  					</tr>
+					<td>
+					</td>
+					</tr>
+  					</table>
+  					</td>
+  					</tr>
+  					</table>
+ 					</td>
+ 				</tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
 				<tr class="notDescriptionOnly">
 					<td colspan="4" >
 					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
@@ -259,14 +483,14 @@
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					<table width="950">
 					<tr>
-					<td colspan="3" align="${lang.align}">
+					<th colspan="3" align="${lang.align}">
       				<fmt:message key="${lang.localeId}.callForProposal.submissionDetails"/>	<br>
- 					</td>
+ 					</th>
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
- 						<div class="editor" id="editor1" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.submissionDetails}<c:if test="${fn:length(command.submissionDetails)<5}">&nbsp;&nbsp;</c:if>
+ 						<div class="editor" id="editor1" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.submissionDetails}
   						</div>
            				<textarea class="green editorTextarea" id="submissionDetails" name="submissionDetails" cols="100" rows="1" style="display:none">${command.submissionDetails}</textarea>
  					</td>
@@ -308,54 +532,49 @@
  					</table>
  					</td>
 				</tr>
-				<tr><td>&nbsp;</td></tr>	
-				<tr>
+				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
+				<tr class="notDescriptionOnly">
 					<td colspan="4">
-					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
   					<tr>
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					<table width="950">
   					<tr>
-					<td colspan="3" align="${lang.align}">
-      					<fmt:message key="${lang.localeId}.callForProposal.description"/><br>
- 					</td>
+					<th colspan="3" align="${lang.align}">
+      				<fmt:message key="${lang.localeId}.callForProposal.budgetDetails"/>	<br>
+ 					</th>
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
- 						<div class="editor" id="editor2" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.description}	<c:if test="${fn:length(command.description)<5}">&nbsp;&nbsp;</c:if>
+						<div class="editor" id="editor10" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.budgetDetails}
   						</div>
-           				<textarea class="green editorTextarea" id="description" name="description" cols="100" rows="1" style="display:none">${command.description}</textarea>
-   					</td>
+           				<textarea class="green editorTextarea" id="budgetDetails" name="budgetDetails" cols="100" rows="1" style="display:none">${command.budgetDetails}</textarea>
+ 					</td>
  					</tr>
+ 					<c:forEach items="${deskBudgetPersons}" var="deskBudgetPerson" varStatus="varStatus">
+					<tr>
+					<td colspan="3" style="text-align:${lang.align}">
+					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;
+					<span id="addedText" class="budgetDetails">
+					<fmt:message key="${lang.localeId}.callForProposal.budgetApprover"/> 
+					<a href="mailto:${deskBudgetPerson.email}">
+					<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameHebrew}"/></c:if>
+   					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameEnglish}"/></c:if>
+					</a>
+					<img src="/image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskBudgetPerson.title}"></c:out> 
+					<img src="/image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskBudgetPerson.phone}"></c:out>
+					</span>
+					</td>
+					</tr>
+					</c:forEach>
  					</table>
  					</td>
  					</tr>
  					</table>
  					</td>
-				</tr>	
-				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
-				<tr class="notDescriptionOnly">
-					<td colspan="4">
-					<table width="950"style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-  					<tr>
-					<td colspan="3" style="border:1px #bca2a2 dotted">
-					<table width="950">
-  					<tr><td align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactPersonDetails"/></td>
-  					</tr>
- 					<tr>
-					<td colspan="3" align="center">
-						<div class="editor" id="editor3" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.contactPersonDetails}	<c:if test="${fn:length(command.contactPersonDetails)<5}">&nbsp;&nbsp;</c:if>
-  						</div>
-           				<textarea class="green editorTextarea" id="contactPersonDetails" name="contactPersonDetails" cols="100" rows="1" style="display:none">${command.contactPersonDetails}</textarea>
- 					</td>
- 					</tr>
- 					</table>
- 					</td>
- 					</tr>
- 					</table>
 				</tr>
+
 				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
 				<tr class="notDescriptionOnly">
 					<td colspan="4">
@@ -363,12 +582,12 @@
   					<tr>
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					<table width="950">
-  					<tr><td align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactPersons"/></td>
+  					<tr><th align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactPersons"/></th>
   					</tr>
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" id="editor13" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.contactPersons}<c:if test="${fn:length(command.contactPersons)<5}">&nbsp;&nbsp;</c:if>
+						<div class="editor" id="editor13" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.contactPersons}
   						</div>
            				<textarea class="green editorTextarea" id="contactPersons" name="contactPersons" cols="100" rows="1" style="display:none">${command.contactPersons}</textarea>
  					</td>
@@ -401,12 +620,12 @@
   					<tr>
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					<table width="950">
-  					<tr><td align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactAtFund"/></td>
+  					<tr><th align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactAtFund"/></th>
   					</tr>
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" id="editor12" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.fundContact}	<c:if test="${fn:length(command.fundContact)<5}">&nbsp;&nbsp;</c:if>
+						<div class="editor" id="editor12" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.fundContact}
   						</div>
            				<textarea class="green editorTextarea" id="fundContact" name="fundContact" cols="100" rows="1" style="display:none">${command.fundContact}</textarea>
  					</td>
@@ -423,122 +642,21 @@
   					<tr>
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					<table width="950">
-  					<tr><td align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.forms"/></td>
+  					<tr><th align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactPersonDetails"/></th>
   					</tr>
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" id="editor4" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.formDetails}	<c:if test="${fn:length(command.formDetails)<5}">&nbsp;&nbsp;</c:if>
+						<div class="editor" id="editor3" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.contactPersonDetails}
   						</div>
-           				<textarea class="green editorTextarea" id="formDetails" name="formDetails" cols="100" rows="1" style="display:none">${command.formDetails}</textarea>
-  					</td>
- 					</tr>
-  					<tr><td align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.uploadForms"/></td></tr>
-					<c:forEach items="${command.attachments}" var="attachment" varStatus="varStatus">
-					<tr>
-					<td colspan="3" style="text-align:${lang.align}">
-						<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="formDetails"><a style="text-decoration:underline" href="/fileViewer?callForProposalId=${command.id}&attachmentId=${attachment.id}&contentType=${attachment.contentType}"
-								target="_blank">${attachment.title}</a> </span>
-						&nbsp;&nbsp;<a href="" class="deleteAttachment" id="${attachment.id}">מחק</a>
-					</td>
-					</tr>
-					</c:forEach>
-					<tr>
-  					<tr>
-  					<td colspan="2" text-align="${lang.align}">
-  						<div style="display: block; width: 90px; height: 27px; overflow: hidden;">
-							<button class="grey" style="width: 90px; height: 24px; position: relative; top: -1px; left: -1px;"><a href="javascript: void(0)"><fmt:message key="${lang.localeId}.callForProposal.addFile"/></a></button>
-							<input type="file" style="font-size: 50px; width: 90px; opacity: 0; filter:alpha(opacity: 0);  position: relative; top: -40px; left: -5px" name="formAttach" id="formAttach"/> 
-						</div>
-  					</td>
-  					</tr>
-					<td>
-					</td>
-					</tr>
-  					</table>
-  					</td>
-  					</tr>
-  					</table>
- 					</td>
- 				</tr>
-				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
-				<tr class="notDescriptionOnly">
-					<td colspan="4">
-					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-  					<tr>
-					<td colspan="3" style="border:1px #bca2a2 dotted">
-					<table width="950">
-  					<tr>
-					<td colspan="3" align="${lang.align}">
-      				<fmt:message key="${lang.localeId}.callForProposal.fundingPeriod"/>	<br>
- 					</td>
-					</tr>				
- 					<tr>
-					<td colspan="3" align="center">
-						<div class="editor" id="editor5" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.fundingPeriod}	<c:if test="${fn:length(command.fundingPeriod)<5}">&nbsp;&nbsp;</c:if>
-  						</div>
-           				<textarea class="green editorTextarea" id="fundingPeriod" name="fundingPeriod" cols="100" rows="1" style="display:none">${command.fundingPeriod}</textarea>
+           				<textarea class="green editorTextarea" id="contactPersonDetails" name="contactPersonDetails" cols="100" rows="1" style="display:none">${command.contactPersonDetails}</textarea>
  					</td>
  					</tr>
-  					</table>
-  					</td>
-  					</tr>
-  					</table>
- 					</td>
- 				</tr>
-				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
- 				<tr class="notDescriptionOnly">
-					<td colspan="4">
-					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-  					<tr>
-					<td colspan="3" style="border:1px #bca2a2 dotted">
-					<table width="950">
-  					<tr>
-					<td colspan="3" align="${lang.align}">
-      				<fmt:message key="${lang.localeId}.callForProposal.amountOfGrant"/>	<br>
- 					</td>
-					</tr>				
- 					<tr>
-					<td colspan="3" align="center">
-						<div class="editor" id="editor6" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.amountOfGrant}	<c:if test="${fn:length(command.amountOfGrant)<5}">&nbsp;&nbsp;</c:if>
-  						</div>
-           				<textarea class="green editorTextarea" id="amountOfGrant" name="amountOfGrant" cols="100" rows="1" style="display:none">${command.amountOfGrant}</textarea>
+ 					</table>
  					</td>
  					</tr>
-  					</table>
-  					</td>
-  					</tr>
-  					</table>
- 					</td>
+ 					</table>
 				</tr>
- 				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
-				<tr class="notDescriptionOnly">
-					<td colspan="4">
-					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-  					<tr>
-					<td colspan="3" style="border:1px #bca2a2 dotted">
-					<table width="950">
-  					<tr>
-					<td colspan="3" align="${lang.align}">
-      					<fmt:message key="${lang.localeId}.callForProposal.eligibilityRequirements"/><br>
- 					</td>
-					</tr>				
- 					<tr>
-					<td colspan="3" align="center">
-						<div class="editor" id="editor7" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.eligibilityRequirements}	<c:if test="${fn:length(command.eligibilityRequirements)<5}">&nbsp;&nbsp;</c:if>
-  						</div>
-           				<textarea class="green editorTextarea" id="eligibilityRequirements" name="eligibilityRequirements" cols="100" rows="1" style="display:none">${command.eligibilityRequirements}</textarea>
-					</td>
- 					</tr>
- 					</table>
- 					</td>
- 					</tr>
- 					</table>
- 					</td>
-				</tr>											
 				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
 				<tr class="notDescriptionOnly">
 					<td colspan="4">
@@ -547,128 +665,14 @@
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					<table width="950">
   					<tr>
-					<td colspan="3" align="${lang.align}">
-      				<fmt:message key="${lang.localeId}.callForProposal.activityLocation"/>	<br>
- 					</td>
-					</tr>				
- 					<tr>
-					<td colspan="3" align="center">
-						<div class="editor" id="editor8" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.activityLocation}	<c:if test="${fn:length(command.activityLocation)<5}">&nbsp;&nbsp;</c:if>
-  						</div>
-           				<textarea class="green editorTextarea" id="activityLocation" name="activityLocation" cols="100" rows="1" style="display:none">${command.activityLocation}</textarea>
- 					</td>
- 					</tr>
- 					</table>
- 					</td>
- 					</tr>
- 					</table>
- 					</td>
-				</tr>											
-				<tr><td>&nbsp;</td></tr>	
-				<tr>
-					<td colspan="4">
-					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-  					<tr>
-					<td colspan="3" style="border:1px #bca2a2 dotted">
-					<table width="950">
-  					<tr>
-					<td colspan="3" align="${lang.align}">
-      				<fmt:message key="${lang.localeId}.callForProposal.possibleCollaboration"/>	<br>
- 					</td>
-					</tr>				
- 					<tr>
-					<td colspan="3" align="center">
-						<div class="editor" id="editor9" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.possibleCollaboration}<c:if test="${fn:length(command.possibleCollaboration)<5}">&nbsp;&nbsp;</c:if>
-  						</div>
-           				<textarea class="green editorTextarea" id="possibleCollaboration" name="possibleCollaboration" cols="100" rows="1" style="display:none">${command.possibleCollaboration}</textarea>
-  					</td>
- 					</tr>
- 					<tr>
- 						<td>
-						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.selectCountry"/>
-						 <input type="text" class="green" style="width:130" id="selectCountry"/> 
-						 <hidden id="countryId" name="countryId" />
-						 <button class="grey addCountry"><fmt:message key="${lang.localeId}.callForProposal.addCountry"/></button>
-						<div id="countryDiv">
-							<c:forEach items="${countries}" var="country" varStatus="varStatus">
-							<p><input type="checkbox" class="countryCheck" id="${country.id}">
-								<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${country.nameHebrew}"/></c:if>
-	        					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${country.name}"/></c:if>
-							</p>
-							</c:forEach> 
-						</div>
-						<div id="deleteCountry" style="display:none">
-							<a href="" class="deleteCountry"><fmt:message key="${lang.localeId}.callForProposal.deleteCountry"/></a>
-						</div>
-					    <div id="errorcountries" title="שגיאה" dir="${lang.dir}">				
-						</td>
- 					</tr>
- 					</table>
- 					</td>
- 					</tr>
- 					</table>
- 					</td>
-				</tr>											
-				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
-				<tr class="notDescriptionOnly">
-					<td colspan="4">
-					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-  					<tr>
-					<td colspan="3" style="border:1px #bca2a2 dotted">
-					<table width="950">
-  					<tr>
-					<td colspan="3" align="${lang.align}">
-      				<fmt:message key="${lang.localeId}.callForProposal.budgetDetails"/>	<br>
- 					</td>
-					</tr>				
- 					<tr>
-					<td colspan="3" align="center">
-						<div class="editor" id="editor10" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.budgetDetails}<c:if test="${fn:length(command.budgetDetails)<5}">&nbsp;&nbsp;</c:if>
-  						</div>
-           				<textarea class="green editorTextarea" id="budgetDetails" name="budgetDetails" cols="100" rows="1" style="display:none">${command.budgetDetails}</textarea>
- 					</td>
- 					</tr>
- 					<c:forEach items="${deskBudgetPersons}" var="deskBudgetPerson" varStatus="varStatus">
-					<tr>
-					<td colspan="3" style="text-align:${lang.align}">
-					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;
-					<span id="addedText" class="budgetDetails">
-					<fmt:message key="${lang.localeId}.callForProposal.budgetApprover"/> 
-					<a href="mailto:${deskBudgetPerson.email}">
-					<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameHebrew}"/></c:if>
-   					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameEnglish}"/></c:if>
-					</a>
-					<img src="/image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskBudgetPerson.title}"></c:out> 
-					<img src="/image/bullet_orange_website.gif" width="12" height="8"><c:out value="${deskBudgetPerson.phone}"></c:out>
-					</span>
-					</td>
-					</tr>
-					</c:forEach>
- 					</table>
- 					</td>
- 					</tr>
- 					</table>
- 					</td>
-				</tr>											
-				<tr class="notDescriptionOnly"><td>&nbsp;</td></tr>	
-				<tr class="notDescriptionOnly">
-					<td colspan="4">
-					<table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
-  					<tr>
-					<td colspan="3" style="border:1px #bca2a2 dotted">
-					<table width="950">
-  					<tr>
-					<td colspan="3" align="${lang.align}">
+					<th colspan="3" align="${lang.align}">
       				<fmt:message key="${lang.localeId}.callForProposal.additionalInformation"/>	<br>
- 					</td>
+ 					</th>
 					</tr>				
  					<tr>
 					<td colspan="3" align="center">
-						<div class="editor" id="editor11" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
- 							${command.additionalInformation}<c:if test="${fn:length(command.additionalInformation)<5}">&nbsp;&nbsp;</c:if>
+						<div class="editor" id="editor11" contenteditable="true" style="min-height:18px;border:black thin dotted;text-align:${lang.align}">
+ 							${command.additionalInformation}
   						</div>
            				<textarea class="green editorTextarea" id="additionalInformation" name="additionalInformation" cols="100" rows="1" style="display:none">${command.additionalInformation }</textarea>
  					</td>
