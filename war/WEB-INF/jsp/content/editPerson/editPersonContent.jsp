@@ -40,6 +40,7 @@
 				<form:hidden path="yearFirstVisit"/>
 				<input type="hidden" name="cp" value="${cp}"/>
 				<input type="hidden" name="tc" value="${tc}"/>
+      			<form:hidden path="passValidation"/>
 				
 				<div id="genericDialog" title="עזרה" style="display:none" dir="rtl"></div>
 
@@ -68,7 +69,7 @@
                 </tr>
                 <tr class="form">
 						<td>
-							תעודת זהות:
+							${compulsoryFieldSign}תעודת זהות:
 						</td>
 						<td>
 							<c:choose>
@@ -88,7 +89,7 @@
 				</tr>
 
                 <tr class="form">
-					<td width="250"><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
+					<td width="250">${compulsoryFieldSign}
 						שם פרטי בעברית:
 					</td>
 					<td width="120">
@@ -101,7 +102,7 @@
 					</td>
 				</tr>
 				<tr class="form">
-					<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
+					<td>${compulsoryFieldSign}
 						שם משפחה בעברית:
 					</td>
 					<td>
@@ -139,7 +140,7 @@
 				<c:choose>
 				<c:when test="${!isConference}">
 				<tr class="form">
-					<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
+					<td>${compulsoryFieldSign}
 						שם פרטי באנגלית:
 					</td>
 					<td>
@@ -152,11 +153,11 @@
 					</td>
 				</tr>
 				<tr class="form">
-					<td><c:if test="${!isAdmin}">${compulsoryFieldSign}</c:if>
+					<td>${compulsoryFieldSign}
 						שם משפחה באנגלית:
 					</td>
 					<td>
-						<form:input  cssClass="green" path="lastNameEnglish"/>
+						<form:input cssClass="green" path="lastNameEnglish"/>
 					</td>
 				</tr>
 				<tr>

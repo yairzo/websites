@@ -99,6 +99,7 @@ public class PersonBean implements Serializable {
 	
 	private static final Logger logger = Logger.getLogger(PostBean.class);
 
+	private boolean passValidation;
 
 
 	public PersonBean() {
@@ -131,6 +132,7 @@ public class PersonBean implements Serializable {
 		this.postReceiveImmediately = false;
 		this.readsUTF8Mails = true;
 		this.localeId = "iw_IL";
+		this.passValidation=false;
 	}
 
 	public PersonBean(Person person) {
@@ -702,4 +704,11 @@ public class PersonBean implements Serializable {
 		PersonService personService = (PersonService) ApplicationContextProvider.getContext().getBean("personService");
 		return personService.getOfficialRepresentative(module,this.id);
 	}
+	
+	public boolean getPassValidation() {
+		return passValidation;
+	}
+	public void setPassValidation(boolean passValidation) {
+		this.passValidation= passValidation;
+	}	
 }

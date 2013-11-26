@@ -26,7 +26,7 @@
 							 	</c:if>
 								<c:if test="${month==calendarDay.monthOnly}">
 							   	<td class="<c:if test="${fn:length(calendarDay.fundsInDay)>0}">dayWithFund</c:if>  <c:if test="${calendarDay.dayOnly==today && calendarDay.isCurrentMonth && calendarDay.isCurrentYear}">ui-datepicker-today</c:if>">
-							   		<a href="#" class="ui-state-default viewAll" >${calendarDay.dayOnly} </a>
+							   		<a class="ui-state-default <c:if test="${fn:length(calendarDay.fundsInDay)>0}">viewAll</c:if>" >${calendarDay.dayOnly} </a>
         							
         							<div class="callForProposalsPerDay callForProposalsPerDayHomePage" style="display:none">
 									

@@ -134,6 +134,10 @@ public class EditPersonController extends GeneralFormController {
 				personBean.setYearFirstVisit(true);
 			}
 		}
+		
+		if (userPersonBean.isAuthorized("LISTS", "ADMIN") || userPersonBean.isAuthorized("LISTS", "EDITOR"))
+			personBean.setPassValidation(true);
+
 		return personBean;
 	}
 

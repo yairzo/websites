@@ -53,7 +53,7 @@
 									<div class="clearfix">
 										<div class="login_box_col">
 											<label class="login_label"><fmt:message key="${lang.localeId}.general.login.username"/></label>
-											<input type="text" id="j_username" name="j_username" class="login_input">
+											<input type="text" htmlEscape="true" placeholder="<fmt:message key="${lang.localeId}.website.loginPlaceholder"/>" id="j_username" name="j_username" class="login_input">
 										</div>
 										<div class="login_box_col pull-${lang.alignOpp}">
 											<label for="password" class="login_label"><fmt:message key="${lang.localeId}.general.login.password"/></label>
