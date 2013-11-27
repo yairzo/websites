@@ -9,6 +9,10 @@ public class FilesServiceImpl implements FilesService{
 		return filesDao.getTextualPageFile(filename);
 	}
 	
+	public Attachment getCallForProposalFile(String filename){
+		return filesDao.getCallForProposalFile(filename);
+	}
+	
 	private FilesDao filesDao;
 
 	public void setFilesDao(FilesDao filesDao) {

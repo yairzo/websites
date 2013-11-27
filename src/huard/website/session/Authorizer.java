@@ -14,10 +14,7 @@ public class Authorizer {
 	private boolean learningMode;
 	private AuthorizationDbHandler dbHandler;
 	private String signup;
-
-
-
-
+	
 
 	public String getSignup() {
 		return signup;

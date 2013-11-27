@@ -10,6 +10,7 @@ import huard.iws.model.Person;
 import huard.iws.model.Post;
 import huard.iws.service.CallForProposalServiceOld;
 import huard.iws.service.FundService;
+import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.InstituteListService;
 import huard.iws.service.OrganizationUnitService;
 import huard.iws.service.PersonListService;
@@ -48,6 +49,7 @@ public class SelectBoxFiller extends HttpServlet {
 	private CallForProposalServiceOld callForProposalServiceOld;
 	private PostService postService;
 	private CountryService countryService;
+	private HujiAuthorizationService hujiAuthorizationService;
 
 	final static long serialVersionUID = 0;
 
@@ -55,58 +57,59 @@ public class SelectBoxFiller extends HttpServlet {
 
 		Object obj = context.getBean("personService");
 		personService = (PersonService)obj;
-
 		obj = context.getBean("personListService");
 		personListService = (PersonListService)obj;
-
 		obj  = context.getBean("personProposalService");
 		personProposalService = (PersonProposalService)obj;
-
 		obj  = context.getBean("universeService");
 		universeService = (UniverseService)obj;
-
 		obj  = context.getBean("instituteListService");
 		instituteListService = (InstituteListService)obj;
-
 		obj  = context.getBean("fundService");
 		fundService = (FundService)obj;
-
 		obj  = context.getBean("organizationUnitService");
 		organizationUnitService = (OrganizationUnitService)obj;
-
 		obj  = context.getBean("callForProposalServiceOld");
 		callForProposalServiceOld = (CallForProposalServiceOld)obj;
-		
 		obj  = context.getBean("postService");
 		postService = (PostService)obj;
-
 		obj  = context.getBean("countryService");
 		countryService = (CountryService)obj;
-
+		obj = context.getBean("hujiAuthorizationService");
+		hujiAuthorizationService = (HujiAuthorizationService)obj;
 	}
 
 	private boolean isAuthorized(HttpServletRequest request){
-		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
-
-		if (userPersonBean.isAuthorized("EQF", "ADMIN")) return true;
-		if (userPersonBean.isAuthorized("EQF", "MOP")) return true;
-		if (userPersonBean.isAuthorized("LISTS", "ADMIN")) return true;
-		if (userPersonBean.isAuthorized("LISTS", "EDITOR")) return true;
-		if (userPersonBean.isAuthorized("POST", "ADMIN")) return true;
-		if (userPersonBean.isAuthorized("POST", "CREATOR")) return true;
-		if (userPersonBean.isAuthorized("POST", "READER")) return true;
-		if (userPersonBean.isAuthorized("CONFERENCE", "ADMIN")) return true;
-		if (userPersonBean.isAuthorized("CONFERENCE", "APPROVER")) return true;
-		if (userPersonBean.isAuthorized("CONFERENCE", "COMMITTEE")) return true;
-		if (userPersonBean.isAuthorized("WEBSITE", "EDIT") || userPersonBean.isAuthorized("WEBSITE", "ADMIN"))  return true;
-		if (userPersonBean.isAuthorized("LISTS", "ANONYMOUS") && request.getParameter("type")!=null && request.getParameter("type").equals("fundsWithId")) return true;
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService, hujiAuthorizationService);
+		String [] authorities = new String [] {
+				"ROLE_EQF_ADMIN", 
+				"ROLE_EQF_MOP", 
+				"ROLE_LISTS_ADMIN", 
+				"ROLE_LISTS_EDITOR",	
+				"ROLE_POST_ADMIN", 
+				"ROLE_POST_CREATOR", 
+				"ROLE_POST_READER",	
+				"ROLE_CONFERENCE_ADMIN", 
+				"ROLE_CONFERENCE_APPROVER", 
+				"ROLE_CONFERENCE_COMMITTEE", 
+				"ROLE_WEBSITE_EDIT", 
+				"ROLE_WEBSITE_ADMIN",
+				"ROLE_WEBSITE_HUJI"
+		};
+		if (userPersonBean.isAnyAuthorized(authorities))
+			return true;
+		else if (userPersonBean.isAuthorized("LISTS", "ANONYMOUS") 
+				&& request.getParameter("type")!=null 
+				&& request.getParameter("type").equals("fundsWithId")) 
+			return true;
 		
 		String proposalId;
 		int aProposalId=0;
 		if ((proposalId = request.getParameter("proposalId"))!=null){
 			aProposalId = Integer.parseInt(proposalId);
 		}
-		if (aProposalId == 0) return false;
+		if (aProposalId == 0) 
+			return false;
 
 		boolean aProposalResearcher = personProposalService.isExists(userPersonBean.getId(), aProposalId);
 		return aProposalResearcher;
@@ -313,7 +316,7 @@ public class SelectBoxFiller extends HttpServlet {
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
 			StringBuilder sb = new StringBuilder();
-			PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+			PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService, hujiAuthorizationService);
 			ListView listView = new ListView();
 			listView.setOrderBy("sendTime desc");
 			List<Post> posts = postService.getPosts(listView,null,userPersonBean);

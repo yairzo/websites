@@ -32,7 +32,7 @@ public interface PersonService {
 
 	public void updateLastLogin(int personId);
 
-	public void insertPersonPrivilege(Person person, String privilege, boolean updateLastLogin, String md5);
+	public void insertPersonPrivilege(Person person, String privilege, boolean updateLastLogin, String md5, String subscriptionInitPage);
 
 	public void updatePersonPrivilegePassword(Person person, String encodedPassword);
 	

@@ -29,5 +29,7 @@ public interface PersonPrivilegeDao {
 	public void clearLastActionTime();
 	
 	public void updateSubscriptionMd5(int personId,String subscriptionMd5);
+	
+	public void clearSubscriptionInitPage(int personId);
 
 }

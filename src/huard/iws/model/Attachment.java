@@ -1,5 +1,7 @@
 package huard.iws.model;
 
+import huard.iws.util.TextUtils;
+
 public class Attachment {
 	private int id;
 	private int parentId;
@@ -7,6 +9,14 @@ public class Attachment {
 	private byte [] file;
 	private String contentType;
 	private String filename;
+	
+	
+	public String getIconTitle(){
+		String extension = filename.substring(filename.lastIndexOf(".")+1);
+		return TextUtils.getIcon(extension) + title;
+	}
+	
+	
 	public String getFilename() {
 		return filename;
 	}

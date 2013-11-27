@@ -301,7 +301,6 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		query = "insert postAttach set id = ?, postId = ?, title = ?, file = ?, contentType = ?, place = ?";
 		final int postId = post.getId();
 		for ( Attachment attachment : post.getAttachments()){
-			System.out.println("11111111111111111 insert" +attachment.getId());
 			getSimpleJdbcTemplate().update(query,
 					attachment.getId(),
 					postId,

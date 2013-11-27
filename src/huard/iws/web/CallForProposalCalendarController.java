@@ -148,6 +148,8 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 
 		long lastUpdateTime = callForProposalService.getCallForProposalsLastUpdate().getTime();
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
+		
+		model.put("ilr", "/calendar/");
 
 		if(request.getParameter("h", "").equals("1"))
 			return new ModelAndView ("homePageCalendar",model);

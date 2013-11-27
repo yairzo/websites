@@ -1,5 +1,8 @@
 package huard.iws.filter.security;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import huard.iws.model.Person;
 import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.PersonService;
@@ -23,10 +26,12 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 	private static final String SAVED_REQUEST_MANDATORY_USER_DETAILS_CHANGE =
 			"SAVED_REQUEST_MANDATORY_USER_DETAILS_CHANGE";
 	private boolean alwaysUseDefaultTargetUrl = false;
-	private String imposedTargetUrl;	
+	private String imposedTargetUrl;
+	private String subscriptionInitPage;
 
 	public Authentication attemptAuthentication(HttpServletRequest request) throws AuthenticationException {
 		
+		request.getSession().setAttribute("userPerson", null);		
 		
 		String username = obtainUsername(request);
 		String password = obtainPassword(request);
@@ -39,19 +44,26 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 			password = "";
 		}
 		
+		//successful subscription process end in page welcome.html
+		//welcome.html will redirect to this session stored attribute value
+		subscriptionInitPage = request.getParameter("ilr");
+		if (subscriptionInitPage == null){
+			subscriptionInitPage = "";
+		}		
+		
 		String moduleToSubscribe = request.getParameter("mts");
 		System.out.println("module to subscribe: " + moduleToSubscribe);
 		if (moduleToSubscribe == null)
 			moduleToSubscribe = "";
-		String modulePrivilege = "";
-		//authenticationFailureUrl = authenticationFailureUrl.replaceAll("&tc=[\\d]+&mts=.*?", "");
+		List<String> modulePrivileges = new ArrayList<>();
 		if (moduleToSubscribe.equals("post")){
-			modulePrivilege = "ROLE_POST_READER";			
-			//modulePrivilege.setAuthenticationFailureUrl("/welcome.html?login_error=1&tc=1");
+			modulePrivileges.add("ROLE_POST_READER");
+			modulePrivileges.add("ROLE_WEBSITE_READ");
 		}
 		else if (moduleToSubscribe.equals("conference")){
-			modulePrivilege = "ROLE_CONFERENCE_RESEARCHER";
-			//setAuthenticationFailureUrl("/conferenceProposal.html?login_error=1");
+			modulePrivileges.add("ROLE_POST_READER");
+			modulePrivileges.add("ROLE_WEBSITE_READ");
+			modulePrivileges.add("ROLE_CONFERENCE_RESEARCHER");
 		}		
 		setAuthenticationFailureUrl("/login.html?login_error=1&tc="+request.getSession().getAttribute("titleCode"));
 		
@@ -85,7 +97,6 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 		boolean autoSubscribed = (person != null && personService.isAutoSubscribed(person.getId()));
 
 		if (!disabledUser && ((hujiAuthorized && newUser) || (yearsFirstLogin && authenticated))){
-
 			if (yearsFirstLogin)
 				personService.updateLastLogin(person.getId());
 
@@ -96,7 +107,9 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 					int personId = personService.insertPerson(person);
 					person.setId(personId);
 				}
-				personService.insertPersonPrivilege(person, modulePrivilege, false, encodedPassword);
+				for (String privilege: modulePrivileges){
+					personService.insertPersonPrivilege(person, privilege, false, encodedPassword, subscriptionInitPage);
+				}
 			}
 
 			// keep the current authorities

@@ -2,6 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.service.ConfigurationService;
+import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.MessageService;
 import huard.iws.service.PersonPrivilegeService;
 import huard.iws.service.PersonService;
@@ -30,7 +31,7 @@ public abstract class GeneralController extends AbstractController{
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		RequestWrapper requestWrapper = new RequestWrapper( request );
 		Map<String, Object> model = new HashMap<String, Object>();
-		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService, hujiAuthorizationService);
 		personPrivilegeService.updateLastAction(userPersonBean);
 		model.put("userPersonBean", userPersonBean);
 		String userMessage;
@@ -113,6 +114,13 @@ public abstract class GeneralController extends AbstractController{
 
 	public void setConfigurationService(ConfigurationService configurationService) {
 		this.configurationService = configurationService;
+	}
+	
+	protected HujiAuthorizationService hujiAuthorizationService;
+
+	public void setHujiAuthorizationService(
+			HujiAuthorizationService hujiAuthorizationService) {
+		this.hujiAuthorizationService = hujiAuthorizationService;
 	}
 
 }

@@ -3,19 +3,17 @@ package huard.iws.servlet;
 import huard.iws.bean.CallForProposalBeanOld;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.CallForProposalOld;
-import huard.iws.model.CallForProposal;
 import huard.iws.model.Fund;
-import huard.iws.model.Institute;
-import huard.iws.service.CallForProposalServiceOld;
-import huard.iws.service.PersonService;
-import huard.iws.service.FundService;
-import huard.iws.service.TextualPageService;
 import huard.iws.service.CallForProposalService;
+import huard.iws.service.CallForProposalServiceOld;
+import huard.iws.service.FundService;
+import huard.iws.service.HujiAuthorizationService;
+import huard.iws.service.PersonService;
+import huard.iws.service.TextualPageService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.UserPersonUtils;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -25,12 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationContext;
 
-import sun.util.calendar.BaseCalendar.Date;
-
 public class ObjectQuery extends HttpServlet{
 	//private static final Logger logger = Logger.getLogger(SelectBoxFiller.class);
 	private ApplicationContext context = ApplicationContextProvider.getContext();
 	private PersonService personService;
+	private HujiAuthorizationService hujiAuthorizationService;
 	private CallForProposalServiceOld callForProposalServiceOld;
 	private FundService fundService;
 	private TextualPageService textualPageService;
@@ -41,6 +38,8 @@ public class ObjectQuery extends HttpServlet{
 	public void init(){
 		Object obj = context.getBean("personService");
 		personService = (PersonService)obj;
+		Object obj2 = context.getBean("hujiAuthorizationService");
+		hujiAuthorizationService = (HujiAuthorizationService)obj2;
 	}
 
 
@@ -57,7 +56,7 @@ public class ObjectQuery extends HttpServlet{
 		if (id == 0) return;
 		
 		init();
-		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService, hujiAuthorizationService);
 
 
 		if (type.equals("callForProposal")){

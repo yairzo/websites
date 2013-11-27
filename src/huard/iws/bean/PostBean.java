@@ -18,9 +18,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 public class PostBean {
 
-	//private static final Logger logger = Logger.getLogger(PostBean.class);
+	private static final Logger logger = Logger.getLogger(PostBean.class);
 
 	private int id;
 	private int creatorId;
@@ -321,6 +323,7 @@ public class PostBean {
 	public Map <Integer, Attachment> getAttachmentsMap(){
 		Map<Integer, Attachment> attachmentsMap = new HashMap<Integer, Attachment>();
 		for (Attachment attachment: this.attachments){
+			logger.info("Attachment id: " + attachment.getId());
 			attachmentsMap.put(attachment.getId(), attachment);
 		}
 		return attachmentsMap;

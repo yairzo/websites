@@ -13,6 +13,9 @@
 <script language="Javascript">
 var countryArr= new Array();
 
+var urlTitleRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z][a-zA-Z0-9-]+$/;
+var filenameRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z][a-zA-Z0-9-]+\.[a-z]{2,4}$/;
+
 function resetAutocomplete(funds){
 	$("#searchPhrase").autocomplete( 
 			{ source: 'selectBoxFiller?type=fundsWithId',
@@ -164,9 +167,9 @@ $(document).ready(function() {
 	});	
 	
 	$('#tempUrlTitle').blur(function(e){
-		var regexp = /^[a-zA-Z0-9-_]+$/;
+		
 		var check = $('#tempUrlTitle').val();
-		if (check.search(regexp) == -1){
+		if (check.search(urlTitleRegexp) == -1){
 	        alert('<fmt:message key="${lang.localeId}.callForProposal.urlTitleFormat"/>');
 	        e.preventDefault();
 	    }
@@ -359,9 +362,16 @@ $(document).ready(function() {
  	});
 
 	$('#formAttach').change(function(event){
+		var filename = $(this).val();
+		if (filename.search(filenameRegexp) == -1){
+			filename = prompt('<fmt:message key="${lang.localeId}.callForProposal.filenameFormat"/>','');			
+		}		
 		insertIds();
 		$(".ajaxSubmit").remove();
   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+  		if (filename.search(filenameRegexp) != -1){
+  			$("#form").append("<input type=\"hidden\" name=\"filename\" value=\"" + filename + "\"/>");
+  		}
 		$('form#form').append('<input type=\"hidden\" name=\"addFile\" value=\"yes\"/>');
 		$('#form').submit();
 	});	

@@ -189,6 +189,6 @@ public class TextUtils {
 			icon+= "icon_somefile.gif";
 		icon+= "' weight='15px' height='15px'/>";
 		return icon;
-	}	
-
+	}
+	
 }

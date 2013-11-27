@@ -102,7 +102,16 @@ $(document).ready(function() {
   		$(".ajaxSubmit").remove();
   		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
 		$('#form').submit();
-	});	
+	});
+	
+	$('#tempUrlTitle').blur(function(e){
+		var urlTitleRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z][a-zA-Z0-9-]+$/;
+		var check = $(this).val();
+		if (check.search(urlTitleRegexp) == -1){
+	        alert('<fmt:message key="${lang.localeId}.callForProposal.urlTitleFormat"/>');
+	        e.preventDefault();
+	    }
+	});
 	
 	$('#tempUrlTitle').change(function(e){
 		e.preventDefault();

@@ -73,7 +73,8 @@ public class EditCallForProposalController extends GeneralFormController{
 					Attachment attachment = new Attachment();
 					attachment.setFile(file.getBytes());
 					attachment.setContentType(TextUtils.getContentType(ext));
-					attachment.setTitle(TextUtils.getIcon(ext) + title);
+					attachment.setTitle(title);
+					attachment.setFilename(request.getParameter("filename", callForProposalBean.getUrlTitle()+"_"+System.currentTimeMillis()+"."+ext));
 					attachments.add(attachment);
 				}
 				callForProposalBean.setAttachments(attachments);

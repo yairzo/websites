@@ -361,7 +361,7 @@ public class PersonBean implements Serializable {
 		if (! privileges.contains(privilege))
 			return false;
 		for (String aPrivilege: privileges){
-			if (! aPrivilege.equals(privilege) && aPrivilege.contains(moduleName))
+			if (!aPrivilege.equals(privilege) && aPrivilege.contains(moduleName))
 				return false;
 		}
 		return true;
@@ -377,12 +377,11 @@ public class PersonBean implements Serializable {
 		return false;
 	}
 	
-	public boolean isAnyAuthorized(String [] authorities){
+	public boolean isAnyAuthorized(String ... authorities){
 		if (privileges == null)
 			return false;
 		for (String privilege : privileges) {
 			for (String authority: authorities){
-				//logger.info ( "Privilege: " + privilege + " Authority: " + authority);
 				if (privilege.contains(authority))
 					return true;
 			}
@@ -392,6 +391,9 @@ public class PersonBean implements Serializable {
 	
 	public boolean isAnonymous(){
 		return isOnlyAuthorized("LISTS", "ANONYMOUS");
+	}
+	public boolean isHujiIp(){
+		return isOnlyAuthorized("WEBSITE", "HUJI");
 	}
 
 

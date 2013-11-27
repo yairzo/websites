@@ -5,5 +5,7 @@ import huard.iws.model.Attachment;
 public interface FilesService {	
 	
 	public Attachment getTextualPageFile(String filename);
+	
+	public Attachment getCallForProposalFile(String filename);
 
 }

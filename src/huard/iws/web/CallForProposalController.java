@@ -112,11 +112,15 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 			model.put("fundingDetailsIsEmpty", true);
 		
 		boolean authorized= true;	
-		if(!userPersonBean.isAuthorized("ROLE_WEBSITE_READ") && !userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT") && !userPersonBean.isAuthorized("ROLE_WEBSITE_ADMIN")  && !userPersonBean.isAuthorized("ROLE_WEBSITE_HUJI"))
+		if(!userPersonBean.isAnyAuthorized("ROLE_WEBSITE_READ",
+				"ROLE_WEBSITE_EDIT","ROLE_WEBSITE_ADMIN","ROLE_WEBSITE_HUJI"))
 			authorized= false;	
 		model.put("authorized", authorized);	
 
 		model.put("id",callForProposalBean.getId());
+		
+		model.put("ilr", "/call_for_proposal/" + callForProposalBean.getUrlTitle());
+		
 		if (request.getParameter("p", "").equals("1")){
 			if(request.getParameter("t", "").equals("0"))
 				return new ModelAndView ("callForProposalPopupStatic",model);

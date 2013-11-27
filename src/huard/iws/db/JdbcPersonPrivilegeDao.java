@@ -39,6 +39,7 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 		personPrivilege.setPassword(rs.getString("password"));
 		personPrivilege.setPrivilege(rs.getString("privilege"));
 		personPrivilege.setSubscriptionMd5(rs.getString("subscriptionMd5"));
+		personPrivilege.setSubscriptionInitPage(rs.getString("subscriptionInitPage"));
 		Timestamp lastAction = rs.getTimestamp("lastAction");
 		personPrivilege.setLastAction(lastAction != null ? lastAction.getTime() : 0);
        return personPrivilege;
@@ -124,6 +125,11 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 	public void updateSubscriptionMd5(int personId,String subscriptionMd5){
 		String query = "update personPrivilege set subscriptionMd5=?  where personId=?";
 		getSimpleJdbcTemplate().update(query, subscriptionMd5,personId);
+	}
+	
+	public void clearSubscriptionInitPage(int personId){
+		String query = "update personPrivilege set subscriptionInitPage='' where personId=?";
+		getSimpleJdbcTemplate().update(query, personId);
 	}
 
 }

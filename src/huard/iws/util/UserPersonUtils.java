@@ -2,6 +2,7 @@ package huard.iws.util;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Person;
+import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.PersonService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,11 +11,13 @@ import javax.servlet.http.HttpSession;
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
 import org.acegisecurity.context.SecurityContext;
+import org.apache.log4j.Logger;
 
 public class UserPersonUtils {
-	//private static final Logger logger = Logger.getLogger(UserPersonUtils.class);
-
-	public static PersonBean getUserAsPersonBean(HttpServletRequest request, PersonService personService){
+	private static final Logger logger = Logger.getLogger(UserPersonUtils.class);
+	
+	public static PersonBean getUserAsPersonBean(HttpServletRequest request, PersonService personService,
+			HujiAuthorizationService hujiAuthorizationService){
 		HttpSession session = request.getSession();
 		//We try to get the person from the session
 		PersonBean personBean = (PersonBean)session.getAttribute("userPerson");
@@ -24,6 +27,8 @@ public class UserPersonUtils {
 			anonymous = true;
 		else
 			anonymous = personBean.getPrivileges().contains("ROLE_LISTS_ANONYMOUS");
+		
+		boolean hujiVisitor = hujiAuthorizationService.isHujiIp(request);
 
 		if (anonymous){
 			//in case it's a real anonymous
@@ -35,22 +40,31 @@ public class UserPersonUtils {
 			SecurityContext sc = (SecurityContext) session.getAttribute("ACEGI_SECURITY_CONTEXT");
 			Person aPerson = null;
 			// It may be an anonymous user with no username
-			if (username != null && username.length() == 8){
-				aPerson = personService.getPersonByCivilId(username);
+			
+			
+			
+			if (username != null){
+				if (username.length() == 8){
+					aPerson = personService.getPersonByCivilId(username);
+				}
 				// For the case it's a subscribing user
 				if (aPerson == null){
 					aPerson = new Person();
 					aPerson.setCivilId(username);
 				}
 			}
-
-			// For the case it's an anonymous user
+		// For the case it's an anonymous user
 			if (aPerson == null)
 				aPerson = new Person();
 			personBean = new PersonBean(aPerson);
 			//if it has authorities
 			if (sc != null && sc.getAuthentication() != null){
 				personBean.setPersonPriviliges(sc.getAuthentication().getAuthorities());
+			}
+			else if (hujiVisitor){
+				personBean.setPersonPriviliges( new GrantedAuthority [] {
+						new GrantedAuthorityImpl("ROLE_WEBSITE_HUJI")
+				});
 			}
 			else{
 				//if no authorities let's give him anonymous authorities

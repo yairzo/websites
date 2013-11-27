@@ -79,8 +79,8 @@ public class PersonServiceImpl implements PersonService {
 		return ! DateUtils.isSameYear(lastLogin);
 	}
 
-	public void insertPersonPrivilege(Person person, String privilege, boolean updateLastLogin, String password){
-		personDao.insertPersonPrivilege(person, privilege, updateLastLogin, password);
+	public void insertPersonPrivilege(Person person, String privilege, boolean updateLastLogin, String password, String subscriptionInitPage){
+		personDao.insertPersonPrivilege(person, privilege, updateLastLogin, password, subscriptionInitPage);
 	}
 	
 	public void updatePersonPrivilegePassword(Person person, String encodedPassword){

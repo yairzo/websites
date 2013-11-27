@@ -133,7 +133,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	};
 	
 	private void applyFiles(CallForProposal callForProposal){
-		String query = "select * from callForProposalFile where callForProposalId = ?";
+		String query = "select * from callForProposalFile where pageId = ?";
 		List<Attachment> files =  getSimpleJdbcTemplate().query(query, filesRowMapper, callForProposal.getId());
 		callForProposal.setAttachments(files);
 	}
@@ -146,10 +146,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	private ParameterizedRowMapper<Attachment> filesRowMapper = new ParameterizedRowMapper<Attachment>(){
 		public Attachment mapRow(ResultSet rs, int rowNum) throws SQLException{
 			Attachment file = new Attachment();
-			file.setFile(rs.getBytes("fileId"));
-			file.setContentType(rs.getString("contentType"));
-			file.setTitle(rs.getString("title"));
 			file.setId(rs.getInt("id"));
+			file.setFile(rs.getBytes("attachment"));
+			file.setContentType(rs.getString("attachmentContentType"));
+			file.setTitle(rs.getString("title"));
+			file.setFilename(rs.getString("filename"));			
             return file;
 		}
 	};
@@ -422,9 +423,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		
 		if(callForProposal.getAttachments()!=null){
 			for (Attachment attachment: callForProposal.getAttachments()){
-				query  = "insert callForProposalFile set callForProposalId = ?, fileId = ?, contentType= ?, title= ?";
+				query  = "insert callForProposalFile set pageId = ?, attachment = ?, attachmentContentType = ?, title = ?, filename = ?";
 				if (attachment != null)
-					getSimpleJdbcTemplate().update(query,callForProposal.getId(), attachment.getFile(), attachment.getContentType(), attachment.getTitle());
+					getSimpleJdbcTemplate().update(query,callForProposal.getId(), 
+							attachment.getFile(), attachment.getContentType(), 
+							attachment.getTitle(), attachment.getFilename());
 			}
 		}
 	}
@@ -731,12 +734,14 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	}
 
 	public int insertAttachmentToCallForProposal(int callForProposalId, Attachment attachment){
-		final String query  = "insert callForProposalFile set callForProposalId = ?, fileId = ?, contentType= ?, title= ?";
+		final String query  = "insert callForProposalFile set pageId = ?, attachment = ?, attachmentContentType = ?,"
+				+ " title = ?, filename = ?";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		final int finalCallForProposalId= callForProposalId;
 		final byte[] file= attachment.getFile();
 		final String contentType = attachment.getContentType();
 		final String title = attachment.getTitle();
+		final String filename = attachment.getFilename();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
 					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -745,6 +750,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 						ps.setBytes(2, file);
 						ps.setString(3, contentType);
 						ps.setString(4, title);
+						ps.setString(5, filename);
 						return ps;
 					}
 				},

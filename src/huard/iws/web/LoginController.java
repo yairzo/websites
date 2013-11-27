@@ -26,9 +26,9 @@ public class LoginController extends GeneralController{
 		
 		LanguageUtils.applyLanguage(model, request, response, "iw_IL");
 
-		if (! userPersonBean.isAuthorized("LISTS", "ANONYMOUS")){
-			return new ModelAndView( new RedirectView("welcome.html"));
-		}
+		//if (! userPersonBean.isAuthorized("LISTS", "ANONYMOUS")){
+			//return new ModelAndView( new RedirectView("welcome.html"));
+		//}
 
 		int loginError = request.getIntParameter("login_error", 0);
 		logger.info("login error: " + loginError);

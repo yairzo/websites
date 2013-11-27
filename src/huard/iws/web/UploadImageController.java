@@ -2,10 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.PageBodyImageBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.bean.TextualPageBean;
 import huard.iws.model.PageBodyImage;
-import huard.iws.model.TextualPage;
-import huard.iws.service.MessageService;
 import huard.iws.service.PageBodyImageService;
 import huard.iws.util.RequestWrapper;
 

@@ -4,6 +4,7 @@ import huard.iws.bean.MailMessageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Language;
 import huard.iws.service.ConfigurationService;
+import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
 import huard.iws.service.PersonPrivilegeService;
@@ -44,7 +45,7 @@ public abstract class GeneralFormController extends SimpleFormController{
 		request.setCharacterEncoding("UTF-8");
 		RequestWrapper requestWrapper = new RequestWrapper( request);
 		logger.info("personService is null " + (personService == null));
-		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService, hujiAuthorizationService);
 		try
 		{
 			return getFormBackingObject(requestWrapper, userPersonBean);
@@ -76,7 +77,7 @@ public abstract class GeneralFormController extends SimpleFormController{
 					throws Exception
 					{
 		RequestWrapper requestWrapper = new RequestWrapper( request);
-		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService, hujiAuthorizationService);
 		personPrivilegeService.updateLastAction(userPersonBean);
 		Object command = errors.getTarget();
 		Map<String, Object> model = errors.getModel();
@@ -162,7 +163,7 @@ public abstract class GeneralFormController extends SimpleFormController{
 		else
 			model = new HashMap<String, Object>();
 
-		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService, hujiAuthorizationService);
 		return onSubmit(command, model, requestWrapper, userPersonBean);
 					}
 
@@ -239,7 +240,16 @@ public abstract class GeneralFormController extends SimpleFormController{
 
 	public void setMailMessageService(MailMessageService mailMessageService) {
 		this.mailMessageService = mailMessageService;
-	}	
+	}
+	
+	protected HujiAuthorizationService hujiAuthorizationService;
+
+	public void setHujiAuthorizationService(
+			HujiAuthorizationService hujiAuthorizationService) {
+		this.hujiAuthorizationService = hujiAuthorizationService;
+	}
+	
+	
 
 
 }

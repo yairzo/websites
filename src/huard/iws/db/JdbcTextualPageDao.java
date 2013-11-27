@@ -74,7 +74,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 
 	private void getTextualPageFile(TextualPage textualPage){
-		String query = "select * from textualPageFile where textualPageId = ?";
+		String query = "select * from textualPageFile where pageId = ?";
 		try{
 		Attachment attachment =  getSimpleJdbcTemplate().queryForObject(query, JdbcFilesDao.attachmentRowMapper, textualPage.getId());
 		if(attachment!=null)
@@ -232,12 +232,13 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	    		textualPage.getId());
 		
 		if (textualPage.getAttachment() != null && textualPage.getAttachment().getFile()!=null){
-			query = "delete from textualPageFile where textualPageId = ?";
+			query = "delete from textualPageFile where pageId = ?";
 			getSimpleJdbcTemplate().update(query,textualPage.getId());
-			query  = "insert textualPageFile set textualPageId = ?, attachment = ?, attachmentContentType= ?";
-			getSimpleJdbcTemplate().update(query,textualPage.getId(), textualPage.getAttachment().getFile(), textualPage.getAttachment().getContentType());
+			query  = "insert textualPageFile set pageId = ?, attachment = ?, attachmentContentType = ?, title = ?, filename = ?";
+			getSimpleJdbcTemplate().update(query,textualPage.getId(), textualPage.getAttachment().getFile(),
+					textualPage.getAttachment().getContentType(), textualPage.getAttachment().getTitle(),
+					textualPage.getAttachment().getFilename());
 		}
-
 	}
 	
 	public void updateTextualPageOnline(TextualPage textualPage){

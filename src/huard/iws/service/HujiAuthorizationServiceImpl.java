@@ -2,6 +2,8 @@ package huard.iws.service;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 
 public class HujiAuthorizationServiceImpl implements HujiAuthorizationService{
@@ -46,6 +48,25 @@ public class HujiAuthorizationServiceImpl implements HujiAuthorizationService{
 			return false;
 		}
 
+	}
+	
+	public boolean isHujiIp (HttpServletRequest request){
+		String ip = request.getRemoteAddr();
+		String [] ipNumsArray = ip.split("\\.");
+		int [] ipNumsIntArray = new int []{Integer.parseInt(ipNumsArray[0]), Integer.parseInt(ipNumsArray[1]),
+			Integer.parseInt(ipNumsArray[2]),Integer.parseInt(ipNumsArray[3])};
+		if(ipNumsIntArray[0]==132){
+			if (ipNumsIntArray[1]>=64 && ipNumsIntArray[1]<=65) 
+				return true;
+		}
+		else if (ipNumsIntArray[0]==128 && ipNumsIntArray[1]==139){
+			if (ipNumsIntArray[2]<=31) 
+				return true;
+		}
+		else if (ip.equals("127.0.0.1")){
+			return true;
+		}				
+		return false;
 	}
 
 	private ConfigurationService configurationService;

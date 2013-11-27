@@ -42,7 +42,7 @@ public interface PersonDao {
 
 	public List<Person> getPersons(String role);
 
-	public void insertPersonPrivilege(Person person, String priviledge, boolean updateLastLogin, String password);
+	public void insertPersonPrivilege(Person person, String priviledge, boolean updateLastLogin, String password, String subscriptionInitPage);
 
 	public void updatePersonPrivilegePassowrd(Person person, String encodedPassword);
 	

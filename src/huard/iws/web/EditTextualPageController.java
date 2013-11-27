@@ -43,15 +43,15 @@ public class EditTextualPageController extends GeneralFormController {
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
 		TextualPageBean textualPageBean = (TextualPageBean)command;
+		
+		logger.info("Textual page url title: " + textualPageBean.getUrlTitle());
+		
 		// this part saves the content type of the attachments
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
 			Iterator fileNames = multipartRequest.getFileNames();
 			while (fileNames.hasNext()) {
 				String filename = (String) fileNames.next();
-				System.out.println("******************************");
-				System.out.println(" filename : " + filename );
-				System.out.println("******************************");
 				MultipartFile file = multipartRequest.getFile(filename);
 				String originalName = file.getOriginalFilename();
 				String ext = originalName.substring(originalName.lastIndexOf(".")+1);
@@ -59,6 +59,8 @@ public class EditTextualPageController extends GeneralFormController {
 					Attachment attachment = new Attachment();
 					attachment.setFile(file.getBytes());
 					attachment.setContentType(getContentType(ext));
+					attachment.setTitle(textualPageBean.getUrlTitle());
+					attachment.setFilename(textualPageBean.getUrlTitle()+ "." + ext);
 					textualPageBean.setAttachment(attachment);
 				}
 			}

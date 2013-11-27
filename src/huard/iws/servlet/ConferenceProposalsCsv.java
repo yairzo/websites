@@ -9,6 +9,7 @@ import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.ConfigurationService;
 import huard.iws.service.FacultyService;
+import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.UserPersonUtils;
@@ -37,10 +38,13 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		PersonService personService = (PersonService)obj;
 		Object obj1 = context.getBean("configurationService");
 		ConfigurationService configurationService = (ConfigurationService)obj1;
+		Object obj2 = context.getBean("hujiAuthorizationService");
+		HujiAuthorizationService hujiAuthorizationService = (HujiAuthorizationService)obj2;
+		
 		String password = request.getParameter("password");
 		if (password != null && password.equals(configurationService.getConfigurationString("conferenceProposal", "conferenceProposalCsvPassword")))
 			return true;
-		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService);
+		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService, hujiAuthorizationService);
 		if (userPersonBean.isAuthorized("WEBSITE", "ADMIN")) 
 			return true;
 		else

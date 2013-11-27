@@ -47,6 +47,10 @@ public class PersonPrivilegeServiceImpl implements PersonPrivilegeService{
 		personPrivilegeDao.updateSubscriptionMd5(personId,subscriptionMd5);
 	}
 	
+	public void clearSubscriptionInitPage(int personId){
+		personPrivilegeDao.clearSubscriptionInitPage(personId);
+	}
+	
 	PersonPrivilegeDao personPrivilegeDao;
 
 	public void setPersonPrivilegeDao(PersonPrivilegeDao personPrivilegeDao) {

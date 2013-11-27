@@ -1,23 +1,23 @@
 package huard.iws.servlet;
 
-import huard.iws.bean.PostBean;
 import huard.iws.bean.CallForProposalBean;
+import huard.iws.bean.PostBean;
 import huard.iws.model.Attachment;
+import huard.iws.model.CallForProposal;
+import huard.iws.model.ConferenceProposal;
 import huard.iws.model.FinancialSupport;
 import huard.iws.model.Person;
 import huard.iws.model.Post;
 import huard.iws.model.Proposal;
 import huard.iws.model.ProposalAttachment;
-import huard.iws.model.ConferenceProposal;
-import huard.iws.model.CallForProposal;
 import huard.iws.model.TextualPage;
+import huard.iws.service.CallForProposalService;
+import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FilesService;
 import huard.iws.service.PersonProposalService;
 import huard.iws.service.PersonService;
 import huard.iws.service.PostService;
 import huard.iws.service.ProposalService;
-import huard.iws.service.ConferenceProposalService;
-import huard.iws.service.CallForProposalService;
 import huard.iws.service.TextualPageService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.RequestWrapper;
@@ -31,12 +31,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 
 public class FileViewer extends HttpServlet {
 
 	private static final long serialVersionUID = -1;
 	private final String DEFAULT_FILENAME = "attachment";
-	//private static final Logger logger = Logger.getLogger(FileViewer.class);
+	private static final Logger logger = Logger.getLogger(FileViewer.class);
 
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,6 +62,7 @@ public class FileViewer extends HttpServlet {
 		int callForProposalId = requestWrapper.getIntParameter("callForProposalId", 0);
 		int textualPageId = requestWrapper.getIntParameter("textualPageId", 0);
 		String textualPageFilename = requestWrapper.getParameter("textualPageFilename", "");
+		String callForProposalFilename = requestWrapper.getParameter("callForProposalFilename", "");
 		
 		String filenameDisplay = DEFAULT_FILENAME;
 
@@ -111,6 +114,7 @@ public class FileViewer extends HttpServlet {
 			if (! md5.equals(postBean.getMd5()))
 				return ;
 
+			logger.info("Num Attachments: " + postBean.getAttachmentsMap().size());
 			Attachment attachment = postBean.getAttachmentsMap().get(attachmentId);
 			file = attachment.getFile();
 		}
@@ -177,9 +181,20 @@ public class FileViewer extends HttpServlet {
 
 			CallForProposal callForProposal = callForProposalService.getCallForProposal(callForProposalId);
 			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,false);
-			Attachment attachment = callForProposalBean.getAttachmentsMap().get(attachmentId);
-			file = attachment.getFile();
+			Attachment attach = callForProposalBean.getAttachmentsMap().get(attachmentId);
+			file = attach.getFile();
+			contentType = attach.getContentType();
+			filenameDisplay = attach.getFilename();
 		}
+		else if (! callForProposalFilename.isEmpty()){
+			Object bean = ApplicationContextProvider.getContext().getBean("filesService");
+			FilesService filesService = (FilesService)bean;
+			Attachment attach = filesService.getCallForProposalFile(callForProposalFilename);
+			file = attach.getFile();
+			contentType = attach.getContentType();
+			filenameDisplay = attach.getFilename();
+		}
+		
 		else if (textualPageId > 0){
 	
 			Object bean = ApplicationContextProvider.getContext().getBean("textualPageService");
@@ -196,8 +211,9 @@ public class FileViewer extends HttpServlet {
 		else if (! textualPageFilename.isEmpty()){
 			Object bean = ApplicationContextProvider.getContext().getBean("filesService");
 			FilesService filesService = (FilesService)bean;
-			file = filesService.getTextualPageFile(textualPageFilename).getFile();
-			contentType = filesService.getTextualPageFile(textualPageFilename).getContentType();
+			Attachment attach = filesService.getTextualPageFile(textualPageFilename);
+			file = attach.getFile();
+			contentType = attach.getContentType();
 			filenameDisplay = textualPageFilename;
 		}
 		try{
@@ -206,6 +222,7 @@ public class FileViewer extends HttpServlet {
 			response.setContentType(contentType);
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setHeader( "Content-Disposition", "attachment; filename=\"" + filenameDisplay + "\"" );
+			response.setCharacterEncoding("UTF-8");
 			ServletOutputStream out = response.getOutputStream();
 			out.write(file);
 			out.flush();

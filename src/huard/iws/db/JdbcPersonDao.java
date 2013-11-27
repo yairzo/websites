@@ -434,11 +434,12 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		return persons;
     }
 
-	public void insertPersonPrivilege(Person person, String privilege, boolean updateLastLogin, String password){
-		String query = "insert ignore personPrivilege set personId = ?, privilege = ?, password = ?";
+	public void insertPersonPrivilege(Person person, String privilege, boolean updateLastLogin, 
+			String password, String subscriptionInitPage){
+		String query = "insert ignore personPrivilege set personId = ?, privilege = ?, password = ?, subscriptionInitPage = ?";
 		if (updateLastLogin)
 			query += ", lastLogin = now()";
-		getSimpleJdbcTemplate().update(query, person.getId(), privilege, password);
+		getSimpleJdbcTemplate().update(query, person.getId(), privilege, password, subscriptionInitPage);
 	}
 	
 	public void updatePersonPrivilegePassowrd(Person person, String encodedPassword){

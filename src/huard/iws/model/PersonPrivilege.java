@@ -14,6 +14,7 @@ public class PersonPrivilege {
 	private String privilege;
 	private boolean enabled;
 	private String subscriptionMd5;
+	private String subscriptionInitPage;
 	private long lastAction;
 
 	public boolean isEnabled() {
@@ -51,6 +52,13 @@ public class PersonPrivilege {
 	}
 	public void setSubscriptionMd5(String subscriptionMd5) {
 		this.subscriptionMd5 = subscriptionMd5;
+	}
+	
+	public String getSubscriptionInitPage() {
+		return subscriptionInitPage;
+	}
+	public void setSubscriptionInitPage(String subscriptionInitPage) {
+		this.subscriptionInitPage = subscriptionInitPage;
 	}
 	public long getLastAction() {
 		return lastAction;

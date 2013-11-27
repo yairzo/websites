@@ -27,5 +27,7 @@ public interface PersonPrivilegeService {
 	public List<PersonPrivilege> getActivePersons ();
 
 	public void updateSubscriptionMd5(int personId,String subscriptionMd5);
+	
+	public void clearSubscriptionInitPage(int personId);
 
 }

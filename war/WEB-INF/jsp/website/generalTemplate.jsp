@@ -34,7 +34,7 @@
 				</nav>
 				<div class="login <c:if test="${lang.rtl=='false'}">flipped</c:if>">
 					<c:choose>
-					<c:when test="${userPersonBean != null && !userPersonBean.anonymous}">
+					<c:when test="${userPersonBean != null && !userPersonBean.anonymous && !userPersonBean.hujiIp}">
 						<div class="login_left">
 							<c:choose>
 							<c:when test="${lang.rtl}"><c:out value="${userPersonBean.degreeFullNameHebrew}"/></c:when>
@@ -50,6 +50,7 @@
 							<div class="login_box_bottom">
 								<form action="/j_acegi_security_check" method="post">									
 									<input type="hidden" name="ilr" value="${ilr}"/>
+									<input type="hidden" name="mts" value="post"/>
 									<div class="clearfix">
 										<div class="login_box_col">
 											<label class="login_label"><fmt:message key="${lang.localeId}.general.login.username"/></label>
