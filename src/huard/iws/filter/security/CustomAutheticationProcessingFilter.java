@@ -3,6 +3,7 @@ package huard.iws.filter.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import huard.iws.model.Language;
 import huard.iws.model.Person;
 import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.PersonService;
@@ -55,7 +56,7 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 		System.out.println("module to subscribe: " + moduleToSubscribe);
 		if (moduleToSubscribe == null)
 			moduleToSubscribe = "";
-		List<String> modulePrivileges = new ArrayList<>();
+		List<String> modulePrivileges = new ArrayList<String>();
 		if (moduleToSubscribe.equals("post")){
 			modulePrivileges.add("ROLE_POST_READER");
 			modulePrivileges.add("ROLE_WEBSITE_READ");
@@ -64,8 +65,16 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 			modulePrivileges.add("ROLE_POST_READER");
 			modulePrivileges.add("ROLE_WEBSITE_READ");
 			modulePrivileges.add("ROLE_CONFERENCE_RESEARCHER");
-		}		
-		setAuthenticationFailureUrl("/login.html?login_error=1&tc="+request.getSession().getAttribute("titleCode"));
+		}
+		
+		if(!subscriptionInitPage.isEmpty()){
+			String lang="Heb";
+			if(request.getSession().getAttribute("locale")!=null && ((String)request.getSession().getAttribute("locale")).equals("en_US"))
+				lang="Eng";
+			setAuthenticationFailureUrl("/page/Login_Error_"+lang);
+		}
+		else
+			setAuthenticationFailureUrl("/login.html?login_error=1&tc="+request.getSession().getAttribute("titleCode"));
 		
 		String encodedPassword = MD5Encoder.digest(password);
 

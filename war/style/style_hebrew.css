@@ -41,7 +41,9 @@ hr {
 img {
     vertical-align: middle;
 }
-
+.login_help_img{
+	vertical-align: text-top;
+}
 fieldset {
     border: 0;
     margin: 0;
@@ -1768,6 +1770,19 @@ font-family:Arial;
 font-weight:normal;
 font-size:12px;
 color:#999999 !important;
+}
+
+.login_help_popup{
+	box-shadow: 10px 10px 5px #888888;
+	display:block;
+	width:600px;
+	padding:18px;
+	background:#ffffff;
+	font-size:15px;
+	z-index:10;
+	position:absolute;
+	top:44px;
+	left:85px;
 }
 
 .popup_placeholder{

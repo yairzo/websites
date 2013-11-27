@@ -91,7 +91,7 @@
                 <tr class="form">
 					<td colspan="4" style="border:1px #bca2a2 dotted">
 						 ${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.urlTitle"/>
-						<input type="text" htmlEscape="true" class="green long800" name="tempUrlTitle" id="tempUrlTitle" value="${urlTitle}"/>
+						<input type="text" dir="ltr" htmlEscape="true" class="green long800" name="tempUrlTitle" id="tempUrlTitle" value="${urlTitle}"/>
 					    <div id="errorurltitle">				
 					</td>
 				</tr>

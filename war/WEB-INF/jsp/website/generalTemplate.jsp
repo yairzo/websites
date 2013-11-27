@@ -44,7 +44,7 @@
 						</div>
 					</c:when>	
 					<c:otherwise>				
-						<div class="login_left"><fmt:message key="${lang.localeId}.general.login.enter"/> &nbsp;&nbsp;&nbsp; <a href="#"><img src="/image/website/login_help.png" alt=""></a></div>
+						<div class="login_left"><fmt:message key="${lang.localeId}.general.login.enter"/> &nbsp;&nbsp;&nbsp; <a class="login_help"><img class="login_help_img" src="/image/website/login_help.png" alt=""></a></div>
 						<div class="login_box" id="login_box">
 							<div class="login_box_top"></div>
 							<div class="login_box_bottom">
@@ -76,6 +76,13 @@
 					</c:otherwise>
 					</c:choose>
 				</div>
+				<div class="login_help_popup" dir="${lang.dir}" style="display:none">
+					<div class="clearfix">
+						<h3 class="popup_title popup_title_<c:if test="${lang.rtl}">hebrew</c:if><c:if test="${!lang.rtl}">english</c:if>"><fmt:message key="${lang.localeId}.website.helpTitle"/></h3>
+						<a onclick="$('.login_help_popup').hide();return false;" class="popup_close popup_close_<c:if test="${lang.rtl}">hebrew</c:if><c:if test="${!lang.rtl}">english</c:if>">סגור</a>
+					</div>
+					<p><fmt:message key="${lang.localeId}.website.loginHelpText"/></p>
+				</div>
 			</div>
         	<div class="container clearfix">
 				<a href="/" class="logo_authority">
@@ -92,8 +99,10 @@
 				</a>
 			</div>
         </header>
+
+        
         <section class="section">
-        	<jsp:include page="${templateBody}" />
+         	<jsp:include page="${templateBody}" />
         </section>
         <footer class="footer">
 			<div class="container">
@@ -191,6 +200,14 @@
         	        		  else
         	        		 	window.location="/sendPasswordEmail.html?username="+ userName;     
         	        	  });
+        				$('.login_help').click(function(e){
+      	        		  e.preventDefault();
+      	        		  e.stopPropagation();
+       	        			if ($(".login_help_popup").is(":visible"))
+      	        				$(".login_help_popup").hide();
+    						else
+    							$(".login_help_popup").show();     	        	 
+      	        		});
         			}); 
         		</script>
 
