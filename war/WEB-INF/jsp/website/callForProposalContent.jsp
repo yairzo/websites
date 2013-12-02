@@ -2,15 +2,17 @@
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 
 			<div class="container clearfix">
-				<div class="breadcrumbs clearfix" style="direction: ${lang.dir}; text-align: ${lang.align};">
-					<jsp:include page="location.jsp"/>
-				</div>
 				<jsp:include page="sideLinks.jsp"/>
 				<div class="content" style="direction: ${copLang.dir};">
 					<h1 class="maintitle">${command.title}</h1>
 					<div class="clearfix mar_20">
 						<div class="clearfix mar_20" style="direction: ${copLang.dir}; text-align: ${copLang.align};">
 							<div class="kol open kol_${copLang.dir} general_info">
+								<c:if test="${command.expired}">
+								<div class="clearfix">
+									<h3 class="careful_${copLang.dir}"><fmt:message key="${copLang.localeId}.website.isExpired"/></h3>
+								</div>
+								</c:if>
 								<div class="clearfix">
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_i.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.generalInfo"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
@@ -31,8 +33,9 @@
 										${submissionDate3}<br/>
 										</c:if>
 										<strong><fmt:message key="${copLang.localeId}.callForProposal.fund"/>:</strong>&nbsp;${command.fund.name}<br/>
-     									<a href="${command.originalCallWebAddress}"><fmt:message key="${copLang.localeId}.website.originalCallWebAddress"/></a><br>
-     									<a href="${command.fund.webAddress}"><fmt:message key="${copLang.localeId}.website.fundWebAddress"/></a><br>
+     									<a class="nounderline" href="${command.originalCallWebAddress}"><img src="/image/website/original_call.png" height="14px" alt=""/>&nbsp;<fmt:message key="${copLang.localeId}.website.originalCallWebAddress"/></a> 
+     									|
+     									<a class="nounderline" href="${command.fund.webAddress}"><img src="/image/website/menu_icon_home.png" alt=""/>&nbsp;<fmt:message key="${copLang.localeId}.website.fundWebAddress"/></a><br>
 
 										</p>
 								</div>
@@ -43,7 +46,7 @@
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_details.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.description"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
-								<div class="kol_content kol_content_${copLang.dir}">
+								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 									<p>${command.description}</p>
 								</div>
 							</div>
@@ -54,7 +57,7 @@
 									<a class="button_${lang.dir}">
 										<span id="login_open" class="button_inner_${lang.dir}"><img src="/image/website/i-user.png" alt=""><fmt:message key="${lang.localeId}.callForProposal.loginLink"/></span>
 									</a>
-									<p class="forbidden_${copLang.dir}"><fmt:message key="${copLang.localeId}.callForProposal.fullDetailsLogin"/></p>
+									<p class="forbidden_${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.fullDetailsLogin"/></p>
 								</div>
 								<div class="login_box_cp" style="direction: ${lang.dir}; text-align: ${lang.align};">
 									<div class="login_box_bottom_cp">
@@ -95,11 +98,11 @@
 								</div>
 								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 									<p>
-										<c:if test="${fn:length(command.strippedFundingPeriod)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.fundingPeriod"/></strong>&nbsp;${command.strippedFundingPeriod}<br /></c:if>
-										<c:if test="${fn:length(command.strippedAmountOfGrant)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.amountOfGrant"/></strong>&nbsp;${command.strippedAmountOfGrant}<br /></c:if>
-										<c:if test="${fn:length(command.strippedEligibilityRequirements)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.eligibilityRequirements"/>&nbsp;</strong>&nbsp;${command.strippedEligibilityRequirements}<br /></c:if>
-										<c:if test="${fn:length(command.strippedActivityLocation)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.activityLocation"/>&nbsp;</strong>${command.strippedActivityLocation}<br /></c:if>
-										<c:if test="${fn:length(command.strippedPossibleCollaboration)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.possibleCollaboration"/>&nbsp;</strong>${command.strippedPossibleCollaboration}</c:if>
+										<c:if test="${fn:length(command.strippedFundingPeriod)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.fundingPeriod"/>:</strong>&nbsp;${command.strippedFundingPeriod}<br /></c:if>
+										<c:if test="${fn:length(command.strippedAmountOfGrant)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.amountOfGrant"/>:</strong>&nbsp;${command.strippedAmountOfGrant}<br /></c:if>
+										<c:if test="${fn:length(command.strippedEligibilityRequirements)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.eligibilityRequirements"/>:</strong>&nbsp;${command.strippedEligibilityRequirements}<br /></c:if>
+										<c:if test="${fn:length(command.strippedActivityLocation)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.activityLocation"/>:</strong>&nbsp;${command.strippedActivityLocation}<br /></c:if>
+										<c:if test="${fn:length(command.strippedPossibleCollaboration)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.possibleCollaboration"/>:</strong>&nbsp;${command.strippedPossibleCollaboration}</c:if>
 									</p>
 								</div>
 							</div>
@@ -111,7 +114,7 @@
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_v.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.forms"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
-								<div class="kol_content kol_content_${copLang.dir}">
+								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 									<p>${command.formDetails}</p>
 								</div>
 							</div>
@@ -123,7 +126,7 @@
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_envelope.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.submissionDetails"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
-								<div class="kol_content kol_content_${copLang.dir}">
+								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 									<p>${command.submissionDetails}</p>
 								</div>
 							</div>
@@ -135,7 +138,7 @@
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_chart.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.budgetDetails"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
-								<div class="kol_content kol_content_${copLang.dir}">
+								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 								<p>${command.budgetDetails }</p>
 								</div>
 							</div>
@@ -147,19 +150,23 @@
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_man.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.contactPersons"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
-								<div class="kol_content kol_content_${copLang.dir}">
+								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 									<c:if test="${fn:length(callForProposalContacts)>0}">
-									<table class="table_kol">
+									<table class="table_kol table_kol_${copLang.dir}">
 										<tr>
 											<th class="table_one"><fmt:message key="${copLang.localeId}.callForProposal.contactPersonName"/></th>
 											<th class="table_two"><fmt:message key="${copLang.localeId}.callForProposal.contactPersonPosition"/></th>
 											<th class="table_three"><fmt:message key="${copLang.localeId}.callForProposal.contactPersonPhone"/></th>
+											<th class="table_four"><fmt:message key="${copLang.localeId}.callForProposal.contactPersonEmail"/></th>
 										</tr>
 								    	<c:forEach items="${callForProposalContacts}" var="callForProposalContact">
 								    	<tr>
 											<td class="table_one">${callForProposalContact.name}</td>
 											<td class="table_two">${callForProposalContact.position}</td>
 											<td class="table_three">${callForProposalContact.phone}</td>
+											<c:if test="${fn:length(callForProposalContact.email)>0}">
+												<td class="table_email" align="center"><a href="mailto:${callForProposalContact.email}">@</a></td>
+											</c:if>
 										</tr>
 								    	</c:forEach>
 									</table>
@@ -174,7 +181,7 @@
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_man.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.contactPersonDetails"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
-								<div class="kol_content kol_content_${copLang.dir}">
+								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 								<p>${command.contactPersonDetails }</p>
 								</div>
 							</div>
@@ -186,7 +193,7 @@
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_man.png" alt="" />&nbsp;&nbsp;<fmt:message key="${copLang.localeId}.callForProposal.contactAtFund"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>
 								</div>
-								<div class="kol_content kol_content_${copLang.dir}">
+								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 									<p>${command.fundContact}</p>								
 								</div>
 							</div>
@@ -198,7 +205,7 @@
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_plus.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.additionalInformation"/></h3>
 									<a href="#" class="kol_arrow" style="float: ${copLang.align}"></a>									
 								</div>
-								<div class="kol_content kol_content_${copLang.dir}">
+								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 									<p>${command.additionalInformation }</p>
 								</div>
 							</div>

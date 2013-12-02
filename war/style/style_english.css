@@ -866,6 +866,10 @@ td.dayWithFund a { /***for home page  **/
 	border:0;
 	color: #ffffff !important;
 }
+td.dayWithFund a:hover {
+	cursor:pointer;
+}
+
 .calendar .board_calendar .ui-datepicker td a.dayWithFund {
 	background:#04bde5;
 	border:0;
@@ -1476,7 +1480,22 @@ overflow:hidden;
 background:url(/image/website/envelope_small.png) no-repeat bottom;
 }
 
-.table_kol td.table_email a:hover{background-position:top;}
+a.budgetEmail{
+display:inline-block;
+margin:0 auto;
+width:14px;
+height:12px;
+text-indent:-1000px;
+text-decoration:none;
+overflow:hidden;
+background:url(/image/website/envelope_small.png) no-repeat bottom;
+}
+
+a.nounderline{
+text-decoration:none;	
+}
+
+.table_kol td.table_email a:hover, a.budgetEmail:hover{background-position:top;}
 
 .search_result{margin-bottom:25px;}
 
@@ -1953,6 +1972,36 @@ line-height:20px;
 background:#e50419;
 margin-top:3px;
 }
+
+.careful_rtl{
+float:right;
+clear:both;
+margin:0 -19px 3px 0;
+padding:0 50px 3px 14px;
+width:93px;
+height:51px;
+background:url(/image/website/careful.png) no-repeat top;
+font-size:21px;
+font-family:"almoni-tzar";
+font-weight:normal;
+color:#ffffff;
+line-height:42px;
+}
+.careful_ltr{
+float:left;
+clear:both;
+margin:0 0 3px -19px;
+padding:0 14px 10px 50px;
+width:93px;
+height:51px;
+background:url(/image/website/careful_eng.png) no-repeat top;
+font-size:21px;
+font-family:"almoni-tzar";
+font-weight:normal;
+color:#ffffff;
+line-height:42px;
+}
+
 .popup_careful{
 float:right;
 clear:both;

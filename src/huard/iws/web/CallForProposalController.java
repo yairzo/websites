@@ -5,6 +5,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.model.Language;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.FundService;
+import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RedirectViewExtended;
 import huard.iws.util.RequestWrapper;
@@ -69,11 +70,11 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		model.put("pageTitle", callForProposalBean.getTitle());
 
 		//dates
-		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 		if (callForProposalBean.getFinalSubmissionTime()==0)
 			model.put("finalSubmissionTime", "");
 		else
-			model.put("finalSubmissionTime", formatter.format(callForProposalBean.getFinalSubmissionTime()));
+			model.put("finalSubmissionTime", DateUtils.getLocaleLongDateTimeFormatWithDay(callForProposalBean.getFinalSubmissionTime(),callForProposalBean.getLocaleId(),false));
+		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 		if (callForProposalBean.getPublicationTime()==0)
 			model.put("publicationTime", "");
 		else
@@ -96,13 +97,14 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		}
 		
 		List <CallForProposalContact> callForProposalContacts= new ArrayList<CallForProposalContact>();
-		Pattern p = Pattern.compile("(?s)~(.*?)//(.*?)//(.*?)~");
+		Pattern p = Pattern.compile("(?s)~(.*?)//(.*?)//(.*?)(?:~|//(.*?)~)");
 		Matcher m = p.matcher(callForProposalBean.getContactPersons());
 		while(m.find()){
 			CallForProposalContact callForProposalContact= new CallForProposalContact();
 			callForProposalContact.setName(m.group(1));
 			callForProposalContact.setPosition(m.group(2));
 			callForProposalContact.setPhone(m.group(3));
+			callForProposalContact.setEmail(m.group(4));
 			callForProposalContacts.add(callForProposalContact);
 		}
 		model.put("callForProposalContacts", callForProposalContacts);
@@ -164,11 +166,13 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 	public class CallForProposalContact{
 		public String name;
 		public String position;
+		public String email;
 		public String phone;
 		
 		public CallForProposalContact() {
 			this.name = "";
 			this.position = "";
+			this.email = "";
 			this.phone = "";
 		}
 		public String getName() {
@@ -193,6 +197,14 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 
 		public void setPhone(String phone) {
 			this.phone = phone;
+		}
+		
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
 		}
 	}
 	
