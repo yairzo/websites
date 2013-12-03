@@ -66,16 +66,13 @@ $(document).ready(function() {
 		if(errorFlag){
 	        var text = " לא מיצית את האפשרויות לרשום חוות דעת והערה כללית לועדה.";
 	  		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
-   	   		$("#genericDialog").dialog({ modal: true });
-    		$("#genericDialog").dialog({ height: 200 });
+     		$("#genericDialog").dialog({ height: 200 });
     		$("#genericDialog").dialog({ width: 400 });
     		openHelp(this,text);		
  		} 
         else{
-            $(this).dialog("close");
 	 	 	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"stopGrading\"/>");
   	   		$("#form").submit();
-  	   		return true;
         }
         return false;
  	});
@@ -195,7 +192,6 @@ $(document).ready(function() {
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 
  function gradingFinished(){
-		$("#genericDialog").dialog({ modal: true });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
