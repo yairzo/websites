@@ -1230,7 +1230,7 @@ display:block;
 font-size:13px;
 font-weight:normal;
 font-style:normal;
-line-height:13px;
+line-height:16px;
 }
 
 .calendar .callForProposalsPerDay{
@@ -1247,10 +1247,10 @@ float:right;
 padding:10px;
 width:337px;
 height:16px;
-font-family: 'almoni-tzar', 'open_sanscondensedbold';
+font-family: Arial;
 font-weight:normal;
 font-size:15px;
-color:#afafaf;
+color:#333333;
 background:#f8f8f8;
 border:solid 1px #ededed;
 }
@@ -1266,11 +1266,14 @@ background:#04bde5 url(/image/website/calendar_submit.png) no-repeat center cent
 width:38px;
 height:38px;
 }
-
+.calendar_submit:hover {
+background:#333 url(/image/website/calendar_submit.png) no-repeat center center;
+transition:background-color 0.25s ease-out 0s;
+}
 .calendar_advanced{
 float:right;
 margin:0 30px 0 0;
-font-family: 'almoni-tzar', 'open_sanscondensedbold';
+font-family: Arial;
 font-weight:normal;
 font-size:15px;
 color:#666666;

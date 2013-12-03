@@ -10,8 +10,8 @@
 						<!---->
 						<div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
 							<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-								<a title="Next" onclick="window.location='/calendar/next/';return false;" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
-								<a title="Prev" onClick="window.location='/calendar/prev/';return false;" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
+								<a title="<c:choose><c:when test="${lang.rtl}">החודש הבא</c:when><c:otherwise>Next month</c:otherwise></c:choose>" onclick="window.location='/calendar/next/';return false;" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
+								<a title="<c:choose><c:when test="${lang.rtl}">החודש הקודם</c:when><c:otherwise>Previous month</c:otherwise></c:choose>" onClick="window.location='/calendar/prev/';return false;" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
 								<h3 class="transition"><fmt:message key="${lang.localeId}.website.changeMonth"/></h3>
 								<div class="ui-datepicker-title">
 									<h1><fmt:message key="${lang.localeId}.website.callForProposalCalendar"/> </h1>
@@ -29,7 +29,7 @@
         						<c:if test="${varStatus.index%7==0}">
         							</tr><tr style="vertical-align: top">
         						</c:if>
-							 	<c:if test="${month!=calendarDay.monthOnly}">
+							 	<c:if test="${month>calendarDay.monthOnly}">
 							 		<td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
 							 		<span>${calendarDay.dayOnly}</span>
 							 		</td>
@@ -40,10 +40,10 @@
 									<dfn class="day_details" style="direction:ltr;text-align:left">
 									<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay" varStatus="varStatusFund">
          								<c:if test="${varStatusFund.index<3}">
-            								${fundInDay.fundShortName}<br>
+            								${fundInDay.trimmedName}<br>
          								</c:if>
          								<c:if test="${varStatusFund.index==3}">
-         									...
+         									<div style="text-align:${lang.align};direction:${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.more"/></div>
          								</c:if>
         							</c:forEach>
         							</dfn>
@@ -51,7 +51,7 @@
         							<c:set var="atTop" value="bottom"/>
         							<c:set var="atEdge" value="middle"/>
         							
-        							<c:if test="${varStatus.index < 7}">
+        							<c:if test="${varStatus.index < 14}">
         								<c:set var="atTop" value="top"/>
         							</c:if>
         							<c:if test="${(varStatus.index+1)%7==6 || (varStatus.index+1)%7==0}">
@@ -59,11 +59,12 @@
         							</c:if>
         							
         							<div class="callForProposalsPerDay ${atTop} ${atEdge}" style="display:none">
-	        							<c:if test="${varStatus.index<7}">
+	        							<c:if test="${varStatus.index<14}">
 	        								<div class="triangle"></div>
 	        							</c:if>		
 										
 										<div class="clearfix">
+										<div class="close_datepicker_dialog" onclick="$('.callForProposalsPerDay').hide();return false;">x</div>
 
 										<c:forEach items="${calendarDay.fundsInDay}" var="fundInDay">
 											<h4>${fundInDay.fundShortName}</h4>
@@ -72,7 +73,7 @@
         									</c:forEach>
          								</c:forEach>
 										</div>
-	        							<c:if test="${varStatus.index>7}">
+	        							<c:if test="${varStatus.index>14}">
 											<div class="triangle"></div>
 										</c:if>
 									</div>
@@ -86,9 +87,9 @@
 						<!---->
 					</div>
 					<div class="clearfix mar_30">
-						<form action="/searchCallForProposals.html" method="post" class="calendar_form">
+						<form action="/search/" method="post" class="calendar_form">
 							<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
-onblur="if(this.value=='')this.value=this.defaultValue" value="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="calendar_text" />
+onblur="if(this.value=='')this.value=this.defaultValue" placeholder="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="calendar_text" />
 							<input type="submit" value="חיפוש" class="calendar_submit" />
 						</form>
 						<a href="/searchCallForProposals.html" class="calendar_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>

@@ -12,7 +12,12 @@ public class FundInDay{
 	public void setFundShortName(String fundShortName){
 		this.fundShortName= fundShortName;
 	}
-	
+	public String getTrimmedName(){
+		String trimmedName =  fundShortName.substring(0, Math.min(fundShortName.length(), 10));
+		if (fundShortName.length() > 10)
+			trimmedName += "...";
+		return trimmedName;
+	}	
 	public List<CallForProposal> getCallForProposals() {
 		return callForProposals;
 	}
