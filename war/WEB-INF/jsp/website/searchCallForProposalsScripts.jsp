@@ -36,14 +36,13 @@ $(document).ready(function() {
 	
 
 	
-	$('.check .open').on('click',function(e){
-		e.stopPropagation();
-	});
 	
-	$('.checkbox_box_sub_rtl, .checkbox_box_sub_ltr, .check label').click(function(e){
-		e.stopPropagation();
+	$('.scroll_col').click(function(){
+		if($(this).children('.checkbox_list').is(":visible"))
+			$(this).children('.checkbox_list').css({"display":"none"});
+		else
+			$(this).children('.checkbox_list').css({"display":"block","z-index":1});
 	});
-	
 	
 	$("#deskId").change(function () {
 	    if($(this).val() == "0") 

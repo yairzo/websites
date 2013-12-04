@@ -53,7 +53,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 
 		SearchCallForProposalsControllerCommand command = (SearchCallForProposalsControllerCommand) model.get("command");
 		Language lang = (huard.iws.model.Language)model.get("lang");
-		model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.search"));
+		model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.callForProposalSearch"));
 
 		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
 		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();

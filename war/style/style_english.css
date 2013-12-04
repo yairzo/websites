@@ -676,7 +676,7 @@ position:relative;
 }
 .ui-datepicker th {
     border: 0 none;
-    font-weight: bold;
+    /*font-weight: bold;*/
     padding: 0.7em 0.3em;
     text-align: center;
 }
@@ -1650,10 +1650,11 @@ background:url(/image/website/advanced_cal.png) no-repeat top;
 
 .checkbox_box{
 	float:left;
-	width:13px;
-	height:12px;
-	background:#f8f8f8;
-	border:solid 1px #ededed;
+border:0;
+width:15px;
+height:14px;
+background:url(/image/website/checkbox_scrollbox_normal.png) no-repeat top;
+cursor:pointer;
 	margin-top: 5px;
 }
 
@@ -1778,7 +1779,7 @@ color:#999999 !important;
 }
 
 .popup_placeholder{
-box-shadow: 10px 10px 5px #888888;
+box-shadow: 10px 10px 20px #888888;
 }
 
 .popup{
@@ -1837,6 +1838,9 @@ float:right;
 background:url(/image/website/advanced_close.png) no-repeat right;
 }
 
+.popup_close:hover{
+	cursor:pointer;
+}
 .popup_search_date,
 .popup_search_financing
 {
@@ -1880,7 +1884,9 @@ text-align:center;
 text-decoration:none;
 line-height:38px;
 }
-
+.popup_more:hover{
+	background:#333333;
+}
 
 .checkbox, .radio {
 	width: 13px;
@@ -2037,7 +2043,12 @@ height:14px;
 background:url(/image/website/checkbox_scrollbox.png) no-repeat top;
 }
 
-.check.scroll_col .checkbox_box.active{background:url(/image/website/checkbox_scrollbox_active.png) no-repeat top;}
+.check.scroll_col .checkbox_box.active{
+	background:url(/image/website/checkbox_scrollbox_active.png) no-repeat top;
+	border:0;
+	width:15px;
+	height:14px;
+	}
 .check_all .checkbox_box.active, .check_only .checkbox_box.active{background:url(/image/website/checkbox_scrollbox_active.png) no-repeat top;}
 .search_by_all_year.checkbox_box.active, .search_open.checkbox_box.active, .search_expired.checkbox_box.active{background:url(/image/website/checkbox_scrollbox_active.png) no-repeat top;}
 

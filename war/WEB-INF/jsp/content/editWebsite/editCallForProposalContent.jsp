@@ -406,7 +406,9 @@
  					</tr>
  					<tr>
  						<td>
-						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.selectCountry"/>
+						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.selectNoCountry"/> 
+						<input type="checkbox" class="noCollaborationCountry"/> 
+						<fmt:message key="${lang.localeId}.callForProposal.selectCountry"/>
 						 <input type="text" class="green" style="width:130" id="selectCountry"/> 
 						 <hidden id="countryId" name="countryId" />
 						 <button class="grey addCountry"><fmt:message key="${lang.localeId}.callForProposal.addCountry"/></button>

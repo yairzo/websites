@@ -214,8 +214,12 @@ public class EditCallForProposalController extends GeneralFormController{
 			
 			//countries
 			List<Country> countries = new ArrayList<Country>();
-			for(Integer countryId:callForProposalBean.getCountryIds())
-				countries.add(countryService.getCountry(countryId));
+			for(Integer countryId:callForProposalBean.getCountryIds()){
+				if(countryId>0)
+					countries.add(countryService.getCountry(countryId));
+				if(countryId==0)
+					model.put("noCollaborationCountry", true);
+			}
 			model.put("countries", countries);
 					
 			//creators

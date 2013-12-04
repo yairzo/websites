@@ -325,9 +325,48 @@ $(document).ready(function() {
 	</c:forEach> 
 	$(".countryArr").remove();
 	$("#form").append("<input type=\"hidden\" name=\"countryArr\" class=\"countryArr\" value=\""+countryArr + "\"/>");
-	if(countryArr.length>0)
+	if('${noCollaborationCountry}'){
+		$(".noCollaborationCountry").prop('checked', true);
+		$("#selectCountry").prop('disabled', true);
+		$("#selectCountry").css("opacity","0.3");
+		$(".addCountry").prop('disabled', true);
+		$(".addCountry").css("opacity","0.3");
+	}
+	else if(countryArr.length>0){
+		$("#selectCountry").prop('disabled', false);
+		$("#selectCountry").css("opacity","1");
+		$(".addCountry").prop('disabled', false);
+		$(".addCountry").css("opacity","1");
 		$("#deleteCountry").show();
-
+	}
+	
+	$(".noCollaborationCountry").click(function(e){
+		if ($(".noCollaborationCountry").is(":checked")){
+			$("#selectCountry").prop('disabled', true);
+			$("#selectCountry").css("opacity","0.3");
+			$(".addCountry").prop('disabled', true);
+			$(".addCountry").css("opacity","0.3");
+			
+			countryArr =new Array();
+    		countryArr.push('0');
+			$(".countryArr").remove();
+	 		$("#form").append("<input type=\"hidden\" name=\"countryArr\" class=\"countryArr\" value=\""+countryArr + "\"/>"); 
+	 		$("#form").ajaxSubmit();
+	 		$("#countryDiv").html(""); 
+			$("#deleteCountry").hide(); 			
+		}
+		else{
+			$("#selectCountry").prop('disabled', false);
+			$("#selectCountry").css("opacity","1");
+			$(".addCountry").prop('disabled', false);
+			$(".addCountry").css("opacity","1");
+			for (var i = 0; i < countryArr.length; i++) 
+		        if (countryArr[i] == 0) 
+	        		countryArr.splice(i,1);
+		}
+			
+	});
+	
 	$('button.addCountry').click(function(e){
 		e.preventDefault();
  		if($("#countryId").val()!='' && !contains(countryArr,$("#countryId").val())){

@@ -39,7 +39,7 @@
 			</div>
 			</c:if>
 			<span class="clearfix search_icons">
-				<span class="popup_search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/></strong>${command.fund.name}</span>
+				<span class="popup_search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/>&nbsp;<strong>${command.fund.name}</strong></span>
 				<span class="popup_search_date"><fmt:message key="${lang.localeId}.callForProposal.submissionTime"/> 
 				<strong>
 				<c:if test="${command.allYearSubmission}">

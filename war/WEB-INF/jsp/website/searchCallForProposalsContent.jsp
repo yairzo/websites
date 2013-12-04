@@ -2,9 +2,7 @@
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 			<div class="popup_placeholder" style="display:none"></div>
 			<div class="container clearfix">
-				<div class="breadcrumbs clearfix" dir="${lang.dir}" align="${lang.align}">
-					<jsp:include page="location.jsp"/>
-				</div>
+				<div class="breadcrumbs clearfix"></div>
 				<jsp:include page="sideLinks.jsp"/>
 				<div class="content">
 					<h1 class="maintitle">${pageTitle}</h1>
@@ -72,11 +70,11 @@
 											<select style="display: none" name="typeId" id="typeId" class="styled" >
       											<option value="0" <c:if test="${typeId==0}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.select"/></option>
       											<option value="1" <c:if test="${typeId==1}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.researchGrant"/></option>
-      											<option value="2" <c:if test="${typeId==2}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></option>
-      											<option value="3" <c:if test="${typeId==3}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.conference"/></option>
       											<option value="4" <c:if test="${typeId==4}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.scholarship"/></option>
+												<option value="3" <c:if test="${typeId==3}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.conference"/></option>
       											<option value="5" <c:if test="${typeId==5}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.prizes"/></option>
-        		        					</select>
+      											<option value="2" <c:if test="${typeId==2}">selected</c:if> ><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></option>
+      	        		        			</select>
 										</div>
 										<a href="#" class="advanced_select_arrow"></a>
 									</div>
@@ -122,7 +120,10 @@
 															
 											<div class="check scroll_col <c:if test='${varStatus.index%3==0}'>scroll_col_last</c:if>">
 												<div class="checkbox_box selectSubject"></div>
-												<label>${subject.name}</label>
+  												<label>
+												<img alt="" src="image/website/select.png">
+												${subject.name}
+												</label>
 												<div class="checkbox_list" id="${subject.id}Sub">
                    									<div class="checkbox_list_top"></div>
 													<div class="checkbox_list_bottom">
