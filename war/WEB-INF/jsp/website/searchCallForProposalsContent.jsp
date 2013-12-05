@@ -155,11 +155,14 @@
 						<div class="clearfix mar_20">
 							<div class="kol search_result">
 								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_megaphone_${lang.dir}.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
-									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if></h3>
+									<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_megaphone_${lang.dir}.png" alt="" />
+									<c:if test="${!isDefault}"> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsListFound"/></c:if>
+									<c:if test="${isDefault}"> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if>
+									</h3>
 								</div>
    								<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
+									<c:if test="${!isDefault}"><div><fmt:message key="${lang.localeId}.callForProposal.callForProposalsHebrewRemark"/></div></c:if>
 								<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
 									<a href="" class="search_content viewProposal" id="${callForProposal.urlTitle}">
 									<span class="clearfix <c:if test="${callForProposal.localeId=='en_US'}">search_eng</c:if>">${callForProposal.title}</span>

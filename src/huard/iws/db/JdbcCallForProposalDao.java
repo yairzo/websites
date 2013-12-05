@@ -623,6 +623,10 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		if(searchCriteria.getSearchOpen()) 
 			whereClause +=" and (" + mainTable +".finalSubmissionTime >= now() or " + mainTable +".finalSubmissionTime = 0)";
 			
+		//limit to previous 18 months on site
+		if(mainTable.equals("callForProposal"))
+			whereClause += "  and (" + mainTable +".finalSubmissionTime >= DATE_SUB(finalSubmissionTime,INTERVAL 18 MONTH) or " + mainTable +".finalSubmissionTime = 0)";
+		
 		
 		if(searchCriteria.getSearchByAllSubjects()){
 			String query = "select count(*) from subject where parentId not in(-1,1)";
