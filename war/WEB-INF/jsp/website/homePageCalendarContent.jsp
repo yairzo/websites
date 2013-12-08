@@ -19,10 +19,8 @@
         						<c:if test="${varStatus.index%7==0}">
         							</tr><tr style="vertical-align: top">
         						</c:if>
-							 	<c:if test="${month>calendarDay.monthOnly}">
-							 	<td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
-							 		
-							 		</td>
+       							<c:if test="${calendarDay.monthOnly!=month}">
+							 		<td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"></td>
 							 	</c:if>
 								<c:if test="${month==calendarDay.monthOnly}">
 							   	<td class="<c:if test="${fn:length(calendarDay.fundsInDay)>0}">dayWithFund</c:if>  <c:if test="${calendarDay.dayOnly==today && calendarDay.isCurrentMonth && calendarDay.isCurrentYear}">ui-datepicker-today</c:if>">

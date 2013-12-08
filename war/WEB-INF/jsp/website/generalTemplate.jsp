@@ -11,7 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="/style/style_${lang.nameLowerCase}.css">
-        
+        <script src="/js/modernizr-2.6.2.min.js"></script>
        	<jsp:include page="${templateCss}" />
     </head>
     <body>
@@ -37,8 +37,8 @@
 					<c:when test="${userPersonBean != null && !userPersonBean.anonymous && !userPersonBean.hujiIp}">
 						<div class="login_left">
 							<c:choose>
-							<c:when test="${lang.rtl}"><c:out value="${userPersonBean.degreeFullNameHebrew}"/></c:when>
-							<c:otherwise><c:out value="${userPersonBean.degreeFullNameEnglish}"/></c:otherwise>
+							<c:when test="${lang.rtl}"><c:out value="${userPersonBean.degreePartialNameHebrew}"/></c:when>
+							<c:otherwise><c:out value="${userPersonBean.degreePartialNameEnglish}"/></c:otherwise>
 							</c:choose>
 							&nbsp;&nbsp;<a href="/j_acegi_logout" class="logout" title="<fmt:message key="${lang.localeId}.general.login.logout"/>"><img src="/image/website/login_x.png" alt='<fmt:message key="${lang.localeId}.general.login.logout"/>'></a>
 						</div>

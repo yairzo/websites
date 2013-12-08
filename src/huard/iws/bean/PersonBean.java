@@ -712,5 +712,14 @@ public class PersonBean implements Serializable {
 	}
 	public void setPassValidation(boolean passValidation) {
 		this.passValidation= passValidation;
-	}	
+	}
+	
+	public String getDegreePartialNameHebrew() {
+		return (degreeHebrew == null ? "" : degreeHebrew) + " "
+				+ firstNameHebrew.substring(0,1) + ". " + lastNameHebrew;
+	}
+	public String getDegreePartialNameEnglish() {
+		return (degreeEnglish == null ? "" : degreeEnglish) + " "
+				+ firstNameEnglish.substring(0,1) + ". " + lastNameEnglish;
+	}
 }

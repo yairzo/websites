@@ -2,6 +2,7 @@
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
 
 			<div class="container clearfix">
+				<div class="breadcrumbs clearfix"></div>
 				<jsp:include page="sideLinks.jsp"/>
 				<div class="content" style="direction: ${copLang.dir};">
 					<h1 class="maintitle">${command.title}</h1>
@@ -33,9 +34,9 @@
 										${submissionDate3}<br/>
 										</c:if>
 										<strong><fmt:message key="${copLang.localeId}.callForProposal.fund"/>:</strong>&nbsp;${command.fund.name}<br/>
-     									<a class="nounderline" href="${command.originalCallWebAddress}"><img src="/image/website/original_call.png" height="14px" alt=""/>&nbsp;<fmt:message key="${copLang.localeId}.website.originalCallWebAddress"/></a> 
+     									<a href="#" onclick="window.open('${command.originalCallWebAddress}')"><img src="/image/website/original_call.png" height="14px" alt=""/>&nbsp;<fmt:message key="${copLang.localeId}.website.originalCallWebAddress"/></a> 
      									|
-     									<a class="nounderline" href="${command.fund.webAddress}"><img src="/image/website/menu_icon_home.png" alt=""/>&nbsp;<fmt:message key="${copLang.localeId}.website.fundWebAddress"/></a><br>
+     									<a href="#" onclick="window.open('${command.fund.webAddress}')"><img src="/image/website/menu_icon_home.png" alt=""/>&nbsp;<fmt:message key="${copLang.localeId}.website.fundWebAddress"/></a><br>
 
 										</p>
 								</div>

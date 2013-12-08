@@ -25,14 +25,25 @@
 							<th><span title="Friday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.6"/></span></th><th class="ui-datepicker-week-end"><span title="Saturday"><fmt:message key="${lang.localeId}.general.dayOfWeekShort.7"/></span></th></tr></thead>
 							<tbody>
                 			<tr style="vertical-align: top">
+        					<c:set var="stopCal" value="false"/>
+        					
         					<c:forEach items="${calendarList}" var="calendarDay" varStatus="varStatus">
         						<c:if test="${varStatus.index%7==0}">
-        							</tr><tr style="vertical-align: top">
-        						</c:if>
-							 	<c:if test="${month>calendarDay.monthOnly}">
+       								<c:if test="${(calendarDay.monthOnly>month && calendarDay.yearOnly==year) || calendarDay.yearOnly>year}">
+        								<c:set var="stopCal" value="true"/>
+        							</c:if>
+        							<c:if test="${stopCal=='false'}">
+        								</tr>
+        								<tr style="vertical-align: top">
+        							</c:if>
+         						</c:if>
+ 							 	<c:if test="${month!=calendarDay.monthOnly && stopCal=='false'}">
 							 		<td class="ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
 							 		<span>${calendarDay.dayOnly}</span>
 							 		</td>
+							 	</c:if>
+							 	<c:if test="${month!=calendarDay.monthOnly && stopCal=='true'}">
+							 		
 							 	</c:if>
 								<c:if test="${month==calendarDay.monthOnly}">
 							   	<td>

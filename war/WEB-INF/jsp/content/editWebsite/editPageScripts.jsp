@@ -321,8 +321,11 @@ $(document).ready(function() {
 	});
 	
 	<c:forEach items="${countries}" var="country" varStatus="varStatus">
-	countryArr.push(${country.id});
+		countryArr.push(${country.id});
 	</c:forEach> 
+	<c:if test="${noCollaborationCountry}">
+		countryArr.push('0');
+	</c:if>
 	$(".countryArr").remove();
 	$("#form").append("<input type=\"hidden\" name=\"countryArr\" class=\"countryArr\" value=\""+countryArr + "\"/>");
 	if('${noCollaborationCountry}'){
@@ -616,7 +619,6 @@ $(document).ready(function() {
 		CKEDITOR.instances['editor1'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($("#editor1").html());
 	      	$("#editor1").html(text);
-	      	alert(text);
 			$('.editorTextarea', $("#editor1").closest("table")).val(text);
 	    	autoSave(); 
 	    }); 
@@ -626,8 +628,8 @@ $(document).ready(function() {
 	      	$("#editor2").html(text);
 			$('.editorTextarea', $("#editor2").closest("table")).val(text);
 	    	autoSave(); 
-	    }); 
-
+	    });
+		
 		CKEDITOR.instances['editor3'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($("#editor3").html());
 	      	$("#editor3").html(text);
@@ -953,7 +955,7 @@ function checkFund(){
     if($("#fundId").val()=='0'){
   		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
-			$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
   		openHelp("",text);
 		$('#searchPhrase').prop("disabled", false);
@@ -980,4 +982,5 @@ function contains(a, obj) {
     }
     return false;
 }
+
 </script>
