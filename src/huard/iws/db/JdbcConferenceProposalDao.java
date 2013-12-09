@@ -224,14 +224,16 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 	}
 
 	public void insertGradingInfo(ConferenceProposalGrading conferenceProposalGrading){
-		String query = "insert conferenceProposalGrading set approverId = ?, adminId = ?, deadline = ?, sentForGradingDate = now(), finishedGradingDate = ?, adminSendRemark=?";
+		String query = "insert conferenceProposalGrading set approverId = ?, adminId = ?, deadline = ?, sentForGradingDate = now(), "
+				+ "finishedGradingDate = ?, adminSendRemark=?, deadlineRemark = ?";
 		logger.info(query);
 		getSimpleJdbcTemplate().update(query,
 				conferenceProposalGrading.getApproverId(),
 				conferenceProposalGrading.getAdminId(),
 				DateUtils.formatTimestampWithoutMillis(conferenceProposalGrading.getDeadline()),
 				DateUtils.formatTimestampWithoutMillis(conferenceProposalGrading.getFinishedGradingDate()),
-				conferenceProposalGrading.getAdminSendRemark()
+				conferenceProposalGrading.getAdminSendRemark(),
+				""
 				);
 	} 
 	public void updateLastGradingByApproverDeadline(int approverId,String deadline,String deadlineRemarks){

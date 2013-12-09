@@ -381,6 +381,7 @@ war/WEB-INF/jsp/website/callForProposalCalendarScripts.jsp svn_mime_002dtype=tex
 war/WEB-INF/jsp/website/callForProposalContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/callForProposalPopupContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/callForProposalScripts.jsp svn_mime_002dtype=text%2Fplain
+war/WEB-INF/jsp/website/fundingSearchForm.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/generalTemplate.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/homePageCalendarContent.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/website/location.jsp svn_mime_002dtype=text%2Fplain

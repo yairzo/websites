@@ -71,7 +71,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		Subject rootSubject = subjectService.getSubject(1, userPersonBean.getPreferedLocaleId());
 		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, lang.getLocaleId());
 		List<Integer> subjectsToCheck = new ArrayList<Integer>();
-		logger.info("Subjects: " + command.getSearchCreteria().getSearchBySubjectIds());
 		if (!command.getSearchCreteria().getSearchBySubjectIds().isEmpty()){
 			for (String subject: command.getSearchCreteria().getSearchBySubjectIds().split(","))
 				subjectsToCheck.add(Integer.parseInt(subject));
@@ -82,9 +81,20 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		rootSubjectBean.checkSubjects(subjectsToCheck);
 		model.put("rootSubject", rootSubjectBean);
 		//show searched parameters
-		model.put("searchWords",command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));
-		model.put("submissionDateFrom", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateFrom(),"yyyy-MM-dd","dd/MM/yyyy"));
-		model.put("submissionDateTo", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateTo(),"yyyy-MM-dd","dd/MM/yyyy"));
+		
+		model.put("searchWords", command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));		
+		final String searchWordDateFormat = "[\\d]{4}-[\\d]{2}-[\\d]{2}";
+		//We check the request since if it's a single day query the search word was deleted from the search creteria 
+		boolean searchedSingleDay = request.getParameter("searchWords","").matches(searchWordDateFormat);
+		model.put("searchBoxBottom", searchedSingleDay);
+		if (searchedSingleDay){
+			model.put("submissionDateFrom", "");
+			model.put("submissionDateTo", "");
+		}
+		else{
+			model.put("submissionDateFrom", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateFrom(),"yyyy-MM-dd","dd/MM/yyyy"));
+			model.put("submissionDateTo", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateTo(),"yyyy-MM-dd","dd/MM/yyyy"));
+		}
 		model.put("deskId",command.getSearchCreteria().getSearchByDesk());
 		model.put("fundId",command.getSearchCreteria().getSearchByFund());
 		try{
@@ -112,8 +122,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		
 		long lastUpdateTime = callForProposalService.getCallForProposalsLastUpdate().getTime();
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
-
-	
+		
 		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("searchCallForProposalsStatic",model);
 		else

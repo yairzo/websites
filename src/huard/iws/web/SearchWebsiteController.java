@@ -90,6 +90,10 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 		long lastUpdateTime = Math.max(callForProposalService.getCallForProposalsLastUpdate().getTime(), 
 				textualPageService.getTextualPagesLastUpdate().getTime());
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
+		
+		String viewType = request.getParameter("v", "");
+		boolean searchBoxBottom = viewType.equals("new_cfps");
+		model.put("searchBoxBottom", searchBoxBottom);
 
 		if(searchWords.isEmpty())
 			model.put("isDefault", true);

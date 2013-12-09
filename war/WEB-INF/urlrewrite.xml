@@ -39,6 +39,10 @@
         <to last="true">/search.html?searchWords=$1</to>
     </rule>
     <rule>
+        <from>^/funding_news/$</from>
+        <to last="true">/search.html?v=new_cfps</to>
+    </rule>
+    <rule>
         <from>^/search_funding/$</from>
         <to last="true">/searchCallForProposals.html</to>
     </rule>

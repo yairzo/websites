@@ -9,6 +9,7 @@
 					<h1 class="maintitle">${pageTitle}</h1>
 					
 					<div class="clearfix mar_20">
+						<c:if test="${!searchBoxBottom}">
 						<div class="advanced">
 							<form action="/search.html" method="post">
 								<div class="clearfix">
@@ -26,6 +27,7 @@
 								<a href="/searchCallForProposals.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
 							</div>
 						</div>
+						</c:if>
 						
 						<div class="clearfix mar_20">
 							<div class="kol_${lang.dir} search_result">
@@ -99,6 +101,25 @@
 							</div>
 							</c:if>
 						</div>
+						<c:if test="${searchBoxBottom}">
+						<div class="advanced">
+							<form action="/search.html" method="post">
+								<div class="clearfix">
+									<div class="advanced_subject">
+										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>
+										<input type="text" name="searchWords" value="${searchWords}" id="advanced_subject" />
+									</div>
+								</div>
+								<div class="clearfix mar_15">
+									<input type="submit" value="<fmt:message key="${lang.localeId}.website.search"/>" class="advanced_submit" />
+									<a href="#" class="advanced_clear"><fmt:message key="${lang.localeId}.website.cleanSearch"/></a>
+								</div>
+							</form>
+							<div class="clearfix">
+								<a href="/searchCallForProposals.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
+							</div>
+						</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
