@@ -561,7 +561,7 @@
 					<fmt:message key="${lang.localeId}.callForProposal.budgetApprover"/> 
 					<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameHebrew}"/>,</c:if>
    					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameEnglish}"/>,</c:if>
-   					&nbsp;<fmt:message key="${lang.localeId}.callForProposal.phone"/>:<c:out value="${deskBudgetPerson.phone}"></c:out>,				
+   					<fmt:message key="${lang.localeId}.callForProposal.phone"/>:&nbsp;<c:out value="${deskBudgetPerson.phone}"></c:out>,				
 					<a class="nounderline budgetEmail" href="mailto:${deskBudgetPerson.email}">@</a></span>
 					</td>
 					</tr>
@@ -595,10 +595,8 @@
 					<td colspan="3" style="text-align:${lang.align}">
 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="contactPersonDetails">
 					~
-					<a href="mailto:${deskPerson.email}">
 					<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskPerson.degreeFullNameHebrew}"/></c:if>
    					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskPerson.degreeFullNameEnglish}"/></c:if>
-					</a>
 					// <c:out value="${deskPerson.title}"></c:out>
 					// <c:out value="${deskPerson.phone}"></c:out>
 					// <c:out value="${deskPerson.email}"></c:out>

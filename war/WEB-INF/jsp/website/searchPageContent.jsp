@@ -31,7 +31,6 @@
 							<div class="kol_${lang.dir} search_result">
 								<div class="clearfix">
 									<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_megaphone.png" alt="" /> &nbsp;
-									<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
 									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if>
 									<c:if test="${!isDefault}"><fmt:message key="${lang.localeId}.website.open"/></c:if>
 									</h3>
@@ -89,7 +88,7 @@
 								<a href="/textualPage.html?id=${textualPage.id}" class="search_content">
 									<span class="clearfix">${textualPage.title}</span>
 									<span class="clearfix search_icons">
-										<span class="search_info"><fmt:message key="${lang.localeId}.website.generalInfo"/></span>
+										<span class="search_info">${textualPage.category.name}</span>
 									</span>
 								</a>
 	   							</c:forEach>

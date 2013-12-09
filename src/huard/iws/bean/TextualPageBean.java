@@ -6,6 +6,7 @@ import java.util.List;
 import huard.iws.model.TextualPage;
 import huard.iws.model.Attachment;
 import huard.iws.service.PersonService;
+import huard.iws.service.CategoryService;
 import huard.iws.util.ApplicationContextProvider;
 
 public class TextualPageBean {
@@ -290,6 +291,13 @@ public class TextualPageBean {
 	}
 	public void setIsDeleted(int isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	public CategoryBean getCategory() {
+		CategoryService categoryService = (CategoryService) ApplicationContextProvider
+				.getContext().getBean("categoryService");
+		CategoryBean category = new CategoryBean(
+				categoryService.getCategory(this.categoryId));
+		return category;
 	}
 
 }

@@ -124,7 +124,7 @@ public class DateUtils {
 		DateFormatSymbols dfs = new DateFormatSymbols();
 		dfs.setMonths(getMonthsNames(localeId));
 		dfs.setWeekdays(getDayNames(localeId));
-		String format = "יום EEEE, d בMMMM, yyyy" + (withTime?"בשעה kk:mm":"");
+		String format = "יום EEEE, d בMMMM yyyy" + (withTime?"בשעה kk:mm":"");
 		if (localeId.equals("en_US"))
 			format = "EEEE, MMMM d, yyyy" + (withTime?"'at' kk:mm":""); 
 		SimpleDateFormat sdf = new SimpleDateFormat(format, dfs);
