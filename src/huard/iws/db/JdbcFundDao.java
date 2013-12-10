@@ -156,7 +156,6 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 
 	public void deleteFund(int financialId){
 		String query = "delete from fund where financialId = ?;";
-		System.out.println("111111111111:" + query+ financialId);
 		getSimpleJdbcTemplate().update(query, financialId);
 	}
 

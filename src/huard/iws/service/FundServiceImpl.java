@@ -39,10 +39,7 @@ public class FundServiceImpl implements FundService{
 	}
 
 	public List<Fund> getFunds(){
-		if (funds==null){
-			funds =  fundDao.getFunds();
-		}
-		return funds;
+		return fundDao.getFunds();
 	}
 	
 	public List<Fund> getTemporaryFunds(){
@@ -102,8 +99,9 @@ public class FundServiceImpl implements FundService{
 		List<Fund> funds = getFunds();
 		List<Fund> filteredFunds = new ArrayList<Fund>();
 		for (Fund fund: funds){
-			if (fund !=null && (fund.getName()!=null && fund.getName().toLowerCase().contains(term.toLowerCase())) || (fund.getShortName()!=null && fund.getShortName().contains(term)))
+			if (fund !=null && (fund.getName()!=null && fund.getName().toLowerCase().contains(term.toLowerCase())) || (fund.getShortName()!=null && fund.getShortName().contains(term))){
 				filteredFunds.add(fund);
+			}
 		}
 		return filteredFunds;
 	}

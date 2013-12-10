@@ -15,11 +15,15 @@
 								</c:when>
     							<c:when test="${command.wrapExternalPage}">
 									<!--<jsp:include page="/viewList.html?id=${command.externalPageUrl}&iv=1&p=1&a=1" />-->
+									<c:if test="${fn:length(command.html)>0}">
+										${command.html}
+									</c:if>
+									
 									<c:if test="${aCompoundView}">
 									<div class="kol open">
-									${list.preface}
+										${list.preface}
 									</div>
-									<p>&nbsp;</p>
+									<br>
 									<c:forEach items="${list.sublistsBeans}" var="listBean" varStatus="varStatusLists">
 										<div class="kol open">
 										<div class="clearfix">

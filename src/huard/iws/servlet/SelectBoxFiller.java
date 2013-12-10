@@ -197,7 +197,6 @@ public class SelectBoxFiller extends HttpServlet {
 				sb.append(listItem);
 			}
 			sb.append("]");
-
 			ServletOutputStream out = response.getOutputStream();
 			out.print(sb.toString());
 			out.flush();

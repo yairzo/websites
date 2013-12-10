@@ -35,7 +35,7 @@
 			</div>
 			<c:if test="${command.expired}">
 			<div class="clearfix">
-				<h3 class="popup_careful"><fmt:message key="${lang.localeId}.website.isExpired"/></h3>
+				<h3 class="popup_careful_${lang.dir}"><fmt:message key="${lang.localeId}.website.isExpired"/></h3>
 			</div>
 			</c:if>
 			<span class="clearfix search_icons">
