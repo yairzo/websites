@@ -30,15 +30,19 @@
 						</c:if>
 						
 						<div class="clearfix mar_20">
+						
+						<c:if test="${!isDefault || viewType=='new_cfps'}">
 							<div class="kol_${lang.dir} search_result">
+								<c:if test="${viewType!='new_cfps' }">
 								<div class="clearfix">
 									<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_megaphone.png" alt="" /> &nbsp;
-									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if>
-									<c:if test="${!isDefault}"><fmt:message key="${lang.localeId}.website.open"/></c:if>
+									<fmt:message key="${lang.localeId}.callForProposal.callForProposalsList"/>
 									</h3>
 								</div>
+								</c:if>
     							<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
+								<div class="kol_remark"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsHebrewRemark"/></div>
 								<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
 								<a href="" class="search_content viewProposal ${callForProposal.urlTitle}">
 									<span class="clearfix <c:if test="${callForProposal.localeId=='en_US'}">search_eng</c:if>">${callForProposal.title}</span>
@@ -54,53 +58,52 @@
   								<fmt:message key="${lang.localeId}.website.noCallForProposals"/> 
   								</c:otherwise>
 	  							</c:choose> 								
-								
 							</div>
-							
-							<div class="kol_${lang.dir} search_result open">
-								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_balloon.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.website.messages"/>
-									<c:if test="${isDefault}"><fmt:message key="${lang.localeId}.website.messagesNew"/></c:if></h3>
+						</c:if>
+						<c:if test="${!isDefault && viewType!='new_cfps'}">
+								<div class="kol_${lang.dir} search_result open">
+									<div class="clearfix">
+									<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_balloon.png" alt="" /> &nbsp;<fmt:message key="${lang.localeId}.website.messages"/></h3>
+									</div>
+									<c:choose>
+    								<c:when test="${fn:length(textualMessages) > 0}">
+									<c:forEach items="${textualMessages}" var="textualMessage" varStatus="varStatus">
+									<a href="/textualPage.html?id=${textualMessage.id}" class="search_content">
+							 			<span class="clearfix">${textualMessage.title}</span>
+										<span class="clearfix search_icons">
+											<!-- <span class="search_from"><fmt:message key="${lang.localeId}.website.by"/> <strong>${textualMessage.creator.degreeFullNameHebrew }</strong></span> -->
+											<span class="search_date"><fmt:message key="${lang.localeId}.website.messageDate"/> <strong>${textualMessage.creationTimeString }</strong></span>
+										</span>
+									</a>
+	   								</c:forEach>
+ 	  								</c:when>
+  	  								<c:otherwise><fmt:message key="${lang.localeId}.website.noMessages"/> 
+  									</c:otherwise>
+  									</c:choose> 
 								</div>
-								<c:choose>
-    							<c:when test="${fn:length(textualMessages) > 0}">
-								<c:forEach items="${textualMessages}" var="textualMessage" varStatus="varStatus">
-								<a href="/textualPage.html?id=${textualMessage.id}" class="search_content">
-									<span class="clearfix">${textualMessage.title}</span>
-									<span class="clearfix search_icons">
-										<span class="search_from"><fmt:message key="${lang.localeId}.website.by"/> <strong>${textualMessage.creator.degreeFullNameHebrew }</strong></span>
-										<span class="search_date"><fmt:message key="${lang.localeId}.website.messageDate"/> <strong>${textualMessage.creationTimeString }</strong></span>
-									</span>
-								</a>
-	   							</c:forEach>
- 	  							</c:when>
-  	  							<c:otherwise><fmt:message key="${lang.localeId}.website.noMessages"/> 
-  								</c:otherwise>
-  								</c:choose> 
-							</div>
 							
-							<c:if test="${!textualPagesIsDefault}">
-							<div class="kol_${lang.dir} search_result open">
-								<div class="clearfix">
-									<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_text.png" alt="" /> &nbsp; <fmt:message key="${lang.localeId}.website.textualPagesList"/></h3>
+								<div class="kol_${lang.dir} search_result open">
+									<div class="clearfix">
+										<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_text.png" alt="" /> &nbsp; <fmt:message key="${lang.localeId}.website.textualPagesList"/></h3>
+									</div>
+									<c:choose>
+    								<c:when test="${fn:length(textualPages) > 0}">
+									<c:forEach items="${textualPages}" var="textualPage" varStatus="varStatus">
+									<a href="/textualPage.html?id=${textualPage.id}" class="search_content">
+										<span class="clearfix">${textualPage.title}</span>
+										<span class="clearfix search_icons">
+											<span class="search_info">${textualPage.category.name}</span>
+										</span>
+									</a>
+	   								</c:forEach>
+ 	  								</c:when>
+  	  								<c:otherwise><fmt:message key="${lang.localeId}.website.noTextualPages"/> 
+  									</c:otherwise>
+  									</c:choose> 
 								</div>
-								<c:choose>
-    							<c:when test="${fn:length(textualPages) > 0}">
-								<c:forEach items="${textualPages}" var="textualPage" varStatus="varStatus">
-								<a href="/textualPage.html?id=${textualPage.id}" class="search_content">
-									<span class="clearfix">${textualPage.title}</span>
-									<span class="clearfix search_icons">
-										<span class="search_info">${textualPage.category.name}</span>
-									</span>
-								</a>
-	   							</c:forEach>
- 	  							</c:when>
-  	  							<c:otherwise><fmt:message key="${lang.localeId}.website.noTextualPages"/> 
-  								</c:otherwise>
-  								</c:choose> 
-							</div>
-							</c:if>
+						</c:if>
 						</div>
+
 						<c:if test="${searchBoxBottom}">
 						<div class="advanced">
 							<form action="/search.html" method="post">

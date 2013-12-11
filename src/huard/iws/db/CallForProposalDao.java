@@ -40,7 +40,7 @@ public interface CallForProposalDao {
 
 	public List<CallForProposal> getCallForProposalsOnline( CallForProposalSearchCreteria searchCreteria);
 
-	public List<CallForProposal> getCallForProposalsOnline( String ids);
+	public List<CallForProposal> getCallForProposalsOnlineSimple( String ids,String viewType);
 
 	public void insertArdNum(int ardNum,int id);
 	

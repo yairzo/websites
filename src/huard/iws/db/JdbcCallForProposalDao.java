@@ -625,7 +625,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			
 		//limit to previous 18 months on site
 		if(mainTable.equals("callForProposal"))
-			whereClause += "  and (" + mainTable +".finalSubmissionTime >= DATE_SUB(finalSubmissionTime,INTERVAL 18 MONTH) or " + mainTable +".finalSubmissionTime = 0)";
+			whereClause += "  and (" + mainTable +".finalSubmissionTime >= DATE_SUB(now(),INTERVAL 18 MONTH) or " + mainTable +".finalSubmissionTime = 0)";
 		
 		
 		if(searchCriteria.getSearchByAllSubjects()){
@@ -649,8 +649,8 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				whereClause += "allYearIndicator desc, " + mainTable +".finalSubmissionTime";
 		}
 		
-		if(searchCriteria.getLimit()>0)
-			whereClause += "  limit " + searchCriteria.getLimit();
+		//if(searchCriteria.getLimit()>0)
+		//	whereClause += "  limit " + searchCriteria.getLimit();
 		
 		logger.info(whereClause);
 		return whereClause;
@@ -658,13 +658,15 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 
 
 	
-	public List<CallForProposal> getCallForProposalsOnline(String ids ){
-		String query  = "select distinct callForProposal.* from callForProposal where isDeleted=0 and (finalSubmissionTime >= now() or finalSubmissionTime = 0)";
-		if(!ids.isEmpty())
+	public List<CallForProposal> getCallForProposalsOnlineSimple(String ids ,String viewType){
+		String query  = "select distinct callForProposal.* from callForProposal where isDeleted=0";
+		if(viewType.equals("new_cfps"))//when coming from 'latest calls..'
+			query += "	and (publicationTime >= DATE_SUB(now(),INTERVAL 2 WEEK) )";
+		else if(!ids.isEmpty())//after search
 			query += " and id in ("+ids + ")";
-		query+="  order by localeId, publicationTime desc";
-		if(ids.isEmpty())
-			query += " limit 20";
+
+		if(viewType.equals("new_cfps"))
+			query += " order by publicationTime desc";
 		logger.info(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;

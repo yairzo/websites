@@ -78,8 +78,8 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 		return callForProposalDao.getCallForProposalsOnline(searchCreteria);
 	}
 	
-	public List<CallForProposal> getCallForProposalsOnline(String ids){
-		return callForProposalDao.getCallForProposalsOnline(ids);
+	public List<CallForProposal> getCallForProposalsOnlineSimple(String ids,String viewType){
+		return callForProposalDao.getCallForProposalsOnlineSimple(ids,viewType);
 	}
 
 	/*public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria,String localeId){

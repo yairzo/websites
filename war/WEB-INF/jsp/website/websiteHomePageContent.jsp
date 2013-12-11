@@ -93,7 +93,7 @@
 						<jsp:include page="/callForProposalCalendar.html?h=1"/>
 						</div>
 						
-						<a href="/search_funding/" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
+						<a href="/Recent_Announcements/" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
 						<div class="board_search">
 							<h3><fmt:message key="${lang.localeId}.website.search"/></h3>
 							<a href="/search_funding/" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>

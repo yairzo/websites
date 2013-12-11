@@ -40,7 +40,7 @@ public interface CallForProposalService {
 
 	public List<CallForProposal> getCallForProposalsOnline(CallForProposalSearchCreteria searchCriteria);
 
-	public List<CallForProposal> getCallForProposalsOnline(String ids);
+	public List<CallForProposal> getCallForProposalsOnlineSimple(String ids,String viewType);
 
 	//public List<CallForProposal> getCallForProposals(CallForProposalSearchCreteria searchCriteria,String localeId);
 

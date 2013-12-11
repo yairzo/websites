@@ -37,48 +37,18 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 
+		//view
+		String viewType = request.getParameter("v", "");
+		boolean searchBoxBottom = viewType.equals("new_cfps");
+		model.put("searchBoxBottom", searchBoxBottom);
+		model.put("viewType", viewType);
+
 		//page title
 		Language lang = (huard.iws.model.Language)model.get("lang");
-		model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.search"));
-
-		//callForProposals
-		String callForProposalIds =  (String)request.getSession().getAttribute("callForProposalIds");
-		request.getSession().setAttribute("callForProposalIds", null);
-		if (callForProposalIds == null)// on first time
-			callForProposalIds = "";
-		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(callForProposalIds);
-		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
-		for (CallForProposal callForProposal: callForProposals){
-			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,true);
-			if(callForProposalBean.getTitle().startsWith("###")) callForProposalBean.setTitle("");
-			callForProposalBeans.add(callForProposalBean);
-		}
-		model.put("callForProposals", callForProposalBeans);
-
-		//textualPages
-		String textualPageIds =  (String)request.getSession().getAttribute("textualPageIds");
-		request.getSession().setAttribute("textualPageIds", null);
-		if (textualPageIds == null)// on first time
-			textualPageIds = "";
-		List<TextualPageBean> textualPageBeans = new ArrayList<TextualPageBean>();
-		if(!textualPageIds.isEmpty()){//if not entered any phrase dont show any textual pages
-			List<TextualPage> textualPages = textualPageService.getOnlineTextualPagesSearch(textualPageIds);
-			for (TextualPage textualPage: textualPages){
-				TextualPageBean textualPageBean = new TextualPageBean(textualPage);
-				textualPageBeans.add(textualPageBean);
-			}
-		}
-		model.put("textualPages", textualPageBeans);
-		model.put("textualPagesIsDefault", textualPageIds.isEmpty());
-		
-		//messages
-		List<TextualPage> textualMessages = textualPageService.getOnlineMessagesSearch(textualPageIds);
-		List<TextualPageBean> textualMessageBeans = new ArrayList<TextualPageBean>();
-		for (TextualPage textualMessage: textualMessages){
-			TextualPageBean textualMessageBean = new TextualPageBean(textualMessage);
-			textualMessageBeans.add(textualMessageBean);
-		}
-		model.put("textualMessages", textualMessageBeans);
+		if(viewType.equals("new_cfps"))
+			model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.recentCallForProposals"));
+		else
+			model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.generalSearch"));
 		
 		//show searched words
 		String searchWords="";
@@ -86,28 +56,63 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 			searchWords = ((String)request.getSession().getAttribute("searchWords")).replace("\"", "&quot;");
 		model.put("searchWords",searchWords);
 		request.getSession().setAttribute("searchWords", "");
-		
+		if(searchWords.isEmpty())
+			model.put("isDefault", true);
+
 		long lastUpdateTime = Math.max(callForProposalService.getCallForProposalsLastUpdate().getTime(), 
 				textualPageService.getTextualPagesLastUpdate().getTime());
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
-		
-		String viewType = request.getParameter("v", "");
-		boolean searchBoxBottom = viewType.equals("new_cfps");
-		model.put("searchBoxBottom", searchBoxBottom);
 
-		if(searchWords.isEmpty())
-			model.put("isDefault", true);
+		String callForProposalIds =  (String)request.getSession().getAttribute("callForProposalIds");
+		request.getSession().setAttribute("callForProposalIds", null);
+		String textualPageIds =  (String)request.getSession().getAttribute("textualPageIds");
+		request.getSession().setAttribute("textualPageIds", null);
+
+		if(!searchWords.isEmpty() || viewType.equals("new_cfps")){
+			//callForProposals
+			if (callForProposalIds == null)	callForProposalIds = "";
+			List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnlineSimple(callForProposalIds,viewType);
+			List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
+			for (CallForProposal callForProposal: callForProposals){
+				CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,true);
+				if(callForProposalBean.getTitle().startsWith("###")) callForProposalBean.setTitle("");
+				callForProposalBeans.add(callForProposalBean);
+			}
+			model.put("callForProposals", callForProposalBeans);
+		}
+		if(!searchWords.isEmpty() && !viewType.equals("new_cfps")){
+			//textualPages
+			if (textualPageIds == null)	textualPageIds = "";
+			List<TextualPageBean> textualPageBeans = new ArrayList<TextualPageBean>();
+			if(!textualPageIds.isEmpty()){//if not entered any phrase dont show any textual pages
+				List<TextualPage> textualPages = textualPageService.getOnlineTextualPagesSearch(textualPageIds);
+				for (TextualPage textualPage: textualPages){
+					TextualPageBean textualPageBean = new TextualPageBean(textualPage);
+					textualPageBeans.add(textualPageBean);
+				}
+			}
+			model.put("textualPages", textualPageBeans);
+
+			//messages
+			List<TextualPage> textualMessages = textualPageService.getOnlineMessagesSearch(textualPageIds);
+			List<TextualPageBean> textualMessageBeans = new ArrayList<TextualPageBean>();
+			for (TextualPage textualMessage: textualMessages){
+				TextualPageBean textualMessageBean = new TextualPageBean(textualMessage);
+				textualMessageBeans.add(textualMessageBean);
+			}
+			model.put("textualMessages", textualMessageBeans);
+		}
+		
 		
 		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("searchPageStatic",model);
 		else
 			return new ModelAndView ("searchPage",model);
-
+		
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
-		
 		SearchWebsiteControllerCommand command = new SearchWebsiteControllerCommand();
 		if(request.getSession().getAttribute("callForProposalIds")==null && request.getSession().getAttribute("textualPageIds")==null){
 			Set<Long> sphinxIds=new LinkedHashSet<Long>();

@@ -12,17 +12,19 @@
 						<%@ include file="/WEB-INF/jsp/website/fundingSearchForm.jsp" %>
 						</c:if>
 						<div class="clearfix mar_20">
+							<c:if test="${!isDefault}">
 							<div class="kol search_result">
+								<c:if test="${!searchedSingleDay}">
 								<div class="clearfix">
 									<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_megaphone_${lang.dir}.png" alt="" />
-									<c:if test="${!isDefault}"> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsListFound"/></c:if>
-									<c:if test="${isDefault}"> &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsListNew"/></c:if>
+									 &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsListFound"/>
 									</h3>
 								</div>
+								</c:if>
    								<c:choose>
     							<c:when test="${fn:length(callForProposals) > 0}">
-									<c:if test="${!isDefault}"><div><fmt:message key="${lang.localeId}.callForProposal.callForProposalsHebrewRemark"/></div></c:if>
-								<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
+									<div class="kol_remark"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsHebrewRemark"/></div>
+									<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
 									<a href="" class="search_content viewProposal" id="${callForProposal.urlTitle}">
 									<span class="clearfix <c:if test="${callForProposal.localeId=='en_US'}">search_eng</c:if>">${callForProposal.title}</span>
 									<span class="clearfix search_icons">
@@ -40,10 +42,11 @@
   								</c:otherwise>
 	  							</c:choose> 								
 
-							</div>							
+							</div>	
+							</c:if>						
 						</div>
 						<c:if test="${searchBoxBottom}">
-						<%@ include file="/WEB-INF/jsp/website/fundingSearchForm.jsp" %>
+						<div class="kol_remark_more" style="direction:${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsRemarkMore"/></div>
 						</c:if>
 					</div>
 				</div>

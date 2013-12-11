@@ -52,9 +52,29 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 	{
 
 		SearchCallForProposalsControllerCommand command = (SearchCallForProposalsControllerCommand) model.get("command");
+
+	
 		Language lang = (huard.iws.model.Language)model.get("lang");
 		model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.callForProposalSearch"));
 
+		final String searchWordDateFormat = "[\\d]{4}-[\\d]{2}-[\\d]{2}";
+		//We check the request since if it's a single day query the search word was deleted from the search creteria 
+		boolean searchedSingleDay = request.getParameter("searchWords","").matches(searchWordDateFormat);
+		model.put("searchBoxBottom", searchedSingleDay);
+		if (searchedSingleDay){
+			model.put("submissionDateFrom", "");
+			model.put("submissionDateTo", "");
+		}
+		else{
+			model.put("submissionDateFrom", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateFrom(),"yyyy-MM-dd","dd/MM/yyyy"));
+			model.put("submissionDateTo", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateTo(),"yyyy-MM-dd","dd/MM/yyyy"));
+		}
+		if(searchedSingleDay){
+			model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.callForProposalSearchDay")+" "+DateUtils.formatDate(request.getParameter("searchWords",""),"yyyy-MM-dd","dd.MM.yyyy"));
+			model.put("searchedSingleDay", true);
+		}
+			
+		
 		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
 		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
 		for (CallForProposal callForProposal: callForProposals){
@@ -83,18 +103,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		//show searched parameters
 		
 		model.put("searchWords", command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));		
-		final String searchWordDateFormat = "[\\d]{4}-[\\d]{2}-[\\d]{2}";
-		//We check the request since if it's a single day query the search word was deleted from the search creteria 
-		boolean searchedSingleDay = request.getParameter("searchWords","").matches(searchWordDateFormat);
-		model.put("searchBoxBottom", searchedSingleDay);
-		if (searchedSingleDay){
-			model.put("submissionDateFrom", "");
-			model.put("submissionDateTo", "");
-		}
-		else{
-			model.put("submissionDateFrom", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateFrom(),"yyyy-MM-dd","dd/MM/yyyy"));
-			model.put("submissionDateTo", DateUtils.formatDate(command.getSearchCreteria().getSearchBySubmissionDateTo(),"yyyy-MM-dd","dd/MM/yyyy"));
-		}
 		model.put("deskId",command.getSearchCreteria().getSearchByDesk());
 		model.put("fundId",command.getSearchCreteria().getSearchByFund());
 		try{
@@ -195,12 +203,12 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 					&& !userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") 
 					&& !userPersonBean.getSubjectsIds().isEmpty())
 				searchCreteria.setSearchBySubjectIds(BaseUtils.getString(userPersonBean.getSubjectsIds()));
-			if (searchCreteria.isDefault()){				
+			/*if (searchCreteria.isDefault()){				
 				searchCreteria.setLimit(LIMIT_ROWS);
 			}
 			else{
 				searchCreteria.setLimit(0);
-			}
+			}*/
 			command.setSearchCreteria(searchCreteria);
 		}
 		return command;
