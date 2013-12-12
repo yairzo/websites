@@ -73,5 +73,7 @@ public interface CallForProposalService {
 	public List<CallForProposal> getCallForProposalsPerDay(String date);
 	
 	public Timestamp getCallForProposalsLastUpdate();
+	
+	public void updateFinalSubmissionTime();
 
 }

@@ -69,5 +69,7 @@ public interface CallForProposalDao {
 	public List<CallForProposal> getCallForProposalsPerDay(String date);
 	
 	public Timestamp getCallForProposalsLastUpdate();
+	
+	public void updateFinalSubmissionTime();
 
 }

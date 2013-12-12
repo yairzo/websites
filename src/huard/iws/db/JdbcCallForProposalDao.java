@@ -118,7 +118,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		}
 	};
 	private void applySubmissionDates(CallForProposal callForProposal){
-		String query = "select * from callForProposalDate where callForProposalId = ? order by submissionDate";
+		String query = "select a.* from (select * from callForProposalDate where callForProposalId = ? order by submissionDate desc limit 3) a order by a.submissionDate";
 		List<Long> submissionDates =  getSimpleJdbcTemplate().query(query, submissionDatesRowMapper, callForProposal.getId());
 		callForProposal.setSubmissionDates(submissionDates);
 	}
@@ -849,6 +849,21 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				Timestamp lastUpdate = r.getTimestamp("updateTime");
 				return lastUpdate;
 			}			
+		});
+	}
+	
+	
+	public void updateFinalSubmissionTime(){
+		String query = "select callForProposalId,MIN(submissionDate) as newDate from callForProposalDate inner join callForProposal on callForProposal.id=callForProposalDate.callForProposalId where submissiondate>DATE_SUB(now(),interval 1 day) and callForProposal.finalSubmissionTime<DATE(now()) group by callForProposalId;";
+		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
+			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{
+				int id= rs.getInt("callForProposalId");
+				String date = rs.getString("newDate");
+				//update
+				final String subQuery="update callForProposal set finalSubmissionTime=? where id=?";
+				getSimpleJdbcTemplate().update(subQuery,date,id);
+				return null;
+			}
 		});
 	}
 

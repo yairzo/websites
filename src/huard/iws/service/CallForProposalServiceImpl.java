@@ -161,5 +161,9 @@ public class CallForProposalServiceImpl implements CallForProposalService{
 	public Timestamp getCallForProposalsLastUpdate(){
 		return callForProposalDao.getCallForProposalsLastUpdate();
 	}
+	
+	public void updateFinalSubmissionTime(){
+		callForProposalDao.updateFinalSubmissionTime();
+	}
 
 }

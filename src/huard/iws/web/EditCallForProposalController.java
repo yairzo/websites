@@ -105,6 +105,8 @@ public class EditCallForProposalController extends GeneralFormController{
 		if(request.getParameter("action", "").equals("delete"))
 			callForProposalBean.setIsDeleted(1);
 		
+		callForProposalBean.getSubmissionDatesList().add(callForProposalBean.getFinalSubmissionTimeString());
+
 		//update
 		callForProposalService.updateCallForProposal(callForProposalBean.toCallForProposal());
 
