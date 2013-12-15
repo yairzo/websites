@@ -453,7 +453,7 @@
 					<c:forEach items="${command.attachments}" var="attachment" varStatus="varStatus">
 					<tr>
 					<td colspan="3" style="text-align:${lang.align}">
-						<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="formDetails"><a href="/call_for_proposal/${attachment.filename}" target="_blank">${attachment.title}</a> </span>
+						<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="formDetails"><a href="/call_for_proposal/${attachment.filename}" target="_blank">${attachment.filename}</a> </span>
 						&nbsp;&nbsp;<a href="" class="deleteAttachment" id="${attachment.id}">מחק</a>
 					</td>
 					</tr>

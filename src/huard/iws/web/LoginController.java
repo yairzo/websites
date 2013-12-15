@@ -1,9 +1,16 @@
 package huard.iws.web;
 
+import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
+import huard.iws.model.Category;
+import huard.iws.model.Language;
+import huard.iws.service.CategoryService;
+import huard.iws.service.GeneralService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -53,6 +60,24 @@ public class LoginController extends GeneralController{
 
 		model.put("generalLoginInstructions", messageService.getMessage("iw_IL.general.login.generalLoginInstructions."+titleCode));
 		
+		//for website login
+		//top categories
+		Language language = (Language)model.get("lang");
+		
+		if (isWebsiteLogin){
+			Category rootCategory = categoryService.getRootCategory(language.getLocaleId());
+			List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
+			List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
+			for (Category category: languageRootCategories){
+				languageRootCategoryBeans.add( new CategoryBean (category));
+			}
+			model.put("languageRootCategories", languageRootCategoryBeans);
+			//category
+			model.put("category",categoryService.getCategory(rootCategory.getId()));
+		}
+		
+		model.put("updateTime", generalService.getLastUpdate());
+		
 		ModelAndView modelAndView = null;
 		if (!isWebsiteLogin)
 			modelAndView = new ModelAndView("login",model);
@@ -61,6 +86,13 @@ public class LoginController extends GeneralController{
 		return modelAndView;
 	}
 
+	public CategoryService categoryService;
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
+	public GeneralService generalService;
 
-
+	public void setGeneralService(GeneralService generalService) {
+		this.generalService = generalService;
+	}
 }

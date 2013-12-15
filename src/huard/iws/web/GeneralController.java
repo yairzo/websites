@@ -57,7 +57,7 @@ public abstract class GeneralController extends AbstractController{
 		else{
 			model.put("popupMessage", "");
 		}
-		model.put("updateTime", generalService.getLastUpdate());
+		//model.put("updateTime", generalService.getLastUpdate());
 		return handleRequest(requestWrapper, response, model, userPersonBean);
 	}
 
@@ -124,11 +124,11 @@ public abstract class GeneralController extends AbstractController{
 		this.hujiAuthorizationService = hujiAuthorizationService;
 	}
 	
-	public GeneralService generalService;
+	/*public GeneralService generalService;
 
 	public void setGeneralService(GeneralService generalService) {
 		this.generalService = generalService;
-	}
+	}*/
 	
 
 }

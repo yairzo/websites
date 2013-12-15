@@ -129,7 +129,7 @@ public abstract class GeneralFormController extends SimpleFormController{
 			model.put("popupMessage", "");
 		}
 		
-		model.put("updateTime", generalService.getLastUpdate());
+		//model.put("updateTime", generalService.getLastUpdate());
 		
 		//logger.info("Lang general: " + ((Language)model.get("lang")).getLocaleId());
 		ModelAndView modelAndView = onShowForm(requestWrapper, response, userPersonBean, model);
@@ -251,10 +251,10 @@ public abstract class GeneralFormController extends SimpleFormController{
 		this.hujiAuthorizationService = hujiAuthorizationService;
 	}
 	
-	public GeneralService generalService;
+	/*public GeneralService generalService;
 
 	public void setGeneralService(GeneralService generalService) {
 		this.generalService = generalService;
-	}
+	}*/
 	
 }

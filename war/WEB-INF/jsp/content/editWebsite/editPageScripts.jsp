@@ -410,12 +410,17 @@ $(document).ready(function() {
 		}		
 		insertIds();
 		$(".ajaxSubmit").remove();
-  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
   		if (filename.search(filenameRegexp) != -1){
   			$("#form").append("<input type=\"hidden\" name=\"filename\" value=\"" + filename + "\"/>");
   		}
 		$('form#form').append('<input type=\"hidden\" name=\"addFile\" value=\"yes\"/>');
-		$('#form').submit();
+		var options = { 
+		   		success:    function() { 
+		   		   	window.location.reload(); 
+		    	} 
+			}; 
+		$('#form').ajaxSubmit(options);
 	});	
 
 	$('button.online').click(function(){
@@ -730,9 +735,14 @@ $(document).ready(function() {
 	                $(this).dialog("close");
 	        		insertIds();
 	           		$(".ajaxSubmit").remove();
-	           	 	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+	           	 	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
 	        		$("#form").append("<input type=\"hidden\" name=\"deleteAttachment\" value=\""+attachId +"\"/>");
-	    	   		$("#form").submit();
+	        		var options = { 
+	        		   		success:    function() { 
+	        		   		   	window.location.reload(); 
+	        		    	} 
+	        		}; 	    	   		
+	        		$("#form").ajaxSubmit(options);
 	    	        return true;
 	            }
 	        });

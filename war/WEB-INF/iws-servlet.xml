@@ -17,6 +17,9 @@
 		<property name="generalService">
             <ref bean="generalService"/>
         </property>
+		<property name="categoryService">
+            <ref bean="categoryService"/>
+        </property>
      </bean>
 
 	<bean id="viewMessageController" class="huard.iws.web.ViewMessageController" parent="generalController"/>
@@ -175,10 +178,7 @@
     	<property name="sphinxSearchService">
             <ref bean="sphinxSearchService"/>
         </property>
-        <property name="generalService">
-            <ref bean="generalService"/>
-        </property>
-      </bean>
+       </bean>
 	
 	<bean id="websiteHomePageController" class="huard.iws.web.WebsiteHomePageController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>
@@ -197,21 +197,14 @@
      </bean>
      
 	<bean id="homePageCalendarController" class="huard.iws.web.HomePageCalendarController" parent="generalWebsiteController">
-		<property name="generalService">
-            <ref bean="generalService"/>
-        </property>     	
      </bean>
       
 	<bean id="callForProposalCalendarController" class="huard.iws.web.CallForProposalCalendarController" parent="generalWebsiteController">
       	<property name="callForProposalService">
             <ref bean="callForProposalService"/>
         </property>
-        
      	<property name="fundService">
             <ref bean="fundService"/>
-        </property>
-        <property name="generalService">
-            <ref bean="generalService"/>
         </property>
     </bean>
       
@@ -228,9 +221,6 @@
         </property>
     	<property name="sphinxSearchService">
             <ref bean="sphinxSearchService"/>
-        </property>
-        <property name="generalService">
-            <ref bean="generalService"/>
         </property>
       </bean>
      
@@ -263,9 +253,6 @@
         </property>
      	<property name="listService">
             <ref bean="listService"/>
-        </property>
-        <property name="generalService">
-            <ref bean="generalService"/>
         </property>
       </bean>
  
@@ -320,12 +307,6 @@
         <property name="commandClass"><value>huard.iws.web.SitemapController$SitemapBean</value></property>
         <property name="formView"><value>sitemap</value></property>
         <property name="successView"><value>sitemap.html</value></property>
-     	<property name="callForProposalService">
-            <ref bean="callForProposalService"/>
-        </property>
-     	<property name="textualPageService">
-            <ref bean="textualPageService"/>
-        </property>
         <property name="generalService">
             <ref bean="generalService"/>
         </property>
@@ -724,9 +705,6 @@
         <property name="hujiAuthorizationService">
             <ref bean="hujiAuthorizationService"/>
         </property>
-        <property name="generalService">
-            <ref bean="generalService"/>
-        </property>        
       </bean>
 
      <bean id="generalController" class="huard.iws.web.GeneralController" abstract="true">
@@ -748,10 +726,7 @@
         <property name="hujiAuthorizationService">
             <ref bean="hujiAuthorizationService"/>
         </property>
-        <property name="generalService">
-            <ref bean="generalService"/>
-        </property>
-        
+       
      </bean>
 
     <bean id="generalWebsiteFormController" class="huard.iws.web.GeneralWebsiteFormController" abstract="true">

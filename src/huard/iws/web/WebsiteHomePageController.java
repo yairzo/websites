@@ -7,6 +7,7 @@ import huard.iws.model.PageBodyImage;
 import huard.iws.model.TextualPage;
 import huard.iws.service.PageBodyImageService;
 import huard.iws.service.TextualPageService;
+import huard.iws.service.GeneralService;
 import huard.iws.util.RequestWrapper;
 
 import java.util.ArrayList;
@@ -50,6 +51,8 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		model.put("images", pageBodyImages);
 		
 		model.put("ilr", "/");
+
+		model.put("updateTime", generalService.getLastUpdate());
 		
 		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("websiteHomePageStatic",model);
@@ -79,6 +82,10 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 	public void setTextualPageService(TextualPageService textualPageService) {
 		this.textualPageService = textualPageService;
 	}
-	
+	public GeneralService generalService;
+
+	public void setGeneralService(GeneralService generalService) {
+		this.generalService = generalService;
+	}	
 
 }

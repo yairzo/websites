@@ -4,9 +4,7 @@ import huard.iws.bean.CategoryBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Category;
 import huard.iws.model.Language;
-import huard.iws.service.CallForProposalService;
-import huard.iws.service.TextualPageService;
-import huard.iws.util.DateUtils;
+import huard.iws.service.GeneralService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 
@@ -54,9 +52,7 @@ public class SitemapController extends GeneralWebsiteFormController {
 		}
 		model.put("engCategories", engCategoryBeans);
 
-		long lastUpdateTime = Math.max(callForProposalService.getCallForProposalsLastUpdate().getTime(), 
-				textualPageService.getTextualPagesLastUpdate().getTime());
-		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
+		model.put("updateTime", generalService.getLastUpdate());
 		
 		
 		if(request.getParameter("t", "").equals("0"))
@@ -83,16 +79,9 @@ public class SitemapController extends GeneralWebsiteFormController {
 
 	}
 	
-	private CallForProposalService callForProposalService;
-	
-	public void setCallForProposalService(
-			CallForProposalService callForProposalService) {
-		this.callForProposalService = callForProposalService;
-	}
-	
-	private TextualPageService textualPageService;
+	public GeneralService generalService;
 
-	public void setTextualPageService(TextualPageService textualPageService) {
-		this.textualPageService = textualPageService;
+	public void setGeneralService(GeneralService generalService) {
+		this.generalService = generalService;
 	}
 }

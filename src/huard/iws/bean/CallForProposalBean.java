@@ -18,6 +18,7 @@ import huard.iws.util.TextUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -647,7 +648,13 @@ public class CallForProposalBean {
 	}
 	
 	public boolean getExpired() {
-		if (finalSubmissionTime < new Date().getTime()+86400000L && finalSubmissionTime != 0)
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR,0);
+		cal.set(Calendar.MINUTE,0);
+		cal.set(Calendar.SECOND,0);
+		cal.set(Calendar.MILLISECOND,0);
+		
+		if (finalSubmissionTime < cal.getTimeInMillis() && finalSubmissionTime != 0)
 			return true;
 		else
 			return false;
