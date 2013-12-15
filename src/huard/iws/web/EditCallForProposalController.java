@@ -11,7 +11,6 @@ import huard.iws.model.MopDesk;
 import huard.iws.model.Subject;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.CountryService;
-import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
 import huard.iws.service.PersonListService;
 import huard.iws.service.SubjectService;
@@ -272,24 +271,12 @@ public class EditCallForProposalController extends GeneralFormController{
 	}	
 	
 
-	private CallForProposalService callForProposalService;
-
-	public void setCallForProposalService(CallForProposalService callForProposalService) {
-		this.callForProposalService = callForProposalService;
-	}
-	
 	private SubjectService subjectService;
 
 	public void setSubjectService(SubjectService subjectService) {
 		this.subjectService = subjectService;
 	}
 	
-	private FundService fundService;
-
-	public void setFundService(FundService fundService) {
-		this.fundService = fundService;
-	}
-
 	private MopDeskService mopDeskService;
 
 	public void setMopDeskService(MopDeskService mopDeskService) {
@@ -306,6 +293,13 @@ public class EditCallForProposalController extends GeneralFormController{
 
 	public void setPersonListService(PersonListService personListService) {
 		this.personListService = personListService;
+	}
+	
+	private CallForProposalService callForProposalService;
+	
+	public void setCallForProposalService(
+			CallForProposalService callForProposalService) {
+		this.callForProposalService = callForProposalService;
 	}
 
 }

@@ -1,31 +1,31 @@
 package huard.iws.web;
 
-import huard.iws.bean.PersonBean;
 import huard.iws.bean.CallForProposalBean;
+import huard.iws.bean.PersonBean;
 import huard.iws.bean.SubjectBean;
-import huard.iws.service.CallForProposalService;
-import huard.iws.service.CountryService;
-import huard.iws.service.MopDeskService;
-import huard.iws.service.SubjectService;
-import huard.iws.service.FundService;
-import huard.iws.service.SphinxSearchService;
-import huard.iws.util.CallForProposalSearchCreteria;
-import huard.iws.util.DateUtils;
-import huard.iws.util.BaseUtils;
-import huard.iws.util.LanguageUtils;
-import huard.iws.util.ListView;
-import huard.iws.util.RequestWrapper;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.Country;
 import huard.iws.model.MopDesk;
 import huard.iws.model.Subject;
+import huard.iws.service.CallForProposalService;
+import huard.iws.service.CountryService;
+import huard.iws.service.FundService;
+import huard.iws.service.MopDeskService;
+import huard.iws.service.SphinxSearchService;
+import huard.iws.service.SubjectService;
+import huard.iws.util.BaseUtils;
+import huard.iws.util.CallForProposalSearchCreteria;
+import huard.iws.util.DateUtils;
+import huard.iws.util.ListView;
+import huard.iws.util.RequestWrapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -190,12 +190,6 @@ public class CallForProposalListController extends GeneralFormController {
 
 	}
 	
-	private CallForProposalService callForProposalService;
-
-	public void setCallForProposalService(CallForProposalService callForProposalService) {
-		this.callForProposalService = callForProposalService;
-	}
-
 	private MopDeskService mopDeskService;
 
 	public void setMopDeskService(MopDeskService mopDeskService) {
@@ -223,6 +217,13 @@ public class CallForProposalListController extends GeneralFormController {
 
 	public void setCountryService(CountryService countryService) {
 		this.countryService = countryService;
+	}
+	
+	private CallForProposalService callForProposalService;
+	
+	public void setCallForProposalService(
+			CallForProposalService callForProposalService) {
+		this.callForProposalService = callForProposalService;
 	}
 	
 

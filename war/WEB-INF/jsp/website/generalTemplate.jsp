@@ -34,11 +34,15 @@
 				</nav>
 				<div class="login <c:if test="${lang.rtl=='false'}">flipped</c:if>">
 					<c:choose>
-					<c:when test="${userPersonBean != null && !userPersonBean.anonymous && !userPersonBean.hujiIp}">
+					<c:when test="${userAuthorized}">
 						<div class="login_left">
 							<c:choose>
-							<c:when test="${lang.rtl}"><c:out value="${userPersonBean.degreePartialNameHebrew}"/></c:when>
-							<c:otherwise><c:out value="${userPersonBean.degreePartialNameEnglish}"/></c:otherwise>
+							<c:when test="${lang.rtl}">
+								<a href="/welcome.html" target="_blank"><c:out value="${userPersonBean.degreePartialNameHebrew}"/></a>
+							</c:when>
+							<c:otherwise>
+								<a href="/welcome.html" target="_blank"><c:out value="${userPersonBean.degreePartialNameEnglish}"/></a>
+							</c:otherwise>
 							</c:choose>
 							&nbsp;&nbsp;<a href="/j_acegi_logout" class="logout" title="<fmt:message key="${lang.localeId}.general.login.logout"/>"><img src="/image/website/login_x.png" alt='<fmt:message key="${lang.localeId}.general.login.logout"/>'></a>
 						</div>
@@ -65,11 +69,11 @@
 										</div>
 										<div class="login_box_col mar_15 pull-left">
 											<div class="clearfix">
-												<a class="login_forgot"><fmt:message key="${lang.localeId}.general.login.loginForgot"/></a>
+												<a href="/sign_up" class="login_forgot"><fmt:message key="${lang.localeId}.general.login.loginForgot"/></a>
 											</div>
 										</div>
 									</div>
-									<div class="login_register mar_15 clearfix"><fmt:message key="${lang.localeId}.general.login.toSubscribe"/> <a href="#"><fmt:message key="${lang.localeId}.general.login.clickHere"/></a></div>
+									<div class="login_register mar_15 clearfix"><fmt:message key="${lang.localeId}.general.login.toSubscribe"/> <a href="/sign_up"><fmt:message key="${lang.localeId}.general.login.clickHere"/></a></div>
 								</form>
 							</div>
 						</div>
@@ -168,6 +172,8 @@
         	} 
         			var mouse_is_inside = false;
         			$(document).ready(function() {
+        				
+        				<c:if test="${!userAuthorized}">
         				$(".login_left").click(function() {
         					var loginBox = $(".login_box");
         					$(".login_box").css({
@@ -181,6 +187,7 @@
         						loginBox.fadeIn("fast");
         					return false;
         				});
+        				</c:if>
         				$(".logout").click(function(e) {
         					e.stopPropagation();
         				});
@@ -192,14 +199,7 @@
         				$("body").click(function(){
         					if(! mouse_is_inside) $(".login_box").fadeOut("fast");
         				});
-        				$('.login_forgot').click(function(e){
-        	        		  e.preventDefault();
-        	        		  var userName = $("#j_username").val();
-        	        		  if($("#j_username").val()=="")
-        	        			  alert("הכנס שם משתמש");
-        	        		  else
-        	        		 	window.location="/sendPasswordEmail.html?username="+ userName;     
-        	        	  });
+        				
         				$('.login_help').click(function(e){
       	        		  e.preventDefault();
       	        		  e.stopPropagation();

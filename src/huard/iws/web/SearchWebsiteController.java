@@ -1,24 +1,25 @@
 package huard.iws.web;
 
-import huard.iws.bean.PersonBean;
 import huard.iws.bean.CallForProposalBean;
+import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
+import huard.iws.model.CallForProposal;
+import huard.iws.model.Language;
+import huard.iws.model.TextualPage;
 import huard.iws.service.CallForProposalService;
-import huard.iws.service.TextualPageService;
 import huard.iws.service.SphinxSearchService;
+import huard.iws.service.TextualPageService;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
-import huard.iws.model.CallForProposal;
-import huard.iws.model.Language;
-import huard.iws.model.TextualPage;
 
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -144,9 +145,16 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 	
 	}
 	
-	private CallForProposalService callForProposalService;
+	private SphinxSearchService sphinxSearchService;
 
-	public void setCallForProposalService(CallForProposalService callForProposalService) {
+	public void setSphinxSearchService(SphinxSearchService sphinxSearchService) {
+		this.sphinxSearchService = sphinxSearchService;
+	}
+	
+	private CallForProposalService callForProposalService;
+	
+	public void setCallForProposalService(
+			CallForProposalService callForProposalService) {
 		this.callForProposalService = callForProposalService;
 	}
 	
@@ -154,12 +162,6 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 
 	public void setTextualPageService(TextualPageService textualPageService) {
 		this.textualPageService = textualPageService;
-	}
-
-	private SphinxSearchService sphinxSearchService;
-
-	public void setSphinxSearchService(SphinxSearchService sphinxSearchService) {
-		this.sphinxSearchService = sphinxSearchService;
 	}
 
 }

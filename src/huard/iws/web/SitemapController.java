@@ -1,18 +1,19 @@
 package huard.iws.web;
 
-import huard.iws.bean.PersonBean;
 import huard.iws.bean.CategoryBean;
+import huard.iws.bean.PersonBean;
+import huard.iws.model.Category;
+import huard.iws.model.Language;
 import huard.iws.service.CallForProposalService;
 import huard.iws.service.TextualPageService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
-import huard.iws.model.Category;
-import huard.iws.model.Language;
 
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -81,16 +82,17 @@ public class SitemapController extends GeneralWebsiteFormController {
 		}
 
 	}
-
+	
 	private CallForProposalService callForProposalService;
-
-	public void setCallForProposalService(CallForProposalService callForProposalService) {
+	
+	public void setCallForProposalService(
+			CallForProposalService callForProposalService) {
 		this.callForProposalService = callForProposalService;
 	}
+	
 	private TextualPageService textualPageService;
 
 	public void setTextualPageService(TextualPageService textualPageService) {
 		this.textualPageService = textualPageService;
 	}
-
 }

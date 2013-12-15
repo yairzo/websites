@@ -258,12 +258,6 @@ public class EditTextualPageController extends GeneralFormController {
 		else
 			return "text/html";
 	}	
-	private TextualPageService textualPageService;
-
-	public void setTextualPageService(TextualPageService textualPageService) {
-		this.textualPageService = textualPageService;
-	}
-	
 	private MopDeskService mopDeskService;
 
 	public void setMopDeskService(MopDeskService mopDeskService) {
@@ -279,6 +273,12 @@ public class EditTextualPageController extends GeneralFormController {
 	private CategoryService categoryService;
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
+	}
+	
+	private TextualPageService textualPageService;
+
+	public void setTextualPageService(TextualPageService textualPageService) {
+		this.textualPageService = textualPageService;
 	}
 	
 }

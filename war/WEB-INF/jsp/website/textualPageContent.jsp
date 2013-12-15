@@ -1,6 +1,5 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
-
  			<div class="container clearfix">
 				<div class="breadcrumbs clearfix" style="direction: ${pageLang.dir}; text-align: ${pageLang.align}">
 					<jsp:include page="location.jsp"/>

@@ -93,11 +93,11 @@
 						<jsp:include page="/callForProposalCalendar.html?h=1"/>
 						</div>
 						
-						<a href="/Recent_Announcements/" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
+						<a href="/recent_announcements" class="last_calls"><fmt:message key="${lang.localeId}.website.recentCallForProposals"/></a>
 						<div class="board_search">
 							<h3><fmt:message key="${lang.localeId}.website.search"/></h3>
-							<a href="/search_funding/" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
-							<form action="/search/" method="post" class="board_form">
+							<a href="/search_funding" class="board_search_advanced"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
+							<form action="/search" method="post" class="board_form">
 								<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
 onblur="if(this.value=='')this.value=this.defaultValue" placeholder="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="input_text" />
 								<input type="hidden" name="open" value="true"/>

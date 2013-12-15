@@ -135,17 +135,17 @@ public class TextualPageController extends GeneralWebsiteFormController {
 		
 		return textualPageBean;
 	}
+	
+	private ListService listService;
 
+	public void setListService(ListService listService) {
+		this.listService = listService;
+	}
 	
 	private TextualPageService textualPageService;
 
 	public void setTextualPageService(TextualPageService textualPageService) {
 		this.textualPageService = textualPageService;
-	}
-	private ListService listService;
-
-	public void setListService(ListService listService) {
-		this.listService = listService;
 	}
 	
 	

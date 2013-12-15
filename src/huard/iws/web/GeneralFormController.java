@@ -2,8 +2,8 @@ package huard.iws.web;
 
 import huard.iws.bean.MailMessageBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.model.Language;
 import huard.iws.service.ConfigurationService;
+import huard.iws.service.GeneralService;
 import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;
@@ -129,14 +129,16 @@ public abstract class GeneralFormController extends SimpleFormController{
 			model.put("popupMessage", "");
 		}
 		
-		logger.info("Lang general: " + ((Language)model.get("lang")).getLocaleId());
+		model.put("updateTime", generalService.getLastUpdate());
+		
+		//logger.info("Lang general: " + ((Language)model.get("lang")).getLocaleId());
 		ModelAndView modelAndView = onShowForm(requestWrapper, response, userPersonBean, model);
 		if (modelAndView != null)
 			return modelAndView;
 
 
 		return super.showForm(request, response, errors);
-					}
+	}
 
 	/**
 	 * This method must be implemented, and the implementations may choose to
@@ -249,7 +251,10 @@ public abstract class GeneralFormController extends SimpleFormController{
 		this.hujiAuthorizationService = hujiAuthorizationService;
 	}
 	
+	public GeneralService generalService;
+
+	public void setGeneralService(GeneralService generalService) {
+		this.generalService = generalService;
+	}
 	
-
-
 }

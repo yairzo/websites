@@ -105,6 +105,5 @@ public class EditCategoryController extends GeneralFormController {
 	public void setTextualPageService(TextualPageService textualPageService) {
 		this.textualPageService = textualPageService;
 	}
-
 	
 }

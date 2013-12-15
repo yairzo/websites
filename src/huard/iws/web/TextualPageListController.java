@@ -2,18 +2,18 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
+import huard.iws.model.TextualPage;
 import huard.iws.service.SphinxSearchService;
 import huard.iws.service.TextualPageService;
-import huard.iws.util.TextualPageSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
-import huard.iws.model.TextualPage;
+import huard.iws.util.TextualPageSearchCreteria;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
@@ -121,16 +121,16 @@ public class TextualPageListController extends GeneralFormController {
 
 	}
 	
-	private TextualPageService textualPageService;
-
-	public void setTextualPageService(TextualPageService textualPageService) {
-		this.textualPageService = textualPageService;
-	}
-	
 	private SphinxSearchService sphinxSearchService;
 
 	public void setSphinxSearchService(SphinxSearchService sphinxSearchService) {
 		this.sphinxSearchService = sphinxSearchService;
+	}
+	
+	private TextualPageService textualPageService;
+
+	public void setTextualPageService(TextualPageService textualPageService) {
+		this.textualPageService = textualPageService;
 	}
 
 }

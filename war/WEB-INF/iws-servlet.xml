@@ -14,9 +14,9 @@
 	</bean> -->
 
 	<bean id="loginController" class="huard.iws.web.LoginController" parent="generalController">
-		<!--<property name="messageService">
-            <ref bean="messageService"/>
-        </property> -->
+		<property name="generalService">
+            <ref bean="generalService"/>
+        </property>
      </bean>
 
 	<bean id="viewMessageController" class="huard.iws.web.ViewMessageController" parent="generalController"/>
@@ -112,9 +112,6 @@
      	<property name="callForProposalService">
             <ref bean="callForProposalService"/>
         </property>
-    	<property name="fundService">
-            <ref bean="fundService"/>
-        </property>
    		<property name="mopDeskService">
             <ref bean="mopDeskService"/>
         </property>
@@ -134,9 +131,6 @@
      	<property name="callForProposalService">
             <ref bean="callForProposalService"/>
         </property>
-   		<property name="fundService">
-            <ref bean="fundService"/>
-        </property>
      </bean>
      
  	<bean id="callForProposalListController" class="huard.iws.web.CallForProposalListController" parent="generalFormController">
@@ -152,9 +146,6 @@
         </property>
     	<property name="subjectService">
             <ref bean="subjectService"/>
-        </property>
-   		<property name="fundService">
-            <ref bean="fundService"/>
         </property>
     	<property name="sphinxSearchService">
             <ref bean="sphinxSearchService"/>
@@ -184,6 +175,9 @@
     	<property name="sphinxSearchService">
             <ref bean="sphinxSearchService"/>
         </property>
+        <property name="generalService">
+            <ref bean="generalService"/>
+        </property>
       </bean>
 	
 	<bean id="websiteHomePageController" class="huard.iws.web.WebsiteHomePageController" parent="generalWebsiteFormController">
@@ -191,29 +185,33 @@
         <property name="commandClass"><value>huard.iws.web.WebsiteHomePageController$WebsiteHomePageControllerCommand</value></property>
         <property name="formView"><value>homePage</value></property>
         <property name="successView"><value>searchCallForProposals.html</value></property>
-     	<property name="callForProposalService">
-            <ref bean="callForProposalService"/>
-        </property>
      	<property name="textualPageService">
             <ref bean="textualPageService"/>
         </property>
      	<property name="pageBodyImageService">
             <ref bean="pageBodyImageService"/>
         </property>
+        <property name="generalService">
+            <ref bean="generalService"/>
+        </property>
      </bean>
      
 	<bean id="homePageCalendarController" class="huard.iws.web.HomePageCalendarController" parent="generalWebsiteController">
-     	<property name="callForProposalService">
-            <ref bean="callForProposalService"/>
-        </property>
+		<property name="generalService">
+            <ref bean="generalService"/>
+        </property>     	
      </bean>
       
 	<bean id="callForProposalCalendarController" class="huard.iws.web.CallForProposalCalendarController" parent="generalWebsiteController">
       	<property name="callForProposalService">
             <ref bean="callForProposalService"/>
         </property>
+        
      	<property name="fundService">
             <ref bean="fundService"/>
+        </property>
+        <property name="generalService">
+            <ref bean="generalService"/>
         </property>
     </bean>
       
@@ -230,6 +228,9 @@
         </property>
     	<property name="sphinxSearchService">
             <ref bean="sphinxSearchService"/>
+        </property>
+        <property name="generalService">
+            <ref bean="generalService"/>
         </property>
       </bean>
      
@@ -262,6 +263,9 @@
         </property>
      	<property name="listService">
             <ref bean="listService"/>
+        </property>
+        <property name="generalService">
+            <ref bean="generalService"/>
         </property>
       </bean>
  
@@ -321,6 +325,9 @@
         </property>
      	<property name="textualPageService">
             <ref bean="textualPageService"/>
+        </property>
+        <property name="generalService">
+            <ref bean="generalService"/>
         </property>
       </bean>
  
@@ -717,7 +724,9 @@
         <property name="hujiAuthorizationService">
             <ref bean="hujiAuthorizationService"/>
         </property>
-
+        <property name="generalService">
+            <ref bean="generalService"/>
+        </property>        
       </bean>
 
      <bean id="generalController" class="huard.iws.web.GeneralController" abstract="true">
@@ -739,6 +748,10 @@
         <property name="hujiAuthorizationService">
             <ref bean="hujiAuthorizationService"/>
         </property>
+        <property name="generalService">
+            <ref bean="generalService"/>
+        </property>
+        
      </bean>
 
     <bean id="generalWebsiteFormController" class="huard.iws.web.GeneralWebsiteFormController" abstract="true">
@@ -765,7 +778,7 @@
         </property>
         <property name="hujiAuthorizationService">
             <ref bean="hujiAuthorizationService"/>
-        </property>    
+        </property>          
      </bean>
 
      <bean id="generalWebsiteController" class="huard.iws.web.GeneralWebsiteController" abstract="true">
@@ -1144,6 +1157,14 @@
   		<property name="registry" ref="registry"/>
 	</bean>
 	
+	<bean id="callForProposalDaoRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="callForProposalDao"/>
+  		<property name="serviceName" value="CallForProposalDao"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.db.CallForProposalDao"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+	
 	<bean id="importCallForProposalsServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
   		<property name="service" ref="importCallForProposalsService"/>
   		<property name="serviceName" value="ImportCallForProposalsService"/>
@@ -1190,19 +1211,26 @@
   		<property name="cronExpression" value="0 25 * * * ?" />
 	</bean>
 
+-->
+
+	<bean id="switchCallForProposalFinalSubmissionJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  		<property name="targetObject" ref="callForProposalService"/>
+  		<property name="targetMethod" value="updateFinalSubmissionTime" />
+	</bean>
+
+	<bean id="cronSwitchCallForProposalFinalSubmissionTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+  		<property name="jobDetail" ref="switchCallForProposalFinalSubmissionJob"/>
+  		<property name="cronExpression" value="0 1 0 * * ?" />
+	</bean>
+
 	 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
   		<property name="triggers">
     		<list>
-      			<ref bean="cronPrepareSendPostTrigger"/>
-      			<ref bean="cronSendPostTrigger"/>
+      			<ref bean="cronSwitchCallForProposalFinalSubmissionTrigger"/>
     		</list>
   		</property>
 	</bean>
-
--->
-
-
-
+	
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
 
 	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>

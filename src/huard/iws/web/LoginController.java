@@ -9,31 +9,22 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 public class LoginController extends GeneralController{
 
 	public ModelAndView handleRequest(RequestWrapper request, HttpServletResponse response,
 		Map<String, Object> model, PersonBean userPersonBean){
-
-		
-		/*Enumeration attrs =  request.getRequest().getAttributeNames();
-		while(attrs.hasMoreElements()) {
-		    System.out.println(attrs.nextElement());
-		}*/
-		
-		//logger.info("Request uri: " + request.getRequest().getAttribute("javax.servlet.forward.request_uri"));			
 		
 		LanguageUtils.applyLanguage(model, request, response, "iw_IL");
 
-		//if (! userPersonBean.isAuthorized("LISTS", "ANONYMOUS")){
-			//return new ModelAndView( new RedirectView("welcome.html"));
-		//}
-
-		int loginError = request.getIntParameter("login_error", 0);
-		logger.info("login error: " + loginError);
-		model.put("loginError", messageService.getMessage("iw_IL.general.login.loginError."+loginError));
+		boolean isWebsiteLogin = request.getBooleanParameter("wl", false);
 		
+		int loginErrorCode = request.getIntParameter("login_error", -1);
+		if (loginErrorCode != -1){
+			model.put("loginError", messageService.getMessage("iw_IL.general.login.loginError."+loginErrorCode));
+			model.put("loginFailure", loginErrorCode != -1);
+		}
+
 		int titleCode = request.getIntParameter("tc", 0);
 
 		String requestURI = (String)request.getRequest().getAttribute("javax.servlet.forward.request_uri"); 
@@ -45,7 +36,10 @@ public class LoginController extends GeneralController{
 			model.put("moduleToSubscribe", "post");
 		}
 
-		request.getSession().setAttribute("titleCode", titleCode);
+		//We put the titleCode in the session for decision of what to write when logged out
+		//it's not desired for website logout. In that case we would like to redirect to the main page
+		if (!isWebsiteLogin)
+			request.getSession().setAttribute("titleCode", titleCode);
 
 		model.put("title", messageService.getMessage("iw_IL.general.login.title."+titleCode));
 		
@@ -59,7 +53,12 @@ public class LoginController extends GeneralController{
 
 		model.put("generalLoginInstructions", messageService.getMessage("iw_IL.general.login.generalLoginInstructions."+titleCode));
 		
-		return new ModelAndView("login",model);
+		ModelAndView modelAndView = null;
+		if (!isWebsiteLogin)
+			modelAndView = new ModelAndView("login",model);
+		else
+			modelAndView = new ModelAndView("loginWebsite", model);
+		return modelAndView;
 	}
 
 

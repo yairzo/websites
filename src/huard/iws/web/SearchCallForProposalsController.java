@@ -236,12 +236,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 
 	}
 	
-	private CallForProposalService callForProposalService;
-
-	public void setCallForProposalService(CallForProposalService callForProposalService) {
-		this.callForProposalService = callForProposalService;
-	}
-
 	private MopDeskService mopDeskService;
 
 	public void setMopDeskService(MopDeskService mopDeskService) {
@@ -265,5 +259,12 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 	public void setSphinxSearchService(SphinxSearchService sphinxSearchService) {
 		this.sphinxSearchService = sphinxSearchService;
 	}
-
+	
+	private CallForProposalService callForProposalService;
+	
+	public void setCallForProposalService(
+			CallForProposalService callForProposalService) {
+		this.callForProposalService = callForProposalService;
+	}
+	
 }

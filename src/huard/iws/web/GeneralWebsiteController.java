@@ -41,6 +41,8 @@ public abstract class GeneralWebsiteController extends GeneralController{
 		
 		model.put("contactsPageUrlTitle", configurationService.getConfigurationString("website", "contactsPage" + language.getNameShortCapitalized() + "UrlTitle"));
 		
+		model.put("userAuthorized", (userPersonBean != null && !userPersonBean.isAnonymous() && !userPersonBean.isHujiIp()));
+		
 		model.put("request", request);
 		model.put("ilr", "");
 		

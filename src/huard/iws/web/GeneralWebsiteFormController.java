@@ -5,7 +5,6 @@ import huard.iws.bean.PersonBean;
 import huard.iws.model.Category;
 import huard.iws.model.Language;
 import huard.iws.service.CategoryService;
-import huard.iws.service.ConfigurationService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 
@@ -15,11 +14,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
 public abstract class GeneralWebsiteFormController extends GeneralFormController
 {
-
+	Logger logger = Logger.getLogger(GeneralWebsiteFormController.class);
 	@Override
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception{
@@ -29,6 +29,7 @@ public abstract class GeneralWebsiteFormController extends GeneralFormController
 
 		//top categories
 		Language language = (Language)model.get("lang");
+		
 		Category rootCategory = categoryService.getRootCategory(language.getLocaleId());
 		List <Category> languageRootCategories = categoryService.getCategories(rootCategory.getId());
 		List <CategoryBean> languageRootCategoryBeans = new ArrayList<CategoryBean>();
@@ -41,6 +42,8 @@ public abstract class GeneralWebsiteFormController extends GeneralFormController
 
 		model.put("contactsPageUrlTitle", configurationService.getConfigurationString("website", "contactsPage" + language.getNameShortCapitalized() + "UrlTitle"));
 		
+		model.put("userAuthorized", (userPersonBean != null && !userPersonBean.isAnonymous() && !userPersonBean.isHujiIp()));
+		
 		model.put("request", request);
 		model.put("ilr", "");
 
@@ -52,10 +55,8 @@ public abstract class GeneralWebsiteFormController extends GeneralFormController
 	protected abstract ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception;
 
-
 	public CategoryService categoryService;
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
-
 }

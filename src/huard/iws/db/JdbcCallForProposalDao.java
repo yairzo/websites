@@ -24,6 +24,7 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
 
 public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements CallForProposalDao {
@@ -118,8 +119,12 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		}
 	};
 	private void applySubmissionDates(CallForProposal callForProposal){
-		String query = "select a.* from (select * from callForProposalDate where callForProposalId = ? order by submissionDate desc limit 3) a order by a.submissionDate";
-		List<Long> submissionDates =  getSimpleJdbcTemplate().query(query, submissionDatesRowMapper, callForProposal.getId());
+		String query = "select * from callForProposalDate where callForProposalId = ?"
+				+ " and date(submissionDate) != date(?)" 
+				+ " order by submissionDate;";
+		logger.info(query);
+		List<Long> submissionDates =  getSimpleJdbcTemplate().query(query, submissionDatesRowMapper,
+				callForProposal.getId(), SQLUtils.getTimestampString(callForProposal.getFinalSubmissionTime()));
 		callForProposal.setSubmissionDates(submissionDates);
 	}
 	private ParameterizedRowMapper<Long> submissionDatesRowMapper = new ParameterizedRowMapper<Long>(){
@@ -617,11 +622,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		else
 			whereClause +=" and " + mainTable +".isDeleted=0";
 		if(searchCriteria.getSearchExpired()) 
-			whereClause +=" and " + mainTable +".finalSubmissionTime < now() and " + mainTable +".finalSubmissionTime <> 0";
+			whereClause +=" and " + mainTable +".finalSubmissionTime < curdate() and " + mainTable +".finalSubmissionTime <> 0";
 		if(searchCriteria.getSearchByAllYear())
 			whereClause +=" and " + mainTable +".finalSubmissionTime = 0";
 		if(searchCriteria.getSearchOpen()) 
-			whereClause +=" and (" + mainTable +".finalSubmissionTime >= now() or " + mainTable +".finalSubmissionTime = 0)";
+			whereClause +=" and (" + mainTable +".finalSubmissionTime >= curdate() or " + mainTable +".finalSubmissionTime = 0)";
 			
 		//limit to previous 18 months on site
 		if(mainTable.equals("callForProposal"))
@@ -854,17 +859,43 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	
 	
 	public void updateFinalSubmissionTime(){
-		String query = "select callForProposalId,MIN(submissionDate) as newDate from callForProposalDate inner join callForProposal on callForProposal.id=callForProposalDate.callForProposalId where submissiondate>DATE_SUB(now(),interval 1 day) and callForProposal.finalSubmissionTime<DATE(now()) group by callForProposalId;";
+		String query = "select callForProposalId,MIN(submissionDate) as newDate from callForProposalDate inner join callForProposal"
+				+ " on callForProposal.id=callForProposalDate.callForProposalId"
+				+ " where submissiondate>DATE_SUB(now(),interval 1 day) and callForProposal.finalSubmissionTime<DATE(now())"
+				+ " group by callForProposalId;";
+		logger.info(query);
 		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
 			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{
 				int id= rs.getInt("callForProposalId");
 				String date = rs.getString("newDate");
 				//update
-				final String subQuery="update callForProposal set finalSubmissionTime=? where id=?";
+				String subQuery="update callForProposal set finalSubmissionTime=? where id=?";
+				logger.info(subQuery);
+				getSimpleJdbcTemplate().update(subQuery,date,id);
+				subQuery="update callForProposalDraft set finalSubmissionTime=? where id=?";
+				logger.info(subQuery);
 				getSimpleJdbcTemplate().update(subQuery,date,id);
 				return null;
 			}
 		});
+	}
+	
+	
+	public static void main(String [] args){
+		CallForProposalDao dao = null;
+		try{
+			RmiProxyFactoryBean factory = new RmiProxyFactoryBean();
+			factory.setServiceInterface(CallForProposalDao.class);
+			factory.setServiceUrl("rmi://localhost:1199/CallForProposalDao");
+			factory.afterPropertiesSet();
+			dao = (CallForProposalDao)factory.getObject();
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		 
+		dao.updateFinalSubmissionTime();
 	}
 
 }

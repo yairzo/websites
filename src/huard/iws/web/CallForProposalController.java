@@ -4,7 +4,6 @@ import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Language;
 import huard.iws.service.CallForProposalService;
-import huard.iws.service.FundService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RedirectViewExtended;
@@ -34,8 +33,6 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 			throws Exception{
 		CallForProposalBean callForProposalBean = (CallForProposalBean)command;
 		
-		logger.info("Contacts: " + callForProposalBean.getContactPersonDetails());
-	
 		Map<String,Object> newModel = new HashMap<String, Object>();
 		newModel.put("id", callForProposalBean.getId())	;
 		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
@@ -141,9 +138,7 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 		CallForProposalBean callForProposalBean = new CallForProposalBean();
 
 		int id = request.getIntParameter("id", 0);
-		logger.info("id: " + id);
 		String urlTitle = request.getParameter("urlTitle", "");
-		logger.info("urlTitle: " + urlTitle);
 		//when coming from old site
 		request.getSession().setAttribute("ardNum", request.getIntParameter("ardNum", 0));
 	
@@ -159,7 +154,6 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 			else if(!urlTitle.isEmpty())
 				callForProposalBean = new CallForProposalBean(callForProposalService.getCallForProposalOnline(urlTitle),true);
 		}
-		logger.info("callForProposalBean id: " + callForProposalBean.getId());
 		return callForProposalBean;
 	}
 
@@ -209,16 +203,9 @@ public class CallForProposalController extends GeneralWebsiteFormController {
 	}
 	
 	private CallForProposalService callForProposalService;
-
-	public void setCallForProposalService(CallForProposalService callForProposalService) {
+	
+	public void setCallForProposalService(
+			CallForProposalService callForProposalService) {
 		this.callForProposalService = callForProposalService;
 	}
-	
-
-	private FundService fundService;
-
-	public void setFundService(FundService fundService) {
-		this.fundService = fundService;
-	}
-
 }

@@ -27,21 +27,20 @@ public class LanguageUtils {
 	public static Language getLanguage(RequestWrapper request, HttpServletResponse response, String textSampleOrLocaleId){
 		String localeId = "";
 		if (request != null){
-			localeId = request.getParameter("locale", "");
-			
+			localeId = request.getParameter("locale", "");			
 			if (localeId.isEmpty()) {
 				localeId = (String)request.getSession().getAttribute("locale");
 			}
 		}
-		if ((localeId == null || localeId.isEmpty()) && textSampleOrLocaleId != null && !textSampleOrLocaleId.isEmpty()){
+		if ((localeId == null || localeId.isEmpty()) && 
+				textSampleOrLocaleId != null &&
+				!textSampleOrLocaleId.isEmpty()){
 			if (languagesMap.containsKey(textSampleOrLocaleId))
 				localeId = textSampleOrLocaleId;
 			else
 				localeId = getLocaleId(textSampleOrLocaleId);
 		}
-		
-		
-		
+				
 		if (localeId == null) 
 			localeId = DEFAULT_LOCALE_ID;
 
@@ -50,6 +49,7 @@ public class LanguageUtils {
 			String country = localeId.substring(localeId.indexOf("_")+1);
 			RequestContextUtils.getLocaleResolver(request.getRequest()).setLocale(request.getRequest(), response, new Locale(language, country));
 		}
+		
 		if (request != null)
 			request.getSession().setAttribute("locale",localeId);
 

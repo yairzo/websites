@@ -103,7 +103,7 @@ textarea {
 }
 
 @font-face {
-    font-family: 'open_sans_condensedbold', 'almoni-tzar';
+    font-family: 'open_sans_condensedbold';
     src: url('../font/opensans-condbold.eot');
     src: url('../font/opensans-condbold.eot?#iefix') format('embedded-opentype'),
          url('../font/opensans-condbold.woff') format('woff'),

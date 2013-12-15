@@ -2,6 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.service.ConfigurationService;
+import huard.iws.service.GeneralService;
 import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.MessageService;
 import huard.iws.service.PersonPrivilegeService;
@@ -56,7 +57,7 @@ public abstract class GeneralController extends AbstractController{
 		else{
 			model.put("popupMessage", "");
 		}
-
+		model.put("updateTime", generalService.getLastUpdate());
 		return handleRequest(requestWrapper, response, model, userPersonBean);
 	}
 
@@ -122,5 +123,12 @@ public abstract class GeneralController extends AbstractController{
 			HujiAuthorizationService hujiAuthorizationService) {
 		this.hujiAuthorizationService = hujiAuthorizationService;
 	}
+	
+	public GeneralService generalService;
+
+	public void setGeneralService(GeneralService generalService) {
+		this.generalService = generalService;
+	}
+	
 
 }

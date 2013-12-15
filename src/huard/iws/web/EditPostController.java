@@ -238,9 +238,9 @@ public class EditPostController extends GeneralFormController {
 	}
 	
 	private CallForProposalService callForProposalService;
-
-	public void setCallForProposalService(CallForProposalService callForProposalService) {
+	
+	public void setCallForProposalService(
+			CallForProposalService callForProposalService) {
 		this.callForProposalService = callForProposalService;
 	}
-
 }

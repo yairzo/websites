@@ -5,10 +5,8 @@ import huard.iws.bean.TextualPageBean;
 import huard.iws.model.Language;
 import huard.iws.model.PageBodyImage;
 import huard.iws.model.TextualPage;
-import huard.iws.service.CallForProposalService;
 import huard.iws.service.PageBodyImageService;
 import huard.iws.service.TextualPageService;
-import huard.iws.util.DateUtils;
 import huard.iws.util.RequestWrapper;
 
 import java.util.ArrayList;
@@ -51,11 +49,7 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		List<PageBodyImage> pageBodyImages = pageBodyImageService.getApprovedPageBodyImages();
 		model.put("images", pageBodyImages);
 		
-		long lastUpdateTime = Math.max(callForProposalService.getCallForProposalsLastUpdate().getTime(), 
-				textualPageService.getTextualPagesLastUpdate().getTime());
-		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
-		
-		model.put("ilr", "/homePage.html");
+		model.put("ilr", "/");
 		
 		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("websiteHomePageStatic",model);
@@ -72,23 +66,19 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 	public class WebsiteHomePageControllerCommand{
 		
 	}
-	private CallForProposalService callForProposalService;
-
-	public void setCallForProposalService(CallForProposalService callForProposalService) {
-		this.callForProposalService = callForProposalService;
-	}
-	private TextualPageService textualPageService;
-
-	public void setTextualPageService(TextualPageService textualPageService) {
-		this.textualPageService = textualPageService;
-	}
 
 	private PageBodyImageService pageBodyImageService;
 
 	public void setPageBodyImageService(
 			PageBodyImageService pageBodyImageService) {
 		this.pageBodyImageService = pageBodyImageService;
-	}	
+	}
+	
+	private TextualPageService textualPageService;
+
+	public void setTextualPageService(TextualPageService textualPageService) {
+		this.textualPageService = textualPageService;
+	}
 	
 
 }

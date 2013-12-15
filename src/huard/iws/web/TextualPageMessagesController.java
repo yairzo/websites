@@ -71,16 +71,11 @@ public class TextualPageMessagesController extends GeneralWebsiteFormController 
 		public void setListView(ListView listView) {
 			this.listView = listView;
 		}
-		
-	
 	}
-	
 	
 	private TextualPageService textualPageService;
 
 	public void setTextualPageService(TextualPageService textualPageService) {
 		this.textualPageService = textualPageService;
 	}
-
-
 }

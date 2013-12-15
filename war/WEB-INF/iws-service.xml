@@ -21,6 +21,15 @@
         	<value>UTF-8</value>
         </property>
      </bean>
+     
+     <bean id="generalService" class="huard.iws.service.GeneralServiceImpl">
+     	<property name="callForProposalService">
+            <ref bean="callForProposalService"/>
+        </property>
+        <property name="textualPageService">
+            <ref bean="textualPageService"/>
+        </property>        
+     </bean>
 
      <bean id="listColumnInstructionService" class="huard.iws.service.ListColumnInstructionServiceImpl">
     	<property name="listColumnInstructionDao">
