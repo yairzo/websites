@@ -1054,7 +1054,7 @@ margin:0;
 padding:10px 10px 10px 15px;
 background:#ececec;
 font-size:21px;
-font-family: 'almoni-tzar', 'open_sanscondensedbold';
+font-family: 'almoni-tzar', 'open_sans_condensedbold';
 font-weight:normal;
 color:#333333;
 line-height:22px;
@@ -1098,6 +1098,7 @@ ul.list_content li{
 
 div.maintext_rtl{
 	line-height:24px;
+	padding:0 5px;
 }
 div.maintext_ltr{
 	line-height:24px;
@@ -1200,6 +1201,7 @@ padding:1px 1px 0 0;
 background:#ececec;
 width:97px;
 height:97px;
+font-weight:normal;
 }
 
 .calendar .board_calendar .ui-datepicker th{
@@ -1374,7 +1376,7 @@ padding:0 14px 10px 14px;
 width:260px;
 height:41px;
 background:url(/image/website/title_blue_right.png) no-repeat top;
-font-family: 'almoni-tzar', 'open_sanscondensedbold'; 
+font-family: 'almoni-tzar', 'open_sans_condensedbold'; 
 font-weight:normal;
 font-size:21px;
 color:#ffffff;
@@ -1466,7 +1468,7 @@ color:#04bde5;
 
 .table_kol tr{background:url(/image/website/table_dot.gif) repeat-x right bottom;}
 
-.table_kol td{padding:10px 7px;vertical-align:top;}
+.table_kol td{padding:10px 7px;vertical-align:middle;}
 
 .kol_content_general strong{
 background:#f2f2f2;
@@ -1988,6 +1990,7 @@ line-height:33px;
 float:right;
 padding:0 10px 0 7px;
 background:url(/image/website/button_right.png) no-repeat right;
+cursor:pointer;
 }
 .button_inner_ltr{
 float:left;
@@ -2247,7 +2250,7 @@ height:16px;
 padding:10px 5px;
 background:#f2f2f2;
 border:solid 1px #e3e3e3;
-font-size:15px;
+font-size:14px;
 font-family:Arial;
 font-weight:normal;
 color:#666666;
@@ -2331,6 +2334,12 @@ transition:background-color 0.25s ease-out 0s;
     float: right;
     padding: 0 8px 0 6px;
     text-align: left;
+}
+
+.kol_remark{
+	color:#888888;
+	font-size:14px;
+	padding:0 18px 8px 18px;
 }
 /* ==========================================================================
    Helper classes

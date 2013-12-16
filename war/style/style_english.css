@@ -478,7 +478,7 @@ width:110px;
 height:20px;
 border:solid 3px #f0f0f0;
 background:#ffffff;
-font-size:12px;
+font-size:13px;
 font-family:'open_sans_condensedbold', 'almoni-tzar';
 color:#666666;
 text-align:center;
@@ -524,7 +524,7 @@ width:412px;
 .mainbox h1{
 float:left;
 margin:0;
-font-size:17px;
+font-size:18px;
 font-family:'open_sans_condensedbold', 'almoni-tzar';
 color:#333333;
 line-height:42px;
@@ -551,7 +551,7 @@ overflow:hidden;
 float:left;
 margin:0;
 padding-left:30px;
-font-size:17px;
+font-size:18px;
 font-family:'open_sans_condensedbold', 'almoni-tzar';
 color:#333333;
 line-height:42px;
@@ -601,6 +601,8 @@ color:#ffffff;
 line-height:42px;
 padding-left:47px; 
 background:url(/image/website/board_ltr.png) no-repeat top;
+letter-spacing:-0.3px;
+word-spacing:-2px;
 }
 
 .board_calendar{
@@ -676,7 +678,7 @@ position:relative;
 }
 .ui-datepicker th {
     border: 0 none;
-    /*font-weight: bold;*/
+    font-weight: normal;
     padding: 0.7em 0.3em;
     text-align: center;
 }
@@ -804,7 +806,7 @@ padding:0.5em 0;
 .board_calendar .ui-datepicker .ui-datepicker-title{
 font-family:'open_sans_condensedbold', 'almoni-tzar';
 color:#04bde5;
-font-size:21px;
+font-size:20px;
 line-height:1em;
 }
 
@@ -1171,10 +1173,10 @@ background:#dedede url(/image/website/arrow_left.png) no-repeat center center !i
 position: absolute;
 margin:0;
 top:0;
-right: 42px;
+right: 40px;
 width:105px;
 text-align:center;
-font-size:14px;
+font-size:16px;
 font-weight:normal;
 color:#666666;
 line-height:42px;
@@ -1246,7 +1248,7 @@ float:left;
 padding:10px;
 width:337px;
 height:16px;
-font-family:'open_sans_condensedbold', 'almoni-tzar';
+font-family:arial;
 font-size:15px;
 color:#333333;
 background:#f8f8f8;
@@ -1272,7 +1274,7 @@ transition:background-color 0.25s ease-out 0s;
 float:left;
 margin:0 0 0 30px;
 font-family:'open_sans_condensedbold', 'almoni-tzar';
-font-size:15px;
+font-size:16px;
 color:#666666;
 line-height:38px;
 }
@@ -1379,7 +1381,7 @@ height:41px;
 background:url(/image/website/title_blue_left.png) no-repeat top;
 font-family:'open_sans_condensedbold', 'almoni-tzar';
 font-weight:normal;
-font-size:21px;
+font-size:20px;
 color:#ffffff;
 line-height:43px;
 }
@@ -1426,6 +1428,7 @@ color:#04bde5;
 .table_kol{
 	width:657px;
 	margin-bottom:13px;
+	line-height:20px;
 }
 
 .table_kol th{
@@ -1451,7 +1454,7 @@ color:#04bde5;
 
 .table_kol tr{background:url(/image/website/table_dot.gif) repeat-x left bottom;}
 
-.table_kol td{padding:10px 7px;vertical-align:top;}
+.table_kol td{padding:10px 7px;vertical-align:middle;}
 
 .kol_content_general strong{
 background:#f2f2f2;
@@ -1591,7 +1594,7 @@ background-position:left -98px;
 padding:13px;
 background:#ffffff;
 border:solid 3px #ececec;
-font-family:"open_sanscondensedbold";
+font-family: 'open_sans_condensedbold';
 font-size:13px;
 color:#666666;
 line-height:25px;
@@ -1622,7 +1625,7 @@ width:335px;
 padding:10px;
 height:16px;
 font-family:Arial;
-font-weight:bold;
+font-weight:normal;
 font-size:15px;
 color:#333333;
 background:#f8f8f8;
@@ -1663,7 +1666,7 @@ background:url(/image/website/advanced_cal.png) no-repeat top;
 
 .advanced_select_arrow{background:url(/image/website/select.png) no-repeat center center;}
 
-.advanced_date_sep{float:left;line-height:38px;margin:0 0 0 5px;}
+.advanced_date_sep{float:left;line-height:38px;margin:0 5px;}
 
 .checks{
 	display:block;
@@ -1744,7 +1747,7 @@ background:#b7b7b7;
 float:left;
 padding:0 0 15px 10px;
 width:620px;
-font-family:"open_sanscondensedbold";
+font-family: 'open_sans_condensedbold';
 font-size:13px;
 line-height:14px;
 }
@@ -1763,8 +1766,8 @@ margin:0 20px 0 0;
 
 .advanced_submit{
 float:left;
-padding:9px 40px;
-font-family:"open_sanscondensedbold";
+padding:4px 40px;
+font-family: 'open_sans_condensedbold';
 font-size:21px;
 color:#ffffff;
 background:#04bde5;
@@ -1962,6 +1965,7 @@ color:#04bde5;
 text-decoration:none;
 text-shadow: 1px 1px #ffffff, -1px 0px #c0c0c0;
 line-height:33px;
+cursor:pointer;
 }
 .button_inner_rtl{
 float:right;
@@ -2210,8 +2214,8 @@ width:132px;
 
 .login_box_col .login_label{
 display:block;
-font-size:15px;
-font-family:"open_sanscondensedbold";
+font-size:13px;
+font-family: 'open_sans_condensedbold';
 color:#666666;
 line-height:25px;
 }
@@ -2235,7 +2239,7 @@ border:0;
 cursor:pointer;
 background:#04bde5;
 font-size:21px;
-font-family:"open_sanscondensedbold";
+font-family: 'open_sans_condensedbold';
 color:#ffffff;
 }
 
@@ -2304,6 +2308,12 @@ transition:background-color 0.25s ease-out 0s;
     float: right;
     padding: 0 8px 0 6px;
     text-align: left;
+}
+
+.kol_remark{
+	color:#888888;
+	font-size:14px;
+	padding:0 18px 8px 18px;
 }
 /* ==========================================================================
    Helper classes
