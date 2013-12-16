@@ -82,7 +82,7 @@
 				</div>
 				<div class="login_help_popup" dir="${lang.dir}" style="display:none">
 					<div class="clearfix">
-						<h3 class="popup_title popup_title_<c:if test="${lang.rtl}">hebrew</c:if><c:if test="${!lang.rtl}">english</c:if>"><fmt:message key="${lang.localeId}.website.helpTitle"/></h3>
+						<h3 class="login_help_popup_title login_help_popup_title_<c:if test="${lang.rtl}">hebrew</c:if><c:if test="${!lang.rtl}">english</c:if>"><fmt:message key="${lang.localeId}.website.helpTitle"/></h3>
 						<a onclick="$('.login_help_popup').hide();return false;" class="popup_close popup_close_<c:if test="${lang.rtl}">hebrew</c:if><c:if test="${!lang.rtl}">english</c:if>">סגור</a>
 					</div>
 					<p><fmt:message key="${lang.localeId}.website.loginHelpText"/></p>

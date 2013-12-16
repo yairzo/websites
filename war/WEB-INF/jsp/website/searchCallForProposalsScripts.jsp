@@ -34,15 +34,17 @@ function resetAutocomplete(funds){
 
 $(document).ready(function() {
 	
-
 	
-	
-	$('.scroll_col').click(function(){
+	$('.scroll_col').click(function(e){
+		e.stopPropagation();
 		if($(this).children('.checkbox_list').is(":visible"))
-			$(this).children('.checkbox_list').css({"display":"none"});
-		else
+			$('.checkbox_list').css({"display":"none"});
+		else{
+			$('.checkbox_list').css({"display":"none"});
 			$(this).children('.checkbox_list').css({"display":"block","z-index":1});
+		}
 	});
+	
 	
 	$("#deskId").change(function () {
 	    if($(this).val() == "0") 
@@ -84,6 +86,7 @@ $(document).ready(function() {
 	
 	$(document).click(function() {
 	    $(".popup_placeholder").hide();
+	    $('.checkbox_list').css({"display":"none"});
 	});
 	
 	$(".popup_placeholder").click(function(e) {

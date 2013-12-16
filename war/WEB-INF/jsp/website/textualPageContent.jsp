@@ -10,6 +10,7 @@
 					<div class="maintext_${pageLang.dir} clearfix mar_20">
        						<c:choose>
     							<c:when test="${command.showFile}">
+    							    <div style="text-align: ${lang.align}; direction: ${lang.dir};"><a href="${command.attachment.filename}"><fmt:message key="${lang.localeId}.textualPage.downloadFile"/></a></div>
 									<iframe src="https://docs.google.com/gview?url=https%3A%2F%2F${server}%2Fpage%2F${command.attachment.filename}&amp;embedded=true" style="width:686px; height:700px;" frameborder="0"></iframe>
 								</c:when>
     							<c:when test="${command.wrapExternalPage}">

@@ -110,7 +110,7 @@
 															
 											<div class="check scroll_col <c:if test='${varStatus.index%3==0}'>scroll_col_last</c:if>">
 												<div class="checkbox_box selectSubject"></div>
-												<label>${subject.name}</label>
+												<label><img alt="" src="/image/website/select.png">&nbsp;${subject.name}</label>
 												<div class="checkbox_list" id="${subject.id}Sub">
                    									<div class="checkbox_list_top"></div>
 													<div class="checkbox_list_bottom">
@@ -135,6 +135,6 @@
 								</div>
 							</form>
 							<div class="clearfix">
-								<a href="/search.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.generalSearch"/></a>
+								<a href="/search.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.basicSearch"/></a>
 							</div>
 						</div>

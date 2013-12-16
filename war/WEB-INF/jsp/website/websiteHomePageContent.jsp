@@ -70,7 +70,7 @@
 	  											<c:set var="left" value="10px"/>
 	  											<c:if test="${textualPage.localeId=='en_US'}">
 	  												<c:set var="direction" value="ltr"/>
-	  												<c:set var="left" value="255px"/>
+	  												<c:set var="left" value="315px"/>
 	  											</c:if>
 	  											
 	  											<div style="padding: 0px 5px; height:100px; width:380px; direction:${direction};overflow:hidden;">

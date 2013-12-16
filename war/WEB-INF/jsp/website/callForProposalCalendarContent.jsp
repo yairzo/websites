@@ -98,7 +98,7 @@
 						<!---->
 					</div>
 					<div class="clearfix mar_30">
-						<form action="/search/" method="post" class="calendar_form">
+						<form action="/search" method="post" class="calendar_form">
 							<input type="text" name="searchWords" onFocus="if(this.value==this.defaultValue)this.value=''"    
 onblur="if(this.value=='')this.value=this.defaultValue" placeholder="<fmt:message key="${lang.localeId}.website.typeSubject"/>" class="calendar_text" />
 							<input type="submit" value="חיפוש" class="calendar_submit" />

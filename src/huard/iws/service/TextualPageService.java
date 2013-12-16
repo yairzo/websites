@@ -39,7 +39,7 @@ public interface TextualPageService {
 	
 	public List<TextualPage> getOnlineTextualPages();
 	
-	public List<TextualPage> getOnlineMessages();
+	public List<TextualPage> getOnlineMessages(String localeId);
 
 	public List<TextualPage> getOnlineMessagesRolling(String localeId);
 
