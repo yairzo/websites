@@ -1,7 +1,7 @@
 <%@ page  pageEncoding="UTF-8" %>
 		<script type="text/javascript">
 		$(document).ready(function() {
-			if(('${lang.localeId}')==('en_US')){
+			if(('${copLang.localeId}')==('en_US')){
 				$(".popup_title").addClass("popup_title_english");
 				$(".popup").addClass("popup_english");
 				$(".popup_close").addClass("popup_close_english");
@@ -35,15 +35,15 @@
 			</div>
 			<c:if test="${command.expired}">
 			<div class="clearfix">
-				<h3 class="popup_careful_${lang.dir}"><fmt:message key="${lang.localeId}.website.isExpired"/></h3>
+				<h3 class="popup_careful_${copLang.dir}"><fmt:message key="${lang.localeId}.website.isExpired"/></h3>
 			</div>
 			</c:if>
 			<span class="clearfix search_icons">
-				<span class="popup_search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/>&nbsp;<strong>${command.fund.name}</strong></span>
-				<span class="popup_search_date"><fmt:message key="${lang.localeId}.callForProposal.submissionTime"/> 
+				<span class="popup_search_financing"><fmt:message key="${copLang.localeId}.callForProposal.fund"/>&nbsp;<strong>${command.fund.name}</strong></span>
+				<span class="popup_search_date"><fmt:message key="${copLang.localeId}.callForProposal.submissionTime"/> 
 				<strong>
 				<c:if test="${command.allYearSubmission}">
-					<fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/>
+					<fmt:message key="${copLang.localeId}.callForProposal.allYearSubmission"/>
 				</c:if>
 				<c:if test="${!command.allYearSubmission}">
 					${finalSubmissionTime}
@@ -54,5 +54,5 @@
 			<div class="clearfix popup_sum">
 				<p>${command.description}</p>
 			</div>
-			<a href="#" onclick="$('.popup_placeholder').hide();location.href='/call_for_proposal/${command.urlTitle}';" class="popup_more"><fmt:message key="${lang.localeId}.callForProposal.furtherDetails"/></a>
+			<a href="#" onclick="$('.popup_placeholder').hide();location.href='/call_for_proposal/${command.urlTitle}';" class="popup_more"><fmt:message key="${copLang.localeId}.callForProposal.furtherDetails"/></a>
 		</div>

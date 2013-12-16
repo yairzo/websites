@@ -1502,11 +1502,24 @@ overflow:hidden;
 background:url(/image/website/envelope_small.png) no-repeat bottom;
 }
 
+.table_kol td.table_email a:hover, a.budgetEmail:hover{background-position:top;}
+
+.table_kol td.table_web a{
+display:block;
+margin:0 auto;
+width:14px;
+height:12px;
+text-indent:-1000px;
+text-decoration:none;
+overflow:hidden;
+background:url(/image/website/home_small.png) no-repeat bottom;
+}
+
+.table_kol td.table_web a:hover{background-position:top;}
+
 a.nounderline{
 text-decoration:none;	
 }
-
-.table_kol td.table_email a:hover, a.budgetEmail:hover{background-position:top;}
 
 .search_result{margin-bottom:25px;}
 

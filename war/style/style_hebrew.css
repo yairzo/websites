@@ -1495,7 +1495,7 @@ background:#ffffff;
 .table_general a{color:#04bde5;text-decoration:none;}
 .table_general a:hover{text-decoration:underline;}
 
-.table_kol td.table_email a, .budgetEmail{
+.table_kol td.table_email a{
 display:block;
 margin:0 auto;
 width:14px;
@@ -1529,11 +1529,12 @@ overflow:hidden;
 background:url(/image/website/home_small.png) no-repeat bottom;
 }
 
+.table_kol td.table_web a:hover{background-position:top;}
+
 a.nounderline{
 text-decoration:none;	
 }
 
-.table_kol td.table_web a:hover{background-position:top;}
 
 .search_result{margin-bottom:25px;}
 
