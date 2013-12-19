@@ -34,7 +34,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class SearchCallForProposalsController extends GeneralWebsiteFormController {
 	private static final Logger logger = Logger.getLogger(SearchCallForProposalsController.class);
 
-	private final int LIMIT_ROWS=20;
+	//private final int LIMIT_ROWS=20;
 
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
@@ -60,7 +60,10 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		final String searchWordDateFormat = "[\\d]{4}-[\\d]{2}-[\\d]{2}";
 		//We check the request since if it's a single day query the search word was deleted from the search creteria 
 		boolean searchedSingleDay = request.getParameter("searchWords","").matches(searchWordDateFormat);
-		model.put("searchBoxBottom", searchedSingleDay);
+		boolean customView = request.getParameter("v","").equals("custom");
+		boolean searchBoxBottom= searchedSingleDay ||  customView;
+		model.put("searchBoxBottom", searchBoxBottom);
+
 		if (searchedSingleDay){
 			model.put("submissionDateFrom", "");
 			model.put("submissionDateTo", "");
@@ -73,20 +76,31 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.callForProposalSearchDay")+" "+DateUtils.formatDate(request.getParameter("searchWords",""),"yyyy-MM-dd","dd.MM.yyyy"));
 			model.put("searchedSingleDay", true);
 		}
-			
-		
+		else{
+			model.put("searchedSingleDay", false);
+		}
+		if(customView){
+			model.put("pageTitle", messageService.getMessage(lang.getLocaleId() +".website.callForProposalCustomView"));
+			model.put("customView", true);
+		}
+		else{
+			model.put("customView", false);
+		}
+
 		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
 		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
 		for (CallForProposal callForProposal: callForProposals){
-			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,true);
-			if(callForProposalBean.getTitle().startsWith("###"))
-				callForProposalBean.setTitle("");
+		CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,true);
+		if(callForProposalBean.getTitle().startsWith("###"))
+			callForProposalBean.setTitle("");
 			callForProposalBeans.add(callForProposalBean);
 		}
 		model.put("callForProposals", callForProposalBeans);
+		
 		//desks
 		List<MopDesk> mopDesks = mopDeskService.getPublishingMopDesks();
 		model.put("mopDesks", mopDesks);
+		
 		//subjects
 		Subject rootSubject = subjectService.getSubject(1, userPersonBean.getPreferedLocaleId());
 		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, lang.getLocaleId());
@@ -100,8 +114,8 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		}
 		rootSubjectBean.checkSubjects(subjectsToCheck);
 		model.put("rootSubject", rootSubjectBean);
+
 		//show searched parameters
-		
 		model.put("searchWords", command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));		
 		model.put("deskId",command.getSearchCreteria().getSearchByDesk());
 		model.put("fundId",command.getSearchCreteria().getSearchByFund());
@@ -120,13 +134,15 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		model.put("searchByAllYear",command.getSearchCreteria().getSearchByAllYear());
 		model.put("searchOpen",command.getSearchCreteria().getSearchOpen());
 		model.put("searchByAllSubjects",command.getSearchCreteria().getSearchByAllSubjects());
-		model.put("isDefault",command.getSearchCreteria().isDefault());
+		//model.put("isDefault",command.getSearchCreteria().isDefault());
 		if(!userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") && !userPersonBean.getSubjectsIds().isEmpty()){
 			String linkToPersonPost = "<a href=\"personPost.html?id="+userPersonBean.getId() +"\">"+messageService.getMessage("iw_IL.website.searchBySubjects")+"</a>";
 			model.put("linkToPersonPost",linkToPersonPost);
 		}
-		//if(request.getSession().getAttribute("callForProposalId")!=null && !request.getSession().getAttribute("callForProposalId").equals(""))
-		//	model.put("callForProposalId", request.getSession().getAttribute("callForProposalId"));
+
+		if(request.getSession().getAttribute("newSearch")!=null && request.getSession().getAttribute("newSearch").equals("yes"))
+			model.put("newSearch", true);
+		request.getSession().setAttribute("newSearch", "");
 		
 		long lastUpdateTime = callForProposalService.getCallForProposalsLastUpdate().getTime();
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
@@ -141,6 +157,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		SearchCallForProposalsControllerCommand command = new SearchCallForProposalsControllerCommand();
+
 		if (isFormSubmission(request.getRequest())){//on submit
 			CallForProposalSearchCreteria searchCreteria = new CallForProposalSearchCreteria();
 			if(request.getParameter("action", "").equals("cleanSearch")){
@@ -178,9 +195,11 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		else{//on show
 			CallForProposalSearchCreteria searchCreteria = (CallForProposalSearchCreteria) request.getSession().getAttribute("callForProposalSearchCreteria");
 			request.getSession().setAttribute("callForProposalsSearchCreteria", null);
-			if (searchCreteria == null || !request.getSession().getAttribute("newSearch").equals("no"))// on first time
+			if (searchCreteria == null || (request.getSession().getAttribute("newSearch")==null || request.getSession().getAttribute("newSearch").equals("")) ){//on first entry
 				searchCreteria = new CallForProposalSearchCreteria();
-			request.getSession().setAttribute("newSearch", "");
+				request.getSession().setAttribute("newSearch", "yes");
+			}
+			System.out.println("1111111111111111"+request.getSession().getAttribute("newSearch"));
 			
 			if(!request.getParameter("searchWords", "").isEmpty()){
 				long dateTime = DateUtils.parseDate(request.getParameter("searchWords", ""),"yyyy-MM-dd");
@@ -203,12 +222,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 					&& !userPersonBean.isAuthorized("ROLE_LISTS_ANONYMOUS") 
 					&& !userPersonBean.getSubjectsIds().isEmpty())
 				searchCreteria.setSearchBySubjectIds(BaseUtils.getString(userPersonBean.getSubjectsIds()));
-			/*if (searchCreteria.isDefault()){				
-				searchCreteria.setLimit(LIMIT_ROWS);
-			}
-			else{
-				searchCreteria.setLimit(0);
-			}*/
+
 			command.setSearchCreteria(searchCreteria);
 		}
 		return command;

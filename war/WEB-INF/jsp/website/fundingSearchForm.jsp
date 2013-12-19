@@ -135,6 +135,6 @@
 								</div>
 							</form>
 							<div class="clearfix">
-								<a href="/search.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.basicSearch"/></a>
+								<a href="/search" class="advanced_close"><fmt:message key="${lang.localeId}.website.basicSearch"/></a>
 							</div>
 						</div>

@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="/style/style_${lang.nameLowerCase}.css">
         <script src="/js/modernizr-2.6.2.min.js"></script>
        	<jsp:include page="${templateCss}" />
+       	<link rel="icon" type="image/gif" href="/image/website/logo2trans.gif"/>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -212,6 +213,6 @@
         		</script>
 
 		<jsp:include page="${templateScripts}" />
-
+		<%@ include file="/WEB-INF/jsp/website/googleAnalytics.jsp" %>	
     </body>
 </html>

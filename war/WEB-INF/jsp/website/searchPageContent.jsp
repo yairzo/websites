@@ -11,7 +11,7 @@
 					<div class="clearfix mar_20">
 						<c:if test="${!searchBoxBottom}">
 						<div class="advanced">
-							<form action="/search.html" method="post">
+							<form action="/search" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>
@@ -24,7 +24,7 @@
 								</div>
 							</form>
 							<div class="clearfix">
-								<a href="/searchCallForProposals.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
+								<a href="/search_funding" class="advanced_close"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
 							</div>
 						</div>
 						</c:if>
@@ -106,7 +106,7 @@
 
 						<c:if test="${searchBoxBottom}">
 						<div class="advanced">
-							<form action="/search.html" method="post">
+							<form action="/search" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>
@@ -119,7 +119,7 @@
 								</div>
 							</form>
 							<div class="clearfix">
-								<a href="/searchCallForProposals.html" class="advanced_close"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
+								<a href="/search_funding" class="advanced_close"><fmt:message key="${lang.localeId}.website.advancedSearch"/></a>
 							</div>
 						</div>
 						</c:if>

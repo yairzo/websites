@@ -49,9 +49,9 @@
 						<%@ include file="/WEB-INF/jsp/website/fundingSearchForm.jsp" %>
 						</c:if>
 						<div class="clearfix mar_20">
-							<c:if test="${!isDefault}">
+							<c:if test="${!newSearch || searchedSingleDay || customView}">
 							<div class="kol search_result">
-								<c:if test="${!searchedSingleDay}">
+								<c:if test="${!searchedSingleDay && !customView}">
 								<div class="clearfix">
 									<h3 class="kol_title_${lang.dir}"><img src="/image/website/search_megaphone_${lang.dir}.png" alt="" />
 									 &nbsp;<fmt:message key="${lang.localeId}.callForProposal.callForProposalsListFound"/>
@@ -77,13 +77,16 @@
   										<fmt:message key="${lang.localeId}.website.noCallForProposals"/>
   									</span> 
   								</c:otherwise>
-	  							</c:choose> 								
+	  							</c:choose> 	
 
 							</div>	
 							</c:if>						
 						</div>
-						<c:if test="${searchBoxBottom && userAuthorized}">
-						<div class="kol_remark_more" style="direction:${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsRemarkMore"/></div>
+						<c:if test="${searchedSingleDay && userAuthorized}">
+							<div class="kol_remark_more" style="direction:${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsRemarkMore"/></div>
+						</c:if>
+						<c:if test="${customView && userAuthorized}">
+							<%@ include file="/WEB-INF/jsp/website/fundingSearchForm.jsp" %>
 						</c:if>
 					</div>
 				</div>

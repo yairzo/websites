@@ -64,6 +64,10 @@
         <to last="true">/searchCallForProposals.html?searchWords=$1</to>
     </rule>
     <rule>
+        <from>^/search_funding_custom$</from>
+        <to last="true">/searchCallForProposals.html?v=custom</to>
+    </rule>
+    <rule>
         <from>^/calendar/(.*)/home$</from>
         <to last="true">/callForProposalCalendar.html?action=$1&amp;h=1</to>
     </rule>
