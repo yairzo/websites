@@ -33,7 +33,7 @@
 										<tr>
 											<c:forEach items="${listBean.columnBeans}" var="column" varStatus="varStatus">
 											<c:if test="${!column.hidden}">
-											<th>${column.columnDisplayName}</th>
+											<th style="width: ${column.width}%;">${column.columnDisplayName}</th>
 											</c:if>
 											</c:forEach>
 										</tr>

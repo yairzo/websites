@@ -9,7 +9,7 @@
 					
 					<div class="clearfix mar_20">
 					
-							<c:if test="${!userAuthorized}">
+							<c:if test="${!authorized}">
 							<div class="kol open kol_${lang.dir}">
 								<div class="clearfix">
 									<a class="button_${lang.dir}">
@@ -45,7 +45,7 @@
 								</div>
 							</div>
 							</c:if>
-						<c:if test="${!searchBoxBottom && userAuthorized}">
+						<c:if test="${!searchBoxBottom && authorized}">
 						<%@ include file="/WEB-INF/jsp/website/fundingSearchForm.jsp" %>
 						</c:if>
 						<div class="clearfix mar_20">
@@ -82,10 +82,10 @@
 							</div>	
 							</c:if>						
 						</div>
-						<c:if test="${searchedSingleDay && userAuthorized}">
+						<c:if test="${searchedSingleDay && authorized}">
 							<div class="kol_remark_more" style="direction:${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsRemarkMore"/></div>
 						</c:if>
-						<c:if test="${customView && userAuthorized}">
+						<c:if test="${customView && authorized}">
 							<%@ include file="/WEB-INF/jsp/website/fundingSearchForm.jsp" %>
 						</c:if>
 					</div>

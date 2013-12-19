@@ -144,8 +144,16 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			model.put("newSearch", true);
 		request.getSession().setAttribute("newSearch", "");
 		
+		boolean authorized= true;	
+		if(!userPersonBean.isAnyAuthorized("ROLE_WEBSITE_READ",
+				"ROLE_WEBSITE_EDIT","ROLE_WEBSITE_ADMIN","ROLE_WEBSITE_HUJI"))
+			authorized= false;	
+		model.put("authorized", authorized);
+		
 		long lastUpdateTime = callForProposalService.getCallForProposalsLastUpdate().getTime();
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
+		
+		model.put("ilr", "/search_funding");
 		
 		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("searchCallForProposalsStatic",model);
