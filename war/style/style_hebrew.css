@@ -1340,6 +1340,12 @@ font-size:14px;
 color:#666666;
 line-height:18px;
 }
+.message_content ul li{
+	background:url(/image/website/dot.gif) no-repeat left 6px;
+	list-style:none;
+	margin:0 7px 0 0;
+	padding:0 15px 5px 0;
+}
 
 .message.open .message_arrow{background:#04bde5 url(/image/website/close.png) no-repeat center center;}
 .message.open .message_arrow:hover{background: url("/image/website/kol_close.png") no-repeat center center #f0f0f0;}
@@ -1456,6 +1462,9 @@ color:#04bde5;
 	border-left:solid 1px #ffffff;
 	text-align:right;
 }
+.table_kol_rtl td{
+	padding:7px 10px;
+}
 
 .table_kol_ltr th{
 	padding:0 0 0 7px;
@@ -1468,7 +1477,7 @@ color:#04bde5;
 
 .table_kol tr{background:url(/image/website/table_dot.gif) repeat-x right bottom;}
 
-.table_kol td{padding:10px 7px;vertical-align:middle;}
+.table_kol td{padding:7px 10px;vertical-align:middle;}
 
 .kol_content_general strong{
 background:#f2f2f2;
@@ -1808,22 +1817,23 @@ color:#999999 !important;
 }
 
 .login_help_popup{
-	box-shadow: 10px 10px 5px #888888;
+	box-shadow:5px 5px 20px #888;
 	display:block;
-	width:400px;
+	width:356px;
 	padding:18px;
 	background:#ffffff;
-	font-size:14px;
+	font-size:13px;
 	z-index:10;
 	position:absolute;
 	top:44px;
-	left:85px;
+	left:472px;
+	border:1px solid #ccc;
 }
 .login_help_popup_title{
 width:322px;
 height:51px;
 font-size:18px;
-font-family:"open_sanscondensedbold";
+font-family:'open_sans_condensedbold' 'almoni-tzar';
 color:#ffffff;
 line-height:42px;
 }
@@ -1852,6 +1862,7 @@ width:600px;
 padding:18px;
 background:#ffffff;
 font-size:15px;
+border:1px solid #ccc;
 }
 
 .popup_hebrew{
@@ -1862,11 +1873,24 @@ direction:rtl;
 direction:ltr;
 }
 
+.popup_english ul li{
+	background:url(/image/website/dot.gif) no-repeat left 7px;
+	list-style:none;
+	margin:0 0 0 0 15px;
+	padding:0 0 5px 15px;
+}
+.popup_hebrew ul li{
+	background:url(/image/website/dot.gif) no-repeat left 7px;
+	list-style:none;
+	margin:0 7px 0 0;
+	padding:0 15px 5px 0;
+}
+
 .popup_title{
 width:492px;
 height:51px;
 font-size:21px;
-font-family: 'almoni-tzar', 'open_sanscondensedbold';
+font-family: 'open_sans_condensedbold' 'almoni-tzar';
 font-weight:normal;
 color:#ffffff;
 line-height:42px;
@@ -1937,6 +1961,9 @@ margin:13px 0;
 padding:15px 0 0 0;
 border-top:solid 1px #cccccc;
 }
+.popup_sum a{
+	color:#00a6ca;
+}
 
 .popup_more{
 display:block;
@@ -1944,7 +1971,7 @@ margin:20px auto 0 auto;
 width:150px;
 background:#04bde5;
 font-size:21px;
-font-family: 'almoni-tzar', 'open_sanscondensedbold';
+font-family:'almoni-tzar', 'open_sans_condensedbold';
 font-weight:normal;
 color:#ffffff;
 text-align:center;
@@ -2208,6 +2235,10 @@ font-weight:normal;
 color:#666666;
 text-shadow: 1px 1px #ffffff, -1px 0px #c0c0c0;
 cursor:pointer;
+}
+
+.login_left a{
+color:#666666;	
 }
 
 .logged {

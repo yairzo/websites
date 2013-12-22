@@ -54,7 +54,8 @@ public abstract class ListViewableBean implements IListViewableBean{
 				}
 				if (columnInstruction.isWebAddress()){
 					field.setIsWebAddress(true);
-					field.setText("<a href=\""+field.getText()+"\" target=\"_new\"/>W</a>");
+					if(!field.getText().trim().isEmpty())
+						field.setText("<a href=\""+field.getText()+"\" target=\"_new\"/>W</a>");
 				}
 				String urlColumn;
 				if (( urlColumn = columnInstruction.getLinkTargetFromColumn()).length() > 0){

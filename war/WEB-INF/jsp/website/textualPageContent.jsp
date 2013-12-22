@@ -67,7 +67,7 @@
 										<c:forEach items="${listBean.viewableBeans}" var="viewableBean" varStatus="varStatus">
 										<tr>
 											<c:forEach items="${viewableBean.fields}" var="field">
-											<td <c:if test="${field.isEmailAddress}">class="table_email" </c:if> align="${field.align}">
+											<td <c:if test="${field.isEmailAddress}">class="table_email"</c:if> <c:if test="${field.isWebAddress}">class="table_web"</c:if> align="${field.align}">
 											<c:out escapeXml="false" value="${field.prefix}"/><c:out escapeXml="false" value="${field.text}"/><c:out escapeXml="false" value="${field.suffix}"/>
 											</td>
 											</c:forEach>

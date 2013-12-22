@@ -155,6 +155,10 @@
 								</div>
 								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 									<c:if test="${fn:length(callForProposalContacts)>0}">
+									<div class="contacts_desk">
+									<c:if test="${copLang.name=='Hebrew'}"><c:out escapeXml="false" value="${command.desk.hebrewName}"/></c:if>
+	        					    <c:if test="${copLang.name=='English'}"><c:out escapeXml="false" value="${command.desk.englishName}"/></c:if>
+									</div>
 									<table class="table_kol table_kol_${copLang.dir}">
 										<tr>
 											<th class="table_one"><fmt:message key="${copLang.localeId}.callForProposal.contactPersonName"/></th>

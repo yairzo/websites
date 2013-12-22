@@ -365,6 +365,18 @@ public class CallForProposalBean {
 		}
 		return fund;
 	}
+
+	public MopDesk getDesk(){
+		MopDesk desk=new MopDesk();
+		try{
+			desk=mopDeskService.getMopDesk(deskId);
+		}
+		catch(Exception e){
+			return desk;
+		}
+		return desk;
+	}
+
 	
 	public int getTypeId() {
 		return typeId;
