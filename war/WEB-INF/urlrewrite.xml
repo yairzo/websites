@@ -91,6 +91,10 @@
         <from>^/sitemap$</from>
         <to last="true">/sitemap.html</to>
     </rule>   
+    <rule>
+        <from>^/messages$</from>
+        <to last="true">/messages.html</to>
+    </rule>   
     
     
     

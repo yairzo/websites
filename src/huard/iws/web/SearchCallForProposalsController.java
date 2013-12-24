@@ -116,6 +116,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		model.put("rootSubject", rootSubjectBean);
 
 		//show searched parameters
+		System.out.println("xxxxxxxxxxxxxxxxxxxxx on show:"+command.getSearchCreteria().getSearchWords());
 		model.put("searchWords", command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));		
 		model.put("deskId",command.getSearchCreteria().getSearchByDesk());
 		model.put("fundId",command.getSearchCreteria().getSearchByFund());
@@ -199,6 +200,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			}
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 			request.getSession().setAttribute("newSearch", "no");
+			System.out.println("XXXXXXXXXXXXXXX onsubmit:"+searchCreteria.getSearchWords());
 		}
 		else{//on show
 			CallForProposalSearchCreteria searchCreteria = (CallForProposalSearchCreteria) request.getSession().getAttribute("callForProposalSearchCreteria");
@@ -207,9 +209,9 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 				searchCreteria = new CallForProposalSearchCreteria();
 				request.getSession().setAttribute("newSearch", "yes");
 			}
-			System.out.println("1111111111111111"+request.getSession().getAttribute("newSearch"));
 			
 			if(!request.getParameter("searchWords", "").isEmpty()){
+		System.out.println("xxxxxxxxxxxxxxxxx onshow:"+request.getParameter("searchWords", ""));
 				long dateTime = DateUtils.parseDate(request.getParameter("searchWords", ""),"yyyy-MM-dd");
 				if(dateTime>0){
 					searchCreteria.setSearchBySubmissionDateFrom(request.getParameter("searchWords", ""));
@@ -223,7 +225,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 					searchCreteria.setSearchBySearchWords(sphinxIds);
 					searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
 				}
-					
 			}
 			
 			if(searchCreteria.getSearchBySubjectIds().isEmpty() 
@@ -232,6 +233,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 				searchCreteria.setSearchBySubjectIds(BaseUtils.getString(userPersonBean.getSubjectsIds()));
 
 			command.setSearchCreteria(searchCreteria);
+			System.out.println("xxxxxxxxxxx backing searchWords"+searchCreteria.getSearchWords());
 		}
 		return command;
 	}

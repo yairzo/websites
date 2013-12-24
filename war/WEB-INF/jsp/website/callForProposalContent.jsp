@@ -29,9 +29,13 @@
 										</c:if> 
 										<br/>
 										<c:if test="${fn:length(submissionDate1)>0}">
-										<strong><fmt:message key="${copLang.localeId}.callForProposal.anotherSubmissionDate"/></strong>${submissionDate1}&nbsp;
-										${submissionDate2}&nbsp;
-										${submissionDate3}<br/>
+											<strong><fmt:message key="${copLang.localeId}.callForProposal.anotherSubmissionDate"/></strong>
+											${submissionDate1}
+											<c:if test="${fn:length(submissionDate2)>0}">,
+											${submissionDate2}</c:if>
+											<c:if test="${fn:length(submissionDate3)>0}">,
+											${submissionDate3}</c:if>
+											<br/>
 										</c:if>
 										<strong><fmt:message key="${copLang.localeId}.callForProposal.fund"/>:</strong>&nbsp;${command.fund.name}<br/>
      									<a href="#" onclick="window.open('${command.originalCallWebAddress}')"><img src="/image/website/original_call.png" height="13px" alt=""/></a>

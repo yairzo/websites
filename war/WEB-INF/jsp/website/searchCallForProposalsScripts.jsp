@@ -94,8 +94,9 @@ $(document).ready(function() {
 	});
 	
 	
-	$("#advanced_subject").click(function(){
-    	$("#advanced_subject").val('');
+	$("#advanced_subject").click(function(e){
+		e.stopPropagation();
+		$("#advanced_subject").val('');
     	$("#fundId").val("0");    	
     	resetAutocomplete();
 	});

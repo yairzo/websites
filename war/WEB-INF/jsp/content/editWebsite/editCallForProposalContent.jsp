@@ -639,7 +639,7 @@
   					<tr>
 					<td colspan="3" style="border:1px #bca2a2 dotted">
 					<table width="950">
-  					<tr><th align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactPersonDetails"/></th>
+  					<tr><th align="${lang.align}"><fmt:message key="${lang.localeId}.callForProposal.contactPersonDetailsFree"/></th>
   					</tr>
  					<tr>
 					<td colspan="3" align="center">

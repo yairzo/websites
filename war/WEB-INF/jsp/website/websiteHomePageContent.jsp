@@ -60,7 +60,7 @@
 					<div class="mainbox">
 						<div class="title">
 							<h2><fmt:message key="${lang.localeId}.website.latestUpdates"/></h2>
-							<a href="/messages.html"><fmt:message key="${lang.localeId}.website.allMessages"/></a>
+							<a href="/messages"><fmt:message key="${lang.localeId}.website.allMessages"/></a>
 						</div>
 						<div class="mainbox_news_wrapper">
 							<div class="mainbox_news" style="direction:ltr">
