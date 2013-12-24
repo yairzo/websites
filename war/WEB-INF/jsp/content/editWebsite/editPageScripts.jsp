@@ -13,7 +13,7 @@
 <script language="Javascript">
 var countryArr= new Array();
 
-var urlTitleRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z][a-zA-Z0-9-]+$/;
+var urlTitleRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z0-9][a-zA-Z0-9-]+$/;
 var filenameRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z][a-zA-Z0-9-]+\.[a-z]{2,4}$/;
 
 function resetAutocomplete(){

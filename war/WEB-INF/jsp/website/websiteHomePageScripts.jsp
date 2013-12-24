@@ -43,22 +43,30 @@
 					$('.callForProposalsPerDay').hide();
 				});
 				
+				
 				$('.messageslider').show();
 				$('.messageslider').bxSlider({
 					controls:false,
 					mode:'horizontal',
-					auto: true ,
+					<c:choose>
+					<c:when test="${fn:length(textualPages)>1}">
+					auto: true,
+					</c:when>
+					<c:otherwise>
+					auto: false,
+					</c:otherwise>
+					</c:choose>
 					slideWidth:406,
 					pause:5000,
-<c:choose>
-<c:when test="${lang.rtl}">
+					<c:choose>
+					<c:when test="${lang.rtl}">
 					startSlide: <c:out value="${fn:length(textualPages)-1}"/>, 
 					autoDirection: 'prev'
-</c:when>
-<c:otherwise>
+					</c:when>
+					<c:otherwise>
 					startSlide: 0
-</c:otherwise>
-</c:choose>
+					</c:otherwise>
+					</c:choose>
 					});
 				
 				

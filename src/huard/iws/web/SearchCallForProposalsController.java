@@ -86,16 +86,18 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		else{
 			model.put("customView", false);
 		}
-
-		List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
-		List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
-		for (CallForProposal callForProposal: callForProposals){
-		CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,true);
-		if(callForProposalBean.getTitle().startsWith("###"))
-			callForProposalBean.setTitle("");
-			callForProposalBeans.add(callForProposalBean);
+		
+		if(request.getSession().getAttribute("newSearch")!=null && request.getSession().getAttribute("newSearch").equals("no")){
+			List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
+			List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
+			for (CallForProposal callForProposal: callForProposals){
+				CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal,true);
+				if(callForProposalBean.getTitle().startsWith("###"))
+					callForProposalBean.setTitle("");
+					callForProposalBeans.add(callForProposalBean);
+			}
+			model.put("callForProposals", callForProposalBeans);
 		}
-		model.put("callForProposals", callForProposalBeans);
 		
 		//desks
 		List<MopDesk> mopDesks = mopDeskService.getPublishingMopDesks();
@@ -116,7 +118,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		model.put("rootSubject", rootSubjectBean);
 
 		//show searched parameters
-		System.out.println("xxxxxxxxxxxxxxxxxxxxx on show:"+command.getSearchCreteria().getSearchWords());
 		model.put("searchWords", command.getSearchCreteria().getSearchWords().replace("\"", "&quot;"));		
 		model.put("deskId",command.getSearchCreteria().getSearchByDesk());
 		model.put("fundId",command.getSearchCreteria().getSearchByFund());
@@ -200,7 +201,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			}
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
 			request.getSession().setAttribute("newSearch", "no");
-			System.out.println("XXXXXXXXXXXXXXX onsubmit:"+searchCreteria.getSearchWords());
 		}
 		else{//on show
 			CallForProposalSearchCreteria searchCreteria = (CallForProposalSearchCreteria) request.getSession().getAttribute("callForProposalSearchCreteria");
@@ -211,7 +211,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			}
 			
 			if(!request.getParameter("searchWords", "").isEmpty()){
-		System.out.println("xxxxxxxxxxxxxxxxx onshow:"+request.getParameter("searchWords", ""));
 				long dateTime = DateUtils.parseDate(request.getParameter("searchWords", ""),"yyyy-MM-dd");
 				if(dateTime>0){
 					searchCreteria.setSearchBySubmissionDateFrom(request.getParameter("searchWords", ""));
