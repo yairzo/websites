@@ -48,16 +48,24 @@
         <to last="true">/search.html</to>
     </rule>
     <rule>
+        <from>^/search/$</from>
+        <to type="redirect">/search</to>
+    </rule>
+    <rule>
         <from>^/search/(.*)</from>
         <to last="true">/search.html?searchWords=$1</to>
     </rule>
     <rule>
-        <from>^/Recent_Announcements$</from>
+        <from>^/recent_announcements$</from>
         <to last="true">/search.html?v=new_cfps</to>
     </rule>
     <rule>
         <from>^/search_funding$</from>
         <to last="true">/searchCallForProposals.html</to>
+    </rule>
+    <rule>
+        <from>^/search_funding/$</from>
+        <to type="redirect">/search_funding</to>
     </rule>
     <rule>
         <from>^/search_funding/(.*)</from>

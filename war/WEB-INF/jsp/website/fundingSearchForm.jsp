@@ -1,5 +1,5 @@
 						<div class="advanced">
-							<form id="form" action="/search_funding/" method="post">
+							<form id="form" action="/search_funding" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>

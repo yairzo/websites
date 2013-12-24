@@ -162,7 +162,7 @@
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.SearchCallForProposalsController$SearchCallForProposalsControllerCommand</value></property>
         <property name="formView"><value>searchCallForProposals</value></property>
-        <property name="successView"><value>/search_funding/</value></property>
+        <property name="successView"><value>/search_funding</value></property>
      	<property name="callForProposalService">
             <ref bean="callForProposalService"/>
         </property>
@@ -212,7 +212,7 @@
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.SearchWebsiteController$SearchWebsiteControllerCommand</value></property>
         <property name="formView"><value>searchPage</value></property>
-        <property name="successView"><value>/search/</value></property>
+        <property name="successView"><value>/search</value></property>
      	<property name="callForProposalService">
             <ref bean="callForProposalService"/>
         </property>
