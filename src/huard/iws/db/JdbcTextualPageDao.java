@@ -29,6 +29,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	public TextualPage getTextualPage(int id){
 		try{
 			String query = "select * from textualPageDraft where id =?";
+			logger.debug(query);
 			TextualPage textualPage =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 			getTextualPageFile(textualPage);
@@ -42,6 +43,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	public TextualPage getTextualPageOnline(int id){
 		try{
 			String query = "select * from textualPage where id =?";
+			logger.debug(query);
 			TextualPage textualPage =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 			getTextualPageFile(textualPage);
@@ -55,7 +57,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	public TextualPage getTextualPageOnline(String urlTitle){
 		try{
 			String query = "select * from textualPage where urlTitle = ?";
-			logger.info(query + " urlTitle: " + urlTitle);
+			logger.debug(query + " urlTitle: " + urlTitle);
 			TextualPage textualPage =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, urlTitle);
 			getTextualPageFile(textualPage);
@@ -69,6 +71,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	public String getTextualPageUrlTitleByArdNum(int ardNum){
 		String query = "select urlTitle from textualPage inner join textualPageHistoryId on" +
 				" textualPage.id=textualPageHistoryId.textualPageId where textualPageHistoryId.textualPageHistoryId =?";
+		logger.debug(query);
 		try{
 			return getSimpleJdbcTemplate().queryForObject(query, String.class, ardNum);
 		}
@@ -79,13 +82,14 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 
 	private void getTextualPageFile(TextualPage textualPage){
 		String query = "select * from textualPageFile where pageId = ?";
+		logger.debug(query);
 		try{
 		Attachment attachment =  getSimpleJdbcTemplate().queryForObject(query, JdbcFilesDao.attachmentRowMapper, textualPage.getId());
 		if(attachment!=null)
 			textualPage.setAttachment(attachment);
 		}
 		catch(Exception e){
-			logger.info(e.getMessage());
+			logger.debug(e.getMessage());
 		}
 	}
 	
@@ -93,6 +97,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	
 	public boolean existsTextualPageOnline(int id){
 		String query = "select * from textualPage where id =?";
+		logger.debug(query);
 		try{
 			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 			return true;
@@ -104,6 +109,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 
 	public TextualPage getTextualPage(String title){
 		String query = "select * from textualPageDraft where title =?";
+		logger.debug(query);
 		TextualPage textualPage =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, title);
 		getTextualPageFile(textualPage);
@@ -117,7 +123,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 			textualPage.setUrlTitle("###" + textualPage.getTitle() + "###");
 
 		final String query = "insert ignore textualPageDraft set title='" + textualPage.getTitle() + "' ,urlTitle=?, creatorId = ?, html='', description='', updateTime=now(), localeId=?;";
-		//logger.info(query);
+		logger.debug(query);
 		final String urlTitle= textualPage.getUrlTitle();
 		final int creatorId= textualPage.getCreatorId();
 		final String localeId= textualPage.getLocaleId();
@@ -163,7 +169,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", updateTime = now()"+
 				", isDeleted = ?"+
 				", localeId = ?";
-		//logger.info(query);
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getId(),
 				textualPage.getTitle(),
@@ -213,7 +219,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", isDeleted = ?" +
 				", localeId = ?" +
 			" where id = ?;";
-		//logger.info(query);
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getTitle(),
 				textualPage.getUrlTitle(),
@@ -272,7 +278,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", isDeleted = ?" +
 				", localeId = ?" +
 				" where id = ?;";
-		logger.info(query);
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				textualPage.getTitle(),
 				textualPage.getUrlTitle(),
@@ -304,23 +310,25 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		String query = "select * from textualPageDraft";
 		query += getWhereClause(searchCreteria);
 		query += " limit "+ (lv.getPage()-1) * lv.getRowsInPage() + "," + lv.getRowsInPage();
-		System.out.println(query);
+		logger.debug(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
 	}
 	public int countTextualPages(ListView lv,TextualPageSearchCreteria searchCreteria) {
 		String query = "select count(*) from textualPageDraft";
 		query += getWhereClause(searchCreteria);
-		logger.info(query);
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 	
 	public int countTextualPagesByUrlTitle(int id,String urlTitle){
 		String query = "select count(*) from textualPageDraft where urlTitle='" + urlTitle +"' and id<>"+ id;
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 	public int countTextualPagesByTitle(int id,String title){
 		String query = "select count(*) from textualPageDraft where title='" + title +"' and id<>"+ id;
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 	
@@ -336,25 +344,25 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		if(!searchCreteria.getSearchBySearchWords().isEmpty())
 			whereClause +=" and id in ("+searchCreteria.getSearchBySearchWords() + ")";
 		whereClause += "  order by id desc";
-		logger.info(whereClause);
+		logger.debug(whereClause);
 		return whereClause;
 	}
 
 	public List<TextualPage> getOnlineTextualPages(){
 		String query = "select * from textualPage where isDeleted=0 order by id";
-		System.out.println(query);
+		logger.debug(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
 	}
 	public List<TextualPage> getOnlineMessages(String localeId){
 		String query = "select * from textualPage where isDeleted=0 and isMessage=1 and localeId= ? order by id";
-		System.out.println(query);
+		logger.debug(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper,localeId);
 		return textualPages;
 	}
 	public List<TextualPage> getOnlineMessagesRolling(String localeId){
 		String query = "select * from textualPage where isDeleted=0 and isMessage=1 and (neverExpires=1 or keepInRollingMessagesExpiryTime >= now()) and localeId= ? order by id";
-		System.out.println(query);
+		logger.debug(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper, localeId);
 		return textualPages;
 	}
@@ -364,7 +372,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		if(!ids.isEmpty())
 			query += " and id in ("+ids+")";
 		query += " order by id";
-		logger.info(query);
+		logger.debug(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
 	}
@@ -373,7 +381,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		if(!ids.isEmpty())
 			query += " and id in ("+ids+")";
 		query += " order by id";
-		logger.info(query);
+		logger.debug(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
 	}
@@ -423,7 +431,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", updateTime = now()" +
 				", personId = ?" +
 				", modifierId = ?";
-		logger.info(query);
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				template.getTitle(),
 				template.getTemplate(),
@@ -437,7 +445,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				", updateTime = now()" +
 				", modifierId = ?" + "" +
 				"  where id=?";
-		logger.info(query);
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				template.getTitle(),
 				template.getTemplate(),
@@ -447,7 +455,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	
 	public Template getTemplate(int id){
 		String query = "select * from textualPageTemplate where id = ?";
-		logger.info(query);
+		logger.debug(query);
 		Template template = getSimpleJdbcTemplate().queryForObject(query,templateRowMapper,id);
 		return template;
 	}
@@ -464,7 +472,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	
 	public List<Template> getTemplates(){
 		String query = "select * from textualPageTemplate;";
-		logger.info(query);
+		logger.debug(query);
 		List<Template> templates = getSimpleJdbcTemplate().query(query,templateRowMapper);
 		return templates;
 	}
@@ -516,11 +524,13 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 
 	public void insertArdNum(int ardNum,int id){
 		String query  = "insert textualPageHistoryId set textualPageId = ?, textualPageHistoryId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,id, ardNum);
 	}
 	
 	public Timestamp getTextualPagesLastUpdate(){
 		String query = "select updateTime from textualPage order by updateTime desc limit 1";
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForObject(query, new ParameterizedRowMapper<Timestamp>() {
 			@Override
 			public Timestamp mapRow(ResultSet r, int arg1)

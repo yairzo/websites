@@ -29,6 +29,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	public Person getPerson(int id){
 		try{
 		String query = "select * from person where id=?";
+		logger.debug(query);
 		Person person =
 			getSimpleJdbcTemplate().queryForObject(query, personRowMapper,	id);		
 		applyPersonSubjectIds(person);
@@ -42,6 +43,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	public int getOnBehalfOf(String module, int id){
 		try{
 			String query = "select personId from officialRepresentativePerson where module=? and officialRepresentativePersonId=?";
+			logger.debug(query);
 			return getSimpleJdbcTemplate().queryForInt(query, module,id);		
 		}
 		catch(Exception e){
@@ -52,6 +54,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	public int getOfficialRepresentative(String module, int id){
 		try{
 			String query = "select officialRepresentativePersonId from officialRepresentativePerson where module=? and personId=?";
+			logger.debug(query);
 			return getSimpleJdbcTemplate().queryForInt(query, module,id);		
 		}
 		catch(Exception e){
@@ -61,6 +64,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 
 	private void applyPersonSubjectIds(Person person){
 		String query = "select * from subjectToPerson where personId = ?";
+		logger.debug(query);
 		List<Integer> subjectsIds =  getSimpleJdbcTemplate().query(query, subjectToPersonRowMapper, person.getId());
 		person.setSubjectsIds(subjectsIds);
 	}
@@ -74,6 +78,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 
 	public Person getPersonByCivilId(String civilId){
 		String query = "select * from person where civilId=?";
+		logger.debug(query);
 		List<Person> persons =
 			getSimpleJdbcTemplate().query(query, personRowMapper,	civilId);
 		Person person = null;
@@ -86,6 +91,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	}
 	public int getPersonIdBySubscriptionMd5(String subscriptionMd5){
 		String query = "select personId from personPrivilege where subscriptionMd5=? limit 1;";
+		logger.debug(query);
 		try{
 			return getSimpleJdbcTemplate().queryForInt(query, subscriptionMd5);
 		}
@@ -158,7 +164,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 				" academicTitle = ?, websiteUrl = ?, campusId = ?," +
 				" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ? where id = ?";
-		logger.info (query);
+		logger.debug (query);
 		getSimpleJdbcTemplate().update(query,
 				person.getFirstNameHebrew() ,
 				person.getLastNameHebrew(),
@@ -197,7 +203,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 		" academicTitle = ?, websiteUrl = ?, campusId = ?," +
 		" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?;";
-
+		logger.debug(query);
 		final String firstNameHebrew = person.getFirstNameHebrew();
 		final String lastNameHebrew = person.getLastNameHebrew();
 		final String degreeHebrew = person.getDegreeHebrew();
@@ -265,6 +271,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 
 	private void updatePersonSubjectIds(Person person){
 		String query = "delete from subjectToPerson where personId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,person.getId());
 
 		if (person.getSubjectsIds() != null){
@@ -277,19 +284,23 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 
 	public void deletePerson(int id){
 		String query = "delete from person where id =?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, id);
+		logger.debug(query);
 		query = "delete from subjectToPerson where personId = ?";
 		getSimpleJdbcTemplate().update(query, id);
 	}
 
 	public java.sql.Date getLastLogin(int personId){
 		String query = "select max(lastLogin) from personPrivilege where personId = ?;";
+		logger.debug(query);
 		Date lastLogin = getSimpleJdbcTemplate().queryForObject(query, Date.class, personId);
 		return lastLogin;
 	}
 
 	public void updateLastLogin(int personId){
 		String updateString = "update personPrivilege set lastLogin=now() where personId = ?;";
+		logger.debug(updateString);
 		getSimpleJdbcTemplate().update(updateString, personId);
 	}
 
@@ -302,7 +313,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		query += " group by civilId order by "+lv.getOrderBy();
 		query += " limit "+ (lv.getPage()-1) * lv.getRowsInPage() + "," + lv.getRowsInPage();
 
-		logger.info(query);
+		logger.debug(query);
 		
 		boolean [] searchPhraseValid = validateSearch(search);
 		
@@ -343,7 +354,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		int r = getSimpleJdbcTemplate().queryForInt(query,
 				params);
 
-		logger.info(query);
+		logger.debug(query);
 		return r;
     }
 
@@ -391,7 +402,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	public List<Person> getPersons(ListView lv) {
 		String query = "select * from person";
 		query = query.concat(" order by "+lv.getOrderBy());
-
+		logger.debug(query);
 		List<Person> persons =
 			getSimpleJdbcTemplate().query(query, getPersonRowMapper());
 		applyPersonSubjectIds(persons);
@@ -400,6 +411,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 
 	public List<Person> getPersons() {
 		String query = "select * from person order by firstNameHebrew;";
+		logger.debug(query);
 		List<Person> persons =
 			getSimpleJdbcTemplate().query(query, getPersonRowMapper());
 		applyPersonSubjectIds(persons);
@@ -413,7 +425,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		}
 		query.deleteCharAt(query.length()-1);
 		query.append(") order by lastNameHebrew;");
-		System.out.println(query);
+		logger.debug(query);
 		List<Person> persons =
 			getSimpleJdbcTemplate().query(query.toString(), getPersonRowMapper());
 		applyPersonSubjectIds(persons);
@@ -421,6 +433,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
     }
 	public List<Person> getConferenceResearchers() {
 		String query = "select distinct person.* from person inner join conferenceProposal on conferenceProposal.personId=person.id order by firstNameHebrew;";
+		logger.debug(query);
 		List<Person> persons =
 			getSimpleJdbcTemplate().query(query, getPersonRowMapper());
 		return persons;
@@ -428,6 +441,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	public List<Person> getPersons(String role) {
 		String query = "select * from person inner join personPrivilege " +
 				"on person.id = personPrivilege.personId where personPrivilege.privilege = ? order by firstNameHebrew;";
+		logger.debug(query);
 		List<Person> persons =
 			getSimpleJdbcTemplate().query(query, getPersonRowMapper(), role);
 		applyPersonSubjectIds(persons);
@@ -439,12 +453,14 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		String query = "insert ignore personPrivilege set personId = ?, privilege = ?, password = ?, subscriptionInitPage = ?";
 		if (updateLastLogin)
 			query += ", lastLogin = now()";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, person.getId(), privilege, password, subscriptionInitPage);
 	}
 	
 	public void updatePersonPrivilegePassowrd(Person person, String encodedPassword){
 		String query = "update personPrivilege set password = ?"
 			+ " where personId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, encodedPassword, person.getId());
 	}
 
@@ -453,23 +469,27 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		if (updateLastLogin)
 			query += ", lastLogin = now()";
 		query += " where personId = ? and privilege = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, md5, person.getId(), privilege);
 	}
 
 	public boolean enablePersonPrivilege(String md5){
 		String query = "update personPrivilege set enabled = 1 where subscriptionMd5 = ?";
+		logger.debug(query);
 		int r = getSimpleJdbcTemplate().update(query, md5);
 		return r>0;
 	}
 
 	public boolean isSubscribed(int personId, boolean enabled){
 		String query = "select count(*) from personPrivilege where personId = ? and enabled = " + (enabled ? 1: 0);
+		logger.debug(query);
 		int  r = getSimpleJdbcTemplate().queryForInt(query, personId);
 		return r > 0;
 	}
 	
 	public String getSinglePrivilege(int personId, boolean enabled){
 		String query = "select privilege from personPrivilege where personId = ? and enabled = " + (enabled ? 1: 0) + " limit 1";
+		logger.debug(query);
 		Class<String> string = null;
 		String privilege = getSimpleJdbcTemplate().queryForObject(query, string, personId);
 		return privilege;
@@ -477,12 +497,14 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	
 	public boolean isAutoSubscribed(int personId, boolean enabled){
 		String query = "select count(*) from personPrivilege where personId = ? and subscriptionMd5!='' and enabled = " + (enabled ? 1: 0);
+		logger.debug(query);
 		int  r = getSimpleJdbcTemplate().queryForInt(query, personId);
 		return r > 0;
 	}
 
 	public boolean authenticate(int personId, String encodedPassword){
 		String query = "select count(*) from personPrivilege where personId = ? and password = ? and enabled = 1";
+		logger.debug(query);
 		int  r = getSimpleJdbcTemplate().queryForInt(query, personId, encodedPassword);
 		return r > 0;
 	}
@@ -499,7 +521,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		if (additionalCondition != null)
 			query += " and " + additionalCondition;
 		query += " order by lastLogin desc;";
-
+		logger.debug(query);
 		List<Person> usersPersons = getSimpleJdbcTemplate().query(query, personRowMapper , role);
 		applyPersonSubjectIds(usersPersons);
 		return usersPersons;
@@ -521,6 +543,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	
 	public int countPerson(){
 		String query = "select count(*) from person";
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 	
@@ -528,6 +551,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		Person person = new Person();
 		try{
 			String query = "select * from person where concat(firstNameEnglish,' ' ,lastNameEnglish) like '"+ fullNameEnglish +"'";
+			logger.debug(query);
 			person =  getSimpleJdbcTemplate().queryForObject(query, personRowMapper);	
 			return person;
 		}

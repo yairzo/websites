@@ -11,13 +11,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
+
+	Logger logger = Logger.getLogger("JdbcCallForProposalDaoOld");
 
 	public CallForProposalOld getCallForProposal(int id, String server){
 		CallForProposalOld callForProposal = new CallForProposalOld();
 		try{
 			String query = "select * from InfoPages inner join TabledInfoPages on InfoPages.ardNum = TabledInfoPages.ardNum"
 				+ " where InfoPages.ardNum =" + id;
+			logger.debug(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
@@ -42,6 +47,7 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 		CallForProposalOld callForProposal = new CallForProposalOld();
 		try{
 			String query = "select ardNum from InfoPages where title = '" + SQLUtils.toSQLString(title) + "'";
+			logger.debug(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
@@ -69,7 +75,7 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			if (open)
 				query += " where subDate > " + System.currentTimeMillis() + " or subDate = 0";
 			query += " order by title";
-			System.out.println(query);
+			logger.debug(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
@@ -81,7 +87,6 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 				callForProposal.setTitle(rs.getString("title"));
 				callForProposal.setAmountOfGrant(rs.getString("amountOfGrant"));
 				callForProposal.setDeskId(rs.getString("deskId"));
-
 				callForProposals.add(callForProposal);
 			}
 		}
@@ -96,6 +101,7 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "INSERT", server);
 			Statement statement = connection.createStatement();
 			String query = "insert /*! ignore */ AuthorizedMD5 set md5 = '" + md5 + "'";
+			logger.debug(query);
 			statement.executeUpdate(query);
 		}
 		catch (SQLException e){
@@ -143,7 +149,7 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 				" InfoPages.ardNum = TabledInfoPages.ardNum AND InfoPages.isDeleted=0 "+
 				(ardNum!=null ? " AND InfoPages.ardNum="+ardNum+";"  : " AND InfoPages.subDate>"+now.getTime()+
 						" ORDER BY RAND();");
-			System.out.println(query);
+			logger.debug(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			return moveResultSetToTabledInfoPages(resultSet);
 		}
@@ -157,6 +163,7 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "SELECT * FROM InfoPages,TabledInfoPages WHERE InfoPages.ardNum = TabledInfoPages.ardNum AND InfoPages.isDeleted=0;";
+			logger.debug(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			return moveResultSetToTabledInfoPages(resultSet);
 		}
@@ -210,6 +217,7 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "SELECT date FROM InfoPagesLastUpdates WHERE ardNum="+ardNum;
+			logger.debug(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			resultSet.next();
 			lastUpdate = resultSet.getLong("date");
@@ -227,6 +235,7 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "SELECT * FROM AdditionalSubDates WHERE ardNum="+ardNum+" ORDER BY subDate;";
+			logger.debug(query);
 			ResultSet resultSet = statement.executeQuery(query);
      		while(resultSet.next()){
      			Long additionalSubDate = new Long(resultSet.getLong("subDate"));
@@ -245,6 +254,7 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "SELECT budgetOfficer FROM Funds WHERE fundNum="+FundId;
+			logger.debug(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			resultSet.next();
 			budgetOfficerName = resultSet.getString("budgetOfficer");

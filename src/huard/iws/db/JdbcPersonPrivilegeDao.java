@@ -18,6 +18,7 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 
 	public List<PersonPrivilege> getPersonPrivileges (int personId){
 		String query = "select * from personPrivilege where personId=?";
+		logger.debug(query);
 		List<PersonPrivilege> personPrivileges =
 			getSimpleJdbcTemplate().query(query, rowMapper,	personId);
 		return personPrivileges;
@@ -26,6 +27,7 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 	
 	public List<Privilege> getAllPrivileges (){
 		String query = "select * from privilege;";
+		logger.debug(query);
 		List<Privilege> privileges =
 			getSimpleJdbcTemplate().query(query,rowMapperPrivilege);
 		return privileges;
@@ -57,19 +59,23 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 	public void insertPersonPrivilege(int personId, String privilege, String password, String enabled){
 		if(password.isEmpty()){
 			String query = "select password from personPrivilege where personId = ? limit 1";
+			logger.debug(query);
 			password = getSimpleJdbcTemplate().queryForObject(query,String.class,personId);
 		}
 		//if already exists a privilege for this person, update lastLogin 
 		String query = "select count(*) from personPrivilege where personId = ?";
+		logger.debug(query);
 		int count = getSimpleJdbcTemplate().queryForInt(query,personId);
 
 		query = "insert ignore personPrivilege set personId = ?, privilege = ?,password=?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, personId, privilege,password);
 
 		query = "update personPrivilege set password = ?,enabled=? ";
 		if (count>0)
 			query += ", lastLogin = now()";
 		query += " where personId=?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, password, enabled, personId);
 		
 	}
@@ -77,10 +83,12 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 	public void updatePersonPrivilege(int personId,String password, String enabled){
 		if(!password.isEmpty()){
 			String query = "update personPrivilege set password = ?  where personId=?";
+			logger.debug(query);
 			getSimpleJdbcTemplate().update(query, password, personId);
 		}
 
 		String query = "update personPrivilege set enabled=?  where personId=?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, enabled, personId);
 	}
 	
@@ -88,6 +96,7 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 	public String getPrivilegePassword(int personId){
 		try{	
 			String query = "select distinct password from personPrivilege where personId = ? limit 1";
+			logger.debug(query);
 			return getSimpleJdbcTemplate().queryForObject(query,String.class,personId);
 		}
 		catch(Exception e){
@@ -97,6 +106,7 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 	public int getPrivilegeEnabled(int personId){
 		try{	
 			String query = "select distinct enabled from personPrivilege where personId = ?";
+			logger.debug(query);
 			return getSimpleJdbcTemplate().queryForInt(query,personId);
 		}
 		catch(Exception e){
@@ -106,29 +116,35 @@ public class JdbcPersonPrivilegeDao extends SimpleJdbcDaoSupport implements Pers
 
 	public void deletePersonPrivilege(int privilege){
 		String query = "delete from personPrivilege where id=?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, privilege);
 	}
 	
 	public void updateLastAction(PersonBean person){
 		String query = "update personPrivilege set lastAction=now()  where personId=?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, person.getId());
 	}	
 	public List<PersonPrivilege> getActivePersons(){
 		String query = "select * from personPrivilege where lastAction >= DATE_SUB(NOW(),INTERVAL 30 MINUTE)  group by personId";
+		logger.debug(query);
 		List<PersonPrivilege> persons = getSimpleJdbcTemplate().query(query, rowMapper);
 		return persons;
 	}
 	public void clearLastActionTime(){
 		String query = "update personPrivilege set lastAction='0000-00-00 00:00:00'";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query);
 	}	
 	public void updateSubscriptionMd5(int personId,String subscriptionMd5){
 		String query = "update personPrivilege set subscriptionMd5=?  where personId=?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, subscriptionMd5,personId);
 	}
 	
 	public void clearSubscriptionInitPage(int personId){
 		String query = "update personPrivilege set subscriptionInitPage='' where personId=?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, personId);
 	}
 

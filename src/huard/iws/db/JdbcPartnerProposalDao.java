@@ -17,6 +17,7 @@ public class JdbcPartnerProposalDao  extends SimpleJdbcDaoSupport implements Par
 
 	public void insertPartnerProposal(PartnerProposal partnerProposal){
 		String query = "insert partnerToProposal set partnerId = ?, proposalId = ?, creationDate = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				partnerProposal.getPartnerId() ,
 				partnerProposal.getProposalId(),
@@ -26,6 +27,7 @@ public class JdbcPartnerProposalDao  extends SimpleJdbcDaoSupport implements Par
 
 	public void deletePartnerProposal(PartnerProposal partnerProposal){
 		String query = "delete from partnerToProposal where partnerId = ? and proposalId = ? ;";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				partnerProposal.getPartnerId() ,
 				partnerProposal.getProposalId()
@@ -34,6 +36,7 @@ public class JdbcPartnerProposalDao  extends SimpleJdbcDaoSupport implements Par
 
 	public List<PartnerProposal> getPartnerProposals(int proposalId){
 		String query = "select * from partnerToProposal where proposalId = ? order by creationDate desc;";
+		logger.debug(query);
 		List<PartnerProposal> partnerProposals =
 			getSimpleJdbcTemplate().query(query, partnerProposalRowMapper, proposalId);
 		return partnerProposals;
@@ -53,6 +56,7 @@ public class JdbcPartnerProposalDao  extends SimpleJdbcDaoSupport implements Par
 
 	public void insertPartnerInstituteProposal(PartnerInstituteProposal partnerInstituteProposal){
 		String query = "insert partnerInstituteToProposal set partnerInstituteId = ?, proposalId = ?, creationDate = now()";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				partnerInstituteProposal.getPartnerInstituteId() ,
 				partnerInstituteProposal.getProposalId()
@@ -61,6 +65,7 @@ public class JdbcPartnerProposalDao  extends SimpleJdbcDaoSupport implements Par
 
 	public void deletePartnerInstituteProposal(PartnerInstituteProposal partnerInstituteProposal){
 		String query = "delete from partnerInstituteToProposal where partnerInstituteId = ? and proposalId = ? ;";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				partnerInstituteProposal.getPartnerInstituteId() ,
 				partnerInstituteProposal.getProposalId()
@@ -69,6 +74,7 @@ public class JdbcPartnerProposalDao  extends SimpleJdbcDaoSupport implements Par
 
 	public List<PartnerInstituteProposal> getPartnerInstituteProposals(int proposalId){
 		String query = "select * from partnerInstituteToProposal where proposalId = ? order by creationDate desc;";
+		logger.debug(query);
 		List<PartnerInstituteProposal> partnerInstituteProposals =
 			getSimpleJdbcTemplate().query(query, partnerIntituteProposalRowMapper, proposalId);
 		return partnerInstituteProposals;

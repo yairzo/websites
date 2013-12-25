@@ -18,6 +18,7 @@ public class JdbcListListDao  extends SimpleJdbcDaoSupport implements ListListDa
 			if (publicOnly)
 				query.append(" where isPublic = ?");
 			query.append(" order by name");
+			logger.debug(query);
 			List<AList> lists ;
 			if (publicOnly)
 				lists = getSimpleJdbcTemplate().query(query.toString(), listDao.getRowMapper(), publicOnly ? 1 : 0);
@@ -41,6 +42,7 @@ public class JdbcListListDao  extends SimpleJdbcDaoSupport implements ListListDa
 				searchParam=new String [0];
 
 			query.append(" order by name;");
+			logger.debug(query);
 			List<AList> lists = getSimpleJdbcTemplate().query(query.toString(), listDao.getRowMapper(),searchParam);
 			return lists;
 	    }

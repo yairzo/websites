@@ -26,6 +26,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 	public AList getList(int id){
 		try{
 		String query = "select * from list where id=?";
+		logger.debug(query);
 		AList aList =
 			getSimpleJdbcTemplate().queryForObject(query,
 					rowMapper,	id);
@@ -39,6 +40,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 
 	public List<AList> getSublists (int listId){
 		String query = "select listToSublist.location, list.* from listToSublist, list where listToSublist.sublistId = list.id and listToSublist.listId = ? order by location";
+		logger.debug(query);
 		List<AList> sublists = getSimpleJdbcTemplate().query(query, locationRowMapper, listId);
 		return sublists;
 	}
@@ -91,6 +93,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 		String query = "update list set name = ?, displayName = ?, displayNameAligned = ?"+
 			", owner = ?, sendMailToListEnabled = ?, sortEnabled = ?, isCompound = ?"+
 			", isPublic = ?, isOpen = ?, listTypeId = ?, preface = ?, footer = ?, lastUpdate = ? where id = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				aList.getName(),
 				aList.getDisplayName(),
@@ -108,6 +111,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 				aList.getId()
 			);
 		query = "delete from listToSublist where listId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, aList.getId()	);
 		for (AList sublist: aList.getSublists()){
 			query = "insert listToSublist set listId = ?, sublistId = ? , location = ?";
@@ -119,6 +123,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 		final String listInsert = "insert list set name = ?, displayName = ?, displayNameAligned = ?, owner = ?" +
 				", sendMailToListEnabled = ?, sortEnabled = ?, isCompound = ?, isPublic = ?, isOpen = ?, listTypeId = ?" +
 				", preface = ?, footer = ?, lastUpdate = ?";
+		logger.debug(listInsert);
 		final String name = aList.getName();
 		final String displayName = aList.getDisplayName();
 		final boolean displayNameAligned = aList.isDisplayNameAligned();
@@ -160,22 +165,26 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 
 	public void deleteList(int id){
 		String query = "delete from list where id = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, id );
 	}
 
 	public void deleteSublist(int listId, int sublistId){
 		String query = "delete from listToSublist where listId = ? and sublistId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, listId, sublistId );
 	}
 
 	public AList getSublist(int listId, int sublistId){
 		String query = "select * from list, listToSublist where list.id = listToSublist.listId and listId = ? and sublistId = ?";
+		logger.debug(query);
 		AList list = getSimpleJdbcTemplate().queryForObject(query, rowMapper, listId, sublistId );
 		return list;
 	}
 
 	public AListDesign getListDesign(int listId, int parentListId){
 		String query = "select * from listDesign where listId = ? and parentListId = ?";
+		logger.debug(query);
 		AListDesign listDesign = getSimpleJdbcTemplate().queryForObject(query,
 				new ParameterizedRowMapper<AListDesign>()
 				{
@@ -197,6 +206,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 	public void updateListDesign (AListDesign aListDesign){
 		String query = "update listDesign set listId = ?, parentListId = ?, displayNameAlignment = ?" +
 				", bottomPadding = ?, showTableHeader = ? where id = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				aListDesign.getListId(),
 				aListDesign.getParentListId(),
@@ -209,11 +219,13 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 
 	public void deleteListDesign (int listId, int parentListId){
 		String query = "delete from listDesign where listId = ? and parentListId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, listId, parentListId);
 	}
 
 	public void insertListDesign (int listId, int parentListId){
 		String query = "insert listDesign set listId = ?, parentListId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, listId, parentListId);
 	}
 
@@ -225,6 +237,7 @@ public class JdbcListDao extends SimpleJdbcDaoSupport implements ListDao{
 
 	public void setLastUpdate ( int listId ) {
 		String query = "update list set lastUpdate = now() where id = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, listId );
 	}
 

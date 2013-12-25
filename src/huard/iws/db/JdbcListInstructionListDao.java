@@ -11,6 +11,7 @@ public class JdbcListInstructionListDao extends SimpleJdbcDaoSupport implements 
 
 	public List<AListInstruction> getListInstructions(int listId){
 		String listsSelect = "select * from listInstruction where listId = ?";
+		logger.debug(listsSelect);
 		List<AListInstruction> listInstructions =
 			getSimpleJdbcTemplate().query(listsSelect, listInstructionDao.getRowMapper(), listId);
 		return listInstructions;

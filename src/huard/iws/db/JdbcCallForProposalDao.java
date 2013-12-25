@@ -36,6 +36,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			String query = "select * from callForProposalDraft where id =?";
 			CallForProposal callForProposal =
 				getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
+			logger.debug(query+ id);
 			applySubjectIds(callForProposal);
 			applySubmissionDates(callForProposal);
 			applyFiles(callForProposal);
@@ -52,6 +53,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			String query = "select * from callForProposal where id =?";
 			CallForProposal callForProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
+			logger.debug(query+id);
 			applySubjectIds(callForProposal);
 			applySubmissionDates(callForProposal);
 			applyFiles(callForProposal);
@@ -68,6 +70,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		String query = "select * from callForProposal where urlTitle =?";
 		CallForProposal callForProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, urlTitle);
+		logger.debug(query + urlTitle);
 		applySubjectIds(callForProposal);
 		applySubmissionDates(callForProposal);
 		applyFiles(callForProposal);
@@ -82,6 +85,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	public String getCallForProposalUrlTitleByArdNum(int ardNum){
 		String query = "select urlTitle from callForProposal inner join callForProposalHistoryId on" +
 				" callForProposal.id=callForProposalHistoryId.callForProposalId where callForProposalHistoryId.callForProposalHistoryId =?";
+		logger.debug(query);
 		try{
 			return getSimpleJdbcTemplate().queryForObject(query, String.class, ardNum);
 		}
@@ -92,6 +96,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	
 	public boolean existsCallForProposalOnline(int id){
 		String query = "select * from callForProposal where id =?";
+		logger.debug(query);
 		try{
 			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 			return true;
@@ -103,6 +108,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 
 	public CallForProposal getCallForProposal(String title){
 		String query = "select * from callForProposalDraft where title =?";
+		logger.debug(query+title);
 		CallForProposal callForProposal =
 					getSimpleJdbcTemplate().queryForObject(query, rowMapper, title);
 		applySubjectIds(callForProposal);
@@ -127,7 +133,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		String query = "select * from callForProposalDate where callForProposalId = ?"
 				+ " and date(submissionDate) != date(?)" 
 				+ " order by submissionDate;";
-		logger.info(query);
+		logger.debug(query);
 		List<Long> submissionDates =  getSimpleJdbcTemplate().query(query, submissionDatesRowMapper,
 				callForProposal.getId(), SQLUtils.getTimestampString(callForProposal.getFinalSubmissionTime()));
 		callForProposal.setSubmissionDates(submissionDates);
@@ -212,7 +218,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", additionalInformation = ''"+
 				", localeId=?"+
 				", updateTime=now();";
-		logger.info(query);
+		logger.debug(query);
 		final String urlTitle= callForProposal.getUrlTitle();
 		final int creatorId= callForProposal.getCreatorId();
 		final String localeId= callForProposal.getLocaleId();
@@ -268,7 +274,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", isDeleted = ?"+
 				", targetAudience = ?"+
 				", hourType = ?";
-		//logger.info(query);
+		logger.debug(query);
 		String keepInRollingMessagesExpiryTime="";
 		if(callForProposal.getKeepInRollingMessagesExpiryTime()==0)//
 			keepInRollingMessagesExpiryTime="0000-00-00 00:00:00";
@@ -355,7 +361,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", targetAudience = ?" +
 				", hourType = ?" +
 			" where id = ?;";
-		logger.info(query);
+		logger.debug(query);
 
 		
 		String updateTime="";
@@ -363,7 +369,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			updateTime = SQLUtils.getTimestampString(System.currentTimeMillis());//always
 		else// when from import
 			updateTime = SQLUtils.getTimestampString(callForProposal.getUpdateTime());
-		logger.info("updatetime:"+updateTime);
+		logger.debug("updatetime:"+updateTime);
 
 		
 		getSimpleJdbcTemplate().update(query,
@@ -404,6 +410,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				callForProposal.getId());
 		
 		query = "delete from subjectToCallForProposal where callForProposalId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,callForProposal.getId());
 		if(callForProposal.getSubjectsIds()!=null){
 			for (Integer subjectId: callForProposal.getSubjectsIds()){
@@ -414,6 +421,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		}
 
 		query = "delete from callForProposalCountry where callForProposalId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,callForProposal.getId());
 		if(callForProposal.getCountryIds()!=null){
 			for (Integer countryId: callForProposal.getCountryIds()){
@@ -424,6 +432,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		}
 
 		query = "delete from callForProposalDate where callForProposalId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,callForProposal.getId());
 		for (Long submissionDate: callForProposal.getSubmissionDates()){
 			query  = "insert callForProposalDate set callForProposalId = ?, submissionDate = ?";
@@ -490,7 +499,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				", targetAudience = ?" +
 				", hourType = ?" +
 			" where id = ?;";
-		logger.info(query);
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				callForProposal.getTitle(),
 				callForProposal.getUrlTitle(),
@@ -562,7 +571,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		String query  = "select distinct callForProposalDraft.* from callForProposalDraft";
 		query += getCallForProposalsWhereClause(searchCriteria,"callForProposalDraft");
 		query += " limit "+ (lv.getPage()-1) * lv.getRowsInPage() + "," + lv.getRowsInPage();
-		logger.info(query);
+		logger.debug(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
 	}
@@ -572,7 +581,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		query += "select distinct callForProposalDraft.* from callForProposalDraft";
 		query += getCallForProposalsWhereClause(searchCreteria,"callForProposalDraft");
 		query += ") as t;";
-		logger.info(query);
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 
@@ -581,7 +590,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				+ " if (callForProposal.finalSubmissionTime = 0,0,1)"
 				+ " as allYearIndicator from callForProposal";
 		query += getCallForProposalsWhereClause(searchCriteria,"callForProposal");
-		logger.info(query);
+		logger.debug(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
 	}
@@ -659,10 +668,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				whereClause += "allYearIndicator desc, " + mainTable +".finalSubmissionTime";
 		}
 		
-		//if(searchCriteria.getLimit()>0)
-		//	whereClause += "  limit " + searchCriteria.getLimit();
-		
-		logger.info(whereClause);
+		logger.debug(whereClause);
 		return whereClause;
 	}
 
@@ -677,7 +683,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 
 		if(viewType.equals("new_cfps"))
 			query += " order by publicationTime desc";
-		logger.info(query);
+		logger.debug(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
 	}
@@ -776,31 +782,35 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	
 	public String getFirstDayOfCalendarMonth(){
 		String query = "select date_sub(date_format(date_add(curdate(), interval 0 month), '%Y-%m-01'), interval (dayofweek(date_format(date_add(curdate(), interval 0 month), '%Y-%m-01'))-1) day) AS a;";
+		logger.debug(query);
 		String firstDay = getSimpleJdbcTemplate().queryForObject(query, String.class);
 		return 	firstDay;
 	}
 	
 	public String getLastDayOfCalendarMonth(){
 		String query = "select date_sub(date_format(date_add(curdate(), interval 1 month), '%Y-%m-01') + interval 7 day, interval (dayofweek(date_format(date_add(curdate(), interval 1 month), '%Y-%m-01'))-1) day) AS a;";
+		logger.debug(query);
 		String lastDay = getSimpleJdbcTemplate().queryForObject(query, String.class);
 		return 	lastDay;	
 	}
 	
 	public List<CallForProposal> getCalendarMonthCallForProposals(String firstDay, String lastDay){
 		String query = "select * from callForProposal where isDeleted=0 and finalSubmissionTime>='" + firstDay + "' and finalSubmissionTime<'" + lastDay + "'  order by finalSubmissionTime;";
-		System.out.println("Query:"+ query);
+		logger.debug(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
 	}
 
 	public String getFirstDayOfCalendarMonth(String date){
 		String query = "select date_sub(?, interval (dayofweek(?)-1) day) AS a;";
+		logger.debug(query);
 		String firstDay = getSimpleJdbcTemplate().queryForObject(query, String.class,date,date);
 		return 	firstDay;
 	}
 	
 	public String getLastDayOfCalendarMonth(String date){
 		String query = "select date_sub(?, interval (dayofweek(?)-1) day) + interval 7 day AS a;";
+		logger.debug(query);
 		String lastDay = getSimpleJdbcTemplate().queryForObject(query, String.class, date,date);
 		return 	lastDay;	
 	}
@@ -808,7 +818,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	public LinkedHashMap<String, DayInCalendar> getMonthDaysMap(String date){
 		final LinkedHashMap<String, DayInCalendar> daysMap = new LinkedHashMap<String, DayInCalendar>();
 		String query = "SELECT '"+date+"' + INTERVAL (numberId-1) DAY AS ascendingDays FROM naturalNumbers WHERE numberId BETWEEN 1 AND 42 ORDER BY numberId ASC;";
-		System.out.println("Query:"+ query);
+		logger.debug(query);
 		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
 			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{
 				DayInCalendar dayInCalendar = new DayInCalendar();
@@ -824,16 +834,18 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	
 	public int countCallForProposalsByUrlTitle(int id,String urlTitle){
 		String query = "select count(*) from callForProposalDraft where urlTitle='" + urlTitle +"' and id<>"+ id;
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 	public int countCallForProposalsByTitle(int id,String title){
 		String query = "select count(*) from callForProposalDraft where title='" + title +"' and id<>"+ id;
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 	
 	public List<Integer> getDaysWithFunds(String month,String year){
 		String query = "select distinct dayofmonth(finalSubmissionTime) as day from callForProposal where isDeleted=0 and Month(finalSubmissionTime)="+month+" and YEAR(finalSubmissionTime)="+year;
-		System.out.println("Query:"+ query);
+		logger.debug(query);
 		List<Integer> days = getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
 			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
 				Integer day = new Integer(rs.getInt("day"));
@@ -845,13 +857,14 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	
 	public List<CallForProposal> getCallForProposalsPerDay(String date){
 		String query = "select * from callForProposal where isDeleted=0 and DATE(finalSubmissionTime)='" + date + "'";
-		System.out.println("Query:"+ query);
+		logger.debug(query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
 	}
 	
 	public Timestamp getCallForProposalsLastUpdate(){
 		String query = "select updateTime from callForProposal order by updateTime desc limit 1";
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForObject(query, new ParameterizedRowMapper<Timestamp>() {
 			@Override
 			public Timestamp mapRow(ResultSet r, int arg1)
@@ -868,17 +881,17 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				+ " on callForProposal.id=callForProposalDate.callForProposalId"
 				+ " where submissiondate>DATE_SUB(now(),interval 1 day) and callForProposal.finalSubmissionTime<DATE(now())"
 				+ " group by callForProposalId;";
-		logger.info(query);
+		logger.debug(query);
 		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
 			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{
 				int id= rs.getInt("callForProposalId");
 				String date = rs.getString("newDate");
 				//update
 				String subQuery="update callForProposal set finalSubmissionTime=? where id=?";
-				logger.info(subQuery);
+				logger.debug(subQuery);
 				getSimpleJdbcTemplate().update(subQuery,date,id);
 				subQuery="update callForProposalDraft set finalSubmissionTime=? where id=?";
-				logger.info(subQuery);
+				logger.debug(subQuery);
 				getSimpleJdbcTemplate().update(subQuery,date,id);
 				return null;
 			}

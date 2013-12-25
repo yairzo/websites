@@ -14,12 +14,14 @@ public class JdbcCountryDao extends SimpleJdbcDaoSupport implements CountryDao {
 
 	public Country getCountry(int id){
 		String query = "select * from country where id=?;";
+		logger.debug(query);
 		Country country =  getSimpleJdbcTemplate().queryForObject(query, countryRowMapper,id);
 		return country;
 	}
 
 	public List<Country> getCountries(){
 		String query = "select * from country;";
+		logger.debug(query);
 		List<Country> countries =  getSimpleJdbcTemplate().query(query, countryRowMapper);
 		return countries;
 	}

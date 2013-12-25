@@ -694,7 +694,7 @@ public class CallForProposalBean {
 	public String toPostMessage(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("website", "webServer") +
-				"/huard/infoPageViewer.jsp?ardNum=" + this.id + "\">" + title + "</a><br/> ");
+				"/call_for_proposal/" + this.urlTitle + "\">" + title + "</a><br/> ");
 		sb.append("<span class=\"medium\">");
 		if (fundId != 0){
 		    Fund fund= fundService.getFundByFinancialId(fundId);

@@ -21,6 +21,7 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 
 	public Fund getFund(int id){
 		String personSelect = "select * from fund where id=?";
+		logger.debug(personSelect);
 		Fund fund =
 			getSimpleJdbcTemplate().queryForObject(personSelect, rowMapper,	id);
 		return fund;
@@ -29,6 +30,7 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 	public Fund getFundByFinancialId(int financialId){
 		Fund fund =new Fund();
 		String personSelect = "select * from fund where financialId=?";
+		logger.debug(personSelect);
 		try{
 			fund =	getSimpleJdbcTemplate().queryForObject(personSelect, rowMapper,	financialId);
 		}
@@ -98,6 +100,7 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 				", creationTime = ?" +
 				", updateTime = ?" +
 				" where id = ?;";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				fund.getName(),
 				fund.getShortName(),
@@ -126,6 +129,7 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 	public int insertFund(Fund fund){
 		final String proposalInsert = "insert fund set name = ?, shortName = ?, deskId = ?" +
 				", isTemporary = ?, financialId=?, html='', keywords='';";
+		logger.debug(proposalInsert);
 		final String name = fund.getName();
 		final String shortName = fund.getShortName();
 		final int deskId = fund.getDeskId();
@@ -156,11 +160,13 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 
 	public void deleteFund(int financialId){
 		String query = "delete from fund where financialId = ?;";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, financialId);
 	}
 
 	public List<Fund> getFunds() {
 		String query = "select * from fund order by shortName";
+		logger.debug(query);
 		List<Fund> funds =
 			getSimpleJdbcTemplate().query(query, rowMapper);
 		return funds;
@@ -168,18 +174,21 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 
 	public List<Fund> getTemporaryFunds() {
 		String query = "select * from fund where isTemporary=1 order by shortName";
+		logger.debug(query);
 		List<Fund> funds =
 			getSimpleJdbcTemplate().query(query, rowMapper);
 		return funds;
     }
 	public List<Fund> getNonTemporaryFunds() {
 		String query = "select * from fund where isTemporary=0 order by shortName";
+		logger.debug(query);
 		List<Fund> funds =
 			getSimpleJdbcTemplate().query(query, rowMapper);
 		return funds;
     }
 	public List<Fund> getFundsByDeskId( int mopDeskId) {
 		String query = "select * from fund where deskId = ? order by shortName";
+		logger.debug(query);
 		List<Fund> funds =
 			getSimpleJdbcTemplate().query(query, rowMapper, mopDeskId);
 		return funds;
@@ -190,6 +199,7 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 		Fund fund = new Fund();
 		try{
 			String query = "select * from Funds where fundNum="+id;
+			logger.debug(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
@@ -203,13 +213,12 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 		catch (SQLException e){
 			System.out.println(e);
 		}
-		System.out.println("Fund: " + fund.getShortName());
 		return fund;
 	}
 
 	public int getMaxFinancialIdForTemporary(){
 		String query = "select max(financialId) from fund where financialId>9999;";
-		logger.info(query);
+		logger.debug(query);
 		try{
 			int id = getSimpleJdbcTemplate().queryForInt(query);
 			if(id==0)

@@ -31,14 +31,16 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public Post getPost(int id){
 		String query = "select * from post where id=?";
+		logger.debug(query);
 		Post post =
-			getSimpleJdbcTemplate().queryForObject(query, rowMapper,	id);
+			getSimpleJdbcTemplate().queryForObject(query, rowMapper,id);
 		applySubjectIds(post);
 		return post;
 	}
 
 	private void applySubjectIds(Post post){
 		String query = "select * from subjectToPost where postId = ?";
+		logger.debug(query);
 		List<Integer> subjectsIds =  getSimpleJdbcTemplate().query(query, subjectToPostRowMapper, post.getId());
 		post.setSubjectsIds(subjectsIds);
 	}
@@ -83,7 +85,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		String query = "update post set creatorId = ?, senderId = ?, additionalAddresses = ?," +
 				"messageSubject = ?, message = ?, isVerified = ?, isSent = ?, isSendImmediately = ?,  sendTime = now() " +
 				", isSelfSend = ?, isSelfSent = ?, localeId = ?, typeId = ? where id = ?";
-		
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				post.getCreatorId(),
 				post.getSenderId(),
@@ -101,6 +103,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 			);
 
 		query = "delete from subjectToPost where postId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,post.getId());
 
 		for (Integer subjectId: post.getSubjectsIds()){
@@ -114,6 +117,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	public int insertPost(int creatorId){
 		final String query = "insert post set creatorId = ?, senderId = ?, creationTime = now(),localeId='iw_IL'," +
 				" message='', additionalAddresses=''";
+		logger.debug(query);
 		final int aCreatorId = creatorId;
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -132,6 +136,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public void deletePost (int id){
 		String query = "delete from post where id =?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, id);
 	}
 
@@ -144,7 +149,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		if (additionalCondition != null)
 				query += " where " + additionalCondition;
 		query += " order by sendTime desc";
-		System.out.println("query:" + query);
+		logger.debug(query);
 		List<Post> posts = getSimpleJdbcTemplate().query(query, rowMapper);
 		applySubjectIds(posts);
 		return posts;
@@ -158,7 +163,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 			query += "inner join personToPost on (personToPost.personId = " + userPersonBean.getId() +" and post.id = personToPost.postId)";
 		query += getPostsWhereClause(search,userPersonBean);
 		query += " order by "+lv.getOrderBy();
-		logger.info(query);
+		logger.debug(query);
 		posts =	getSimpleJdbcTemplate().query(query.toString(), rowMapper);
 		return posts;
 	}	
@@ -186,6 +191,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public List<Post> getYetSentPosts(){
 		String query = "select * from post where isSent=0 order by sendTime;";
+		logger.debug(query);
 		List<Post> posts = getSimpleJdbcTemplate().query(query, rowMapper);
 		applySubjectIds(posts);
 		return posts;
@@ -193,6 +199,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public List<Post> getSelfSendPosts(){
 		String query = "select * from post where isSelfSend=1 and isSelfSent = 0;";
+		logger.debug(query);
 		List<Post> posts = getSimpleJdbcTemplate().query(query, rowMapper);
 		applySubjectIds(posts);
 		return posts;
@@ -200,6 +207,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public Set<Integer> getPreparedPostPersons(int postId){
 		String query = "select * from personToPost where postId = ? and isSelfSend = 0";
+		logger.debug(query);
 		List<Integer> personIds = getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
 			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
 				Integer personId = new Integer(rs.getInt("personId"));
@@ -211,16 +219,19 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	
 	public int countNotSentPostPersons(){
 		String query = "select count(*) from personToPost where isSent = 0 and creationTime> CURRENT_DATE - INTERVAL 30 DAY";
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 	
 	public int countSentPostPersons(){
 		String query = "select count(*) from (select personId,date(creationTime) from personToPost where isSent = 1 and creationTime> CURRENT_DATE - INTERVAL 7 DAY group by personId,date(creationTime) ) as temp;";
+		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 	
 	public Map<Integer,Set<Integer>> getPreparedPostPersonsMap(){
 		String query = "select * from personToPost where isSelfSend = 0";
+		logger.debug(query);
 		final Map<Integer,Set<Integer>> preparedPostPersonsMap = new HashMap<Integer, Set<Integer>>();
 		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
 			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -237,6 +248,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public List<Post> getPreparedPersonPosts(int personId){
 		String query = "select * from post where id in (select postId from personToPost where isSent=0 and personId = ?) order by typeId, localeId desc;";
+		logger.debug(query);
 		List<Post> posts = getSimpleJdbcTemplate().query(query , rowMapper, personId);
 		for (Post post: posts){
 			applySubjectIds(post);
@@ -252,6 +264,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		String query = "insert ignore personToPost set personId = ?, postId = ?, creationTime = now()";
 		if (selfSend)
 			query += ", isSelfSend = 1";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				personId,
 				postId);
@@ -259,6 +272,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public void deletePersonPost(int personId, int postId){
 		String query = "delete from personToPost where personId = ? and postId = ?;";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				personId,
 				postId);
@@ -266,6 +280,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public void markPersonPostAsSent(int personId, int postId){
 		String query = "update personToPost set isSent = 1,sendingTime=now() where personId = ? and postId = ?;";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				personId,
 				postId);
@@ -277,6 +292,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	private List<Attachment> getAttachments (int postId){
 		String query = "select * from postAttach where postId = ?";
+		logger.debug(query);
 		final int aPostId = postId;
 		List <Attachment> attachments = getSimpleJdbcTemplate().query (query,
 				new ParameterizedRowMapper<Attachment>(){
@@ -297,8 +313,10 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public void updateAttachments(Post post){
 		String query = "delete from postAttach where postId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, post.getId());
 		query = "insert postAttach set id = ?, postId = ?, title = ?, file = ?, contentType = ?, place = ?";
+		logger.debug(query);
 		final int postId = post.getId();
 		for ( Attachment attachment : post.getAttachments()){
 			getSimpleJdbcTemplate().update(query,
@@ -314,6 +332,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public List<PostType> getPostTypes(){
 		String query ="select * from postType order by id";
+		logger.debug(query);
 		List<PostType> postTypes = getSimpleJdbcTemplate().query(query,
 				new ParameterizedRowMapper<PostType>(){
 					public PostType mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -346,6 +365,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	
 	public Map<Integer,Integer> getCountPostPersonsToSend(){
 		String query = "select post.id, count(distinct(personId)) as count from post inner join subjectToPost on (post.id = subjectToPost.postId) inner join subjectToPerson using (subjectId) where isSent =0 and isVerified=1 group by post.id;";
+		logger.debug(query);
 		final Map<Integer,Integer> countPostPersonsMap = new HashMap<Integer, Integer>();
 		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
 			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -360,6 +380,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	}
 	public Map<Integer,Integer> getCountPostPersonsSent(){
 		String query = "select postId, count(personId) as count from personToPost where isSelfSend=0 group By postId";
+		logger.debug(query);
 		final Map<Integer,Integer> countPostPersonsMap = new HashMap<Integer, Integer>();
 		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
 			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -377,7 +398,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 		Post post= new Post();
 		try{
 			String query = "select * from post where messageSubject like '" + messageSubject+ "%' order by id desc limit 1";
-			//logger.info(query);
+			logger.debug(query);
 			post = getSimpleJdbcTemplate().queryForObject(query, rowMapper);
 			applySubjectIds(post);
 			return post;

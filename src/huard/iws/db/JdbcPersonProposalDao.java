@@ -16,6 +16,7 @@ public class JdbcPersonProposalDao extends SimpleJdbcDaoSupport implements Perso
 
 	public void insertPersonProposal(PersonProposal personProposal){
 		String insertString = "insert personToProposal set personId = ?, proposalId = ?, typeId = ?, stateId = ?, requiredActionsIds = ?, title = ?, lastUpdate = ?, creationDate = ?";
+		logger.debug(insertString);
 		getSimpleJdbcTemplate().update(insertString,
 				personProposal.getPersonId() ,
 				personProposal.getProposalId(),
@@ -30,6 +31,7 @@ public class JdbcPersonProposalDao extends SimpleJdbcDaoSupport implements Perso
 
 	public void updatePersonProposal(PersonProposal personProposal){
 		String insertString = "update personToProposal set typeId = ?, stateId = ?, requiredActionsIds = ?, approval = ?, title = ?, lastUpdate = ? where personId = ? and proposalId = ?;";
+		logger.debug(insertString);
 		getSimpleJdbcTemplate().update(insertString,
 				personProposal.getTypeId(),
 				personProposal.getStateId(),
@@ -44,6 +46,7 @@ public class JdbcPersonProposalDao extends SimpleJdbcDaoSupport implements Perso
 
 	public void deletePersonProposal(PersonProposal personProposal){
 		String deleteString = "delete from personToProposal where personId = ? and proposalId = ? ;";
+		logger.debug(deleteString);
 		getSimpleJdbcTemplate().update(deleteString,
 				personProposal.getPersonId() ,
 				personProposal.getProposalId()
@@ -52,6 +55,7 @@ public class JdbcPersonProposalDao extends SimpleJdbcDaoSupport implements Perso
 
 	public List<PersonProposal> getPersonProposals(int proposalId){
 		String personSelect = "select * from personToProposal where proposalId = ? order by typeId;";
+		logger.debug(personSelect);
 		List<PersonProposal> personProposals =
 			getSimpleJdbcTemplate().query(personSelect, rowMapper, proposalId);
 		return personProposals;
@@ -59,6 +63,7 @@ public class JdbcPersonProposalDao extends SimpleJdbcDaoSupport implements Perso
 
 	public PersonProposal getPersonProposal(int personId, int proposalId){
 		String personSelect = "select * from personToProposal where proposalId = ? and personId= ?;";
+		logger.debug(personSelect);
 		List<PersonProposal> personProposals = getSimpleJdbcTemplate().query(personSelect, rowMapper, proposalId, personId);
 		if (personProposals.size() == 0) return null;
 		return personProposals.get(0);
@@ -81,6 +86,7 @@ public class JdbcPersonProposalDao extends SimpleJdbcDaoSupport implements Perso
 	public boolean isExists(PersonProposal personProposal){
 		String queryString = "select count(*) from personToProposal where personId = ? "+
 			" and  proposalId = ? ;";
+		logger.debug(queryString);
 		int r = getSimpleJdbcTemplate().queryForInt(queryString, personProposal.getPersonId(), personProposal.getProposalId());
 		return r==1;
 	}

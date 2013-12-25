@@ -21,6 +21,7 @@ public class JdbcMailMessageDao extends SimpleJdbcDaoSupport implements MailMess
 
 	public MailMessage getMailMessage(int id){
 		String query = "select * from mailMessage where id=?";
+		logger.debug(query);
 		MailMessage mailMessage =
 			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 		mailMessage.setRecipientsPersonsIds(getRecipientsPersonIds (mailMessage.getId()));
@@ -52,6 +53,7 @@ public class JdbcMailMessageDao extends SimpleJdbcDaoSupport implements MailMess
 
 	public List<MailMessage> getMailMessages(){
 		String query = "select * from mailMessage";
+		logger.debug(query);
 		List<MailMessage> mailMessages =
 			getSimpleJdbcTemplate().query(query, rowMapper);
 		return mailMessages;
@@ -60,6 +62,7 @@ public class JdbcMailMessageDao extends SimpleJdbcDaoSupport implements MailMess
 	public void updateMailMessage(MailMessage mailMessage){
 		final String query = "update mailMessage set listId = ?, messageSubject = ?" +
 		", message = ?, senderPersonId = ?, additionalAddresses = ?, cc = ?, bcc = ?, sendTime = ? where id = ?;";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				mailMessage.getListId(),
 				mailMessage.getMessageSubject(),
@@ -79,6 +82,7 @@ public class JdbcMailMessageDao extends SimpleJdbcDaoSupport implements MailMess
 	public int insertMailMessage(MailMessage mailMessage){
 		final String query = "insert mailMessage set listId = ?, messageSubject = ?" +
 				", message = ?, senderPersonId = ?, additionalAddresses = ?, cc = ?, bcc = ?, sendTime = ?;";
+		logger.debug(query);
 		final int listId = mailMessage.getListId();
 		final String messageSubject = mailMessage.getMessageSubject();
 		final String message = mailMessage.getMessage();
@@ -115,12 +119,14 @@ public class JdbcMailMessageDao extends SimpleJdbcDaoSupport implements MailMess
 
 	public void deleteMailMessageRecipients(int mailMessageId){
 		String query="delete from mailMessageRecipient where mailMessageId = ?;";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, mailMessageId);
 
 	}
 
 	public void insetMailMessageRecipients(MailMessage mailMessage){
 		String query="insert mailMessageRecipient set mailMessageId = ?, personId = ?;";
+		logger.debug(query);
 		for (Integer recipientPersonId: mailMessage.getRecipientsPersonsIds() ){
 			getSimpleJdbcTemplate().update(query,
 				mailMessage.getId(),
@@ -130,6 +136,7 @@ public class JdbcMailMessageDao extends SimpleJdbcDaoSupport implements MailMess
 
 	private List<Integer> getRecipientsPersonIds (int mailMessageId){
 		String query = "select * from mailMessageRecipient where mailMessageId=?";
+		logger.debug(query);
 		List<Integer> recipientsPersonIds  =
 			getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Integer>(){
 				public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -143,6 +150,7 @@ public class JdbcMailMessageDao extends SimpleJdbcDaoSupport implements MailMess
 
 	private List<Attachment> getAttachments (int mailMessageId){
 		String query = "select * from mailMessageAttach where mailMessageId = ?";
+		logger.debug(query);
 		final int aMailMessageId = mailMessageId;
 		List <Attachment> attachments = getSimpleJdbcTemplate().query (query,
 				new ParameterizedRowMapper<Attachment>(){
@@ -162,8 +170,10 @@ public class JdbcMailMessageDao extends SimpleJdbcDaoSupport implements MailMess
 
 	public void updateAttachments(MailMessage mailMessage){
 		String query = "delete from mailMessageAttach where mailMessageId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, mailMessage.getId());
 		query = "insert mailMessageAttach set mailMessageId = ?, title = ?, file = ?, contentType = ?, place = ?";
+		logger.debug(query);
 		final int mailMessageId = mailMessage.getId();
 		for ( Attachment attachment : mailMessage.getAttachments()){
 			getSimpleJdbcTemplate().update(query,

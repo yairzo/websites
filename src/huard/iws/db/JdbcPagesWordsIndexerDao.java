@@ -27,6 +27,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 			String query = "SELECT * FROM InfoPages,TabledInfoPages,InfoPagesLastUpdates"+
 			" WHERE InfoPages.isDeleted=0 AND date>="+lastRunTime+" AND InfoPages.ardNum=TabledInfoPages.ardNum AND "+
 			" InfoPages.ardNum = InfoPagesLastUpdates.ardNum";
+			logger.debug(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
@@ -36,8 +37,8 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 			System.out.println(e);
 			return null;
 		}
-
-	}	
+	}
+	
 	public List<TextualPageOld> getLatelyUpdatedPubPages(long runsInterval, String server){
 		try{
 			now = new java.util.Date();
@@ -45,7 +46,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 			//lastRunTime=1300000000000L;// just for testing
 			String queryString = "SELECT * FROM PubPages,PubPagesLastUpdates"+
 			" WHERE PubPages.isDeleted=0 AND PubPages.onSite=1 AND date>="+lastRunTime+" AND PubPages.ardNum = PubPagesLastUpdates.ardNum";
-			System.out.println(queryString);
+			logger.debug(queryString);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(queryString);
@@ -64,7 +65,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 			String query = "DELETE FROM InfoPagesIndex";
 			if (!fullIndex)
 				query += " WHERE ardNum IN ("+queryInClause+")";
-			System.out.println(query);
+			logger.debug(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "DELETE", server);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(query);
@@ -92,7 +93,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 			String query = "DELETE FROM PubPagesIndex";
 			if (!fullIndex)
 				query += " WHERE ardNum IN ("+queryInClause+")";
-			System.out.println(query);
+			logger.debug(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "DELETE", server);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(query);
@@ -133,6 +134,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 	public int getHebrewDesk (String deskId,String server){
 		try{
 			String query = "SELECT listIdHebrew FROM Desks WHERE deskId='"+deskId + "';";
+			logger.debug(query);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
@@ -160,8 +162,8 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 
 				if(counter%100==0 || counter==words.size()){
 					String query ="INSERT IGNORE INTO InfoPagesIndex VALUES " + columnsValues + ";";
-					//if (counter % 1000 == 0)
-						//System.out.println(query);				
+					if (counter % 1000 == 0)
+						logger.debug(query);;				
 					statement.executeUpdate(query);
 					columnsValues="";
 				}
@@ -189,7 +191,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 				if(counter%100==0 || counter==words.size()){
 					String query ="INSERT IGNORE INTO PubPagesIndex VALUES " + columnsValues + ";";
 					if (counter % 1000 == 0)
-						System.out.println(query);				
+						logger.debug(query);			
 					statement.executeUpdate(query);
 					columnsValues="";
 				}
@@ -204,6 +206,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 	public void purgeInfoPagesIndexTable(String server){
 		try{
 			String updateString ="DELETE FROM InfoPagesIndex WHERE word LIKE '%<%' OR word LIKE '%>%';";
+			logger.debug(updateString);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "DELETE", server);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(updateString);
@@ -215,6 +218,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 	public void purgePubPagesIndexTable(String server){
 		try{
 			String updateString ="DELETE FROM PubPagesIndex WHERE word LIKE '%<%' OR word LIKE '%>%';";
+			logger.debug(updateString);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "DELETE", server);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(updateString);
@@ -260,7 +264,7 @@ public class JdbcPagesWordsIndexerDao extends SimpleJdbcDaoSupport implements Pa
 	public List<Desk> getDesks(String server){
 		try{
 			String queryString = "SELECT * FROM Desks;";
-			System.out.println(queryString);
+			logger.debug(queryString);
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(queryString);

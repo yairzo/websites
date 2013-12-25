@@ -13,6 +13,7 @@ public class JdbcPersonAttributionListDao extends SimpleJdbcDaoSupport implement
 	public List<PersonListAttribution> getPersonAttributions(int personId) {
 		String personSelect = "select * from personAttribution "+
 		"where personId= ?";
+		logger.debug(personSelect);
 		List<PersonListAttribution> personAttributions =
 			getSimpleJdbcTemplate().query(personSelect, personAttributionDao.getRowMapper(), personId);
 		return personAttributions;
@@ -21,6 +22,7 @@ public class JdbcPersonAttributionListDao extends SimpleJdbcDaoSupport implement
 	public List<PersonListAttribution> getPersonAttributionsByListId(int listId, String order) {
 		String personSelect = "select * from personAttribution,person "+
 		"where personAttribution.personId = person.id and listId= ? order by "+order+";";
+		logger.debug(personSelect);
 		List<PersonListAttribution> personAttributions =
 			getSimpleJdbcTemplate().query(personSelect,personAttributionDao.getRowMapper(),listId);
 		return personAttributions;

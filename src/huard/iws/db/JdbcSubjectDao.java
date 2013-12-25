@@ -16,6 +16,7 @@ public class JdbcSubjectDao extends SimpleJdbcDaoSupport implements SubjectDao {
 
 	public Subject getSubject(int id){
 		String subjectSelect = "select * from subject where id=?";
+		logger.debug(subjectSelect);
 		Subject subject =
 			getSimpleJdbcTemplate().queryForObject(subjectSelect, rowMapper, id);
 			return subject;
@@ -45,6 +46,7 @@ public class JdbcSubjectDao extends SimpleJdbcDaoSupport implements SubjectDao {
 		if (language != null)
 			mainOrderBy = "subjectOrder, name" + language.getName() + ",";
 		String query = "select * from subject where parentId=? order by " + mainOrderBy + " id;";
+		logger.debug(query);
 		List<Subject> subjects =
 			getSimpleJdbcTemplate().query(query, rowMapper, parentSubjectId);
 		return subjects;
@@ -52,6 +54,7 @@ public class JdbcSubjectDao extends SimpleJdbcDaoSupport implements SubjectDao {
 	
 	public List<Integer> getSubjectsIds(){
 		String query = "select id from subject;";
+		logger.debug(query);
 		return getSimpleJdbcTemplate().query(query, subjectIdRowMapper);
 	}
 	private ParameterizedRowMapper<Integer> subjectIdRowMapper = new ParameterizedRowMapper<Integer>(){

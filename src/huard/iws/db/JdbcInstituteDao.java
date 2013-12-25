@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
@@ -15,11 +16,12 @@ import org.springframework.jdbc.support.KeyHolder;
 
 public class JdbcInstituteDao extends SimpleJdbcDaoSupport implements InstituteDao {
 
-	//private static final Logger logger = Logger.getLogger(JdbcInstituteDao.class);
+	private static final Logger logger = Logger.getLogger(JdbcInstituteDao.class);
 
 
 	public Institute getInstitute(int id){
 		String instituteSelect = "select * from institute where id=?";
+		logger.debug(instituteSelect);
 		Institute institute =
 			getSimpleJdbcTemplate().queryForObject(instituteSelect, rowMapper,	id);
 		return institute;
@@ -47,6 +49,7 @@ public class JdbcInstituteDao extends SimpleJdbcDaoSupport implements InstituteD
 	public void updateInstitute(Institute institute){
 		String instituteUpdate = "update institute set name = ? , city = ?," +
 				" state = ?, countryId = ?, continentId = ? where id = ?";
+		logger.debug(instituteUpdate);
 		getSimpleJdbcTemplate().update(instituteUpdate,
 				institute.getName() ,
 				institute.getCity(),
@@ -59,6 +62,7 @@ public class JdbcInstituteDao extends SimpleJdbcDaoSupport implements InstituteD
 	public int insertInstitute(Institute institute){
 		final String query = "insert institute set name = ? , city = ?," +
 		" state = ?, countryId = ?, continentId = ? ";
+		logger.debug(query);
 		final String name = institute.getName();
 		final String city = institute.getCity();
 		final String state = institute.getState();
@@ -84,6 +88,7 @@ public class JdbcInstituteDao extends SimpleJdbcDaoSupport implements InstituteD
 
 	public void deleteInstitute(int id){
 		String instituteDelete = "delete from institute where id =?";
+		logger.debug(instituteDelete);
 		getSimpleJdbcTemplate().update(instituteDelete, id);
 	}
 

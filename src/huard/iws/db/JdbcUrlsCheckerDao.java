@@ -24,7 +24,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "UPDATE InfoPagesURLs SET thisBuild=0;";
-			logger.info(query);
+			logger.debug(query);
 			statement.executeUpdate(query);
 		}
 		catch(SQLException e){
@@ -102,13 +102,13 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 				String query = "UPDATE InfoPagesURLs SET ardNum="+ardNum+
 				", urlText='" + SQLUtils.toSQLString(pageUrl.getUrlText()) + "', formerFileSize=fileSize, fileSize=0," +
 				" thisBuild=1 WHERE ardNum=" + ardNum + " AND URL='" + pageUrl.getUrl() + "'";
-				System.out.println(query);
+				logger.debug(query);
 				int r = statement.executeUpdate(query);
 
 				if (r==0) {
 					query = "INSERT InfoPagesURLs (ardNum, URL, urlText, thisBuild, checkedTime) VALUES ("
 							+ ardNum + ", '" + pageUrl.getUrl() + "', '" + SQLUtils.toSQLString(pageUrl.getUrlText()) + "', 1, NOW());";
-					System.out.println(query);
+					logger.debug(query);
 					statement.executeUpdate(query);
 				}
 			}
@@ -123,7 +123,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Connection connection = ArdConnectionSupplier.getConnectionSupplier().getConnection("HUARD", "SELECT", server);
 			Statement statement = connection.createStatement();
 			String query = "DELETE FROM InfoPagesURLs WHERE thisBuild=0";
-			System.out.println(query);
+			logger.debug(query);
 			statement.executeUpdate(query);
 		}
 		catch(SQLException e){
@@ -148,6 +148,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Statement statement = connection.createStatement();
 			String query = "SELECT * FROM PubPages WHERE onSite=1 AND isDeleted=0 "
 			+(ardNum!=null ? "AND PubPages.ardNum="+ardNum+";"  : "ORDER BY RAND();");
+			logger.debug(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			return moveResultSetToPubPage(resultSet);
 		}
@@ -292,7 +293,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			if (ardNum != null)
 				query += " AND ardNum = " + ardNum;
 			query += " ORDER BY checkedTime LIMIT 30";
-			System.out.println(query);
+			logger.debug(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			List<PageUrl> pagesURLs = new ArrayList<PageUrl>();
 			while (resultSet.next()){
@@ -335,7 +336,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			if (search != null)
 				query += search.getFullWhereCluase();
 			query += " order by "+lv.getOrderBy();
-			System.out.println(query);
+			logger.debug(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			List<PageUrl> pagesURLs = new ArrayList<PageUrl>();
 			while (resultSet.next()){
@@ -362,7 +363,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Statement statement = connection.createStatement();
 			String query = "UPDATE InfoPagesURLs SET fileSize="+pageUrl.getFileSize()
 					+", status='"+pageUrl.getStatus()+"', checkedTime=now() WHERE ardNum="+pageUrl.getArdNum()+" AND URL='"+pageUrl.getUrl()+"'";
-			System.out.println(query);
+			logger.debug(query);
 			statement.executeUpdate(query);
 		}
 		catch(SQLException e){
@@ -377,7 +378,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			String query = "SELECT * FROM PubPagesURLs"
 				+" WHERE DATEDIFF(now(), checkedTime) > 90 ORDER BY RAND();";
 			ResultSet resultSet = statement.executeQuery(query);
-			System.out.println(query);
+			logger.debug(query);
 			List<PageUrl> pagesURLs = new ArrayList<PageUrl>();
 			while (resultSet.next()){
 				PageUrl pageUrl = new PageUrl();
@@ -404,7 +405,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			if (search != null)
 				query += search.getFullWhereCluase();
 			query += " order by "+lv.getOrderBy();
-			System.out.println(query);
+			logger.debug(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			List<PageUrl> pagesURLs = new ArrayList<PageUrl>();
 			while (resultSet.next()){
@@ -431,7 +432,7 @@ public class JdbcUrlsCheckerDao extends SimpleJdbcDaoSupport implements UrlsChec
 			Statement statement = connection.createStatement();
 			String query = "UPDATE PubPagesURLs SET fileSize="+pageUrl.getFileSize()
 			+", status=\""+pageUrl.getStatus()+"\", checkedTime=now() WHERE ardNum="+pageUrl.getArdNum()+" AND URL=\""+pageUrl.getUrl()+"\";";
-			System.out.println(query);
+			logger.debug(query);
 			statement.executeUpdate(query);
 		}
 		catch(SQLException e){

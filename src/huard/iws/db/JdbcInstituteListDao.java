@@ -9,18 +9,20 @@ import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 public class JdbcInstituteListDao extends SimpleJdbcDaoSupport implements InstituteListDao{
 
 	public List<Institute> getInstitutes ( int countryId){
-		String queryString = "select * from institute where countryId=? order by name";
+		String query = "select * from institute where countryId=? order by name";
+		logger.debug(query);
 		List<Institute> institutes =
-			getSimpleJdbcTemplate().query(queryString,
+			getSimpleJdbcTemplate().query(query,
 					instituteDao.getRowMapper(), countryId);
 		return institutes;
 
 
 	}
 	public List<Institute> getInstitutes (){
-		String queryString = "select * from institute order by name";
+		String query = "select * from institute order by name";
+		logger.debug(query);
 		List<Institute> institutes =
-			getSimpleJdbcTemplate().query(queryString,
+			getSimpleJdbcTemplate().query(query,
 					instituteDao.getRowMapper());
 		return institutes;
 

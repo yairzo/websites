@@ -12,6 +12,7 @@ public class JdbcTableDescriptionDao extends SimpleJdbcDaoSupport implements Tab
 
 	public List<String> getColumnsList(String tableName){
 		String queryString = "describe "+tableName;
+		logger.debug(queryString);
 		List<String> columns =
 			getSimpleJdbcTemplate().query(queryString, new ParameterizedRowMapper<String>(){
 				public String mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -23,6 +24,7 @@ public class JdbcTableDescriptionDao extends SimpleJdbcDaoSupport implements Tab
 
 	public boolean isTableExists(String tableName){
 		String queryString = "show tables";
+		logger.debug(queryString);
 		List<String> tables = getSimpleJdbcTemplate().query(queryString,new ParameterizedRowMapper<String>(){
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException{
 	            return rs.getString(1);

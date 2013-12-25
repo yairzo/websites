@@ -12,12 +12,14 @@ public class JdbcFilesDao extends SimpleJdbcDaoSupport implements FilesDao{
 	
 	public Attachment getTextualPageFile(String filename){
 		String query = "select * from textualPageFile where filename = ?";
+		logger.debug(query);
 		Attachment attachment = getSimpleJdbcTemplate().queryForObject(query, attachmentRowMapper, filename);
 		return attachment;
 	}
 	
 	public Attachment getCallForProposalFile(String filename){
 		String query = "select * from callForProposalFile where filename = ?";
+		logger.debug(query);
 		Attachment attachment = getSimpleJdbcTemplate().queryForObject(query, attachmentRowMapper, filename);
 		return attachment;
 	}

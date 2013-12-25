@@ -15,7 +15,7 @@ public class JdbcConfigurationDao extends SimpleJdbcDaoSupport implements Config
 	
 	public Map<String, String> getConfiguration(){
 		String query = "select * from configuration";
-		logger.info(query);
+		logger.debug(query);
 		final Map<String,String> configuration = new HashMap<String,String>();
 		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
 			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -29,7 +29,7 @@ public class JdbcConfigurationDao extends SimpleJdbcDaoSupport implements Config
 	
 	public Map<String, String> getConfiguration(String module){
 		String query = "select * from configuration where module = ?";
-		logger.info(query);
+		logger.debug(query);
 		final Map<String,String> configuration = new HashMap<String,String>();
 		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
 			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{

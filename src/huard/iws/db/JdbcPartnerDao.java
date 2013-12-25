@@ -24,6 +24,7 @@ public class JdbcPartnerDao extends SimpleJdbcDaoSupport implements PartnerDao {
 
 	public Partner getPartner(int id){
 		String query = "select * from partner where id=?";
+		logger.debug(query);
 		List<Partner> partners  =
 			getSimpleJdbcTemplate().query(query, partnerRowMapper,	id);
 		return partners.get(0);
@@ -31,6 +32,7 @@ public class JdbcPartnerDao extends SimpleJdbcDaoSupport implements PartnerDao {
 
 	public void updatePartner(Partner partner){
 		String query = "update partner set degree = ?, name = ?, instituteId = ? where id = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				partner.getDegree(),
 				partner.getName(),
@@ -42,6 +44,7 @@ public class JdbcPartnerDao extends SimpleJdbcDaoSupport implements PartnerDao {
 
 	public int insertPartner(Partner partner){
 		final String proposalInsert = "insert partner set degree = ?, name = ?, instituteId = ?, creationDate = ? ;";
+		logger.debug(proposalInsert);
 		final String degree = partner.getDegree();
 		final String name = partner.getName();
 		final int instituteId = partner.getInstituteId();
@@ -82,6 +85,7 @@ public class JdbcPartnerDao extends SimpleJdbcDaoSupport implements PartnerDao {
 
 	public PartnerInstitute getPartnerInstitute(int id){
 		String query = "select * from partnerInstitute where id=?";
+		logger.debug(query);
 		List<PartnerInstitute> partnerInstitutes  =
 			getSimpleJdbcTemplate().query(query, partnerInstituteRowMapper,	id);
 		return partnerInstitutes.get(0);
@@ -90,6 +94,7 @@ public class JdbcPartnerDao extends SimpleJdbcDaoSupport implements PartnerDao {
 
 	public int insertPartnerInstitute(PartnerInstitute partnerInstitute){
 		final String proposalInsert = "insert partnerInstitute set name = ?, creationDate = ? ;";
+		logger.debug(proposalInsert);
 		final String name = partnerInstitute.getName();
 		final String creationDate = DateUtils.formatTimestampWithoutMillis(new java.util.Date().getTime());
 

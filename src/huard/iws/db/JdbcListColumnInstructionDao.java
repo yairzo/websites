@@ -24,6 +24,7 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 	public AListColumnInstruction getListColumnInstruction(int id, int listId){
 		String query = "select * from listColumnInstruction, listColumnDesign " +
 				"where listColumnInstruction.id = listColumnDesign.listColumnInstructionId and listColumnInstruction.id = ?";
+		logger.debug(query);
 		AListColumnInstruction aListColumnInstruction;
 		if (listId > 0){
 				query += " and listId = ?";
@@ -83,6 +84,7 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 			"sortable = ?," +
 			"manuallyEdited = 1"+
 			" where id = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				aListColumnInstruction.getListId(),
 				aListColumnInstruction.getColumnName(),
@@ -102,6 +104,7 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 
 	private void updateListColumnDesign(AListColumnInstruction aListColumnInstruction, int parentListId){
 		String query = "update listColumnDesign set width = ?, bold = ?, align = ?, nobr = ? where listColumnInstructionId = ? and listId = ?";
+		logger.debug(query);
 		int listId = parentListId > 0 ? parentListId : aListColumnInstruction.getListId();
 		getSimpleJdbcTemplate().update(query,
 				aListColumnInstruction.getWidth(),
@@ -143,7 +146,7 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 		final String helperTableName = aListColumnInstruction.getHelperTableName();
 		final String helperTableDisplayColumn = aListColumnInstruction.getHelperTableDisplayColumnName();
 		final boolean sortable =aListColumnInstruction.isSortable();
-
+		logger.debug(query);
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -174,6 +177,7 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 	public void insertListColumnDesign(AListColumnInstruction aListColumnInstruction){
 		String query = "insert listColumnDesign set listColumnInstructionId = ?, listId = ?, width = ?" +
 				", bold = ?, align = ?, nobr = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				aListColumnInstruction.getId(),
 				aListColumnInstruction.getListId(),
@@ -186,12 +190,14 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 
 	public void deleteListColumnInstruction( int id){
 		String query = "delete from listColumnInstruction where id = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, id);
 	}
 
 	public void deleteListColumnDesign (int columnInstructionId, int listId){
 		String query = "delete from listColumnDesign where listColumnInstructionId = ?" +
 				" and listId = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, columnInstructionId, listId);
 	}
 

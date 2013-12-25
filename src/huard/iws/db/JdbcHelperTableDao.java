@@ -14,6 +14,7 @@ public class JdbcHelperTableDao extends SimpleJdbcDaoSupport implements HelperTa
 	@SuppressWarnings("unused")
 	public Map<String, String> getDisplayNamesMap(String tableName, String displayColumnName){
 		String query = "select * from " + tableName ;
+		logger.debug(query);
 		final String aDisplayColumnName = displayColumnName;
 		final Map<String, String> displayNamesMap = new HashMap<String,String>();
 		List <Void> nothing = getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){

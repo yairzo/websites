@@ -26,15 +26,17 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 
 	public List<OrganizationUnit> getOrganizationUnits(){
 		String query = "select * from organizationUnit order by nameHebrew;";
-			List<OrganizationUnit> organizationUnits =
+		logger.debug(query);
+		List<OrganizationUnit> organizationUnits =
 				getSimpleJdbcTemplate().query(query, rowMapper);
-			return organizationUnits;
+		return organizationUnits;
 	}
 
 	public List<OrganizationUnit> getOrganizationUnits(int listId, String orderStatement){
 		String query = "select * from organizationUnit, organizationUnitAttribution "+
 			"where organizationUnit.id = organizationUnitAttribution.organizationUnitId " +
 			" and organizationUnitAttribution.listId= ? order by "+orderStatement+";";
+		logger.debug(query);
 			List<OrganizationUnit> organizationUnits =
 				getSimpleJdbcTemplate().query(query, rowMapper, listId);
 			return organizationUnits;
@@ -46,18 +48,21 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 			query.append(" and " +search.getSearchField()+" like ?");
 		}
 		query.append(" order by nameHebrew;");
+		logger.debug(query);
 		List<OrganizationUnit> organizationUnits = getSimpleJdbcTemplate().query(query.toString(), rowMapper,"%"+search.getSearchPhrase()+"%");
 		return organizationUnits;
 	}
 
 	public OrganizationUnit getOrganizationUnit (int id){
 		String query = "select * from organizationUnit where id = ?";
+		logger.debug(query);
 		OrganizationUnit organizationUnit = getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
 		return organizationUnit;
 	}
 
 	public OrganizationUnit getOrganizationUnit (String name){
 		String query = "select * from organizationUnit where nameHebrew = ? or nameEnglish = ?";
+		logger.debug(query);
 		OrganizationUnit organizationUnit = getSimpleJdbcTemplate().queryForObject(query, rowMapper, name, name);
 		return organizationUnit;
 	}
@@ -66,6 +71,7 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 		String query = "update organizationUnit set typeId = ?, nameHebrew = ?, nameEnglish = ?," +
 				" email = ?, websiteUrl = ?, phone = ?, fax = ?, address = ?, contact = ?," +
 				" facultyId = ? where id = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				organizationUnit.getTypeId(),
 				organizationUnit.getNameHebrew(),
@@ -82,6 +88,7 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 
 	public int insertOrganizationUnit(){
 		final String query = "insert organizationUnit set nameHebrew=''";
+		logger.debug(query);
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -97,6 +104,7 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 
 	public void deleteOrganizationUnit(int id){
 		String query = "delete from organizationUnit where id = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, id);
 	}
 
@@ -125,6 +133,7 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 
 	public List<OrganizationUnitType> getOrganizationUnitTypes(){
 		String query = "select * from organizationUnitType;";
+		logger.debug(query);
 		List<OrganizationUnitType> organizationUnitTypes = getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<OrganizationUnitType>(){
 			public OrganizationUnitType mapRow(ResultSet rs, int rowNum) throws SQLException{
 				OrganizationUnit organizationUnit = new OrganizationUnit();
@@ -141,6 +150,7 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 
 	public List<OrganizationUnitAttribution> getOrganizationUnitAttributions(int organizationUnitId){
 		String query = "select * from organizationUnitAttribution where organizationUnitId = ?";
+		logger.debug(query);
 		List<OrganizationUnitAttribution>  organiztionUnitAttributions = getSimpleJdbcTemplate().query(query,
 				new ParameterizedRowMapper<OrganizationUnitAttribution>(){
 					public OrganizationUnitAttribution mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -157,12 +167,13 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 
 	public void deleteOrganizationUnitAttribution (int organizationUnitAttributionId){
 		String query = "delete from organizationUnitAttribution where id = ?";
+		logger.debug(query);
 		getSimpleJdbcTemplate().update(query, organizationUnitAttributionId);
 	}
 
 	public void insertOrganizationUnitAttribution (OrganizationUnitAttribution organizationUnitAttribution){
 		String query = "insert organizationUnitAttribution set organizationUnitId = ?, listId = ?";
-		logger.info(query + " " + organizationUnitAttribution.getOrganizationUnitId() + " " + organizationUnitAttribution.getListId());
+		logger.debug(query + " " + organizationUnitAttribution.getOrganizationUnitId() + " " + organizationUnitAttribution.getListId());
 		getSimpleJdbcTemplate().update(query, organizationUnitAttribution.getOrganizationUnitId(), organizationUnitAttribution.getListId());
 	}
 }

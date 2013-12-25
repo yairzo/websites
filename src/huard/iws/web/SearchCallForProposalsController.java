@@ -87,7 +87,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			model.put("customView", false);
 		}
 		
-		if(request.getSession().getAttribute("newSearch")!=null && request.getSession().getAttribute("newSearch").equals("no")){
+		if((request.getSession().getAttribute("newSearch")!=null && request.getSession().getAttribute("newSearch").equals("no")) || customView || searchedSingleDay){
 			List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(command.getSearchCreteria());
 			List<CallForProposalBean> callForProposalBeans = new ArrayList<CallForProposalBean>();
 			for (CallForProposal callForProposal: callForProposals){

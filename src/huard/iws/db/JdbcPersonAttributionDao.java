@@ -19,6 +19,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 
 	public PersonListAttribution getPersonAttribution (int personAttributionId){
 		String personSelect = "select * from personAttribution where id=?";
+		logger.debug(personSelect);
 		PersonListAttribution personAttribution =
 			getSimpleJdbcTemplate().queryForObject(personSelect, rowMapper,	personAttributionId);
 		return personAttribution;
@@ -26,6 +27,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 
 	public PersonListAttribution getPersonAttributionByListIdPersonId (int listId, int personId){
 		String personSelect = "select * from personAttribution where listId=? and personId = ?";
+		logger.debug(personSelect);
 		PersonListAttribution personAttribution =
 			getSimpleJdbcTemplate().queryForObject(personSelect, rowMapper,	listId, personId);
 		return personAttribution;
@@ -67,6 +69,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 				"titleId = ?,"+
 				"connectDetails = ?"+
 				" where id = ?";
+		logger.debug(attributionUpdate);
+
 		getSimpleJdbcTemplate().update(attributionUpdate,
 					personAttribution.getPersonId(),
 					personAttribution.getListId(),
@@ -86,6 +90,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 	public void updatePersonAttributionPlaceInList(PersonListAttribution personAttribution){
 		String attributionUpdate = "update personAttribution set placeInList = ?"+
 				" where id = ?";
+		logger.debug(attributionUpdate);
 		getSimpleJdbcTemplate().update(attributionUpdate,
 					personAttribution.getPlaceInList(),
 					personAttribution.getId() );
@@ -104,7 +109,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 		"placeInList = ?,"+
 		"titleId = ?,"+
 		"connectDetails = ?";
-
+		logger.debug(query);
 		final int personId = personListAttribution.getPersonId();
 		final int listId = personListAttribution.getListId();
 		final String title = personListAttribution.getTitle();
@@ -145,6 +150,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 
 	public void deletePersonAttribution(int id ){
 		String attributionDelete = "delete from personAttribution where id = ?";
+		logger.debug(attributionDelete);
 		getSimpleJdbcTemplate().update(attributionDelete, id);
 	}
 

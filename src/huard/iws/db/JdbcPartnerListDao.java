@@ -10,6 +10,7 @@ public class JdbcPartnerListDao extends SimpleJdbcDaoSupport implements PartnerL
 
 	public List<Partner> getPartners (){
 		String queryString = "select * from partner order by name";
+		logger.debug(queryString);
 		List<Partner> partners =
 			getSimpleJdbcTemplate().query(queryString,
 					partnerDao.getPartnerRowMapper());

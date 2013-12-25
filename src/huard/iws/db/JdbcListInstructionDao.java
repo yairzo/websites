@@ -20,6 +20,7 @@ public class JdbcListInstructionDao extends SimpleJdbcDaoSupport implements List
 
 	public AListInstruction getListInstruction(int id){
 		String aListInstrucitonSelect = "select * from listInstruction where id=?";
+		logger.debug(aListInstrucitonSelect);
 		AListInstruction aListInstruction =
 			getSimpleJdbcTemplate().queryForObject(aListInstrucitonSelect,
 					rowMapper,	id);
@@ -52,6 +53,7 @@ public class JdbcListInstructionDao extends SimpleJdbcDaoSupport implements List
 			"defaultOrderDirection = ?," +
 			"partialViewConditions = ?" +
 			" where id = ?";
+		logger.debug(aListInstructionUpdate);
 		getSimpleJdbcTemplate().update(aListInstructionUpdate,
 				aListInstruction.getSelectsFrom(),
 				aListInstruction.getSubTables(),
@@ -72,6 +74,7 @@ public class JdbcListInstructionDao extends SimpleJdbcDaoSupport implements List
 		"defaultOrderDirection = ?," +
 		"partialViewConditions = ?," +
 		"master = ?";
+		logger.debug(query);
 		final int listId = listInstruction.getListId();
 		final String selectsFrom = listInstruction.getSelectsFrom();
 		final String subTables = listInstruction.getSubTables();
@@ -104,6 +107,7 @@ public class JdbcListInstructionDao extends SimpleJdbcDaoSupport implements List
 
 	public void deleteListInstruction( int id){
 		String aListInstructionDelete = "delete from listInstruction where id = ?";
+		logger.debug(aListInstructionDelete);
 		getSimpleJdbcTemplate().update(aListInstructionDelete, id);
 	}
 

@@ -13,6 +13,7 @@ public class JdbcFacultyDao extends SimpleJdbcDaoSupport implements FacultyDao {
 
 	public Faculty getFaculty(int id){
 		String query = "select * from faculty where id=?";
+		logger.debug(query);
 		Faculty faculty =
 			getSimpleJdbcTemplate().queryForObject(query, rowMapper,	id);
 		return faculty;
@@ -20,6 +21,7 @@ public class JdbcFacultyDao extends SimpleJdbcDaoSupport implements FacultyDao {
 	
 	public int getFacultyByNameHebrew(String nameHebrew){
 		String query = "select id from faculty where nameHebrew=?;";
+		logger.debug(query);
 		int faculty =
 			getSimpleJdbcTemplate().queryForInt(query, nameHebrew);
 		return faculty;
@@ -37,6 +39,7 @@ public class JdbcFacultyDao extends SimpleJdbcDaoSupport implements FacultyDao {
 
 	public List<Faculty> getFaculties(){
 		String query = "select * from faculty;";
+		logger.debug(query);
 		List<Faculty> faculties = getSimpleJdbcTemplate().query(query, rowMapper);
 		return faculties;
 	}

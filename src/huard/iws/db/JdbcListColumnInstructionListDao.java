@@ -18,7 +18,7 @@ public class JdbcListColumnInstructionListDao extends SimpleJdbcDaoSupport imple
 		String query = "select * from listColumnInstruction, listColumnDesign " +
 		"where listColumnInstruction.id = listColumnDesign.listColumnInstructionId " +
 		"and listColumnInstruction.listId=? and listColumnDesign.listId = ? order by hidden";
-
+		logger.debug(query);
 		List<AListColumnInstruction> listColumnInstructions =
 			getSimpleJdbcTemplate().query(query, listColumnInstructionDao.getRowMapper(), listId, parentListId);
 		return listColumnInstructions;

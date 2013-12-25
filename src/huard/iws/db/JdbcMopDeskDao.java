@@ -13,15 +13,17 @@ import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 public class JdbcMopDeskDao extends SimpleJdbcDaoSupport implements MopDeskDao {
 
 	public List<MopDesk> getMopDesks (){
-		String queryString = "select * from desk order by appearence";
+		String query = "select * from desk order by appearence";
+		logger.debug(query);
 		List<MopDesk> mopDesks =
-			getSimpleJdbcTemplate().query(queryString, getRowMapper());
+			getSimpleJdbcTemplate().query(query, getRowMapper());
 		return mopDesks;
 	}
 	public List<MopDesk> getPublishingMopDesks (){
-		String queryString = "select * from desk where canPublish=1 order by appearence";
+		String query = "select * from desk where canPublish=1 order by appearence";
+		logger.debug(query);
 		List<MopDesk> mopDesks =
-			getSimpleJdbcTemplate().query(queryString, getRowMapper());
+			getSimpleJdbcTemplate().query(query, getRowMapper());
 		return mopDesks;
 	}
 	ParameterizedRowMapper<MopDesk> rowMapper = new ParameterizedRowMapper<MopDesk>(){
@@ -41,8 +43,9 @@ public class JdbcMopDeskDao extends SimpleJdbcDaoSupport implements MopDeskDao {
 
 	public MopDesk getMopDesk(int mopDeskId){
 		try{
-			String queryString = "select * from desk where id = ?";
-			MopDesk mopDesk =getSimpleJdbcTemplate().queryForObject(queryString, getRowMapper(), mopDeskId);
+			String query = "select * from desk where id = ?";
+			logger.debug(query);
+			MopDesk mopDesk =getSimpleJdbcTemplate().queryForObject(query, getRowMapper(), mopDeskId);
 			return mopDesk;
 		}
 		catch(Exception e){
@@ -52,8 +55,9 @@ public class JdbcMopDeskDao extends SimpleJdbcDaoSupport implements MopDeskDao {
 
 	public MopDesk getMopDesk(String mopDeskId){
 		try{
-			String queryString = "select * from desk where deskId = ?";
-			MopDesk mopDesk =	getSimpleJdbcTemplate().queryForObject(queryString, getRowMapper(), mopDeskId);
+			String query = "select * from desk where deskId = ?";
+			logger.debug(query);
+			MopDesk mopDesk = getSimpleJdbcTemplate().queryForObject(query, getRowMapper(), mopDeskId);
 			return mopDesk;
 		}
 		catch(Exception e){

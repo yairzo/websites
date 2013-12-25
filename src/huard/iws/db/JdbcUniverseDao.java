@@ -20,6 +20,7 @@ public class JdbcUniverseDao extends SimpleJdbcDaoSupport implements UniverseDao
 
 	public Country getCountry(int countryId){
 		String queryString = "select * from country where id = ?";
+		logger.debug(queryString);
 		Country country =
 			getSimpleJdbcTemplate().queryForObject(queryString, rowMapper, countryId);
 		return country;
@@ -27,6 +28,7 @@ public class JdbcUniverseDao extends SimpleJdbcDaoSupport implements UniverseDao
 
 	public List<Country> getCoutries(int continentId){
 		String queryString = "select * from country where continentId = ?";
+		logger.debug(queryString);
 		List<Country> countries =
 			getSimpleJdbcTemplate().query(queryString, rowMapper, continentId);
 		return countries;
@@ -43,7 +45,8 @@ public class JdbcUniverseDao extends SimpleJdbcDaoSupport implements UniverseDao
 	};
 
 	public List<Continent> getContinents(){
-		String queryString = "select * from continent ;";
+		String queryString = "select * from continent;";
+		logger.debug(queryString);
 		List<Continent> continents =
 			getSimpleJdbcTemplate().query(queryString, new ParameterizedRowMapper<Continent>(){
 				public Continent mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -58,6 +61,7 @@ public class JdbcUniverseDao extends SimpleJdbcDaoSupport implements UniverseDao
 
 	private Country getCountry(String name){
 		String query = "select * from country where name = ?;";
+		logger.debug(query);
 		List<Country> countries = getSimpleJdbcTemplate().query(query, rowMapper, name);
 		return countries.size() == 1 ? countries.get(0) : null;
 
@@ -67,6 +71,7 @@ public class JdbcUniverseDao extends SimpleJdbcDaoSupport implements UniverseDao
 		Country country;
 		if ((country = getCountry(countryName))==null){
 			final String query = "insert country set name = ?, continentId = ?;";
+			logger.debug(query);
 			final int aContinentId = continentId;
 			final String aCountry = countryName;
 
