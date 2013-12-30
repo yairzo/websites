@@ -269,6 +269,7 @@
 						&nbsp;&nbsp;
 
 						<button class="cancel grey action"><fmt:message key="${lang.localeId}.post.done"/></button>
+
 						</td>
 				</tr>
 

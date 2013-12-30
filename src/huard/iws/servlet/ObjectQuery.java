@@ -14,6 +14,7 @@ import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.UserPersonUtils;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -70,11 +71,10 @@ public class ObjectQuery extends HttpServlet{
 				return;
 			
 			CallForProposalBeanOld callForProposalBean = new CallForProposalBeanOld(callForProposal, true);
-
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
-			ServletOutputStream out = response.getOutputStream();
+			PrintWriter out = response.getWriter();
 			out.print(callForProposalBean.toPostMessage());
 			out.flush();
 			out.close();
@@ -94,7 +94,7 @@ public class ObjectQuery extends HttpServlet{
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
-			ServletOutputStream out = response.getOutputStream();
+			PrintWriter out = response.getWriter();
 			out.print(callForProposalBean.getTitle() + " - " + callForProposalBean.getId());
 			out.flush();
 			out.close();

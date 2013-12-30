@@ -64,7 +64,8 @@
 					autoDirection: 'prev'
 					</c:when>
 					<c:otherwise>
-					startSlide: 0
+					startSlide: 0,
+					autoDirection: 'next'
 					</c:otherwise>
 					</c:choose>
 					});

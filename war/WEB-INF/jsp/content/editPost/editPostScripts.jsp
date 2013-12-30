@@ -185,30 +185,17 @@
 			if ($("input.callForProposal").val() == "") return;
 			var callForProposalTitle = $("input.callForProposal").val();
 			var id = callForProposalTitle.replace(/.+ - /,"");
-			//$.get('selectBoxFiller',{type:'callForProposal',localeId:'${command.localeId}'},function(data){
-			//	var cplist=data.split(",,");
-			//	var valid=false;
-			//	for (var j=0; j<cplist.length; j++) {
-        	//		if (cplist[j].substring(cplist[j].length-(id.length+2))=="- "+id){
-        	//			valid=true;
-     					$.get("objectQuery?type=callForProposal&id="+id, function(data){
-    						var senderId= $("select.sender").val();
-    						var email = $("#sender" + senderId).val();
-    						var name = $('.sender').find(":selected").text();
-    						data= data.replace("#mu# #mp##mue#","<a class=\"underline\" href=\"mailto:" + email + "\">"+name+"</a>")
-    						$("div#editable").html('<p dir="${lang.dir}"> ' + data + ' </p>');	
-    						$("textarea#message").html('<p dir="${lang.dir}"> ' + data + ' </p>');	
-    					});
-      					$.get("objectQuery?type=callForProposalTitle&id="+id, function(data){
-    						$("input.messageSubject").val(data);
-    					});
-        			//	} 
-    			//}  
-				//if (!valid){ 
-				//	$("textarea#message").val(''); 
-				//	$("input.messageSubject").val(''); 
-				//} 
-	         // }); 
+     		$.get("objectQuery?type=callForProposal&id="+id, function(data){
+    			var senderId= $("select.sender").val();
+    			var email = $("#sender" + senderId).val();
+    			var name = $('.sender').find(":selected").text();
+    			data= data.replace("#mu# #mp##mue#","<a class=\"underline\" href=\"mailto:" + email + "\">"+name+"</a>")
+    			$("div#editable").html('<p dir="${lang.dir}"> ' + data + ' </p>');	
+    			$("textarea#message").html('<p dir="${lang.dir}"> ' + data + ' </p>');	
+    		});
+      		$.get("objectQuery?type=callForProposalTitle&id="+id, function(data){
+    			$("input.messageSubject").val(data);
+    		});
 			return false;
 		});
 
@@ -299,10 +286,10 @@
 			$('form#form').submit();
 		});
 		
+		
 		$('button.save').click(function(){
 			formExit=false;
 			if ($('.messageSubject').val()==''){
-			   	$("#genericDialog").dialog({ modal: true });
 	 	    	$("#genericDialog").dialog('option', 'buttons',{"סגור" : function() {$(this).dialog("close");return false;}});
 	    	    $("#genericDialog").text("יש להזין נושא").dialog("open");
 		        return false;
@@ -317,7 +304,6 @@
 		$('button.sendme').click(function(){
 			formExit=false;
 			if ($('.messageSubject').val()==''){
-			   	$("#genericDialog").dialog({ modal: true });
 	 	    	$("#genericDialog").dialog('option', 'buttons',{"סגור" : function() {$(this).dialog("close");return false;}});
 	    	    $("#genericDialog").text("יש להזין נושא").dialog("open");
 		        return false;
@@ -325,7 +311,6 @@
 			else{
 				var messageText = $('#message').val();
 				if(messageText.indexOf("xxxxx")>0 ){
-				   	$("#genericDialog").dialog({ modal: true });
 		 	    	$("#genericDialog").dialog('option', 'buttons',{
 						"המשך לשליחת ההודעה": function() {
 							$('form#form').append('<input type="hidden" name="action" value="sendme"/>');
@@ -491,7 +476,7 @@
         autoOpen: false,
         show: 'fade',
         hide: 'fade',
-        modal: true,
+        modal: false,
         width: 400,
         open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
     });

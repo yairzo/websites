@@ -44,8 +44,21 @@ public class EditPostController extends GeneralFormController {
 			throws Exception{
 
 		PostBean postBean = (PostBean)command;
-
+		Map<String, Object> newModel = new HashMap<String, Object>();
+		newModel.put("id", postBean.getId());
+		
 		String action = request.getParameter("action", "");
+		
+		PostBean dbpost= new PostBean(postService.getPost(postBean.getId()));
+		if(action.equals("cancelVerified")){
+			dbpost.setVerified(false);
+			postService.updatePost(dbpost.toPost());
+			return new ModelAndView(new RedirectView("post.html"), newModel);
+		}
+		
+		if (dbpost.isVerified())//if verified do not update
+			return new ModelAndView(new RedirectView("post.html"), newModel);
+
 		String deletePost = request.getParameter("deletePost", "");
 		if (deletePost.equals("true")){
 			postService.deletePost(postBean.getId());
@@ -115,8 +128,8 @@ public class EditPostController extends GeneralFormController {
 			request.getSession().setAttribute("userMessage", userMessage);
 		}
 
-		Map<String, Object> newModel = new HashMap<String, Object>();
-		newModel.put("id", postBean.getId());
+		//Map<String, Object> newModel = new HashMap<String, Object>();
+		//newModel.put("id", postBean.getId());
 		return new ModelAndView(new RedirectView("post.html"), newModel);
 	}
 

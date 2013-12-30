@@ -362,6 +362,8 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 	public List<TextualPage> getOnlineMessagesRolling(String localeId){
 		String query = "select * from textualPage where isDeleted=0 and isMessage=1 and (neverExpires=1 or keepInRollingMessagesExpiryTime >= now()) and localeId= ? order by id";
+		if(localeId.equals("en_US"))
+			query+=" desc";
 		logger.debug(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper, localeId);
 		return textualPages;

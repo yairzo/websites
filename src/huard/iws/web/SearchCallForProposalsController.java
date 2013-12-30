@@ -61,8 +61,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		//We check the request since if it's a single day query the search word was deleted from the search creteria 
 		boolean searchedSingleDay = request.getParameter("searchWords","").matches(searchWordDateFormat);
 		boolean customView = request.getParameter("v","").equals("custom");
-		boolean searchBoxBottom= searchedSingleDay ||  customView;
-		model.put("searchBoxBottom", searchBoxBottom);
 
 		if (searchedSingleDay){
 			model.put("submissionDateFrom", "");
@@ -147,10 +145,13 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		request.getSession().setAttribute("newSearch", "");
 		
 		boolean authorized= true;	
-		if(!userPersonBean.isAnyAuthorized("ROLE_WEBSITE_READ",
-				"ROLE_WEBSITE_EDIT","ROLE_WEBSITE_ADMIN","ROLE_WEBSITE_HUJI"))
+		if(!userPersonBean.isAnyAuthorized("ROLE_WEBSITE_READ","ROLE_WEBSITE_EDIT","ROLE_WEBSITE_ADMIN","ROLE_WEBSITE_HUJI"))
 			authorized= false;	
 		model.put("authorized", authorized);
+		boolean authorizedWebsite= true;	
+		if(!userPersonBean.isAnyAuthorized("ROLE_WEBSITE_READ","ROLE_WEBSITE_EDIT","ROLE_WEBSITE_ADMIN"))
+			authorizedWebsite= false;	
+		model.put("authorizedWebsite", authorizedWebsite);
 		
 		long lastUpdateTime = callForProposalService.getCallForProposalsLastUpdate().getTime();
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
@@ -204,11 +205,16 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		}
 		else{//on show
 			CallForProposalSearchCreteria searchCreteria = (CallForProposalSearchCreteria) request.getSession().getAttribute("callForProposalSearchCreteria");
-			request.getSession().setAttribute("callForProposalsSearchCreteria", null);
-			if (searchCreteria == null || (request.getSession().getAttribute("newSearch")==null || request.getSession().getAttribute("newSearch").equals("")) ){//on first entry
+			//request.getSession().setAttribute("callForProposalSearchCreteria", null);
+			final String searchWordDateFormat = "[\\d]{4}-[\\d]{2}-[\\d]{2}";
+			//We check the request since if it's a single day query the search word was deleted from the search creteria 
+			boolean searchedSingleDay = request.getParameter("searchWords","").matches(searchWordDateFormat);
+			boolean customView = request.getParameter("v","").equals("custom");
+			if (searchCreteria == null || searchedSingleDay || customView) 
 				searchCreteria = new CallForProposalSearchCreteria();
+
+			if (request.getSession().getAttribute("newSearch")==null || request.getSession().getAttribute("newSearch").equals("") || request.getSession().getAttribute("newSearch").equals("yes"))//on first entry
 				request.getSession().setAttribute("newSearch", "yes");
-			}
 			
 			if(!request.getParameter("searchWords", "").isEmpty()){
 				long dateTime = DateUtils.parseDate(request.getParameter("searchWords", ""),"yyyy-MM-dd");
@@ -232,7 +238,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 				searchCreteria.setSearchBySubjectIds(BaseUtils.getString(userPersonBean.getSubjectsIds()));
 
 			command.setSearchCreteria(searchCreteria);
-			System.out.println("xxxxxxxxxxx backing searchWords"+searchCreteria.getSearchWords());
 		}
 		return command;
 	}

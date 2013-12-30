@@ -587,7 +587,7 @@ color:#333333;
 }
 
 .mainbox_news .bx-pager{
-	text-align:right;
+	text-align:left;
 }
 
 .board_title{
@@ -2125,7 +2125,12 @@ height:14px;
 background:url(/image/website/checkbox_scrollbox_normal.png) no-repeat top;
 cursor:pointer;
 }
-
+.check.scroll_col .checkbox_list .checkbox_box{
+border:solid 1px #999999;
+background:#ffffff;
+width:13px;
+height:12px;
+}
 .check.scroll_col .checkbox_box input{opacity: 0; filter: alpha(opacity=0);}
 
 .check.scroll_col .checkbox_box.semi{
@@ -2184,12 +2189,7 @@ clear:both;
 padding:3px 0 0 0;
 }
 
-.check.scroll_col .checkbox_list .checkbox_box{
-border:solid 1px #999999;
-background:#ffffff;
-width:13px;
-height:12px;
-}
+
 
 .scroll_col .checkbox_list label{width:160px;}
 
