@@ -409,9 +409,14 @@
 						<font color="red"><form:errors cssClass="errors" path="preferedLocaleId"/></font>
 					</td>
 				</tr>
+				<tr class="form">
+					<td colspan="2">
+ 					<form:checkbox cssClass="green receivePosts" path="receivePosts"/>מעוניינ/ת לקבל הודעות דואר אלקטרוני
+					</td>
+				</tr>
 				</c:when>
 				<c:otherwise>
-					<form:hidden path="preferedLocaleId"/>
+					<form:hidden path="receivePosts"/>
 				</c:otherwise>
 				</c:choose>
 				<tr>

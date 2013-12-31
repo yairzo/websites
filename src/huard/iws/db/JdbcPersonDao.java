@@ -140,6 +140,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
             person.setPostReceiveHour(rs.getInt("postReceiveHour"));
             person.setPostReceiveImmediately(rs.getBoolean("postReceiveImmediately"));
             person.setReadsUTF8Mails(rs.getBoolean("readsUTF8Mails"));
+            person.setReceivePosts(rs.getBoolean("receivePosts"));
             return person;
         }
 	};
@@ -163,7 +164,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				" degreeEnglish = ?, phone = ?, fax = ?, email = ?, department = ?, facultyId = ?, address = ?,"+
 				" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 				" academicTitle = ?, websiteUrl = ?, campusId = ?," +
-				" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ? where id = ?";
+				" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?,receivePosts=? where id = ?";
 		logger.debug (query);
 		getSimpleJdbcTemplate().update(query,
 				person.getFirstNameHebrew() ,
@@ -192,6 +193,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				person.getPostReceiveHour(),
 				person.isPostReceiveImmediately(),
 				person.isReadsUTF8Mails(),
+				person.isReceivePosts(),
 				person.getId() );
 		updatePersonSubjectIds(person);
 	}
@@ -202,7 +204,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		" degreeEnglish = ?, phone = ?, fax = ?, email = ?, department = ?, facultyId = ?, address = ?,"+
 		" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 		" academicTitle = ?, websiteUrl = ?, campusId = ?," +
-		" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?;";
+		" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?,receivePosts=?;";
 		logger.debug(query);
 		final String firstNameHebrew = person.getFirstNameHebrew();
 		final String lastNameHebrew = person.getLastNameHebrew();
@@ -229,6 +231,8 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		final int postReceiveHour = person.getPostReceiveHour();
 		final boolean postReceiveImmediately = person.isPostReceiveImmediately();
 		final boolean readsUTF8Mails = person.isReadsUTF8Mails();
+		final boolean receivePosts = person.isReceivePosts();
+		
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -262,6 +266,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 					ps.setInt(23, postReceiveHour);
 					ps.setBoolean(24, postReceiveImmediately);
 					ps.setBoolean(25, readsUTF8Mails);
+					ps.setBoolean(26,receivePosts);
 		            return ps;
 		        }
 		    },

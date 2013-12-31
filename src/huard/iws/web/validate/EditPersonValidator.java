@@ -23,21 +23,17 @@ public class EditPersonValidator implements Validator {
 		ValidationUtils.rejectIfEmpty(errors, "lastNameHebrew", "iw_IL.required.lastNameHebrew");
 		
 	
-		if(!personBean.getPassValidation())
+		if(!personBean.getPassValidation()){
 			ValidationUtils.rejectIfEmpty(errors, "degreeHebrew", "iw_IL.required.degreeHebrew");
 		
-		if (!personBean.getPassValidation() ){
-			ValidationUtils.rejectIfEmpty(errors, "firstNameEnglish", "iw_IL.required.firstNameEnglish");
-			ValidationUtils.rejectIfEmpty(errors, "lastNameEnglish", "iw_IL.required.lastNameEnglish");
-			if(!personBean.isAuthorized("LISTS","ADMIN") && !personBean.isAuthorized("LISTS","EDITOR")){
+			if(!personBean.isOnlyAuthorized("CONFERENCE","RESEARCHER")){
+				ValidationUtils.rejectIfEmpty(errors, "firstNameEnglish", "iw_IL.required.firstNameEnglish");
+				ValidationUtils.rejectIfEmpty(errors, "lastNameEnglish", "iw_IL.required.lastNameEnglish");
 				ValidationUtils.rejectIfEmpty(errors, "degreeEnglish", "iw_IL.required.degreeEnglish");
 				ValidationUtils.rejectIfEmpty(errors, "academicTitle", "iw_IL.required.academicTitle");
 				if (personBean.getCampusId() == 0)
 					errors.rejectValue("campusId", "iw_IL.required.campusId");
 			}
-		}
-		
-		if(!personBean.getPassValidation()){
 			
 			if (!personBean.getEmail().isEmpty() && ! personBean.getEmail().matches("^[_a-zA-Z0-9-&\\+=]+(\\.[_a-zA-Z0-9-]+)*@[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)+$"))
 				errors.rejectValue("email", "iw_IL.invalid.email");

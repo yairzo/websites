@@ -98,8 +98,8 @@ public class PostServiceImpl implements PostService{
 	}
 
 	public List<PersonBean> getSubscribers(){
-		//String joinPhrase = " inner join subjectToPerson on person.id = personPrivilege.personId";
-		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED);
+		String usersAdditionalCondition = "receivePosts=1";
+		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, usersAdditionalCondition, null);
 		return subscribers;
 	}
 

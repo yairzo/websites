@@ -184,8 +184,22 @@ $(document).ready(function() {
 			}
 			else $("#errortitle").html('');
 		});
+		//create urlTitle based on title	
+		var title = $('#tempTitle').val();
+		if(title!=''){
+			var arr = title.split(/\s|_/);
+		    for(var i=0,l=arr.length; i<l; i++) {
+		        arr[i] = arr[i].substr(0,1).toUpperCase() + 
+		                 (arr[i].length > 1 ? arr[i].substr(1).toLowerCase() : "");
+		    }
+		    arr= arr.join("_");
+		    $('#tempUrlTitle').val(arr);
+		}
+
 	});	
-	
+
+
+
 	/*$(".datetime").datetimepicker({dateFormat: 'dd/mm/yy',
 		timeFormat:'hh:mm',
 		onSelect: function(){

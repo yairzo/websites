@@ -73,6 +73,8 @@ public class PersonBean implements Serializable {
 
 	private boolean readsUTF8Mails;
 
+	private boolean receivePosts;
+
 	//private List<PersonListAttribution> personListAttributions;
 
 	private List<String> privileges;
@@ -131,6 +133,8 @@ public class PersonBean implements Serializable {
 		this.postReceiveHour = 16;
 		this.postReceiveImmediately = false;
 		this.readsUTF8Mails = true;
+		this.receivePosts = false;
+		
 		this.localeId = "iw_IL";
 		this.passValidation=false;
 	}
@@ -164,7 +168,8 @@ public class PersonBean implements Serializable {
 		this.postReceiveHour = person.getPostReceiveHour();
 		this.postReceiveImmediately = person.isPostReceiveImmediately();
 		this.readsUTF8Mails = person.isReadsUTF8Mails();
-
+		this.receivePosts = person.isReceivePosts();
+		
 		this.localeId = "iw_IL";
 	}
 
@@ -203,6 +208,7 @@ public class PersonBean implements Serializable {
 		person.setPostReceiveHour(postReceiveHour);
 		person.setPostReceiveImmediately(postReceiveImmediately);
 		person.setReadsUTF8Mails(readsUTF8Mails);
+		person.setReceivePosts(receivePosts);
 		// person.setPersonListAttributions(personListAttributions);
 		return person;
 	}
@@ -721,5 +727,13 @@ public class PersonBean implements Serializable {
 	public String getDegreePartialNameEnglish() {
 		return (degreeEnglish == null ? "" : degreeEnglish) + " "
 				+ firstNameEnglish.substring(0,1) + ". " + lastNameEnglish;
+	}
+	
+	public boolean isReceivePosts() {
+		return receivePosts;
+	}
+
+	public void setReceivePosts(boolean receivePosts) {
+		this.receivePosts = receivePosts;
 	}
 }

@@ -32,6 +32,7 @@ public class Person implements ISubjectRelated, IMailable{
 	private int postReceiveHour;
 	private boolean postReceiveImmediately;
 	private boolean readsUTF8Mails;
+	private boolean receivePosts;
 
 
 	List<PersonListAttribution> personListAttributions;
@@ -65,6 +66,8 @@ public class Person implements ISubjectRelated, IMailable{
 		this.postReceiveHour = 16;
 		this.postReceiveImmediately = false;
 		this.readsUTF8Mails = true;
+		this.receivePosts = false;
+
 	}
 
 	public PersonListAttribution toPersonAttribution(){
@@ -281,5 +284,11 @@ public class Person implements ISubjectRelated, IMailable{
 		this.readsUTF8Mails = readsUTF8Mails;
 	}
 
+	public boolean isReceivePosts() {
+		return receivePosts;
+	}
 
+	public void setReceivePosts(boolean receivePosts) {
+		this.receivePosts = receivePosts;
+	}
 }
