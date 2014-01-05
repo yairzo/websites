@@ -57,7 +57,7 @@
 					<c:if test="${online}">
 					<button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp; 
 					<button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp; 
-					<button class="grey" onclick="window.open('/textualPage.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp; 
+					<button class="grey" onclick="window.open('/page/${command.urlTitle}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp; 
 					</c:if>
 					<c:if test="${!online}">
 					<button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp; 
@@ -260,7 +260,7 @@
 					<c:if test="${online}">
 					<button class="grey" id="offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp; 
 					<button class="grey" id="onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp; 
-					<button class="grey" onclick="window.open('/textualPage.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp; 
+					<button class="grey" onclick="window.open('/page/${command.urlTitle}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp; 
 					</c:if>
 					<c:if test="${!online}">
 					<button class="grey" id="online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp; 

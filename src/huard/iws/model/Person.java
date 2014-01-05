@@ -66,7 +66,7 @@ public class Person implements ISubjectRelated, IMailable{
 		this.postReceiveHour = 16;
 		this.postReceiveImmediately = false;
 		this.readsUTF8Mails = true;
-		this.receivePosts = false;
+		this.receivePosts = true;
 
 	}
 

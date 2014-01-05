@@ -5,6 +5,26 @@
 
 <script type="text/javascript">
 
+function goToNextMonth(){
+	if(${month}==12){
+		monthlabel='<fmt:message key="en_US.general.month.1"/>' + '_' + ${year+1};
+	}
+	else{
+		monthlabel='<fmt:message key="en_US.general.month.${month+1}"/>'+ '_' + ${year};
+	}
+	window.location='/calendar/'+monthlabel;
+	return false;
+}
+function goToPrevMonth(){
+	if(${month}==1){
+		monthlabel='<fmt:message key="en_US.general.month.12"/>' + '_' + ${year-1};
+	}
+	else{
+		monthlabel='<fmt:message key="en_US.general.month.${month-1}"/>'+ '_' + ${year};
+	}
+	window.location='/calendar/'+monthlabel;
+	return false;
+}
 $(document).ready(function() {
 
 	$(document).click(function() {
@@ -93,7 +113,6 @@ $(document).ready(function() {
 	
 	$.ajaxSetup({ cache: false });
 });
-
 
 
 

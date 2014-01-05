@@ -84,7 +84,7 @@
 				
 				<tr>
 					<td width="250">${compulsoryFieldSign}
-						 צרף קובץ (גודל עד 300K):
+						 צרף קובץ (גודל עד 600K):
 					</td>
 					<td width="300">
 						<input class="green" type="file" name="image" />

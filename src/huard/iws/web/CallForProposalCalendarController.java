@@ -11,6 +11,7 @@ import huard.iws.service.FundService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.RequestWrapper;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,30 +37,18 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		
 		int month= request.getSessionIntParameter("month", 0);
 		int year= request.getSessionIntParameter("year", 0);
-		String action = request.getParameter("action", "");		
-		if(action.equals("next")){
-			if(month==12){
-				request.getSession().setAttribute("year", year+=1);
-				month=1;
-			}
-			else 
-				month+=1;
+
+
+		if(!request.getParameter("newmonth", "").isEmpty()){
+			String newMonth = request.getParameter("newmonth", "");	
+			SimpleDateFormat sdf = new SimpleDateFormat("MMMMM");
+			java.util.Date date= sdf.parse(newMonth.toLowerCase());
+			Calendar cal = Calendar.getInstance();
+		    cal.setTime(date);
+			month=(cal.get(Calendar.MONTH))+1;
 			request.getSession().setAttribute("month", month);
-		}
-		else if (action.equals("prev")){
-			if(month==1){
-				request.getSession().setAttribute("year", year-=1);
-				month=12;
-			}
-			else
-				month-=1;
-			request.getSession().setAttribute("month", month);
-		}			
-		else if (action.equals("nextYear")){
-			request.getSession().setAttribute("year", year+=1);
-		}			
-		else if (action.equals("prevYear")){
-			request.getSession().setAttribute("year", year-=1);
+			year = request.getIntParameter("newyear", 0);		
+			request.getSession().setAttribute("year", year);
 		}	
 		else{
 			Calendar now = Calendar.getInstance();
@@ -71,9 +60,9 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 			request.getSession().setAttribute("today", today);
 			
 		}
-
 		//get call for proposals for month
 		String startdate = year + "-" + month +"-01";
+		
 		String firstDay = callForProposalService.getFirstDayOfCalendarMonth(startdate);
 		if(month==12){
 			month=1;

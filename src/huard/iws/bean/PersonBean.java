@@ -133,7 +133,7 @@ public class PersonBean implements Serializable {
 		this.postReceiveHour = 16;
 		this.postReceiveImmediately = false;
 		this.readsUTF8Mails = true;
-		this.receivePosts = false;
+		this.receivePosts = true;
 		
 		this.localeId = "iw_IL";
 		this.passValidation=false;

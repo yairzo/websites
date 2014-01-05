@@ -54,7 +54,7 @@
 						<c:if test="${online}">
 						<button class="grey offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp;
 						<button class="grey onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp;
-						<button class="grey" onclick="window.open('/callForProposal.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp;
+						<button class="grey" onclick="window.open('/call_for_proposal/${command.urlTitle}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp;
 						</c:if>
 						<c:if test="${!online}">
 						<button class="grey online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp;
@@ -687,7 +687,7 @@
 						<c:if test="${online}">
 						<button class="grey offline"><fmt:message key="${lang.localeId}.callForProposal.takeOffSite"/></button>&nbsp;
 						<button class="grey onlineUpdate"><fmt:message key="${lang.localeId}.callForProposal.updateSite"/></button>&nbsp;
-						<button class="grey" onclick="window.open('/callForProposal.html?id=${command.id}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp;
+						<button class="grey" onclick="window.open('/call_for_proposal/${command.urlTitle}','_blank');return false;"><fmt:message key="${lang.localeId}.callForProposal.viewOnSite"/></button>&nbsp;
 						</c:if>
 						<c:if test="${!online}">
 						<button class="grey online"><fmt:message key="${lang.localeId}.callForProposal.putOnSite"/></button>&nbsp;

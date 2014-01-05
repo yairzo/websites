@@ -49,6 +49,7 @@ public class EditPersonPostSubscriptionController extends GeneralFormController 
 
 	private void applyPostDetails(PersonBean existingPersonBean, PersonBean personBean){
 		existingPersonBean.setSubjectsIds(personBean.getSubjectsIds());
+		existingPersonBean.setReceivePosts(personBean.isReceivePosts());
 		existingPersonBean.setPostReceiveDays(personBean.getPostReceiveDays());
 		existingPersonBean.setPostReceiveHour(personBean.getPostReceiveHour());
 		existingPersonBean.setPostReceiveImmediately(personBean.isPostReceiveImmediately());

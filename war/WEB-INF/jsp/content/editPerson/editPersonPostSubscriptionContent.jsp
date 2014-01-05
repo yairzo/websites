@@ -164,6 +164,14 @@
 					&nbsp;
 				</td>
 			   </tr>
+			  		<tr>
+						<td width="200">
+							מעוניינ/ת לקבל הודעות דואר אלקטרוני
+						</td>
+						<td>
+ 							<form:checkbox cssClass="green receivePosts" path="receivePosts"/>
+						</td>
+					</tr>
 					<tr>
 						<td width="200">
 							<fmt:message key="${lang.localeId}.post.recieveImmediately"/>

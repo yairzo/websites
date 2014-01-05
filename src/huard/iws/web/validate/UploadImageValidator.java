@@ -34,7 +34,7 @@ public class UploadImageValidator implements Validator {
 					if(img[0]==-1 && img[1]==-40 )
 						extention="jpg";
 					//if(imgheight != 240 || imgwidth != 420 || imgsize > 300000 || !extention.equals("jpg"))
-					if(imgsize > 300000 )
+					if(imgsize > 600000 )
 						errors.rejectValue( "image", "iw_IL.uploadImage.imageNotCorrect");
 				}
 			}

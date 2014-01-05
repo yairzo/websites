@@ -103,9 +103,6 @@ $(parent).children("td").children("img.v").hide();
 
 
 $(document).ready(function() {
-	<c:if test="${!isConference}">
-	$(".receivePosts").prop('checked', true);
-	</c:if>
 	
 	$("form#form").submit(function(){
 			return submission;

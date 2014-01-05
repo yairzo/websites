@@ -10,8 +10,8 @@
 						<!---->
 						<div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="display: block;">
 							<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-								<a title="<c:choose><c:when test="${lang.rtl}">החודש הבא</c:when><c:otherwise>Next month</c:otherwise></c:choose>" onclick="window.location='/calendar/next';return false;" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
-								<a title="<c:choose><c:when test="${lang.rtl}">החודש הקודם</c:when><c:otherwise>Previous month</c:otherwise></c:choose>" onClick="window.location='/calendar/prev';return false;" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
+								<a title="<c:choose><c:when test="${lang.rtl}">החודש הבא</c:when><c:otherwise>Next month</c:otherwise></c:choose>" onclick="goToNextMonth();" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
+								<a title="<c:choose><c:when test="${lang.rtl}">החודש הקודם</c:when><c:otherwise>Previous month</c:otherwise></c:choose>" onClick="goToPrevMonth();" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a>
 								<h3 class="transition"><fmt:message key="${lang.localeId}.website.changeMonth"/></h3>
 								<div class="ui-datepicker-title">
 									<h1><fmt:message key="${lang.localeId}.website.callForProposalCalendar"/> </h1>

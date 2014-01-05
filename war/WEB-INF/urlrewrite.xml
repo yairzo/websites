@@ -80,8 +80,8 @@
         <to last="true">/callForProposalCalendar.html?action=$1&amp;h=1</to>
     </rule>
     <rule>
-        <from>^/calendar/(.*)$</from>
-        <to last="true">/callForProposalCalendar.html?action=$1</to>
+        <from>^/calendar/(.*)_(.*)$</from>
+        <to last="true">/callForProposalCalendar.html?newmonth=$1&amp;newyear=$2</to>
     </rule>
     <rule>
         <from>^/calendar$</from>
