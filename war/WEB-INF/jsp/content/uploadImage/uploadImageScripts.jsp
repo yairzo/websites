@@ -33,7 +33,20 @@ $(document).ready(function() {
 				return false;
 		 	}
 		});
-
+	 $("a.disapprove").click(function(){
+			var ids ="";
+		 	$("#chkboxName:checked").each(
+				function() {
+					ids +=  $(this).val()+",";
+				}
+			);
+		 	if(ids!=""){
+				$("form#editImage").append("<input type=\"hidden\" name=\"action\" value=\"disapprove\"/>");
+				$("form#editImage").append("<input type=\"hidden\" name=\"imageIds\" value=\""+ids+"\"/>");
+				$('form#editImage').submit();
+				return false;
+		 	}
+		});
 	$('.cancel').click(function(){
 		$('form#editImage').append('<input type=\"hidden\" name=\"action\" value=\"cancel\"/>');
 		$('form#editImage').submit();

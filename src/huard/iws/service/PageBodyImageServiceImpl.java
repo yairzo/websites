@@ -36,6 +36,9 @@ public class PageBodyImageServiceImpl implements PageBodyImageService{
 		pageBodyImageDao.approvePageBodyImage(id);
 	}
 
+	public void disapprovePageBodyImage(int id){
+		pageBodyImageDao.disapprovePageBodyImage(id);
+	}
 	public int countImages (){
 		return pageBodyImageDao.countImages ();
 	}

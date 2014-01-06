@@ -121,6 +121,12 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		getSimpleJdbcTemplate().update(query, id);
 	}
 
+	public void disapprovePageBodyImage(int id){
+		String query = "update image set approved=0 where id = ?";
+		logger.debug(query);
+		getSimpleJdbcTemplate().update(query, id);
+	}
+	
 	public int countImages(){
 		//String query = "select count(*) from image where websiteId = ?";
 		String query = "select count(*) from image";

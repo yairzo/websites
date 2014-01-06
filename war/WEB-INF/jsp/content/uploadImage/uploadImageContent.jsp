@@ -26,7 +26,7 @@
 						שם תמונה:
 					</td>
 					<td width="300">
-					 	<form:input cssClass="green" path="name" />
+					 	<form:input cssClass="green" path="name" size="46"/>
 					</td>
  				</tr>
 				<tr>
@@ -39,7 +39,7 @@
 						כותרת לקישור:
 					</td>
 					<td width="300">
-					 	<form:input cssClass="green" path="title"/>
+					 	<form:input cssClass="green" path="title" size="46"/>
 					</td>
  				</tr>
  				<tr>
@@ -52,7 +52,7 @@
 						 תיאור בעברית:
 					</td>
 					<td width="300">
-					 	<form:input cssClass="green" path="captionHebrew" />
+					 	<form:textarea cssClass="green" path="captionHebrew" cols="50" rows="2"/>
 					</td>
  				</tr>
 				<tr>
@@ -65,7 +65,7 @@
 						 תיאור באנגלית:
 					</td>
 					<td width="300">
-					 	<form:input cssClass="green" path="captionEnglish" />
+					 	<form:textarea cssClass="green" path="captionEnglish" cols="50" rows="2"/>
 					</td>
  				</tr>
 				<tr>
@@ -78,7 +78,7 @@
 						 כתובת אתר המקושר לתמונה:
 					</td>
 					<td width="300">
-					 	<form:input cssClass="green" path="url" />
+					 	<form:input cssClass="green" path="url" size="46"/>
 					</td>
  				</tr> 
 				
@@ -87,7 +87,7 @@
 						 צרף קובץ (גודל עד 600K):
 					</td>
 					<td width="300">
-						<input class="green" type="file" name="image" />
+						<input class="green" type="file" name="image" size="30"/>
 					</td>
 				</tr>
 				<tr>
@@ -159,6 +159,9 @@
 			&nbsp;
 			<authz:authorize ifAnyGranted="ROLE_IMAGE_ADMIN">
 			<a href="" class="approve">אשר</a>
+			&nbsp;
+			&nbsp;
+			<a href="" class="disapprove">בטל אישור</a>
 			&nbsp;
 			&nbsp;
 			</authz:authorize>

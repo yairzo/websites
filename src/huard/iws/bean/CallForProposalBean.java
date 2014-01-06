@@ -495,6 +495,9 @@ public class CallForProposalBean {
 	public String getStrippedFundingPeriod() {
 		return TextUtils.cleanHtmlFromEditor(fundingPeriod);
 	}
+	public boolean isFundingPeriodBullets() {
+		return fundingPeriod.trim().endsWith("</ul>");
+	}
 
 	public void setFundingPeriod(String fundingPeriod) {
 		this.fundingPeriod = fundingPeriod;
@@ -507,7 +510,9 @@ public class CallForProposalBean {
 	public String getStrippedAmountOfGrant() {
 		return TextUtils.cleanHtmlFromEditor(amountOfGrant);
 	}
-
+	public boolean isAmountOfGrantBullets() {
+		return amountOfGrant.trim().endsWith("</ul>");
+	}
 	public void setAmountOfGrant(String amountOfGrant) {
 		this.amountOfGrant = amountOfGrant;
 	}
@@ -518,6 +523,9 @@ public class CallForProposalBean {
 
 	public String getStrippedEligibilityRequirements() {
 		return TextUtils.cleanHtmlFromEditor(eligibilityRequirements);
+	}
+	public boolean isEligibilityRequirementsBullets() {
+		return eligibilityRequirements.trim().endsWith("</ul>");
 	}
 
 	public void setEligibilityRequirements(String eligibilityRequirements) {
@@ -531,7 +539,9 @@ public class CallForProposalBean {
 	public String getStrippedActivityLocation() {
 		return TextUtils.cleanHtmlFromEditor(activityLocation);
 	}
-
+	public boolean isActivityLocationBullets() {
+		return activityLocation.trim().endsWith("</ul>");
+	}
 	public void setActivityLocation(String activityLocation) {
 		this.activityLocation = activityLocation;
 	}
@@ -542,6 +552,9 @@ public class CallForProposalBean {
 
 	public String getStrippedPossibleCollaboration() {
 		return TextUtils.cleanHtmlFromEditor(possibleCollaboration);
+	}
+	public boolean isPossibleCollaborationBullets() {
+		return possibleCollaboration.trim().endsWith("</ul>");
 	}
 
 	public void setPossibleCollaboration(String possibleCollaboration) {

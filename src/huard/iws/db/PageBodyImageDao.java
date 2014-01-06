@@ -20,6 +20,8 @@ public interface PageBodyImageDao {
 
 	public void approvePageBodyImage(int id);
 
+	public void disapprovePageBodyImage(int id);
+
 	public int countImages( );
 
 	public void updatePageBodyImage(PageBodyImage pageBodyImage);

@@ -49,7 +49,17 @@ public class ImageActionsController extends GeneralFormController {
 				pageBodyImageService.approvePageBodyImage(id);
 			}
 		}
-
+		else if (action != null && action.equals("disapprove")) {
+			String ids = request.getParameter("imageIds","");
+			StringTokenizer tk  = new StringTokenizer(ids,",");
+			while (tk.hasMoreTokens()){
+				String tkn= tk.nextToken();
+				if(tkn.isEmpty())
+					continue;
+				int id = new Integer(tkn).intValue();
+				pageBodyImageService.disapprovePageBodyImage(id);
+			}
+		}
 		Map<String, Object> newModel = new HashMap<String, Object>();
 		newModel.put("id",mainImageId);
 

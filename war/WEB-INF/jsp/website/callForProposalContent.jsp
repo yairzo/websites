@@ -105,10 +105,10 @@
 								</div>
 								<div class="kol_content kol_content_${copLang.dir} kol_content_i">
 									<p>
-										<c:if test="${fn:length(command.strippedFundingPeriod)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.fundingPeriod"/>:</strong>&nbsp;${command.strippedFundingPeriod}<br /></c:if>
-										<c:if test="${fn:length(command.strippedAmountOfGrant)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.amountOfGrant"/>:</strong>&nbsp;${command.strippedAmountOfGrant}<br /></c:if>
-										<c:if test="${fn:length(command.strippedEligibilityRequirements)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.eligibilityRequirements"/>:</strong>&nbsp;${command.strippedEligibilityRequirements}<br /></c:if>
-										<c:if test="${fn:length(command.strippedActivityLocation)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.activityLocation"/>:</strong>&nbsp;${command.strippedActivityLocation}<br /></c:if>
+										<c:if test="${fn:length(command.strippedFundingPeriod)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.fundingPeriod"/>:</strong>&nbsp;${command.strippedFundingPeriod}<c:if test="${!command.fundingPeriod}"><br /></c:if></c:if>
+										<c:if test="${fn:length(command.strippedAmountOfGrant)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.amountOfGrant"/>:</strong>&nbsp;${command.strippedAmountOfGrant}<c:if test="${!command.amountOfGrant}"><br /></c:if></c:if>
+										<c:if test="${fn:length(command.strippedEligibilityRequirements)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.eligibilityRequirements"/>:</strong>&nbsp;${command.strippedEligibilityRequirements}<c:if test="${!command.eligibilityRequirementsBullets}"><br /></c:if></c:if>
+										<c:if test="${fn:length(command.strippedActivityLocation)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.activityLocation"/>:</strong>&nbsp;${command.strippedActivityLocation}<c:if test="${!command.activityLocationBullets}"><br /></c:if></c:if>
 										<c:if test="${fn:length(command.strippedPossibleCollaboration)>0}"><strong><fmt:message key="${copLang.localeId}.callForProposal.possibleCollaboration"/>:</strong>&nbsp;${command.strippedPossibleCollaboration}</c:if>
 									</p>
 								</div>

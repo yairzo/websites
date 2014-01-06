@@ -27,7 +27,14 @@
   									
 									<div class="bx-caption">
 										<h3><fmt:message key="${lang.localeId}.website.pictureSliderTitle"/></h3>
-										<span><c:choose><c:when test="${lang.hebrew}">${image.captionHebrew}</c:when><c:otherwise>${image.captionEnglish}</c:otherwise></c:choose></span>										
+										<span>
+										<c:choose><c:when test="${lang.hebrew}">${image.captionHebrew}</c:when><c:otherwise>${image.captionEnglish}</c:otherwise></c:choose>
+										<br>
+										<c:if test="${fn:length(image.url)>0}">
+										<a href="${image.url}"><fmt:message key="${lang.localeId}.website.researcherWebsite"/></a>
+										</c:if>
+										</span>										
+																				
 									</div>
 								</div>
 								</c:forEach>							
