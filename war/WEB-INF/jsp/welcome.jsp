@@ -257,6 +257,8 @@ $(document).ready(function() {
 								<a style="text-decoration: none" href="/callForProposals.html"> עריכת קולות קוראים</a>
 							</th>
 						</tr>
+						</authz:authorize>
+						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
 								<a style="text-decoration: none" href="/textualPages.html"> עריכת דפי טקסט</a>

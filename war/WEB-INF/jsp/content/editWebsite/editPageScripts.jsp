@@ -418,23 +418,23 @@ $(document).ready(function() {
  	});
 
 	$('#formAttach').change(function(event){
-		var filename = $(this).val();
+		var filename = prompt('<fmt:message key="${lang.localeId}.callForProposal.filenameFormat"/>','');			
 		if (filename.search(filenameRegexp) == -1){
-			filename = prompt('<fmt:message key="${lang.localeId}.callForProposal.filenameFormat"/>','');			
-		}		
-		insertIds();
-		$(".ajaxSubmit").remove();
-  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
-  		if (filename.search(filenameRegexp) != -1){
+			alert('<fmt:message key="${lang.localeId}.callForProposal.filenameFormatError"/>');
+		}
+		else{
+			insertIds();
+			$(".ajaxSubmit").remove();
+  			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
   			$("#form").append("<input type=\"hidden\" name=\"filename\" value=\"" + filename + "\"/>");
-  		}
-		$('form#form').append('<input type=\"hidden\" name=\"addFile\" value=\"yes\"/>');
-		var options = { 
+			$('form#form').append('<input type=\"hidden\" name=\"addFile\" value=\"yes\"/>');
+			var options = { 
 		   		success:    function() { 
 		   		   	window.location.reload(); 
 		    	} 
 			}; 
-		$('#form').ajaxSubmit(options);
+			$('#form').ajaxSubmit(options);
+		}
 	});	
 
 	$('button.online').click(function(){
@@ -727,6 +727,7 @@ $(document).ready(function() {
  		$(".add").click(function(e){
 		    e.preventDefault();//no refresh page 
 		    var addedText= $('#addedText', $(this).closest("tr")).html();
+		    addedText = replaceURLWithHTMLLinks(addedText);
 		    $(".editor", $(this).closest("table")).html($(".editor", $(this).closest("table")).html() + "<br>" +addedText);
 			$('.editorTextarea', $(this).closest("table")).val($(".editor", $(this).closest("table")).html());
 	    	autoSave(); 

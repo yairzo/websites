@@ -110,9 +110,11 @@
       			/active.html=ROLE_WEBSITE_ADMIN
      			/callForProposals.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
      			/editCallForProposal.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
-    			/textualPages.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
-     			/editTextualPage.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
      			/funds.html=ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_EDIT
+    			/textualPages.html=ROLE_WEBSITE_ADMIN
+     			/editTextualPage.html=ROLE_WEBSITE_ADMIN
+     			/categories.html=ROLE_WEBSITE_ADMIN
+     			/editCategory.html=ROLE_WEBSITE_ADMIN
      		</value>
   		</property>
 	</bean>
