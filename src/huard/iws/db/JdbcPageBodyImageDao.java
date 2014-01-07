@@ -23,11 +23,9 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 	public int insertPageBodyImage( PageBodyImage pageBodyImage){
 		pageBodyImage.setTitle("###" + new java.util.Date().getTime() + "###");
 
-		final String pageInsert = "insert image set name = ?, captionHebrew = ?, captionEnglish = ?, image = ?, uploaderPersonId = ?, approved = ?, url=?, urlTitle=?";
+		final String pageInsert = "insert image set name = ?, captionHebrew = '', captionEnglish = '', image = ?, uploaderPersonId = ?, approved = ?, url=?, urlTitle=?";
 		logger.debug(pageInsert);
 		final String name = pageBodyImage.getName();
-		final String captionHebrew = pageBodyImage.getCaptionHebrew();
-		final String captionEnglish = pageBodyImage.getCaptionEnglish();
 		final byte [] image = pageBodyImage.getImage();
 		final int uploaderPersonId = pageBodyImage.getUploaderPersonId();
 		final int approved = pageBodyImage.getApproved();
@@ -40,13 +38,11 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		            PreparedStatement ps =
 		                connection.prepareStatement(pageInsert, new String[] {"id"});
 		            ps.setString(1, name);
-		            ps.setString(2, captionHebrew);
-		            ps.setString(3, captionEnglish);
-		            ps.setBytes(4, image);
-		            ps.setInt(5, uploaderPersonId);
-		            ps.setInt(6, approved);
-		            ps.setString(7, url);
-		            ps.setString(8, title);
+		            ps.setBytes(2, image);
+		            ps.setInt(3, uploaderPersonId);
+		            ps.setInt(4, approved);
+		            ps.setString(5, url);
+		            ps.setString(6, title);
 		            return ps;
 		        }
 		    },

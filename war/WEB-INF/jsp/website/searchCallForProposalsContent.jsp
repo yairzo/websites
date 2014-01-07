@@ -76,7 +76,14 @@
  	  							</c:when>
   	  							<c:otherwise>
   									<span class="clearfix">
-  										<fmt:message key="${lang.localeId}.website.noCallForProposals"/>
+  										<c:choose>
+    									<c:when test="${customView}">
+  											<fmt:message key="${lang.localeId}.website.noCallForProposalsCustomView"/>
+    									</c:when>
+    									<c:otherwise>
+  											<fmt:message key="${lang.localeId}.website.noCallForProposals"/>
+  										</c:otherwise>
+  										</c:choose>
   									</span> 
   								</c:otherwise>
 	  							</c:choose> 	

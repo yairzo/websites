@@ -6,6 +6,7 @@ import huard.iws.model.CallForProposal;
 import huard.iws.model.DayInCalendar;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.ListView;
+import huard.iws.util.SQLUtils;
 
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
@@ -110,11 +111,11 @@ public class CallForProposalServiceImpl implements CallForProposalService {
 	public int copyCallForProposal(CallForProposal callForProposal) {
 		CallForProposal newCallForProposal = callForProposal;
 		newCallForProposal.setTitle(newCallForProposal.getTitle() + " - copy");
-		newCallForProposal.setUrlTitle(newCallForProposal.getUrlTitle()
-				+ " - copy");
-		int newCallForProposalId = this
-				.insertCallForProposal(newCallForProposal);
+		newCallForProposal.setUrlTitle(newCallForProposal.getUrlTitle()	+ " - copy");
+		newCallForProposal.setPublicationTime(System.currentTimeMillis());
+		int newCallForProposalId = this.insertCallForProposal(newCallForProposal);
 		newCallForProposal.setId(newCallForProposalId);
+		
 		callForProposalDao.updateCallForProposal(newCallForProposal);
 		return newCallForProposalId;
 	}

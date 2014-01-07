@@ -41,6 +41,9 @@ hr {
 img {
     vertical-align: middle;
 }
+.kol img{
+	vertical-align: text-top;
+}
 .login_help_img{
 	vertical-align: text-top;
 }
