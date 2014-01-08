@@ -70,7 +70,7 @@ public class TextUtils {
 		return html;
 	}
 	public static String cleanBrFromEditor(String html){
-		html=html.replaceAll("^<br>$","");//if only break in field
+		html=html.trim().replaceAll("^<br[\\s]{0,1}[/]{0,1}>$","");//if only break in field
 		return html;
 	}
 

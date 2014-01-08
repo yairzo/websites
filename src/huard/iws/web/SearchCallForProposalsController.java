@@ -142,7 +142,6 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 
 		if(request.getSession().getAttribute("newSearch")!=null && request.getSession().getAttribute("newSearch").equals("yes"))
 			model.put("newSearch", true);
-		request.getSession().setAttribute("newSearch", "");
 		
 		boolean authorized= true;	
 		if(!userPersonBean.isAnyAuthorized("ROLE_WEBSITE_READ","ROLE_WEBSITE_EDIT","ROLE_WEBSITE_ADMIN","ROLE_WEBSITE_HUJI"))
@@ -210,11 +209,16 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 			//We check the request since if it's a single day query the search word was deleted from the search creteria 
 			boolean searchedSingleDay = request.getParameter("searchWords","").matches(searchWordDateFormat);
 			boolean customView = request.getParameter("v","").equals("custom");
-			if (searchCreteria == null || searchedSingleDay || customView) 
-				searchCreteria = new CallForProposalSearchCreteria();
-
-			if (request.getSession().getAttribute("newSearch")==null || request.getSession().getAttribute("newSearch").equals("") || request.getSession().getAttribute("newSearch").equals("yes"))//on first entry
+			if (searchCreteria == null){
 				request.getSession().setAttribute("newSearch", "yes");
+				searchCreteria = new CallForProposalSearchCreteria();
+			}
+			if(searchedSingleDay || customView) 
+				searchCreteria = new CallForProposalSearchCreteria();
+				
+
+			//if (request.getSession().getAttribute("newSearch")==null || request.getSession().getAttribute("newSearch").equals("") || request.getSession().getAttribute("newSearch").equals("yes"))//on first entry
+				
 			
 			if(!request.getParameter("searchWords", "").isEmpty()){
 				long dateTime = DateUtils.parseDate(request.getParameter("searchWords", ""),"yyyy-MM-dd");

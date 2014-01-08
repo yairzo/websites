@@ -209,7 +209,6 @@
 								</div>
 							</div>
 							</c:if>
-							
 							<c:if test="${fn:length(command.additionalInformation)>0}">
 							<div class="kol kol_${copLang.dir}">
 								<div class="clearfix">									

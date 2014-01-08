@@ -689,7 +689,6 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			query += " order by localeId, allYearIndicator desc, finalSubmissionTime desc";
 		
 		logger.debug(query);
-		System.out.println("11111111111111111:"+query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
 	}
