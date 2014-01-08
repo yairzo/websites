@@ -36,6 +36,10 @@
         <to last="true">/callForProposal.html?urlTitle=$1&amp;p=1</to>
     </rule>
     <rule>
+        <from>^/call_for_proposal/redirect/([0-9])</from>
+        <to last="true">/callForProposal.html?ardNum=$1</to>
+    </rule>
+    <rule>
         <from>^/call_for_proposal/([^\s]+)</from>
         <to last="true">/callForProposal.html?urlTitle=$1</to>
     </rule>

@@ -1346,7 +1346,7 @@ color:#666666;
 line-height:18px;
 }
 .message_content ul li{
-	background:url(/image/website/dot.gif) no-repeat left 6px;
+	background:url(/image/website/dot.gif) no-repeat right 6px;
 	list-style:none;
 	margin:0 7px 0 0;
 	padding:0 15px 5px 0;
@@ -2112,7 +2112,7 @@ width:93px;
 height:51px;
 background:url(/image/website/careful_eng.png) no-repeat top;
 font-size:21px;
-font-family:"almoni-tzar";
+font-family:"open_sans_condensedbold";
 font-weight:normal;
 color:#ffffff;
 line-height:42px;
