@@ -675,15 +675,21 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 
 	
 	public List<CallForProposal> getCallForProposalsOnlineSimple(String ids ,String viewType){
-		String query  = "select distinct callForProposal.* from callForProposal where isDeleted=0";
+		String query  = "select distinct callForProposal.*, "
+				+ " if (callForProposal.finalSubmissionTime = 0,0,1)"
+				+ " as allYearIndicator from callForProposal where isDeleted=0";
 		if(viewType.equals("new_cfps"))//when coming from 'latest calls..'
 			query += "	and (publicationTime >= DATE_SUB(now(),INTERVAL 2 WEEK) )";
 		else if(!ids.isEmpty())//after search
-			query += " and id in ("+ids + ")";
+			query += " and id in ("+ids + ") and (finalSubmissionTime >= DATE_SUB(now(),INTERVAL 18 MONTH) or finalSubmissionTime = 0)";
 
 		if(viewType.equals("new_cfps"))
 			query += " order by publicationTime desc";
+		else 
+			query += " order by localeId, allYearIndicator desc, finalSubmissionTime desc";
+		
 		logger.debug(query);
+		System.out.println("11111111111111111:"+query);
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
 	}
