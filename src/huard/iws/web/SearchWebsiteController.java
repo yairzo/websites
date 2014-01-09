@@ -56,7 +56,7 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 		if(request.getSession().getAttribute("searchWords")!=null)
 			searchWords = ((String)request.getSession().getAttribute("searchWords")).replace("\"", "&quot;");
 		model.put("searchWords",searchWords);
-		request.getSession().setAttribute("searchWords", "");
+		//request.getSession().setAttribute("searchWords", "");
 		if(searchWords.isEmpty())
 			model.put("isDefault", true);
 
@@ -65,9 +65,9 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 
 		String callForProposalIds =  (String)request.getSession().getAttribute("callForProposalIds");
-		request.getSession().setAttribute("callForProposalIds", null);
+		//request.getSession().setAttribute("callForProposalIds", null);
 		String textualPageIds =  (String)request.getSession().getAttribute("textualPageIds");
-		request.getSession().setAttribute("textualPageIds", null);
+		//request.getSession().setAttribute("textualPageIds", null);
 
 		if(!searchWords.isEmpty() || viewType.equals("new_cfps")){
 			//callForProposals
@@ -115,20 +115,23 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		SearchWebsiteControllerCommand command = new SearchWebsiteControllerCommand();
-		if(request.getSession().getAttribute("callForProposalIds")==null && request.getSession().getAttribute("textualPageIds")==null){
-			Set<Long> sphinxIds=new LinkedHashSet<Long>();
-			Set<Long> sphinxTextualIds=new LinkedHashSet<Long>();
-			if(!request.getParameter("searchWords", "").isEmpty()){
+		String viewType = request.getParameter("v", "");
+		//if(request.getSession().getAttribute("callForProposalIds")==null && request.getSession().getAttribute("textualPageIds")==null){
+		Set<Long> sphinxIds=new LinkedHashSet<Long>();
+		Set<Long> sphinxTextualIds=new LinkedHashSet<Long>();
+		if(viewType.equals("new_cfps"))
+				request.getSession().setAttribute("searchWords","");
+		else if(!request.getParameter("searchWords", "").isEmpty()){
 				sphinxIds.add(new Long(0));//so wont show everything when deos'nt find any ids
 				sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_index"));
 				sphinxTextualIds.add(new Long(0));//so wont show everything when deos'nt find any ids
 				sphinxTextualIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"textual_page_index"));
-			}
-			
-			request.getSession().setAttribute("callForProposalIds", BaseUtils.getStringFromLongSet(sphinxIds));
-			request.getSession().setAttribute("textualPageIds", BaseUtils.getStringFromLongSet(sphinxTextualIds));
-			request.getSession().setAttribute("searchWords", request.getParameter("searchWords", ""));
+				request.getSession().setAttribute("callForProposalIds", BaseUtils.getStringFromLongSet(sphinxIds));
+				request.getSession().setAttribute("textualPageIds", BaseUtils.getStringFromLongSet(sphinxTextualIds));
+				request.getSession().setAttribute("searchWords", request.getParameter("searchWords", ""));
 		}
+			
+		//}
 		return command;
 	}
 
