@@ -17,6 +17,7 @@
 
 <script>
 
+
 	function openSubject(element){
 		$(element).children("img.plus").hide();
 		$(element).children("img.minus").show();
@@ -104,12 +105,12 @@
 	        return false;
 
 		}
-		else if(formExit){//other exits already contain submit 
+		/*else if(formExit){//other exits already contain submit 
 			insertIds();			
 			$('form#form').append('<input type="hidden" name="action" value="save"/>');
 			$('form#form').ajaxSubmit();
 			return false;
-		} 
+		} */
 	};
 	
 
@@ -133,7 +134,7 @@
 		$(".callForProposal").autocomplete ("widget").css("width",'auto');  
 		
 		
-		
+		<c:if test="${!command.verified}">
 		CKEDITOR.disableAutoInline = true;
 		
 		if(CKEDITOR.instances['editable']==null)
@@ -149,14 +150,19 @@
 			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
 	    	$('#form').ajaxSubmit();
    	 	});  
-
+		</c:if>
 
 
 		$("button.addAttachEditor").click(function(event){			
 			var html = $("td.attach").html();
 			$('div#editable').append(' ' + '<span>&nbsp;#@# ' + html + '</span>');			
 		});
-
+		
+		$("button.cancelVerified").click(function(event){	
+			$('form#form').append('<input type="hidden" name="action" value="cancelVerified"/>');
+			$('form#form').submit();
+		});
+		
 		<c:if test="$false && ${command.typeId == 2}">
 			$("textarea#body").html('');
 			$("textarea#body").append('${callForProposalTemplate}');

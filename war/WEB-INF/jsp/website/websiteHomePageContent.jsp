@@ -1,5 +1,6 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
+
 			<div class="rotator">
 				<div class="bx-wrapper pictures_slider_wrapper">
 					<div class="bx-viewport">
@@ -73,7 +74,7 @@
 						<div class="mainbox_news_wrapper">
 							<div class="mainbox_news" style="direction:ltr">
 										<div class="messageslider" style="display:none;">
-	  										<c:forEach items="${textualPages}" var="textualPage" varStatus="textualIndex">
+										<!--[if lte IE 8]><c:forEach items="${textualPagesForIE}" var="textualPage" varStatus="textualIndex">										
 	  											<c:set var="direction" value="rtl"/>
 	  											<c:set var="left" value="10px"/>
 	  											<c:if test="${textualPage.localeId=='en_US'}">
@@ -89,6 +90,24 @@
 	  												<div class="messagePage" id="${textualPage.urlTitle}" style="position:absolute;top:80px;left:${left};text-decoration:underline;"><fmt:message key="${textualPage.localeId}.website.forFullMessage"/></div>
 												</div>
 	 										</c:forEach>
+	 										<![endif]-->
+										<!--[if gt IE 8]><!--><c:forEach items="${textualPages}" var="textualPage" varStatus="textualIndex">										
+	  											<c:set var="direction" value="rtl"/>
+	  											<c:set var="left" value="10px"/>
+	  											<c:if test="${textualPage.localeId=='en_US'}">
+	  												<c:set var="direction" value="ltr"/>
+	  												<c:set var="left" value="315px"/>
+	  											</c:if>
+	  											
+	  											<div style="padding: 0px 5px; height:100px; width:380px; direction:${direction};overflow:hidden;">
+	  												<div style="padding: 0px 5px; height:70px; width:380px; direction:${direction};overflow:hidden;">
+	  													<div><strong>${textualPage.title}</strong></div>
+	  													<div><br>${textualPage.html}></div>
+	  												</div>
+	  												<div class="messagePage" id="${textualPage.urlTitle}" style="position:absolute;top:80px;left:${left};text-decoration:underline;"><fmt:message key="${textualPage.localeId}.website.forFullMessage"/></div>
+												</div>
+	 										</c:forEach>
+	 										<!--<![endif]-->
 										</div>
 									</div>
 						</div>

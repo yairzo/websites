@@ -708,7 +708,7 @@ public class CallForProposalBean {
 	}	
 	public String toPostMessage(){
 		StringBuilder sb = new StringBuilder();
-		sb.append(" <a class=\"big\" href=\"http://" + configurationService.getConfigurationString("website", "webServer") +
+		sb.append(" <a class=\"big\" href=\"https://" + configurationService.getConfigurationString("website", "webServer") +
 				"/call_for_proposal/" + this.urlTitle + "\">" + title + "</a><br/> ");
 		sb.append("<span class=\"medium\">");
 		if (fundId != 0){

@@ -104,10 +104,10 @@
 						<td colspan="2">
 							&nbsp;
 						
-						<form:form id="form" name="form" method="POST" action="post.html?action=cancelVerified" commandName="command" >
+						<form:form id="form" name="form" method="POST" action="post.html" commandName="command" >
 						<form:hidden path="id" />
 						<authz:authorize ifAnyGranted="ROLE_POST_ADMIN">
-							<button class="grey"><fmt:message key="${lang.localeId}.post.cancelVerified"/></button>
+							<button class="cancelVerified grey"><fmt:message key="${lang.localeId}.post.cancelVerified"/></button>
 						</authz:authorize>
 						</form:form>
 							
