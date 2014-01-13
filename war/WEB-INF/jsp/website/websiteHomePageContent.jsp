@@ -8,7 +8,8 @@
   								<img width="960" height="340" src="/image/website/default_home_page_image.jpg"/>
 								<div class="bx-caption">
 									<h3><fmt:message key="${lang.localeId}.website.pictureSliderTitle"/></h3>
-									<span> הרשות למחקר ופיתוח</span>										
+									<span><fmt:message key="${lang.localeId}.website.authority"/><br><br>
+									<fmt:message key="${lang.localeId}.website.pictureSliderStopMessage"/></span>										
 								</div>
 						 </div>
 						  <div class="pictureslider bxslider" style="display: none;">

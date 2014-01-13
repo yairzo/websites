@@ -155,7 +155,7 @@ public class MainPageViewer {
 		String [] pictureIdsArray = null;
 		ApplicationContext context = ApplicationContextProvider.getContext();		
 		PageBodyImageService pageBodyImageService = (PageBodyImageService) context.getBean("pageBodyImageService");
-	    List<PageBodyImage> pageBodyImages =  pageBodyImageService.getApprovedPageBodyImages();
+	    List<PageBodyImage> pageBodyImages =  pageBodyImageService.getApprovedPageBodyImages("");
 		  
 		if (pageBodyImages.size()>0){
 			pictureIdsArray = new String[pageBodyImages.size()];
@@ -179,7 +179,7 @@ public class MainPageViewer {
 		String [] pictureNamesArray = null;
 		ApplicationContext context = ApplicationContextProvider.getContext();
 		PageBodyImageService pageBodyImageService = (PageBodyImageService) context.getBean("pageBodyImageService");
-	    List<PageBodyImage> pageBodyImages =  pageBodyImageService.getApprovedPageBodyImages();
+	    List<PageBodyImage> pageBodyImages =  pageBodyImageService.getApprovedPageBodyImages("");
 		  
 		if (pageBodyImages.size()>0){
 			pictureNamesArray = new String[pageBodyImages.size()];
@@ -205,7 +205,7 @@ public class MainPageViewer {
 		
 		ApplicationContext context = ApplicationContextProvider.getContext();
 		PageBodyImageService pageBodyImageService = (PageBodyImageService) context.getBean("pageBodyImageService");
-	    List<PageBodyImage> pageBodyImages =  pageBodyImageService.getApprovedPageBodyImages();
+	    List<PageBodyImage> pageBodyImages =  pageBodyImageService.getApprovedPageBodyImages("");
 		  
 		if (pageBodyImages.size()>0){
 			pictureNamesArray = new String[pageBodyImages.size()];

@@ -53,7 +53,7 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		model.put("textualPagesForIE", textualPageBeansForIE);
 		
 		//pics
-		List<PageBodyImage> pageBodyImages = pageBodyImageService.getApprovedPageBodyImages();
+		List<PageBodyImage> pageBodyImages = pageBodyImageService.getApprovedPageBodyImages(language.getLocaleId());
 		model.put("images", pageBodyImages);
 		
 		model.put("ilr", "/");

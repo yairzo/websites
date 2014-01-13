@@ -146,6 +146,7 @@
 					controls:false,
 					mode:'fade',
 					auto: true,
+					pause:5000,
 					video:true,
 					pager:true,
 

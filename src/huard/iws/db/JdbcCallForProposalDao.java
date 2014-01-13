@@ -684,7 +684,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			query += " and id in ("+ids + ") and (finalSubmissionTime >= DATE_SUB(now(),INTERVAL 18 MONTH) or finalSubmissionTime = 0)";
 
 		if(viewType.equals("new_cfps"))
-			query += " order by publicationTime desc";
+			query += " order by localeId, publicationTime desc";
 		else 
 			query += " order by localeId, allYearIndicator desc, finalSubmissionTime desc";
 		

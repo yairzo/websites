@@ -24,8 +24,8 @@ public class PageBodyImageServiceImpl implements PageBodyImageService{
 		return pageBodyImageDao.getPageBodyImages( page,personBean);
 	}
 
-	public List<PageBodyImage> getApprovedPageBodyImages(){
-		return pageBodyImageDao.getApprovedPageBodyImages();
+	public List<PageBodyImage> getApprovedPageBodyImages(String localeId){
+		return pageBodyImageDao.getApprovedPageBodyImages(localeId);
 	}
 
 	public void deletePageBodyImage(int id){
