@@ -441,8 +441,6 @@ public class CallForProposalBean {
 	}
 
 	public String getSubmissionDetails() {
-		System.out.println("1111111111 html before clean br:" +submissionDetails);
-		System.out.println("1111111111 html after clean br:" +TextUtils.cleanBrFromEditor(submissionDetails));
 		return TextUtils.cleanBrFromEditor(submissionDetails);
 	}
 

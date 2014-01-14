@@ -45,7 +45,7 @@
 								<div class="kol_remark"><fmt:message key="${lang.localeId}.callForProposal.callForProposalsHebrewRemark"/></div>
 								<c:forEach items="${callForProposals}" var="callForProposal" varStatus="varStatus">
 								<a href="" class="search_content viewProposal ${callForProposal.urlTitle}">
-									<span class="clearfix <c:if test="${callForProposal.localeId=='en_US'}">search_eng</c:if>">${callForProposal.title}</span>
+									<span class="clearfix <c:choose><c:when test="${callForProposal.localeId=='en_US'}">search_eng</c:when><c:otherwise>search_heb</c:otherwise></c:choose>">${callForProposal.title}</span>
 									<span class="clearfix search_icons">
 										<span class="search_financing"><fmt:message key="${lang.localeId}.callForProposal.fund"/> <font dir="ltr"><strong>${callForProposal.fund.name}</strong></font></span>
 										<span class="search_date"><fmt:message key="${lang.localeId}.callForProposal.submissionTime"/> <strong><c:choose><c:when test="${callForProposal.allYearSubmission}"><fmt:message key="${lang.localeId}.callForProposal.allYearSubmission"/></c:when><c:otherwise>${callForProposal.finalSubmissionTimeString}</c:otherwise></c:choose></strong></span>

@@ -92,9 +92,11 @@ public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao
 				category.getId());
 	}
 	public int insertCategory(int parentId){
+		String query = "select max(categoryOrder) from websiteCategory where parentId = ?;";
+		logger.debug(query);
+		final int categoryOrder = getSimpleJdbcTemplate().queryForInt(query,parentId);
 		final String categoryInsert = "insert websiteCategory set parentId = ?, name = ?, categoryOrder = ?,localeId=?;"; 
 		logger.debug(categoryInsert);
-		final int categoryOrder = getCategories(parentId).size() + 1;
 		final int aParentId = parentId;
 		final String locaelId = getCategory(parentId).getLocaleId();
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -105,7 +107,7 @@ public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao
 		                connection.prepareStatement(categoryInsert, new String[] {"id"});
 		            ps.setInt(1, aParentId);
 		            ps.setString(2, "קטגוריה חדשה");
-		            ps.setInt(3, categoryOrder);
+		            ps.setInt(3, categoryOrder+1);
 		            ps.setString(4, locaelId);
 		            return ps;
 		        }
@@ -113,10 +115,13 @@ public class JdbcCategoryDao extends SimpleJdbcDaoSupport implements CategoryDao
 		    keyHolder);
 		return keyHolder.getKey().intValue();
 	}
-	public void deleteCategory(int id){
+	public void deleteCategory(Category category){
+		String query = "update websiteCategory set categoryOrder=categoryOrder-1 where parentId=? and categoryOrder>?";
+		getSimpleJdbcTemplate().update(query,category.getParentId(),category.getCategoryOrder());
+		logger.debug(query);
 		final String categoryDelete = "delete from websiteCategory where id=?";
 		logger.debug(categoryDelete);
-		getSimpleJdbcTemplate().update(categoryDelete,id);
+		getSimpleJdbcTemplate().update(categoryDelete,category.getId());
 
 	}
 

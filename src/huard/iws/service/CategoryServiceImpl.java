@@ -52,8 +52,8 @@ public class CategoryServiceImpl implements CategoryService{
 	public int insertCategory(int parentId){
 		return categoryDao.insertCategory(parentId);
 	}
-	public void deleteCategory(int id){
-		categoryDao.deleteCategory(id);
+	public void deleteCategory(Category category){
+		categoryDao.deleteCategory(category);
 	}
 	public void moveCategoryUp (int categoryId){
 		Category category = getCategory(categoryId);

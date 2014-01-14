@@ -22,7 +22,7 @@ public interface CategoryService {
 
 	public int insertCategory(int parentId);
 
-	public void deleteCategory(int id);
+	public void deleteCategory(Category category);
 
 	public void moveCategoryUp (int categoryId);
 

@@ -20,6 +20,6 @@ public interface CategoryDao {
 
 	public int insertCategory(int parentId);
 
-	public void deleteCategory(int id);
+	public void deleteCategory(Category category);
 
 }

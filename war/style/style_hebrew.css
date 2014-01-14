@@ -1573,6 +1573,7 @@ text-decoration:none;
 }
 
 .search_eng{display:block;direction:ltr;}
+.search_heb{display:block;direction:rtl;}
 
 .search_date,
 .search_financing,

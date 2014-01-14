@@ -27,8 +27,9 @@ public class CategoryListController extends GeneralFormController {
 		if (request.getIntParameter("add", 0) > 0) 
 			categoryService.insertCategory(request.getIntParameter("add", 0));
 
-		if (request.getIntParameter("delete", 0) > 0) 
-			categoryService.deleteCategory(request.getIntParameter("delete", 0));
+		if (request.getIntParameter("delete", 0) > 0) {
+			categoryService.deleteCategory(categoryService.getCategory(request.getIntParameter("delete", 0)));
+		}
 			
 		if (request.getIntParameter("moveUp", 0) > 0) 
 			categoryService.moveCategoryUp(request.getIntParameter("moveUp", 0));
