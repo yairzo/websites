@@ -1108,25 +1108,25 @@ div.maintext_rtl{
 div.maintext_ltr{
 	line-height:24px;
 }
-ul.list_content_rtl, div.maintext_rtl ul, .kol_content_rtl ul{
+ul.list_content_rtl, div.maintext_rtl ul, .kol_content_rtl ul, div.login_rtl ul li{
 	margin:0 18px 15px 0;
 	padding:0;
 	list-style:none;
 }
 
-ul.list_content_ltr, div.maintext_ltr ul, .kol_content_ltr ul{
+ul.list_content_ltr, div.maintext_ltr ul, .kol_content_ltr ul, div.login_ltr ul li{
 	margin:0 18px 15px 0;
 	padding:0;
 	list-style:none;
 }
 
-ul.list_content_rtl li, div.maintext_rtl ul li, .kol_content_rtl ul li{
+ul.list_content_rtl li, div.maintext_rtl ul li, .kol_content_rtl ul li, div.login_rtl ul li{
 	margin: 0 15px 0 0;
 	padding:0 15px 5px 0;
 	background:url(/image/website/dot.gif) no-repeat right 9px;
 }
 
-ul.list_content_ltr li, div.maintext_ltr ul li, .kol_content_ltr ul li{
+ul.list_content_ltr li, div.maintext_ltr ul li, .kol_content_ltr ul li, div.login_ltr ul li{
 	margin: 0 0 0 15px;
 	padding:0 0 5px 15px;
 	background:url(/image/website/dot.gif) no-repeat left 9px;

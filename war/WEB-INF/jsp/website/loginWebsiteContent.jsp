@@ -1,17 +1,17 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
  			<div class="container clearfix">
-				<div class="breadcrumbs clearfix" style="direction: ${pageLang.dir}; text-align: ${pageLang.align}">
+				<div class="breadcrumbs clearfix" style="direction: ${lang.dir}; text-align: ${lang.align}">
 					&nbsp;
 				</div>
 				<jsp:include page="sideLinks.jsp"/>
-				<div class="content" style="text-align: ${pageLang.align}; direction: ${pageLang.dir};">
-					<h1 class="maintitle" style="text-align: ${pageLang.align}">${command.title}</h1>
-					<div class="maintext_${pageLang.dir} clearfix mar_20">
+				<div class="content" style="text-align: ${lang.align}; direction: ${lang.dir};">
+					<h1 class="maintitle" style="text-align: ${lang.align}">${title}</h1>
+					<div class="maintext_${lang.dir} clearfix mar_20">
        						<form method="POST" action="j_acegi_security_check">
        							<input type="hidden" name="ilr" value="${ilr}"/>
 								<input type="hidden" name="mts" value="post"/>
-									<div>
+									<div class="login_${lang.dir}">
 									${generalLoginInstructions}
 									</div>
 									<div>
@@ -25,7 +25,7 @@
 										&nbsp;
 									</div>
 									</c:if>
-									<div class="clearfix" style="width: 350px; margin-${lang.align}: 70px;">
+									<div class="clearfix" style="width: 350px; margin-${lang.align}: 70px;border: 2px solid #ececec; padding: 12px">
 										<div class="login_box_col">
 											<label class="login_label"><fmt:message key="${lang.localeId}.general.login.username"/></label>
 											<input type="text" htmlEscape="true" placeholder="<fmt:message key="${lang.localeId}.website.loginPlaceholder"/>" id="j_username" name="j_username" class="login_input">

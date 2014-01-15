@@ -42,6 +42,12 @@ public class EditPersonPostSubscriptionController extends GeneralFormController 
 			PersonBean existingPersonBean = new PersonBean(personService.getPerson(personBean.getId()));
 			applyPostDetails (existingPersonBean, personBean);
 			personService.updatePerson(existingPersonBean.toPerson());
+			//except for admin editing other user, update session user to have the new subjects and not need to logout
+			if(existingPersonBean.getId()==userPersonBean.getId()){
+				PersonBean userPersonSession = (PersonBean)request.getSession().getAttribute("userPerson");
+				userPersonSession.setSubjectsIds(existingPersonBean.getSubjectsIds());
+				request.getSession().setAttribute("userPerson",userPersonSession);
+			}
 			newModel.put("id", existingPersonBean.getId());
 		}
 		return new ModelAndView( new RedirectView(redirectTarget), newModel);
