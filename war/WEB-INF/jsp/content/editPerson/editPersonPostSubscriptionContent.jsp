@@ -68,8 +68,8 @@
    		 });
 
    		 $('.done').click(function(){
-			closeAll();
-			if (isAnySubjectChecked() && isAnySendTimeChecked()){
+   			closeAll();
+			if ((isAnySubjectChecked() && isAnySendTimeChecked()) || !$(".receivePosts").prop('checked')){
 				$.alerts.confirm('<fmt:message key="${lang.localeId}.post.subscriptionDone"/>',
    		 			'<fmt:message key="${lang.localeId}.eqfSystem.editProposal.confirm.title"/>',
     				function(confirm){
@@ -84,7 +84,7 @@
 	   			});
 	    	}
 	    	else{
-	    		if (!isAnySubjectChecked()){
+	    		if ($(".receivePosts").prop('checked') && isAnySubjectChecked()){
 	    			$.alerts.confirm('<fmt:message key="${lang.localeId}.post.subscriptionCancelNoSubject"/>',
    		 				'<fmt:message key="${lang.localeId}.eqfSystem.editProposal.confirm.title"/>',
     					function(confirm1){
@@ -96,7 +96,7 @@
 	   					}
 	   				);
 	   			}
-	   			if (!isAnySendTimeChecked()){
+	   			if ($(".receivePosts").prop('checked') && !isAnySendTimeChecked()){
 	    			$.alerts.confirm('<fmt:message key="${lang.localeId}.post.subscriptionCancelNoSendTime"/>',
    		 				'<fmt:message key="${lang.localeId}.eqfSystem.editProposal.confirm.title"/>',
     					function(confirm2){
