@@ -1,14 +1,14 @@
 package huard.iws.servlet;
 
 import huard.iws.bean.PersonBean;
-import huard.iws.model.CallForProposalOld;
+import huard.iws.model.CallForProposal;
 import huard.iws.model.Country;
 import huard.iws.model.Fund;
 import huard.iws.model.Institute;
 import huard.iws.model.OrganizationUnit;
 import huard.iws.model.Person;
 import huard.iws.model.Post;
-import huard.iws.service.CallForProposalServiceOld;
+import huard.iws.service.CallForProposalService;
 import huard.iws.service.FundService;
 import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.InstituteListService;
@@ -22,6 +22,7 @@ import huard.iws.service.CountryService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.ListView;
 import huard.iws.util.UserPersonUtils;
+import huard.iws.util.CallForProposalSearchCreteria;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,7 +47,7 @@ public class SelectBoxFiller extends HttpServlet {
 	private FundService fundService;
 	private PersonListService personListService;
 	private OrganizationUnitService organizationUnitService;
-	private CallForProposalServiceOld callForProposalServiceOld;
+	private CallForProposalService callForProposalService;
 	private PostService postService;
 	private CountryService countryService;
 	private HujiAuthorizationService hujiAuthorizationService;
@@ -69,8 +70,8 @@ public class SelectBoxFiller extends HttpServlet {
 		fundService = (FundService)obj;
 		obj  = context.getBean("organizationUnitService");
 		organizationUnitService = (OrganizationUnitService)obj;
-		obj  = context.getBean("callForProposalServiceOld");
-		callForProposalServiceOld = (CallForProposalServiceOld)obj;
+		obj  = context.getBean("callForProposalService");
+		callForProposalService = (CallForProposalService)obj;
 		obj  = context.getBean("postService");
 		postService = (PostService)obj;
 		obj  = context.getBean("countryService");
@@ -299,8 +300,9 @@ public class SelectBoxFiller extends HttpServlet {
 			if (localeId == null)
 				return;
 			StringBuilder sb = new StringBuilder();
-			List<CallForProposalOld> callForProposals = callForProposalServiceOld.getCallForProposals(localeId);
-			for (CallForProposalOld callForProposal: callForProposals){
+			CallForProposalSearchCreteria searchCreteria= new CallForProposalSearchCreteria();
+			List<CallForProposal> callForProposals = callForProposalService.getCallForProposalsOnline(searchCreteria);
+			for (CallForProposal callForProposal: callForProposals){
 				sb.append(callForProposal.getTitle() + " - " + callForProposal.getId() + ",,");
 			}
 			sb.delete(sb.length()-2, sb.length());

@@ -337,8 +337,10 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		whereClause += " where true";
 		if(searchCreteria.getSearchByCreator()>0)
 			whereClause +=" and creatorId="+searchCreteria.getSearchByCreator();
-		if(searchCreteria.getSearchDeleted())
+		if(searchCreteria.getSearchDeleted())//not include deleted
 			whereClause +=" and isDeleted=1";
+		else
+			whereClause +=" and isDeleted=0";
 		if(searchCreteria.getSearchList())
 			whereClause +=" and wrapExternalPage=1";
 		if(!searchCreteria.getSearchBySearchWords().isEmpty())

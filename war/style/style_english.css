@@ -1863,7 +1863,7 @@ direction:ltr;
 .popup_english ul li{
 	background:url(/image/website/dot.gif) no-repeat left 7px;
 	list-style:none;
-	margin:0 0 0 0 15px;
+	margin:0 0 0 15px;
 	padding:0 0 5px 15px;
 }
 .popup_hebrew ul li{
@@ -2105,7 +2105,7 @@ width:93px;
 height:51px;
 background:url(/image/website/careful.png) no-repeat top;
 font-size:21px;
-font-family:"open_sans_condensedbold";
+font-family:"almoni-tzar";
 color:#ffffff;
 line-height:42px;
 }

@@ -1,11 +1,10 @@
 package huard.iws.servlet;
 
-import huard.iws.bean.CallForProposalBeanOld;
+import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.model.CallForProposalOld;
+import huard.iws.model.CallForProposal;
 import huard.iws.model.Fund;
 import huard.iws.service.CallForProposalService;
-import huard.iws.service.CallForProposalServiceOld;
 import huard.iws.service.FundService;
 import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.PersonService;
@@ -29,7 +28,7 @@ public class ObjectQuery extends HttpServlet{
 	private ApplicationContext context = ApplicationContextProvider.getContext();
 	private PersonService personService;
 	private HujiAuthorizationService hujiAuthorizationService;
-	private CallForProposalServiceOld callForProposalServiceOld;
+	//private CallForProposalServiceOld callForProposalServiceOld;
 	private FundService fundService;
 	private TextualPageService textualPageService;
 	private CallForProposalService callForProposalService;
@@ -63,14 +62,14 @@ public class ObjectQuery extends HttpServlet{
 		if (type.equals("callForProposal")){
 			if (! userPersonBean.isAuthorized("POST", "ADMIN") && ! userPersonBean.isAuthorized("POST", "CREATOR"))
 				return ;
-			Object obj = context.getBean("callForProposalServiceOld");
-			callForProposalServiceOld = (CallForProposalServiceOld)obj;
-			CallForProposalOld callForProposal = callForProposalServiceOld.getCallForProposal(id);
+			Object obj = context.getBean("callForProposalService");
+			callForProposalService = (CallForProposalService)obj;
+			CallForProposal callForProposal = callForProposalService.getCallForProposal(id);
 			//if no such callForProposal - user entered wrong number
 			if (callForProposal.getId()==0)
 				return;
 			
-			CallForProposalBeanOld callForProposalBean = new CallForProposalBeanOld(callForProposal, true);
+			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal, true);
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -82,14 +81,14 @@ public class ObjectQuery extends HttpServlet{
 		if (type.equals("callForProposalTitle")){
 			if (! userPersonBean.isAuthorized("POST", "ADMIN") && ! userPersonBean.isAuthorized("POST", "CREATOR"))
 				return ;
-			Object obj = context.getBean("callForProposalServiceOld");
-			callForProposalServiceOld = (CallForProposalServiceOld)obj;
-			CallForProposalOld callForProposal = callForProposalServiceOld.getCallForProposal(id);
+			Object obj = context.getBean("callForProposalService");
+			callForProposalService = (CallForProposalService)obj;
+			CallForProposal callForProposal = callForProposalService.getCallForProposal(id);
 			//if no such callForProposal - user entered wrong number
 			if (callForProposal.getId()==0)
 				return;
 			
-			CallForProposalBeanOld callForProposalBean = new CallForProposalBeanOld(callForProposal, true);
+			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal, true);
 
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html");

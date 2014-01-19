@@ -85,7 +85,7 @@ public class EditTextualPageController extends GeneralFormController {
 			else
 				textualPageService.insertTextualPageOnline(textualPageBean.toTextualPage());
 		}
-		if (request.getBooleanParameter("offline", false)){
+		if (request.getBooleanParameter("offline", false) || request.getParameter("action", "").equals("delete")){
 			if(textualPageService.existsTextualPageOnline(textualPageBean.getId()))
 				textualPageService.removeTextualPageOnline(textualPageBean.getId());
 		}
@@ -108,6 +108,10 @@ public class EditTextualPageController extends GeneralFormController {
 		if(!action.isEmpty() && action.equals("showTemplate")){
 			request.getSession().setAttribute("showTemplate",true);
 			request.getSession().setAttribute("templateId", request.getParameter("templateId",""));
+		}
+		
+		if(request.getParameter("action", "").equals("delete")){
+			return new ModelAndView(new RedirectView("textualPages.html"));
 		}
 		
 		if (request.getBooleanParameter("ajaxSubmit", false))

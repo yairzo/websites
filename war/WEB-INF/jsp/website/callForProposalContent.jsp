@@ -38,11 +38,11 @@
 											<br/>
 										</c:if>
 										<strong><fmt:message key="${copLang.localeId}.callForProposal.fund"/>:</strong>&nbsp;${command.fund.name}<br/>
-     									<a href="#" onclick="window.open('${command.originalCallWebAddress}')"><img src="/image/website/original_call.png" height="13px" alt=""/></a>
-     									<a href="#" onclick="window.open('${command.originalCallWebAddress}')"><fmt:message key="${copLang.localeId}.website.originalCallWebAddress"/></a> 
+     									<a href="${command.originalCallWebAddress}" target="_blank"><img src="/image/website/original_call.png" height="13px" alt=""/></a>
+     									<a href="${command.originalCallWebAddress}" target="_blank"><fmt:message key="${copLang.localeId}.website.originalCallWebAddress"/></a> 
      									|
-     									<a href="#" onclick="window.open('${command.fund.webAddress}')"><img src="/image/website/menu_icon_home.png" alt=""/></a>
-     									<a href="#" onclick="window.open('${command.fund.webAddress}')"><fmt:message key="${copLang.localeId}.website.fundWebAddress"/></a>
+     									<a href="${command.fund.webAddress}" target="_blank"><img src="/image/website/menu_icon_home.png" alt=""/></a>
+     									<a href="${command.fund.webAddress}" target="_blank"><fmt:message key="${copLang.localeId}.website.fundWebAddress"/></a>
      									<br>
 										</p>
 								</div>
