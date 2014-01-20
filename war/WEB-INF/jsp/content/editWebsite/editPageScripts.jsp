@@ -775,15 +775,15 @@ $(document).ready(function() {
 
 
 function replaceURLWithHTMLLinks(text) {
-    var exp = /<a href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\".*>(?!<img)(.*)<\/a>/i;
+    var exp = /<a(.*)href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\".*>(?!<img)(.*)<\/a>/i;
     var match = exp.exec(text);
     while (match != null) {
-        var icon=getIcon(match[2]);
+        var icon=getIcon(match[3]);
         var img= "<img src='image/"+ icon+"' weight='15px' height='15px'/>";
-        text=text.replace(exp,"<a href='$1'>"+ img +"$3</a>"); 
+        text=text.replace(exp,"<a href='$2'>"+ img +"$4</a>"); 
         match = exp.exec(text)
     }
-    //add list class for design
+    //add list class for design 
     //text=text.replace("<ul>","<ul class=\"list_content\">");
     return text;
 }
