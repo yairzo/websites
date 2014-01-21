@@ -19,10 +19,10 @@
   								<div>
   								<c:choose>
 						  			<c:when test="${(lang.rtl && imgIndex.index == fn:length(images)-1) || (lang.ltr && imgIndex.index == 0)}">
-						  				<img width="960" height="340" src="/imageViewer?imageId=${image.id}&attachType=bodyImage" />			
+						  				<img width="960" height="340" src="/homePageImage/${image.title}"/>			
 						  			</c:when>
 						  			<c:otherwise>
-						  				<img class="lazy" width="960" height="340" src="/image/website/default_home_page_image.jpg" data-src="/imageViewer?imageId=${image.id}&attachType=bodyImage" />
+						  				<img class="lazy" width="960" height="340" src="/image/website/default_home_page_image.jpg" data-src="/homePageImage/${image.title}" />
 						  			</c:otherwise>
 						  		</c:choose>
   								

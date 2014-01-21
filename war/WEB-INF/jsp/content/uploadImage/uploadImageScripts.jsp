@@ -56,6 +56,15 @@ $(document).ready(function() {
 		var userMessage = "${userMessage}";
 		$.alerts.alert(userMessage);
 	</c:if>
+	
+	var imgNameRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z][a-zA-Z0-9-]+\.[a-z]{2,4}$/;
+	$('.title').change(function(event){
+		var imgname = $('.title').val();			
+		if (imgname.search(imgNameRegexp) == -1){
+			alert('שם התמונה לא בפורמט: Word1_Word2_Word3.jpg');
+		}
+	});	
+
 });
 
 

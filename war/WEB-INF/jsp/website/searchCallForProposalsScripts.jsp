@@ -262,13 +262,11 @@ $(document).ready(function() {
 	
 	$(".selectSubSubject").click(function(e){
 		if($(this).attr('check-value') == "false"){
-			console.log($(this).attr("check-value"));
 			$(this).attr('check-value', "true");
 			$(this).removeClass("none");
 			$(this).addClass("active");
 		}
 		else{
-			console.log("2" + $(this).attr("check-value"));
 			$(this).attr("check-value","false");
 			$(this).removeClass("active");
 			$(this).addClass("none");
@@ -473,7 +471,6 @@ $(window).load(function(){
 		num_sub_subjects = $(this).parent().find(".checkbox_box_sub").length;
 		num_checked_sub_subjects = $(this).parent().find(".active").length;
 		
-		console.log(num_sub_subjects + " " + num_checked_sub_subjects);
 		if (num_checked_sub_subjects == 0){			
 			$(this).removeClass("active");
 			$(this).removeClass("semi");

@@ -1102,12 +1102,12 @@ div.maintext_rtl{
 div.maintext_ltr{
 	line-height:24px;
 }
-ul.list_content_rtl, div.maintext_rtl ul, div.login_rtl ul li{
+ul.list_content_rtl, div.maintext_rtl ul, .kol_content_rtl ul, div.login_rtl ul li{
 	margin:0 18px 15px 0;
 	padding:0;
 	list-style:none;
 }
-ul.list_content_ltr, div.maintext_ltr ul, div.login_ltr ul li{
+ul.list_content_ltr, div.maintext_ltr ul, .kol_content_ltr ul, div.login_ltr ul li{
 	margin:0 0 15px 18px;
 	padding:0;
 	list-style:none;
@@ -1867,7 +1867,7 @@ direction:ltr;
 	padding:0 0 5px 15px;
 }
 .popup_hebrew ul li{
-	background:url(/image/website/dot.gif) no-repeat left 7px;
+	background:url(/image/website/dot.gif) no-repeat right 7px;
 	list-style:none;
 	margin:0 7px 0 0;
 	padding:0 15px 5px 0;

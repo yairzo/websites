@@ -32,6 +32,10 @@
         <to last="true">/fileViewer?callForProposalFilename=$1.$2&amp;contentType=$2&amp;attachmentId=1</to>
     </rule>
     <rule>
+        <from>^/homePageImage/([^\s]+)</from>
+        <to last="true">/imageViewer?urlTitle=$1&amp;attachType=bodyImage</to>
+    </rule>
+    <rule>
         <from>^/call_for_proposal/([0-9]+)/popup</from>
         <to last="true">/callForProposal.html?id=$1&amp;p=1</to>
     </rule>

@@ -39,7 +39,7 @@
 						כותרת לקישור:
 					</td>
 					<td width="300">
-					 	<form:input cssClass="green" path="title" size="46"/>
+					 	<form:input cssClass="green title" path="title" size="46"/>
 					</td>
  				</tr>
  				<tr>
