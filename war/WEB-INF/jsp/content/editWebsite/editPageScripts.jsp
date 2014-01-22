@@ -783,7 +783,7 @@ function replaceURLWithHTMLLinks(text) {
     var match = exp.exec(text);
     while (match != null) {
         var icon=getIcon(match[3]);
-        var img= "<img src='image/"+ icon+"' weight='15px' height='15px'/>";
+        var img= "<img src='/image/"+ icon+"' weight='15px' height='15px'/>";
         text=text.replace(exp,"<a href='$2'>"+ img +"$4</a>"); 
         match = exp.exec(text)
     }

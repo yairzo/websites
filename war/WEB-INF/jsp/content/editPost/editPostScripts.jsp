@@ -196,8 +196,8 @@
     			var email = $("#sender" + senderId).val();
     			var name = $('.sender').find(":selected").text();
     			data= data.replace("#mu# #mp##mue#","<a class=\"underline\" href=\"mailto:" + email + "\">"+name+"</a>")
-    			$("div#editable").html('<p dir="${lang.dir}"> ' + data + ' </p>');	
-    			$("textarea#message").html('<p dir="${lang.dir}"> ' + data + ' </p>');	
+    			$("div#editable").html(data);	
+    			$("textarea#message").html(data);	
     		});
       		$.get("objectQuery?type=callForProposalTitle&id="+id, function(data){
     			$("input.messageSubject").val(data);

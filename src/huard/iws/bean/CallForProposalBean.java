@@ -743,7 +743,8 @@ public class CallForProposalBean {
 		String str=sb.toString();
 		str=str.replace("<p>","");
 		str=str.replace("</p>","");
-		str="<p dir=\"rtl\">" + str + "</p>";
+		String dir=localeId.equals("en_US")?"ltr":"rtl";
+		str="<p dir=\""+dir+"\">" + str + "</p>";
 		return str;
 	}
 

@@ -168,7 +168,7 @@ clear:both;
 width:100%;
 border-top:solid 2px #ffffff;
 background:url(/image/website/menu_bg.png) repeat-x center top;
-/*z-index:2;*/ /* for datepicker on top of logo and nav menu on top of slider*/
+z-index:2; 
 position:relative;
 }
 
@@ -1079,7 +1079,7 @@ line-height:22px;
 .content p{margin:0 0 15px 0;}
 
 .content a{color:#00a6ca;}
-.content a:hover{text-decoration:underline;}
+.content a:hover{text-decoration:none;}
 
 .content .selected{background:#b2eaf6;color:#333333;text-decoration:none;}
 
@@ -1253,7 +1253,7 @@ float:left;
 padding:10px;
 width:337px;
 height:16px;
-font-family:arial;
+font-family:Arial;
 font-size:15px;
 color:#333333;
 background:#f8f8f8;
@@ -1821,7 +1821,7 @@ color:#999999 !important;
 width:322px;
 height:51px;
 font-size:18px;
-font-family:'open_sans_condensedbold' 'almoni-tzar';
+font-family:'open_sans_condensedbold','almoni-tzar';
 color:#ffffff;
 line-height:42px;
 }
@@ -1877,7 +1877,7 @@ direction:ltr;
 width:492px;
 height:51px;
 font-size:21px;
-font-family:'open_sans_condensedbold' 'almoni-tzar';
+font-family:'open_sans_condensedbold','almoni-tzar';
 color:#ffffff;
 line-height:42px;
 }
@@ -1961,7 +1961,7 @@ margin:20px auto 0 auto;
 width:150px;
 background:#04bde5;
 font-size:21px;
-font-family:'open_sans_condensedbold' 'almoni-tzar';
+font-family:'open_sans_condensedbold', 'almoni-tzar';
 color:#ffffff;
 text-align:center;
 text-decoration:none;

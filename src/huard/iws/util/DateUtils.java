@@ -137,7 +137,7 @@ public class DateUtils {
 		dfs.setMonths(getMonthsNames(localeId));
 		String format = "d בMMMM, yyyy";
 		if (localeId.equals("en_US"))
-			format = "MMMM, d yyyy";
+			format = "MMMM d, yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(format, dfs);
 		Date sendTime = new Date(timeMillis);
 		return sdf.format(sendTime);

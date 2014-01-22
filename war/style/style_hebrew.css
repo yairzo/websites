@@ -163,7 +163,7 @@ clear:both;
 width:100%;
 border-top:solid 2px #ffffff;
 background:url(/image/website/menu_bg.png) repeat-x center top;
-/*z-index:2;*/ /* for datepicker on top of logo and nav menu on top of slider*/
+z-index:2;
 position:relative;
 }
 
@@ -1839,7 +1839,7 @@ color:#999999 !important;
 width:322px;
 height:51px;
 font-size:18px;
-font-family:'open_sans_condensedbold' 'almoni-tzar';
+font-family:'open_sans_condensedbold','almoni-tzar';
 color:#ffffff;
 line-height:42px;
 }
@@ -1896,7 +1896,7 @@ direction:ltr;
 width:492px;
 height:51px;
 font-size:21px;
-font-family: 'open_sans_condensedbold' 'almoni-tzar';
+font-family: 'open_sans_condensedbold','almoni-tzar';
 font-weight:normal;
 color:#ffffff;
 line-height:42px;
@@ -2129,6 +2129,7 @@ height:51px;
 background:url(/image/website/careful.png) no-repeat top;
 font-size:21px;
 font-family:"almoni-tzar";
+font-weight:normal;
 color:#ffffff;
 line-height:42px;
 }
@@ -2142,6 +2143,7 @@ height:51px;
 background:url(/image/website/careful_eng.png) no-repeat top;
 font-size:21px;
 font-family:"open_sans_condensedbold";
+font-weight:normal;
 color:#ffffff;
 line-height:42px;
 }
