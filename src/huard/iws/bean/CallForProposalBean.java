@@ -711,7 +711,7 @@ public class CallForProposalBean {
 		sb.append("<span class=\"medium\">");
 		if (fundId != 0){
 		    Fund fund= fundService.getFundByFinancialId(fundId);
-			sb.append(" <a class=\"bold\" href=\"http://" + fund.getWebAddress() + "\">" + fund.getName() + ", " + fund.getShortName() + "</a>;;");
+			sb.append(" <a class=\"bold\" href=\"" + fund.getWebAddress() + "\">" + fund.getName() + ", " + fund.getShortName() + "</a>;;");
 		}
 		else
 			sb.append("# Funding agency #");
