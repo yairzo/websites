@@ -71,7 +71,7 @@ public class TextUtils {
 	}
 	public static String cleanBrFromEditor(String html){
 		html=html.trim();
-		html=html.replaceAll("[^\\x00-\\x7F]", "");
+		//html=html.replaceAll("[^\\x00-\\x7F]", "");
 		html=html.replaceAll("^<br>$","");//replace if only break in field
 		return html;
 	}
