@@ -16,6 +16,8 @@ var countryArr= new Array();
 var urlTitleRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z0-9][a-zA-Z0-9-]+$/;
 var filenameRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z][a-zA-Z0-9-]+\.[a-z]{2,4}$/;
 
+var editingFlag=false;
+
 function resetAutocomplete(){
 	$("#searchPhrase").autocomplete( 
 			{ source: 'selectBoxFiller?type=fundsWithId',
@@ -199,28 +201,6 @@ $(document).ready(function() {
 	});	
 
 
-
-	/*$(".datetime").datetimepicker({dateFormat: 'dd/mm/yy',
-		timeFormat:'hh:mm',
-		onSelect: function(){
-			var text='<fmt:message key="${lang.localeId}.callForProposal.datePassed"/>';
-			var str = $(this).val();
-   			var dt1  = str.substring(0,2); 
-   			var mon1 = str.substring(3,5); 
-   			var yr1  = str.substring(6,10);  
-   			temp1 = mon1 +"/"+ dt1 +"/"+ yr1;
-   			var cfd = Date.parse(temp1);
-   			var date1 = new Date(cfd);
-   			var date2 = new Date();
-   			if(date2.setHours(0,0,0,0)>date1.setHours(0,0,0,0)){
-  				$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
-				$("#genericDialog").dialog({ modal: false });
-				$("#genericDialog").dialog({ height: 200 });
-				$("#genericDialog").dialog({ width: 400 });
-  				openHelp("",text);
-   			}
-		}
-	});*/
 	
 	$(".time").timepicker({timeFormat:'hh:mm'});	
 	
@@ -300,10 +280,21 @@ $(document).ready(function() {
   });
 
 	$('button.save').click(function(){
-		insertIds();
-  		$(".ajaxSubmit").remove();
-  		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
-		$('form#form').submit();
+		var counter=0;
+		while(counter<3){
+			if(!editingFlag){
+				insertIds();
+  				$(".ajaxSubmit").remove();
+  				$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+  				$('form#form').submit();
+  				counter=3;
+			}
+			else{ //not finished blur from editor
+			   	//alert("waiting");
+				setTimeout(function(){/*nothing;*/ }, 1000);
+				counter ++;
+			}
+		}
 	});
 	
 	$('button.delete').click(function(e){
@@ -452,12 +443,21 @@ $(document).ready(function() {
 			return false;
 		}
 		else{
-			insertIds();
-    		$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
-    		$(".ajaxSubmit").remove();
-    		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
-    		$('#form').submit();
-    	   	return false;
+			var counter=0;
+			while(counter<3){
+				if(!editingFlag){
+					insertIds();
+    				$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+    				$(".ajaxSubmit").remove();
+    				$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+    				$('#form').submit();
+     				counter=3;
+ 				}
+				else{ //not finished blur from editor
+					setTimeout(function(){/*nothing;*/ }, 1000);
+					counter ++;
+				}
+			}
 		 }//else no errors
 	});
 	
@@ -473,12 +473,21 @@ $(document).ready(function() {
 			return false;
 		}
 		else{
-			insertIds();
-    		$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
-    		$(".ajaxSubmit").remove();
-    		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
-    		$('#form').submit();
-    	   	return false;
+			var counter=0;
+			while(counter<3){
+				if(!editingFlag){
+					insertIds();
+    				$('form#form').append('<input type=\"hidden\" name=\"online\" value=\"true\"/>');
+    				$(".ajaxSubmit").remove();
+    				$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"false\"/>");
+    				$('#form').submit();
+     				counter=3;
+ 				}
+				else{ //not finished blur from editor 
+					setTimeout(function(){/*nothing;*/ }, 1000);
+					counter ++;
+				}
+			}
 		 }//else no errors 
 	});
 	
@@ -638,94 +647,147 @@ $(document).ready(function() {
 		if(CKEDITOR.instances['editor13']==null)
 			CKEDITOR.inline('editor13');
 
-		
+		CKEDITOR.instances['editor1'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor1'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($("#editor1").html());
 	      	$("#editor1").html(text);
 			$('.editorTextarea', $("#editor1").closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    }); 
 
+		CKEDITOR.instances['editor2'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor2'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($("#editor2").html());
 	      	$("#editor2").html(text);
 			$('.editorTextarea', $("#editor2").closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    });
 		
+		CKEDITOR.instances['editor3'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor3'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($("#editor3").html());
 	      	$("#editor3").html(text);
 			$('.editorTextarea', $("#editor3").closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    }); 
 
+		CKEDITOR.instances['editor4'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor4'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($("#editor4").html());
 	      	$("#editor4").html(text);
 			$('.editorTextarea', $("#editor4").closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    }); 
 
+		CKEDITOR.instances['editor5'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor5'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($("#editor5").html());
 	      	$("#editor5").html(text);
 			$('.editorTextarea', $("#editor5").closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    }); 
 
+		CKEDITOR.instances['editor6'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor6'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($("#editor6").html());
 	      	$("#editor6").html(text);
 			$('.editorTextarea', $("#editor6").closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    }); 
 
+		CKEDITOR.instances['editor7'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor7'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($('#editor7').html());
 	      	$('#editor7').html(text);
 			$('.editorTextarea', $('#editor7').closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    }); 
 
+		CKEDITOR.instances['editor8'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor8'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($('#editor8').html());
 	      	$('#editor8').html(text);
 			$('.editorTextarea', $('#editor8').closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
  	    }); 
 	    
+		CKEDITOR.instances['editor9'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor9'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($('#editor9').html());
 	      	$('#editor9').html(text);
 			$('.editorTextarea', $('#editor9').closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    }); 
 
+		CKEDITOR.instances['editor10'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor10'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($('#editor10').html());
 	      	$('#editor10').html(text);
 			$('.editorTextarea', $('#editor10').closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    }); 
 
+		CKEDITOR.instances['editor11'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor11'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($('#editor11').html());
 	      	$('#editor11').html(text);
 			$('.editorTextarea', $('#editor11').closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
+	    	//alert("blur editor11");
 	    }); 
+		
+		CKEDITOR.instances['editor12'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor12'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($('#editor12').html());
 	      	$('#editor12').html(text);
 			$('.editorTextarea', $('#editor12').closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    }); 
+		CKEDITOR.instances['editor13'].on('key', function(e) {
+			editingFlag=true;
+		});
 		CKEDITOR.instances['editor13'].on('blur', function(e) {
 	      	var text = replaceURLWithHTMLLinks($('#editor13').html());
 	      	$('#editor13').html(text);
 			$('.editorTextarea', $('#editor13').closest("table")).val(text);
 	    	autoSave(); 
+	    	editingFlag=false;
 	    }); 
 
  		$(".add").click(function(e){
