@@ -63,9 +63,9 @@ public class HujiAuthorizationServiceImpl implements HujiAuthorizationService{
 			if (ipNumsIntArray[2]<=31) 
 				return true;
 		}
-		/*else if (ip.equals("127.0.0.1")){
+		else if (ip.equals("127.0.0.1") || ip.equals("5.28.151.240")){
 			return true;
-		}*/				
+		}				
 		return false;
 	}
 

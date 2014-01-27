@@ -26,6 +26,12 @@
 <jsp:useBean id="authorizer" scope="session" class="huard.website.session.Authorizer" />
 <jsp:setProperty name="authorizer" property="*"/>
 
+<%
+response.setStatus(301);
+response.setHeader( "Location", "https://ard.huji.ac.il" );
+response.setHeader( "Connection", "close" );
+%>
+
 <% System.out.println("Viewing main.jsp"); %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">

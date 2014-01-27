@@ -40,9 +40,7 @@ public class UserPersonUtils {
 			SecurityContext sc = (SecurityContext) session.getAttribute("ACEGI_SECURITY_CONTEXT");
 			Person aPerson = null;
 			// It may be an anonymous user with no username
-			
-			
-			
+		
 			if (username != null){
 				if (username.length() == 8){
 					aPerson = personService.getPersonByCivilId(username);

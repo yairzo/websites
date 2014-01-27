@@ -155,7 +155,10 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		long lastUpdateTime = callForProposalService.getCallForProposalsLastUpdate().getTime();
 		model.put("updateTime", DateUtils.formatDate(lastUpdateTime, "dd/MM/yyyy"));
 		
-		model.put("ilr", "/search_funding");
+		if (customView)
+			model.put("ilr", "/search_funding_custom");
+		else
+			model.put("ilr", "/search_funding");
 		
 		if(request.getParameter("t", "").equals("0"))
 			return new ModelAndView ("searchCallForProposalsStatic",model);

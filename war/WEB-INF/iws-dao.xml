@@ -269,7 +269,6 @@
         </property>
     </bean>
 
-
 	<jee:jndi-lookup id="dataSource" jndi-name="/jdbc/iws" resource-ref="true" />
  
 </beans>

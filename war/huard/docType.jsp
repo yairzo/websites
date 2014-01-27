@@ -14,6 +14,12 @@
 <jsp:useBean id="sideMenu" scope="session" class="huard.website.menu.SideMenu" />
 <jsp:setProperty name="sideMenu" property="*"/>
 
+<%
+response.setStatus(301);
+response.setHeader( "Location", "https://ard.huji.ac.il/search_funding" );
+response.setHeader( "Connection", "close" );
+%>
+
 <html>
 <head>
 

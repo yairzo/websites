@@ -33,11 +33,6 @@
 										<div class="login_box_col mar_15">
 											<input type="submit" value="<fmt:message key="${lang.localeId}.general.login.login"/>" class="login_submit">
 										</div>
-										<div class="login_box_col mar_15 pull-left">
-											<div class="clearfix">
-												<a class="login_forgot"><fmt:message key="${lang.localeId}.general.login.loginForgot"/></a>
-											</div>
-										</div>
 										</div>
 										<div class="login_register mar_15 clearfix"><fmt:message key="${lang.localeId}.general.login.toSubscribe"/> <a href="#"><fmt:message key="${lang.localeId}.general.login.clickHere"/></a></div>
 										</form>

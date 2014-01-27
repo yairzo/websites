@@ -37,9 +37,33 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		
 		int month= request.getSessionIntParameter("month", 0);
 		int year= request.getSessionIntParameter("year", 0);
+		String action = request.getParameter("action", "");		
+		if(action.equals("next")){
+			if(month==12){
+				request.getSession().setAttribute("year", year+=1);
+				month=1;
+			}
+			else 
+				month+=1;
+			request.getSession().setAttribute("month", month);
+		}
+		else if (action.equals("prev")){
+			if(month==1){
+				request.getSession().setAttribute("year", year-=1);
+				month=12;
+			}
+			else
+				month-=1;
+			request.getSession().setAttribute("month", month);
+		}			
+		else if (action.equals("nextYear")){
+			request.getSession().setAttribute("year", year+=1);
+		}			
+		else if (action.equals("prevYear")){
+			request.getSession().setAttribute("year", year-=1);
+		}	
 
-
-		if(!request.getParameter("newmonth", "").isEmpty()){
+		else if(!request.getParameter("newmonth", "").isEmpty()){
 			String newMonth = request.getParameter("newmonth", "");	
 			SimpleDateFormat sdf = new SimpleDateFormat("MMMMM");
 			java.util.Date date= sdf.parse(newMonth.toLowerCase());
@@ -69,6 +93,7 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 			year+=1;
 		}
 		else month+=1;
+		
 		String enddate =  year + "-" + month +"-01";
 		String lastDay = callForProposalService.getLastDayOfCalendarMonth(enddate);
 		List<CallForProposal> callForProposals = callForProposalService.getCalendarMonthCallForProposals(firstDay,lastDay);

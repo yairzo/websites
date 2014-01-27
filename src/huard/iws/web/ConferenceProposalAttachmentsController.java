@@ -28,7 +28,7 @@ public class ConferenceProposalAttachmentsController extends GeneralFormControll
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 	throws Exception{
-		logger.info("111111111111111111111111111111 id:" + request.getIntParameter("cpid", 0));
+		//logger.info("111111111111111111111111111111 id:" + request.getIntParameter("cpid", 0));
 		ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(request.getIntParameter("cpid", 0)));
 		
 	

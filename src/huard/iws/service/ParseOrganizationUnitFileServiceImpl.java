@@ -24,7 +24,7 @@ public void parseFile(String typeId,String listId,String file){
     		String[] tokens = strLine.split(";");
     		for (int i = 0; i < tokens.length; i++) {
     			String token = tokens[i];
-    	System.out.println("1111111111111111111 i:" + i + "   token:" + token);
+    	//System.out.println("1111111111111111111 i:" + i + "   token:" + token);
     			if (i==0)//name of ou
     				if(token==null || token.isEmpty())
     					ou.setNameEnglish(" ");

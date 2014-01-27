@@ -130,7 +130,7 @@ public class ConnectionSupplier {
 		
 	private Connection createConnection(String database, String privileges) {
 		try {
-			String url = "jdbc:mysql://localhost:5152/" + database
+			String url = "jdbc:mysql://localhost:3306/" + database
 					+ "?characterEncoding=UTF-8&characterSetResults=UTF-8";
 			Connection connection = DriverManager.getConnection(url,
 					DB_USERNAME, DB_PASSWORD);

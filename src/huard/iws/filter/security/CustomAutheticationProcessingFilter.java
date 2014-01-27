@@ -1,14 +1,13 @@
 package huard.iws.filter.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import huard.iws.model.Language;
 import huard.iws.model.Person;
 import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.MD5Encoder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -67,7 +66,8 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 			modulePrivileges.add("ROLE_CONFERENCE_RESEARCHER");
 		}
 		
-		if(!subscriptionInitPage.isEmpty()){
+		
+		if(!subscriptionInitPage.isEmpty() || request.getSession().getAttribute("titleCode") == null){
 			setAuthenticationFailureUrl("/sign_in_failed");
 		}
 		else

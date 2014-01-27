@@ -9,7 +9,6 @@
 
 -->
 <urlrewrite>
-
 	<rule>
 		<from>^/sign_in$</from>
 		<to>/login.html?wl=true</to>
@@ -106,13 +105,15 @@
     <rule>
         <from>^/messages$</from>
         <to last="true">/messages.html</to>
-    </rule>   
-    
-    
+    </rule>     
     
     <rule>
         <from>^/$</from>
-        <to type="redirect">/huard/main.jsp</to>
+        <to last="true">/homePage.html</to>
+    </rule>
+    <rule>
+        <from>^$</from>
+        <to last="true">/homePage.html</to>
     </rule>
 
 	<rule>
