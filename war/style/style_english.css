@@ -1542,6 +1542,19 @@ text-decoration:none;
 
 .search_result .kol_title img{padding-top:8px;}
 
+.content .search_content_notready{
+display:block;
+margin:4px 18px 0 0;
+padding:10px 12px 12px 12px;
+background:#ececec;
+font-size:16px;
+color:#333333;
+text-decoration:none;
+-moz-opacity: 0.6;
+-khtml-opacity: 0.6;
+opacity: 0.6;
+}
+
 .content .search_content{
 display:block;
 margin:4px 0 0 18px;
