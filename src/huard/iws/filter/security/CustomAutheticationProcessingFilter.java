@@ -209,7 +209,7 @@ public class CustomAutheticationProcessingFilter extends AuthenticationProcessin
 			logger.info("target: 3" + targetUrl) ;
 		}
 
-		if (targetUrl == null) {
+		if (targetUrl == null || targetUrl.matches("^http[s]{0,1}://.*?login.html.*?$")) {
 			targetUrl = getDefaultTargetUrl();
 		}
 		logger.info("target url: " + targetUrl);

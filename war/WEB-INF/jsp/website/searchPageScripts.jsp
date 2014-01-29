@@ -5,15 +5,16 @@
 		
 		<script type="text/javascript">
 		$(document).ready(function() {
-
+			
+			$('.search_content_notready').each(function(){
+				$(this).removeClass("search_content_notready").addClass("search_content");
+			});
+			
 			$(".viewProposal").click(function(e) {
 				e.preventDefault();
-				var element_class = $(this).attr("class");
-				var url_title = element_class.split(" ")[2]; 
-				if(element_class.split(" ").length>3)
-					url_title=$(this).attr("id");
+				var id=$(this).attr("id");	   		
 				$.ajax({
-				    url : '/call_for_proposal/' + url_title + '/popup',
+				    url : '/call_for_proposal/' + id + '/popup',
 				    type: 'GET',
 				    success : handleData
 				 })

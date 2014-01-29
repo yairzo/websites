@@ -841,12 +841,13 @@ $(document).ready(function() {
 
 
 function replaceURLWithHTMLLinks(text) {
-    var exp = /<a(.*)href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\".*>(?!<img)(.*)<\/a>/i;
+    var exp = /<a[^href]*href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\"[^>]*>((?!<img).*)<\/a>/i;
     var match = exp.exec(text);
     while (match != null) {
-        var icon=getIcon(match[3]);
-        var img= "<img src='/image/"+ icon+"' weight='15px' height='15px'/>";
-        text=text.replace(exp,"<a href='$2'>"+ img +"$4</a>"); 
+        var icon=getIcon(match[2]);
+    	//alert("match1"+match);
+        text=text.replace(exp,"<a href='$1'><img src='/image/"+ icon+"' weight='15px' height='15px'/>$3</a>"); 
+    	//alert("text after"+text);
         match = exp.exec(text)
     }
     //add list class for design 
