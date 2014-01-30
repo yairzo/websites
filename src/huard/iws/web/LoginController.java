@@ -74,6 +74,7 @@ public class LoginController extends GeneralController{
 			model.put("languageRootCategories", languageRootCategoryBeans);
 			//category
 			model.put("category",categoryService.getCategory(rootCategory.getId()));
+			model.put("ilr", "/homePage.html");
 		}
 		
 		model.put("updateTime", generalService.getLastUpdate());

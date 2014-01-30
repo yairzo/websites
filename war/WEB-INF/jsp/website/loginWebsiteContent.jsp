@@ -8,7 +8,7 @@
 				<div class="content" style="text-align: ${lang.align}; direction: ${lang.dir};">
 					<h1 class="maintitle" style="text-align: ${lang.align}">${title}</h1>
 					<div class="maintext_${lang.dir} clearfix mar_20">
-       						<form method="POST" action="j_acegi_security_check">
+       						<form method="post" action="j_acegi_security_check">
        							<input type="hidden" name="ilr" value="${ilr}"/>
 								<input type="hidden" name="mts" value="post"/>
 									<div class="login_${lang.dir}">
