@@ -4,26 +4,16 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	// Define changes to default configuration here. For example:
-	// config.language = 'fr';
-	// config.uiColor = '#AADC6E';
-	config.toolbar = 'MyToolbar';
 
-    config.toolbar_MyToolbar =
-    [
-        ['source','-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo'],
-        ['Find','Replace','SelectAll'],['Scayt'],
-        '/',        
-        ['Bold','Italic','Strike','RemoveFormat'],
-        ['NumberedList','BulletedList','-','Outdent','Indent','CreateDiv'],
-        ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['BidiLtr', 'BidiRtl',],
-        ['Link','Unlink'],['Image','Table','HorizontalRule'],
-         '/',
-        ['Format','Font','FontSize','TextColor', 'BGColor' ],['MediaEmbed'],['About']
-    ];
-	
-	//config.removeButtons = 'NewPage,Templates,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,'
-		//+'Anchor,Flash,Smiley,PageBreak,Iframe,SpecialChar,Blockquote,Underline,Subscript,Superscript,ShowBlocks,Styles';
+    /* config.pbckcode  = {
+    		'cls'         : 'prettyprint linenums',	// the class(es) added to the pre tag, useful if you use a syntax highlighter (here it is Google Prettify)
+    		'modes'       : [ 
+    			['HTML' , 'html'] ], // all the languages you want to deal with in the plugin
+    	  	'defaultMode' : 'html', // the default value for the mode select. Well in fact it is the first value of the mode array
+    		'theme' : 'textmate' // the theme of the code editor
+    	};	*/
+	config.removeButtons = 'NewPage,Templates,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,'
+		+'Anchor,Flash,Smiley,PageBreak,Iframe,SpecialChar,Blockquote,Underline,Subscript,Superscript,ShowBlocks,Styles';
 
 	config.format_tags = 'p;h1;h2;h3;pre';
 	
@@ -31,7 +21,8 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	config.removePlugins = 'tableresize';
 
-	config.extraPlugins = 'mediaembed,source';
+	config.extraPlugins = 'mediaembed';//,pbckcode';
+
 
 };
 

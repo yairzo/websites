@@ -679,7 +679,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				+ " if (callForProposal.finalSubmissionTime = 0,0,1)"
 				+ " as allYearIndicator from callForProposal where isDeleted=0";
 		if(viewType.equals("new_cfps"))//when coming from 'latest calls..'
-			query += "	and (publicationTime >= DATE_SUB(now(),INTERVAL 2 WEEK) ) and finalSubmissionTime > curdate()";
+			query += "	and (publicationTime >= DATE_SUB(now(),INTERVAL 2 WEEK) ) and (finalSubmissionTime > curdate() or finalSubmissionTime = 0)";
 		else if(!ids.isEmpty())//after search
 			query += " and id in ("+ids + ") and (finalSubmissionTime >= DATE_SUB(now(),INTERVAL 18 MONTH) or finalSubmissionTime = 0)";
 

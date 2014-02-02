@@ -357,7 +357,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		return textualPages;
 	}
 	public List<TextualPage> getOnlineMessages(String localeId){
-		String query = "select * from textualPage where isDeleted=0 and isMessage=1 and localeId= ? order by id";
+		String query = "select * from textualPage where isDeleted=0 and isMessage=1 and localeId= ? order by id desc";
 		logger.debug(query);
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper,localeId);
 		return textualPages;

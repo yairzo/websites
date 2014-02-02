@@ -16,7 +16,7 @@
         init: function( editor )
         {
            var me = this;
-           CKEDITOR.dialog.add( 'MediaEmbedDialog', function (instance)
+           CKEDITOR.dialog.add( 'MediaEmbedDialog', function (editor)
            {
               return {
                  title : 'Embed Media',
@@ -61,8 +61,8 @@
             {
                 label: 'Embed Media',
                 command: 'MediaEmbed',
-                icon: this.path + 'images/icon.png',
-                toolbar: 'mediaembed'
+                icon: this.path + 'images/icon.png'//,
+               // toolbar: 'mediaembed'
             } );
         }
     } );
