@@ -23,7 +23,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.extraPlugins = 'mediaembed';//,pbckcode';
 
-
+	config.scayt_autoStartup = true;
 };
 
 

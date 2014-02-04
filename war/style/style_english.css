@@ -550,6 +550,8 @@ margin:10px 0 20px 0;
 width:412px;
 height:125px;
 overflow:hidden;
+line-height: 18px;
+text-align: justify;
 }
 
 .mainbox h2{

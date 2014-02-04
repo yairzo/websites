@@ -55,12 +55,12 @@
 						</div>
 						<div class="mainbox_text">
 							<c:if test="${lang.localeId=='iw_IL'}">
-							<p>באתר הרשות למחקר ופיתוח תמצאו מידע מפורט על אפשרויות למימון מחקר, מלגות לתארים מתקדמים ופרסומים על כנסים מדעיים, וכן הנחיות להגשת הצעות מחקר, כללים להפעלת מענקי מחקר ומידע כללי על הסביבה המדעית באוניברסיטה.
+							<p>באתר הרשות למחקר ופיתוח תמצאו מידע מפורט על אפשרויות למימון מחקר, מלגות לסטודנטים לתארים מתקדמים ופרסומים על כנסים מדעיים, וכן הנחיות להגשת הצעות מחקר, כללים להפעלת מענקי מחקר ומידע כללי על הסביבה המדעית באוניברסיטה.
 							<br />
 							רישום למערכת הדיוור הישיר והתחברות לאתר מאפשרים צפייה בקולות קוראים רק בתחומי המחקר שנבחרו.</p>
 							</c:if>
 							<c:if test="${lang.localeId=='en_US'}">
-							<p>The Authority for Research & Development’s website provides information on research funding opportunities, fellowships and conferences, and guidelines on how to apply for research grants and to manage research budgets, as well as general information on scientific activity at the Hebrew University.
+							<p>The Authority for Research and Development’s website provides information on research funding opportunities, fellowships and conferences, and guidelines on how to apply for research grants and to manage research budgets, as well as general information on scientific activity at the Hebrew University.
 							<br />
 							Subscribing to the mailing list and login to the website will enable you to browse only the research areas you chose.							
 							</p>
