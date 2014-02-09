@@ -179,7 +179,9 @@ public class EditCallForProposalController extends GeneralFormController{
 				urlTitle = callForProposalBean.getUrlTitle();
 			urlTitle= urlTitle.replace("\"","&quot;");
 			model.put("urlTitle", urlTitle);
-			
+
+			model.put("callForProposalTypes", callForProposalService.getCallForProposalTypes());
+
 			//desk contact persons
 			String budgetTitle="Budget";
 			String assistantTitle="Assistant";

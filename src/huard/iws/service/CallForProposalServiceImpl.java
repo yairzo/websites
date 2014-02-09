@@ -3,6 +3,7 @@ package huard.iws.service;
 import huard.iws.db.CallForProposalDao;
 import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
+import huard.iws.model.CallForProposalType;
 import huard.iws.model.DayInCalendar;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.ListView;
@@ -176,4 +177,8 @@ public class CallForProposalServiceImpl implements CallForProposalService {
 		callForProposalDao.updateFinalSubmissionTime();
 	}
 
+	public List<CallForProposalType> getCallForProposalTypes() {
+		return callForProposalDao.getCallForProposalTypes();
+	}
+	
 }

@@ -58,4 +58,6 @@ public interface PostService {
 
 	public Post getPostByMessageSubject(String messageSubject);
 
+	public int getPostTypeFromCP(int CallForProposalTypeId);
+
 }

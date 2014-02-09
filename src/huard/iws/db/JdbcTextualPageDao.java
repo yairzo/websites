@@ -322,12 +322,12 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 	
 	public int countTextualPagesByUrlTitle(int id,String urlTitle){
-		String query = "select count(*) from textualPageDraft where urlTitle='" + urlTitle +"' and id<>"+ id;
+		String query = "select id from textualPageDraft where urlTitle='" + urlTitle +"' and id<>"+ id + " limit 1";
 		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
 	public int countTextualPagesByTitle(int id,String title){
-		String query = "select count(*) from textualPageDraft where title='" + title +"' and id<>"+ id;
+		String query = "select id from textualPageDraft where title='" + title +"' and id<>"+ id + " limit 1";
 		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}

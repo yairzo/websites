@@ -149,6 +149,7 @@ public class EditPostController extends GeneralFormController {
 				tmpPost.setMessageSubject(callForProposalBean.getId() + " - " + callForProposalBean.getTitle());
 				tmpPost.setMessage(callForProposalBean.toPostMessage());
 				tmpPost.setLocaleId(callForProposalBean.getLocaleId());
+				tmpPost.setTypeId(postService.getPostTypeFromCP(callForProposalBean.getTypeId()));
 				List<Integer> subjectsIds = callForProposalBean.getSubjectsIds();
 				for (int subjectId: subjectsIds){
 					tmpPost.getSubjectsIds().add(subjectId);

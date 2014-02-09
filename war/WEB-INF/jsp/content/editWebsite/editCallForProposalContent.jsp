@@ -150,14 +150,15 @@
 					</td>
 					<td style="border:1px #bca2a2 dotted;text-align:${lang.align}">
 						${compulsoryFieldSign}<fmt:message key="${lang.localeId}.callForProposal.type"/>
-       					<form:select path="typeId" cssClass="green" >
-      						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></form:option>
-       						<form:option value="1"><fmt:message key="${lang.localeId}.callForProposal.researchGrant"/></form:option>
-      						<form:option value="4"><fmt:message key="${lang.localeId}.callForProposal.scholarship"/></form:option>
-      						<form:option value="3"><fmt:message key="${lang.localeId}.callForProposal.conference"/></form:option>
-        					<form:option value="5"><fmt:message key="${lang.localeId}.callForProposal.prizes"/></form:option>
-      						<form:option value="2"><fmt:message key="${lang.localeId}.callForProposal.researcherExchange"/></form:option>
-        		        </form:select>
+       					<form:select path="typeId" cssClass="green">
+     						<form:option value="0"><fmt:message key="${lang.localeId}.callForProposal.select"/></form:option>
+							<c:forEach items="${callForProposalTypes}" var="callForProposalType" >
+								<form:option value="${callForProposalType.id}">
+									<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${callForProposalType.hebrewName}"/></c:if>
+	        						<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${callForProposalType.englishName}"/></c:if>
+								</form:option>
+							</c:forEach>
+						</form:select>
 						<div id="errortype" title="שגיאה" dir="${lang.dir}">
 					</td>
 				</tr>

@@ -158,7 +158,10 @@ public class PostServiceImpl implements PostService{
 	public Post getPostByMessageSubject(String messageSubject){
 		return postDao.getPostByMessageSubject(messageSubject);
 	}
-
+	
+	public int getPostTypeFromCP(int callForProposalTypeId){
+		return postDao.getPostTypeFromCP(callForProposalTypeId);
+	}
 	
 	private PostDao postDao;
 

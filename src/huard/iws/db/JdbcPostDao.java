@@ -407,6 +407,17 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 			return post;
 		}
 	}
-
+	public int getPostTypeFromCP(int callForProposalTypeId){
+		int type=0;
+		try{
+			String query = "select postType from callForProposalToPostType where callForProposalType =" + callForProposalTypeId;
+			logger.debug(query);
+			type = getSimpleJdbcTemplate().queryForInt(query);
+			return type;
+		}
+		catch(Exception e){
+			return type;
+		}
+	}
 
 }

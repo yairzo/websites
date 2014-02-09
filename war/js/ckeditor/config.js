@@ -24,6 +24,8 @@ CKEDITOR.editorConfig = function( config ) {
 	config.extraPlugins = 'mediaembed';//,pbckcode';
 
 	config.scayt_autoStartup = true;
+	
+	config.floatSpaceDockedOffsetX = 170;
 };
 
 

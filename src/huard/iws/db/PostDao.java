@@ -57,5 +57,7 @@ public interface PostDao {
 	public Map<Integer,Integer> getCountPostPersonsSent();
 
 	public Post getPostByMessageSubject(String messageSubject);
+	
+	public int getPostTypeFromCP(int callForProposalTypeId);
 
 }

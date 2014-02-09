@@ -2,6 +2,7 @@ package huard.iws.service;
 
 import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
+import huard.iws.model.CallForProposalType;
 import huard.iws.model.DayInCalendar;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.ListView;
@@ -75,5 +76,7 @@ public interface CallForProposalService {
 	public Timestamp getCallForProposalsLastUpdate();
 	
 	public void updateFinalSubmissionTime();
+
+	public List<CallForProposalType> getCallForProposalTypes();
 
 }

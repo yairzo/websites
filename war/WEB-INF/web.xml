@@ -207,22 +207,32 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
   <filter-mapping>
    <filter-name>compressionFilter</filter-name>
    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+  </filter-mapping>-->
 
 
-	<filter>
+	<!--<filter>
         <filter-name>CacheControl</filter-name>
            <filter-class>newsminer.webapp.CacheControlFilter</filter-class>
     </filter>
     <filter-mapping>
        <filter-name>CacheControl</filter-name>
        <url-pattern>/images/customer_logo/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 
+ <!--<filter>
+        <filter-name>responseCacheFilter</filter-name>
+        <filter-class>com.googlecode.webutilities.filters.ResponseCacheFilter</filter-class>
+ </filter>
+ <filter-mapping>
+   <filter-name>responseCacheFilter</filter-name>
+   <url-pattern>*.js</url-pattern>
+   <url-pattern>*.json</url-pattern>
+   <url-pattern>*.css</url-pattern>
+ </filter-mapping>-->
 
-  <filter>
+  <!--<filter>
         <filter-name>yuiMinFilter</filter-name>
-        <filter-class>newsminer.webapp.utils.YUIMinFilter</filter-class>
+        <filter-class>com.googlecode.webutilities.filters.YUIMinFilter</filter-class>
   </filter>
   <filter-mapping>
       <filter-name>yuiMinFilter</filter-name>

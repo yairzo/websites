@@ -4,6 +4,8 @@
 
 <script language="Javascript">
 
+var duplicateUrlTitle=false;
+var duplicateTitle=false;
 
 $(document).ready(function() {
 
@@ -117,8 +119,8 @@ $(document).ready(function() {
 		e.preventDefault();
 		$.get('objectQuery?type=textualPageCheckUrlTitle&id='+$("#id").val()+'&title='+$("#tempUrlTitle").val(), function(data) {
 			if(data>0){
-				$("#errorurltitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.urlTitle"/><font color="red"><br>');
-				$("#tempUrlTitle").val('');
+				duplicateUrlTitle=true;
+				$("#errorurltitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.textualPage.urlTitle"/>' +data + '<font color="red"><br>');
 			}
 			else $("#errorurltitle").html('');
 		});
@@ -128,8 +130,8 @@ $(document).ready(function() {
 		e.preventDefault();
 		$.get('objectQuery?type=textualPageCheckTitle&id='+$("#id").val()+'&title='+$("#tempTitle").val(), function(data) {
 			if(data>0){
-				$("#errortitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.title"/><font color="red"><br>');
-				$("#tempTitle").val('');
+				duplicateTitle=true;
+				$("#errortitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.textualPage.title"/>' +data + '<font color="red"><br>');
 			}
 			else $("#errortitle").html('');
 		});
@@ -341,16 +343,20 @@ function checkErrors(){
 		errors = true;
 		$("#errortitle").html('<font color="red"><fmt:message key="iw_IL.required.titleCallForProposal"/><font color="red"><br>');
 	}
-	else{
+	else  if (!duplicateTitle){
 		$("#errortitle").html('');
 	}
 	if($("#tempUrlTitle").val()==''){
 		errors = true;
 		$("#errorurltitle").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterUrlTitle"/><font color="red"><br>');
 	}
-	else{
+	else if (!duplicateUrlTitle){
 		$("#errorurltitle").html('');
 	}
+	if(duplicateTitle||duplicateUrlTitle){
+		errors = true;
+	}
+
 	if($("#categoryId").val()=='0'){
 		errors = true;
 		$("#errorcategoryId").html('<font color="red"><fmt:message key="iw_IL.required.categoryId"/><font color="red"><br>');

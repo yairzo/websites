@@ -18,6 +18,9 @@ var filenameRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z][a-zA-Z0-9-]+\.[a-z]{2,4}$/;
 
 var editingFlag=false;
 
+var duplicateUrlTitle=false;
+var duplicateTitle=false;
+
 function resetAutocomplete(){
 	$("#searchPhrase").autocomplete( 
 			{ source: 'selectBoxFiller?type=fundsWithId',
@@ -157,12 +160,13 @@ $(document).ready(function() {
 		}
 	});
 	
+	
 	$('#tempUrlTitle').change(function(e){
 		e.preventDefault();
 		$.get('objectQuery?type=callForProposalCheckUrlTitle&id='+$("#id").val()+'&title='+$("#tempUrlTitle").val(), function(data) {
 			if(data>0){
-				$("#errorurltitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.urlTitle"/><font color="red"><br>');
-				$("#tempUrlTitle").val('');
+				duplicateUrlTitle=true;
+				$("#errorurltitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.callForProposal.urlTitle"/>' +data + '<font color="red"><br>');
 			}
 			else $("#errorurltitle").html('');
 		});
@@ -181,22 +185,24 @@ $(document).ready(function() {
 		e.preventDefault();
 		$.get('objectQuery?type=callForProposalCheckTitle&id='+$("#id").val()+'&title='+$("#tempTitle").val(), function(data) {
 			if(data>0){
-				$("#errortitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.title"/><font color="red"><br>');
-				$("#tempTitle").val('');
+				duplicateTitle=true;
+				$("#errortitle").html('<font color="red"><fmt:message key="${lang.localeId}.duplicate.callForProposal.title"/>' +data + '<font color="red"><br>');
 			}
-			else $("#errortitle").html('');
+			else {
+				$("#errortitle").html('');
+				//create urlTitle based on title	
+				var title = $('#tempTitle').val();
+				if(title!=''){
+					var arr = title.split(/\s|_/);
+				    for(var i=0,l=arr.length; i<l; i++) {
+				        arr[i] = arr[i].substr(0,1).toUpperCase() + 
+				                 (arr[i].length > 1 ? arr[i].substr(1).toLowerCase() : "");
+				    }
+				    arr= arr.join("_");
+				    $('#tempUrlTitle').val(arr);
+				}
+			}
 		});
-		//create urlTitle based on title	
-		var title = $('#tempTitle').val();
-		if(title!=''){
-			var arr = title.split(/\s|_/);
-		    for(var i=0,l=arr.length; i<l; i++) {
-		        arr[i] = arr[i].substr(0,1).toUpperCase() + 
-		                 (arr[i].length > 1 ? arr[i].substr(1).toLowerCase() : "");
-		    }
-		    arr= arr.join("_");
-		    $('#tempUrlTitle').val(arr);
-		}
 
 	});	
 
@@ -886,21 +892,24 @@ function openHelp(name,mytext){
 
 function checkErrors(){ 
 	var errors=false;
+
 	if($("#tempTitle").val()==''){
 		errors = true;
 		$("#errortitle").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterFieldSubject"/><font color="red"><br>');
 	}
-	else{
+	else if (!duplicateTitle){
 		$("#errortitle").html('');
 	}
 	if($("#tempUrlTitle").val()==''){
 		errors = true;
 		$("#errorurltitle").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterUrlTitle"/><font color="red"><br>');
 	}
-	else{
+	else if (!duplicateUrlTitle){
 		$("#errorurltitle").html('');
 	}
-	
+	if(duplicateTitle||duplicateUrlTitle){
+		errors = true;
+	}
 	if($("#publicationTime").val()==''){
 		errors = true;
 		$("#errorpublicationTime").html('<font color="red"><fmt:message key="${lang.localeId}.callForProposal.enterPublicationDate"/><font color="red"><br>');
@@ -970,6 +979,8 @@ function checkErrors(){
 	else{
 		$("#errorsubjects").html('');
 	}
+	
+
 	return errors;
 }
 

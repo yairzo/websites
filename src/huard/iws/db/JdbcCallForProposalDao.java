@@ -4,6 +4,7 @@ import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.DayInCalendar;
 import huard.iws.model.FundInDay;
+import huard.iws.model.CallForProposalType;
 import huard.iws.util.CallForProposalSearchCreteria;
 import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
@@ -838,12 +839,13 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 
 	
 	public int countCallForProposalsByUrlTitle(int id,String urlTitle){
-		String query = "select count(*) from callForProposalDraft where urlTitle='" + urlTitle +"' and id<>"+ id;
+		String query = "select id from callForProposalDraft where urlTitle='" + urlTitle +"' and id<>"+ id + " limit 1";
 		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
+	
 	public int countCallForProposalsByTitle(int id,String title){
-		String query = "select count(*) from callForProposalDraft where title='" + title +"' and id<>"+ id;
+		String query = "select id from callForProposalDraft where title='" + title +"' and id<>"+ id + " limit 1";
 		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
@@ -902,7 +904,21 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			}
 		});
 	}
-	
+	public List<CallForProposalType> getCallForProposalTypes(){
+		String query ="select * from callForProposalType order by id";
+		logger.debug(query);
+		List<CallForProposalType> callForProposalTypes = getSimpleJdbcTemplate().query(query,
+				new ParameterizedRowMapper<CallForProposalType>(){
+					public CallForProposalType mapRow(ResultSet rs, int rowNum) throws SQLException{
+						CallForProposalType callForProposalType = new CallForProposalType();
+						callForProposalType.setId(rs.getInt("id"));
+						callForProposalType.setHebrewName(rs.getString("hebrewName"));
+						callForProposalType.setEnglishName(rs.getString("englishName"));
+						return callForProposalType;
+					}
+		});
+		return callForProposalTypes;
+	}	
 	
 	public static void main(String [] args){
 		CallForProposalDao dao = null;
