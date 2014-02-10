@@ -55,7 +55,7 @@
 										<div class="clearfix">
 											<h3 class="kol_title"><c:out escapeXml="false" value="${listBean.displayName}"/></h3>
 										</div>
-										<table class="table_kol">
+										<table class="table_kol table_kol_${pageLang.dir}">
 										<tr>
 											<c:forEach items="${listBean.columnBeans}" var="column" varStatus="varStatus">
 											<c:if test="${!column.hidden}">
