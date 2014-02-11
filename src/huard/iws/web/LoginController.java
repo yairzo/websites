@@ -23,6 +23,7 @@ public class LoginController extends GeneralController{
 		Map<String, Object> model, PersonBean userPersonBean){
 		
 		LanguageUtils.applyLanguage(model, request, response, "iw_IL");
+		Language language = (Language)model.get("lang");
 
 		boolean isWebsiteLogin = request.getBooleanParameter("wl", false);
 		
@@ -48,7 +49,13 @@ public class LoginController extends GeneralController{
 		if (!isWebsiteLogin)
 			request.getSession().setAttribute("titleCode", titleCode);
 
-		model.put("title", messageService.getMessage("iw_IL.general.login.title."+titleCode));
+		model.put("title", messageService.getMessage(language.getLocaleId() +".general.login.title."+titleCode));
+		
+		if(request.getParameter("justLogin", "").equals("1")){
+			model.put("title", messageService.getMessage(language.getLocaleId() +".general.justLogin.title"));
+			if(loginErrorCode != -1)
+				model.put("title", messageService.getMessage(language.getLocaleId() +".general.justLoginError.title"));
+		}
 		
 		model.put("titleCode", titleCode);
 		
@@ -57,12 +64,11 @@ public class LoginController extends GeneralController{
 		model.put("usernameInstructions", messageService.getMessage("iw_IL.general.login.usernameInstructions."+titleCode));
 
 		model.put("passwordInstructions", messageService.getMessage("iw_IL.general.login.passwordInstructions."+titleCode));
-
-		model.put("generalLoginInstructions", messageService.getMessage("iw_IL.general.login.generalLoginInstructions."+titleCode));
+		
+		model.put("generalLoginInstructions", messageService.getMessage(language.getLocaleId() +".general.login.generalLoginInstructions."+titleCode));
 		
 		//for website login
 		//top categories
-		Language language = (Language)model.get("lang");
 		
 		if (isWebsiteLogin){
 			Category rootCategory = categoryService.getRootCategory(language.getLocaleId());

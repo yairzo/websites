@@ -11,11 +11,11 @@
 <urlrewrite>
 	<rule>
 		<from>^/sign_in$</from>
-		<to>/login.html?wl=true</to>
+		<to>/login.html?wl=true&amp;justLogin=1</to>
 	</rule> 
 	<rule>
 		<from>^/sign_in_failed$</from>
-		<to>/login.html?wl=true&amp;login_error=1</to>
+		<to>/login.html?wl=true&amp;login_error=1&amp;justLogin=1</to>
 	</rule> 
 	<rule>
 		<from>^/sign_up$</from>

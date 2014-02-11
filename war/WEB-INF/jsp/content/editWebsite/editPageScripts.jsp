@@ -12,9 +12,8 @@
 
 <script language="Javascript">
 var countryArr= new Array();
-
 var urlTitleRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z0-9][a-zA-Z0-9-]+$/;
-var filenameRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z][a-zA-Z0-9-]+\.[a-z]{2,4}$/;
+var filenameRegexp = /^([A-Z]([a-zA-Z0-9-])+_)+[A-Z0-9][a-zA-Z0-9-]+$/;
 
 var editingFlag=false;
 
@@ -417,10 +416,10 @@ $(document).ready(function() {
 	$('#formAttach').change(function(event){
 		var filename = $(this).val();
 		if (filename.search(filenameRegexp) == -1){
-			filename = prompt('<fmt:message key="${lang.localeId}.callForProposal.filenameFormat"/>','');			
+			filename = prompt('<fmt:message key="${lang.localeId}.callForProposal.urlTitleFormat"/>','');			
 		}	
 		if (filename.search(filenameRegexp) == -1){
-			alert('<fmt:message key="${lang.localeId}.callForProposal.filenameFormatError"/>');
+			alert('<fmt:message key="${lang.localeId}.callForProposal.urlTitleFormat"/>');
 		}
 		else{
 			insertIds();
@@ -838,7 +837,7 @@ $(document).ready(function() {
 		});	
 		
 		$("#originalCallWebAddress").on('blur',function(){
-			if (!/^http/.test($("#originalCallWebAddress").val()) && $("#originalCallWebAddress").val()!=''){
+			if (!/^http/.test($("#originalCallWebAddress").val()) && !/^\//.test($("#originalCallWebAddress").val()) && $("#originalCallWebAddress").val()!=''){
 				$("#originalCallWebAddress").val('http://' + $("#originalCallWebAddress").val());
 			}
 		});

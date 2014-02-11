@@ -23,6 +23,12 @@ public class Attachment {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
+	public String getCleanFilename() {
+		String cleanFileName=filename;
+		if(cleanFileName.indexOf(".")>-1)
+			cleanFileName=cleanFileName.substring(0,filename.indexOf("."));
+		return cleanFileName.replace("_", " ");
+	}
 	private int place;
 
 	public int getPlace() {
