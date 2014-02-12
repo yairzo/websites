@@ -839,15 +839,25 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 
 	
 	public int countCallForProposalsByUrlTitle(int id,String urlTitle){
+		try{
 		String query = "select id from callForProposalDraft where urlTitle='" + urlTitle +"' and id<>"+ id + " limit 1";
 		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
+		}
+		catch(Exception e){
+			return 0;
+		}
 	}
 	
 	public int countCallForProposalsByTitle(int id,String title){
+		try{
 		String query = "select id from callForProposalDraft where title='" + title +"' and id<>"+ id + " limit 1";
 		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
+		}
+		catch(Exception e){
+		return 0;
+		}
 	}
 	
 	public List<Integer> getDaysWithFunds(String month,String year){

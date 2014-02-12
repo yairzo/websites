@@ -142,7 +142,8 @@ public class ObjectQuery extends HttpServlet{
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
 			ServletOutputStream out = response.getOutputStream();
-			out.print(count);
+			if(count>0)
+				out.print(count);
 			out.flush();
 			out.close();
 		}		
@@ -154,7 +155,8 @@ public class ObjectQuery extends HttpServlet{
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
 			ServletOutputStream out = response.getOutputStream();
-			out.print(count);
+			if(count>0)
+				out.print(count);
 			out.flush();
 			out.close();
 		}		
