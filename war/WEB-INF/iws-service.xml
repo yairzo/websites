@@ -542,6 +542,15 @@
 		<property name="conferenceProposalDao">
     		<ref bean="conferenceProposalDao"/>
     	</property>
+		<property name="mailMessageService">
+			<ref bean="mailMessageService"/>
+		</property>
+		<property name="personService">
+			<ref bean="personService"/>
+		</property>
+		<property name="configurationService">
+			<ref bean="configurationService"/>
+		</property>
 	</bean>
 	
 	<bean id="conferenceProposalListService" class="huard.iws.service.ConferenceProposalListServiceImpl">

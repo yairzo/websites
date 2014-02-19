@@ -202,6 +202,8 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		b.append("budget file type");
 		b.append('~');
 		b.append("dean general remarks");
+		b.append('~');
+		b.append("committee remarks");
 
 		b.append('\n');
 
@@ -433,6 +435,10 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				b.append(" ");
 			else
 				b.append(conferenceProposalBean.getDeadlineRemarks().trim());
+			if (!conferenceProposalBean.getCommitteeRemarks().equals(""))
+				b.append(" ");
+			else
+				b.append(conferenceProposalBean.getCommitteeRemarks().trim());
 			b.append('\n');
 
 			ConferenceProposalBean cp = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));

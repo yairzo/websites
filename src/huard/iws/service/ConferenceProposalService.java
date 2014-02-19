@@ -2,10 +2,13 @@ package huard.iws.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
 
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.FinancialSupport;
 import huard.iws.model.Committee;
+import huard.iws.util.RequestWrapper;
 
 public interface ConferenceProposalService {
 
@@ -38,7 +41,11 @@ public interface ConferenceProposalService {
 	public int getMaxGrade(int approverId, String deadline);
 
 	public void rearangeGrades(int grade, int approverId, String deadline);
-	
+
+	public Map<Integer,String> getGradeErrorMap();
+
+	public void checkGrades(int approverId);
+
 	public void insertFinancialSupport(FinancialSupport financialSupport);
 
 	public void updateFinancialSupport(FinancialSupport financialSupport);

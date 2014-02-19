@@ -71,6 +71,7 @@ public class ConferenceProposal {
 	private int creatorId;
 	private int statusId;
 	private long statusDate;
+	private boolean approverVerified;
 
 	public ConferenceProposal(){
 		this.id = 0;
@@ -139,6 +140,7 @@ public class ConferenceProposal {
 		this.creatorId=0;
 		this.statusId=0;
 		this.statusDate=0;
+		this.approverVerified=false;
 	}
 
 	
@@ -641,6 +643,12 @@ public class ConferenceProposal {
 	public void setStatusDate(long statusDate) {
 		this.statusDate = statusDate;
 	}
-
+	
+	public boolean getApproverVerified() {
+		return approverVerified;
+	}
+	public void setApproverVerified(boolean approverVerified) {
+		this.approverVerified = approverVerified;
+	}
 
 }

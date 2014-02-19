@@ -237,8 +237,7 @@
   	  	<br/>
   	  	
   	  	<authz:authorize ifAnyGranted="ROLE_CONFERENCE_ADMIN">
-    	
-    	<table align="center" style="width: 95%; direction: rtl;" cellspacing="10">
+     	<table align="center" style="width: 95%; direction: rtl;" cellspacing="10">
     	<tr>
     	<td>
     	<table align="center" class="container" style="width: 100%; direction: rtl;" >
@@ -247,6 +246,13 @@
     				<span ><h2> ניהול תהליך התייחסות הדיקן</h2></span>
     			</td>
     		</tr>
+    		<c:if test="${fn:length(gradeError)>0}">
+				<tr>
+				<td style="text-align: right;color:red">קיימת תקלה בדירוג של הדיקנים הבאים:${gradeError}
+				</td>
+				</tr>
+    		</c:if>
+    		
     		<tr>
 				<td>שיגור דרישות להתייחסות:<br />
   					<select name="approver" id="approver" class="green">

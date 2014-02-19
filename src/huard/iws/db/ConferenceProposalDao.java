@@ -48,6 +48,8 @@ public interface ConferenceProposalDao {
 
 	public void rearangeGrades(int grade, int approverId, String deadline);
 
+	public boolean checkGrades(int approverId, String deadline);
+
 	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate);
 	
 	public void insertFinancialSupport(FinancialSupport financialSupport);

@@ -229,6 +229,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 					conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
 					conferenceProposalBean.setGrade(0);
+					conferenceProposalService.checkGrades(origConferenceProposalBean.getApproverId());
 				}
 		}
 		//status changed by admin
@@ -259,6 +260,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 					conferenceProposalService.rearangeGrades(conferenceProposalBean.getGrade(), conferenceProposalBean.getApproverId(), prevdeadline);
 					conferenceProposalBean.setGrade(0);
+					conferenceProposalService.checkGrades(origConferenceProposalBean.getApproverId());
 				}
 
 			}

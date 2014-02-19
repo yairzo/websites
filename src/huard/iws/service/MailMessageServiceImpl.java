@@ -33,6 +33,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 public class MailMessageServiceImpl implements MailMessageService{
 	private static final Logger logger = Logger.getLogger(MailMessageServiceImpl.class);
 	private final String EQF_MAIL_ADDRESS = "mop@ard.huji.ac.il";
+	//private final String EQF_MAIL_ADDRESS = "hadar@localhost.localdomain";
 	private final String PROPOSAL_MAIL_MESSAGE_KEY = "iw_IL.eqfSystem.editProposal.mailMessage.";
 	private final String PARTNER_MAIL_MESSAGE_KEY = "iw_IL.eqfSystem.editProposal.mailMessage.";
 	private final String CONFERENCE_PROPOSAL_MAIL_ADDRESS = "conferences_committee@ard.huji.ac.il";
@@ -235,7 +236,26 @@ public class MailMessageServiceImpl implements MailMessageService{
 		System.out.println(body);
 		messageService.sendMail(to, CONFERENCE_PROPOSAL_MAIL_ADDRESS,null,null, subject, body, getCommonResources());
 	}
-
+	
+	public void createGradingErrorMail(int approverId, String messageKey){
+		//subject
+		String subject = messageService.getMessage("iw_IL.conference.editConferenceProposal.mailMessage."+messageKey+".subject");
+		//body
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("align", "right");
+		model.put("language", LanguageUtils.getLanguagesMap().get("iw_IL"));
+		PersonBean dean = new PersonBean(personService.getPerson(approverId));
+		model.put("deanName", dean.getDegreeFullName());
+		model.put("privateMessageOpening", messageService.getMessage("iw_IL.eqf.message.privateMessageOpening"));
+		model.put("server", getServer());
+		String [] messageParams = new String []{dean.getDegreeFullNameHebrew(), getServer(),String.valueOf(approverId)};
+		model.put("message", messageService.getMessage("iw_IL.conference.editConferenceProposal.mailMessage."+messageKey+".body", messageParams));
+		String body = VelocityEngineUtils.mergeTemplateIntoString(
+		           velocityEngine, "simpleMailMessage.vm", model);
+		System.out.println(body);
+		messageService.sendMail(CONFERENCE_PROPOSAL_MAIL_ADDRESS, EQF_MAIL_ADDRESS, subject, body, getCommonResources());
+	}
+	
 	public void createSimplePartnerMail(PersonBean recipient, ProposalBean proposal,
 			PartnerBean partner, String messageKey){
 				createSimplePartnerMail(recipient, new PersonBean(), proposal, partner, messageKey);

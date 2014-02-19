@@ -433,6 +433,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			if (astatusDate != null)
 				statusDate = astatusDate.getTime();
 			conferenceProposal.setStatusDate(statusDate);
+			conferenceProposal.setApproverVerified(rs.getBoolean("approverVerified"));
 			return conferenceProposal;
 		}
 	};
@@ -523,6 +524,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			if (astatusDate != null)
 				statusDate = astatusDate.getTime();
 			conferenceProposal.setStatusDate(statusDate);
+			conferenceProposal.setApproverVerified(rs.getBoolean("approverVerified"));
 			return conferenceProposal;
 		}
 	};
@@ -647,6 +649,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", isInsideDeadline= ?" + 
 				", committeeRemarks= ?" +
 				", acceptTerms= ?" +
+				", approverVerified= ?" +
 				", statusId= ?" +
 				", statusDate= ?" +
 				" where id = ?;";
@@ -707,6 +710,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getIsInsideDeadline(),
 				conferenceProposal.getCommitteeRemarks(),
 				conferenceProposal.getAcceptTerms(),
+				conferenceProposal.getApproverVerified(),
 				conferenceProposal.getStatusId(),
 				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getStatusDate()),
 				conferenceProposal.getId());
@@ -777,6 +781,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				", isInsideDeadline= ?" + 
 				", committeeRemarks= ?" +
 				", acceptTerms= ?" +
+				", approverVerified= ?" +
 				", statusId= ?" +
 				", statusDate= ?" +
 				", lastUpdate= now()" +
@@ -839,6 +844,7 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 				conferenceProposal.getIsInsideDeadline(),
 				conferenceProposal.getCommitteeRemarks(),
 				conferenceProposal.getAcceptTerms(),
+				conferenceProposal.getApproverVerified(),
 				conferenceProposal.getStatusId(),
 				DateUtils.formatTimestampWithoutMillis(conferenceProposal.getStatusDate()));		
 	}
@@ -983,6 +989,17 @@ public class JdbcConferenceProposalDao extends SimpleJdbcDaoSupport implements C
 			insertVersion(cf);
 		}
 	}
+	
+	public boolean checkGrades(int approverId, String prevdeadline){
+		String query ="select * from conferenceProposal where deleted=0 and submitted = 1 and isInsideDeadline=1 and approverId=" + approverId + " and date(deadline)>'"+prevdeadline +"' order by grade;";
+		final List<ConferenceProposal> conferenceProposals = getSimpleJdbcTemplate().query(query, rowMapper);
+		int counter=1;
+		for(ConferenceProposal cp : conferenceProposals){
+			if(cp.getGrade()!=counter) return true;
+			else counter++;
+		}
+		return false;
+	}	
 	
 	public void updateDeadlineRemarks(int approverId, String prevdeadline, String deadlineRemarks){
 		String query = "update conferenceProposal set deadlineRemarks =? where deleted=0 and approverId=? and submitted=1 and date(deadline)>'"+prevdeadline +"' and isInsideDeadline=1;";

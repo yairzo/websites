@@ -41,19 +41,26 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 		if (action.equals("movedown") && gradeCommand.getConferenceProposalId()>0 ){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
-			if(cp.getGrade()<conferenceProposalService.getMaxGrade(cp.getApproverId(),prevdeadline))
+			if(cp.getGrade()<conferenceProposalService.getMaxGrade(cp.getApproverId(),prevdeadline)){
 				conferenceProposalListService.gradeHigher(cp,prevdeadline);
+				conferenceProposalService.checkGrades(cp.getApproverId());
+			}
 		}
 		if (action.equals("moveup") && gradeCommand.getConferenceProposalId()>0 ){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
-			if( cp.getGrade()>1)
+			if( cp.getGrade()>1){
 				conferenceProposalListService.gradeLower(cp,prevdeadline);
+				conferenceProposalService.checkGrades(cp.getApproverId());
+			}
 		}
 		if (action.equals("save") && gradeCommand.getConferenceProposalId()>0){
 			ConferenceProposal cp = conferenceProposalService.getConferenceProposal(gradeCommand.getConferenceProposalId());
 			String evaluationField = "approverEvaluation" + gradeCommand.getConferenceProposalId();
 			String evaulationFieldValue = request.getParameter(evaluationField, "");
 			cp.setApproverEvaluation(evaulationFieldValue);
+			String approverVerifiedField = "approverVerified" + gradeCommand.getConferenceProposalId();
+			Boolean approverVerifiedValue = request.getParameter(approverVerifiedField, "").equals("on")?true:false;;
+			cp.setApproverVerified(approverVerifiedValue);
 			conferenceProposalService.updateConferenceProposal(cp);
 		}		
 		/*if (action.equals("edit") && gradeCommand.getConferenceProposalId()>0){
@@ -95,6 +102,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 	{
 		//recordProtectService.freeRecordsByUsername(userPersonBean.getUsername());
 
+		
 		model.put("titleCode", request.getSession().getAttribute("titleCode"));
 		ConferenceProposalGradeCommand gradeCommand = (ConferenceProposalGradeCommand) model.get("command");
 		
@@ -118,6 +126,7 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		String deadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalDeadline");
 		ConferenceProposalGrading conferenceProposalGrading= conferenceProposalListService.getApproverlastGrading(grader,deadline);
 		model.put("adminDeadlineRemarks",conferenceProposalGrading.getAdminSendRemark());
+		
 		if(conferenceProposalGrading.getFinishedGradingDate()>1000)
 			model.put("GradingFinished",true);
 		else

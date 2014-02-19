@@ -21,7 +21,13 @@ $(document).ready(function() {
 	     	};
 		    $('#form').ajaxSubmit(options);
     });	
-	
+	$('input:checkbox.saveclass').click(function(){
+		   var options = {
+	       	 	url:       'conferenceProposalsGrade.html?action=save&conferenceProposalId='+ this.id,        
+	       	 	type:      'POST'
+	     	};
+		    $('#form').ajaxSubmit(options);
+ 	});
 
 	$(".buttonUp").click(function(){
 		<c:if test="${GradingFinished && !admin}">
@@ -227,7 +233,7 @@ $(document).ready(function() {
 </tr>
 <tr>
 	<td>
-		<table width="930" border="1" align="center" cellpadding="0"
+		<table width="940" border="1" align="center" cellpadding="0"
 			cellspacing="0" bordercolor="#767468">
 			<tr>
 				<td valign="top" align="center"><br /> <form:form id="form"
@@ -238,7 +244,7 @@ $(document).ready(function() {
 						<input type="hidden" id="listViewOrderBy" name="listView.orderBy"
 							value="${command.listView.orderBy}" />
 
-								<table width="930" border="0" align="center" cellpadding="3"
+								<table width="940" border="0" align="center" cellpadding="3"
 									dir="rtl">
 									<tr>
 										<td colspan="2" align="center"><h1>רשימת הבקשות
@@ -251,12 +257,14 @@ $(document).ready(function() {
 							<c:when test="${fn:length(conferenceProposals) > 0}">
 								<div id="genericDialog" title="כנסים" style="display: none"
 									dir="rtl"></div>
-
-								<table width="930" border="0" cellspacing=0 cellpadding=2
+								<div style="text-align:right" dir="rtl"> אנא אשר כי החוקר הינו חוקר מן המסלול הרגיל הרשאי להגיש בקשה זו לפי כללי האוניברסיטה.במידה והחוקר אינו רשאי להגיש, אנא ציין זאת בהערות הדירוג כדי שרכזת הוועדה תוכל לפנות אליו.</div>
+								<br>
+								<table width="940" border="0" cellspacing=0 cellpadding=2
 									dir="rtl">
 									<thead>
 										<tr>
-											<td width="150">שם החוקר/ת המגיש</td>
+											<td width="35">מאשר/ת</td>
+											<td width="150">שם החוקר/ת</td>
 											<td width="350">נושא הכנס</td>
 											<td width="100">דירוג <img src="/image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeHeader"/></td>
 											<td width="300">חוות דעת <img src="/image/questionmark.png" align="top" title="הסבר על השדה" width="25" height="25" id="dialogGradeOpinion"/></td>
@@ -271,6 +279,9 @@ $(document).ready(function() {
 											var="conferenceProposal" varStatus="varStatus">
 
 											<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
+												<td width="35">
+												<input type="checkbox" class="saveclass" name="approverVerified${conferenceProposal.id}" id="${conferenceProposal.id}" <c:if test="${conferenceProposal.approverVerified}" > checked </c:if> />
+												</td>
 												<td width="150"><c:out
 															value="${conferenceProposal.researcher.firstNameHebrew}" />&nbsp;<c:out
 															value="${conferenceProposal.researcher.lastNameHebrew}" />

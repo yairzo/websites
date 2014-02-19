@@ -17,6 +17,7 @@ import huard.iws.util.RequestWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ public class ConferenceProposalListController extends GeneralFormController {
 			conferenceProposalService.rearangeGrades(cp.getGrade(), cp.getApproverId(), prevdeadline);
 			cp.setGrade(0);
 			conferenceProposalService.updateConferenceProposal(cp);
+			conferenceProposalService.checkGrades(cp.getApproverId());
 		}		
 		
 		if (action.equals("startGrading")){
@@ -130,6 +132,16 @@ public class ConferenceProposalListController extends GeneralFormController {
 			model.put("researcher",true);
 		else
 			model.put("researcher",false);
+		
+		Map<Integer,String> gradeErrorMap = conferenceProposalService.getGradeErrorMap();
+		String gradeError="";
+		for (Map.Entry<Integer, String> entry : gradeErrorMap.entrySet()){
+			gradeError+= entry.getValue() +",";
+		}
+		if(!gradeError.isEmpty())
+			gradeError=gradeError.substring(0, gradeError.lastIndexOf(","));
+		model.put("gradeError", gradeError);
+		
 		return new ModelAndView (this.getFormView(), model);
 	}
 

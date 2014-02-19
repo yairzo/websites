@@ -1,9 +1,14 @@
 package huard.iws.service;
 
+import huard.iws.bean.PersonBean;
 import huard.iws.db.ConferenceProposalDao;
 import huard.iws.model.Committee;
 import huard.iws.model.ConferenceProposal;
 import huard.iws.model.FinancialSupport;
+import huard.iws.service.PersonService;
+import huard.iws.util.RequestWrapper;
+
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.HashMap;
 import java.util.List;
@@ -90,6 +95,28 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 	public void rearangeGrades(int grade, int approverId, String deadline){
 		conferenceProposalDao.rearangeGrades(grade,approverId, deadline);
 	}
+	
+	public Map<Integer,String> gradeErrorMap = new HashMap<Integer,String>();
+
+	public Map<Integer,String> getGradeErrorMap(){
+		return this.gradeErrorMap;
+	}
+	
+	public void checkGrades(int approverId){
+		String previousDeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
+		boolean error=conferenceProposalDao.checkGrades(approverId,previousDeadline);
+		if(error){
+			mailMessageService.createGradingErrorMail(approverId,"gradingError");
+			gradeErrorMap.put(approverId, new PersonBean(personService.getPerson(approverId)).getDegreeFullNameHebrew());
+			//request.getSession().setAttribute("generalGradeError",new PersonBean(personService.getPerson(approverId)).getDegreeFullNameHebrew());
+		}
+		else{
+			if(gradeErrorMap.containsKey(approverId))
+				gradeErrorMap.remove(approverId);	
+		}
+		System.out.println("xxxxxxxxxxxxxxxxxxx"+gradeErrorMap.toString());
+		
+	}
 
 	public void insertFinancialSupport(FinancialSupport financialSupport){
 		conferenceProposalDao.insertFinancialSupport(financialSupport);
@@ -140,5 +167,21 @@ public class ConferenceProposalServiceImpl implements ConferenceProposalService{
 		this.conferenceProposalDao = conferenceProposalDao;
 	}
 
+	private MailMessageService mailMessageService;
 
+	public void setMailMessageService(MailMessageService mailMessageService) {
+		this.mailMessageService = mailMessageService;
+	}
+	
+	protected PersonService personService;
+
+	public void setPersonService(PersonService personService) {
+		this.personService = personService;
+	}
+	
+	protected ConfigurationService configurationService;
+
+	public void setConfigurationService(ConfigurationService configurationService) {
+		this.configurationService = configurationService;
+	}
 }

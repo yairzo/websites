@@ -109,6 +109,7 @@ public class ConferenceProposalBean {
 	private int creatorId;
 	private int statusId;
 	private long statusDate;
+	private boolean approverVerified;
 
 
 	public ConferenceProposalBean() {
@@ -203,6 +204,7 @@ public class ConferenceProposalBean {
 		this.creatorId=0;
 		this.statusId=0;
 		this.statusDate=0;
+		this.approverVerified=false;
 	}
 
 	public ConferenceProposalBean(ConferenceProposal conferenceProposal) {
@@ -323,6 +325,7 @@ public class ConferenceProposalBean {
 		this.creatorId = conferenceProposal.getCreatorId();
 		this.statusId=conferenceProposal.getStatusId();
 		this.statusDate=conferenceProposal.getStatusDate();
+		this.approverVerified=conferenceProposal.getApproverVerified();
 		// System.out.println("beannnnnnnnnnnnnnnn:" + this.getSubject() +
 		// this.getApproverEvaluation() + this.getApproverId() +
 		// this.getDescription() + this.getLocation() + this.getLocationDetail()
@@ -409,6 +412,7 @@ public class ConferenceProposalBean {
 		conferenceProposal.setCreatorId(creatorId);
 		conferenceProposal.setStatusId(statusId);
 		conferenceProposal.setStatusDate(statusDate);
+		conferenceProposal.setApproverVerified(approverVerified);
 		return conferenceProposal;
 	}
 
@@ -1014,6 +1018,12 @@ public class ConferenceProposalBean {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date statusDate = new Date(this.statusDate);
 		return formatter.format(statusDate);
+	}
+	public boolean getApproverVerified() {
+		return approverVerified;
+	}
+	public void setApproverVerified(boolean approverVerified) {
+		this.approverVerified = approverVerified;
 	}
 
 

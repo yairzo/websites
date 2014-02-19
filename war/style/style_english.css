@@ -1821,22 +1821,22 @@ color:#999999 !important;
 }
 
 .login_help_popup{
-	box-shadow: 10px 10px 5px #888888;
+	box-shadow: 5px 5px 20px #888;
 	display:block;
-	width:400px;
+	width:356px;
 	padding:18px;
 	background:#ffffff;
-	font-size:14px;
+	font-size:13px;
 	z-index:10;
 	position:absolute;
 	top:44px;
-	left:655px;
+	left:912px;
+	border: 1px solid #ccc;
 }
 .login_help_popup_title{
 width:322px;
 height:51px;
 font-size:18px;
-font-family:'open_sans_condensedbold','almoni-tzar';
 color:#ffffff;
 line-height:42px;
 }
@@ -1846,6 +1846,7 @@ float:right;
 margin:0 -84px 0 0;
 padding:0 80px 0 0;
 background:url(/image/website/title_blue_right.png) no-repeat top;
+font-family:'almoni-tzar';
 }
 
 .login_help_popup_title_english{
@@ -1853,6 +1854,7 @@ float:left;
 margin:0 0 0 -84px;
 padding:0 0 0 80px;
 background:url(/image/website/title_blue_left.png) no-repeat top;
+font-family:'open_sans_condensedbold';
 }
 .popup_placeholder{
 box-shadow: 10px 10px 20px #888888;
