@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -153,7 +155,28 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 		logger.debug(attributionDelete);
 		getSimpleJdbcTemplate().update(attributionDelete, id);
 	}
-
+	
+	public Map<Integer, Integer> getPersonDeskMap(){
+		final Map<Integer,Integer> personDeskMap = new HashMap<Integer,Integer>();
+		String query = "select personId,desk.id from desk inner join personAttribution on desk.personsListId=personAttribution.listId order by personId;";
+		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
+			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{
+				if(!personDeskMap.containsKey(rs.getInt(1)))
+					personDeskMap.put(rs.getInt(1), rs.getInt(2));
+				return null;
+			}
+		});
+		query = "select personId,desk.id from desk inner join personAttribution on desk.personsListIdEnglish=personAttribution.listId order by personId;";
+		getSimpleJdbcTemplate().query(query, new ParameterizedRowMapper<Void>(){
+			public Void mapRow(ResultSet rs, int rowNum) throws SQLException{
+				if(!personDeskMap.containsKey(rs.getInt(1)))
+					personDeskMap.put(rs.getInt(1), rs.getInt(2));
+				return null;
+			}
+		});
+		return personDeskMap;
+	}
+	
 	public ParameterizedRowMapper<PersonListAttribution> getRowMapper(){
 		return rowMapper;
 	}

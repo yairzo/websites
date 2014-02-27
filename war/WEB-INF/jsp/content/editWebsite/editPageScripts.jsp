@@ -654,9 +654,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor1'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($("#editor1").html());
-	      	$("#editor1").html(text);
-			$('.editorTextarea', $("#editor1").closest("table")).val(text);
+			$('.editorTextarea', $("#editor1").closest("table")).val($('#editor1').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    }); 
@@ -665,9 +663,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor2'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($("#editor2").html());
-	      	$("#editor2").html(text);
-			$('.editorTextarea', $("#editor2").closest("table")).val(text);
+			$('.editorTextarea', $("#editor2").closest("table")).val($('#editor2').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    });
@@ -676,9 +672,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor3'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($("#editor3").html());
-	      	$("#editor3").html(text);
-			$('.editorTextarea', $("#editor3").closest("table")).val(text);
+			$('.editorTextarea', $("#editor3").closest("table")).val($('#editor3').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    }); 
@@ -687,9 +681,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor4'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($("#editor4").html());
-	      	$("#editor4").html(text);
-			$('.editorTextarea', $("#editor4").closest("table")).val(text);
+			$('.editorTextarea', $("#editor4").closest("table")).val($('#editor4').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    }); 
@@ -698,9 +690,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor5'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($("#editor5").html());
-	      	$("#editor5").html(text);
-			$('.editorTextarea', $("#editor5").closest("table")).val(text);
+			$('.editorTextarea', $("#editor5").closest("table")).val($('#editor5').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    }); 
@@ -709,9 +699,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor6'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($("#editor6").html());
-	      	$("#editor6").html(text);
-			$('.editorTextarea', $("#editor6").closest("table")).val(text);
+			$('.editorTextarea', $("#editor6").closest("table")).val($('#editor6').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    }); 
@@ -720,9 +708,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor7'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($('#editor7').html());
-	      	$('#editor7').html(text);
-			$('.editorTextarea', $('#editor7').closest("table")).val(text);
+			$('.editorTextarea', $('#editor7').closest("table")).val($('#editor7').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    }); 
@@ -731,9 +717,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor8'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($('#editor8').html());
-	      	$('#editor8').html(text);
-			$('.editorTextarea', $('#editor8').closest("table")).val(text);
+			$('.editorTextarea', $('#editor8').closest("table")).val($('#editor8').html());
 	    	autoSave(); 
 	    	editingFlag=false;
  	    }); 
@@ -742,9 +726,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor9'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($('#editor9').html());
-	      	$('#editor9').html(text);
-			$('.editorTextarea', $('#editor9').closest("table")).val(text);
+			$('.editorTextarea', $('#editor9').closest("table")).val($('#editor9').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    }); 
@@ -753,9 +735,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor10'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($('#editor10').html());
-	      	$('#editor10').html(text);
-			$('.editorTextarea', $('#editor10').closest("table")).val(text);
+			$('.editorTextarea', $('#editor10').closest("table")).val($('#editor10').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    }); 
@@ -764,9 +744,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor11'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($('#editor11').html());
-	      	$('#editor11').html(text);
-			$('.editorTextarea', $('#editor11').closest("table")).val(text);
+			$('.editorTextarea', $('#editor11').closest("table")).val($('#editor11').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    	//alert("blur editor11");
@@ -776,9 +754,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor12'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($('#editor12').html());
-	      	$('#editor12').html(text);
-			$('.editorTextarea', $('#editor12').closest("table")).val(text);
+			$('.editorTextarea', $('#editor12').closest("table")).val($('#editor12').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    }); 
@@ -786,9 +762,7 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor13'].on('blur', function(e) {
-	      	var text = replaceURLWithHTMLLinks($('#editor13').html());
-	      	$('#editor13').html(text);
-			$('.editorTextarea', $('#editor13').closest("table")).val(text);
+			$('.editorTextarea', $('#editor13').closest("table")).val($('#editor13').html());
 	    	autoSave(); 
 	    	editingFlag=false;
 	    }); 
@@ -844,17 +818,14 @@ $(document).ready(function() {
 
 
 function replaceURLWithHTMLLinks(text) {
-    var exp = /<a[^href]*href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\"[^>]*>((?!<img).*)<\/a>/i;
+    var exp = /<a (?:data-cke-saved-href=\".*?\" )?(target=\"_blank\" )?href=\"([^\"]*\.(pdf|doc|docx|xls|xlsx))\"[^>]*>((?!<img).*)<\/a>/i;
     var match = exp.exec(text);
-    while (match != null) {
-        var icon=getIcon(match[2]);
-    	//alert("match1"+match);
-        text=text.replace(exp,"<a href='$1'><img src='/image/"+ icon+"' weight='15px' height='15px'/>$3</a>"); 
-    	//alert("text after"+text);
+     while (match != null) {
+        alert(match);
+        var icon=getIcon(match[3]);
+        text=text.replace(exp,"<a href='$2' $1><img src='/image/"+ icon+"' weight='15px' height='15px'/>$4</a>"); 
         match = exp.exec(text)
     }
-    //add list class for design 
-    //text=text.replace("<ul>","<ul class=\"list_content\">");
     return text;
 }
 

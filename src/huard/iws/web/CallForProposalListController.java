@@ -11,6 +11,7 @@ import huard.iws.service.CallForProposalService;
 import huard.iws.service.CountryService;
 import huard.iws.service.FundService;
 import huard.iws.service.MopDeskService;
+import huard.iws.service.PersonDeskService;
 import huard.iws.service.SphinxSearchService;
 import huard.iws.service.SubjectService;
 import huard.iws.util.BaseUtils;
@@ -124,8 +125,12 @@ public class CallForProposalListController extends GeneralFormController {
 			searchCreteria.setSearchOpen(request.getBooleanParameter("open", false));
 			searchCreteria.setSearchExpired(request.getBooleanParameter("expired", false));
 			searchCreteria.setSearchByTargetAudience(request.getIntParameter("targetAudience", 0));
-			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
-				searchCreteria.setSearchByCreator(userPersonBean.getId());	
+			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT")){
+				//personDeskService.init();
+				if(personDeskService.getPersonDeskMap().containsKey(userPersonBean.getId()))
+					searchCreteria.setSearchByDesk(personDeskService.getPersonDeskMap().get(userPersonBean.getId()));
+				else searchCreteria.setSearchByDesk(99);
+			}
 			searchCreteria.setSearchByAllSubjects(request.getBooleanParameter("allSubjects", false));
 			//searchCreteria.setSearchByAllCountries(request.getBooleanParameter("allCountries", false));
 			request.getSession().setAttribute("callForProposalSearchCreteria", searchCreteria);
@@ -158,8 +163,13 @@ public class CallForProposalListController extends GeneralFormController {
 					searchCreteria.setSearchBySubjectIds(BaseUtils.getString(userPersonBean.getSubjectsIds()));
 				}
 			}
-			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))
-				searchCreteria.setSearchByCreator(userPersonBean.getId());	
+			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT")){
+				//personDeskService.init();
+				if(personDeskService.getPersonDeskMap().containsKey(userPersonBean.getId()))
+					searchCreteria.setSearchByDesk(personDeskService.getPersonDeskMap().get(userPersonBean.getId()));
+				else searchCreteria.setSearchByDesk(99);
+			}
+			//	searchCreteria.setSearchByCreator(userPersonBean.getId());	
 			command.setSearchCreteria(searchCreteria);
 			callForProposalService.prepareListView(listView,searchCreteria);
 			command.setListView(listView);
@@ -226,5 +236,10 @@ public class CallForProposalListController extends GeneralFormController {
 		this.callForProposalService = callForProposalService;
 	}
 	
+	private PersonDeskService personDeskService;
+
+	public void setPersonDeskService(PersonDeskService personDeskService) {
+		this.personDeskService = personDeskService;
+	}	
 
 }

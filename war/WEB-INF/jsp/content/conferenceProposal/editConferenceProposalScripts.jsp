@@ -3,8 +3,32 @@
 <script type="text/javascript" src="/js/jquery.autosave.js"></script>
 <script>
 
+var idleTime = 0;
+function timerIncrement() {
+    idleTime = idleTime + 1;
+}
+
+function clearTimer(){
+	alert("clearTimer");
+	   idleTime = 0;
+}
+
+function myAjaxSubmit(){
+	clearTimer();
+	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
+	$('#form').ajaxSubmit(options);
+}
 
 $(document).ready(function() {
+	//Increment the idle time counter every minute.
+	var idleInterval = setInterval(timerIncrement, 60000); // every 1 minute 
+
+	$(this).keypress(function (e) {
+alert(idleTime);
+		if (idleTime >1)  // 5 minutes
+	        window.location.reload();
+	});
+
 
 	$("#form").ajaxForm();
 
@@ -187,23 +211,7 @@ $(document).ready(function() {
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		var options = {
-	       	 	url:       'conferenceProposal.html' ,        
-	       	 	type:      'POST'
-     	};
-		//var elementClass = $(this).attr('class');
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit(options);
-		//if (elementClass.indexOf("scientificCommittee")!=-1)
-	    //		hideExtraCommittee("scientificCommittee");
-		//if (elementClass.indexOf("operationalCommittee")!=-1)
-		//		hideExtraCommittee("operationalCommittee");
-		//if (elementClass.indexOf("admitanceFee")!=-1)
-		//		hideExtraCommittee("admitanceFee");
-		//if (elementClass.indexOf("assosiate")!=-1)
-		//		hideExtraCommittee("assosiate");
-		//if (elementClass.indexOf("external")!=-1)
-		//		hideExtraCommittee("external");
+		myAjaxSubmit();
 	}, {delay: 2000});
 
 	$('.admitanceFee').keyup(function(event){
@@ -223,18 +231,15 @@ $(document).ready(function() {
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-	    $('#form').ajaxSubmit();
+		myAjaxSubmit();		
 	});
 	
+
 	$('form').find('textarea:not([class*=newCommitteeRemarks])').autoSave(function(){
 		<c:if test="${command.versionId > 0}">
 			return false;
 		</c:if>
-		
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-	    $('#form').ajaxSubmit();
+		myAjaxSubmit();		
 	}, {delay: 3000});
 	
 	$("#description").blur(function(e){
@@ -462,8 +467,7 @@ $(document).ready(function() {
 			return false;
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"deleteGuestsAttach\" value=\"true\"/>");
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		myAjaxSubmit();		
 		$('#guestsAttachDiv').html('');
 	});
 	
@@ -498,8 +502,7 @@ $(document).ready(function() {
 			return false;
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"deleteProgramAttach\" value=\"true\"/>");
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		myAjaxSubmit();		
 		$('#programAttachDiv').html('');
 	});
 	
@@ -533,8 +536,7 @@ $(document).ready(function() {
 			return false;
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"deleteFinancialAttach\" value=\"true\"/>");
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		myAjaxSubmit();		
 		$('#financialAttachDiv').html('');
 	});
 		
@@ -568,8 +570,7 @@ $(document).ready(function() {
 			return false;
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"deleteCompanyAttach\" value=\"true\"/>");
-		$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-		$('#form').ajaxSubmit();
+		myAjaxSubmit();		
 		$('#companyAttachDiv').html('');
 	});
 	
@@ -771,8 +772,7 @@ $(document).ready(function() {
             "כן" : function() {
                 $(this).dialog("close");
     	   		deleteButton.parents('tr.committee').remove();
-    	   		
-    	   		$("#form").ajaxSubmit();
+    			myAjaxSubmit();		
     	        return true;
             }
         });
@@ -948,13 +948,21 @@ $(document).ready(function() {
            modal: true,
            open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
      });
-		<c:if test="${userMessage!=null}">
+     <c:if test="${userMessage!=null}">
 		var userMessage = "${userMessage}";
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
 		openHelp('#form',userMessage);
+		</c:if>
+	    
+		<c:if test="${locked}">
+		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
+		$("#genericDialog").dialog({ modal: false });
+		$("#genericDialog").dialog({ height: 200 });
+		$("#genericDialog").dialog({ width: 400 });
+		openHelp('#form',"הבקשה נעולה על ידי משתמש אחר");
 		</c:if>
 
 		<c:if test="${researcherDeclaration}">

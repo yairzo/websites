@@ -41,13 +41,8 @@ public class ConferenceProposalController extends GeneralFormController{
 		ConferenceProposalBean conferenceProposalBean = (ConferenceProposalBean) command;
 		ConferenceProposalBean origConferenceProposalBean = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));
 		
-		boolean locked = locksService.acquireLock("ConferenceProposalController", "submit", String.valueOf(conferenceProposalBean.getId()), 1);
-		if(!locked){
-			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.locked");
-			request.getSession().setAttribute("userMessage", userMessage);
-			if (request.getBooleanParameter("ajaxSubmit", false))//allways ajax submit
-				return null;
-		}
+		locksService.updateLock("ConferenceProposal", "edit", String.valueOf(conferenceProposalBean.getId()), 5);
+		
 		
 		// this part saves the content type of the attachments
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
@@ -209,6 +204,8 @@ public class ConferenceProposalController extends GeneralFormController{
 			PersonBean updatedApprover = new PersonBean(personService.getPerson(conferenceProposalBean.getApproverId()));
 			if (updatedApprover.isValidEmail()) 
 				mailMessageService.createSimpleConferenceMail(updatedApprover, conferenceProposalBean.getResearcher(), conferenceProposalBean, "updatedApprover");
+			//release lock
+			//locksService.releaseLock("ConferenceProposal", "edit", String.valueOf(conferenceProposalBean.getId()));
 		}
 		
 		//committeRemarks
@@ -284,7 +281,6 @@ public class ConferenceProposalController extends GeneralFormController{
 			request.getSession().setAttribute("userMessage", userMessage);
 		}	
 		
-		locksService.releaseLock("ConferenceProposalController", "submit", String.valueOf(conferenceProposalBean.getId()));
 		//return to same page
 		if (request.getBooleanParameter("ajaxSubmit", false)){
 			return null;
@@ -385,6 +381,12 @@ public class ConferenceProposalController extends GeneralFormController{
 			model.put("adminEdit",request.getSession().getAttribute("adminEdit"));
 			request.getSession().setAttribute("adminEdit", false);//clear
 
+			String locksOn = configurationService.getConfigurationString("iws", "lock");
+			boolean locked = locksService.acquireLock("ConferenceProposal", "edit", String.valueOf(id), 5,userPersonBean.getId(),"ConferenceProposalController",locksOn);
+			if(!locked)
+				model.put("locked", true);
+			System.out.println("locked:"+locked);
+	
 			return new ModelAndView ( this.getFormView(), model);
 		}
 		

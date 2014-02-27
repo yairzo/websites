@@ -27,10 +27,10 @@
  			<form:hidden path="statusId"/>
  			<form:hidden path="statusDate"/>
  			
-			<c:if test="${approver || committee || printcp}">
+			<c:if test="${approver || committee || printcp || locked}">
  				<c:set var="readOnly" value="true"/>
  			</c:if>
-			<c:if test="${!approver && !committee && !printcp}">
+			<c:if test="${!approver && !committee && !printcp && !locked}">
 				<c:set var="readOnly" value="false"/>
  			</c:if>
  			<c:if test="${command.statusId==4 || command.statusId==5 || command.statusId==6}">

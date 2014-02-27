@@ -48,6 +48,12 @@
             <ref bean="configurationService"/>
         </property>
      </bean>
+	
+	<bean id="personDeskService" class="huard.iws.service.PersonDeskServiceImpl">
+		<property name="personAttributionDao">
+    		<ref bean="personAttributionDao"/>
+    	</property>
+	</bean>
 
 	<bean id="parseOrganizationUnitService" class="huard.iws.service.ParseOrganizationUnitFileServiceImpl">
 		<property name="organizationUnitService">
@@ -570,6 +576,7 @@
     		<ref bean="filesDao"/>
     	</property>
 	</bean>
+	
 	
 	
 </beans>

@@ -89,7 +89,7 @@
 									<c:choose>
     								<c:when test="${fn:length(textualPages) > 0}">
 									<c:forEach items="${textualPages}" var="textualPage" varStatus="varStatus">
-									<a href="/textualPage.html?id=${textualPage.id}" class="search_content">
+									<a href="/page/${textualPage.urlTitle}" class="search_content">
 										<span class="clearfix">${textualPage.title}</span>
 										<span class="clearfix search_icons">
 											<span class="search_info">${textualPage.category.name}</span>

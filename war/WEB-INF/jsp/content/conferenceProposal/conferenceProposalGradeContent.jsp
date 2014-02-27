@@ -1,28 +1,45 @@
 <%@ page pageEncoding="UTF-8"%>
 <script>
+var idleTime = 0;
+function timerIncrement() {
+    idleTime = idleTime + 1;
+}
+function clearTimer(){
+   idleTime = 0;
+}
 
 $(document).ready(function() {
-	<c:if test="${GradingFinished && !admin}">
-		gradingFinished();
+
+	var idleInterval = setInterval(timerIncrement, 60000); // every 1 minute 
+
+	$(this).keypress(function (e) {
+		if (idleTime >4)  // 5 minutes
+	        window.location.reload();
+	});
+	
+	<c:if test="${(GradingFinished && !admin) || locked}">
+		locked();
 	</c:if>
 
-	$("button.buttonEdit").click(function(){
+	/*$("button.buttonEdit").click(function(){
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"edit\"/>");
 		var confId= this.id;
 		$("#form").append("<input type=\"hidden\" name=\"conferenceProposalId\" value=\""+confId +"\"/>");
    		$("#form").submit();
     	return true;
-    });
+    });*/
 	
 	$('.saveclass').blur(function(){
-		   var options = {
+			clearTimer();
+		    var options = {
 	       	 	url:       'conferenceProposalsGrade.html?action=save&conferenceProposalId='+ this.id,        
 	       	 	type:      'POST'
 	     	};
 		    $('#form').ajaxSubmit(options);
     });	
 	$('input:checkbox.saveclass').click(function(){
-		   var options = {
+			clearTimer();		   
+			var options = {
 	       	 	url:       'conferenceProposalsGrade.html?action=save&conferenceProposalId='+ this.id,        
 	       	 	type:      'POST'
 	     	};
@@ -30,8 +47,8 @@ $(document).ready(function() {
  	});
 
 	$(".buttonUp").click(function(){
-		<c:if test="${GradingFinished && !admin}">
-			gradingFinished();
+		<c:if test="${(GradingFinished && !admin) || locked}">
+			locked();
 			return false;
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"moveup\"/>");
@@ -42,8 +59,8 @@ $(document).ready(function() {
     });
 	
 	$(".buttonDown").click(function(){
-		<c:if test="${GradingFinished && !admin}">
-			gradingFinished();
+		<c:if test="${(GradingFinished && !admin) || locked}">
+			locked();
 			return false;
 		</c:if>
 		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"movedown\"/>");
@@ -55,8 +72,8 @@ $(document).ready(function() {
 	
 
      $("#buttonStopGrading").click(function(){
- 		<c:if test="${GradingFinished && !admin}">
-			gradingFinished();
+ 		<c:if test="${(GradingFinished && !admin) || locked}">
+			locked();
 			return false;
 		</c:if>
 		
@@ -84,7 +101,8 @@ $(document).ready(function() {
  	});
      
      $("#deadlineRemarks").blur(function(){
-		   var options = {
+    		clearTimer();		   
+    		var options = {
 		       	 	url:       'conferenceProposalsGrade.html?action=saveDeadlineRemarks',        
 		       	 	type:      'POST'
 		     	};
@@ -197,18 +215,17 @@ $(document).ready(function() {
 
  <%@ include file="/WEB-INF/jsp/include/searchPaginationScripts.jsp" %>
 
- function gradingFinished(){
+ function locked(){
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		var text='הבקשות לדיון הקרוב כבר דורגו ונשלחו לוועדת הכנסים. לא ניתן לדרג אלא לאחר שרכז/ת הכנסים ישלח בקשה נוספת לדירוג.<br/>רכז/ת הכנסים יכול/ה לדרג בשמך.';
+		if('${locked}')
+			text="הדירוג או אחת הבקשות נעולים על ידי משתמש אחר. נסה/י שוב מאוחר יותר. אם הנעילה נמשכת מעל חצי שעה יש לפנות לרכז/ת הכנסים ";
 		openHelp('',text);
-		//make fields readonly
+		//make fields readonly 
 		$("#deadlineRemarks").attr('readonly','readonly');
-	   	<c:forEach items="${conferenceProposals}" var="conferenceProposal">
- 			$("textarea#${conferenceProposal.id}").attr('readonly','readonly');
-        </c:forEach>
-
+		$(".saveclass").attr('readonly','readonly');
 	}
 
 });

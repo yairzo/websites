@@ -7,6 +7,9 @@ import huard.iws.model.ConferenceProposal;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
+import huard.iws.service.LocksService;
+import huard.iws.service.LocksService.LockedObject;
+
 import huard.iws.util.ConferenceProposalSearchCreteria;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
@@ -31,11 +34,20 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
 		ConferenceProposalGradeCommand gradeCommand = (ConferenceProposalGradeCommand)command;
+		
+		//update lock
+		List<LockedObject> locekdObjects=new ArrayList<LockedObject>();
+		LockedObject gradingObject=new LockedObject("ConferenceProposalGrading","edit",request.getSession().getAttribute("approverId").toString(),5,userPersonBean.getId(),"ConferenceProposalGradingController");
+		locekdObjects.add(gradingObject);
+		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(gradeCommand.getListView(),gradeCommand.getSearchCreteria(),userPersonBean,true);
+		for (ConferenceProposal conferenceProposal: conferenceProposals){
+			LockedObject conferenceProposalObject=new LockedObject("ConferenceProposal","edit",String.valueOf(conferenceProposal.getId()),5,userPersonBean.getId(),"ConferenceProposalController");
+			locekdObjects.add(conferenceProposalObject);
+		}
+		locksService.updateLockList(locekdObjects);
 
 		request.getSession().setAttribute("conferenceProposalsSearchCreteria", gradeCommand.getSearchCreteria());
 		request.getSession().setAttribute("conferenceProposalsListView", gradeCommand.getListView());
-		
-		
 		
 		String action = request.getParameter("action", "");
 		String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
@@ -92,7 +104,8 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 				conferenceProposalService.updateDeadlineRemarks(new Integer(request.getSession().getAttribute("approverId").toString()).intValue(),previousDeadline,request.getParameter("deadlineRemarks", ""));
 			else
 				conferenceProposalService.updateDeadlineRemarks(userPersonBean.getOnBehalfOf("conferenceProposal"),previousDeadline,request.getParameter("deadlineRemarks", ""));
-		}		
+		}
+		
 
 		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
@@ -100,8 +113,6 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 	protected ModelAndView onShowForm(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
-		//recordProtectService.freeRecordsByUsername(userPersonBean.getUsername());
-
 		
 		model.put("titleCode", request.getSession().getAttribute("titleCode"));
 		ConferenceProposalGradeCommand gradeCommand = (ConferenceProposalGradeCommand) model.get("command");
@@ -111,7 +122,6 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		String deadlineRemarks="";
 		for (ConferenceProposal conferenceProposal: conferenceProposals){
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
-			//personBean.setBusyRecord(recordProtectService.isRecordBusy("person",personBean.getId(), userPersonBean.getUsername()));
 			conferenceProposalBeans.add(conferenceProposalBean);
 			deadlineRemarks = conferenceProposalBean.getDeadlineRemarks();
 		}
@@ -133,6 +143,22 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 			model.put("GradingFinished",false);
 		if(userPersonBean.getPrivileges().contains("ROLE_CONFERENCE_ADMIN"))
 			model.put("admin", true);
+		
+		//try locking all confs and grading
+		List<LockedObject> lockedObjects=new ArrayList<LockedObject>();
+		LockedObject gradingObject=new LockedObject("ConferenceProposalGrading","edit",request.getSession().getAttribute("approverId").toString(),5,userPersonBean.getId(),"ConferenceProposalGradingController");
+		lockedObjects.add(gradingObject);
+		for (ConferenceProposal conferenceProposal: conferenceProposals){
+			LockedObject conferenceProposalObject=new LockedObject("ConferenceProposal","edit",String.valueOf(conferenceProposal.getId()),5,userPersonBean.getId(),"ConferenceProposalController");
+			lockedObjects.add(conferenceProposalObject);
+		}
+		
+		String locksOn = configurationService.getConfigurationString("iws", "lock");
+		boolean locked=locksService.acquireLockList(lockedObjects,locksOn);
+		if(!locked)
+			model.put("locked",true);
+
+
 		return new ModelAndView (this.getFormView(), model);
 	}
 
@@ -229,6 +255,12 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 
 	public void setConferenceProposalService(ConferenceProposalService conferenceProposalService) {
 		this.conferenceProposalService = conferenceProposalService;
+	}
+	
+	private LocksService locksService;
+
+	public void setLocksService(LocksService locksService) {
+		this.locksService = locksService;
 	}
 
 	/*private MailMessageService mailMessageService;

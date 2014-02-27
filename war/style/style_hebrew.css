@@ -4,7 +4,47 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 /* ==========================================================================
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
+ /*PDF*/
 
+a[href$='.pdf'] {
+
+background: transparent url(/image/icon_pdf.png) center right no-repeat;
+
+background-size: 17px 17px;
+
+display: inline-block;
+
+padding-right: 20px;
+
+}       
+
+/*Word*/
+
+a[href$='.doc'], a[href$='.docx'], a[href$='.rtf'] {
+
+background: transparent url(/image/icon_word.gif) center right no-repeat;
+
+background-size: 17px 17px;
+
+display: inline-block;
+
+padding-right: 22px;
+
+}                                              
+
+/*Excel*/                
+
+a[href$='.xls'], a[href$='.xlsx'] {
+
+background: transparent url(/image/icon_excel.png) center right no-repeat;
+
+background-size: 17px 17px;
+
+display: inline-block;
+
+padding-right: 20px;
+
+}                           
 html,
 button,
 input,

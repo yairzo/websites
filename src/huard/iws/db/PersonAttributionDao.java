@@ -1,5 +1,7 @@
 package huard.iws.db;
 
+import java.util.Map;
+
 import huard.iws.model.PersonListAttribution;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -19,5 +21,7 @@ public interface PersonAttributionDao {
 	public void deletePersonAttribution(int id );
 
 	public ParameterizedRowMapper<PersonListAttribution> getRowMapper();
+	
+	public Map<Integer, Integer> getPersonDeskMap();
 	
 }

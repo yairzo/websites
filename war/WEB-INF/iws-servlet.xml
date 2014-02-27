@@ -156,7 +156,10 @@
    		<property name="countryService">
             <ref bean="countryService"/>
         </property>
-      </bean>
+        <property name="personDeskService">
+            <ref bean="personDeskService"/>
+        </property>
+     </bean>
       
 	<bean id="searchCallForProposalsController" class="huard.iws.web.SearchCallForProposalsController" parent="generalWebsiteFormController">
  		<property name="commandName"><value>command</value></property>
@@ -990,6 +993,9 @@
         <property name="messageService">
         	<ref bean="messageService"/>
         </property>     
+        <property name="locksService">
+        	<ref bean="locksService"/>
+        </property>     
      </bean>
 
 	<bean id="uploadImageController" class="huard.iws.web.UploadImageController" parent="generalFormController">
@@ -1187,7 +1193,16 @@
 	</bean>
 
 -->
+	<bean id="preparePersonDeskMapJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  		<property name="targetObject" ref="personDeskService"/>
+  		<property name="targetMethod" value="init" />
+	</bean>
 
+	<bean id="cronPreparePersonDeskMapTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+  		<property name="jobDetail" ref="preparePersonDeskMapJob"/>
+  		<property name="cronExpression" value="0 0/10 * * * ?" />
+	</bean>
+	
 	<bean id="switchCallForProposalFinalSubmissionJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
   		<property name="targetObject" ref="callForProposalService"/>
   		<property name="targetMethod" value="updateFinalSubmissionTime" />
@@ -1202,6 +1217,7 @@
   		<property name="triggers">
     		<list>
       			<ref bean="cronSwitchCallForProposalFinalSubmissionTrigger"/>
+      			<ref bean="cronPreparePersonDeskMapTrigger"/>
     		</list>
   		</property>
 	</bean>
@@ -1303,7 +1319,6 @@
         <property name="viewClass"><value>org.springframework.web.servlet.view.JstlView</value></property>
         <property name="prefix"><value>/WEB-INF/jsp/</value></property>
         <property name="suffix"><value>.jsp</value></property>
-
     </bean>
     
 	<bean id="startUpService" class="huard.iws.service.StartUpService" 
@@ -1311,5 +1326,9 @@
     	<property name="personPrivilegeDao">
             <ref bean="personPrivilegeDao"/>
         </property>
- 	</bean>
+        <property name="personDeskService">
+            <ref bean="personDeskService"/>
+        </property>
+  	</bean>
+ 
 </beans>

@@ -4,7 +4,47 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 /* ==========================================================================
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
+ /*PDF*/
 
+a[href$='.pdf'] {
+
+background: transparent url('/image/icon_pdf.png') center left no-repeat;
+
+background-size: 16px 16px;
+
+display: inline-block;
+
+padding-left: 20px;
+
+}       
+
+/*Word*/
+
+a[href$='.doc'], a[href$='.docx'], a[href$='.rtf'] {
+
+background: transparent url(/image/icon_word.gif) center left no-repeat;
+
+background-size: 17px 17px;
+
+display: inline-block;
+
+padding-left: 22px;
+
+}
+
+/*Excel*/      
+
+a[href$='.xls'], a[href$='.xlsx'] {
+
+background: transparent url/image/icon_excel.png) center left no-repeat;
+
+background-size: 17px 17px;
+
+display: inline-block;
+
+padding-left: 20px;
+
+}             
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }

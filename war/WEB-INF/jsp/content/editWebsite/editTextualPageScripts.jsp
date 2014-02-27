@@ -284,10 +284,8 @@ $(document).ready(function() {
 
 
 function save(){
-	var text = replaceURLWithHTMLLinks($("#htmlEditor").html());
-  	var ceditor   = CKEDITOR.instances['htmlEditor'];
+  	var text =CKEDITOR.instances['htmlEditor'].getData();
   	if(text.length==0) text+="&nbsp;";
-  	ceditor.setData(text);
     $("#html").val(text);
 	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
     $('#form').ajaxSubmit({
