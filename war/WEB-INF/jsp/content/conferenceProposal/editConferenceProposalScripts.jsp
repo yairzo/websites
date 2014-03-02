@@ -9,8 +9,7 @@ function timerIncrement() {
 }
 
 function clearTimer(){
-	alert("clearTimer");
-	   idleTime = 0;
+   idleTime = 0;
 }
 
 function myAjaxSubmit(){
@@ -24,8 +23,7 @@ $(document).ready(function() {
 	var idleInterval = setInterval(timerIncrement, 60000); // every 1 minute 
 
 	$(this).keypress(function (e) {
-alert(idleTime);
-		if (idleTime >1)  // 5 minutes
+		if (idleTime >4)  // 5 minutes 
 	        window.location.reload();
 	});
 
@@ -962,7 +960,11 @@ alert(idleTime);
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-		openHelp('#form',"הבקשה נעולה על ידי משתמש אחר");
+		var text="הבקשה נעולה על ידי משתמש אחר";
+		<c:if test="${admin}">
+			text="הבקשה נעולה על ידי  ${lockedByName}";
+		</c:if>
+		openHelp('#form',text);
 		</c:if>
 
 		<c:if test="${researcherDeclaration}">

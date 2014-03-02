@@ -37,7 +37,10 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		
 		//update lock
 		List<LockedObject> locekdObjects=new ArrayList<LockedObject>();
-		LockedObject gradingObject=new LockedObject("ConferenceProposalGrading","edit",request.getSession().getAttribute("approverId").toString(),5,userPersonBean.getId(),"ConferenceProposalGradingController");
+		String approverId=String.valueOf(userPersonBean.getId());
+		if(request.getSession().getAttribute("approverId")!=null && !request.getSession().getAttribute("approverId").equals(""))
+			approverId=request.getSession().getAttribute("approverId").toString();
+		LockedObject gradingObject=new LockedObject("ConferenceProposalGrading","edit",approverId,5,userPersonBean.getId(),"ConferenceProposalGradingController");
 		locekdObjects.add(gradingObject);
 		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsPage(gradeCommand.getListView(),gradeCommand.getSearchCreteria(),userPersonBean,true);
 		for (ConferenceProposal conferenceProposal: conferenceProposals){
@@ -146,16 +149,18 @@ public class ConferenceProposalGradeController extends GeneralFormController {
 		
 		//try locking all confs and grading
 		List<LockedObject> lockedObjects=new ArrayList<LockedObject>();
-		LockedObject gradingObject=new LockedObject("ConferenceProposalGrading","edit",request.getSession().getAttribute("approverId").toString(),5,userPersonBean.getId(),"ConferenceProposalGradingController");
+		String approverId=String.valueOf(userPersonBean.getId());
+		if(request.getSession().getAttribute("approverId")!=null && !request.getSession().getAttribute("approverId").equals(""))
+			approverId=request.getSession().getAttribute("approverId").toString();
+		LockedObject gradingObject=new LockedObject("ConferenceProposalGrading","edit", approverId,5,userPersonBean.getId(),"ConferenceProposalGradingController");
 		lockedObjects.add(gradingObject);
 		for (ConferenceProposal conferenceProposal: conferenceProposals){
-			LockedObject conferenceProposalObject=new LockedObject("ConferenceProposal","edit",String.valueOf(conferenceProposal.getId()),5,userPersonBean.getId(),"ConferenceProposalController");
+			LockedObject conferenceProposalObject=new LockedObject("ConferenceProposal","edit",String.valueOf(conferenceProposal.getId()),5,userPersonBean.getId(),"ConferenceProposalGradingController");
 			lockedObjects.add(conferenceProposalObject);
 		}
 		
-		String locksOn = configurationService.getConfigurationString("iws", "lock");
-		boolean locked=locksService.acquireLockList(lockedObjects,locksOn);
-		if(!locked)
+		boolean acquiredLock=locksService.acquireLockList(lockedObjects);
+		if(!acquiredLock)
 			model.put("locked",true);
 
 

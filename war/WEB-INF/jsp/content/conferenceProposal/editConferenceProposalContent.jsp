@@ -1255,12 +1255,12 @@
 		       		</td>
 				</tr>
 				<tr>
-				    <c:if test="${(admin || approver) && !printcp && !staffReadOnly}">
+				    <c:if test="${(admin || approver) && !printcp && !staffReadOnly && !locked}">
 				    <td colspan="4" align="center">
 						<form:textarea htmlEscape="true" cssClass="green" path="approverEvaluation" cols="80" rows="3"/>
 					</td>
 					</c:if>
-					 <c:if test="${committee || printcp || staffReadOnly}">
+					 <c:if test="${committee || printcp || staffReadOnly || locked}">
 				    <td colspan="4" align="right">
 					 	<c:out value="${command.approverEvaluation}"></c:out>
 					</td>
@@ -1302,12 +1302,12 @@
 					<td>הערות רכזת הועדה בנוגע לבקשה:</td>
 				</tr>
 				<tr>
-				   	<c:if test="${admin && !printcp && !staffReadOnly}">
+				   	<c:if test="${admin && !printcp && !staffReadOnly && !locked}">
 					<td colspan="4" align="center">
 					<form:textarea htmlEscape="true" cssClass="green" path="adminRemarks" cols="80" rows="3"/>
 					</td>
 					</c:if>
-				 	<c:if test="${committee || approver || printcp || staffReadOnly}">
+				 	<c:if test="${committee || approver || printcp || staffReadOnly || locked}">
 					<td colspan="4" align="right">
 				 	<c:out value="${command.adminRemarks}"></c:out>
 				 	</td>
@@ -1339,12 +1339,12 @@
 				</tr>
 				<c:if test="${admin}">
  				<tr>
-					<c:if test="${!printcp  && !staffReadOnly}">
+					<c:if test="${!printcp  && !staffReadOnly && !locked}">
 	   				<td colspan="4" align="center">
 						<form:textarea htmlEscape="true" cssClass="green" path="committeeRemarks" cols="80" rows="3"/>
 	   				</td>
 					</c:if>
-					<c:if test="${printcp || staffReadOnly}">
+					<c:if test="${printcp || staffReadOnly || locked}">
 	   				<td colspan="4">
 						${committeeRemarksWithLineBreaks}
 	   				</td>
@@ -1357,7 +1357,7 @@
 	   				${committeeRemarksWithLineBreaks}
 	   				</td>
 				</tr>
-				<c:if test="${!printcp && !staffReadOnly}">
+				<c:if test="${!printcp && !staffReadOnly && !locked}">
 				<tr>
 					<td>הוסף הערה:</td>
 				</tr>
@@ -1385,7 +1385,7 @@
 						<form:hidden path="committeeRemarks"/>
 				</c:if>
 				
-      	<c:if test="${!printcp}">
+      	<c:if test="${!printcp && !locked}">
 				
 				<c:if test="${admin && command.submitted}">
 				<tr class="form">

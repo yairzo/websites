@@ -381,11 +381,11 @@ public class ConferenceProposalController extends GeneralFormController{
 			model.put("adminEdit",request.getSession().getAttribute("adminEdit"));
 			request.getSession().setAttribute("adminEdit", false);//clear
 
-			String locksOn = configurationService.getConfigurationString("iws", "lock");
-			boolean locked = locksService.acquireLock("ConferenceProposal", "edit", String.valueOf(id), 5,userPersonBean.getId(),"ConferenceProposalController",locksOn);
-			if(!locked)
+			boolean aquiredLock = locksService.acquireLock("ConferenceProposal", "edit", String.valueOf(id), 5,userPersonBean.getId(),"ConferenceProposalController");
+			if(!aquiredLock){
 				model.put("locked", true);
-			System.out.println("locked:"+locked);
+				model.put("lockedByName",locksService.lockedByName("ConferenceProposal", "edit", String.valueOf(id)));
+			}
 	
 			return new ModelAndView ( this.getFormView(), model);
 		}

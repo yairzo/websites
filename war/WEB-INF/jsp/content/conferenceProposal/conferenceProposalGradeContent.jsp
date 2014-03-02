@@ -221,7 +221,7 @@ $(document).ready(function() {
 		$("#genericDialog").dialog('option', 'buttons', {"סגור" : function() {  $(this).dialog("close");} });
 		var text='הבקשות לדיון הקרוב כבר דורגו ונשלחו לוועדת הכנסים. לא ניתן לדרג אלא לאחר שרכז/ת הכנסים ישלח בקשה נוספת לדירוג.<br/>רכז/ת הכנסים יכול/ה לדרג בשמך.';
 		if('${locked}')
-			text="הדירוג או אחת הבקשות נעולים על ידי משתמש אחר. נסה/י שוב מאוחר יותר. אם הנעילה נמשכת מעל חצי שעה יש לפנות לרכז/ת הכנסים ";
+			text="הדירוג או אחת הבקשות נעולים על ידי משתמש אחר. ";
 		openHelp('',text);
 		//make fields readonly 
 		$("#deadlineRemarks").attr('readonly','readonly');

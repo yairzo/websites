@@ -144,6 +144,9 @@
 		<property name="locksDao">
             <ref bean="locksDao"/>
         </property>
+		<property name="configurationService">
+			<ref bean="configurationService"/>
+		</property>
     </bean>
 
 

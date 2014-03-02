@@ -6,15 +6,17 @@ import java.util.List;
 
 public interface LocksService {
 	
-	public boolean acquireLock (String id, String subject, String arguments, int expiryMinutes, int lockedBy,String controller,String locksOn);
+	public boolean acquireLock (String id, String subject, String arguments, int expiryMinutes, int lockedBy,String controller);
 	
 	public void updateLock (String id, String subject, String arguments, int expiryMinutes);
 	
-	public boolean acquireLockList (List<LockedObject> lockedObjects,String locksOn);
+	public boolean acquireLockList (List<LockedObject> lockedObjects);
 
 	public void updateLockList (List<LockedObject> lockedObjects);
 
 	public void releaseLock (String id, String subject, String arguments);
+	
+	public String lockedByName (String id, String subject, String arguments);
 
 	public class LockedObject{
 		String id;
