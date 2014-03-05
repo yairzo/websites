@@ -5,46 +5,47 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
  /*PDF*/
-
-a[href$='.pdf'] {
-
+.maintext_rtl a[href$='.pdf'], .kol_content_rtl a[href$='.pdf']{
 background: transparent url(/image/icon_pdf.png) center right no-repeat;
-
 background-size: 17px 17px;
-
 display: inline-block;
-
 padding-right: 20px;
+}
 
-}       
+.maintext_ltr a[href$='.pdf'], .kol_content_ltr a[href$='.pdf'] {
+background: transparent url('/image/icon_pdf.png') center left no-repeat;
+background-size: 16px 16px;
+display: inline-block;
+padding-left: 20px;
+}
 
 /*Word*/
-
-a[href$='.doc'], a[href$='.docx'], a[href$='.rtf'] {
-
+.maintext_rtl a[href$='.doc'], .maintext_rtl a[href$='.docx'], .maintext_rtl a[href$='.rtf'], .kol_content_rtl a[href$='.doc'], .kol_content_rtl a[href$='.docx'], .kol_content_rtl a[href$='.rtf'] {
 background: transparent url(/image/icon_word.gif) center right no-repeat;
-
 background-size: 17px 17px;
-
 display: inline-block;
-
 padding-right: 22px;
-
 }                                              
-
-/*Excel*/                
-
-a[href$='.xls'], a[href$='.xlsx'] {
-
-background: transparent url(/image/icon_excel.png) center right no-repeat;
-
+.maintext_ltr a[href$='.doc'], .maintext_ltr a[href$='.docx'], .maintext_ltr a[href$='.rtf'], .kol_content_ltr a[href$='.doc'], .kol_content_ltr a[href$='.docx'], .kol_content_ltr a[href$='.rtf'] {
+background: transparent url(/image/icon_word.gif) center left no-repeat;
 background-size: 17px 17px;
-
 display: inline-block;
-
+padding-left: 22px;
+}
+/*Excel*/                
+.maintext_rtl a[href$='.xls'],.maintext_rtl a[href$='.xlsx'], .kol_content_rtl a[href$='.xls'],.kol_content_rtl a[href$='.xlsx']{
+background: transparent url(/image/icon_excel.png) center right no-repeat;
+background-size: 17px 17px;
+display: inline-block;
 padding-right: 20px;
+}
+.maintext_ltr a[href$='.xls'],.maintext_ltr a[href$='.xlsx'], .kol_content_ltr a[href$='.xls'],.kol_content_ltr a[href$='.xlsx']{
+background: transparent url(/image/icon_excel.png) center left no-repeat;
+background-size: 17px 17px;
+display: inline-block;
+padding-left: 20px;
+}
 
-}                           
 html,
 button,
 input,
