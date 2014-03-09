@@ -43,7 +43,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		
 		locksService.updateLock("ConferenceProposal", "edit", String.valueOf(conferenceProposalBean.getId()), 5);
 		
-		
+		boolean checkGrades=false;
 		// this part saves the content type of the attachments
 		if (request.getRequest().getContentType().indexOf("multipart")!=-1){
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
@@ -226,7 +226,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 					conferenceProposalService.rearangeGrades(origConferenceProposalBean.getGrade(), origConferenceProposalBean.getApproverId(), prevdeadline);
 					conferenceProposalBean.setGrade(0);
-					conferenceProposalService.checkGrades(origConferenceProposalBean.getApproverId());
+					checkGrades=true;
 				}
 		}
 		//status changed by admin
@@ -257,7 +257,7 @@ public class ConferenceProposalController extends GeneralFormController{
 					String prevdeadline = configurationService.getConfigurationString("conferenceProposal", "conferenceProposalPrevDeadline");
 					conferenceProposalService.rearangeGrades(conferenceProposalBean.getGrade(), conferenceProposalBean.getApproverId(), prevdeadline);
 					conferenceProposalBean.setGrade(0);
-					conferenceProposalService.checkGrades(origConferenceProposalBean.getApproverId());
+					checkGrades=true;
 				}
 
 			}
@@ -267,6 +267,8 @@ public class ConferenceProposalController extends GeneralFormController{
 		}
 
 		conferenceProposalService.updateConferenceProposal(conferenceProposalBean.toConferenceProposal());
+		if(checkGrades)
+			conferenceProposalService.checkGrades(origConferenceProposalBean.getApproverId());
 			
 		if(request.getParameter("showMessage", "").equals("saved")){
 			String userMessage = messageService.getMessage("iw_IL.conferenceProposal.saved");
