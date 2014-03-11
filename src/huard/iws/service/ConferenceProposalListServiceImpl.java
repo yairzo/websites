@@ -34,8 +34,8 @@ public class ConferenceProposalListServiceImpl implements ConferenceProposalList
 	public List<ConferenceProposal> getConferenceProposals(ListView lv, ConferenceProposalSearchCreteria search, PersonBean userPersonBean,boolean forGrading) {
 		return conferenceProposalDao.getConferenceProposals(lv, search,userPersonBean,forGrading);
 	}
-	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate) {
-		return conferenceProposalDao.getConferenceProposalsByDate(fromDate);
+	public List<ConferenceProposal> getConferenceProposalsForCsv(String fromDate) {
+		return conferenceProposalDao.getConferenceProposalsForCsv(fromDate);
 	}
 
 	public void gradeHigher(ConferenceProposal conferenceProposal, String deadline){

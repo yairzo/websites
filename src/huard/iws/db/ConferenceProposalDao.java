@@ -50,7 +50,7 @@ public interface ConferenceProposalDao {
 
 	public boolean checkGrades(int approverId, String deadline);
 
-	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate);
+	public List<ConferenceProposal> getConferenceProposalsForCsv(String fromDate);
 	
 	public void insertFinancialSupport(FinancialSupport financialSupport);
 	

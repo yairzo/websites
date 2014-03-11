@@ -18,7 +18,7 @@ public interface ConferenceProposalListService {
 
 	public void gradeLower(ConferenceProposal conferenceProposal, String deadline);
 	
-	public List<ConferenceProposal> getConferenceProposalsByDate(String fromDate);
+	public List<ConferenceProposal> getConferenceProposalsForCsv(String fromDate);
 
 	public void insertGradingInfo(ConferenceProposalGrading conferenceProposalGrading);
 	

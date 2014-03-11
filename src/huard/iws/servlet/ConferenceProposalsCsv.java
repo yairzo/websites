@@ -210,7 +210,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 		// get data
 		Object bean = ApplicationContextProvider.getContext().getBean("conferenceProposalListService");
 		ConferenceProposalListService conferenceProposalListService = (ConferenceProposalListService) bean;
-		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsByDate(prevdeadline);
+		List<ConferenceProposal> conferenceProposals = conferenceProposalListService.getConferenceProposalsForCsv(prevdeadline);
 		System.out.println("Conference proposals size: " + conferenceProposals.size());
 		for (ConferenceProposal conferenceProposal : conferenceProposals) {
 			ConferenceProposalBean conferenceProposalBean = new ConferenceProposalBean(conferenceProposal);
@@ -435,7 +435,8 @@ public class ConferenceProposalsCsv extends HttpServlet {
 				b.append(" ");
 			else
 				b.append(conferenceProposalBean.getDeadlineRemarks().trim());
-			if (!conferenceProposalBean.getCommitteeRemarks().equals(""))
+			b.append('~');
+			if (conferenceProposalBean.getCommitteeRemarks().equals(""))
 				b.append(" ");
 			else
 				b.append(conferenceProposalBean.getCommitteeRemarks().trim());
@@ -584,7 +585,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					j++;
 				}
 			}
-			if (!conferenceProposalBean.getCommitteeRemarks().equals("")){
+			/*if (!conferenceProposalBean.getCommitteeRemarks().equals("")){
 				StringTokenizer tk = new StringTokenizer(conferenceProposalBean.getCommitteeRemarks(),"\n");
 				while (tk.hasMoreTokens()){
 					String committeeRemarks=tk.nextToken();
@@ -605,7 +606,7 @@ public class ConferenceProposalsCsv extends HttpServlet {
 					b.append('~');
 					b.append('\n');
 				}
-			}
+			}*/
 		}
 		return b;
 	}

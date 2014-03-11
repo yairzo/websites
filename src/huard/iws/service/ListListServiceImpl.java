@@ -106,7 +106,7 @@ public class ListListServiceImpl implements ListListService{
 		}
 		List <AList> unboundLists = new ArrayList<AList>();
 		for (AList list: getLists()){
-			if (! boundListsIds.contains(list.getId()) && aList.getId() != list.getId()){
+			if (! boundListsIds.contains(list.getId()) && aList.getId() != list.getId() && !list.isCompound()){
 				unboundLists.add(list);
 			}
 		}
