@@ -149,7 +149,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		conferenceProposalBean.setSubmitted(origConferenceProposalBean.getSubmitted());
 		conferenceProposalBean.setSubmissionDate(origConferenceProposalBean.getSubmissionDate());
 		conferenceProposalBean.setOpenDate(origConferenceProposalBean.getOpenDate());
-		if(conferenceProposalBean.getSubmitted()){
+		if(conferenceProposalBean.getSubmitted() && !request.getParameter("editOnce", "").equals("true")){
 			conferenceProposalBean.setOperationalCommittees(origConferenceProposalBean.getOperationalCommittees());
 			conferenceProposalBean.setScientificCommittees(origConferenceProposalBean.getScientificCommittees());
 			conferenceProposalBean.setFromAssosiate(origConferenceProposalBean.getFromAssosiate());

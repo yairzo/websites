@@ -40,6 +40,10 @@
 				<c:set var="staffReadOnly" value="false"/>
  			</c:if>
  			
+ 			<c:if test="${adminEdit}">
+ 				<input type="hidden" name="editOnce" value="true"/>
+ 			</c:if>
+ 			
  			<c:set var="compulsoryFieldSign" value=""></c:set>
 			<c:if test="${!readOnly && !command.submitted}">
  				<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"></c:set>
