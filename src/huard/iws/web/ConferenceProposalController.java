@@ -9,6 +9,7 @@ import huard.iws.service.ConferenceProposalListService;
 import huard.iws.service.ConferenceProposalService;
 import huard.iws.service.FacultyService;
 import huard.iws.service.LocksService;
+import huard.iws.service.LocksService.LockedObject;
 import huard.iws.service.PersonListService;
 import huard.iws.util.DateUtils;
 import huard.iws.util.RequestWrapper;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -386,7 +388,10 @@ public class ConferenceProposalController extends GeneralFormController{
 			boolean aquiredLock = locksService.acquireLock("ConferenceProposal", "edit", String.valueOf(id), 5,userPersonBean.getId(),"ConferenceProposalController");
 			if(!aquiredLock){
 				model.put("locked", true);
-				model.put("lockedByName",locksService.lockedByName("ConferenceProposal", "edit", String.valueOf(id)));
+				LockedObject lockedObject = locksService.getLockedObject("ConferenceProposal", "edit", String.valueOf(id));
+				//model.put("lockedByName",locksService.lockedByName("ConferenceProposal", "edit", String.valueOf(id)));
+				model.put("lockedByName",lockedObject.getLockedByName());
+				model.put("lockedExpiryTime",lockedObject.getExpiryTimeFormatted());
 			}
 	
 			return new ModelAndView ( this.getFormView(), model);

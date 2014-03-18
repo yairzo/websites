@@ -102,6 +102,9 @@
         <property name="commandClass"><value>huard.iws.web.ActivePersonsController$ActivePersonsControllerCommand</value></property>
         <property name="formView"><value>activePersonsList</value></property>
         <property name="successView"><value>active.html</value></property>
+   		<property name="locksService">
+            <ref bean="locksService"/>
+        </property>
      </bean>
 	
 	<bean id="editCallForProposalController" class="huard.iws.web.EditCallForProposalController" parent="generalFormController">

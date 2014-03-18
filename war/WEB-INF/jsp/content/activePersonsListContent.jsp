@@ -1,5 +1,16 @@
 <%@ page  pageEncoding="UTF-8" %>
+<script>
 
+$(document).ready(function() {
+	$("button.deleteLock").click(function(){
+		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteLock\"/>");
+		var lockId= this.id;
+		$("#form").append("<input type=\"hidden\" name=\"lockId\" value=\""+lockId +"\"/>");
+   		$("#form").submit();
+    	return true;
+    });
+});
+</script>
 
 
           <td align="right" bgcolor="#787669" height="20">
@@ -42,6 +53,18 @@
   				</td>
   				<td align="right">
 				<c:out value="${person.formattedLastAction}"></c:out>
+				</td>
+				<td align="right">
+				<table>
+				<c:forEach items="${person.lockedPages}" var="lockedPage" varStatus="varStatus">
+				<tr>
+				<td>${lockedPage.id}</td>
+				<td>${lockedPage.arguments}</td>
+				<td>נעול עד: ${lockedPage.expiryTimeFormatted}</td>
+				<td><button class="deleteLock" id="${lockedPage.id}~${lockedPage.subject}~${lockedPage.arguments}">שחרר נעילה</button></td>
+				</tr>
+				</c:forEach>
+				</table>
 				</td>
    	  			</tr>
   	  		</tbody>

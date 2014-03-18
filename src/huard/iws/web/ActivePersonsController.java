@@ -2,6 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.model.PersonPrivilege;
+import huard.iws.service.LocksService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,6 +29,18 @@ public class ActivePersonsController extends GeneralFormController {
 
 		if (action.equals("search"))
 			aCommand.getListView().setPage(1);
+		if (action.equals("deleteLock")){
+			String lockId= request.getParameter("lockId", "");
+			if(!lockId.isEmpty()){
+				StringTokenizer st = new StringTokenizer(lockId, "~"); 
+				if(st.countTokens()==3){
+					String id=st.nextToken();
+					String subject=st.nextToken();
+					String arguments=st.nextToken();
+					locksService.releaseLock(id, subject, arguments);
+				}
+			}
+		}
 
 		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
 	}
@@ -56,5 +70,10 @@ public class ActivePersonsController extends GeneralFormController {
 			this.listView = listView;
 		}
 	}
+	
+	private LocksService locksService;
 
+	public void setLocksService(LocksService locksService) {
+		this.locksService = locksService;
+	}
 }

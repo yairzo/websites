@@ -960,9 +960,9 @@ $(document).ready(function() {
 		$("#genericDialog").dialog({ modal: false });
 		$("#genericDialog").dialog({ height: 200 });
 		$("#genericDialog").dialog({ width: 400 });
-		var text="הבקשה נעולה על ידי משתמש אחר";
+		var text="הבקשה נעולה על ידי משתמש אחר עד ל: ${lockedExpiryTime}";
 		<c:if test="${admin}">
-			text="הבקשה נעולה על ידי  ${lockedByName}";
+			text="הבקשה נעולה על ידי  ${lockedByName} עד ל: ${lockedExpiryTime}";
 		</c:if>
 		openHelp('#form',text);
 		</c:if>

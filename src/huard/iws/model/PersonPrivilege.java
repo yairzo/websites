@@ -2,10 +2,13 @@ package huard.iws.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import huard.iws.bean.PersonBean;
+import huard.iws.service.LocksService;
 import huard.iws.service.PersonService;
 import huard.iws.util.ApplicationContextProvider;
+import huard.iws.service.LocksService.LockedObject;
 
 public class PersonPrivilege {
 	private int id;
@@ -16,7 +19,7 @@ public class PersonPrivilege {
 	private String subscriptionMd5;
 	private String subscriptionInitPage;
 	private long lastAction;
-
+	 
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -74,10 +77,16 @@ public class PersonPrivilege {
 		return person.getDegreeFullNameHebrew();
 	}
 
-		public String getFormattedLastAction() {
+	public String getFormattedLastAction() {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 			Date lastAction = new Date(this.lastAction);
 			return formatter.format(lastAction);
-		}
+	}
+	
+	public List<LockedObject> getLockedPages() {
+		LocksService locksService = (LocksService) ApplicationContextProvider.getContext().getBean("locksService");
+		List<LockedObject> lockedObjects = locksService.lockedObjectsByPerson(this.personId);
+		return lockedObjects;
+	}
 
 }

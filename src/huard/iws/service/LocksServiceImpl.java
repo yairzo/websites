@@ -1,8 +1,10 @@
 package huard.iws.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import huard.iws.db.LocksDao;
+import huard.iws.service.LocksService.LockedObject;
 
 public class LocksServiceImpl implements LocksService{
 	
@@ -60,6 +62,14 @@ public class LocksServiceImpl implements LocksService{
 		return locksDao.lockedByName(id, subject, arguments);
 	}
 	
+	public List<LockedObject> lockedObjectsByPerson(int personId){
+		return locksDao.lockedObjectsByPerson(personId);
+	}
+
+	public LockedObject getLockedObject(String id, String subject, String arguments){
+		return locksDao.getLockedObject(id, subject, arguments);
+	}
+
 	private LocksDao locksDao;
 
 	public void setLocksDao(LocksDao locksDao) {
