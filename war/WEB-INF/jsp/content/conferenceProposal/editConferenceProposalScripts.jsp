@@ -15,7 +15,7 @@ function clearTimer(){
 function myAjaxSubmit(){
 	clearTimer();
 	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" id=\"ajaxSubmit\" value=\"true\"/>");
-	$('#form').ajaxSubmit(options);
+	$('#form').ajaxSubmit();
 }
 
 $(document).ready(function() {

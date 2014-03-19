@@ -438,8 +438,10 @@ public class ConferenceProposalsCsv extends HttpServlet {
 			b.append('~');
 			if (conferenceProposalBean.getCommitteeRemarks().equals(""))
 				b.append(" ");
-			else
-				b.append(conferenceProposalBean.getCommitteeRemarks().trim());
+			else{
+				String committeeRemarks = conferenceProposalBean.getCommitteeRemarks().trim().replace("\r\n", ";");
+				b.append(committeeRemarks);
+			}
 			b.append('\n');
 
 			ConferenceProposalBean cp = new ConferenceProposalBean(conferenceProposalService.getConferenceProposal(conferenceProposalBean.getId()));

@@ -1343,35 +1343,35 @@
 				</tr>
 				<c:if test="${admin}">
  				<tr>
-					<c:if test="${!printcp  && !staffReadOnly && !locked}">
-	   				<td colspan="4" align="center">
-						<form:textarea htmlEscape="true" cssClass="green" path="committeeRemarks" cols="80" rows="3"/>
-	   				</td>
-					</c:if>
 					<c:if test="${printcp || staffReadOnly || locked}">
 	   				<td colspan="4">
 						${committeeRemarksWithLineBreaks}
 	   				</td>
 					</c:if>
+					<c:if test="${!printcp  && !staffReadOnly && !locked}">
+	   				<td colspan="4" align="center">
+						<form:textarea htmlEscape="true" cssClass="green" path="committeeRemarks" cols="80" rows="3"/>
+	   				</td>
+					</c:if>
 				</tr>
 				</c:if>
-				<c:if test="${committee || staffReadOnly}">
- 				<tr>
-	   				<td colspan="4">
-	   				${committeeRemarksWithLineBreaks}
-	   				</td>
-				</tr>
-				<c:if test="${!printcp && !staffReadOnly && !locked}">
-				<tr>
-					<td>הוסף הערה:</td>
-				</tr>
-				<tr>
-					<td colspan="4" align="center">
+				<c:if test="${committee}">
+ 					<tr>
+	   					<td colspan="4">
+	   					${committeeRemarksWithLineBreaks}
+	   					</td>
+					</tr>
+					<c:if test="${!printcp && !staffReadOnly && !locked}">
+					<tr>
+						<td>הוסף הערה:</td>
+					</tr>
+					<tr>
+						<td colspan="4" align="center">
 						<textarea htmlEscape="true" class="green newCommitteeRemarks" name="newCommitteeRemarks" cols="80" rows="3"></textarea>
 					</td>
-				</tr>
-				</c:if>
-				<tr><td>&nbsp;</td></tr>
+					</tr>
+					</c:if>
+					<tr><td>&nbsp;</td></tr>
 				</c:if>
 				</table>
 				</td>

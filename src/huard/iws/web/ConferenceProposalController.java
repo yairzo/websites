@@ -215,6 +215,7 @@ public class ConferenceProposalController extends GeneralFormController{
 		if(!committeeRemarks.equals("")){
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 				committeeRemarks =userPersonBean.getDegreeFullName() + "," + formatter.format(new Date()) + "-" + committeeRemarks +"\n";
+				committeeRemarks = committeeRemarks.replace("\n", ";");
 				conferenceProposalBean.setCommitteeRemarks(origConferenceProposalBean.getCommitteeRemarks() + committeeRemarks);
 		}
 		
