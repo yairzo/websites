@@ -13,7 +13,7 @@ CKEDITOR.editorConfig = function( config ) {
     		'theme' : 'textmate' // the theme of the code editor
     	};	*/
 	config.removeButtons = 'NewPage,Templates,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,'
-		+'Anchor,Flash,Smiley,PageBreak,Iframe,SpecialChar,Blockquote,Underline,Subscript,Superscript,ShowBlocks,Styles';
+		+'Flash,Smiley,PageBreak,Iframe,SpecialChar,Blockquote,Underline,Subscript,Superscript,ShowBlocks,Styles';
 
 	config.format_tags = 'p;h1;h2;h3;pre';
 	
@@ -22,7 +22,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removePlugins = 'tableresize';
 
 	config.extraPlugins = 'mediaembed';//,pbckcode';
-
+	
 	config.scayt_autoStartup = true;
 	
 	config.floatSpaceDockedOffsetX = 170;

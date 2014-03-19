@@ -107,7 +107,7 @@
         <footer class="footer">
 			<div class="container">
 				<div class="footer_bg clearfix">
-					<div class="pull-${lang.align}"><a href="/sitemap/"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="/page/${contactsPageUrlTitle}"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="javascript:bookmarksite();"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
+					<div class="pull-${lang.align}"><a href="/sitemap"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="/page/${contactsPageUrlTitle}"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="javascript:bookmarksite();"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
 					<div class="pull-${lang.alignOpp}"><fmt:message key="${lang.localeId}.general.lastUpdate"/> - ${updateTime}</div>
 				</div>
 				<div class="footer_bottom clearfix mar_10">
@@ -166,8 +166,9 @@
         		else if(document.all)// ie
         			window.external.AddFavorite(url, title);
         	} 
-        			var mouse_is_inside = false;
-        			$(document).ready(function() {
+        			
+        	var mouse_is_inside = false;
+        	$(document).ready(function() {
         				
         				<c:if test="${!userAuthorized}">
         				$(".login_left").click(function() {
@@ -204,8 +205,8 @@
     						else
     							$(".login_help_popup").show();     	        	 
       	        		});
-        			}); 
-        		</script>
+        	}); 
+        	</script>
 
 		<jsp:include page="${templateScripts}" />
 		<%@ include file="/WEB-INF/jsp/website/googleAnalytics.jsp" %>	

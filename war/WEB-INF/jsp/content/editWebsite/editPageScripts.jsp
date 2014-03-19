@@ -623,32 +623,71 @@ $(document).ready(function() {
 	
 	
 		CKEDITOR.disableAutoInline = true;
-		if(CKEDITOR.instances['editor1']==null)
-			CKEDITOR.inline('editor1');
-		if(CKEDITOR.instances['editor2']==null)
-			CKEDITOR.inline('editor2');
-		if(CKEDITOR.instances['editor3']==null)
-			CKEDITOR.inline('editor3');
-		if(CKEDITOR.instances['editor4']==null)
-			CKEDITOR.inline('editor4');
-		if(CKEDITOR.instances['editor5']==null)
-			CKEDITOR.inline('editor5');
-		if(CKEDITOR.instances['editor6']==null)
-			CKEDITOR.inline('editor6');
-		if(CKEDITOR.instances['editor7']==null)
-			CKEDITOR.inline('editor7');
-		if(CKEDITOR.instances['editor8']==null)
-			CKEDITOR.inline('editor8');
-		if(CKEDITOR.instances['editor9']==null)
-			CKEDITOR.inline('editor9');
-		if(CKEDITOR.instances['editor10']==null)
-			CKEDITOR.inline('editor10');
-		if(CKEDITOR.instances['editor11']==null)
-			CKEDITOR.inline('editor11');
-		if(CKEDITOR.instances['editor12']==null)
-			CKEDITOR.inline('editor12');
-		if(CKEDITOR.instances['editor13']==null)
-			CKEDITOR.inline('editor13');
+		if(CKEDITOR.instances['editor1']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor1',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor1');
+		}
+		if(CKEDITOR.instances['editor2']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor2',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor2');
+		}
+		if(CKEDITOR.instances['editor3']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor3',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor3');
+		}
+		if(CKEDITOR.instances['editor4']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor4',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor4');
+		}
+		if(CKEDITOR.instances['editor5']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor5',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor5');
+		}
+		if(CKEDITOR.instances['editor6']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor6',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor6');
+		}
+		if(CKEDITOR.instances['editor7']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor7',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor7');
+		}
+		if(CKEDITOR.instances['editor8']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor8',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor8');
+		}
+		if(CKEDITOR.instances['editor9']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor9',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor9');
+		}
+		if(CKEDITOR.instances['editor10']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor10',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor10');
+		}
+		if(CKEDITOR.instances['editor11']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor11',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor11');
+		}
+		if(CKEDITOR.instances['editor12']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor12',{scayt_autoStartup:false});
+			else  CKEDITOR.inline('editor12');
+		}
+		if(CKEDITOR.instances['editor13']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editor13',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editor13');
+		}
 
 		CKEDITOR.instances['editor1'].on('key', function(e) {
 			editingFlag=true;
