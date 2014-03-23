@@ -502,11 +502,6 @@
 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="submissionDetails"><fmt:message key="${lang.localeId}.callForProposal.submissionAtAuthority"/> </span>
 					</td>
 					</tr>
-					<tr>
-					<td colspan="3" style="text-align:${lang.align}">	
- 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="submissionDetails"><fmt:message key="${lang.localeId}.callForProposal.submissionAtFund"/> </span><br/>	
-					</td>
-					</tr>
  					<tr>
 					<td colspan="3" style="text-align:${lang.align}">	
  					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="submissionDetails"><fmt:message key="${lang.localeId}.callForProposal.submissionCopies"/></span><br/>		
@@ -522,9 +517,9 @@
 					<td colspan="3" style="text-align:${lang.align}">
 					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;<span id="addedText" class="submissionDetails"><fmt:message key="${lang.localeId}.callForProposal.submissionEmail"/> 
 					<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskAssistant.degreeFullNameHebrew}"/></c:if>
-   					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskAssistant.degreeFullNameEnglish}"/></c:if>
-					<c:out value="${deskAssistant.title}"></c:out> 
-					<c:out value="${deskAssistant.phone}"></c:out></span>
+   					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskAssistant.degreeFullNameEnglish}"/></c:if>,
+					<c:out value="${command.deskName}"></c:out> ,
+					<c:out value="${deskAssistant.email}"></c:out>.</span>
 					</td>
 					</tr>
 					</c:forEach>

@@ -266,9 +266,11 @@ $(document).ready(function() {
    
     
 	CKEDITOR.disableAutoInline = true;
-	if(CKEDITOR.instances['htmlEditor']==null)
-		CKEDITOR.inline('htmlEditor');
-
+	if(CKEDITOR.instances['htmlEditor']==null){
+		if('${lang.localeId}'=='iw_IL')
+			CKEDITOR.inline('htmlEditor',{scayt_autoStartup:false});
+		else CKEDITOR.inline('htmlEditor');
+	}
 	
 	CKEDITOR.instances['htmlEditor'].on('blur', function() {
       	save();

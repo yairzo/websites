@@ -703,7 +703,16 @@ public class CallForProposalBean {
 		if (title.length() > 60)
 			trimmedTitle += "...";
 		return trimmedTitle;
-	}	
+	}
+	
+	public String getDeskName(){
+		MopDesk mopDesk = mopDeskService.getMopDesk(deskId);
+		if(localeId.equals("iw_IL"))
+			return mopDesk.getHebrewName();
+		else
+			return  mopDesk.getEnglishName();
+	}
+	
 	public String toPostMessage(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(" <a class=\"big\" href=\"https://" + configurationService.getConfigurationString("website", "webServer") +

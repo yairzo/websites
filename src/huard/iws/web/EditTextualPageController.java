@@ -142,7 +142,7 @@ public class EditTextualPageController extends GeneralFormController {
 		}
 		else{//show edit
 			//language
-			LanguageUtils.applyLanguage(model, request, response, textualPageBean.getLocaleId());
+			LanguageUtils.applyLanguage(model, textualPageBean.getLocaleId());
 			
 			//desks
 			List<MopDesk> mopDesks = mopDeskService.getMopDesks();

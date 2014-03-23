@@ -1122,7 +1122,7 @@ line-height:22px;
 
 .content p{margin:0 0 15px 0;}
 
-.content a{color:#00a6ca;}
+.content a[href]{color:#00a6ca;}
 .content a:hover{text-decoration:none;}
 
 .content .selected{background:#b2eaf6;color:#333333;text-decoration:none;}
