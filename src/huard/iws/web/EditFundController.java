@@ -35,11 +35,11 @@ public class EditFundController extends GeneralFormController {
 			fundService.updateFund(fundBean.toFund());
 		}
 		if (action.equals("delete")){
-			fundService.deleteFund(fundBean.getFinancialId());
+			fundService.deleteFund(fundBean.getId());
 			return new ModelAndView(new RedirectView("funds.html"), newModel );
 		}
 
-		newModel.put("id", fundBean.getFinancialId());
+		newModel.put("id", fundBean.getId());
 		return new ModelAndView(new RedirectView("fund.html"), newModel );
 
 	}
@@ -60,7 +60,7 @@ public class EditFundController extends GeneralFormController {
 			if(fund.getFinancialId()==0)
 				fund.setFinancialId(key);
 			Map<String, Object> newModel = new HashMap<String, Object>();
-			newModel.put("id",fund.getFinancialId());
+			newModel.put("id",key);
 			return new ModelAndView ( new RedirectView("fund.html"), newModel);
 		}
 		else{//show edit
@@ -68,7 +68,7 @@ public class EditFundController extends GeneralFormController {
 			//desks
 			List<MopDesk> mopDesks = mopDeskService.getMopDesks();
 			model.put("mopDesks", mopDesks);
-			model.put("id",fundBean.getFinancialId());
+			model.put("id",fundBean.getId());
 			return new ModelAndView ( this.getFormView(), model);
 		}
 	}
@@ -82,7 +82,7 @@ public class EditFundController extends GeneralFormController {
 				|| id == 0)
 			return fundBean;
 
-		fundBean = new FundBean(fundService.getFundByFinancialId(id));
+		fundBean = new FundBean(fundService.getFund(id));
 		return fundBean;
 	}
 

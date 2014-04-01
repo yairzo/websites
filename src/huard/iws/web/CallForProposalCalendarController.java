@@ -103,7 +103,7 @@ public class CallForProposalCalendarController extends GeneralWebsiteController 
 		Map<Integer, Fund> fundsMap = new HashMap<Integer, Fund>();
 		List<Fund> allfunds= fundService.getFunds();
 		for (Fund fund: allfunds){
-			fundsMap.put(fund.getFinancialId(), fund);
+			fundsMap.put(fund.getId(), fund);
 		}
 
 		//days map without callForProposals

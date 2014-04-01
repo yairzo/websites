@@ -121,7 +121,7 @@ public class SearchCallForProposalsController extends GeneralWebsiteFormControll
 		model.put("fundId",command.getSearchCreteria().getSearchByFund());
 		try{
 			if(command.getSearchCreteria().getSearchByFund()>0 )
-				model.put("searchWords",fundService.getFundByFinancialId(command.getSearchCreteria().getSearchByFund()).getName());
+				model.put("searchWords",fundService.getFund(command.getSearchCreteria().getSearchByFund()).getName());
 		}
 		catch(Exception e){
 			e.printStackTrace();	

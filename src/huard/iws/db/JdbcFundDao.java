@@ -150,6 +150,7 @@ public class JdbcFundDao extends SimpleJdbcDaoSupport implements FundDao {
 		        }
 		    },
 		    keyHolder);
+	System.out.println("1111111111:"+keyHolder.getKey().intValue());
 		if(fund.getFinancialId()==0){
 			String query = "update fund set financialId=id where id=" +keyHolder.getKey().intValue();
 			getSimpleJdbcTemplate().update(query);

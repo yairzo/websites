@@ -162,6 +162,9 @@
         <property name="personDeskService">
             <ref bean="personDeskService"/>
         </property>
+       <property name="fundService">
+            <ref bean="fundService"/>
+        </property>
      </bean>
       
 	<bean id="searchCallForProposalsController" class="huard.iws.web.SearchCallForProposalsController" parent="generalWebsiteFormController">

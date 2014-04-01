@@ -358,7 +358,7 @@ public class CallForProposalBean {
 	public Fund getFund(){
 		Fund fund=new Fund();
 		try{
-			fund=fundService.getFundByFinancialId(fundId);
+			fund=fundService.getFund(fundId);
 		}
 		catch(Exception e){
 			return fund;
@@ -719,7 +719,7 @@ public class CallForProposalBean {
 				"/call_for_proposal/" + this.urlTitle + "\">" + title + "</a><br/> ");
 		sb.append("<span class=\"medium\">");
 		if (fundId != 0){
-		    Fund fund= fundService.getFundByFinancialId(fundId);
+		    Fund fund= fundService.getFund(fundId);
 			sb.append(" <a class=\"bold\" href=\"" + fund.getWebAddress() + "\">" + fund.getName() + ", " + fund.getShortName() + "</a>;;");
 		}
 		else
