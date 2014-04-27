@@ -103,6 +103,7 @@ public class PersonBean implements Serializable {
 
 	private boolean passValidation;
 
+	private boolean postNewDesign;
 
 	public PersonBean() {
 		this.id = 0;
@@ -137,6 +138,7 @@ public class PersonBean implements Serializable {
 		
 		this.localeId = "iw_IL";
 		this.passValidation=false;
+		this.postNewDesign=false;
 	}
 
 	public PersonBean(Person person) {
@@ -169,7 +171,8 @@ public class PersonBean implements Serializable {
 		this.postReceiveImmediately = person.isPostReceiveImmediately();
 		this.readsUTF8Mails = person.isReadsUTF8Mails();
 		this.receivePosts = person.isReceivePosts();
-		
+		this.postNewDesign = person.isPostNewDesign();
+
 		this.localeId = "iw_IL";
 	}
 
@@ -210,6 +213,7 @@ public class PersonBean implements Serializable {
 		person.setReadsUTF8Mails(readsUTF8Mails);
 		person.setReceivePosts(receivePosts);
 		// person.setPersonListAttributions(personListAttributions);
+		person.setPostNewDesign(postNewDesign);
 		return person;
 	}
 
@@ -735,5 +739,13 @@ public class PersonBean implements Serializable {
 
 	public void setReceivePosts(boolean receivePosts) {
 		this.receivePosts = receivePosts;
+	}
+	
+	public boolean isPostNewDesign() {
+		return postNewDesign;
+	}
+
+	public void setPostNewDesign(boolean postNewDesign) {
+		this.postNewDesign = postNewDesign;
 	}
 }

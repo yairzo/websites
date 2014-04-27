@@ -421,7 +421,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 
 
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
-		           velocityEngine, "postsMailMessage.vm", model);
+		           velocityEngine, recipient.isPostNewDesign()?"postsMailMessageNew.vm":"postsMailMessage.vm", model);
 		List<FileSystemResourceWrapper> resources = getCommonResources();
 
 

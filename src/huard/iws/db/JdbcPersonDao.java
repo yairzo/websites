@@ -141,6 +141,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
             person.setPostReceiveImmediately(rs.getBoolean("postReceiveImmediately"));
             person.setReadsUTF8Mails(rs.getBoolean("readsUTF8Mails"));
             person.setReceivePosts(rs.getBoolean("receivePosts"));
+            person.setPostNewDesign(rs.getBoolean("postNewDesign"));
             return person;
         }
 	};

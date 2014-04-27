@@ -33,6 +33,8 @@ public class Person implements ISubjectRelated, IMailable{
 	private boolean postReceiveImmediately;
 	private boolean readsUTF8Mails;
 	private boolean receivePosts;
+	private boolean postNewDesign;
+
 
 
 	List<PersonListAttribution> personListAttributions;
@@ -67,7 +69,7 @@ public class Person implements ISubjectRelated, IMailable{
 		this.postReceiveImmediately = false;
 		this.readsUTF8Mails = true;
 		this.receivePosts = true;
-
+		this.postNewDesign = false;
 	}
 
 	public PersonListAttribution toPersonAttribution(){
@@ -290,5 +292,13 @@ public class Person implements ISubjectRelated, IMailable{
 
 	public void setReceivePosts(boolean receivePosts) {
 		this.receivePosts = receivePosts;
+	}
+	
+	public boolean isPostNewDesign() {
+		return postNewDesign;
+	}
+
+	public void setPostNewDesign(boolean postNewDesign) {
+		this.postNewDesign = postNewDesign;
 	}
 }
