@@ -61,12 +61,14 @@ public class TextualPageListController extends GeneralFormController {
 		if (isFormSubmission(request.getRequest())){
 			TextualPageSearchCreteria searchCreteria = new TextualPageSearchCreteria();
 			Set<Long> sphinxTextualIds=new LinkedHashSet<Long>();
+			String escapedSearchWord= request.getParameter("searchWords", "").replace("'", "\\\'");
+			escapedSearchWord= escapedSearchWord.replace("\"", "\\\"");
 			if(!request.getParameter("searchWords", "").isEmpty()){
 				sphinxTextualIds.add(new Long(0));//so wont show everything when deos'nt find any ids
-				sphinxTextualIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"textual_page_draft_index"));
+				sphinxTextualIds.addAll(sphinxSearchService.getMatchedIds(escapedSearchWord,"textual_page_draft_index"));
 			}
 			searchCreteria.setSearchBySearchWords(sphinxTextualIds);
-			searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
+			searchCreteria.setSearchWords(escapedSearchWord);
 			searchCreteria.setSearchDeleted(request.getBooleanParameter("deleted", false));
 			searchCreteria.setSearchList(request.getBooleanParameter("isList", false));
 			if(userPersonBean.isAuthorized("ROLE_WEBSITE_EDIT"))

@@ -161,7 +161,7 @@ public class SphinxSearchServiceImpl implements SphinxSearchService{
 			String word= st.nextToken();
 			String wordOptions= "";
 			if(word.length()>1){
-				wordOptions="('ה" + word +"' | 'ו"+word +"' | 'ש"+word +"' | 'ל"+word+"' | 'מ"+word+"' | 'ב"+word+"' | 'כ"+word+"' | 'וה"+word+"' | 'ול"+word+"' | 'ומ"+word+"' | 'וב"+word+"' | 'שה"+word +"'|'" +word+"')";
+				wordOptions="(ה" + word +" | ו"+word +" | ש"+word +" | ל"+word+" | מ"+word+" | ב"+word+" | כ"+word+" | וה"+word+" | ול"+word+" | ומ"+word+" | וב"+word+" | שה"+word +"|" +word+")";
 				searchWords=searchWords.replace(word,wordOptions);
 			}
 		}

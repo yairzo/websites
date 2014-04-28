@@ -114,12 +114,14 @@ public class CallForProposalListController extends GeneralFormController {
 			searchCreteria.setSearchByType(request.getIntParameter("typeId", 0));
 			if(request.getIntParameter("fundId", 0)==0){// when the text in searchWords is not the fund name
 				Set<Long> sphinxIds=new LinkedHashSet<Long>();
+				String escapedSearchWord= request.getParameter("searchWords", "").replace("'", "\\\'");
+				escapedSearchWord= escapedSearchWord.replace("\"", "\\\"");
 				if(!request.getParameter("searchWords", "").isEmpty()){
 					sphinxIds.add(new Long(0));//so wont show everything when deos'nt find any ids
-					sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_draft_index"));
+					sphinxIds.addAll(sphinxSearchService.getMatchedIds(escapedSearchWord,"call_for_proposal_draft_index"));
 				}
 				searchCreteria.setSearchBySearchWords(sphinxIds);
-				searchCreteria.setSearchWords(request.getParameter("searchWords", ""));
+				searchCreteria.setSearchWords(escapedSearchWord);
 			}
 			searchCreteria.setSearchDeleted(request.getBooleanParameter("deleted", false));
 			searchCreteria.setSearchOpen(request.getBooleanParameter("open", false));
