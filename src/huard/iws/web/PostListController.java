@@ -85,7 +85,7 @@ public class PostListController extends GeneralFormController {
 		//request.getSession().setAttribute("searchCreteria", null);
 		//request.getSession().setAttribute("listView", null);
 
-		System.out.println("Show form search command: " + command.getSearchCreteria().getWhereClause());
+		//System.out.println("Show form search command: " + command.getSearchCreteria().getWhereClause());
 		List<Post> posts = postService.getPostsPage(command.getListView(), command.getSearchCreteria(), userPersonBean);
 		List<PostBean> postBeans = new ArrayList<PostBean>();
 
@@ -119,7 +119,7 @@ public class PostListController extends GeneralFormController {
 				if( !orderBy.equals(""))
 					listView.setOrderBy(orderBy);
 				else
-					listView.setOrderBy("sendTime desc");
+					listView.setOrderBy("creationTime desc");
 			}
 			
 			command.setSearchCreteria(searchCreteria);
