@@ -123,12 +123,14 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 				request.getSession().setAttribute("searchWords","");
 		else if(!request.getParameter("searchWords", "").isEmpty()){
 				sphinxIds.add(new Long(0));//so wont show everything when deos'nt find any ids
-				sphinxIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"call_for_proposal_index"));
+				String escapedSearchWord= request.getParameter("searchWords", "").replace("'", "\\\'");
+				escapedSearchWord= escapedSearchWord.replace("\"", "\\\"");
+				sphinxIds.addAll(sphinxSearchService.getMatchedIds(escapedSearchWord,"call_for_proposal_index"));
 				sphinxTextualIds.add(new Long(0));//so wont show everything when deos'nt find any ids
-				sphinxTextualIds.addAll(sphinxSearchService.getMatchedIds(request.getParameter("searchWords", ""),"textual_page_index"));
+				sphinxTextualIds.addAll(sphinxSearchService.getMatchedIds(escapedSearchWord,"textual_page_index"));
 				request.getSession().setAttribute("callForProposalIds", BaseUtils.getStringFromLongSet(sphinxIds));
 				request.getSession().setAttribute("textualPageIds", BaseUtils.getStringFromLongSet(sphinxTextualIds));
-				request.getSession().setAttribute("searchWords", request.getParameter("searchWords", ""));
+				request.getSession().setAttribute("searchWords", escapedSearchWord);
 		}
 			
 		//}
