@@ -82,10 +82,6 @@ public class PostListController extends GeneralFormController {
 		
 		postService.prepareListView(command.getListView(), command.getSearchCreteria(), userPersonBean );
 
-		//request.getSession().setAttribute("searchCreteria", null);
-		//request.getSession().setAttribute("listView", null);
-
-		//System.out.println("Show form search command: " + command.getSearchCreteria().getWhereClause());
 		List<Post> posts = postService.getPostsPage(command.getListView(), command.getSearchCreteria(), userPersonBean);
 		List<PostBean> postBeans = new ArrayList<PostBean>();
 
