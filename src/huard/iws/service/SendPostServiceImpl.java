@@ -157,7 +157,7 @@ public class SendPostServiceImpl implements SendPostService{
 				postsBeans.add(postBean);
 			}
 			if (posts.size() > 0){
-				callForProposalServiceOld.insertAuthorizedMD5(personMD5);
+				//callForProposalServiceOld.insertAuthorizedMD5(personMD5);
 				mailMessageService.createPostsMessage(person, postsBeans, personMD5);
 				sentMailsCounter++;
 			}

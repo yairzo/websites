@@ -104,11 +104,6 @@
 		#set ($postMessage = $postMessage.replaceAll("#mp#",${post.sender.fullName}))
 		#set ($postMessage = $postMessage.replaceAll("#mue#","</a>"))
 
-		#if ($personMD5)
-       		#set ($infoPageUrlReplacement = "ardNum=$1&md5="+$personMD5+"\"")
-       		#set ($postMessage = $postMessage.replaceAll("ardNum=(.*?)\"", $infoPageUrlReplacement))
-       	#end
-
        	#set ($cannotReadPost = !$recipient.readsUTF8Mails && $post.language.UTF8)
        	#if ($cannotReadPost)
        		<p>Not readable on your mail client, the information is available <a href="https://$server/post.html?id=$post.id">here</a></p>
