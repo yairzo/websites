@@ -19,7 +19,6 @@ public class ImageActionsController extends GeneralFormController {
 	protected ModelAndView onSubmit(Object command, Map<String, Object> model,
 			RequestWrapper request, PersonBean userPersonBean) throws Exception {
 		String action = request.getParameter("action", "");
-
 		int mainImageId = request.getIntParameter("id", 0);
 
 		if (action.equals("cancel")){
@@ -61,8 +60,11 @@ public class ImageActionsController extends GeneralFormController {
 			}
 		}
 		Map<String, Object> newModel = new HashMap<String, Object>();
+		if(request.getIntParameter("popup", 0)>0 && request.getIntParameter("pageId", 0)>0){
+			newModel.put("id", request.getIntParameter("pageId", 0));
+	 		return new ModelAndView(new RedirectView("editTextualPage.html"), newModel);
+		}	
 		newModel.put("id",mainImageId);
-
 		return new ModelAndView ( new RedirectView("uploadImage.html"), newModel);
 	}
 

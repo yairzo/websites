@@ -13,6 +13,7 @@ public class OrganizationUnit {
 	private String contact;
 	private int placeInList;
 	private int facultyId;
+	private String imageUrl;
 
 
 
@@ -105,6 +106,15 @@ public class OrganizationUnit {
 		this.facultyId = facultyId;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	
 	public class OrganizationUnitType{
 		private int id;
 		private String nameHebrew;

@@ -1,6 +1,7 @@
 <%@ page  pageEncoding="UTF-8" %>
 
 
+			<c:if test="${popup!=1}">
 			<tr>
           	<td align="right" bgcolor="#787669" height="20">
           		<c:set var="applicationName" value="מערכת תמונות"/>
@@ -8,6 +9,7 @@
        	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
           	</td>
         	</tr>
+        	</c:if>
 		</table>
 	</td>
 </tr>
@@ -19,6 +21,9 @@
 		<form:form id="form" name="form" method="POST" action="uploadImage.html" commandName="command" enctype="multipart/form-data">
 
    			<form:hidden path="id"/>
+   			<input type="hidden" name="popup" value="${popup}"/>
+   			<input type="hidden" name="pageId" value="${pageId}"/>
+    			
              <table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
 				<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"/>
                 <tr class="form">
@@ -98,7 +103,12 @@
 				<tr>
 					<td>
 						<input class="green" type="submit" name="Upload" value="שמור"/>
-						<input type="button" class="green" value="חדש" onclick="window.location='uploadImage.html?action=new';"/>
+						<c:if test="${popup!=1}">
+							<input type="button" class="green" value="חדש" onclick="window.location='uploadImage.html?action=new';"/>
+						</c:if>
+						<c:if test="${popup==1}">
+							<input type="button" class="green" value="ביטול" id="cancelUpload"/>
+						</c:if>
  					</td>
  					<td>
 						
@@ -111,10 +121,12 @@
 		</tr>
 	</table>
 	</form:form>
-	
 	<form:form id="editImage" name="editImage" method="POST" action="editImage.html" commandName="command" >
 
    			<form:hidden path="id"/>
+   			<input type="hidden" name="popup" value="${popup}"/>
+   			<input type="hidden" name="pageId" value="${pageId}"/>
+ 	<c:if test="${popup!=1}">
     	<table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
 
 		<tr>
@@ -180,7 +192,8 @@
     </td>
   </tr>
 
-</table>
+	</table>
+	</c:if>
 	</form:form>
 
 </body>

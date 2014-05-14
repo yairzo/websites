@@ -51,6 +51,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
         personAttribution.setPlaceInList(rs.getInt("placeInList"));
         personAttribution.setTitleId(rs.getInt("titleId"));
         personAttribution.setConnectDetails(rs.getBoolean("connectDetails"));
+        personAttribution.setImageUrl(rs.getString("imageUrl"));
         personAttribution.prepareForView();
         return personAttribution;
     }
@@ -69,7 +70,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 				"facultyId = ?,"+
 				"placeInList = ?,"+
 				"titleId = ?,"+
-				"connectDetails = ?"+
+				"connectDetails = ?,"+
+				"imageUrl = ?"+
 				" where id = ?";
 		logger.debug(attributionUpdate);
 
@@ -86,6 +88,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 					personAttribution.getPlaceInList(),
 					personAttribution.getTitleId(),
 					personAttribution.isConnectDetails(),
+					personAttribution.getImageUrl(),
 					personAttribution.getId() );
 	}
 
@@ -110,7 +113,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 		"facultyId = ?,"+
 		"placeInList = ?,"+
 		"titleId = ?,"+
-		"connectDetails = ?";
+		"connectDetails = ?,"+
+		"imageUrl = ?";
 		logger.debug(query);
 		final int personId = personListAttribution.getPersonId();
 		final int listId = personListAttribution.getListId();
@@ -124,7 +128,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 		final int placeInList = personListAttribution.getPlaceInList();
 		final int titleId = personListAttribution.getTitleId();
 		final boolean connectDetails = personListAttribution.isConnectDetails();
-
+		final String imageUrl = personListAttribution.getImageUrl();
+		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -143,6 +148,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 					ps.setInt (10, placeInList);
 					ps.setInt (11, titleId);
 					ps.setBoolean(12,connectDetails);
+					ps.setString (13, imageUrl);
 		            return ps;
 		        }
 		    },

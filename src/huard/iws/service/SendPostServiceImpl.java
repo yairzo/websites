@@ -157,7 +157,6 @@ public class SendPostServiceImpl implements SendPostService{
 				postsBeans.add(postBean);
 			}
 			if (posts.size() > 0){
-				//callForProposalServiceOld.insertAuthorizedMD5(personMD5);
 				mailMessageService.createPostsMessage(person, postsBeans, personMD5);
 				sentMailsCounter++;
 			}
@@ -219,9 +218,4 @@ public class SendPostServiceImpl implements SendPostService{
 		this.configurationService = configurationService;
 	}
 
-	private CallForProposalServiceOld callForProposalServiceOld;
-
-	public void setCallForProposalServiceOld(CallForProposalServiceOld callForProposalServiceOld) {
-		this.callForProposalServiceOld = callForProposalServiceOld;
-	}
 }

@@ -18,6 +18,7 @@ public class PersonListAttribution implements Serializable{
 	private int placeInList;
 	private int titleId;
 	private boolean connectDetails;
+	private String imageUrl;
 
 	public PersonListAttribution(){
 		this.id = 0;
@@ -33,6 +34,7 @@ public class PersonListAttribution implements Serializable{
 		this.placeInList = -10;
 		this.titleId = 0;
 		this.connectDetails = false;
+		this.imageUrl = "";
 	}
 
 	public boolean isConnectDetails() {
@@ -126,6 +128,14 @@ public class PersonListAttribution implements Serializable{
 
 	public void setFacultyId(int facultyId) {
 		this.facultyId = facultyId;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 }

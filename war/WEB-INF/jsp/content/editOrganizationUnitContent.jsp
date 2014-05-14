@@ -49,7 +49,7 @@ $(document).ready(function() {
 		<tr>
 			<td valign="top" align="center"><br>
 			<form:form id="form" name="form" method="POST" action="organizationUnit.html"
-				commandName="command">
+				commandName="command" enctype="multipart/form-data">
 
 				<form:hidden path="id" />
 
@@ -206,7 +206,15 @@ $(document).ready(function() {
 							&nbsp;
 						</td>
 					</tr>
-
+			<tr>
+				<td width="150">
+					תמונה:
+				</td>
+				<td width="120">
+					<c:if test="${fn:length(command.imageUrl)>0}"><img src="/imageViewer?urlTitle=${command.imageUrl}&amp;attachType=bodyImage" height="50px" width="50px"/></c:if>
+					<input class="green" type="file" name="image" size="30"/>
+				</td>
+			</tr>
 
 
 

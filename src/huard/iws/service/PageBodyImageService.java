@@ -13,7 +13,7 @@ public interface PageBodyImageService {
 	
 	public PageBodyImage getPageBodyImage(String urlTitle);
 
-	public List<PageBodyImage> getPageBodyImages( int page, PersonBean personBean);
+	public List<PageBodyImage> getPageBodyImages(int imgsPerPage, int page, PersonBean personBean);
 
 	public List<PageBodyImage> getApprovedPageBodyImages(String localeId);
 
@@ -24,6 +24,8 @@ public interface PageBodyImageService {
 	public void disapprovePageBodyImage(int id);
 
 	public int countImages();
+
+	public int countImagePages(int imgsPerPage);
 
 	public void updatePageBodyImage(PageBodyImage pageBodyImage);
 

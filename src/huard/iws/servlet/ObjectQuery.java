@@ -28,7 +28,6 @@ public class ObjectQuery extends HttpServlet{
 	private ApplicationContext context = ApplicationContextProvider.getContext();
 	private PersonService personService;
 	private HujiAuthorizationService hujiAuthorizationService;
-	//private CallForProposalServiceOld callForProposalServiceOld;
 	private FundService fundService;
 	private TextualPageService textualPageService;
 	private CallForProposalService callForProposalService;

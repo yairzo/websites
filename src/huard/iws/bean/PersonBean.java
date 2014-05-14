@@ -104,6 +104,7 @@ public class PersonBean implements Serializable {
 	private boolean passValidation;
 
 	private boolean postNewDesign;
+	private String imageUrl;
 
 	public PersonBean() {
 		this.id = 0;
@@ -139,6 +140,7 @@ public class PersonBean implements Serializable {
 		this.localeId = "iw_IL";
 		this.passValidation=false;
 		this.postNewDesign=false;
+		this.imageUrl="";
 	}
 
 	public PersonBean(Person person) {
@@ -172,7 +174,7 @@ public class PersonBean implements Serializable {
 		this.readsUTF8Mails = person.isReadsUTF8Mails();
 		this.receivePosts = person.isReceivePosts();
 		this.postNewDesign = person.isPostNewDesign();
-
+		this.imageUrl = person.getImageUrl();
 		this.localeId = "iw_IL";
 	}
 
@@ -214,6 +216,7 @@ public class PersonBean implements Serializable {
 		person.setReceivePosts(receivePosts);
 		// person.setPersonListAttributions(personListAttributions);
 		person.setPostNewDesign(postNewDesign);
+		person.setImageUrl(imageUrl);
 		return person;
 	}
 
@@ -747,5 +750,13 @@ public class PersonBean implements Serializable {
 
 	public void setPostNewDesign(boolean postNewDesign) {
 		this.postNewDesign = postNewDesign;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }

@@ -9,7 +9,24 @@ var duplicateTitle=false;
 
 $(document).ready(function() {
 
-	
+	var dlg =$("#picture_popup").dialog({
+	    autoOpen: false,
+	    show: 'fade',
+	    hide: 'fade',
+	    open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
+	});
+	dlg.parent().appendTo($("#form"));
+	  
+	$("#addPicture").click(function() {
+			dlg.dialog({ height: 470 });
+			dlg.dialog({ width: 870 });
+			//dlg.dialog("option", "position", "center");
+			dlg.dialog({position: { my: 'top', at: 'top', of: $(window)}});
+			$.get('uploadImage.html?action=new&popup=1&pageId=${command.id}', function(data) {
+  				dlg.html(data).dialog("open");
+  			});
+	});	
+		
 	if($('.disableEditor').is(":checked"))
     	$("#htmlView").hide();
 	else

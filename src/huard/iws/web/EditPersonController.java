@@ -1,12 +1,15 @@
 package huard.iws.web;
 
+import huard.iws.bean.PageBodyImageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.PersonListAttributionBean;
 import huard.iws.model.Faculty;
+import huard.iws.model.PageBodyImage;
 import huard.iws.model.Person;
 import huard.iws.model.PersonListAttribution;
 import huard.iws.service.FacultyService;
 import huard.iws.service.ListService;
+import huard.iws.service.PageBodyImageService;
 import huard.iws.service.PersonAttributionListService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.MD5Encoder;
@@ -15,6 +18,7 @@ import huard.iws.util.SysUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -49,6 +55,9 @@ public class EditPersonController extends GeneralFormController {
 		}
 		else if (action.equals("save")){
 			if (personBean.getId()>0){
+				String imageUrl=uploadImage(request,personBean.getId());
+				if(!imageUrl.isEmpty())
+					personBean.setImageUrl(imageUrl);
 				personService.updatePerson(personBean.toPerson());
 				if (personBean.isSelfSubscriber()){
 					String md5 = MD5Encoder.digest(personBean.getId() + SysUtils.toTimestamp(System.currentTimeMillis()));
@@ -74,6 +83,9 @@ public class EditPersonController extends GeneralFormController {
 				}
 			}
 			else {
+				String imageUrl=uploadImage(request,personBean.getId());
+				if(!imageUrl.isEmpty())
+					personBean.setImageUrl(imageUrl);
 				int id = personService.insertPerson(personBean.toPerson());
 				personBean.setId(id);
 			}
@@ -140,6 +152,39 @@ public class EditPersonController extends GeneralFormController {
 		return personBean;
 	}
 
+	protected String uploadImage(RequestWrapper request,int itemId){
+		try{
+			if (request.getRequest().getContentType().indexOf("multipart")!=-1){
+				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
+				Iterator fileNames = multipartRequest.getFileNames();
+				if (fileNames.hasNext()) {
+					String filename = (String) fileNames.next();
+					MultipartFile file = multipartRequest.getFile(filename);
+					String originalName = file.getOriginalFilename();
+					if (filename.equals("image") && file.getSize()>0){
+						PageBodyImageBean pageBodyImageBean = new PageBodyImageBean();
+						PageBodyImage existingPageBodyImage=pageBodyImageService.getPageBodyImage("person"+itemId);
+						if(existingPageBodyImage.getId()!=0)
+							pageBodyImageBean=new PageBodyImageBean(existingPageBodyImage);
+						pageBodyImageBean.setImage(file.getBytes());
+						pageBodyImageBean.setName( originalName.substring(0,originalName.lastIndexOf(".")));
+						pageBodyImageBean.setTitle("person"+itemId);
+						if(existingPageBodyImage.getId()!=0)
+							pageBodyImageService.updatePageBodyImage(pageBodyImageBean.toPageBodyImage());
+						else
+							pageBodyImageService.insertPageBodyImage(pageBodyImageBean.toPageBodyImage());
+						return pageBodyImageBean.getTitle();
+					}
+				}
+			}
+			return "";
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "";
+		}
+
+	}
 
 	private PersonAttributionListService personAttributionListService;
 
@@ -163,6 +208,10 @@ public class EditPersonController extends GeneralFormController {
 		this.facultyService = facultyService;
 	}
 
+	private PageBodyImageService pageBodyImageService;
+	public void setPageBodyImageService(PageBodyImageService pageBodyImageService) {
+		this.pageBodyImageService = pageBodyImageService;
+	}	
 	/*private MailMessageService mailMessageService;
 
 	public void setMailMessageService(MailMessageService mailMessageService) {

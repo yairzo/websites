@@ -1,22 +1,26 @@
 package huard.iws.web;
 
+import huard.iws.bean.PageBodyImageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
 import huard.iws.model.AList;
 import huard.iws.model.Attachment;
 import huard.iws.model.Category;
 import huard.iws.model.MopDesk;
+import huard.iws.model.PageBodyImage;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.service.CategoryService;
 import huard.iws.service.ListListService;
 import huard.iws.service.MopDeskService;
+import huard.iws.service.PageBodyImageService;
 import huard.iws.service.TextualPageService;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -197,7 +201,24 @@ public class EditTextualPageController extends GeneralFormController {
 			else
 				model.put("pageTopCategory","0");
 				
-			
+			 //gallery
+			  int page = 0;
+			  String aPage;
+			  if ( request.getParameter("page","") != null && !request.getParameter("page","").equals("")){
+				  aPage = request.getParameter("page","");
+				  page = Integer.parseInt(aPage);
+			  }
+			  model.put("page", page);
+			  model.put("previousPage", Math.max(0, page -1));
+			  model.put("nextPage", Math.min(pageBodyImageService.countImagePages(8),  page + 1));
+
+			  List<PageBodyImage> pageBodyImages =	pageBodyImageService.getPageBodyImages(8,page,userPersonBean);
+			  List<PageBodyImageBean> pageBodyImagesBeans = new  ArrayList<PageBodyImageBean>();
+			  for (PageBodyImage pageBodyImage: pageBodyImages){
+				  pageBodyImagesBeans.add( new	PageBodyImageBean(pageBodyImage));
+			  }
+			  model.put("images", pageBodyImagesBeans);
+			  
 			model.put("id",textualPageBean.getId());
 			return new ModelAndView ( this.getFormView(), model);
 		}		
@@ -283,6 +304,13 @@ public class EditTextualPageController extends GeneralFormController {
 
 	public void setTextualPageService(TextualPageService textualPageService) {
 		this.textualPageService = textualPageService;
+	}
+	
+	private PageBodyImageService pageBodyImageService;
+
+	public void setPageBodyImageService(
+			PageBodyImageService pageBodyImageService) {
+		this.pageBodyImageService = pageBodyImageService;
 	}
 	
 }

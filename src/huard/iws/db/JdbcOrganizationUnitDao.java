@@ -70,7 +70,7 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 	public void updateOrganizationUnit (OrganizationUnit organizationUnit){
 		String query = "update organizationUnit set typeId = ?, nameHebrew = ?, nameEnglish = ?," +
 				" email = ?, websiteUrl = ?, phone = ?, fax = ?, address = ?, contact = ?," +
-				" facultyId = ? where id = ?";
+				" facultyId = ?,imageUrl=? where id = ?";
 		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				organizationUnit.getTypeId(),
@@ -83,6 +83,7 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 				organizationUnit.getAddress(),
 				organizationUnit.getContact(),
 				organizationUnit.getFacultyId(),
+				organizationUnit.getImageUrl(),
 				organizationUnit.getId() );
 	}
 
@@ -125,7 +126,7 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 			organizationUnit.setContact(rs.getString("contact"));
 			organizationUnit.setPlaceInList(rs.getInt("placeInList"));
 			organizationUnit.setFacultyId(rs.getInt("facultyId"));
-
+			organizationUnit.setImageUrl(rs.getString("imageUrl"));
 			organizationUnit.prepareForView();
 			return organizationUnit;
 		}

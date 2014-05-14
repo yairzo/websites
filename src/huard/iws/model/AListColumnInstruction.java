@@ -13,7 +13,7 @@ public class AListColumnInstruction {
 	private boolean noBr;
 	private boolean mailAddress;
 	private boolean webAddress;
-
+	private boolean image;
 	private String linkTargetFromColumn;
 	private boolean useHelperTable;
 	private String helperTableName;
@@ -34,6 +34,7 @@ public class AListColumnInstruction {
 		this.noBr = false;
 		this.mailAddress = false;
 		this.webAddress = false;
+		this.image = false;
 		this.linkTargetFromColumn = "";
 		this.useHelperTable = false;
 		this.helperTableName = "";
@@ -83,6 +84,12 @@ public class AListColumnInstruction {
 	}
 	public void setMailAddress(boolean mailAddress) {
 		this.mailAddress = mailAddress;
+	}
+	public boolean isImage() {
+		return image;
+	}
+	public void setImage(boolean image) {
+		this.image = image;
 	}
 	public boolean isSortable() {
 		return sortable;

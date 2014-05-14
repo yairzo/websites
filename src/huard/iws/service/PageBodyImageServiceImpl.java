@@ -20,8 +20,8 @@ public class PageBodyImageServiceImpl implements PageBodyImageService{
 		return pageBodyImageDao.getPageBodyImage(urlTitle);
 	}
 
-	public List<PageBodyImage> getPageBodyImages( int page, PersonBean personBean){
-		return pageBodyImageDao.getPageBodyImages( page,personBean);
+	public List<PageBodyImage> getPageBodyImages(int imgsPerPage, int page, PersonBean personBean){
+		return pageBodyImageDao.getPageBodyImages(imgsPerPage,page,personBean);
 	}
 
 	public List<PageBodyImage> getApprovedPageBodyImages(String localeId){
@@ -42,7 +42,11 @@ public class PageBodyImageServiceImpl implements PageBodyImageService{
 	public int countImages (){
 		return pageBodyImageDao.countImages ();
 	}
-	
+
+	public int countImagePages (int imgsPerPage){
+		return pageBodyImageDao.countImagePages (imgsPerPage);
+	}
+
 	public void updatePageBodyImage(PageBodyImage pageBodyImage){
 		pageBodyImageDao.updatePageBodyImage(pageBodyImage);
 	}

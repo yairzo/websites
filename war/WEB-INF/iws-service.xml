@@ -190,9 +190,6 @@
         <property name="configurationService">
             <ref bean="configurationService"/>
         </property>
-        <property name="callForProposalServiceOld">
-            <ref bean="callForProposalServiceOld"/>
-        </property>
     </bean>
     
    <bean id="pagesWordsIndexerService" class="huard.iws.service.PagesWordsIndexerServiceImpl">

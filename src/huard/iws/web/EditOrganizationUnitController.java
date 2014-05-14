@@ -2,22 +2,28 @@ package huard.iws.web;
 
 import huard.iws.bean.OrganizationUnitAttributionBean;
 import huard.iws.bean.OrganizationUnitBean;
+import huard.iws.bean.PageBodyImageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.Faculty;
 import huard.iws.model.OrganizationUnitAttribution;
+import huard.iws.model.PageBodyImage;
 import huard.iws.model.OrganizationUnit.OrganizationUnitType;
 import huard.iws.service.FacultyService;
 import huard.iws.service.OrganizationUnitService;
+import huard.iws.service.PageBodyImageService;
 import huard.iws.util.RequestWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -42,6 +48,9 @@ public class EditOrganizationUnitController extends GeneralFormController {
 			organizationUnitService.deleteOrganizationUnitAttribution(organizationUnitAttributionId);
 		}
 		else{
+			String imageUrl=uploadImage(request,organizationUnitBean.getId());
+			if(!imageUrl.isEmpty())
+				organizationUnitBean.setImageUrl(imageUrl);
 			organizationUnitService.updateOrganizationUnit(organizationUnitBean.toOrganizationUnit());
 		}
 
@@ -96,6 +105,41 @@ public class EditOrganizationUnitController extends GeneralFormController {
 		return organizationUnitBean;
 	}
 
+	protected String uploadImage(RequestWrapper request,int itemId){
+		try{
+			if (request.getRequest().getContentType().indexOf("multipart")!=-1){
+				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
+				Iterator fileNames = multipartRequest.getFileNames();
+				if (fileNames.hasNext()) {
+					String filename = (String) fileNames.next();
+					MultipartFile file = multipartRequest.getFile(filename);
+					String originalName = file.getOriginalFilename();
+					if (filename.equals("image") && file.getSize()>0){
+						PageBodyImageBean pageBodyImageBean = new PageBodyImageBean();
+						String urlTitle="organizationUnit" + new Integer(itemId).toString();
+						PageBodyImage existingPageBodyImage=pageBodyImageService.getPageBodyImage(urlTitle);
+						if(existingPageBodyImage.getId()!=0)
+							pageBodyImageBean=new PageBodyImageBean(existingPageBodyImage);
+						pageBodyImageBean.setImage(file.getBytes());
+						pageBodyImageBean.setName( originalName.substring(0,originalName.lastIndexOf(".")));
+							pageBodyImageBean.setTitle(urlTitle);
+						if(existingPageBodyImage.getId()!=0)
+							pageBodyImageService.updatePageBodyImage(pageBodyImageBean.toPageBodyImage());
+						else
+							pageBodyImageService.insertPageBodyImage(pageBodyImageBean.toPageBodyImage());
+						return pageBodyImageBean.getTitle();
+					}
+				}
+			}
+			return "";
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "";
+		}
+
+	}
+	
 	private OrganizationUnitService organizationUnitService;
 
 	public void setOrganizationUnitService(
@@ -107,6 +151,11 @@ public class EditOrganizationUnitController extends GeneralFormController {
 
 	public void setFacultyService(FacultyService facultyService) {
 		this.facultyService = facultyService;
+	}
+
+	private PageBodyImageService pageBodyImageService;
+	public void setPageBodyImageService(PageBodyImageService pageBodyImageService) {
+		this.pageBodyImageService = pageBodyImageService;
 	}
 
 

@@ -23,6 +23,7 @@ public class PersonListAttributionBean extends ListViewableBean{
 	private int placeInList;
 	private int titleId;
 	private boolean connectDetails;
+	private String imageUrl;
 
 	private AList list  = new AList();
 
@@ -47,6 +48,7 @@ public class PersonListAttributionBean extends ListViewableBean{
 		this.placeInList = -10;
 		this.titleId = 0;
 		this.connectDetails = false;
+		this.imageUrl="";
 	}
 
 	public PersonListAttributionBean(PersonListAttribution personListAttribution){
@@ -69,6 +71,7 @@ public class PersonListAttributionBean extends ListViewableBean{
 		this.placeInList = personListAttribution.getPlaceInList();
 		this.titleId = personListAttribution.getTitleId();
 		this.connectDetails = personListAttribution.isConnectDetails();
+		this.imageUrl = personListAttribution.getImageUrl();
 		if (personId > 0 && listId > 0)
 			init(parentListId);
 	}
@@ -88,6 +91,7 @@ public class PersonListAttributionBean extends ListViewableBean{
 		personListAttribution.setPlaceInList(placeInList);
 		personListAttribution.setTitleId(titleId);
 		personListAttribution.setConnectDetails(connectDetails);
+		personListAttribution.setImageUrl(imageUrl);
 		return personListAttribution;
 	}
 
@@ -115,6 +119,7 @@ public class PersonListAttributionBean extends ListViewableBean{
 		fieldValueMap.put("personAttribution.facultyId", ""+this.facultyId);
 		fieldValueMap.put("personAttribution.address", this.address);
 		fieldValueMap.put("personAttribution.titleId", ""+this.titleId);
+		fieldValueMap.put("personAttribution.imageUrl", ""+this.imageUrl);
 	}
 
 
@@ -236,8 +241,12 @@ public class PersonListAttributionBean extends ListViewableBean{
 		this.titleId = titleId;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-
-
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 }

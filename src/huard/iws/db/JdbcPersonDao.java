@@ -142,6 +142,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
             person.setReadsUTF8Mails(rs.getBoolean("readsUTF8Mails"));
             person.setReceivePosts(rs.getBoolean("receivePosts"));
             person.setPostNewDesign(rs.getBoolean("postNewDesign"));
+            person.setImageUrl(rs.getString("imageUrl"));
             return person;
         }
 	};
@@ -165,7 +166,8 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				" degreeEnglish = ?, phone = ?, fax = ?, email = ?, department = ?, facultyId = ?, address = ?,"+
 				" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 				" academicTitle = ?, websiteUrl = ?, campusId = ?," +
-				" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?,receivePosts=? where id = ?";
+				" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?,receivePosts=?,"+
+				" imageUrl=? where id = ?";
 		logger.debug (query);
 		getSimpleJdbcTemplate().update(query,
 				person.getFirstNameHebrew() ,
@@ -195,6 +197,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				person.isPostReceiveImmediately(),
 				person.isReadsUTF8Mails(),
 				person.isReceivePosts(),
+				person.getImageUrl(),
 				person.getId() );
 		updatePersonSubjectIds(person);
 	}
@@ -205,7 +208,8 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		" degreeEnglish = ?, phone = ?, fax = ?, email = ?, department = ?, facultyId = ?, address = ?,"+
 		" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 		" academicTitle = ?, websiteUrl = ?, campusId = ?," +
-		" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?,receivePosts=?;";
+		" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?,receivePosts=?,"+
+		" imageUrl=?;";
 		logger.debug(query);
 		final String firstNameHebrew = person.getFirstNameHebrew();
 		final String lastNameHebrew = person.getLastNameHebrew();
@@ -233,6 +237,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		final boolean postReceiveImmediately = person.isPostReceiveImmediately();
 		final boolean readsUTF8Mails = person.isReadsUTF8Mails();
 		final boolean receivePosts = person.isReceivePosts();
+		final String imageUrl = person.getImageUrl();
 		
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -268,6 +273,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 					ps.setBoolean(24, postReceiveImmediately);
 					ps.setBoolean(25, readsUTF8Mails);
 					ps.setBoolean(26,receivePosts);
+					ps.setString(27,imageUrl);
 		            return ps;
 		        }
 		    },

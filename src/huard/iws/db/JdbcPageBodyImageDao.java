@@ -17,11 +17,10 @@ import org.springframework.jdbc.support.KeyHolder;
 
 public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBodyImageDao  {
 
-	private final int NUM_IMAGES_PER_PAGE = 4;
-
 
 	public int insertPageBodyImage( PageBodyImage pageBodyImage){
-		pageBodyImage.setTitle("###" + new java.util.Date().getTime() + "###");
+		if(pageBodyImage.getTitle().isEmpty())
+			pageBodyImage.setTitle("###" + new java.util.Date().getTime() + "###");
 
 		final String pageInsert = "insert image set name = ?, captionHebrew = '', captionEnglish = '', image = ?, uploaderPersonId = ?, approved = ?, url=?, urlTitle=?";
 		logger.debug(pageInsert);
@@ -53,26 +52,38 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 
 
 	public PageBodyImage getPageBodyImage(int id){
+		PageBodyImage pageBodyImage =new PageBodyImage();
 		String query = "select * from image where id=?";
 		logger.debug(query);
-		PageBodyImage pageBodyImage =
+		try{
+		 pageBodyImage =
 			getSimpleJdbcTemplate().queryForObject(query, rowMapper, id);
+		 	return pageBodyImage;
+		}
+		catch(Exception e){
 			return pageBodyImage;
+		}
+			
 	}
 	
 	public PageBodyImage getPageBodyImage(String urlTitle){
+		PageBodyImage pageBodyImage =new PageBodyImage();
 		String query = "select * from image where urlTitle=?";
 		logger.debug(query);
-		PageBodyImage pageBodyImage =
-			getSimpleJdbcTemplate().queryForObject(query, rowMapper, urlTitle);
+		try{
+		 pageBodyImage =	getSimpleJdbcTemplate().queryForObject(query, rowMapper, urlTitle);
 			return pageBodyImage;
+		}
+		catch(Exception e){
+			return pageBodyImage;
+		}
 	}
 
-	public List<PageBodyImage> getPageBodyImages(int page, PersonBean personBean){
+	public List<PageBodyImage> getPageBodyImages(int imgsPerPage, int page, PersonBean personBean){
 		String query = "select * from image";
 		if(personBean.isAuthorized("IMAGE","RESEARCHER"))
 			query+=" where uploaderPersonId=" + personBean.getId();
-		query += " order by creationTime desc limit " + page * NUM_IMAGES_PER_PAGE + "," + NUM_IMAGES_PER_PAGE;
+		query += " order by creationTime desc limit " + page * imgsPerPage + "," + imgsPerPage;
 		logger.debug(query);
 		List<PageBodyImage> pageBodyImages =
 			getSimpleJdbcTemplate().query(query, rowMapper);
@@ -133,6 +144,11 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForInt(query);
 	}
+
+	public int countImagePages(int imgsPerPage){
+		int images= countImages();
+		return (int)Math.ceil(images/imgsPerPage-1);
+	}	
 	
 	public void updatePageBodyImage(PageBodyImage pageBodyImage){
 		String query = "update image set name=?, captionHebrew = ?, captionEnglish = ?,image = ?,  url=?, urlTitle=?  where id=?";

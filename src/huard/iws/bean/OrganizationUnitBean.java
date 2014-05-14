@@ -22,7 +22,7 @@ public class OrganizationUnitBean extends ListViewableBean {
 	private int facultyId;
 
 	private int listId;
-
+	private String imageUrl;
 
 	public OrganizationUnitBean(){
 		super();
@@ -53,6 +53,7 @@ public class OrganizationUnitBean extends ListViewableBean {
 		this.facultyId = organizationUnit.getFacultyId();
 
 		this.listId = listId;
+		this.imageUrl= organizationUnit.getImageUrl();
 
 		init(parentListId);
 	}
@@ -73,6 +74,7 @@ public class OrganizationUnitBean extends ListViewableBean {
 		organizationUnit.setContact(contact);
 		organizationUnit.setPlaceInList(placeInList);
 		organizationUnit.setFacultyId(facultyId);
+		organizationUnit.setImageUrl(imageUrl);
 		return organizationUnit;
 	}
 
@@ -96,6 +98,7 @@ public class OrganizationUnitBean extends ListViewableBean {
 		fieldValueMap.put("organizationUnit.facultyId", ""+this.facultyId);
 		fieldValueMap.put("organizationUnit.address", this.address);
 		fieldValueMap.put("organizationUnit.contact", this.contact);
+		fieldValueMap.put("organizationUnit.imageUrl", this.imageUrl);
 	}
 
 
@@ -185,4 +188,11 @@ public class OrganizationUnitBean extends ListViewableBean {
 		this.typeId = typeId;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 }

@@ -34,6 +34,7 @@ public class Person implements ISubjectRelated, IMailable{
 	private boolean readsUTF8Mails;
 	private boolean receivePosts;
 	private boolean postNewDesign;
+	private String imageUrl;
 
 
 
@@ -300,5 +301,13 @@ public class Person implements ISubjectRelated, IMailable{
 
 	public void setPostNewDesign(boolean postNewDesign) {
 		this.postNewDesign = postNewDesign;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }

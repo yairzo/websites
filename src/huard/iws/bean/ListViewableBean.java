@@ -57,6 +57,11 @@ public abstract class ListViewableBean implements IListViewableBean{
 					if(!field.getText().trim().isEmpty())
 						field.setText("<a href=\""+field.getText()+"\" target=\"_new\"/>W</a>");
 				}
+				if (columnInstruction.isImage()){
+					field.setIsImage(true);
+					if(!field.getText().trim().isEmpty())
+						field.setText("<img src=\"/imageViewer?urlTitle="+field.getText()+"&amp;attachType=bodyImage\" height=\"50px\" width=\"50px\"/>");
+				}
 				String urlColumn;
 				if (( urlColumn = columnInstruction.getLinkTargetFromColumn()).length() > 0){
 					String target= fieldValueMap.get(urlColumn);

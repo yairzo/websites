@@ -51,7 +51,13 @@ $(document).ready(function() {
 		$('form#editImage').append('<input type=\"hidden\" name=\"action\" value=\"cancel\"/>');
 		$('form#editImage').submit();
 	});
-
+	$('#cancelUpload').click(function(){
+		$("form#editImage").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
+		$("form#editImage").append("<input type=\"hidden\" name=\"imageIds\" value=\""+${command.id}+",\"/>");
+		$('form#editImage').submit();
+	});
+	
+	
 	<c:if test="${userMessage!=null}">
 		var userMessage = "${userMessage}";
 		$.alerts.alert(userMessage);

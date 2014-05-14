@@ -33,7 +33,7 @@
       <table width="700" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468" dir="rtl">
         <tr>
           <td valign="top" align="center"><br>
-            <form:form id="form" name="form" method="POST" action="person.html" commandName="command">
+            <form:form id="form" name="form" method="POST" action="person.html" commandName="command" enctype="multipart/form-data">
 				<form:hidden path="id"/>
 				<form:hidden path="selfSubscriber"/>
 				<input type="hidden" name="singlePrivilege" value="${command.singlePrivilege}"/>
@@ -407,6 +407,15 @@
 				<tr>
 					<td colspan="2">
 						<font color="red"><form:errors cssClass="errors" path="preferedLocaleId"/></font>
+					</td>
+				</tr>
+				<tr>
+					<td width="250">
+						 צרף תמונה (גודל עד 600K):
+					</td>
+					<td width="300">
+						<c:if test="${fn:length(command.imageUrl)>0}"><img src="/imageViewer?urlTitle=${command.imageUrl}&amp;attachType=bodyImage" height="50px" width="50px"/></c:if>
+						<input class="green" type="file" name="image" size="30"/>
 					</td>
 				</tr>
 				</c:when>

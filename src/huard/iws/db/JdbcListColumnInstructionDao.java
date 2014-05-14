@@ -54,6 +54,7 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
             aListColumnInstruction.setNoBr(rs.getBoolean("listColumnDesign.nobr"));
             aListColumnInstruction.setMailAddress(rs.getBoolean("mailAddress"));
             aListColumnInstruction.setWebAddress(rs.getBoolean("webAddress"));
+            aListColumnInstruction.setImage(rs.getBoolean("image"));
             aListColumnInstruction.setLinkTargetFromColumn(rs.getString("linkTargetFromColumn"));
             aListColumnInstruction.setUseHelperTable(rs.getBoolean("useHelperTable"));
             aListColumnInstruction.setHelperTableName(rs.getString("helperTableName"));
@@ -77,6 +78,7 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 			"hidden = ?," +
 			"mailAddress = ?," +
 			"webAddress = ?," +
+			"image = ?," +
 			"linkTargetFromColumn = ?," +
 			"useHelperTable = ?," +
 			"helperTableName = ?," +
@@ -93,6 +95,7 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 				aListColumnInstruction.isHidden(),
 				aListColumnInstruction.isMailAddress(),
 				aListColumnInstruction.isWebAddress(),
+				aListColumnInstruction.isImage(),
 				aListColumnInstruction.getLinkTargetFromColumn(),
 				aListColumnInstruction.isUseHelperTable(),
 				aListColumnInstruction.getHelperTableName(),
@@ -126,6 +129,7 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 		"hidden = ?," +
 		"mailAddress = ?," +
 		"webAddress = ?," +
+		"image = ?," +
 		"linkTargetFromColumn = ?," +
 		"useHelperTable = ?," +
 		"helperTableName = ?," +
@@ -141,6 +145,7 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 		final boolean hidden = 	aListColumnInstruction.isHidden();
 		final boolean mailAddress = aListColumnInstruction.isMailAddress();
 		final boolean webAddress = 	aListColumnInstruction.isWebAddress();
+		final boolean image = aListColumnInstruction.isImage();
 		final String linkTargetFromColumn = aListColumnInstruction.getLinkTargetFromColumn();
 		final boolean useHelperTable = aListColumnInstruction.isUseHelperTable();
 		final String helperTableName = aListColumnInstruction.getHelperTableName();
@@ -160,11 +165,12 @@ public class JdbcListColumnInstructionDao extends SimpleJdbcDaoSupport implement
 		            ps.setBoolean(5, hidden);
 		            ps.setBoolean(6, mailAddress);
 		            ps.setBoolean(7, webAddress);
-		            ps.setString(8, linkTargetFromColumn);
-		            ps.setBoolean(9, useHelperTable);
-		            ps.setString(10, helperTableName);
-		            ps.setString(11, helperTableDisplayColumn);
-		            ps.setBoolean(12, sortable);
+		            ps.setBoolean(8, image);
+		            ps.setString(9, linkTargetFromColumn);
+		            ps.setBoolean(10, useHelperTable);
+		            ps.setString(11, helperTableName);
+		            ps.setString(12, helperTableDisplayColumn);
+		            ps.setBoolean(13, sortable);
 		            return ps;
 		        }
 		    },

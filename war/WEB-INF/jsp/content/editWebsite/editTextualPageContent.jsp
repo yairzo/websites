@@ -24,6 +24,7 @@
  			<c:set var="compulsoryFieldSign" value="<font color=\"red\">*</font>"></c:set>
  			
             <table border="0" align="center" cellpadding="2" cellspacing="0">
+			   		<div id="picture_popup" style="display:none"></div>
 
 				<div id="templateDialog" style="display:none" dir="${lang.dir}">
 					<p><fmt:message key="${lang.localeId}.textualPage.templateTitle"/><input type="text" name="templateTitle" id="templateTitle"/></p>
@@ -252,8 +253,7 @@
 				</tr>
 				<tr><td>&nbsp;</td></tr>
 
-	
- 		
+
               <tr class="form">
 					<td colspan="4" align="${lang.align}">
 					<button class="grey save"><fmt:message key="${lang.localeId}.general.save"/></button>&nbsp;
@@ -271,6 +271,48 @@
 					<button class="grey" onclick="history.back();return false;"><fmt:message key="${lang.localeId}.callForProposal.prevPage"/> </button>		
 				</td>
 			</tr>
+			
+			<tr class="form">
+			<td colspan="4" >
+               <table width="950" style="border:1px #bca2a2 dotted" cellpadding="2" cellspacing="0" align="center">
+ 				<tr><td colspan="8" align="${lang.align}"><fmt:message key="${lang.localeId}.picturePool"/>:</td></tr>
+ 				<tr>
+				<c:forEach items="${images}" var="image" varStatus="varStatus">
+  						<c:choose>
+  						<c:when test="${image.approved==1}">
+  							<c:set var="borderStyle" value="border: 2px solid green;"/>
+  						</c:when>
+  						<c:otherwise>
+  							<c:set var="borderStyle" value="border: 2px solid grey;"/>
+  						</c:otherwise>
+  						</c:choose>
+  						<td width="60px">
+  							<span id="img${image.id}">
+  								<img id="${image.id}" style="${borderStyle}" src="/imageViewer?imageId=${image.id}&attachType=bodyImage" width="42" height="42">
+	  							<br/>
+  								${image.name}&nbsp;
+  								<br/>
+  							</span>
+    						</td>
+ 				</c:forEach>
+			  	</tr>
+			   	<tr>
+			  		<td align="center" colspan="8">
+				  		<a href="/editTextualPage.html?id=${command.id}&page=${previousPage} ">&lt;</a>
+				  		&nbsp;
+				  		&nbsp;
+				  		<a href="/editTextualPage.html?id=${command.id}&page=${nextPage}">&gt;</a>
+					</td>
+			  	</tr>
+			   	<tr>
+			   	
+			  		<td align="${lang.align}" colspan="8">
+				  		<a id="addPicture" target="_blank"><fmt:message key="${lang.localeId}.picturePool.addPicture"/></a>
+					</td>
+			  	</tr>
+		    </table>
+		</td>
+		</tr>
     </table>
 </form:form>
     </td>

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,11 +33,15 @@ public class UploadImageController extends GeneralFormController {
 
 		//update
 		pageBodyImageService.updatePageBodyImage(pageBodyImageBean.toPageBodyImage());
-
+		
 		Map<String,Object> newModel = new HashMap<String, Object>();
-		newModel.put("id", pageBodyImageBean.getId())	;
-
-		return new ModelAndView(new RedirectView("uploadImage.html"), newModel);
+		if(request.getIntParameter("popup", 0)>0 && request.getIntParameter("pageId", 0)>0){
+			newModel.put("id", request.getIntParameter("pageId", 0));
+	 		return new ModelAndView(new RedirectView("editTextualPage.html"), newModel);
+		}	
+			
+		newModel.put("id", pageBodyImageBean.getId());
+ 		return new ModelAndView(new RedirectView("uploadImage.html"), newModel);
 	}
 
 	protected ModelAndView onShowForm(RequestWrapper request,
@@ -51,6 +56,9 @@ public class UploadImageController extends GeneralFormController {
 			int imageId = pageBodyImageService.insertPageBodyImage(pageBodyImageBean.toPageBodyImage());
 			Map<String, Object> newModel = new HashMap<String, Object>();
 			newModel.put("id",imageId);
+
+			newModel.put("popup",request.getIntParameter("popup", 0));
+			newModel.put("pageId", request.getIntParameter("pageId", 0));
 			return new ModelAndView ( new RedirectView("uploadImage.html"), newModel);
 		}
 		else{
@@ -66,9 +74,9 @@ public class UploadImageController extends GeneralFormController {
 		  }
 		  model.put("page", page);
 		  model.put("previousPage", Math.max(0, page -1));
-		  model.put("nextPage", Math.min(pageBodyImageService.countImages(),  page + 1));
+		  model.put("nextPage", Math.min(pageBodyImageService.countImagePages(4),  page + 1));
 
-		  List<PageBodyImage> pageBodyImages =	  pageBodyImageService.getPageBodyImages(page,userPersonBean);
+		  List<PageBodyImage> pageBodyImages =	  pageBodyImageService.getPageBodyImages(4,page,userPersonBean);
 
 		  List<PageBodyImageBean> pageBodyImagesBeans = new  ArrayList<PageBodyImageBean>();
 		  for (PageBodyImage pageBodyImage: pageBodyImages){
@@ -76,7 +84,10 @@ public class UploadImageController extends GeneralFormController {
 		  }
 
 		  model.put("images", pageBodyImagesBeans);
-
+		  model.put("popup",request.getIntParameter("popup",0));
+		  model.put("pageId",request.getIntParameter("pageId",0));
+		  model.put("noHeader",request.getIntParameter("popup",0)>0?true:false);
+	      
 		return new ModelAndView(this.getFormView(), model);
 	}
 

@@ -156,6 +156,17 @@ $(document).ready(function() {
 						&nbsp;<form:errors cssClass="errors" path="webAddress"/>
 					</td>
 				</tr>
+				<tr class="form">
+					<td>
+						 טור זה משמש לקישור לתמונה:
+					</td>
+					<td>
+						<form:checkbox  cssClass="green" path="image"/>
+					</td>
+					<td>
+						&nbsp;<form:errors cssClass="errors" path="image"/>
+					</td>
+				</tr>
 
 				<tr class="form">
 					<td>

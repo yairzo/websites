@@ -16,6 +16,7 @@ public class AListColumnInstructionBean {
 	private boolean noBr;
 	private boolean mailAddress;
 	private boolean webAddress;
+	private boolean image;
 	private String linkTargetFromColumn;
 	private boolean useHelperTable;
 	private String helperTableName;
@@ -39,6 +40,7 @@ public class AListColumnInstructionBean {
 		this.noBr = false;
 		this.mailAddress = false;
 		this.webAddress = false;
+		this.image = false;
 		this.linkTargetFromColumn = "";
 		this.useHelperTable = false;
 		this.helperTableName = "";
@@ -61,6 +63,7 @@ public class AListColumnInstructionBean {
 		this.noBr = aListColumnInstruction.isNoBr();
 		this.mailAddress = aListColumnInstruction.isMailAddress();
 		this.webAddress = aListColumnInstruction.isWebAddress();
+		this.image = aListColumnInstruction.isImage();
 		this.linkTargetFromColumn = aListColumnInstruction.getLinkTargetFromColumn();
 		this.useHelperTable = aListColumnInstruction.isUseHelperTable();
 		this.helperTableName = aListColumnInstruction.getHelperTableName();
@@ -84,6 +87,7 @@ public class AListColumnInstructionBean {
 		aListColumnInstruction.setNoBr(noBr);
 		aListColumnInstruction.setMailAddress(mailAddress);
 		aListColumnInstruction.setWebAddress(webAddress);
+		aListColumnInstruction.setImage(image);
 		aListColumnInstruction.setLinkTargetFromColumn(linkTargetFromColumn);
 		aListColumnInstruction.setUseHelperTable(useHelperTable);
 		aListColumnInstruction.setHelperTableName(helperTableName);
@@ -180,6 +184,14 @@ public class AListColumnInstructionBean {
 		this.mailAddress = mailAddress;
 	}
 
+	public boolean isImage() {
+		return image;
+	}
+	
+	public void setImage(boolean image) {
+		this.image = image;
+	}
+	
 	public boolean isManuallyEdited() {
 		return manuallyEdited;
 	}

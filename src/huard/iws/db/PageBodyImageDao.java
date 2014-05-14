@@ -12,7 +12,7 @@ public interface PageBodyImageDao {
 	
 	public PageBodyImage getPageBodyImage(String urlTitle);
 
-	public List<PageBodyImage> getPageBodyImages( int page, PersonBean userPersonBean);
+	public List<PageBodyImage> getPageBodyImages(int imgsPerPage, int page, PersonBean userPersonBean);
 	
 	public List<PageBodyImage> getApprovedPageBodyImages(String localeId);
 
@@ -23,6 +23,8 @@ public interface PageBodyImageDao {
 	public void disapprovePageBodyImage(int id);
 
 	public int countImages( );
+
+	public int countImagePages(int imgsPerPage );
 
 	public void updatePageBodyImage(PageBodyImage pageBodyImage);
 	
