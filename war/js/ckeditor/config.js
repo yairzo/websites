@@ -26,6 +26,8 @@ CKEDITOR.editorConfig = function( config ) {
 	config.scayt_autoStartup = true;
 	
 	config.floatSpaceDockedOffsetX = 170;
+	
+	config.fillEmptyBlocks = false;
 };
 
 

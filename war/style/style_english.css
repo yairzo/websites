@@ -2403,6 +2403,9 @@ text-decoration:none;
 .login_register a:hover{text-decoration:underline;}
 
 .rotator{padding:0 82px 40px 82px;}
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+  .rotator{padding:0 25px 40px 82px;}
+}
 
 td.ui-datepicker-today a, td.ui-datepicker-today span{
 	background:url(/image/website/datepicker-v.png) no-repeat 16px 16px #04BDE5 !important;

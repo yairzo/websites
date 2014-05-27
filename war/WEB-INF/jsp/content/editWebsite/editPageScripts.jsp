@@ -695,6 +695,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor1'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor1'].getData());
+	    	CKEDITOR.instances['editor1'].setData(text);
 			$('.editorTextarea', $("#editor1").closest("table")).val(CKEDITOR.instances['editor1'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -704,8 +706,10 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor2'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor2'].getData());
+	    	CKEDITOR.instances['editor2'].setData(text);
 			$('.editorTextarea', $("#editor2").closest("table")).val(CKEDITOR.instances['editor2'].getData());
-	    	autoSave(); 
+			autoSave(); 
 	    	editingFlag=false;
 	    });
 		
@@ -713,6 +717,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor3'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor3'].getData());
+	    	CKEDITOR.instances['editor3'].setData(text);
 			$('.editorTextarea', $("#editor3").closest("table")).val(CKEDITOR.instances['editor3'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -722,6 +728,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor4'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor4'].getData());
+	    	CKEDITOR.instances['editor4'].setData(text);
 			$('.editorTextarea', $("#editor4").closest("table")).val(CKEDITOR.instances['editor4'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -731,6 +739,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor5'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor5'].getData());
+	    	CKEDITOR.instances['editor5'].setData(text);
 			$('.editorTextarea', $("#editor5").closest("table")).val(CKEDITOR.instances['editor5'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -740,6 +750,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor6'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor6'].getData());
+	    	CKEDITOR.instances['editor6'].setData(text);
 			$('.editorTextarea', $("#editor6").closest("table")).val(CKEDITOR.instances['editor6'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -749,6 +761,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor7'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor7'].getData());
+	    	CKEDITOR.instances['editor7'].setData(text);
 			$('.editorTextarea', $('#editor7').closest("table")).val(CKEDITOR.instances['editor7'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -758,6 +772,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor8'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor8'].getData());
+	    	CKEDITOR.instances['editor8'].setData(text);
 			$('.editorTextarea', $('#editor8').closest("table")).val(CKEDITOR.instances['editor8'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -767,6 +783,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor9'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor9'].getData());
+	    	CKEDITOR.instances['editor9'].setData(text);
 			$('.editorTextarea', $('#editor9').closest("table")).val(CKEDITOR.instances['editor9'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -776,6 +794,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor10'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor10'].getData());
+	    	CKEDITOR.instances['editor10'].setData(text);
 			$('.editorTextarea', $('#editor10').closest("table")).val(CKEDITOR.instances['editor10'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -785,6 +805,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor11'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor11'].getData());
+	    	CKEDITOR.instances['editor11'].setData(text);
 			$('.editorTextarea', $('#editor11').closest("table")).val(CKEDITOR.instances['editor11'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -795,6 +817,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor12'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor12'].getData());
+	    	CKEDITOR.instances['editor12'].setData(text);
 			$('.editorTextarea', $('#editor12').closest("table")).val(CKEDITOR.instances['editor12'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -803,6 +827,8 @@ $(document).ready(function() {
 			editingFlag=true;
 		});
 		CKEDITOR.instances['editor13'].on('blur', function(e) {
+	    	var text=replaceNbsps(CKEDITOR.instances['editor13'].getData());
+	    	CKEDITOR.instances['editor13'].setData(text);
 			$('.editorTextarea', $('#editor13').closest("table")).val(CKEDITOR.instances['editor13'].getData());
 	    	autoSave(); 
 	    	editingFlag=false;
@@ -867,6 +893,11 @@ function replaceURLWithHTMLLinks(text) {
         text=text.replace(exp,"<a href='$2' $1><img src='/image/"+ icon+"' weight='15px' height='15px'/>$4</a>"); 
         match = exp.exec(text)
     }
+    return text;
+}
+
+function replaceNbsps(text) {
+	text=text.replace(/&nbsp;/g,'');
     return text;
 }
 

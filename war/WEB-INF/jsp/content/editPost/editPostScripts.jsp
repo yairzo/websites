@@ -136,10 +136,13 @@
 		
 		<c:if test="${!command.verified}">
 		CKEDITOR.disableAutoInline = true;
-		
-		if(CKEDITOR.instances['editable']==null)
-			CKEDITOR.inline('editable');
 
+		if(CKEDITOR.instances['editable']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editable',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editable');
+		}
+		
     	CKEDITOR.instances['editable'].on('blur', function() {
     		var text = $("#editable").html();
       		var ceditor   = CKEDITOR.instances['editable'];
