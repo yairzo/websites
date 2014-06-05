@@ -27,6 +27,17 @@
       		cacheName="configurationCache" />
       </ehcache:proxy>
 
+
+	<bean id="imageGalleryDao" class="huard.iws.db.JdbcImageGalleryDao">
+	    <property name="imageGalleryMapDao">
+            <ref bean="imageGalleryMapDao"/>
+        </property>
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<bean id="imageGalleryMapDao" class="huard.iws.db.JdbcImageGalleryMapDao">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
 	<bean id="callForProposalDaoOld" class="huard.iws.db.JdbcCallForProposalDaoOld"/>
 
 	<bean id="callForProposalDao" class="huard.iws.db.JdbcCallForProposalDao">

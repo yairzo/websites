@@ -1,9 +1,9 @@
-#Tue Nov 05 15:05:55 IST 2013
 eclipse.preferences.version=1
 encoding//war/WEB-INF/jsp/content/editPerson/editPersonScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/editPost/editPost.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/editWebsite/editTextualPageContent.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/editWebsite/editTextualPageScripts.jsp=UTF-8
+encoding//war/WEB-INF/jsp/content/gallery/gallery.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/uploadImage/uploadImageScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/personListHelper.jsp=UTF-8
 encoding//war/WEB-INF/jsp/textualPageStatic.jsp=UTF-8

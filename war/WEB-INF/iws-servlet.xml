@@ -477,6 +477,16 @@
         </property>
     </bean>
 
+	<bean id="galleryController" class="huard.iws.web.GalleryController" parent="generalWebsiteController">
+   </bean>
+	<bean id="galleryHelperController" class="huard.iws.web.GalleryHelperController" parent="generalWebsiteController">
+		<property name="imageGalleryService">
+            <ref bean="imageGalleryService"/>
+        </property>
+		<property name="pageBodyImageService">
+            <ref bean="pageBodyImageService"/>
+        </property>
+    </bean>
 
 	<bean id="viewListController" class="huard.iws.web.ViewListController" parent="generalFormController">
 		<property name="commandName"><value>command</value></property>
@@ -1330,7 +1340,9 @@
 				<prop key="/resetPasswordSuccess.html">urlFilenameViewController</prop>
 				<prop key="/callForProposalCalendar.html">callForProposalCalendarController</prop>
 				<prop key="/messages.html">textualPageMessagesController</prop>
-            </props>
+				<prop key="/gallery.html">galleryController</prop>
+				<prop key="/galleryHelper.html">galleryHelperController</prop>
+             </props>
         </property>
     </bean>
 

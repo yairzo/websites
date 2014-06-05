@@ -54,6 +54,11 @@
     		<ref bean="personAttributionDao"/>
     	</property>
 	</bean>
+	<bean id="imageGalleryService" class="huard.iws.service.ImageGalleryServiceImpl">
+		<property name="imageGalleryDao">
+    		<ref bean="imageGalleryDao"/>
+    	</property>
+	</bean>
 
 	<bean id="parseOrganizationUnitService" class="huard.iws.service.ParseOrganizationUnitFileServiceImpl">
 		<property name="organizationUnitService">
