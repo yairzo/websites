@@ -90,6 +90,12 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 		return pageBodyImages;
 	}
 	
+	public List<PageBodyImage> getFilteredPageBodyImages(String term){
+		String query = "select * from image where urlTitle like '%"+term+"%' order by creationTime desc ";
+		logger.info(query);
+		List<PageBodyImage> pageBodyImages =getSimpleJdbcTemplate().query(query, rowMapper);
+		return pageBodyImages;
+	}
 
 
 	public List<PageBodyImage> getApprovedPageBodyImages(String localeId){

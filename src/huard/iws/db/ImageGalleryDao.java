@@ -17,7 +17,7 @@ public interface ImageGalleryDao {
 
 	public void updateImageGalleryItem(ImageGalleryItem imageGalleryItem, PersonBean userBean);
 
-	public int insertImageGalleryItem(int websiteId, int parentId, Locale locale, PersonBean userBean);
+	public int insertImageGalleryItem(int parentId, Locale locale, PersonBean userBean);
 
 	public void deleteImageGalleryItem(int id, PersonBean userBean);
 

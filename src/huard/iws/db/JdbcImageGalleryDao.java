@@ -82,14 +82,10 @@ public class JdbcImageGalleryDao extends SimpleJdbcDaoSupport implements ImageGa
 		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
 	}
 
-	public int insertImageGalleryItem(int websiteId, int parentId, Locale locale, PersonBean userBean){
-		final String query = "insert imageGallery set parentId = ?, title = ?, text = ?, place = ?, websiteId = ?, url = ?";
+	public int insertImageGalleryItem(int parentId, Locale locale, PersonBean userBean){
+		final String query = "insert imageGallery set parentId = ?, place = ?";
 		final int aParentId = parentId;
-		final String title = messageSource.getMessage("website.page.newImageGalleryItem", null, locale);
-		final String text = messageSource.getMessage("website.page.newImageGalleryItem", null, locale);
 		final int place = getImageGalleryItems(parentId, userBean).size() + 1;
-		final int aWebsiteId = websiteId;
-		final String url = "/image/questionmark.png"; 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
 				new PreparedStatementCreator() {
@@ -97,16 +93,13 @@ public class JdbcImageGalleryDao extends SimpleJdbcDaoSupport implements ImageGa
 		            PreparedStatement ps =
 		                connection.prepareStatement(query, new String[] {"id"});
 		            ps.setInt(1, aParentId);
-		            ps.setString(2, title);
-		            ps.setString(3, text);
-		            ps.setInt(4, place);
-		            ps.setInt(5, aWebsiteId);
-		            ps.setString(6, url);
+		            ps.setInt(2, place);
 		            return ps;
 		        }
 		    },
 		    keyHolder);
 		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
+
 		return keyHolder.getKey().intValue();
 	}
 

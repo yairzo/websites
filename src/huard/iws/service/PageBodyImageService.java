@@ -15,6 +15,8 @@ public interface PageBodyImageService {
 
 	public List<PageBodyImage> getPageBodyImages(int imgsPerPage, int page, PersonBean personBean);
 
+	public List<PageBodyImage> getFilteredPageBodyImages(String term);
+
 	public List<PageBodyImage> getApprovedPageBodyImages(String localeId);
 
 	public void deletePageBodyImage(int id);

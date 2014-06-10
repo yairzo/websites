@@ -20,7 +20,7 @@ public interface ImageGalleryService {
 
 	public void moveImageGalleryItemToLast (int id, PersonBean userBean);
 
-	public int insertImageGalleryItem (int websiteId, int parentId, PersonBean userBean);
+	public int insertImageGalleryItem (int parentId, PersonBean userBean);
 
 	public void updateImageGalleryItem (ImageGalleryItem imageGalleryItem, PersonBean userBean);
 

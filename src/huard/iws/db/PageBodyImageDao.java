@@ -2,6 +2,7 @@ package huard.iws.db;
 
 import huard.iws.model.PageBodyImage;
 import huard.iws.bean.PersonBean;
+
 import java.util.List;
 
 public interface PageBodyImageDao {
@@ -14,6 +15,8 @@ public interface PageBodyImageDao {
 
 	public List<PageBodyImage> getPageBodyImages(int imgsPerPage, int page, PersonBean userPersonBean);
 	
+	public List<PageBodyImage> getFilteredPageBodyImages(String term);
+
 	public List<PageBodyImage> getApprovedPageBodyImages(String localeId);
 
 	public void deletePageBodyImage(int id);

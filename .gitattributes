@@ -472,6 +472,7 @@ war/WEB-INF/lib/commons-logging.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/ehcache-1.2.4.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/jasper-runtime.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/json-lib-2.4.jar svn_mime_002dtype=application%2Foctet-stream
+war/WEB-INF/lib/json-simple-1.1.1.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/jsoup-1.5.2-sources.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/jsoup-1.5.2.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/jstl.jar svn_mime_002dtype=application%2Foctet-stream

@@ -16,7 +16,6 @@ public class ImageGalleryServiceImpl implements ImageGalleryService{
 	private static final Logger logger = Logger.getLogger(ImageGalleryServiceImpl.class);
 
 	public List<ImageGalleryItem> getImageGalleryItems(int parentId, PersonBean userBean){
-		System.out.println("111111111111111");
 		List<ImageGalleryItem> imageGalleryItems = imageGalleryDao.getImageGalleryItems(parentId, userBean);
 		return imageGalleryItems;		
 	}
@@ -81,10 +80,10 @@ public class ImageGalleryServiceImpl implements ImageGalleryService{
 	}
 
 	
-	public int insertImageGalleryItem (int websiteId, int parentId, PersonBean userBean){
+	public int insertImageGalleryItem (int parentId, PersonBean userBean){
 		ImageGalleryItem parentImageGalleryItem = getImageGalleryItem(parentId, userBean);
 		Locale locale = LanguageUtils.getLanguage(parentImageGalleryItem.getTitle()).getLocale();
-		 return imageGalleryDao.insertImageGalleryItem(websiteId, parentId, locale, userBean);
+		return imageGalleryDao.insertImageGalleryItem(parentId, locale, userBean);
 	}
 
 	public void deleteImageGalleryItem (int id, PersonBean userBean){
