@@ -91,7 +91,7 @@ public class JdbcPageBodyImageDao extends SimpleJdbcDaoSupport implements PageBo
 	}
 	
 	public List<PageBodyImage> getFilteredPageBodyImages(String term){
-		String query = "select * from image where urlTitle like '%"+term+"%' order by creationTime desc ";
+		String query = "select * from image where name like '%"+term+"%' order by creationTime desc ";
 		logger.info(query);
 		List<PageBodyImage> pageBodyImages =getSimpleJdbcTemplate().query(query, rowMapper);
 		return pageBodyImages;

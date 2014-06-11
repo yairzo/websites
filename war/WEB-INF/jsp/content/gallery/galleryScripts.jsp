@@ -30,7 +30,8 @@
     	                minLength: 2,
     	                select: function (event, selectedItem) {
     	                    // Do something with the selected item, e.g. 
-    	                    scope.selected= selectedItem.item.value;
+    	                    scope.selectedAutocomplete= selectedItem.item.label;
+    	                    scope.selectedAutocompletePictureTitle=selectedItem.item.id;
     	                    scope.$apply();
     	                    event.preventDefault();
     	                }
@@ -40,7 +41,7 @@
     	});
 
        app.controller('galleryController', function($scope,$http) {
- 
+ 			$scope.selectedAutocompletePictureTitle="";
 	   	   $http.get("/galleryHelper.html?action=getCategoryPictures&category=1").success(function(data){
 				var pictures = data;
 				var pictureLines = [];
@@ -52,15 +53,6 @@
 				$scope.pictures = pictures;
 				$scope.pictureLines = pictureLines;
 			});
-			$http.get("/galleryHelper.html?action=getPoolPictures").success(function(data){
-				var poolpictures = data;
-				var poolpicturesLines = [];
-				for (var i = 0; i < poolpictures.length; i++ ) {
-					if (i % 8 == 0) poolpicturesLines.push([]);
-					poolpicturesLines[poolpicturesLines.length-1].push(poolpictures[i]);
-				}
-				$scope.poolpicturesLines = poolpicturesLines;
-			});
 
 			  $scope.selectedIndex = -1; // default selected index 
 
@@ -69,10 +61,12 @@
 			    $scope.selectedPicture = picture;
 			  };
 			  
-			  $scope.itemPoolClicked = function (poolpicture) {
-				  $scope.selectedPicture.url = poolpicture.url;
-				  $scope.selectedPicture.title = poolpicture.title;
+			  $scope.replacePicture = function (selectedAutocompletePictureTitle,selectedAutocompletePictureTitle) {
+				  $scope.selectedPicture.url = selectedAutocompletePictureTitle;
+				  $scope.selectedPicture.title = selectedAutocompletePictureTitle;
 				  $scope.selectedIndex=-1; 
+		 		  $scope.selectedAutocomplete="";
+		 		  $scope.selectedAutocompletePictureTitle="";
 		      };
 
 			  $scope.addPicture = function () {

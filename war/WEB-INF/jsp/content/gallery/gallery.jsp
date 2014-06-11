@@ -20,26 +20,18 @@
 	
   	
 		<div ng-show="selectedIndex > -1" style="text-align:right;direction:rtl;">
-		הוספת תמונה חדשה<br>
-		<input type="file"/>&nbsp;תיאור קצר: <input name="pictureText"/><button name="add">הוספה</button><br>
 
-	       בחירה מתוך מאגר התמונות הקיימות
-		<table>
-		<tr ng-repeat="poolpicturesLine in poolpicturesLines">
- 		<td ng-repeat="poolpicture in poolpicturesLine">
-			<img ng-click="itemPoolClicked(poolpicture)" src="/imageViewer?urlTitle={{poolpicture.url}}&amp;attachType=bodyImage" height="50px" width="50px"/><br>
-			{{poolpicture.title}}
-		</td>
-		</tr>
-		</table>
 		
 		 בחירה מתוך מאגר התמונות הקיימות
-		<input auto-complete ui-items="names" ng-model="selected">
-   		<img src="/imageViewer?urlTitle={{selected}}&amp;attachType=bodyImage" height="50px" width="50px"/><br>
+		<input auto-complete ui-items="names" ng-model="selectedAutocomplete">
+   		<img ng-click="replacePicture(selectedAutocomplete,selectedAutocompletePictureTitle)" src="/imageViewer?urlTitle={{selectedAutocompletePictureTitle}}&amp;attachType=bodyImage" height="50px" width="50px"/>
 		
-		<button ng-click="deletePicture()">מחיקה מהקטגוריה</button><br>
+		<br>
+		הוספת תמונה חדשה למאגר:<input type="file"/>&nbsp;תיאור קצר: <input name="pictureTitle"/>כותרת לקישור: <input name="pictureUrl"/><button name="add">הוספה</button><br>
+
+		<button ng-click="deletePicture()">מחיקה</button><br>
 			
-             
+	            
        
 		</div>
 		

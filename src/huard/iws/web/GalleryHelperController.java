@@ -36,23 +36,14 @@ public class GalleryHelperController extends GeneralWebsiteController{
 			}
 			model.put("json", jsonList.toJSONString());
 		}
-		if(action.equals("getPoolPictures")){
-			JSONArray jsonList = new JSONArray();
-			List<PageBodyImage> pageBodyImages =pageBodyImageService.getPageBodyImages(100,0,userPersonBean);
-			for (PageBodyImage pageBodyImage: pageBodyImages){
-				JSONObject pictureobj = new JSONObject();
-				pictureobj.put("id", pageBodyImage.getId());
-				pictureobj.put("title", pageBodyImage.getName());
-				pictureobj.put("url", pageBodyImage.getTitle());
-				jsonList.add(pictureobj);
-			}
-			model.put("json", jsonList.toJSONString());
-		}
 		if(action.equals("getPoolPictureNames")){
 			List<PageBodyImage> pageBodyImages =pageBodyImageService.getFilteredPageBodyImages(request.getParameter("term", ""));
 			JSONArray jsonList = new JSONArray();
 			for (PageBodyImage pageBodyImage: pageBodyImages){
-				jsonList.add(pageBodyImage.getTitle());
+				JSONObject pictureobj = new JSONObject();
+			    pictureobj.put("label", pageBodyImage.getName());
+				pictureobj.put("id", pageBodyImage.getTitle());
+				jsonList.add(pictureobj);
 			}
 			model.put("json",  jsonList.toJSONString());
 		}
