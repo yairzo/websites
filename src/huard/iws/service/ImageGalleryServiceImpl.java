@@ -92,6 +92,20 @@ public class ImageGalleryServiceImpl implements ImageGalleryService{
 		imageGalleryDao.rearangeImageGallery(imageGalleryItem.getPlace(),parentId, userBean);
 		imageGalleryDao.deleteImageGalleryItem(id, userBean);
 	}
+	
+	public void insertImageGalleryItems (List<ImageGalleryItem> imageGalleryItems, PersonBean userBean){
+		for(ImageGalleryItem imageGalleryItem:imageGalleryItems){
+			imageGalleryDao.insertImageGalleryItem(imageGalleryItem, userBean);
+		}
+	}
+
+	public void prepareDeleteOldCategoryItems (int categoryId, PersonBean userBean){
+		imageGalleryDao.prepareDeleteOldCategoryItems(categoryId,userBean);
+	}
+
+	public void deleteOldCategoryItems (int categoryId, PersonBean userBean){
+		imageGalleryDao.deleteOldCategoryItems(categoryId,userBean);
+	}
 
 	private ImageGalleryDao imageGalleryDao;
 

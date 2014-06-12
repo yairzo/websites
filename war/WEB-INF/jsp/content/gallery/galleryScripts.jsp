@@ -25,9 +25,6 @@
  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js" type="text/javascript"></script>
  <script type="text/javascript">
  
- 	$(function() {
-		$(".actionsDiv" ).draggable();
-	});	
 	
        var app = angular.module('GalleryApp', []);
        
@@ -166,6 +163,19 @@
 					    //alert("error when trying to save");
 			        });
 
+			  };
+			  $scope.cancel = function() {
+			   	     $http.get("/galleryHelper.html?action=getCategoryPictures&category=1").success(function(data){
+							var pictures = data;
+							var pictureLines = [];
+							for (var i = 0; i < pictures.length; i++ ) {
+								if (i % 4 == 0) pictureLines.push([]);
+								pictures[i].counter=i+1;
+							    pictureLines[pictureLines.length-1].push(pictures[i]);
+							}
+							$scope.pictures = pictures;
+							$scope.pictureLines = pictureLines;
+						  });
 			  };           
 		});
 

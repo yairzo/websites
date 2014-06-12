@@ -22,5 +22,12 @@ public interface ImageGalleryDao {
 	public void deleteImageGalleryItem(int id, PersonBean userBean);
 
 	public void rearangeImageGallery(int place, int parentId, PersonBean userBean);
+	
+	public void insertImageGalleryItem(ImageGalleryItem imageGalleryItem, PersonBean userBean);
+
+	public void prepareDeleteOldCategoryItems (int categoryId, PersonBean userBean);
+
+	public void deleteOldCategoryItems (int categoryId, PersonBean userBean);
+
 
 }

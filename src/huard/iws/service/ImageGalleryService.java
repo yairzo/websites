@@ -28,4 +28,10 @@ public interface ImageGalleryService {
 	
 	public ImageGalleryItem getDefaultChildItem(List<ImageGalleryItem> imageGalleryItems);
 
+	public void insertImageGalleryItems (List<ImageGalleryItem> imageGalleryItems, PersonBean userBean);
+
+	public void prepareDeleteOldCategoryItems (int categoryId, PersonBean userBean);
+
+	public void deleteOldCategoryItems (int categoryId, PersonBean userBean);
+
 }

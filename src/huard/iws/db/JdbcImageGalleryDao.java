@@ -117,7 +117,24 @@ public class JdbcImageGalleryDao extends SimpleJdbcDaoSupport implements ImageGa
 		getSimpleJdbcTemplate().update(query,place,parentId);
 		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
 	}
+	public void insertImageGalleryItem (ImageGalleryItem imageGalleryItem, PersonBean userBean){
+		String query = "insert into imageGallery set parentId=?, place=?, text=?, title=?";
+		getSimpleJdbcTemplate().update(query,imageGalleryItem.getParentId(),imageGalleryItem.getPlace(),imageGalleryItem.getText(),imageGalleryItem.getTitle());
+		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
+	}
 
+	public void prepareDeleteOldCategoryItems (int categoryId, PersonBean userBean){
+		String query = "update imageGallery set deleted=1 where parentId=?;";
+		getSimpleJdbcTemplate().update(query,categoryId);
+		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
+	}
+
+	public void deleteOldCategoryItems (int categoryId, PersonBean userBean){
+		String query = "delete from imageGallery where parentId=? and deleted=1 ;";
+		getSimpleJdbcTemplate().update(query,categoryId);
+		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
+	}
+		
 	private MessageSource messageSource;
 
 	public void setMessageSource(MessageSource messageSource) {

@@ -9,6 +9,7 @@ import huard.iws.service.ImageGalleryService;
 import huard.iws.util.RequestWrapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -81,14 +82,21 @@ public class GalleryHelperController extends GeneralWebsiteController{
 		if(action.equals("save")){
 			JSONParser parser = new JSONParser();
 			try {
-				 
 				Object obj = parser.parse(request.getParameter("pictures", ""));
-		 
 				JSONArray jsonList = (JSONArray) obj;
+				List<ImageGalleryItem> imageGalleryItems= new ArrayList<ImageGalleryItem>();
+				imageGalleryService.prepareDeleteOldCategoryItems(categoryId,userPersonBean);
 				for (int i=0;i<jsonList.size();i++) {
 					JSONObject pictureobj = (JSONObject)jsonList.get(i);
-					System.out.println(pictureobj.get("title"));
+					ImageGalleryItem imageGalleryItem= new ImageGalleryItem();
+					imageGalleryItem.setParentId(categoryId);
+					imageGalleryItem.setTitle(pictureobj.get("url").toString());
+					imageGalleryItem.setText(pictureobj.get("title").toString());
+					imageGalleryItem.setPlace(new Integer(pictureobj.get("counter").toString()));
+					imageGalleryItems.add(imageGalleryItem);
 				}
+				imageGalleryService.insertImageGalleryItems(imageGalleryItems, userPersonBean);
+				imageGalleryService.deleteOldCategoryItems(categoryId,userPersonBean);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} 

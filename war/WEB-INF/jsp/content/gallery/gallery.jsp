@@ -26,7 +26,7 @@
 		</table>
 	
   	
-		<div class="actionsDiv" ng-show="selectedIndex > -1" draggable="true">
+		<div class="actionsDiv" ng-show="selectedIndex > -1">
 		<ul><li>
 		 בחירה מתוך מאגר התמונות 
 		<input auto-complete ui-items="names" ng-model="selectedAutocomplete">
