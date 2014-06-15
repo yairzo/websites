@@ -2,6 +2,8 @@ package huard.iws.service;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.db.PostDao;
+import huard.iws.db.QueryElementsMap;
+import huard.iws.db.QueryElementsMap.QueryValidKey;
 import huard.iws.model.Post;
 import huard.iws.model.PostType;
 import huard.iws.util.ListPaginator;
@@ -12,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class PostServiceImpl implements PostService{
 
@@ -98,14 +99,32 @@ public class PostServiceImpl implements PostService{
 	}
 
 	public List<PersonBean> getSubscribers(){
-		String usersAdditionalCondition = "receivePosts=1";
-		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, usersAdditionalCondition, null);
+		QueryElementsMap queryElementsMap = new QueryElementsMap();
+		queryElementsMap.put(QueryValidKey.additionalConditions, "receivePosts = 1");		
+		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, queryElementsMap);
 		return subscribers;
+	}
+	
+	public int getSubscribersCount(){
+		QueryElementsMap queryElementsMap = new QueryElementsMap();
+		queryElementsMap.put(QueryValidKey.additionalConditions, "receivePosts = 1");		
+		return personService.getUsersCount("ROLE_POST_READER", ENABLED, queryElementsMap);		
+	}
+	
+	public List<PersonBean> getRecentSubscribers(int numRecentSeubscribers){
+		QueryElementsMap queryElementsMap = new QueryElementsMap();
+		queryElementsMap.put(QueryValidKey.additionalConditions, "receivePosts = 1");
+		queryElementsMap.put(QueryValidKey.limitPhrase, "limit " + numRecentSeubscribers);
+		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, 
+				queryElementsMap);
+		return subscribers;		
 	}
 
 	public List<PersonBean> getSubscribersNoSubjects(){
-		String usersAdditionalCondition = "personId not in (select personId from subjectToPerson)";
-		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, usersAdditionalCondition, null);
+		QueryElementsMap queryElementsMap = new QueryElementsMap();
+		queryElementsMap.put(QueryValidKey.additionalConditions, "subjectId is null");
+		queryElementsMap.put(QueryValidKey.joinPhrase, " left join subjectToPerson on person.id = subjectToPerson.personId");
+		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, queryElementsMap);
 		return subscribers;
 	}
 
@@ -115,9 +134,11 @@ public class PostServiceImpl implements PostService{
 	}
 
 	public List<PersonBean> getSubscribersSubject(int subjectId){
-		String joinPhrase = " inner join subjectToPerson on person.id = personPrivilege.personId";
-		String usersAdditionalCondition = " subjectToPerson.subjectId = " + subjectId;
-		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, usersAdditionalCondition, joinPhrase);
+		
+		QueryElementsMap queryElementsMap = new QueryElementsMap();
+		queryElementsMap.put(QueryValidKey.joinPhrase, " inner join subjectToPerson"
+				+ " on (subjectToPerson.subjectId = " + subjectId + " and person.id = subjectToPerson.personId)");
+		List<PersonBean> subscribers = personService.getUsers("ROLE_POST_READER", ENABLED, queryElementsMap);
 		return subscribers;
 	}
 

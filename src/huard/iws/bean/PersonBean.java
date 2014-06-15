@@ -176,6 +176,7 @@ public class PersonBean implements Serializable {
 		this.postNewDesign = person.isPostNewDesign();
 		this.imageUrl = person.getImageUrl();
 		this.localeId = "iw_IL";
+		this.imageUrl = person.getImageUrl();
 	}
 
 	public PersonBean(Person person, String localeId) {

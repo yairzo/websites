@@ -71,6 +71,7 @@ public class Person implements ISubjectRelated, IMailable{
 		this.readsUTF8Mails = true;
 		this.receivePosts = true;
 		this.postNewDesign = false;
+		this.imageUrl = "";
 	}
 
 	public PersonListAttribution toPersonAttribution(){

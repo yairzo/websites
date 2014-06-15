@@ -1,6 +1,7 @@
 package huard.iws.service;
 
 import huard.iws.bean.PersonBean;
+import huard.iws.db.QueryElementsMap;
 import huard.iws.model.Person;
 
 import java.sql.Date;
@@ -53,8 +54,12 @@ public interface PersonService {
 	public List<PersonBean> getUsers (String role);
 
 	public List<PersonBean> getUsers (String role, boolean enabled);
+	
+	public List<PersonBean> getUsers (String role, boolean enabled, QueryElementsMap queryElements);
 
-	public List<PersonBean> getUsers (String role, boolean enabled, String additionalCondition, String joinTable);
+	public int getUsersCount (String role, boolean enabled);
+
+	public int getUsersCount (String role, boolean enabled, QueryElementsMap queryElements);
 	
 	public int getOnBehalfOf(String module,int personId);
 

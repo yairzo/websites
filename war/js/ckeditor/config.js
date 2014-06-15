@@ -3,6 +3,8 @@
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
 
+//CKEDITOR.config.language = 'en'; 
+
 CKEDITOR.editorConfig = function( config ) {
 
     /* config.pbckcode  = {
@@ -21,13 +23,15 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	config.removePlugins = 'tableresize';
 
-	config.extraPlugins = 'mediaembed';//,pbckcode';
+	config.extraPlugins = 'mediaembed'//,slideshow';
 	
 	config.scayt_autoStartup = true;
 	
 	config.floatSpaceDockedOffsetX = 170;
 	
 	config.fillEmptyBlocks = false;
+	
+	config.filebrowserImageBrowseUrl = '/uploadImage.html';
 };
 
 

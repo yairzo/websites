@@ -209,11 +209,11 @@ $(document).ready(function() {
 								<a style="text-decoration: none" href="/persons.html?rf=1">דפדוף במאגר הרשומים</a>
 							</th>
 						</tr>
-						<!-- <tr>
+						<tr>
 							<th align="right" style="height:35">
 								<a style="text-decoration: none" href="/postReports.html">מסך בקרה</a>
 							</th>
-						</tr> -->
+						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_POST_READER,ROLE_POST_CREATOR,ROLE_POST_ADMIN">
 						<tr>

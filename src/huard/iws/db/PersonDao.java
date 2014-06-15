@@ -59,8 +59,12 @@ public interface PersonDao {
 	public boolean authenticate(int personId, String pasword);
 
 	public List<Person> getUsers (String role, boolean enabled);
-
-	public List<Person> getUsers (String role, boolean enabled, String additionalCondition,  String joinTable);
+	
+	public List<Person> getUsers (String role, boolean enabled, QueryElementsMap queryElements);
+	
+	public int getUsersCount (String role, boolean enabled);
+	
+	public int getUsersCount (String role, boolean enabled, QueryElementsMap queryElements);
 
 	public Map<Integer, Timestamp> getPersonsLastLogins();
 	
@@ -73,5 +77,5 @@ public interface PersonDao {
 	public int getOfficialRepresentative(String module,int id);
 
 	public Person getPersonByFullNameEnglish(String fullNameEnglish);
-
+	
 }

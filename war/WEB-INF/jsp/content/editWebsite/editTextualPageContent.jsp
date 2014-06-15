@@ -288,7 +288,7 @@
   						</c:choose>
   						<td width="60px">
   							<span id="img${image.id}">
-  								<img id="${image.id}" style="${borderStyle}" src="/imageViewer?imageId=${image.id}&attachType=bodyImage" width="42" height="42">
+  								<img id="${image.id}" class="galleryImage" style="${borderStyle}" src="/imageViewer?imageId=${image.id}&attachType=bodyImage" width="42" height="42">
 	  							<br/>
   								${image.name}&nbsp;
   								<br/>

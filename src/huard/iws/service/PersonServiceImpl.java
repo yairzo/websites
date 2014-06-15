@@ -2,6 +2,7 @@ package huard.iws.service;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.db.PersonDao;
+import huard.iws.db.QueryElementsMap;
 import huard.iws.model.Person;
 import huard.iws.util.DateUtils;
 
@@ -115,14 +116,22 @@ public class PersonServiceImpl implements PersonService {
 		return personDao.authenticate(personId, encodedPassword);
 	}
 
-	public List<PersonBean> getUsers (String role, boolean enabled, String additionaCondition, String joinTable){
-		List<Person> usersPersons = personDao.getUsers(role, enabled, additionaCondition,joinTable);
+	public List<PersonBean> getUsers (String role, boolean enabled, QueryElementsMap queryElements){
+		List<Person> usersPersons = personDao.getUsers(role, enabled,queryElements);
 		return applyLastLogins(usersPersons);
 	}
 
 	public List<PersonBean> getUsers (String role, boolean enabled){
 		List<Person> usersPersons = personDao.getUsers(role, enabled);
 		return applyLastLogins(usersPersons);
+	}
+	
+	public int getUsersCount (String role, boolean enabled, QueryElementsMap queryElements){
+		return personDao.getUsersCount(role, enabled, queryElements);
+	}
+
+	public int getUsersCount (String role, boolean enabled){
+		return personDao.getUsersCount(role, enabled);		
 	}
 
 	public List<PersonBean> getUsers (String role){

@@ -8,7 +8,6 @@ import huard.iws.util.SearchCreteria;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public interface PostService {
 
@@ -37,6 +36,10 @@ public interface PostService {
 	public Map<Integer, PostType> getPostTypesMap();
 
 	public List<PersonBean> getSubscribers();
+	
+	public int getSubscribersCount();	
+	
+	public List<PersonBean> getRecentSubscribers(int numRecentSeubscribers);
 
 	public List<PersonBean> getSubscribersNoSubjects();
 

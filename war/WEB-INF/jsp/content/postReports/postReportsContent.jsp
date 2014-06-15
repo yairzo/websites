@@ -59,15 +59,8 @@
 			 	</tr>
 			 	<tr>
 			 		<th colspan="3">
-			 			<c:choose>
-			 				<c:when test="$fullList">
-								רשימת רשומים למערכת הדיוור
-							</c:when>
-							<c:otherwise>
-					 			נרשמים אחרונים למערכת הדיוור
-					 		</c:otherwise>
-					 	</c:choose>
-			 		</th>
+			 			נרשמים אחרונים למערכת הדיוור
+					</th>
 			 	</tr>
 			 	<tr>
 			 		<td>

@@ -11,7 +11,6 @@ import huard.iws.util.RequestWrapper;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,37 +27,28 @@ public class PostReportsController extends GeneralController{
 
 		LanguageUtils.applyLanguage(model, request, response, "iw_IL");
 
-		boolean fullList = request.getIntParameter("fl", 0)  == 1;
+		List<PersonBean> subscribers = postService.getRecentSubscribers(RECENT_SUBSCRIBERS_NUM);
 
-		List<PersonBean> subscribers = postService.getSubscribers();
+		model.put("subscribersCount", postService.getSubscribersCount());		
 
-		model.put("subscribersCount", subscribers.size());
+		List<PersonBean> subscribersNoSubjects = postService.getSubscribersNoSubjects();
 
-		model.put("fullList", fullList);
+		model.put("subscribersNoSubjects", subscribersNoSubjects);
 
-		if (! fullList){
+		model.put("subscribersNoSubjectsCount", subscribersNoSubjects.size());
 
-			int recentSubscribersIndex = Math.min(subscribers.size(), RECENT_SUBSCRIBERS_NUM);
-			subscribers = subscribers.subList(0, recentSubscribersIndex);
+		List<PersonBean> subscribersDisabled = postService.getSubscribersDisabled();
 
-			List<PersonBean> subscribersNoSubjects = postService.getSubscribersNoSubjects();
+		model.put("subscribersDisabled", subscribersDisabled);
 
-			model.put("subscribersNoSubjects", subscribersNoSubjects);
+		model.put("subscribersDisabledCount", subscribersDisabled.size());
 
-			model.put("subscribersNoSubjectsCount", subscribersNoSubjects.size());
+		Subject rootSubject = subjectService.getSubject(1, "iw_IL");
 
-			List<PersonBean> subscribersDisabled = postService.getSubscribersDisabled();
+		SubjectBean rootSubjectBean = new SubjectBean(rootSubject, "iw_IL");
 
-			model.put("subscribersDisabled", subscribersDisabled);
+		model.put("rootSubject", rootSubjectBean);
 
-			model.put("subscribersDisabledCount", subscribersDisabled.size());
-
-			Subject rootSubject = subjectService.getSubject(1, "iw_IL");
-
-			SubjectBean rootSubjectBean = new SubjectBean(rootSubject, "iw_IL");
-
-			model.put("rootSubject", rootSubjectBean);
-		}
 
 		model.put("subscribers", subscribers);
 

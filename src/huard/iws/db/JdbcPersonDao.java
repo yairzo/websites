@@ -1,5 +1,6 @@
 package huard.iws.db;
 
+import huard.iws.db.QueryElementsMap.QueryValidKey;
 import huard.iws.model.Person;
 import huard.iws.util.BaseUtils;
 import huard.iws.util.ListView;
@@ -522,21 +523,78 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 	}
 
 	public List<Person> getUsers (String role, boolean enabled){
-		return getUsers(role, enabled, null,null);
+		return getUsers(role, enabled, null);
 	}
 
-	public List<Person> getUsers (String role, boolean enabled, String additionalCondition, String joinPhrase){
+	public List<Person> getUsers (String role, boolean enabled, QueryElementsMap queryElements){
+		String additionalConditions = null;
+		String joinPhrase = null;
+		String orderPhrase = null;
+		String limitPhrase = null;
+		
+		if (queryElements != null){
+			additionalConditions = queryElements.get(QueryValidKey.additionalConditions);
+			joinPhrase = queryElements.get(QueryValidKey.joinPhrase);
+			orderPhrase = queryElements.get(QueryValidKey.orderPhrase);
+			limitPhrase = queryElements.get(QueryValidKey.limitPhrase);
+		}
+				
 		String query = "select * from person inner join personPrivilege on person.id = personPrivilege.personId";
 		if (joinPhrase != null)
 			query	+= joinPhrase;
 		query += " where personPrivilege.privilege = ? and enabled = " + (enabled ? 1: 0);
-		if (additionalCondition != null)
-			query += " and " + additionalCondition;
-		query += " order by lastLogin desc;";
-		logger.debug(query);
+		if (additionalConditions != null)
+			query += " and " + additionalConditions;
+		if (orderPhrase != null){
+			query += " " + orderPhrase;
+		}
+		else{
+			query += " order by lastLogin desc";
+		}
+		if (limitPhrase != null){
+			query += " " + limitPhrase;
+		}
+		logger.info(query);
 		List<Person> usersPersons = getSimpleJdbcTemplate().query(query, personRowMapper , role);
 		applyPersonSubjectIds(usersPersons);
 		return usersPersons;
+	}
+	
+	public int getUsersCount (String role, boolean enabled){
+		return getUsersCount(role, enabled, null);
+	}
+
+	public int getUsersCount (String role, boolean enabled, QueryElementsMap queryElements){
+		String additionalConditions = null;
+		String joinPhrase = null;
+		String orderPhrase = null;
+		String limitPhrase = null;
+		
+		if (queryElements != null){
+			additionalConditions = queryElements.get(QueryValidKey.additionalConditions);
+			joinPhrase = queryElements.get(QueryValidKey.joinPhrase);
+			orderPhrase = queryElements.get(QueryValidKey.orderPhrase);
+			limitPhrase = queryElements.get(QueryValidKey.limitPhrase);
+		}
+				
+		String query = "select count(*) from person inner join personPrivilege on person.id = personPrivilege.personId";
+		if (joinPhrase != null)
+			query	+= joinPhrase;
+		query += " where personPrivilege.privilege = ? and enabled = " + (enabled ? 1: 0);
+		if (additionalConditions != null)
+			query += " and " + additionalConditions;
+		if (orderPhrase != null){
+			query += " " + orderPhrase;
+		}
+		else{
+			query += " order by lastLogin desc;";
+		}
+		if (limitPhrase != null){
+			query += " " + limitPhrase;
+		}
+		logger.debug(query);
+		int usersCount = getSimpleJdbcTemplate().queryForInt(query, role);
+		return usersCount;
 	}
 
 	@SuppressWarnings("unused")

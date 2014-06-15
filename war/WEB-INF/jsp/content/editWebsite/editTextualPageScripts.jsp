@@ -16,6 +16,10 @@ $(document).ready(function() {
 	    open: function() { $(".ui-dialog").css("box-shadow","#000 5px 5px 5px");}
 	});
 	dlg.parent().appendTo($("#form"));
+	
+	$(".galleryImage").click(function(){
+		
+	});
 	  
 	$("#addPicture").click(function() {
 			dlg.dialog({ height: 470 });
