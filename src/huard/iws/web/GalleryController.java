@@ -14,7 +14,8 @@ public class GalleryController extends GeneralWebsiteController{
 	
 	public ModelAndView handleRequestWebsite(RequestWrapper request, HttpServletResponse response,
 			Map<String, Object> model, PersonBean userPersonBean){
-
+		int category= request.getIntParameter("category", 0);
+		model.put("category", category);
 		return new ModelAndView("gallery",model);
 
 	}

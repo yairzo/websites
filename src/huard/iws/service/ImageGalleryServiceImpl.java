@@ -85,6 +85,10 @@ public class ImageGalleryServiceImpl implements ImageGalleryService{
 		Locale locale = LanguageUtils.getLanguage(parentImageGalleryItem.getTitle()).getLocale();
 		return imageGalleryDao.insertImageGalleryItem(parentId, locale, userBean);
 	}
+	
+	public void insertImageGalleryItem (ImageGalleryItem imageGalleryItem, PersonBean userBean){
+		imageGalleryDao.insertImageGalleryItem(imageGalleryItem, userBean);
+	}
 
 	public void deleteImageGalleryItem (int id, PersonBean userBean){
 		ImageGalleryItem imageGalleryItem = getImageGalleryItem(id, userBean);

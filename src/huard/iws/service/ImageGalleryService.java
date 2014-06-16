@@ -22,6 +22,8 @@ public interface ImageGalleryService {
 
 	public int insertImageGalleryItem (int parentId, PersonBean userBean);
 
+	public int insertImageGalleryItem (ImageGalleryItem imageGalleryItem, PersonBean userBean);
+
 	public void updateImageGalleryItem (ImageGalleryItem imageGalleryItem, PersonBean userBean);
 
 	public void deleteImageGalleryItem (int id, PersonBean userBean);

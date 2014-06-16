@@ -54,9 +54,11 @@ public class JdbcImageGalleryMapDao extends SimpleJdbcDaoSupport implements Imag
 		Map<Integer, ImageGalleryItem> imageGalleryItemsMap = new HashMap<Integer, ImageGalleryItem>();
 		List<ImageGalleryItem> imageGalleryItems =
 				getSimpleJdbcTemplate().query(query, rowMapper);
+		imageGalleryItemsMap.put(0, new ImageGalleryItem() );
 		for (ImageGalleryItem imageGalleryItem: imageGalleryItems){
 			imageGalleryItemsMap.put(imageGalleryItem.getId(), imageGalleryItem );
 		}
+		
 		for (ImageGalleryItem imageGalleryItem: imageGalleryItems){
 			if (imageGalleryItem.getParentId() > 0){
 				ImageGalleryItem parentImageGalleryItem = imageGalleryItemsMap.get(imageGalleryItem.getParentId());
@@ -64,7 +66,15 @@ public class JdbcImageGalleryMapDao extends SimpleJdbcDaoSupport implements Imag
 					continue;
 				parentImageGalleryItem.getSubItems().add(imageGalleryItem);
 			}
+			else{
+				ImageGalleryItem parentImageGalleryItem = imageGalleryItemsMap.get(0);
+				if (parentImageGalleryItem == null)
+					continue;
+				parentImageGalleryItem.getSubItems().add(imageGalleryItem);
+				
+			}
 		}
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxx:"+imageGalleryItemsMap);
 		return imageGalleryItemsMap;
 	}
 	

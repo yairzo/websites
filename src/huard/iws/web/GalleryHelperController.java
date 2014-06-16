@@ -35,11 +35,13 @@ public class GalleryHelperController extends GeneralWebsiteController{
 		int categoryId = request.getIntParameter("category", 0);
 		if (action.equals("getCategoryPictures")){
 			JSONArray jsonList = new JSONArray();
+			System.out.println("11111111111111 categoryId:"+categoryId);
 			List<ImageGalleryItem> imageGalleryItems = imageGalleryService.getImageGalleryItems(categoryId, userPersonBean);
 			for(ImageGalleryItem imageGalleryItem : imageGalleryItems){
 				JSONObject pictureobj = new JSONObject();
 				pictureobj.put("title", imageGalleryItem.getText());
 				pictureobj.put("url", imageGalleryItem.getTitle());
+				pictureobj.put("id", ""+imageGalleryItem.getId());
 				jsonList.add(pictureobj);
 			}
 			model.put("json", jsonList.toJSONString());
@@ -85,18 +87,35 @@ public class GalleryHelperController extends GeneralWebsiteController{
 				Object obj = parser.parse(request.getParameter("pictures", ""));
 				JSONArray jsonList = (JSONArray) obj;
 				List<ImageGalleryItem> imageGalleryItems= new ArrayList<ImageGalleryItem>();
-				imageGalleryService.prepareDeleteOldCategoryItems(categoryId,userPersonBean);
 				for (int i=0;i<jsonList.size();i++) {
 					JSONObject pictureobj = (JSONObject)jsonList.get(i);
-					ImageGalleryItem imageGalleryItem= new ImageGalleryItem();
-					imageGalleryItem.setParentId(categoryId);
-					imageGalleryItem.setTitle(pictureobj.get("url").toString());
-					imageGalleryItem.setText(pictureobj.get("title").toString());
-					imageGalleryItem.setPlace(new Integer(pictureobj.get("counter").toString()));
-					imageGalleryItems.add(imageGalleryItem);
+					String pictureId= pictureobj.get("id").toString();
+					if(!pictureId.equals("0")){//update
+						ImageGalleryItem imageGalleryItem= imageGalleryService.getImageGalleryItem(new Integer(pictureId).intValue(), userPersonBean);
+						imageGalleryItem.setParentId(categoryId);
+						imageGalleryItem.setTitle(pictureobj.get("url").toString());
+						imageGalleryItem.setText(pictureobj.get("title").toString());
+						imageGalleryItem.setPlace(i+1);
+						imageGalleryService.updateImageGalleryItem(imageGalleryItem, userPersonBean);
+					}
+					else{//new
+						ImageGalleryItem imageGalleryItem= new ImageGalleryItem();
+						imageGalleryItem.setParentId(categoryId);
+						imageGalleryItem.setTitle(pictureobj.get("url").toString());
+						imageGalleryItem.setText(pictureobj.get("title").toString());
+						imageGalleryItem.setPlace(i+1);
+						imageGalleryItems.add(imageGalleryItem);
+						imageGalleryService.insertImageGalleryItem(imageGalleryItem, userPersonBean);
+					}
 				}
-				imageGalleryService.insertImageGalleryItems(imageGalleryItems, userPersonBean);
-				imageGalleryService.deleteOldCategoryItems(categoryId,userPersonBean);
+				//delete
+				obj = parser.parse(request.getParameter("deletedPictures", ""));
+				jsonList = (JSONArray) obj;
+				for (int i=0;i<jsonList.size();i++) {
+					int pictureId=new Integer(jsonList.get(i).toString()).intValue();
+					imageGalleryService.deleteImageGalleryItem(pictureId, userPersonBean);			
+				}
+
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} 

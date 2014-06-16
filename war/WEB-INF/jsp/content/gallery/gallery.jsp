@@ -2,28 +2,19 @@
 
     <div ng-app="GalleryApp">
     <div ng-controller="galleryController">
-  
- <!-- <span ng-repeat="picture in pictures">
- 	<img src="/imageViewer?urlTitle={{picture.url}}&amp;attachType=bodyImage" height="100px" width="100px"/>
-    <span ng-show="$index%4==0"><br></span>
-  </span>  -->
-    	
-		<table dir="rtl" align="center">
-		<tr ng-repeat="pictureLine in pictureLines">
- 		<td ng-repeat="picture in pictureLine" style="vertical-align: top;">
-			<img ng-class="{'selected': picture.counter == selectedIndex }" ng-click="itemClicked(picture)" 
-			src="/imageViewer?urlTitle={{picture.url}}&amp;attachType=bodyImage" height="100px" width="100px"/><br>
-			{{picture.title}}
-		</td>
-		</tr>
-		<tr>
-		<td colspan="4">
+    
+ 		 <div>
+ 		 <span ng-repeat="picture in pictures">
+ 			<img ng-class="{'selected': $index == selectedIndex }" ng-click="itemClicked($index)" src="/imageViewer?urlTitle={{picture.url}}&amp;attachType=bodyImage" height="100px" width="100px"/>	
+ 			{{picture.title}}  <a href="#" ng-show="category==0" ng-click="showSubitems(picture.id)">פריטים</a>
+   		 	<span ng-show="($index+1)%4==0"><br><br></span>
+   		</span>  
+    	<br>
 		<button ng-click="addPicture()">הוספת תמונה לקטגוריה </button>
 		<button ng-click="save()">שמירה </button>
 		<button ng-click="cancel()">ביטול </button>
-		</td>
-		</tr>
-		</table>
+    	</div>	
+
 	
   	
 		<div class="actionsDiv" ng-show="selectedIndex > -1">

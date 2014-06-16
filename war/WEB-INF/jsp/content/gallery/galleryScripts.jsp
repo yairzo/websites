@@ -19,10 +19,10 @@
 	}
 </style>
  
-  <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.js"></script>
-   		<link href="/style/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">	 
-  
+ <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.js"></script>
+ <link href="/style/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">	 
  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js" type="text/javascript"></script>
+
  <script type="text/javascript">
  
 	
@@ -73,59 +73,37 @@
 
         app.controller('galleryController', function($scope,$http) {
 
- 
-	   	     $http.get("/galleryHelper.html?action=getCategoryPictures&category=1").success(function(data){
-				var pictures = data;
-				var pictureLines = [];
-				for (var i = 0; i < pictures.length; i++ ) {
-					if (i % 4 == 0) pictureLines.push([]);
-					pictures[i].counter=i+1;
-				    pictureLines[pictureLines.length-1].push(pictures[i]);
-				}
-				$scope.pictures = pictures;
-				$scope.pictureLines = pictureLines;
+ 			 $scope.category=${category};
+ 			 
+ 			 $scope.deletedPictures=[];
+ 			 
+	   	     $http.get("/galleryHelper.html?action=getCategoryPictures&category="+$scope.category).success(function(data){
+				$scope.pictures = data;
 			  });
 
 			  $scope.selectedIndex = -1; // default selected index 
 
-			  $scope.itemClicked = function (picture) {
-			    $scope.selectedIndex = picture.counter;
-			    $scope.selectedPicture = picture;
+			  $scope.itemClicked = function (index,picture) {
+			    $scope.selectedIndex = index;
 			  };
 			  
-
 			  $scope.addPicture = function () {
-				  var pictures=$scope.pictures;
-				  pictures.push([]);
-				  var pictureLines = [];
-				  for (var i = 0; i < pictures.length; i++ ) {
-					if (i % 4 == 0) pictureLines.push([]);
-					pictures[i].counter=i+1;
-					pictureLines[pictureLines.length-1].push(pictures[i]);
-				  }
-				  $scope.pictures = pictures;
-				  $scope.pictureLines = pictureLines;
+				  var picture={title:"new",url:"",id:"0"};
+				  $scope.pictures.push(picture);
+			  
 			  };
 			  
 			  $scope.deletePicture = function () {
-				  var pictures=$scope.pictures;
-				  pictures.splice($scope.selectedIndex-1,1);
-				  var pictureLines = [];
-				  for (var i = 0; i < pictures.length; i++ ) {
-					if (i % 4 == 0) pictureLines.push([]);
-					pictures[i].counter=i+1;
-					pictureLines[pictureLines.length-1].push(pictures[i]);
-				  }
-				  $scope.pictures = pictures;
-				  $scope.pictureLines = pictureLines;
-				  $scope.selectedIndex=-1;
+				  $scope.deletedPictures.push($scope.pictures[$scope.selectedIndex].id);
+				  $scope.pictures.splice($scope.selectedIndex,1);//local 
+				  $scope.selectedIndex=-1; 
 			  };			
 
 			  $scope.selectedAutocompletePictureTitle="";
 			  
 			  $scope.replacePicture = function (selectedAutocomplete,selectedAutocompletePictureTitle) {
-				  $scope.selectedPicture.url = selectedAutocompletePictureTitle;
-				  $scope.selectedPicture.title = selectedAutocomplete;
+				  $scope.pictures[$scope.selectedIndex].url=selectedAutocompletePictureTitle;
+				  $scope.pictures[$scope.selectedIndex].title = selectedAutocomplete;
 				  $scope.selectedIndex=-1; 
 		 		  $scope.selectedAutocomplete="";
 		 		  $scope.selectedAutocompletePictureTitle="";
@@ -149,15 +127,21 @@
 
 			  };
 			  $scope.save = function() {
-				    var pictures = $scope.pictures;
 				    var fd = new FormData();
-				    fd.append("pictures", JSON.stringify(pictures));
-				    $http.post("galleryHelper.html?action=save&category=1", fd, {
+				    //alert(JSON.stringify($scope.pictures));
+				    fd.append("pictures", JSON.stringify($scope.pictures));
+				    fd.append("deletedPictures", JSON.stringify($scope.deletedPictures));
+				    fd.append("category", $scope.category);
+				    $http.post("galleryHelper.html?action=save", fd, {
 				        withCredentials: true,
 				        headers: {'Content-Type': undefined },
 				        transformRequest: angular.identity
 				    }).success(function(){
-					    //alert("gallery saved successfuly");
+						 $scope.deletedPictures=[];
+						 
+				   	     $http.get("/galleryHelper.html?action=getCategoryPictures&category="+$scope.category).success(function(data){
+					   	   	$scope.pictures = data;
+					   	 });
 			        })
 			        .error(function(){
 					    //alert("error when trying to save");
@@ -165,17 +149,18 @@
 
 			  };
 			  $scope.cancel = function() {
-			   	     $http.get("/galleryHelper.html?action=getCategoryPictures&category=1").success(function(data){
-							var pictures = data;
-							var pictureLines = [];
-							for (var i = 0; i < pictures.length; i++ ) {
-								if (i % 4 == 0) pictureLines.push([]);
-								pictures[i].counter=i+1;
-							    pictureLines[pictureLines.length-1].push(pictures[i]);
-							}
-							$scope.pictures = pictures;
-							$scope.pictureLines = pictureLines;
-						  });
+					 $scope.deletedPictures=[];
+					 
+			   	     $http.get("/galleryHelper.html?action=getCategoryPictures&category="+$scope.category).success(function(data){
+			   	    	$scope.pictures = data;
+			   	     });
+			  };
+			  $scope.showSubitems = function(id) {
+				  //alert(id);
+				  $scope.category=id;
+			   	     $http.get("/galleryHelper.html?action=getCategoryPictures&category="+id).success(function(data){
+			   	    	$scope.pictures = data;
+			   	     });
 			  };           
 		});
 
