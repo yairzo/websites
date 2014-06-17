@@ -307,7 +307,7 @@ $(document).ready(function() {
 
 
 function save(){
-  	var text =CKEDITOR.instances['htmlEditor'].getData();
+  	var text =replaceNbsps(CKEDITOR.instances['htmlEditor'].getData());
   	if(text.length==0) text+="&nbsp;";
     $("#html").val(text);
 	$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
@@ -388,5 +388,9 @@ function checkErrors(){
 	return errors;
 }
 
+function replaceNbsps(text) {
+	text=text.replace(/&nbsp;/g,' ');
+    return text;
+}
 
 </script>

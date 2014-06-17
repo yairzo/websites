@@ -8,14 +8,25 @@
 					<h1 class="maintitle">${pageTitle}</h1>
 					
 					<div class="clearfix mar_20">
-					
+							<c:if test="${customView && authorizedWebsite}">
+								<div class="kol open kol_${lang.dir}">
+									<div class="clearfix">
+										<p class="forbidden_${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.searchFundingCustomChangeSubjectsMessage"/> <a href="/personPost.html?id=${userPersonBean.id}"><fmt:message key="${lang.localeId}.general.login.clickHere"/></a></p>
+									</div>
+								</div>
+							</c:if>
 							<c:if test="${(!authorized  && !searchedSingleDay) || (customView && !authorizedWebsite)}">
 							<div class="kol open kol_${lang.dir}">
 								<div class="clearfix">
 									<a class="button_${lang.dir}">
 										<span id="login_open" class="button_inner_${lang.dir}"><img src="/image/website/i-user.png" alt=""><fmt:message key="${lang.localeId}.callForProposal.loginLink"/></span>
 									</a>
-									<p class="forbidden_${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.fullDetailsLogin"/></p>
+									<c:if test="${!customView}">
+										<p class="forbidden_${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.needLoginMessageSearchFunding"/></p>
+									</c:if>
+									<c:if test="${customView}">
+										<p class="forbidden_${lang.dir}"><fmt:message key="${lang.localeId}.callForProposal.needLoginMessageSearchFundingCustom"/></p>
+									</c:if>
 								</div>
 								<div class="login_box_cp" style="direction: ${lang.dir}; text-align: ${lang.align};">
 									<div class="login_box_bottom_cp">
@@ -35,6 +46,7 @@
 										</div>
 										</div>
 										<div class="login_register mar_15 clearfix"><fmt:message key="${lang.localeId}.general.login.toSubscribe"/> <a href="#"><fmt:message key="${lang.localeId}.general.login.clickHere"/></a></div>
+										
 										</form>
 									</div>
 								</div>

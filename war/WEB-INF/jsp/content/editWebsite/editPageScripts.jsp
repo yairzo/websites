@@ -897,7 +897,7 @@ function replaceURLWithHTMLLinks(text) {
 }
 
 function replaceNbsps(text) {
-	text=text.replace(/&nbsp;/g,'');
+	text=text.replace(/&nbsp;/g,' ');
     return text;
 }
 
