@@ -1168,6 +1168,25 @@ ul.list_content_ltr li, div.maintext_ltr ul li, .kol_content_ltr ul li, div.logi
 	background:url(/image/website/dot.gif) no-repeat left 10px;
 	list-style:none;
 }
+div.maintext_rtl ol, .kol_content_rtl ol{
+	margin:0 18px 15px 0;
+	padding:0;
+}
+
+div.maintext_ltr ol, .kol_content_ltr ol{
+	margin:0 0 15px 18px;
+	padding:0;
+}
+
+div.maintext_rtl ol li, .kol_content_rtl ol li{
+	margin: 0 18px 0 0;
+	padding:0 0 5px 0;
+}
+
+div.maintext_ltr ol li, .kol_content_ltr ol li{
+	margin: 0 0 0 18px;
+	padding:0 0 5px 0;
+}
 
 .calendar{
 	float: left;
@@ -1932,6 +1951,14 @@ direction:ltr;
 	padding:0 15px 5px 0;
 }
 
+.popup_english ol li{
+	margin:0 0 0 35px;
+	padding:0 0 5px 0;
+}
+.popup_hebrew ol li{
+	margin:0 25px 0 0;
+	padding:0 0 5px 0;
+}
 .popup_title{
 width:492px;
 height:51px;
