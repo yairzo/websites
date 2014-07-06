@@ -99,7 +99,14 @@
            				<textarea class="green" id="message" name="message" cols="100" rows="12" style="display:none">${command.message}</textarea>
 					</td>
 				</tr>
-
+				<tr class="newDesignTr">
+					<td colspan="2">
+						<div id="editable2" contenteditable="true" style="border:black thin dotted;text-align:${lang.align}">
+ 							${command.messageNew}<c:if test="${fn:length(command.messageNew)<5}">&nbsp;&nbsp;</c:if>
+						</div>
+           				<textarea class="green" id="messageNew" name="messageNew" cols="100" rows="12" style="display:none">${command.messageNew}</textarea>
+					</td>
+				</tr>
 				<tr>
 						<td>
 							<fmt:message key="${lang.localeId}.post.files"/>

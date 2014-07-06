@@ -12,11 +12,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
- 
+
 import org.apache.log4j.Logger;
 
 

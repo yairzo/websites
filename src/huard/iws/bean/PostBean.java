@@ -31,6 +31,7 @@ public class PostBean {
 	private String additionalAddresses;
 	private String messageSubject;
 	private String message;
+	private String messageNew;
 	private Timestamp creationTime;
 	private boolean verified;
 	private boolean sent;
@@ -78,6 +79,7 @@ public class PostBean {
 		this.additionalAddresses="";
 		this.messageSubject="";
 		this.message="";
+		this.messageNew="";
 		this.verified=false;
 		this.sent=false;
 		this.sendImmediately = false;
@@ -153,6 +155,7 @@ public class PostBean {
 		this.additionalAddresses = post.getAdditionalAddresses();
 		this.messageSubject = post.getMessageSubject();
 		this.message = post.getMessage();
+		this.messageNew = post.getMessageNew();
 		this.creationTime = post.getCreationTime();
 		this.verified = post.isVerified();
 		this.sent = post.isSent();
@@ -175,6 +178,7 @@ public class PostBean {
 		post.setAdditionalAddresses(additionalAddresses);
 		post.setMessageSubject(messageSubject);
 		post.setMessage(message);
+		post.setMessageNew(messageNew);
 		post.setCreationTime(creationTime);
 		post.setVerified(verified);
 		post.setSent(sent);
@@ -226,6 +230,21 @@ public class PostBean {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public String getMessageNewFormatted() {
+		String newMessage=this.messageNew;
+		newMessage=newMessage.replaceAll("<p(.*?)>", "");
+		newMessage=newMessage.replaceAll("</p>", "");
+		newMessage=newMessage.replaceAll("src=\"image/post/dot.gif\"", "src=\"cid:dot\"");
+		return newMessage;
+	}
+	
+	public String getMessageNew() {
+		return messageNew;
+	}
+	public void setMessageNew(String messageNew) {
+		this.messageNew = messageNew;
 	}
 	public int getCreatorId() {
 		return creatorId;

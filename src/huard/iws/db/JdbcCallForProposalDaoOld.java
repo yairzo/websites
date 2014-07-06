@@ -94,7 +94,7 @@ public class JdbcCallForProposalDaoOld implements CallForProposalDaoOld {
 			System.out.println(e);
 		}
 		return callForProposals;
-	}
+	}	
 
 	public void insertAuthorizedMD5(String md5, String server){
 		try{

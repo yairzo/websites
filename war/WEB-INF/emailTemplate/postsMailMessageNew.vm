@@ -1,167 +1,831 @@
-<html>
-<head>
-	<META http-equiv="Content-Type" content="text/html; charset=windows-1255">
-	<title>Authority for Research and Development</title>
-	<style type="text/css">
-		body {
-			background-color:#FFFFFF;
-			margin:0px;
-		}
-		p, li, td {
-			color:#000000;
-			font-family:arial,helvetica;
-			font-size:10pt;
-			font-weight:550;
-		}
-		.small {
-			color:#000000;
-			font-family:arial,helvetica;
-			font-size:10px;
-			font-weight:550;
-		}
-		.smallmedium {
-			color:#000000;
-			font-family:arial,helvetica;
-			font-size:11px;
-			font-weight:550;
-		}
-		.big {
-			color:#000000;
-			font-family:arial,helvetica;
-			font-size:16px;
-			font-weight:bold;
-		}
-		.medium {
-			color:#000000;
-			font-family:arial,helvetica;
-			font-size:14px;
-			text-decoration:none;
-		}
-		.orange {
-			color:#E18323;
-			font-family:arial,helvetica;
-			font-size:12px;
-			font-weight:bold;
-			text-decoration:none;
-		}
-		.blue {
-			color:#1A69A6;
-			font-family:arial,helvetica;
-			font-size:12px;
-			font-weight:bold;
-			text-decoration:none;
-		}
-		.bold{
-			font-weight:bold;
-		}
-		a:link {
-			color:#000000;
-		}
-		a:visited, a:active, a:hover {
-			color:#666666;
-		}
-</style>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>הרשות למחקר ופיתוח - האוניברסיטה העברית בירושלים</title>
 </head>
-<body>
-<table width="90%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" align="center">
-  <tr>
-    <td colspan="3" align="center" bgcolor="#ddd3b0"><img src="cid:header_post" width="700" height="76" /><br /></td>
-  </tr>
-   <tr>
-    <td height="3" bgcolor="#89877b" colspan="3"></td>
-  </tr>
-  <tr>
-    <td height="5" colspan="3" dir="$language.dir"><span class="small">${recipient.preferedLocaleDegreeFullName}, ${postsAnnouncement} </span></td>
-  </tr>
-
-  #foreach ($post in $posts)
-  <tr>
-
-    #set ($bullet = "cid:bullet")
-    #set ($attach = "<img src=\"cid:attach\"/>")
-    #set ($bulletImg = "&nbsp;<img src=\"cid:bullet\"/>&nbsp;")
-
-
-    <td valign="top"><img src="cid:corner_left" alt="" width="48" height="52"/></td>
-
-    #set ($textDirection = $post.language.dir)
-
-    <td style="text-align: ${post.language.align}; direction: ${post.language.dir};">
-    	<br/>
-    	#set ($mailtoUrl = "<a style=\"text-decoration: underline\" href=\"mailto:")
-        #set ($mailtoUrl = $mailtoUrl + ${post.sender.email})
-        #set ($mailtoUrl = $mailtoUrl + "?subject=Re:")
-        #set ($mailtoUrl = $mailtoUrl + ${post.messageSubject})
-        #set ($mailtoUrl = $mailtoUrl + "&body=\">")
-
-
-		#set ($postMessage = $post.message)
-		#set ($postMessage = $postMessage.replaceAll("<p(.*?)>","<div$1>"))
-		#set ($postMessage = $postMessage.replaceAll("</p>","</div>"))
-		#set ($postMessage = $postMessage.replaceAll(";;", $bulletImg))
-		#set ($postMessage = $postMessage.replaceAll("#@#", $attach))
-		#set ($postMessage = $postMessage.replaceAll("#mu#",$mailtoUrl))
-		#set ($postMessage = $postMessage.replaceAll("#mp#",${post.sender.fullName}))
-		#set ($postMessage = $postMessage.replaceAll("#mue#","</a>"))
-
-       	#set ($cannotReadPost = !$recipient.readsUTF8Mails && $post.language.UTF8)
-       	#if ($cannotReadPost)
-       		<p>Not readable on your mail client, the information is available <a href="https://$server/post.html?id=$post.id">here</a></p>
-       		<p>You will be required to login. username: civil id first 8 digits. password: the code from your salary flip</p>
-       		<br/>
-       	#else
-       	Newwwwwwwwwwwwwwwwwwww
-       	   	${postMessage}
-
-		<br/>
-
-		#if ($post.verified)
-			<span class="smallmedium">
-				$messageService.getMessage($postSuffixKey, $post.localeId)&nbsp;&nbsp;<a href="https://${server}/personPost.html?id=${recipient.id}">$messageService.getMessage($editSubscriptionDetailsKey, $post.localeId)</a>
-			</span>
-			<br/>
-			<span class="small">
-				$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId): ${post.recipientPostCommonSubjectsString}
-			</span>
-		#elseif ($post.selfSent)
-			<span class="small">
-			<a style="text-decoration: none" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $post.localeId)</a>
-			&nbsp;<img src="${bullet}"/>&nbsp;
-			<a style="text-decoration: none" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $post.localeId)</a>
-			</span>
-		#end
-
-		#end
-     </td>
-	  #set ($align = $post.language.alignOpp)
-	  #if ($align.equals("left"))
-	  		#set ($align = "center")
-	  #end
-	  <td style="text-align: right; direction: ${post.language.dir};" valign="top">
-	  		<img src="cid:corner_${post.typeId}" width="65" height="52"/><br/>
-	  		#set($messageKey = "post.type.short."+$post.typeId)
-      		#set($postType = $postTypes.get($post.typeId))
-
-      		<span style="background-color: #faf9f7; color: ${postType.color}; font-size: 11px; padding: 5px;">$messageService.getMessage($messageKey, $post.localeId)</span>
-      </td>
-    </tr>
-    <tr>
-		<td height="2" bgcolor="#89877b" colspan="3"/>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="margin:0;padding:0;">
+	#if ($recipient.preferedLocaleId=="en_US")
+    	#set ($direction ="rtl")
+    	#set ($align ="left")
+	#else
+    	#set ($direction ="ltr")
+   		#set ($align ="right")
+	#end
+	
+	
+<table width="100%" border="0" cellpadding="0" cellspacing="0" dir="$direction">
+	<tr><td width="100%" height="1" bgcolor="#ffffff" style="font-size:0px;line-height:0px;background:#ffffff;"></td></tr>
+	<tr>
+		<td width="100%" height="86" align="center" valign="middle" bgcolor="#f1f1f1" style="background-color:#f1f1f1;background-image:url(cid:bg_header);background-repeat:repeat-x;background-position:center top;text-align:center;vertical-align:middle;" background="cid:bg_header"><a href="#"><img src="cid:logo" width="431" height="66" border="0" alt="הרשות למחקר ופיתוח - האוניברסיטה העברית בירושלים" /></a></td>
 	</tr>
-  #end
+	<tr><td width="100%" height="1" bgcolor="#d9dada" style="font-size:0px;line-height:0px;background:#d9dada;"></td></tr>
+	<tr>
+		<td width="100%" height="68" bgcolor="#f9f9fa" style="background-color:#f9f9fa;background-image:url(cid:bg_title);background-repeat:repeat;background-position:center top;" background="cid:bg_title">
+			<table width="570" border="0" cellpadding="0" cellspacing="0" align="center">
+				<tr><td width="570" height="10" style="font-size:0px;line-height:0px;"></td></tr>
+				<tr>
+					<td width="570" align="center" style="font-family:Arial;font-weight:normal;font-size:13px;color:#333333;direction:$direction;text-align:center;text-decoration:none;line-height: 22px;">
+						<span style="font-size:16px;"><strong>${recipient.preferedLocaleDegreeFullName}</strong>, $messageService.getMessage($postsSubjectDateKey, $language.localeId) ${today}</span><br />
+						${postsAnnouncement}
+					</td></tr>
+					<tr><td width="570" height="10" style="font-size:0px;line-height:0px;"></td></tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td width="100%" height="1000" align="center" valign="top" bgcolor="#ffffff" style="background-color:#ffffff;background-image:url(cid:bg_main);background-repeat:repeat-x;background-position:center top;" background="cid:bg_main">
+			<table width="586" border="0" cellpadding="0" cellspacing="0" align="center" dir="$direction">
+				<tr><td width="586" height="19" style="font-size:0px;line-height:0px;"></td></tr>
+				
+				#if ($hasResearchFundingPosts)
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="42"></td>
+								<td width="334" height="42"></td>
+								<td width="42" height="42" align="center" valign="middle" bgcolor="#565656" style="background:#565656;text-align:center;vertical-align:middle;"><img src="cid:arrow_$direction" alt="" /></td>
+								<td width="1" height="42" style="font-size:0px;line-height:0px;"></td>
+								<td width="193" height="42" valign="middle" align="$align" bgcolor="#04bde5" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:17px;color:#ffffff;direction:$direction;text-align:$align;text-decoration:none;"><img src="cid:i-dollar" width="25" height="26" alt="" style="vertical-align:middle;" /> $messageService.getMessage($researchFundingKey, $language.localeId)</td>
+								<td width="8" height="42" bgcolor="#04bde5" style="background:#04bde5;font-size:0px;line-height:0px;"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="9" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="9" valign="top"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
+							</tr>
+							#foreach ($post in $researchFundingPosts)
+								#if ($post.localeId=="en_US")
+    								#set ($postDirection ="rtl")
+    								#set ($postOppDirection ="ltr")
+    								#set ($postAlign ="left")
+								#else
+    								#set ($postDirection ="ltr")
+   									#set ($postOppDirection ="rtl")
+   									#set ($postAlign ="right")
+ 								#end
+							
+ 							<tr>
+ 								<td width="8" style="font-size:0px;line-height:0px;"></td>
+ 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
 
+								$post.messageNewFormatted
 
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="15" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0" dir="$postDirection">
+										<tr>
+											<td width="432" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$postOppDirection;text-align:$postAlign;text-decoration:none;">
+											$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId) ${post.recipientPostCommonSubjectsString}
+											 </td>
+											<td width="6" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="18" height="30" valign="middle" style="font-size:0px;line-height:0px;"><img src="cid:tag" width="18" height="18" alt=""style="vertical-align:center;" /></td>
+											<td width="10" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="93" bgcolor="#565656"><a href="#" style="background:#565656;display:block;width:93px;height:30px;font-family:Arial;font-weight:normal;font-size:13px;color:#ffffff;direction:$postOppDirection;text-align:center;text-decoration:none;vertical-align:middle;line-height:30px;">$messageService.getMessage($moreDetailsKey, $post.localeId)</a></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#if ($post.selfSent && !$post.verified)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											&nbsp;<img src="cid:dot"/>&nbsp;
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											</td>
+											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
+											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="8"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+							
+							<tr>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="22" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+						</table>
+					</td>
+				</tr>
+				#end <!-- Section end -->
+				
+				#if ($hasConferencePosts)
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="42"></td>
+								<td width="334" height="42"></td>
+								<td width="42" height="42" align="center" valign="middle" bgcolor="#565656" style="background:#565656;text-align:center;vertical-align:middle;"><img src="cid:arrow_$direction" alt="" /></td>
+								<td width="1" height="42" style="font-size:0px;line-height:0px;"></td>
+								<td width="193" height="42" valign="middle" align="$align" bgcolor="#04bde5" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:17px;color:#ffffff;direction:$direction;text-align:$align;text-decoration:none;"><img src="cid:i-group" width="25" height="26" alt="" style="vertical-align:middle;" /> $messageService.getMessage($conferenceKey, $language.localeId)</td>
+								<td width="8" height="42" bgcolor="#04bde5" style="background:#04bde5;font-size:0px;line-height:0px;"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="9" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="9" valign="top"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
+							</tr>
+							#foreach ($post in $conferencePosts)
+								#if ($post.localeId=="en_US")
+    								#set ($postDirection ="rtl")
+    								#set ($postOppDirection ="ltr")
+    								#set ($postAlign ="left")
+								#else
+    								#set ($postDirection ="ltr")
+   									#set ($postOppDirection ="rtl")
+   									#set ($postAlign ="right")
+ 								#end
+ 							<tr>
+ 								<td width="8" style="font-size:0px;line-height:0px;"></td>
+ 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
 
-  <tr>
-    <td bgcolor="#89877b" height="3" colspan="3"></td>
-  </tr>
+								$post.messageNewFormatted
 
-  <tr>
-    <td height="5" align="center" bgcolor="#ddd3b0" dir="$language.dir" colspan="3"><p class="small">${allRightsReserved}</p></td>
-  </tr>
-  <tr>
-    <td bgcolor="#89877b" height="3" colspan="3"></td>
-  </tr>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="15" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0" dir="$postDirection">
+										<tr>
+											<td width="432" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$postOppDirection;text-align:$postAlign;text-decoration:none;">
+											$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId) ${post.recipientPostCommonSubjectsString}
+											 </td>
+											<td width="6" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="18" height="30" valign="middle" style="font-size:0px;line-height:0px;"><img src="cid:tag" width="18" height="18" alt=""style="vertical-align:center;" /></td>
+											<td width="10" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="93" bgcolor="#565656"><a href="#" style="background:#565656;display:block;width:93px;height:30px;font-family:Arial;font-weight:normal;font-size:13px;color:#ffffff;direction:$postOppDirection;text-align:center;text-decoration:none;vertical-align:middle;line-height:30px;">$messageService.getMessage($moreDetailsKey, $post.localeId)</a></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#if ($post.selfSent && !$post.verified)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											&nbsp;<img src="cid:dot"/>&nbsp;
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											</td>
+											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
+											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="8"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+							<tr>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="22" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+						</table>
+					</td>
+				</tr>
+				#end <!-- Section end -->
+
+				#if ($hasPrizePosts)
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="42"></td>
+								<td width="334" height="42"></td>
+								<td width="42" height="42" align="center" valign="middle" bgcolor="#565656" style="background:#565656;text-align:center;vertical-align:middle;"><img src="cid:arrow_$direction" alt="" /></td>
+								<td width="1" height="42" style="font-size:0px;line-height:0px;"></td>
+								<td width="193" height="42" valign="middle" align="$align" bgcolor="#04bde5" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:17px;color:#ffffff;direction:$direction;text-align:$align;text-decoration:none;"><img src="cid:i-medal" width="25" height="26" alt="" style="vertical-align:middle;" /> $messageService.getMessage($prizeKey, $language.localeId)</td>
+								<td width="8" height="42" bgcolor="#04bde5" style="background:#04bde5;font-size:0px;line-height:0px;"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="9" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="9" valign="top"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
+							</tr>
+							#foreach ($post in $prizePosts)
+								#if ($post.localeId=="en_US")
+    								#set ($postDirection ="rtl")
+    								#set ($postOppDirection ="ltr")
+    								#set ($postAlign ="left")
+								#else
+    								#set ($postDirection ="ltr")
+   									#set ($postOppDirection ="rtl")
+   									#set ($postAlign ="right")
+ 								#end
+ 							<tr>
+ 								<td width="8" style="font-size:0px;line-height:0px;"></td>
+ 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+ 							
+								$post.messageNewFormatted
+								
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="15" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0" dir="$postDirection">
+										<tr>
+											<td width="432" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$postOppDirection;text-align:$postAlign;text-decoration:none;">
+											$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId) ${post.recipientPostCommonSubjectsString}
+											 </td>
+											<td width="6" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="18" height="30" valign="middle" style="font-size:0px;line-height:0px;"><img src="cid:tag" width="18" height="18" alt=""style="vertical-align:center;" /></td>
+											<td width="10" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="93" bgcolor="#565656"><a href="#" style="background:#565656;display:block;width:93px;height:30px;font-family:Arial;font-weight:normal;font-size:13px;color:#ffffff;direction:$postOppDirection;text-align:center;text-decoration:none;vertical-align:middle;line-height:30px;">$messageService.getMessage($moreDetailsKey, $post.localeId)</a></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#if ($post.selfSent && !$post.verified)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											&nbsp;<img src="cid:dot"/>&nbsp;
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											</td>
+											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
+											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="8"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+							<tr>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="22" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+						</table>
+					</td>
+				</tr>
+				#end <!-- Section end -->
+
+				#if ($hasResearcherExchangePosts)
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="42"></td>
+								<td width="334" height="42"></td>
+								<td width="42" height="42" align="center" valign="middle" bgcolor="#565656" style="background:#565656;text-align:center;vertical-align:middle;"><img src="cid:arrow_$direction" alt="" /></td>
+								<td width="1" height="42" style="font-size:0px;line-height:0px;"></td>
+								<td width="193" height="42" valign="middle" align="$align" bgcolor="#04bde5" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:17px;color:#ffffff;direction:$direction;text-align:$align;text-decoration:none;"><img src="cid:i-man" width="25" height="26" alt="" style="vertical-align:middle;" /> $messageService.getMessage($researchersExchangeKey, $language.localeId)</td>
+								<td width="8" height="42" bgcolor="#04bde5" style="background:#04bde5;font-size:0px;line-height:0px;"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="9" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="9" valign="top"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
+							</tr>
+							#foreach ($post in $researcherExchangePosts)
+								#if ($post.localeId=="en_US")
+    								#set ($postDirection ="rtl")
+    								#set ($postOppDirection ="ltr")
+    								#set ($postAlign ="left")
+								#else
+    								#set ($postDirection ="ltr")
+   									#set ($postOppDirection ="rtl")
+   									#set ($postAlign ="right")
+ 								#end
+ 							<tr>
+ 								<td width="8" style="font-size:0px;line-height:0px;"></td>
+ 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+
+								$post.messageNewFormatted
+
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="15" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0" dir="$postDirection">
+										<tr>
+											<td width="432" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$postOppDirection;text-align:$postAlign;text-decoration:none;">
+											$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId) ${post.recipientPostCommonSubjectsString}
+											 </td>
+											<td width="6" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="18" height="30" valign="middle" style="font-size:0px;line-height:0px;"><img src="cid:tag" width="18" height="18" alt=""style="vertical-align:center;" /></td>
+											<td width="10" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="93" bgcolor="#565656"><a href="#" style="background:#565656;display:block;width:93px;height:30px;font-family:Arial;font-weight:normal;font-size:13px;color:#ffffff;direction:$postOppDirection;text-align:center;text-decoration:none;vertical-align:middle;line-height:30px;">$messageService.getMessage($moreDetailsKey, $post.localeId)</a></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#if ($post.selfSent && !$post.verified)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											&nbsp;<img src="cid:dot"/>&nbsp;
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											</td>
+											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
+											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="8"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+							<tr>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="22" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+						</table>
+					</td>
+				</tr>
+				#end <!--section end -->
+				
+				#if($hasScholarshipPosts)
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="42"></td>
+								<td width="334" height="42"></td>
+								<td width="42" height="42" align="center" valign="middle" bgcolor="#565656" style="background:#565656;text-align:center;vertical-align:middle;"><img src="cid:arrow_$direction" alt="" /></td>
+								<td width="1" height="42" style="font-size:0px;line-height:0px;"></td>
+								<td width="193" height="42" valign="middle" align="$align" bgcolor="#04bde5" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:17px;color:#ffffff;direction:$direction;text-align:$align;text-decoration:none;"><img src="cid:i-hat" width="25" height="26" alt="" style="vertical-align:middle;" /> $messageService.getMessage($scholarshipKey, $language.localeId)</td>
+								<td width="8" height="42" bgcolor="#04bde5" style="background:#04bde5;font-size:0px;line-height:0px;"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="9" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="9" valign="top"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
+							</tr>
+							#foreach ($post in $scholarshipPosts)
+								#if ($post.localeId=="en_US")
+    								#set ($postDirection ="rtl")
+    								#set ($postOppDirection ="ltr")
+    								#set ($postAlign ="left")
+								#else
+    								#set ($postDirection ="ltr")
+   									#set ($postOppDirection ="rtl")
+   									#set ($postAlign ="right")
+ 								#end
+ 							<tr>
+ 								<td width="8" style="font-size:0px;line-height:0px;"></td>
+ 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+
+								$post.messageNewFormatted
+								
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="15" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0" dir="$postDirection">
+										<tr>
+											<td width="432" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$postOppDirection;text-align:$postAlign;text-decoration:none;">
+											$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId) ${post.recipientPostCommonSubjectsString}
+											 </td>
+											<td width="6" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="18" height="30" valign="middle" style="font-size:0px;line-height:0px;"><img src="cid:tag" width="18" height="18" alt=""style="vertical-align:center;" /></td>
+											<td width="10" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="93" bgcolor="#565656"><a href="#" style="background:#565656;display:block;width:93px;height:30px;font-family:Arial;font-weight:normal;font-size:13px;color:#ffffff;direction:$postOppDirection;text-align:center;text-decoration:none;vertical-align:middle;line-height:30px;">$messageService.getMessage($moreDetailsKey, $post.localeId)</a></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#if ($post.selfSent && !$post.verified)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											&nbsp;<img src="cid:dot"/>&nbsp;
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											</td>
+											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
+											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="8"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+							<tr>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="22" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+						</table>
+					</td>
+				</tr>
+				#end
+				
+				#if($hasAdminMessagePosts)
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="42"></td>
+								<td width="334" height="42"></td>
+								<td width="42" height="42" align="center" valign="middle" bgcolor="#565656" style="background:#565656;text-align:center;vertical-align:middle;"><img src="cid:arrow_$direction" alt="" /></td>
+								<td width="1" height="42" style="font-size:0px;line-height:0px;"></td>
+								<td width="193" height="42" valign="middle" align="$align" bgcolor="#04bde5" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:17px;color:#ffffff;direction:$direction;text-align:$align;text-decoration:none;"><img src="cid:i-attention" width="25" height="28" alt="" style="vertical-align:middle;" />$messageService.getMessage($administrativeMessageKey, $language.localeId)</td>
+								<td width="8" height="42" bgcolor="#04bde5" style="background:#04bde5;font-size:0px;line-height:0px;"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="9" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="9" valign="top"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
+							</tr>
+							#foreach ($post in $adminMessagePosts)
+								#if ($post.localeId=="en_US")
+    								#set ($postDirection ="rtl")
+    								#set ($postOppDirection ="ltr")
+    								#set ($postAlign ="left")
+								#else
+    								#set ($postDirection ="ltr")
+   									#set ($postOppDirection ="rtl")
+   									#set ($postAlign ="right")
+ 								#end
+ 							<tr>
+ 								<td width="8" style="font-size:0px;line-height:0px;"></td>
+ 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+
+								$post.messageNewFormatted
+
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="15" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0" dir="$postDirection">
+										<tr>
+											<td width="432" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$postOppDirection;text-align:$postAlign;text-decoration:none;">
+											$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId) ${post.recipientPostCommonSubjectsString}
+											 </td>
+											<td width="6" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="18" height="30" valign="middle" style="font-size:0px;line-height:0px;"><img src="cid:tag" width="18" height="18" alt=""style="vertical-align:center;" /></td>
+											<td width="10" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="93" bgcolor="#565656"><a href="#" style="background:#565656;display:block;width:93px;height:30px;font-family:Arial;font-weight:normal;font-size:13px;color:#ffffff;direction:$postOppDirection;text-align:center;text-decoration:none;vertical-align:middle;line-height:30px;">$messageService.getMessage($moreDetailsKey, $post.localeId)</a></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#if ($post.selfSent && !$post.verified)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											&nbsp;<img src="cid:dot"/>&nbsp;
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											</td>
+											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
+											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="8"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+							<tr>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="22" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+						</table>
+					</td>
+				</tr>
+				#end
+				
+				#if ($hasFundingMessagePosts)
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="42"></td>
+								<td width="334" height="42"></td>
+								<td width="42" height="42" align="center" valign="middle" bgcolor="#565656" style="background:#565656;text-align:center;vertical-align:middle;"><img src="cid:arrow_$direction" alt="" /></td>
+								<td width="1" height="42" style="font-size:0px;line-height:0px;"></td>
+								<td width="193" height="42" valign="middle" align="$align" bgcolor="#04bde5" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:17px;color:#ffffff;direction:$direction;text-align:$align;text-decoration:none;"><img src="cid:i-attention-dollar" width="25" height="28" alt="" style="vertical-align:middle;" /> $messageService.getMessage($fundingMessageKey, $language.localeId)</td>
+								<td width="8" height="42" bgcolor="#04bde5" style="background:#04bde5;font-size:0px;line-height:0px;"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="586">
+						<table width="586" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="9" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="9" valign="top"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
+							</tr>
+							#foreach ($post in $fundingMessagePosts)
+								#if ($post.localeId=="en_US")
+    								#set ($postDirection ="rtl")
+    								#set ($postOppDirection ="ltr")
+    								#set ($postAlign ="left")
+								#else
+    								#set ($postDirection ="ltr")
+   									#set ($postOppDirection ="rtl")
+   									#set ($postAlign ="right")
+ 								#end
+ 							<tr>
+ 								<td width="8" style="font-size:0px;line-height:0px;"></td>
+ 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+
+								$post.messageNewFormatted
+
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="15" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0" dir="$postDirection">
+										<tr>
+											<td width="432" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$postOppDirection;text-align:$postAlign;text-decoration:none;">
+											$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId) ${post.recipientPostCommonSubjectsString}
+											 </td>
+											<td width="6" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="18" height="30" valign="middle" style="font-size:0px;line-height:0px;"><img src="cid:tag" width="18" height="18" alt=""style="vertical-align:center;" /></td>
+											<td width="10" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="93" bgcolor="#565656"><a href="#" style="background:#565656;display:block;width:93px;height:30px;font-family:Arial;font-weight:normal;font-size:13px;color:#ffffff;direction:$postOppDirection;text-align:center;text-decoration:none;vertical-align:middle;line-height:30px;">$messageService.getMessage($moreDetailsKey, $post.localeId)</a></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#if ($post.selfSent && !$post.verified)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											&nbsp;<img src="cid:dot"/>&nbsp;
+											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											</td>
+											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
+											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
+											<td width="8"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+							<tr>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="559" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" height="22" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+						</table>
+					</td>
+				</tr>
+				#end
+				
+				<tr><td width="586" height="30"></td></tr>
+				<tr>
+					<td width="586" height="30">
+						<table width="586" border="0" cellpadding="0" cellspacing="0" align="center">
+							<tr>
+								<td width="8"></td>
+								<td width="570" height="7" bgcolor="#f0f0f0" style="background:#f0f0f0;"></td>
+								<td width="8"></td>
+							</tr>
+							<tr>
+								<td width="8"></td>
+								<td width="570" bgcolor="#f0f0f0" style="background:#f0f0f0;font-family:Arial;font-weight:normal;font-size:13px;color:#333333;direction:$direction;text-align:center;text-decoration:none;">
+								$messageService.getMessage($postSuffixKey, $language.localeId) <a href="https://${server}/personPost.html?id=${recipient.id}" style="color:#04bde5;text-decoration:none;">$messageService.getMessage($editSubscriptionDetailsKey, $language.localeId)</a>
+								</td>
+								<td width="8"></td>
+							</tr>
+							<tr>
+								<td width="8"></td>
+								<td width="570" height="7" bgcolor="#f0f0f0" style="background:#f0f0f0;"></td>
+								<td width="8"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td width="586" height="12" style="font-size:0px;line-height:0px;"></td></tr>
+				<tr><td width="586" style="font-family:Arial;font-weight:normal;font-size:12px;color:#999999;direction:$direction;text-align:center;text-decoration:none;">$messageService.getMessage($rightsKey, $language.localeId)</td></tr>
+				<tr><td width="586" height="12" style="font-size:0px;line-height:0px;"></td></tr>
+			</table>
+		</td>
+	</tr>
 </table>
 </body>
 </html>

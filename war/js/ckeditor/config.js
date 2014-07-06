@@ -32,6 +32,10 @@ CKEDITOR.editorConfig = function( config ) {
 	config.fillEmptyBlocks = false;
 	
 	config.filebrowserImageBrowseUrl = '/uploadImage.html';
+	
+	config.allowedContent = true;
+	
+	config.startupShowBorders = false;
 };
 
 

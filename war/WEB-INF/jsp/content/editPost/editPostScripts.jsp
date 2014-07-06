@@ -117,6 +117,11 @@
 
 	$(document).ready(function() {
 
+  		if ("${showNewDesign}")
+	    	$(".newDesignTr").show();
+		else
+	   		$(".newDesignTr").hide();
+
 		if($('.viewSubjects').is(":checked"))
 	    	$("#subjectView").show();
 		else
@@ -142,13 +147,32 @@
 				CKEDITOR.inline('editable',{scayt_autoStartup:false});
 			else CKEDITOR.inline('editable');
 		}
+		if(CKEDITOR.instances['editable2']==null){
+			if('${lang.localeId}'=='iw_IL')
+				CKEDITOR.inline('editable2',{scayt_autoStartup:false});
+			else CKEDITOR.inline('editable2');
+		}
 		
     	CKEDITOR.instances['editable'].on('blur', function() {
-    		var text = $("#editable").html();
+     		var text = $("#editable").html();
       		var ceditor   = CKEDITOR.instances['editable'];
-      		if(text.length==0) text+="&nbsp;";
-      		ceditor.setData(text);
+      		if(text.length==0){ 
+      			text+="&nbsp;";
+         		ceditor.setData(text);
+      		}      		
         	$("#message").val(text);
+			insertIds();			
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+	    	$('#form').ajaxSubmit();
+   	 	});  
+    	CKEDITOR.instances['editable2'].on('blur', function() {
+     		var text = $("#editable2").html();
+      		var ceditor   = CKEDITOR.instances['editable2'];
+      		if(text.length==0){ 
+      			text+="&nbsp;";
+         		ceditor.setData(text);
+      		}      		
+        	$("#messageNew").val(text);
 			insertIds();			
 			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
 	    	$('#form').ajaxSubmit();
@@ -159,6 +183,13 @@
 		$("button.addAttachEditor").click(function(event){			
 			var html = $("td.attach").html();
 			$('div#editable').append(' ' + '<span>&nbsp;#@# ' + html + '</span>');			
+			$('div#editable2').append('<table><tr><td colspan="5">' + html + '</td></tr></table>');	
+			$("#message").val($("#editable").html());
+			$("#messageNew").val($("#editable2").html());
+			insertIds();			
+			$("#form").append("<input type=\"hidden\" name=\"ajaxSubmit\" class=\"ajaxSubmit\" value=\"true\"/>");
+	    	$('#form').ajaxSubmit();
+ 			return false;
 		});
 		
 		$("button.cancelVerified").click(function(event){	
@@ -194,7 +225,7 @@
 			if ($("input.callForProposal").val() == "") return;
 			var callForProposalTitle = $("input.callForProposal").val();
 			var id = callForProposalTitle.replace(/.+ - /,"");
-     		$.get("objectQuery?type=callForProposal&id="+id, function(data){
+     		$.get("objectQuery?type=callForProposalToPost&id="+id, function(data){
     			var senderId= $("select.sender").val();
     			var email = $("#sender" + senderId).val();
     			var name = $('.sender').find(":selected").text();
@@ -205,7 +236,11 @@
       		$.get("objectQuery?type=callForProposalTitle&id="+id, function(data){
     			$("input.messageSubject").val(data);
     		});
-			return false;
+         	$.get("objectQuery?type=callForProposalToPostNew&id="+id, function(data){
+        			$("div#editable2").html(data);	
+        			$("textarea#messageNew").html(data);	
+        	});
+ 			return false;
 		});
 
 		$("button.reloadCallForProposalsList").click(function(){
@@ -213,7 +248,6 @@
    	   			callForProposals = data.split(",,");
    	   			resetAutocomplete(callForProposals);   
    	        });
-			return false;
 			return false;
    	     });
 
@@ -243,14 +277,14 @@
 
 			if (message == ""){
 				$("textarea#body").html('');
-				$("textarea#body").load("objectQuery?type=callForProposal&id=" + callForProposalId);
+				$("textarea#body").load("objectQuery?type=callForProposalToPost&id=" + callForProposalId);
 			}
 			$.alerts.confirm('<fmt:message key="${lang.localeId}.post.changeCallForProposal.confirm"/>',
     			'<fmt:message key="iw_IL.eqfSystem.editProposal.confirm.title"/>',
     			function(confirm){
     				if (confirm==1){
     					$("textarea#body").html('');
-						$("textarea#body").load("objectQuery?type=callForProposal&id=" + callForProposalId);
+						$("textarea#body").load("objectQuery?type=callForProposalToPost&id=" + callForProposalId);
 					}
 				}
 			);
@@ -319,7 +353,8 @@
 	 		}
 			else{
 				var messageText = $('#message').val();
-				if(messageText.indexOf("xxxxx")>0 ){
+				var messageNewText = $('#messageNew').val();
+				if(messageText.indexOf("xxxxx")>0 || ("${showNewDesign}" && messageNewText.indexOf("xxxxx")>0)){
 		 	    	$("#genericDialog").dialog('option', 'buttons',{
 						"המשך לשליחת ההודעה": function() {
 							$('form#form').append('<input type="hidden" name="action" value="sendme"/>');

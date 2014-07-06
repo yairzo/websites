@@ -124,12 +124,20 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 		List<Integer> subjectsIds =  getSimpleJdbcTemplate().query(query, subjectToPostRowMapper, callForProposal.getId());
 		callForProposal.setSubjectsIds(subjectsIds);
 	}
+	
 	private ParameterizedRowMapper<Integer> subjectToPostRowMapper = new ParameterizedRowMapper<Integer>(){
 		public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
             Integer subjectId = rs.getInt("subjectId");
             return subjectId;
 		}
 	};
+	
+	public String getSubjectsNames(int id){
+		String query = "select group_concat(nameHebrew) from subjectToCallForProposal inner join subject on subject.id=subjectToCallForProposal.subjectId where callForProposalId = ? group by callForProposalId;";
+		String subjectsNames =  getSimpleJdbcTemplate().queryForObject(query, String.class, id);
+        return subjectsNames;
+	}
+
 	private void applySubmissionDates(CallForProposal callForProposal){
 		String query = "select * from callForProposalDate where callForProposalId = ?"
 				+ " and date(submissionDate) != date(?)" 

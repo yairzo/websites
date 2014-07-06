@@ -78,5 +78,7 @@ public interface CallForProposalService {
 	public void updateFinalSubmissionTime();
 
 	public List<CallForProposalType> getCallForProposalTypes();
+	
+	public String getSubjectsNames(int id);
 
 }

@@ -60,6 +60,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
             post.setAdditionalAddresses(rs.getString("additionalAddresses"));
             post.setMessageSubject(rs.getString("messageSubject"));
             post.setMessage(rs.getString("message"));
+            post.setMessageNew(rs.getString("messageNew"));        
             post.setCreationTime(rs.getTimestamp("creationTime"));
             post.setVerified(rs.getBoolean("isVerified"));
             post.setSent(rs.getBoolean("isSent"));
@@ -83,7 +84,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public void updatePost(Post post){
 		String query = "update post set creatorId = ?, senderId = ?, additionalAddresses = ?," +
-				"messageSubject = ?, message = ?, isVerified = ?, isSent = ?, isSendImmediately = ?,  sendTime = now() " +
+				"messageSubject = ?, message = ?, messageNew = ?, isVerified = ?, isSent = ?, isSendImmediately = ?,  sendTime = now() " +
 				", isSelfSend = ?, isSelfSent = ?, localeId = ?, typeId = ? where id = ?";
 		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
@@ -92,6 +93,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 				post.getAdditionalAddresses(),
 				post.getMessageSubject(),
 				post.getMessage(),
+				post.getMessageNew(),
 				post.isVerified(),
 				post.isSent(),
 				post.isSendImmediately(),
@@ -116,7 +118,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 
 	public int insertPost(int creatorId){
 		final String query = "insert post set creatorId = ?, senderId = ?, creationTime = now(),localeId='iw_IL'," +
-				" message='', additionalAddresses=''";
+				" message='', messageNew = '', additionalAddresses=''";
 		logger.debug(query);
 		final int aCreatorId = creatorId;
 		KeyHolder keyHolder = new GeneratedKeyHolder();

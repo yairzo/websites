@@ -75,4 +75,6 @@ public interface CallForProposalDao {
 
 	public List<CallForProposalType> getCallForProposalTypes();
 
+	public String getSubjectsNames(int id);
+
 }

@@ -148,6 +148,8 @@ public class EditPostController extends GeneralFormController {
 				CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal, true);
 				tmpPost.setMessageSubject(callForProposalBean.getId() + " - " + callForProposalBean.getTitle());
 				tmpPost.setMessage(callForProposalBean.toPostMessage());
+				//if(userPersonBean.isPostNewDesign())
+				tmpPost.setMessageNew(callForProposalBean.toPostMessageNew());
 				tmpPost.setLocaleId(callForProposalBean.getLocaleId());
 				tmpPost.setTypeId(postService.getPostTypeFromCP(callForProposalBean.getTypeId()));
 				List<Integer> subjectsIds = callForProposalBean.getSubjectsIds();
@@ -194,6 +196,9 @@ public class EditPostController extends GeneralFormController {
 
 		model.put("postTypes", postService.getPostTypes());
 		
+		if(userPersonBean.isPostNewDesign())
+			model.put("showNewDesign",true);
+
 		
 		logger.info("Lang: " + ((Language)model.get("lang")).getLocaleId());
 		

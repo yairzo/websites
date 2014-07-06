@@ -180,5 +180,8 @@ public class CallForProposalServiceImpl implements CallForProposalService {
 	public List<CallForProposalType> getCallForProposalTypes() {
 		return callForProposalDao.getCallForProposalTypes();
 	}
+	public String getSubjectsNames(int id){
+		return callForProposalDao.getSubjectsNames(id);
+	}
 	
 }

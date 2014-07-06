@@ -15,7 +15,9 @@ import huard.iws.model.Attachment;
 import huard.iws.model.Fund;
 import huard.iws.model.MailMessage;
 import huard.iws.model.Person;
+import huard.iws.model.Post;
 import huard.iws.util.BaseUtils;
+import huard.iws.util.DateUtils;
 import huard.iws.util.FileSystemResourceWrapper;
 import huard.iws.util.LanguageUtils;
 
@@ -402,9 +404,40 @@ public class MailMessageServiceImpl implements MailMessageService{
 
 		model.put("messageService", messageService);
 		model.put("posts", posts);
+		List<PostBean> researchFundingPostsBeans = new ArrayList<PostBean>();
+		List<PostBean> conferencePostsBeans = new ArrayList<PostBean>();
+		List<PostBean> scholarshipPostsBeans = new ArrayList<PostBean>();
+		List<PostBean> prizePostsBeans = new ArrayList<PostBean>();
+		List<PostBean> researcherExchangePostsBeans = new ArrayList<PostBean>();
+		List<PostBean> fundingMessagePostsBeans = new ArrayList<PostBean>();
+		List<PostBean> adminMessagePostsBeans = new ArrayList<PostBean>();
+		for (PostBean postBean: posts){
+			if (postBean.getTypeId()==1) researchFundingPostsBeans.add(postBean);
+			if (postBean.getTypeId()==2) conferencePostsBeans.add(postBean);
+			if (postBean.getTypeId()==3) scholarshipPostsBeans.add(postBean);
+			if (postBean.getTypeId()==4) fundingMessagePostsBeans.add(postBean);
+			if (postBean.getTypeId()==5) adminMessagePostsBeans.add(postBean);
+			if (postBean.getTypeId()==8) prizePostsBeans.add(postBean);
+			if (postBean.getTypeId()==9) researcherExchangePostsBeans.add(postBean);
+		}
+		model.put("researchFundingPosts", researchFundingPostsBeans);
+		model.put("hasResearchFundingPosts", researchFundingPostsBeans.size()>0?true:false);
+		model.put("conferencePosts", conferencePostsBeans);
+		model.put("hasConferencePosts", conferencePostsBeans.size()>0?true:false);
+		model.put("scholarshipPosts", scholarshipPostsBeans);
+		model.put("hasScholarshipPosts", scholarshipPostsBeans.size()>0?true:false);
+		model.put("fundingMessagePosts", fundingMessagePostsBeans);
+		model.put("hasFundingMessagePosts", fundingMessagePostsBeans.size()>0?true:false);
+		model.put("adminMessagePosts", adminMessagePostsBeans);
+		model.put("hasAdminMessagePosts", adminMessagePostsBeans.size()>0?true:false);
+		model.put("prizePosts", prizePostsBeans);
+		model.put("hasPrizePosts", prizePostsBeans.size()>0?true:false);
+		model.put("researcherExchangePosts", researcherExchangePostsBeans);
+		model.put("hasResearcherExchangePosts", researcherExchangePostsBeans.size()>0?true:false);
+
 		model.put("postTypes", postService.getPostTypesMap() );
 
-
+		model.put("today", DateUtils.formatDate(new java.util.Date().getTime(),"dd/MM/yyyy"));
 
 		model.put("recipient", recipient);
 		model.put("server", this.getServer());
@@ -416,12 +449,22 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("editSubscriptionDetailsKey", "post.mailMessage.editSubscriptionDetails");
 		model.put("postSuffixKey", "post.mailMessage.postSuffix");
 		model.put("relevantSubjectsPrefixKey", "post.mailMessage.relevantSubjectsPrefix");
+		model.put("moreDetailsKey", "post.mailMessage.moreDetails");
+		model.put("postsSubjectDateKey","post.mailMessage.postsSubjectDate");
+		model.put("rightsKey","post.mailMessage.rights");
+		model.put("researchFundingKey","post.mailMessage.researchFunding");
+		model.put("conferenceKey","post.mailMessage.conference");
+		model.put("prizeKey","post.mailMessage.prize");
+		model.put("scholarshipKey","post.mailMessage.scholarship");
+		model.put("researchersExchangeKey","post.mailMessage.researchersExchange");
+		model.put("administrativeMessageKey","post.mailMessage.administrativeMessage");
+		model.put("fundingMessageKey","post.mailMessage.fundingMessage");
+
+		
 		if (personMD5 !=null )
 			model.put("personMD5", personMD5);
 
 
-		String body = VelocityEngineUtils.mergeTemplateIntoString(
-		           velocityEngine, recipient.isPostNewDesign()?"postsMailMessageNew.vm":"postsMailMessage.vm", model);
 		List<FileSystemResourceWrapper> resources = getCommonResources();
 
 
@@ -439,12 +482,53 @@ public class MailMessageServiceImpl implements MailMessageService{
 			resources.add( new FileSystemResourceWrapper (
 					configurationService.getConfigurationString("iws", "imagesPath") + "corner_"+itemTypeId+".jpg"));
 		}
+		//for new post design
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_header.jpg"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "logo.jpg"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_title.jpg"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_main.jpg"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "tag.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "arrow_ltr.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "arrow_rtl.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-dollar.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "triangle_rtl.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "triangle_ltr.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-group.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-medal.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-man.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-hat.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention-dollar.gif"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "dot.gif"));
 
 		List<Attachment> attachments = new ArrayList<Attachment>();
 		for (PostBean postBean: posts){
 			attachments.addAll(postBean.getAttachments());
 		}
+		String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "postsMailMessage.vm", model);
 		messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, postsSubject, body, resources);
+		if(recipient.isPostNewDesign()){
+			body = VelocityEngineUtils.mergeTemplateIntoString(
+			           velocityEngine, "postsMailMessageNew.vm", model);
+			messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, postsSubject, body, resources);
+		}
 	}
 
 	public MailMessage getMailMessage(int id){

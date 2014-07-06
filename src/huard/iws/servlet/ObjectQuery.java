@@ -58,7 +58,7 @@ public class ObjectQuery extends HttpServlet{
 		PersonBean userPersonBean = UserPersonUtils.getUserAsPersonBean(request, personService, hujiAuthorizationService);
 
 
-		if (type.equals("callForProposal")){
+		if (type.equals("callForProposalToPost")){
 			if (! userPersonBean.isAuthorized("POST", "ADMIN") && ! userPersonBean.isAuthorized("POST", "CREATOR"))
 				return ;
 			Object obj = context.getBean("callForProposalService");
@@ -73,7 +73,30 @@ public class ObjectQuery extends HttpServlet{
 			response.setContentType("text/html");
 			response.setStatus(HttpServletResponse.SC_OK);
 			PrintWriter out = response.getWriter();
-			out.print(callForProposalBean.toPostMessage());
+			String postMessage="";
+			postMessage=callForProposalBean.toPostMessage();
+			out.print(postMessage);
+			out.flush();
+			out.close();
+		}
+		if (type.equals("callForProposalToPostNew")){
+			if (! userPersonBean.isAuthorized("POST", "ADMIN") && ! userPersonBean.isAuthorized("POST", "CREATOR"))
+				return ;
+			Object obj = context.getBean("callForProposalService");
+			callForProposalService = (CallForProposalService)obj;
+			CallForProposal callForProposal = callForProposalService.getCallForProposal(id);
+			//if no such callForProposal - user entered wrong number
+			if (callForProposal.getId()==0)
+				return;
+			
+			CallForProposalBean callForProposalBean = new CallForProposalBean(callForProposal, true);
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html");
+			response.setStatus(HttpServletResponse.SC_OK);
+			PrintWriter out = response.getWriter();
+			String postMessage="";
+			postMessage=callForProposalBean.toPostMessageNew();
+			out.print(postMessage);
 			out.flush();
 			out.close();
 		}

@@ -12,6 +12,7 @@ public class Post implements ISubjectRelated{
 	private String additionalAddresses;
 	private String messageSubject;
 	private String message;
+	private String messageNew;
 	private Timestamp creationTime;
 	private boolean verified;
 	private boolean sent;
@@ -33,6 +34,7 @@ public class Post implements ISubjectRelated{
 		this.additionalAddresses="";
 		this.messageSubject="";
 		this.message="";
+		this.messageNew="";
 		this.verified=false;
 		this.sent=false;
 		this.sendImmediately = false;
@@ -62,11 +64,19 @@ public class Post implements ISubjectRelated{
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getMessage() {
 		return message;
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public String getMessageNew() {
+		return messageNew;
+	}
+	public void setMessageNew(String messageNew) {
+		this.messageNew = messageNew;
 	}
 
 	public int getCreatorId() {
