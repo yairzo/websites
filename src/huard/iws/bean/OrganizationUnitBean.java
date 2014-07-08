@@ -26,6 +26,7 @@ public class OrganizationUnitBean extends ListViewableBean {
 
 	public OrganizationUnitBean(){
 		super();
+		this.imageUrl="";
 	}
 
 	public OrganizationUnitBean(OrganizationUnit organizationUnit){

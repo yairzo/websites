@@ -16,6 +16,9 @@ public class OrganizationUnit {
 	private String imageUrl;
 
 
+	public OrganizationUnit(){
+		this.imageUrl="";
+	}
 
 
 	public void prepareForView(){
