@@ -33,6 +33,8 @@ public class JdbcArticleDao extends SimpleJdbcDaoSupport implements ArticleDao {
 		public Article mapRow(ResultSet rs, int rowNum) throws SQLException{
             Article article = new Article();
             article.setId(rs.getInt("id"));
+            article.setDoi(rs.getString("doi"));
+            article.setFakeDoi(rs.getBoolean("fakeDoi"));
             article.setPublicationDate(rs.getTimestamp("publicationDate"));
             article.setPathname(rs.getString("pathname"));
             article.setVisible(rs.getBoolean("visible"));
@@ -102,6 +104,9 @@ public class JdbcArticleDao extends SimpleJdbcDaoSupport implements ArticleDao {
 	}
 
 	public Person getLeastUpdatedAuthor() {
+		List<Person> persons = getXLeastUpdatedAuthors(1);
+		if (persons.size() == 0)
+			return null;
 		return getXLeastUpdatedAuthors(1).get(0);
 	}
 

@@ -57,12 +57,15 @@ public class ArticleServiceImpl implements ArticleService {
 
 	public void updateLeastUpdatedAuthor() {
 		Person author = getLeastUpdatedAuthor();
-		List<Article> articles = obtainArticlesByAuthor(author);
-		for (Article article: articles)
-			articleDao.insertArticle(article);
-		author.setLastSync(new Timestamp(System.currentTimeMillis()));
-		logger.info("Added "+articles.size()+" articles for: "+author.getFirstNameEnglish()+" "+author.getLastNameEnglish());
-		personDao.updatePerson(author);
+		if (author != null) {
+			List<Article> articles = obtainArticlesByAuthor(author);
+			for (Article article: articles)
+				articleDao.insertArticle(article);
+			author.setLastSync(new Timestamp(System.currentTimeMillis()));
+			
+			logger.info("Added "+articles.size()+" articles for: "+author.getFirstNameEnglish()+" "+author.getLastNameEnglish());
+			personDao.updatePerson(author);
+		}
 	}
 
 }

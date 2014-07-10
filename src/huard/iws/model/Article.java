@@ -13,6 +13,7 @@ public class Article {
 
 	private int id;
 	private String doi;
+	private boolean fakeDoi;
 	private String title;
 	private Timestamp publicationDate;
 	private List<Person> authors;
@@ -38,6 +39,14 @@ public class Article {
 
 	public void setDoi(String doi) {
 		this.doi = doi;
+	}
+	
+	public boolean isFakeDoi() {
+		return fakeDoi;
+	}
+
+	public void setFakeDoi(boolean fakeDoi) {
+		this.fakeDoi = fakeDoi;
 	}
 	
 	public String getTitle() {
