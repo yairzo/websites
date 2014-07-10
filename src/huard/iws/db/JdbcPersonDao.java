@@ -109,44 +109,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		return persons.get(0);
 	}*/
 
-
-
-	private ParameterizedRowMapper<Person> personRowMapper = new ParameterizedRowMapper<Person>(){
-		public Person mapRow(ResultSet rs, int rowNum) throws SQLException{
-            Person person = new Person();
-            person.setId(rs.getInt("id"));
-            person.setFirstNameHebrew(rs.getString("firstNameHebrew"));
-            person.setLastNameHebrew(rs.getString("lastNameHebrew"));
-            person.setDegreeHebrew(rs.getString("degreeHebrew"));
-            person.setCivilId(rs.getString("civilId"));
-            person.setFirstNameEnglish(rs.getString("firstNameEnglish"));
-            person.setLastNameEnglish(rs.getString("lastNameEnglish"));
-            person.setDegreeEnglish(rs.getString("degreeEnglish"));
-            person.setPhone(rs.getString("phone"));
-            person.setFax(rs.getString("fax"));
-            person.setEmail(rs.getString("email"));
-            person.setDepartment(rs.getString("department"));
-            person.setFacultyId(rs.getInt("facultyId"));
-            person.setAddress(rs.getString("address"));
-            person.setHomePhone(rs.getString("homePhone"));
-            person.setCellPhone(rs.getString("cellPhone"));
-            person.setRoomNumber(rs.getString("roomNumber"));
-            person.setResearchEnabled(rs.getBoolean("researchEnabled"));
-            person.setPreferedLocaleId(rs.getString("preferedLocaleId"));
-            person.setAcademicTitle(rs.getString("academicTitle"));
-            person.setWebsiteUrl(rs.getString("websiteUrl"));
-            person.setCampusId(rs.getInt("campusId"));
-
-            person.setPostReceiveDays(BaseUtils.getIntegerList(rs.getString("postReceiveDays"),","));
-            person.setPostReceiveHour(rs.getInt("postReceiveHour"));
-            person.setPostReceiveImmediately(rs.getBoolean("postReceiveImmediately"));
-            person.setReadsUTF8Mails(rs.getBoolean("readsUTF8Mails"));
-            person.setReceivePosts(rs.getBoolean("receivePosts"));
-            person.setPostNewDesign(rs.getBoolean("postNewDesign"));
-            person.setImageUrl(rs.getString("imageUrl"));
-            return person;
-        }
-	};
+	private ParameterizedRowMapper<Person> personRowMapper = new PersonRowMapper();
 
 	private ParameterizedRowMapper<Integer> subjectToPersonRowMapper = new ParameterizedRowMapper<Integer>(){
 		public Integer mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -168,7 +131,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 				" academicTitle = ?, websiteUrl = ?, campusId = ?," +
 				" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?,receivePosts=?,"+
-				" imageUrl=? where id = ?";
+				" imageUrl=?, collectPublications=?, lastSync=? where id = ?";
 		logger.debug (query);
 		getSimpleJdbcTemplate().update(query,
 				person.getFirstNameHebrew() ,
@@ -199,6 +162,8 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				person.isReadsUTF8Mails(),
 				person.isReceivePosts(),
 				person.getImageUrl(),
+				person.isCollectPublications(),
+				person.getLastSync(),
 				person.getId() );
 		updatePersonSubjectIds(person);
 	}
@@ -210,7 +175,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 		" academicTitle = ?, websiteUrl = ?, campusId = ?," +
 		" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?,receivePosts=?,"+
-		" imageUrl=?;";
+		" imageUrl=?, collectPublications=?, lastSync=? ;";
 		logger.debug(query);
 		final String firstNameHebrew = person.getFirstNameHebrew();
 		final String lastNameHebrew = person.getLastNameHebrew();
@@ -239,7 +204,8 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		final boolean readsUTF8Mails = person.isReadsUTF8Mails();
 		final boolean receivePosts = person.isReceivePosts();
 		final String imageUrl = person.getImageUrl();
-		
+		final boolean collectPublications = person.isCollectPublications();
+		final Timestamp lastSync = person.getLastSync();
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -275,6 +241,8 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 					ps.setBoolean(25, readsUTF8Mails);
 					ps.setBoolean(26,receivePosts);
 					ps.setString(27,imageUrl);
+					ps.setBoolean(28,collectPublications);
+					ps.setTimestamp(29,lastSync);
 		            return ps;
 		        }
 		    },

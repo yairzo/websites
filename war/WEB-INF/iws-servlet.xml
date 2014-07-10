@@ -1135,6 +1135,14 @@
   		<property name="registry" ref="registry"/>
 	</bean>
 	
+	<bean id="articleServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
+  		<property name="service" ref="articleService"/>
+  		<property name="serviceName" value="ArticleService"/>
+  		<property name="serviceInterface"
+      		value="huard.iws.service.ArticleService"/>
+  		<property name="registry" ref="registry"/>
+	</bean>
+	
 	<bean id="pageWordsIndexerServiceRmi" class="org.springframework.remoting.rmi.RmiServiceExporter">
   		<property name="service" ref="pagesWordsIndexerService"/>
   		<property name="serviceName" value="PagesWordsIndexerService"/>
@@ -1241,12 +1249,24 @@
   		<property name="jobDetail" ref="switchCallForProposalFinalSubmissionJob"/>
   		<property name="cronExpression" value="0 1 0 * * ?" />
 	</bean>
+	
+	<bean id="addNewArticlesForLeastUpdatedAuthor" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  		<property name="targetObject" ref="articleService"/>
+  		<property name="targetMethod" value="updateLeastUpdatedAuthor" />
+	</bean>
+
+	
+	<bean id="cronAddNewArticlesForLeastUpdatedAuthorTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+  		<property name="jobDetail" ref="addNewArticlesForLeastUpdatedAuthor"/>
+  		<property name="cronExpression" value="* */10 * * * ?" />
+	</bean>
 
 	 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
   		<property name="triggers">
     		<list>
       			<ref bean="cronSwitchCallForProposalFinalSubmissionTrigger"/>
       			<ref bean="cronPreparePersonDeskMapTrigger"/>
+      			<ref bean="cronAddNewArticlesForLeastUpdatedAuthorTrigger"/>
     		</list>
   		</property>
 	</bean>

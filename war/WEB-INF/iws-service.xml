@@ -22,6 +22,26 @@
         </property>
      </bean>
      
+     <bean id="articleService" class="huard.iws.service.ArticleServiceImpl">
+     	<property name="articleDao">
+     		<ref bean="articleDao"/>
+     	</property>
+     	<property name="personDao">
+     		<ref bean="personDao"/>
+     	</property>
+     	<property name="sourceManagerService">
+     		<ref bean="sourceManagerService"/>
+     	</property>
+     </bean>
+     
+     <bean id="source" class="huard.iws.service.articleSources.Source_ieee"></bean>
+     
+     <bean id="sourceManagerService" class="huard.iws.service.SourceManagerServiceImpl">
+     	<property name="sourceManagerDao">
+     		<ref bean="sourceManagerDao"/>
+     	</property>
+     </bean>
+     
      <bean id="generalService" class="huard.iws.service.GeneralServiceImpl">
      	<property name="callForProposalService">
             <ref bean="callForProposalService"/>

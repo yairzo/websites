@@ -1,5 +1,6 @@
 package huard.iws.model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,11 @@ public class Person implements ISubjectRelated, IMailable{
 	private boolean postNewDesign;
 	private String imageUrl;
 
+	private boolean collectPublications;
+	private Timestamp lastSync;
 
+
+	
 
 	List<PersonListAttribution> personListAttributions;
 
@@ -72,6 +77,9 @@ public class Person implements ISubjectRelated, IMailable{
 		this.receivePosts = true;
 		this.postNewDesign = false;
 		this.imageUrl = "";
+		
+		this.collectPublications = false;
+		this.lastSync = new Timestamp(System.currentTimeMillis());
 	}
 
 	public PersonListAttribution toPersonAttribution(){
@@ -310,5 +318,21 @@ public class Person implements ISubjectRelated, IMailable{
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	
+	public boolean isCollectPublications() {
+		return collectPublications;
+	}
+
+	public void setCollectPublications(boolean collectPublications) {
+		this.collectPublications = collectPublications;
+	}
+
+	public Timestamp getLastSync() {
+		return lastSync;
+	}
+
+	public void setLastSync(Timestamp lastSync) {
+		this.lastSync = lastSync;
 	}
 }
