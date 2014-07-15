@@ -169,4 +169,9 @@ public class PersonServiceImpl implements PersonService {
 		this.personListService = personListService;
 	}
 
+	@Override
+	public void changeCollectPublications(int id) {
+		personDao.changeCollectPublications(id);
+	}
+
 }

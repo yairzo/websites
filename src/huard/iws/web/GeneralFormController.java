@@ -3,7 +3,6 @@ package huard.iws.web;
 import huard.iws.bean.MailMessageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.service.ConfigurationService;
-import huard.iws.service.GeneralService;
 import huard.iws.service.HujiAuthorizationService;
 import huard.iws.service.MailMessageService;
 import huard.iws.service.MessageService;

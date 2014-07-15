@@ -37,4 +37,11 @@ public interface ArticleService {
 	 */
 	public void updateLeastUpdatedAuthor();
 
+	public List<Article> getArticles();
+	
+	public List<Article> getVisibleArticles();
+	
+	public List<Article> getHiddenArticles();
+	
+	public void changeVisibility(int id);
 }

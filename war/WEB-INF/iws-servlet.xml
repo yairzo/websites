@@ -840,7 +840,25 @@
             <ref bean="personListService"/>
         </property>
      </bean>
+     
+     <bean id="articleController" class="huard.iws.web.ArticleController" parent="generalController">
+     	<property name="articleService">
+            <ref bean="articleService"/>
+        </property>
+     </bean>
 
+     <bean id="articleActionController" class="huard.iws.web.ArticleActionController" parent="generalController">
+     	<property name="articleService">
+            <ref bean="articleService"/>
+        </property>
+     </bean>
+     
+     <bean id="personActionController" class="huard.iws.web.PersonActionController" parent="generalController">
+     	<property name="personService">
+            <ref bean="personService"/>
+        </property>
+     </bean>
+     
     <bean id="editPersonController" class="huard.iws.web.EditPersonController" parent="generalFormController">
  		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.bean.PersonBean</value></property>
@@ -1284,7 +1302,10 @@
 
         <property name="mappings">
             <props>
+            	<prop key="/articles.html">articleController</prop>
+            	<prop key="/articleAction.html">articleActionController</prop>
                 <prop key="/persons.html">personListController</prop>
+                <prop key="/personAction.html">personActionController</prop>
                 <prop key="/personsHelper.html">personListHelperController</prop>
                 <prop key="/person.html">editPersonController</prop>
                 <prop key="/deletePerson.html">deletePersonController</prop>

@@ -1,6 +1,9 @@
 package huard.iws.model;
 
+import huard.iws.util.DateUtils;
+
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,8 @@ public class Article {
 	private List<Person> authors;
 	private String pathname;
 	private boolean visible;
+	
+	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public Article() {
 		this.authors = new ArrayList<Person>();
@@ -61,6 +66,10 @@ public class Article {
 		return publicationDate;
 	}
 
+	public String getHumanPublicationDate() {
+		return DateUtils.formatDate(publicationDate.getTime(),"dd/MM/yyyy");
+	}
+	
 	public void setPublicationDate(Timestamp publicationDate) {
 		this.publicationDate = publicationDate;
 	}

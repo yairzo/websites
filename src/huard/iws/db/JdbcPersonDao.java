@@ -598,4 +598,10 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		}
 	}
 
+	@Override
+	public void changeCollectPublications(int id) {
+		String query = "UPDATE person SET collectPublications = NOT collectPublications WHERE id = ?";
+		logger.debug(query);
+		getSimpleJdbcTemplate().update(query, id);
+	}
 }

@@ -104,7 +104,12 @@ public class PersonBean implements Serializable {
 	private boolean passValidation;
 
 	private boolean postNewDesign;
+	
 	private String imageUrl;
+	
+	private boolean collectPublications;
+	
+	private Timestamp lastSync;
 
 	public PersonBean() {
 		this.id = 0;
@@ -141,6 +146,9 @@ public class PersonBean implements Serializable {
 		this.passValidation=false;
 		this.postNewDesign=false;
 		this.imageUrl="";
+		
+		this.collectPublications = false;
+		this.lastSync = new Timestamp(System.currentTimeMillis());
 	}
 
 	public PersonBean(Person person) {
@@ -177,6 +185,8 @@ public class PersonBean implements Serializable {
 		this.imageUrl = person.getImageUrl();
 		this.localeId = "iw_IL";
 		this.imageUrl = person.getImageUrl();
+		this.collectPublications = person.isCollectPublications();
+		this.lastSync = person.getLastSync();
 	}
 
 	public PersonBean(Person person, String localeId) {
@@ -218,6 +228,8 @@ public class PersonBean implements Serializable {
 		// person.setPersonListAttributions(personListAttributions);
 		person.setPostNewDesign(postNewDesign);
 		person.setImageUrl(imageUrl);
+		person.setCollectPublications(collectPublications);
+		person.setLastSync(lastSync);
 		return person;
 	}
 
@@ -759,5 +771,21 @@ public class PersonBean implements Serializable {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	
+	public boolean isCollectPublications() {
+		return collectPublications;
+	}
+
+	public void setCollectPublications(boolean collectPublications) {
+		this.collectPublications = collectPublications;
+	}
+
+	public Timestamp getLastSync() {
+		return lastSync;
+	}
+
+	public void setLastSync(Timestamp lastSync) {
+		this.lastSync = lastSync;
 	}
 }

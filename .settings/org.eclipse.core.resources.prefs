@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//war/WEB-INF/jsp/content/articles/articlesScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/editPerson/editPersonScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/editPost/editPost.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/editWebsite/editTextualPageContent.jsp=UTF-8

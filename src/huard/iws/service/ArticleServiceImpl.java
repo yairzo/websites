@@ -39,10 +39,12 @@ public class ArticleServiceImpl implements ArticleService {
 		this.personDao = personDao;
 	}
 
+	@Override
 	public Person getLeastUpdatedAuthor() {
 		return articleDao.getLeastUpdatedAuthor();
 	}
 
+	@Override
 	public List<Article> obtainArticlesByAuthor(Person author) {
 		List<Article> articles = new ArrayList<Article>();
 		for (Source source: sourceManagerService.getActiveSources())
@@ -50,11 +52,13 @@ public class ArticleServiceImpl implements ArticleService {
 		return articles;
 	}
 
+	@Override
 	public List<Person> obtainAuthorsOfArticle(Article article) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public void updateLeastUpdatedAuthor() {
 		Person author = getLeastUpdatedAuthor();
 		if (author != null) {
@@ -63,9 +67,29 @@ public class ArticleServiceImpl implements ArticleService {
 				articleDao.insertArticle(article);
 			author.setLastSync(new Timestamp(System.currentTimeMillis()));
 			
-			logger.info("Added "+articles.size()+" articles for: "+author.getFirstNameEnglish()+" "+author.getLastNameEnglish());
+			logger.debug("Added "+articles.size()+" articles for: "+author.getFirstNameEnglish()+" "+author.getLastNameEnglish());
 			personDao.updatePerson(author);
 		}
+	}
+
+	@Override
+	public List<Article> getArticles() {
+		return articleDao.getArticles();
+	}
+
+	@Override
+	public List<Article> getVisibleArticles() {
+		return articleDao.getVisibleArticles();
+	}
+
+	@Override
+	public List<Article> getHiddenArticles() {
+		return articleDao.getHiddenArticles();
+	}
+
+	@Override
+	public void changeVisibility(int id) {
+		articleDao.changeVisibilityState(id);
 	}
 
 }

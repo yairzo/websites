@@ -22,6 +22,8 @@ public interface ArticleDao {
 	
 	public List<Article> getVisibleArticles();
 	
+	public List<Article> getHiddenArticles();
+	
 	public void insertArticle(Article article);
 
 	public void deleteArticle(int id);
@@ -35,7 +37,22 @@ public interface ArticleDao {
 	
 	/**
 	 * returns the author that was least updated
-	 * @return
+	 * @return the least updated author
 	 */
 	public Person getLeastUpdatedAuthor();
+	
+	/**
+	 * get the X least updated authors
+	 * @param xLastUpdatedAuthors - amount of authors
+	 * @return list of authors
+	 */
+	List<Person> getXLeastUpdatedAuthors(int xLastUpdatedAuthors);
+	
+	/**
+	 * changes from visible to hidden and vice-versa
+	 * @param id - the ID of the article
+	 */
+	public void changeVisibilityState(int id);
+
+	
 }

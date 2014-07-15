@@ -66,7 +66,7 @@ public class Source_ieee extends Source{
 			if (temp.size() > 0)
 				doi = temp.first().ownText();
 			else 
-				doi = new String(md.digest((title+timestamp.toString()).getBytes())); // TODO fix this to return a pretty number
+				doi = new String(md.digest((title+timestamp.toString()).getBytes()));
 			
 			//get pathname
 			temp = e.select("div.detail p.links a[href]");
@@ -92,11 +92,10 @@ public class Source_ieee extends Source{
 		return articles;
 	}
 
-	@Override
 	public List<Person> obtainAuthorsOfArticle(Article article) {
 		/*for (Element f: e.select("div.detail a.prefNameLink")) {
 		authors.add(f.ownText());
-	}*/
+		}*/
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -40,8 +40,11 @@
 
 	<bean id="articleDao" class="huard.iws.db.JdbcArticleDao">
 		<property name="dataSource">
-	    	<ref bean="dataSource"/>
-	    </property>
+	    		<ref bean="dataSource"/>
+	    	</property>
+	    	<property name="personDao">
+	    		<ref bean="personDao"/>
+	    	</property>
 	</bean>
 	
 	<bean id="sourceManagerDao" class="huard.iws.db.JdbcSourceManagerDao">
