@@ -23,10 +23,17 @@ public class OrganizationUnitBean extends ListViewableBean {
 
 	private int listId;
 	private String imageUrl;
+	private String shortName;
+	private String description;
+	private String descriptionSummary;
 
 	public OrganizationUnitBean(){
 		super();
 		this.imageUrl="";
+		this.shortName="";
+		this.description="";
+		this.descriptionSummary="";
+
 	}
 
 	public OrganizationUnitBean(OrganizationUnit organizationUnit){
@@ -55,7 +62,9 @@ public class OrganizationUnitBean extends ListViewableBean {
 
 		this.listId = listId;
 		this.imageUrl= organizationUnit.getImageUrl();
-
+		this.shortName=organizationUnit.getShortName();
+		this.description=organizationUnit.getDescription();
+		this.descriptionSummary=organizationUnit.getDescriptionSummary();
 		init(parentListId);
 	}
 
@@ -76,6 +85,9 @@ public class OrganizationUnitBean extends ListViewableBean {
 		organizationUnit.setPlaceInList(placeInList);
 		organizationUnit.setFacultyId(facultyId);
 		organizationUnit.setImageUrl(imageUrl);
+		organizationUnit.setShortName(shortName);
+		organizationUnit.setDescription(description);
+		organizationUnit.setDescriptionSummary(descriptionSummary);
 		return organizationUnit;
 	}
 
@@ -100,6 +112,9 @@ public class OrganizationUnitBean extends ListViewableBean {
 		fieldValueMap.put("organizationUnit.address", this.address);
 		fieldValueMap.put("organizationUnit.contact", this.contact);
 		fieldValueMap.put("organizationUnit.imageUrl", this.imageUrl);
+		fieldValueMap.put("organizationUnit.shortName", this.shortName);
+		fieldValueMap.put("organizationUnit.description", this.description);
+		fieldValueMap.put("organizationUnit.descriptionSummary", this.descriptionSummary);
 	}
 
 
@@ -195,5 +210,26 @@ public class OrganizationUnitBean extends ListViewableBean {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	
+	public String getShortName() {
+		return shortName;
+	}
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getDescriptionSummary() {
+		return descriptionSummary;
+	}
+	public void setDescriptionSummary(String descriptionSummary) {
+		this.descriptionSummary = descriptionSummary;
 	}
 }

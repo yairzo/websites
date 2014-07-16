@@ -12,7 +12,7 @@ public interface OrganizationUnitDao {
 
 	public List<OrganizationUnit> getOrganizationUnits();
 
-	public List<OrganizationUnit> getOrganizationUnits(int listId, String orderStatement);
+	public List<OrganizationUnit> getOrganizationUnits(int listId, String orderStatement, String filter);
 
 	public List<OrganizationUnit> getOrganizationUnits(ListView lv, SearchCreteria search);
 
@@ -33,4 +33,5 @@ public interface OrganizationUnitDao {
 	public void deleteOrganizationUnitAttribution (int organizationUnitAttributionId);
 
 	public void insertOrganizationUnitAttribution (OrganizationUnitAttribution organizationUnitAttribution);
+
 }

@@ -2,6 +2,7 @@ package huard.iws.web;
 
 import huard.iws.bean.PersonBean;
 import huard.iws.util.RequestWrapper;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +16,11 @@ public class GalleryController extends GeneralWebsiteController{
 	public ModelAndView handleRequestWebsite(RequestWrapper request, HttpServletResponse response,
 			Map<String, Object> model, PersonBean userPersonBean){
 		int category= request.getIntParameter("category", 0);
-		model.put("category", category);
-		return new ModelAndView("gallery",model);
+		model.put("pictureCategory", category);
+		
+		String page =configurationService.getConfigurationString("iws", "websiteName").equals("websiteNano")?"galleryNano":"gallery";
+		return new ModelAndView (page,model);
+
 
 	}
 }

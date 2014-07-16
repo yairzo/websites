@@ -59,15 +59,15 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService{
 		return organizationUnitDao.getOrganizationUnits();
 	}
 
-	public List<OrganizationUnit> getOrganizationUnits( int listId ){
+	public List<OrganizationUnit> getOrganizationUnits( int listId,String filter ){
 		AListInstruction listInstruction =  listInstructionService.getMasterListInstruction(listId);
 		String order = listInstruction.getDefaultOrderByColumn() + " "+listInstruction.getDefaultOrderDirection();
 		if (! SQLUtils.isNormalOrderStatement(order))
 			order = "1 ASC";
-		return organizationUnitDao.getOrganizationUnits(listId, order);
+		return organizationUnitDao.getOrganizationUnits(listId, order,filter);
 	}
 
-	public List<OrganizationUnit> getOrganizationUnits(int listId, int orderColumn){
+	public List<OrganizationUnit> getOrganizationUnits(int listId, int orderColumn,String filter){
 		final AListInstruction listInstruction = listInstructionService.getMasterListInstruction(listId);
 		List <AListColumnInstruction> columnInstructions = listColumnInstructionListService.getListColumnInstructions(listId);
 		String order = "";
@@ -79,7 +79,7 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService{
 		if (! SQLUtils.isNormalOrderStatement(order))
 			order = "1 ASC";
 		List<OrganizationUnit> organizationUnits =
-			organizationUnitDao.getOrganizationUnits(listId, order);
+			organizationUnitDao.getOrganizationUnits(listId, order,filter);
 
 		// If the order column uses a helper table we have to order the personAttributions by comparing the helper table
 		// values. For that we create a helperTableMap to translate from the ids holded by the personListAttribution

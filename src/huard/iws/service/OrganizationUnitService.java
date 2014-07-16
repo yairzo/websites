@@ -23,9 +23,9 @@ public interface OrganizationUnitService {
 
 	public List<OrganizationUnit>getOrganizationUnits();
 
-	public List<OrganizationUnit>getOrganizationUnits(int listId, int orderColumn);
+	public List<OrganizationUnit>getOrganizationUnits(int listId, int orderColumn, String filter);
 
-	public List<OrganizationUnit>getOrganizationUnits(int listId);
+	public List<OrganizationUnit>getOrganizationUnits(int listId, String filter);
 
 	public void prepareListView(ListView lv, SearchCreteria search, int itemsInPage);
 

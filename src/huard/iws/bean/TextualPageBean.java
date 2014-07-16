@@ -8,6 +8,7 @@ import huard.iws.model.Attachment;
 import huard.iws.service.PersonService;
 import huard.iws.service.CategoryService;
 import huard.iws.util.ApplicationContextProvider;
+import huard.iws.util.TextUtils;
 
 public class TextualPageBean {
 	private int id;
@@ -175,6 +176,16 @@ public class TextualPageBean {
 	public void setHtml(String html) {
 		this.html = html;
 	}
+	
+	public String getHtmlShort() {
+		String htmlShort=html;
+		htmlShort=htmlShort.replaceAll("<[/]{0,1}div.*?>", "");
+		htmlShort=htmlShort.replaceAll("<[/]{0,1}p.*?>", "");
+		if(htmlShort.indexOf(".")>-1)
+			htmlShort=htmlShort.substring(0,htmlShort.indexOf(".")+1);
+		return htmlShort;
+	}
+
 
 	public String getDescription() {
 		return description;
@@ -277,7 +288,12 @@ public class TextualPageBean {
 	public void setUpdateTime(long updateTime) {
 		this.updateTime = updateTime;
 	}
-
+	public String getUpdateTimeFormatted() {
+		if(updateTime==0)
+			return "";
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(updateTime);
+	}
 	public String getLocaleId() {
 		return localeId;
 	}

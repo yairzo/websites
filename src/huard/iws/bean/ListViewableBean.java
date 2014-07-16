@@ -50,7 +50,10 @@ public abstract class ListViewableBean implements IListViewableBean{
 
 				if (columnInstruction.isMailAddress()){
 					field.setIsEmailAddress(true);
-					field.setText("<a href=\"mailto:"+field.getText()+"\" class=\"nounderline\">@</a>");
+					field.setPrefix("<a href=\"mailto:");
+					field.setSuffix("\" class=\"nounderline\">@</a>");
+					
+					//field.setText("<a href=\"mailto:"+field.getText()+"\" class=\"nounderline\">@</a>");
 				}
 				if (columnInstruction.isWebAddress()){
 					field.setIsWebAddress(true);
@@ -59,8 +62,8 @@ public abstract class ListViewableBean implements IListViewableBean{
 				}
 				if (columnInstruction.isImage()){
 					field.setIsImage(true);
-					if(!field.getText().trim().isEmpty())
-						field.setText("<img src=\"/imageViewer?urlTitle="+field.getText()+"&amp;attachType=bodyImage\" height=\"50px\" width=\"50px\"/>");
+					//if(!field.getText().trim().isEmpty())
+					//	field.setText("<img src=\"/imageViewer?urlTitle="+field.getText()+"&amp;attachType=bodyImage\" height=\"100px\" width=\"100px\"/>");
 				}
 				String urlColumn;
 				if (( urlColumn = columnInstruction.getLinkTargetFromColumn()).length() > 0){

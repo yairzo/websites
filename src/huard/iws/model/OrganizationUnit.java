@@ -14,10 +14,17 @@ public class OrganizationUnit {
 	private int placeInList;
 	private int facultyId;
 	private String imageUrl;
+	private String shortName;
+	private String description;
+	private String descriptionSummary;
 
 
 	public OrganizationUnit(){
 		this.imageUrl="";
+		this.shortName="";
+		this.description="";
+		this.descriptionSummary="";
+		
 	}
 
 
@@ -117,7 +124,27 @@ public class OrganizationUnit {
 		this.imageUrl = imageUrl;
 	}
 	
-	
+	public String getShortName() {
+		return shortName;
+	}
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescriptionSummary() {
+		return descriptionSummary;
+	}
+	public void setDescriptionSummary(String descriptionSummary) {
+		this.descriptionSummary = descriptionSummary;
+	}
+
 	public class OrganizationUnitType{
 		private int id;
 		private String nameHebrew;
@@ -147,5 +174,6 @@ public class OrganizationUnit {
 		public void setNameHebrew(String nameHebrew) {
 			this.nameHebrew = nameHebrew;
 		}
+
 	}
 }

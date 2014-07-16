@@ -105,7 +105,9 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 		this.preface = aList.getPreface();
 		this.footer = aList.getFooter();
 		this.lastUpdate = new Timestamp(aList.getLastUpdate());
-		init(parentListId);
+		String filter=request.getSession().getAttribute("filterOrganizationUnit")==null?"":(String)request.getSession().getAttribute("filterOrganizationUnit");
+
+		init(parentListId,filter);
 	}
 
 	public AList toAList(){
@@ -204,11 +206,11 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 		return maxViewableColumnIndex;
 	}
 
-	public void init(int parentListId){
+	public void init(int parentListId,String filter){
 		if (this.listTypeId == listService.getListTypeInv("person"))
 			initPersonAttributionBeans(-1,parentListId);
 		else if (this.listTypeId == listService.getListTypeInv("organization unit"))
-			initOrganizationalUnitBeans(-1,parentListId);
+			initOrganizationalUnitBeans(-1,parentListId,filter);
 		initColumnsInstructionBeans(parentListId);
 		initListDesign(parentListId);
 	}
@@ -236,13 +238,13 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 		}
 	}
 
-	public void initOrganizationalUnitBeans(int orderColumn, int parentListId){
+	public void initOrganizationalUnitBeans(int orderColumn, int parentListId, String filter){
 		List<OrganizationUnit> organizationUnits;
 		if (orderColumn>-1){
-			organizationUnits = organizationUnitService.getOrganizationUnits(this.id, orderColumn);
+			organizationUnits = organizationUnitService.getOrganizationUnits(this.id, orderColumn,filter);
 		}
 		else{
-			organizationUnits = organizationUnitService.getOrganizationUnits(this.id);
+			organizationUnits = organizationUnitService.getOrganizationUnits(this.id,filter);
 		}
 		organizationUnitBeans = new ArrayList<OrganizationUnitBean>();
 		for (OrganizationUnit organizationUnit: organizationUnits){

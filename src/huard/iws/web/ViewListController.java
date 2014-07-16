@@ -165,7 +165,7 @@ public class ViewListController extends GeneralFormController {
 				model.put("listType", "person");
 			}
 			else if (listBean.getListTypeId() == Constants.getListTypesInv().get("organization unit")){
-				listBean.initOrganizationalUnitBeans(orderColumn,0);
+				listBean.initOrganizationalUnitBeans(orderColumn,0,"");
 				model.put("listType", "organization unit");
 			}
 			listBean.initColumnsInstructionBeans(0);

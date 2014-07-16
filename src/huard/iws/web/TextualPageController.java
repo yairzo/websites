@@ -1,6 +1,7 @@
 package huard.iws.web;
 
 import huard.iws.bean.AListBean;
+import huard.iws.bean.IListViewableBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
 import huard.iws.model.AList;
@@ -15,6 +16,7 @@ import huard.iws.util.TextUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +25,8 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.mysql.jdbc.Field;
+
 public class TextualPageController extends GeneralWebsiteFormController {
 
 	private static final Logger logger = Logger.getLogger(TextualPageController.class);
@@ -30,11 +34,13 @@ public class TextualPageController extends GeneralWebsiteFormController {
 	protected ModelAndView onSubmit(Object command,
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
-		TextualPageBean textualPageBean = (TextualPageBean)command;
-	
-		Map<String,Object> newModel = new HashMap<String, Object>();
-		newModel.put("id", textualPageBean.getId())	;
-		return new ModelAndView(new RedirectView(getSuccessView()),newModel);
+		//TextualPageBean textualPageBean = (TextualPageBean)command;
+		request.getSession().setAttribute("filterOrganizationUnit",request.getParameter("filterOrganizationUnit", ""));
+
+		//Map<String,Object> newModel = new HashMap<String, Object>();
+		//newModel.put("id", textualPageBean.getId())	;
+		//return new ModelAndView(new RedirectView(getSuccessView()),newModel);
+		return new ModelAndView ( new RedirectViewExtended("/page/" + request.getParameter("urlTitle", "")), new HashMap<String, Object>());
 	}
 
 	protected ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
@@ -49,17 +55,15 @@ public class TextualPageController extends GeneralWebsiteFormController {
 		request.getSession().setAttribute("ardNum",0);
 		if (ardNum > 0){
 			String urlTitle=textualPageService.getTextualPageUrlTitleByArdNum(ardNum);
-		//	return new ModelAndView ( new RedirectViewExtended("page/"+urlTitle), new HashMap<String, Object>());
-			return new ModelAndView ( new RedirectViewExtended("textualPage.html?urlTitle="+urlTitle), new HashMap<String, Object>());
+			return new ModelAndView ( new RedirectViewExtended("/page/"+urlTitle), new HashMap<String, Object>());
 		}
-		//if(request.getIntParameter("id", 0)>0)//if link was written with id and not with url title
-		//	return new ModelAndView ( new RedirectViewExtended("page/"+textualPageBean.getUrlTitle()), new HashMap<String, Object>());
 
 		//category
 		Category category =  new Category();
 		if(textualPageBean.getCategoryId()>0)
 			category = categoryService.getCategory(textualPageBean.getCategoryId());
 		model.put("category",category);
+		
 		//page title
 		model.put("pageTitle", textualPageBean.getTitle());
 		
@@ -78,9 +82,14 @@ public class TextualPageController extends GeneralWebsiteFormController {
 
 		//if list
 		if(textualPageBean.getWrapExternalPage()){
+			if(request.getSession().getAttribute("filterOrganizationUnit")==null || request.getSession().getAttribute("filterOrganizationUnit")=="null")
+				request.getSession().setAttribute("filterOrganizationUnit","");
+
 			AList list = listService.getList(new Integer(textualPageBean.getExternalPageUrl()).intValue());
 			AListBean listBean = new AListBean(list, request);			
-			listBean.init(0);			
+			//listBean.init(0);			
+			request.getSession().setAttribute("filterOrganizationUnit","");
+
 			if (listBean.isCompound()){
 				model.put("list", listBean);
 				model.put("aCompoundView", true);
@@ -88,6 +97,9 @@ public class TextualPageController extends GeneralWebsiteFormController {
 			else{
 				model.put("listBean", listBean);
 			}
+			listBean = new AListBean(list, request);
+			model.put("completeListForFilter", listBean);
+
 		}		
 		
 		Language pageLanguage = LanguageUtils.getLanguage(textualPageBean.getTitle());
@@ -97,22 +109,16 @@ public class TextualPageController extends GeneralWebsiteFormController {
 		model.put("id",textualPageBean.getId());
 		model.put("ilr", "/page/" + textualPageBean.getUrlTitle());
 		
+		String page =configurationService.getConfigurationString("iws", "websiteName").equals("websiteNano")?"textualPageNano":"textualPage";
+		return new ModelAndView (page,model);
 		
-		if(request.getParameter("t", "").equals("0")){
-			if(request.getParameter("list","").equals("1"))
-				return new ModelAndView ("textualPageWithListStatic",model);
-			else
-				return new ModelAndView ("textualPageStatic",model);
-		}
-		else
-			return new ModelAndView ("textualPage",model);		
-
 	}
 
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		TextualPageBean textualPageBean = new TextualPageBean();
 
+		logger.info("urlTitle: " + request.getParameter("urlTitle", ""));
 		int id = request.getIntParameter("id", 0);
 		logger.info("id: " + id);
 		String urlTitle = request.getParameter("urlTitle", "");

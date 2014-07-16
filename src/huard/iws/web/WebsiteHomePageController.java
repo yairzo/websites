@@ -6,8 +6,9 @@ import huard.iws.model.Language;
 import huard.iws.model.PageBodyImage;
 import huard.iws.model.TextualPage;
 import huard.iws.service.PageBodyImageService;
-import huard.iws.service.TextualPageService;
 import huard.iws.service.GeneralService;
+import huard.iws.service.TextualPageService;
+import huard.iws.util.ApplicationContextProvider;
 import huard.iws.util.RequestWrapper;
 
 import java.util.ArrayList;
@@ -32,12 +33,17 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 	protected ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
-		//page title
-		model.put("pageTitle", "");
+		//ControllerModelApplier controllerModelApplier;
+		//if(configurationService.getConfigurationString("iws", "websiteName").equals("websiteNano"))
+			//controllerModelApplier = (ControllerModelApplier) ApplicationContextProvider.getContext().getBean("controllerModelApplierNano");
+		//else
+			//controllerModelApplier = (ControllerModelApplier) ApplicationContextProvider.getContext().getBean("controllerModelApplierMop");
+			
+		//model=controllerModelApplier.applyWebsiteHomePageModel(model);
 		
-
-		//messages
 		Language language = (Language)model.get("lang");
+		
+		//messages
 		List<TextualPage> textualPages = textualPageService.getOnlineMessagesRolling(language.getLocaleId());
 		List<TextualPageBean> textualPageBeans=new ArrayList<TextualPageBean>();
 		List<TextualPageBean> textualPageBeansForIE=new ArrayList<TextualPageBean>();
@@ -51,7 +57,6 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		}
 		model.put("textualPages", textualPageBeans);
 		model.put("textualPagesForIE", textualPageBeansForIE);
-		
 		//pics
 		List<PageBodyImage> pageBodyImages = pageBodyImageService.getApprovedPageBodyImages(language.getLocaleId());
 		model.put("images", pageBodyImages);
@@ -60,10 +65,8 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 
 		model.put("updateTime", generalService.getLastUpdate());
 		
-		if(request.getParameter("t", "").equals("0"))
-			return new ModelAndView ("websiteHomePageStatic",model);
-		else
-			return new ModelAndView ("websiteHomePage",model);
+		String page =configurationService.getConfigurationString("iws", "websiteName").equals("websiteNano")?"websiteHomePageNano":"websiteHomePage";
+		return new ModelAndView (page,model);
 	}
 
 	protected Object getFormBackingObject(
@@ -83,15 +86,15 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 		this.pageBodyImageService = pageBodyImageService;
 	}
 	
-	private TextualPageService textualPageService;
-
-	public void setTextualPageService(TextualPageService textualPageService) {
-		this.textualPageService = textualPageService;
-	}
 	public GeneralService generalService;
 
 	public void setGeneralService(GeneralService generalService) {
 		this.generalService = generalService;
-	}	
+	}
+	
+	private TextualPageService textualPageService;
 
+	public void setTextualPageService(TextualPageService textualPageService) {
+		this.textualPageService = textualPageService;
+	}	
 }

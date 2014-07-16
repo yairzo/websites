@@ -135,6 +135,7 @@ src/huard/iws/web/ConferenceProposalAttachmentsController.java svn_mime_002dtype
 src/huard/iws/web/ConferenceProposalController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ConferenceProposalGradeController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/ConferenceProposalListController.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/web/ControllerModelApplier.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/EditCallForProposalController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/EditCategoryController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/EditFundController.java svn_mime_002dtype=text%2Fplain
@@ -160,6 +161,8 @@ src/huard/iws/web/TextualPageMessagesController.java svn_mime_002dtype=text%2Fpl
 src/huard/iws/web/UploadImageController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/UrlsListController.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/WebsiteHomePageController.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/web/mop/ControllerModelApplierImpl.java svn_mime_002dtype=text%2Fplain
+src/huard/iws/web/nano/ControllerModelApplierImpl.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/EditCallForProposalValidator.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/EditConferenceProposalValidator.java svn_mime_002dtype=text%2Fplain
 src/huard/iws/web/validate/TextualPageValidator.java svn_mime_002dtype=text%2Fplain

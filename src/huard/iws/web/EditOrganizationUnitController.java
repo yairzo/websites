@@ -48,7 +48,9 @@ public class EditOrganizationUnitController extends GeneralFormController {
 			organizationUnitService.deleteOrganizationUnitAttribution(organizationUnitAttributionId);
 		}
 		else{
+			System.out.println("11111111111111111:"+organizationUnitBean.getImageUrl());
 			String imageUrl=uploadImage(request,organizationUnitBean.getId());
+			System.out.println("11111111111111111:"+imageUrl);
 			if(!imageUrl.isEmpty())
 				organizationUnitBean.setImageUrl(imageUrl);
 			organizationUnitService.updateOrganizationUnit(organizationUnitBean.toOrganizationUnit());
@@ -83,6 +85,9 @@ public class EditOrganizationUnitController extends GeneralFormController {
 			organizationUnitAttributionsBeans.add( new OrganizationUnitAttributionBean(organizationUnitAttribution));
 		}
 		model.put("organizationUnitAttributions", organizationUnitAttributionsBeans);
+		
+		model.put("websiteName", configurationService.getConfigurationString("iws", "websiteName"));
+
 		return new ModelAndView(getFormView(), model);
 	}
 
@@ -90,7 +95,7 @@ public class EditOrganizationUnitController extends GeneralFormController {
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		OrganizationUnitBean organizationUnitBean = new OrganizationUnitBean();
 
-		if (!isFormSubmission(request.getRequest())){
+		//if (!isFormSubmission(request.getRequest())){
 			int id = request.getIntParameter("id", 0);
 			String action = request.getParameter("action", "");
 			if (!action.equals("open")) {
@@ -101,7 +106,7 @@ public class EditOrganizationUnitController extends GeneralFormController {
 				id = organizationUnitService.insertOrganizationUnit();
 				organizationUnitBean.setId(id);
 			}
-		}
+		//}
 		return organizationUnitBean;
 	}
 

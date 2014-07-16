@@ -32,10 +32,11 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 		return organizationUnits;
 	}
 
-	public List<OrganizationUnit> getOrganizationUnits(int listId, String orderStatement){
+	public List<OrganizationUnit> getOrganizationUnits(int listId, String orderStatement,String filter){
 		String query = "select * from organizationUnit, organizationUnitAttribution "+
 			"where organizationUnit.id = organizationUnitAttribution.organizationUnitId " +
-			" and organizationUnitAttribution.listId= ? order by "+orderStatement+";";
+			" and organizationUnitAttribution.listId= ? and organizationUnit.nameEnglish like '%"+filter +"%'"+
+			" order by "+orderStatement+";";
 		logger.debug(query);
 			List<OrganizationUnit> organizationUnits =
 				getSimpleJdbcTemplate().query(query, rowMapper, listId);
@@ -70,7 +71,7 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 	public void updateOrganizationUnit (OrganizationUnit organizationUnit){
 		String query = "update organizationUnit set typeId = ?, nameHebrew = ?, nameEnglish = ?," +
 				" email = ?, websiteUrl = ?, phone = ?, fax = ?, address = ?, contact = ?," +
-				" facultyId = ?,imageUrl=? where id = ?";
+				" facultyId = ?,imageUrl=?, shortName=?, description=?, descriptionSummary=? where id = ?";
 		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				organizationUnit.getTypeId(),
@@ -84,6 +85,9 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 				organizationUnit.getContact(),
 				organizationUnit.getFacultyId(),
 				organizationUnit.getImageUrl(),
+				organizationUnit.getShortName(),
+				organizationUnit.getDescription(),
+				organizationUnit.getDescriptionSummary(),
 				organizationUnit.getId() );
 	}
 
@@ -127,6 +131,9 @@ public class JdbcOrganizationUnitDao extends SimpleJdbcDaoSupport implements Org
 			organizationUnit.setPlaceInList(rs.getInt("placeInList"));
 			organizationUnit.setFacultyId(rs.getInt("facultyId"));
 			organizationUnit.setImageUrl(rs.getString("imageUrl"));
+			organizationUnit.setShortName(rs.getString("shortName"));
+			organizationUnit.setDescription(rs.getString("description"));
+			organizationUnit.setDescriptionSummary(rs.getString("descriptionSummary"));
 			organizationUnit.prepareForView();
 			return organizationUnit;
 		}

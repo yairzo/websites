@@ -183,7 +183,7 @@ public class PagesWordsIndexerServiceImpl implements PagesWordsIndexerService{
 					}
 				}
 				else{//organization unit list
-					List<OrganizationUnit> organizationUnitList = organizationUnitService.getOrganizationUnits(listId);
+					List<OrganizationUnit> organizationUnitList = organizationUnitService.getOrganizationUnits(listId,"");
 					for (OrganizationUnit organizationUnit : organizationUnitList) {
 						text = text.concat(organizationUnit.getNameHebrew()+" ");
 						text = text.concat(organizationUnit.getNameEnglish()+" ");
