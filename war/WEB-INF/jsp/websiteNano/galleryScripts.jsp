@@ -73,7 +73,7 @@
 
         app.controller('galleryController', function($scope,$http) {
 
- 			 $scope.category=${pictureCategory};
+ 			 $scope.category=${category};
  			 
  			 $scope.deletedPictures=[];
  			 

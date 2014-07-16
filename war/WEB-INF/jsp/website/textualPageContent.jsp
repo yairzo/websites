@@ -41,7 +41,14 @@
 										<tr>
 											<c:forEach items="${viewableBean.fields}" var="field">
 											<td <c:if test="${field.isEmailAddress}">class="table_email" </c:if> <c:if test="${field.isWebAddress}">class="table_web" </c:if> align="${field.align}">
+											<c:choose>
+											<c:when test="${field.isImage}">
+											<img src="/imageViewer?urlTitle=${field.text}&attachType=bodyImage" height="50px" width="50px"/>
+											</c:when>
+											<c:otherwise>
 											<c:out escapeXml="false" value="${field.prefix}"/><c:out escapeXml="false" value="${field.text}"/><c:out escapeXml="false" value="${field.suffix}"/>
+											</c:otherwise>
+											</c:choose>
 											</td>
 											</c:forEach>
 										</tr>
@@ -68,7 +75,14 @@
 										<tr>
 											<c:forEach items="${viewableBean.fields}" var="field">
 											<td <c:if test="${field.isEmailAddress}">class="table_email"</c:if> <c:if test="${field.isWebAddress}">class="table_web"</c:if> align="${field.align}">
+											<c:choose>
+											<c:when test="${field.isImage}">
+											<img src="/imageViewer?urlTitle=${field.text}&attachType=bodyImage" height="50px" width="50px"/>
+											</c:when>
+											<c:otherwise>
 											<c:out escapeXml="false" value="${field.prefix}"/><c:out escapeXml="false" value="${field.text}"/><c:out escapeXml="false" value="${field.suffix}"/>
+											</c:otherwise>
+											</c:choose>
 											</td>
 											</c:forEach>
 										</tr>

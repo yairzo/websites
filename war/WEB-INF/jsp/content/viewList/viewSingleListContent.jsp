@@ -120,7 +120,14 @@
 					<c:if test="${editMode && varStatus.index==0 && listBean.editableAttribution}">
 						<a href="/personAttribution.html?id=${viewableBean.id}&cp=viewList.html&cpoi=${listBean.id}">E</a>
 					</c:if>
-					<c:out escapeXml="false" value="${field.prefix}"/><c:out escapeXml="false" value="${field.text}"/><c:out escapeXml="false" value="${field.suffix}"/>
+					<c:choose>
+						<c:when test="${field.isImage}">
+							<img src="/imageViewer?urlTitle=${field.text}&attachType=bodyImage" height="50px" width="50px"/>
+						</c:when>
+						<c:otherwise>
+							<c:out escapeXml="false" value="${field.prefix}"/><c:out escapeXml="false" value="${field.text}"/><c:out escapeXml="false" value="${field.suffix}"/>
+						</c:otherwise>
+					</c:choose>
 				</td>
 				</c:forEach>
 			</tr>

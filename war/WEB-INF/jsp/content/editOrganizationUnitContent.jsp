@@ -102,7 +102,50 @@ $(document).ready(function() {
 							&nbsp;
 						</td>
 					</tr>
+	<c:if test="${websiteName=='websiteNano' }">
+					<tr>
+						<td valign="top">
+							שם קצר:
+						</td>
+						<td>
+							<form:input  cssClass="green" path="shortName"/>
+						</td>
+					</tr>
 
+					<tr>
+						<td colspan="2">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td valign="top">
+							תקציר תיאור:
+						</td>
+						<td>
+							<form:textarea  cssClass="green" path="descriptionSummary" cols="40" rows="10"/>
+						</td>
+					</tr>
+
+					<tr>
+						<td colspan="2">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td valign="top">
+							תיאור:
+						</td>
+						<td>
+							<form:textarea  cssClass="green" path="description" cols="40" rows="10"/>
+						</td>
+					</tr>
+
+					<tr>
+						<td colspan="2">
+							&nbsp;
+						</td>
+					</tr>
+		</c:if>					
 					<tr>
 						<td valign="top">
 							דואל:
