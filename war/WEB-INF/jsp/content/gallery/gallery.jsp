@@ -17,7 +17,7 @@
 
 	
   	
-		<div class="actionsDiv" ng-show="selectedIndex > -1">
+		<div class="galleryActions" ng-show="selectedIndex > -1">
 		<ul><li>
 		 בחירה מתוך מאגר התמונות 
 		<input auto-complete ui-items="names" ng-model="selectedAutocomplete">

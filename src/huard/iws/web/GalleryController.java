@@ -18,6 +18,8 @@ public class GalleryController extends GeneralWebsiteController{
 		int category= request.getIntParameter("category", 0);
 		model.put("pictureCategory", category);
 		
+		if(userPersonBean.isAuthorized("ROLE_WEBSITE_ADMIN"))
+			model.put("canEditGallery", true);
 		String page =configurationService.getConfigurationString("iws", "websiteName").equals("websiteNano")?"galleryNano":"gallery";
 		return new ModelAndView (page,model);
 

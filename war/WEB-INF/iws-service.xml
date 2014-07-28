@@ -602,6 +602,10 @@
     	</property>
 	</bean>
 	
-	
+	<bean id="registrationFormService" class="huard.iws.service.RegistrationFormServiceImpl">
+		<property name="registrationFormDao">
+    		<ref bean="registrationFormDao"/>
+    	</property>
+	</bean>	
 	
 </beans>

@@ -7,6 +7,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.PostBean;
 import huard.iws.bean.ProposalBean;
 import huard.iws.bean.ConferenceProposalBean;
+import huard.iws.bean.RegistrationFormBean;
 import huard.iws.model.Fund;
 import huard.iws.model.MailMessage;
 import huard.iws.model.ConferenceProposalGrading;
@@ -16,6 +17,9 @@ import java.util.List;
 
 
 public interface MailMessageService {
+
+	public void createRegistrationFormMail(RegistrationFormBean registrationFormBean,
+			String messageKey);
 
 	public void createPostSubscriptionMail (PersonBean recipient, String md5);
 	

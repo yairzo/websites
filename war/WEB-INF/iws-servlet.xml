@@ -497,6 +497,16 @@
         </property>
     </bean>
 
+	<bean id="registrationFormController" class="huard.iws.web.RegistrationFormController" parent="generalWebsiteFormController">
+ 		<property name="commandName"><value>command</value></property>
+        <property name="commandClass"><value>huard.iws.bean.RegistrationFormBean</value></property>
+        <property name="formView"><value>registrationForm</value></property>
+		<property name="successView"><value>registrationForm.html</value></property>
+		<property name="registrationFormService">
+            <ref bean="registrationFormService"/>
+        </property>
+    </bean>
+
 	<bean id="viewListController" class="huard.iws.web.ViewListController" parent="generalFormController">
 		<property name="commandName"><value>command</value></property>
         <property name="commandClass"><value>huard.iws.web.ViewListController$ViewListControllerCommand</value></property>
@@ -1392,6 +1402,7 @@
 				<prop key="/messages.html">textualPageMessagesController</prop>
 				<prop key="/gallery.html">galleryController</prop>
 				<prop key="/galleryHelper.html">galleryHelperController</prop>
+				<prop key="/registrationForm.html">registrationFormController</prop>
              </props>
         </property>
     </bean>

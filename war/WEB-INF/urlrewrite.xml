@@ -23,6 +23,10 @@
 	</rule>   
 
 	<rule>
+        <from>^/abstract/(.*)\.([a-z0-9]{2,4})$</from>
+        <to last="true">/fileViewer?abstractFilename=$1.$2&amp;contentType=$2&amp;attachmentId=1</to>
+    </rule>
+	<rule>
         <from>^/page/(.*)\.([a-z0-9]{2,4})$</from>
         <to last="true">/fileViewer?textualPageFilename=$1.$2&amp;contentType=$2&amp;attachmentId=1</to>
     </rule>

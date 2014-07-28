@@ -295,6 +295,11 @@
         </property>
     </bean>
 
+    <bean id="registrationFormDao" class="huard.iws.db.JdbcRegistrationFormDao">
+    	<property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
 	<jee:jndi-lookup id="dataSource" jndi-name="/jdbc/iws" resource-ref="true" />
  
 </beans>

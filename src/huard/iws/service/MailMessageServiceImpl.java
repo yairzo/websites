@@ -8,6 +8,7 @@ import huard.iws.bean.PersonBean;
 import huard.iws.bean.PostBean;
 import huard.iws.bean.ProposalBean;
 import huard.iws.bean.ConferenceProposalBean;
+import huard.iws.bean.RegistrationFormBean;
 import huard.iws.model.ConferenceProposalGrading;
 import huard.iws.constant.Constants;
 import huard.iws.db.MailMessageDao;
@@ -39,6 +40,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 	private final String PROPOSAL_MAIL_MESSAGE_KEY = "iw_IL.eqfSystem.editProposal.mailMessage.";
 	private final String PARTNER_MAIL_MESSAGE_KEY = "iw_IL.eqfSystem.editProposal.mailMessage.";
 	private final String CONFERENCE_PROPOSAL_MAIL_ADDRESS = "conferences_committee@ard.huji.ac.il";
+	private final String NANO_MAIL_ADDRESS = "nano@ard.huji.ac.il";
 	//private final String CONFERENCE_PROPOSAL_MAIL_ADDRESS = "hadar@localhost.localdomain";
 
 	private String server;
@@ -76,6 +78,24 @@ public class MailMessageServiceImpl implements MailMessageService{
 		messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, subject, body);
 	}*/
 
+	public void createRegistrationFormMail(RegistrationFormBean registrationFormBean,
+			String messageKey){
+		String subject = messageService.getMessage("en_US.registrationForm.mailMessage."+messageKey+".subject");
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("align", "left");
+		model.put("language", LanguageUtils.getLanguagesMap().get("en_US"));
+		//to
+		String [] to = new String[1];
+		to[0] = registrationFormBean.getContactEmail();
+
+		model.put("server", getServer());
+		String [] messageParams = new String []{getServer(),Integer.toString(registrationFormBean.getId())};
+		model.put("message", messageService.getMessage("en_US.registrationForm.mailMessage."+messageKey+".body", messageParams));
+		String body = VelocityEngineUtils.mergeTemplateIntoString(
+		           velocityEngine, "simpleNanoMailMessage.vm", model);
+		System.out.println(body);
+		messageService.sendMail(to, NANO_MAIL_ADDRESS, null, null,subject, body, getCommonResources());
+	}
 
 
 	public void createPostSubscriptionMail (PersonBean recipient, String md5){
@@ -582,6 +602,8 @@ public class MailMessageServiceImpl implements MailMessageService{
 		List<FileSystemResourceWrapper> resources = new ArrayList<FileSystemResourceWrapper>();
 		resources.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPath") + "header_post.jpg"));
+		resources.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPath") + "nano_head_mail.jpg"));
 		return resources;
 	}
 

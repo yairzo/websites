@@ -45,6 +45,8 @@ public abstract class GeneralController extends AbstractController{
 		String lastUpdate = calculateLastUpdate(requestWrapper);
 		model.put("lastUpdate", lastUpdate);
 		
+		if(userPersonBean.getId()==0)
+			userPersonBean.setPreferedLocaleId(configurationService.getConfigurationString("iws", "websiteDefaultLanguage"));
 		LanguageUtils.applyLanguage(model, requestWrapper, response, userPersonBean.getPreferedLocaleId());
 		
 		LanguageUtils.applyLanguages(model);
@@ -57,7 +59,13 @@ public abstract class GeneralController extends AbstractController{
 		else{
 			model.put("popupMessage", "");
 		}
-		//model.put("updateTime", generalService.getLastUpdate());
+
+		String website =  configurationService.getConfigurationString("iws", "websiteName");
+		if(website.equals("websiteNano"))
+			model.put("website", "nano");
+		else
+			model.put("website", "mop");
+
 		return handleRequest(requestWrapper, response, model, userPersonBean);
 	}
 

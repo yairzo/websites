@@ -2,7 +2,7 @@
 	.selected {
 		border: solid 5px black;
 	}
-	.actionsDiv{
+	.galleryActions{
 		display:block;
 		position:absolute;
 		top:400px;
@@ -83,7 +83,7 @@
 
 			  $scope.selectedIndex = -1; // default selected index 
 
-			  $scope.itemClicked = function (index,picture) {
+			  $scope.itemClicked = function (index) {
 			    $scope.selectedIndex = index;
 			  };
 			  

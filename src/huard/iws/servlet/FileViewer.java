@@ -2,6 +2,7 @@ package huard.iws.servlet;
 
 import huard.iws.bean.CallForProposalBean;
 import huard.iws.bean.PostBean;
+import huard.iws.model.Abstract;
 import huard.iws.model.Attachment;
 import huard.iws.model.CallForProposal;
 import huard.iws.model.ConferenceProposal;
@@ -63,6 +64,7 @@ public class FileViewer extends HttpServlet {
 		int textualPageId = requestWrapper.getIntParameter("textualPageId", 0);
 		String textualPageFilename = requestWrapper.getParameter("textualPageFilename", "");
 		String callForProposalFilename = requestWrapper.getParameter("callForProposalFilename", "");
+		String abstractFilename = requestWrapper.getParameter("abstractFilename", "");
 		
 		String filenameDisplay = DEFAULT_FILENAME;
 
@@ -215,6 +217,14 @@ public class FileViewer extends HttpServlet {
 			file = attach.getFile();
 			contentType = attach.getContentType();
 			filenameDisplay = textualPageFilename;
+		}
+		else if (! abstractFilename.isEmpty()){
+			Object bean = ApplicationContextProvider.getContext().getBean("filesService");
+			FilesService filesService = (FilesService)bean;
+			Abstract attach = filesService.getAbstractFile(abstractFilename);
+			file = attach.getFile();
+			contentType = attach.getContentType();
+			filenameDisplay = abstractFilename;
 		}
 		try{
 

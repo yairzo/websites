@@ -33,13 +33,6 @@ public class WebsiteHomePageController extends GeneralWebsiteFormController {
 	protected ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
-		//ControllerModelApplier controllerModelApplier;
-		//if(configurationService.getConfigurationString("iws", "websiteName").equals("websiteNano"))
-			//controllerModelApplier = (ControllerModelApplier) ApplicationContextProvider.getContext().getBean("controllerModelApplierNano");
-		//else
-			//controllerModelApplier = (ControllerModelApplier) ApplicationContextProvider.getContext().getBean("controllerModelApplierMop");
-			
-		//model=controllerModelApplier.applyWebsiteHomePageModel(model);
 		
 		Language language = (Language)model.get("lang");
 		

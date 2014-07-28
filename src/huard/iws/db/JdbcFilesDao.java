@@ -3,6 +3,7 @@ package huard.iws.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import huard.iws.model.Abstract;
 import huard.iws.model.Attachment;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -36,5 +37,24 @@ public class JdbcFilesDao extends SimpleJdbcDaoSupport implements FilesDao{
 		}
 	};
 
+	public Abstract getAbstractFile(String filename){
+		String query = "select * from registrationFormFile where filename = ?";
+		logger.debug(query);
+		Abstract attachment = getSimpleJdbcTemplate().queryForObject(query, abstractRowMapper, filename);
+		return attachment;
+	}
+	
+	public static ParameterizedRowMapper<Abstract> abstractRowMapper = new ParameterizedRowMapper<Abstract>(){
+		public Abstract mapRow(ResultSet rs, int rowNum) throws SQLException{
+			Abstract file = new Abstract();
+			file.setId(rs.getInt("id"));
+			file.setFile(rs.getBytes("attachment"));			
+			file.setContentType(rs.getString("attachmentContentType"));
+			file.setFilename(rs.getString("filename"));
+			file.setSubject(rs.getString("subject"));
+			file.setMethodPresentation(rs.getBoolean("methodPresentation"));
+            return file;
+		}
+	};
 
 }
