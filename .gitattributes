@@ -543,6 +543,7 @@ war/WEB-INF/lib/urlrewritefilter-4.0.3.jar svn_mime_002dtype=application%2Foctet
 war/WEB-INF/lib/velocity-1.5.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/webutilities-0.0.6.jar svn_mime_002dtype=application%2Foctet-stream
 war/WEB-INF/lib/yuicompressor-2.4.8.jar svn_mime_002dtype=application%2Foctet-stream
+war/WEB-INF/nano-security.xml svn_mime_002dtype=text%2Fplain
 war/WEB-INF/urlrewrite.xml svn_mime_002dtype=text%2Fplain
 war/font/almoni-tzar-aaa-300.eot svn_mime_002dtype=application%2Foctet-stream
 war/font/almoni-tzar-aaa-300.ttf svn_mime_002dtype=application%2Foctet-stream
