@@ -349,6 +349,7 @@ src/huard3/utils/io/InputStreamAsciiReader.java svn_mime_002dtype=text%2Fplain
 src/huard3/utils/io/OutputStreamAsciiWriter.class svn_mime_002dtype=application%2Foctet-stream
 src/huard3/utils/io/OutputStreamAsciiWriter.java svn_mime_002dtype=text%2Fplain
 war/WEB-INF/classes/log4j.properties svn_mime_002dtype=text%2Fplain
+war/WEB-INF/iws-nano-security.xml svn_mime_002dtype=text%2Fplain
 war/WEB-INF/iws-service.out.xml svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/activePersonsList.jsp svn_mime_002dtype=text%2Fplain
 war/WEB-INF/jsp/angular.jsp svn_mime_002dtype=text%2Fplain
