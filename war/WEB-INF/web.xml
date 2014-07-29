@@ -9,7 +9,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
   		<param-value>
     		/WEB-INF/iws-dao.xml,
     		/WEB-INF/iws-service.xml,
-    		/WEB-INF/iws-security.xml
+    		/WEB-INF/security.xml
     	</param-value>
   	</context-param>
   	
