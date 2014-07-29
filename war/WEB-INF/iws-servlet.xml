@@ -208,15 +208,7 @@
         </property>
       </bean>
      
-    <bean id="controllerModelApplierMop" class="huard.iws.web.mop.ControllerModelApplierImpl">
-     	<property name="textualPageService">
-            <ref bean="textualPageService"/>
-        </property>
-    </bean>
-    
-    <bean id="controllerModelApplierNano" class="huard.iws.web.nano.ControllerModelApplierImpl">
-    </bean>
-     
+
 	<bean id="homePageCalendarController" class="huard.iws.web.HomePageCalendarController" parent="generalWebsiteController">
      </bean>
       
