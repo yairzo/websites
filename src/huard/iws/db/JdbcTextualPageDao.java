@@ -533,6 +533,7 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 	}
 	
 	public Timestamp getTextualPagesLastUpdate(){
+	try{
 		String query = "select updateTime from textualPage order by updateTime desc limit 1";
 		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForObject(query, new ParameterizedRowMapper<Timestamp>() {
@@ -543,6 +544,10 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 				return lastUpdate;
 			}			
 		});
+	}
+	catch(Exception e){
+		return new Timestamp(0);
+	}
 	}
 
 	

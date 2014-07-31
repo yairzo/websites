@@ -888,6 +888,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 	}
 	
 	public Timestamp getCallForProposalsLastUpdate(){
+	try{
 		String query = "select updateTime from callForProposal order by updateTime desc limit 1";
 		logger.debug(query);
 		return getSimpleJdbcTemplate().queryForObject(query, new ParameterizedRowMapper<Timestamp>() {
@@ -898,6 +899,11 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				return lastUpdate;
 			}			
 		});
+	}
+	catch(Exception e){
+		return new Timestamp(0);
+	}
+		
 	}
 	
 	

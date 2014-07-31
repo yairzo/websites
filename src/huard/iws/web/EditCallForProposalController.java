@@ -186,26 +186,18 @@ public class EditCallForProposalController extends GeneralFormController{
 			model.put("callForProposalTypes", callForProposalService.getCallForProposalTypes());
 
 			//desk contact persons
-			String budgetTitle="Budget";
 			String assistantTitle="Assistant";
 			List<PersonBean> deskPersons =new ArrayList<PersonBean>();
 			Language language= new Language();
 			language = (Language)model.get("lang");
 			if(language.getLocaleId().equals("iw_IL")){
-				budgetTitle="תקציב";
 				assistantTitle="עוזר";
 				deskPersons=mopDeskService.getPersonsList(callForProposalBean.getDeskId(),0);
 			}
 			else
 				deskPersons=mopDeskService.getPersonsListEnglish(callForProposalBean.getDeskId(),0);
 			model.put("deskPersons", deskPersons);
-			//desk budget officers
-			List<PersonBean> deskBudgetPersons = new ArrayList<PersonBean>();
-			for(PersonBean personBean:deskPersons){
-				if(personBean.getTitle().indexOf(budgetTitle)>=0)
-					deskBudgetPersons.add(personBean);
-			}
-			model.put("deskBudgetPersons", deskBudgetPersons);
+			
 			//desk assistants
 			List<PersonBean> deskAssistants = new ArrayList<PersonBean>();
 			for(PersonBean personBean:deskPersons){
@@ -213,6 +205,12 @@ public class EditCallForProposalController extends GeneralFormController{
 					deskAssistants.add(personBean);
 			}
 			model.put("deskAssistants", deskAssistants);
+			
+			//desk budget officers
+			int budgetListId=language.getLocaleId().equals("iw_IL")?configurationService.getConfigurationInt("website", "budgetOfficerListId", 0):configurationService.getConfigurationInt("website", "budgetOfficerEnglishListId", 0);
+			List<PersonBean> deskBudgetPersons = personListService.getPersonsList(budgetListId);
+			model.put("deskBudgetPersons", deskBudgetPersons);
+			
 			
 			//desks
 			List<MopDesk> mopDesks = mopDeskService.getPublishingMopDesks();

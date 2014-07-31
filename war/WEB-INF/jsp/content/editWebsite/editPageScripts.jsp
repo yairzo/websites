@@ -843,6 +843,15 @@ $(document).ready(function() {
 	    	autoSave(); 
 		});
 		
+		$("#budgetPersonSelect").change(function(e){
+		    e.preventDefault();//no refresh page 
+		    var spanId=$(this).val();
+		    var addedText= $('#'+spanId).html();
+		    addedText = replaceURLWithHTMLLinks(addedText);
+		    $(".editor", $(this).closest("table")).html($(".editor", $(this).closest("table")).html() + "<br>" +addedText);
+			$('.editorTextarea', $(this).closest("table")).val($(".editor", $(this).closest("table")).html());
+	    	autoSave(); 
+		});
 
 
 		

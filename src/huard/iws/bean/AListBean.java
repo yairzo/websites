@@ -105,8 +105,9 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 		this.preface = aList.getPreface();
 		this.footer = aList.getFooter();
 		this.lastUpdate = new Timestamp(aList.getLastUpdate());
-		String filter=request.getSession().getAttribute("filterOrganizationUnit")==null?"":(String)request.getSession().getAttribute("filterOrganizationUnit");
-
+		String filter="";
+		if(request!=null && request.getSession().getAttribute("filterOrganizationUnit")!=null)
+			filter=(String)request.getSession().getAttribute("filterOrganizationUnit");
 		init(parentListId,filter);
 	}
 

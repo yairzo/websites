@@ -549,18 +549,25 @@
            				<textarea class="green editorTextarea" id="budgetDetails" name="budgetDetails" cols="100" rows="1" style="display:none">${command.budgetDetails}</textarea>
  					</td>
  					</tr>
- 					<c:forEach items="${deskBudgetPersons}" var="deskBudgetPerson" varStatus="varStatus">
-					<tr>
-					<td colspan="3" style="text-align:${lang.align}">
-					<button class="grey add"><span class="ui-icon ui-icon-arrowthick-1-n"></span></button>&nbsp;
-					<span id="addedText" class="budgetDetails">
-					<fmt:message key="${lang.localeId}.callForProposal.budgetApprover"/> 
-					<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameHebrew}"/>,</c:if>
-   					<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameEnglish}"/>,</c:if>
-   					<fmt:message key="${lang.localeId}.callForProposal.phone"/>:&nbsp;<c:out value="${deskBudgetPerson.phone}"></c:out>,				
-					<a class="nounderline budgetEmail" href="mailto:${deskBudgetPerson.email}">@</a></span>
+ 					<tr>
+ 					<td>
+ 					<select class ="green" id="budgetPersonSelect">
+					<c:forEach items="${deskBudgetPersons}" var="deskBudgetPerson" varStatus="varStatus">
+						<option value="${deskBudgetPerson.id}">
+						<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameHebrew}"/></c:if>
+						<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameEnglish}"/></c:if>
+						</option>
+					</c:forEach>
+					</select> 					
 					</td>
-					</tr>
+ 					</tr>
+ 					<c:forEach items="${deskBudgetPersons}" var="deskBudgetPerson" varStatus="varStatus">
+						<span id="${deskBudgetPerson.id}" class="budgetDetails" style="display:none;text-align:right;direction:rtl">
+						<fmt:message key="${lang.localeId}.callForProposal.budgetApprover"/> 
+						<c:if test="${lang.name=='Hebrew'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameHebrew}"/></c:if>
+   						<c:if test="${lang.name=='English'}"><c:out escapeXml="false" value="${deskBudgetPerson.degreeFullNameEnglish}"/></c:if>
+   						(<a class="nounderline budgetEmail" href="mailto:${deskBudgetPerson.email}">${deskBudgetPerson.email}</a>, 
+   						<c:out value="${deskBudgetPerson.phone}"></c:out>)</span>
 					</c:forEach>
  					</table>
  					</td>

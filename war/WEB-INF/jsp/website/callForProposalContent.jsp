@@ -8,6 +8,7 @@
 					<h1 class="maintitle">${command.title}</h1>
 					<div class="clearfix mar_20">
 						<div class="clearfix mar_20" style="direction: ${copLang.dir}; text-align: ${copLang.align};">
+						<c:if test="${authorized && !command.showDescriptionOnly}">
 							<div class="kol open kol_${copLang.dir} general_info">
 								<c:if test="${command.expired}">
 								<div class="clearfix">
@@ -47,7 +48,7 @@
 										</p>
 								</div>
 							</div>
-							
+							</c:if>
 							<div class="kol open kol_${copLang.dir} description">
 								<div class="clearfix">
 									<h3 class="kol_title_${copLang.dir}"><img src="/image/website/kol_details.png" alt="" />&nbsp;&nbsp; <fmt:message key="${copLang.localeId}.callForProposal.description"/></h3>

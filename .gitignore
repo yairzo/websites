@@ -1,3 +1,4 @@
 /ROOT.war
 /iws.war
 war/WEB-INF/lib/iws.jar
+war/WEB-INF/security.xml
