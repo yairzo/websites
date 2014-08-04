@@ -19,13 +19,15 @@
 						<input type="hidden" name="urlTitle" value="${command.urlTitle }">
 						<label class="pull-left">Name </label>
 						<div class="select select-long pull-left">
-                            <div class="fancyText">Type or select</div>
+ 							<input type="text" class="fancyTextAutocomplete" id="searchPhrase" name="filterOrganizationUnit">
+
+                           <!-- <div class="fancyText">Type or select</div>
 							<select required="" class=" fancySelect" name="filterOrganizationUnit">
 								<option value=" ">Type or select</option>
 								<c:forEach items="${completeListForFilter.viewableBeans}" var="viewableBean" varStatus="varStatus">					
 									<option value="${viewableBean.fields[0].text}">${viewableBean.fields[0].text}</option>
 								</c:forEach>
-							</select>
+							</select> -->
 						</div>
 						<button type="submit" class="filter-submit pull-right">Filter &nbsp;<img src="/image/nano/arrow-submit.png" alt="" /></button>
 					</form>
@@ -72,6 +74,9 @@
 							</div>
 							<div class="box-text pull-left">
 							<h4 class="box-text-title"><c:out escapeXml="false" value="${viewableBean.fields[0].text}"/> <span>${viewableBean.fields[1].text}</span></h4>
+							<c:if test="${listBean.listTypeId==1 }">
+							${viewableBean.fields[3].text}<br>
+							</c:if>
 							${viewableBean.fields[2].text}
 							</div>
 						</div>
@@ -80,7 +85,9 @@
 						</div>
 						<div class="box-links">
 							<a href="mailto:${viewableBean.fields[4].text}" class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
+							<c:if test="${listBean.listTypeId==2}">
 							<a href="#collapse${varStatus.index}" class="box-more">read more <img src="/image/nano/arrow-submit.png" alt="" /></a>
+							</c:if>
 						</div>
 					</div>
 					</c:forEach>

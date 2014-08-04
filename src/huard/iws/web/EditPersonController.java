@@ -83,12 +83,13 @@ public class EditPersonController extends GeneralFormController {
 				}
 			}
 			else {
+				int id = personService.insertPerson(personBean.toPerson());
+				personBean.setId(id);
 				String imageUrl=uploadImage(request,personBean.getId());
 				if(!imageUrl.isEmpty())
 					personBean.setImageUrl(imageUrl);
-				int id = personService.insertPerson(personBean.toPerson());
-				personBean.setId(id);
-			}
+				personService.updatePerson(personBean.toPerson());
+		}
 
 		}
 		newModel.put("id", personBean.getId());

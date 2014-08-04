@@ -36,10 +36,10 @@ public class RegistrationFormController extends GeneralWebsiteFormController{
 		RegistrationFormBean registrationFormBean = (RegistrationFormBean) command;
 
 		Map<String, Object> newModel = new HashMap<String, Object>();
-		newModel.put("id", registrationFormBean.getId())	;
 
 		if(request.getIntParameter("attachmentId", 0) > 0){
 			registrationFormService.deleteFile(request.getIntParameter("attachmentId", 0));
+			newModel.put("id", registrationFormBean.getId())	;
 			return new ModelAndView(new RedirectView("registrationForm.html"), newModel);
 		}
 		
@@ -74,10 +74,8 @@ public class RegistrationFormController extends GeneralWebsiteFormController{
 		//if(request.getParameter("action", "").equals("delete"))
 		//	return new ModelAndView(new RedirectView("registrationForms.html"));
 
-		//if (request.getBooleanParameter("ajaxSubmit", false))
-		//	return null;
 		
-		return new ModelAndView(new RedirectView("registrationForm.html"), newModel);
+		return new ModelAndView(new RedirectView("homePage.html"), newModel);
 	}
 
 	

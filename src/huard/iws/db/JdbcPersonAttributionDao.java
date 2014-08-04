@@ -52,6 +52,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
         personAttribution.setTitleId(rs.getInt("titleId"));
         personAttribution.setConnectDetails(rs.getBoolean("connectDetails"));
         personAttribution.setImageUrl(rs.getString("imageUrl"));
+        personAttribution.setAreaOfSpecialization(rs.getString("areaOfSpecialization"));
         personAttribution.prepareForView();
         return personAttribution;
     }
@@ -71,7 +72,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 				"placeInList = ?,"+
 				"titleId = ?,"+
 				"connectDetails = ?,"+
-				"imageUrl = ?"+
+				"imageUrl = ?,"+
+				"areaOfSpecialization = ?"+
 				" where id = ?";
 		logger.debug(attributionUpdate);
 
@@ -89,6 +91,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 					personAttribution.getTitleId(),
 					personAttribution.isConnectDetails(),
 					personAttribution.getImageUrl(),
+					personAttribution.getAreaOfSpecialization(),
 					personAttribution.getId() );
 	}
 
@@ -114,7 +117,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 		"placeInList = ?,"+
 		"titleId = ?,"+
 		"connectDetails = ?,"+
-		"imageUrl = ?";
+		"imageUrl = ?,"+
+		"areaOfSpecialization = ?";
 		logger.debug(query);
 		final int personId = personListAttribution.getPersonId();
 		final int listId = personListAttribution.getListId();
@@ -129,6 +133,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 		final int titleId = personListAttribution.getTitleId();
 		final boolean connectDetails = personListAttribution.isConnectDetails();
 		final String imageUrl = personListAttribution.getImageUrl();
+		final String areaOfSpecialization = personListAttribution.getAreaOfSpecialization();
 		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -149,6 +154,7 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 					ps.setInt (11, titleId);
 					ps.setBoolean(12,connectDetails);
 					ps.setString (13, imageUrl);
+					ps.setString(14, areaOfSpecialization);
 		            return ps;
 		        }
 		    },

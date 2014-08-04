@@ -30,8 +30,8 @@
 				</div>
 				<div class="container clearfix">
 					<h2 class="title-web">THE HEBREW UNIVERSITY CENTER FOR NANOSCIENCE AND NANOTECHNOLOGY</h2>
-					<a href="#" class="logo-nano pull-left"><img src="/image/nano/logo-nano.png" alt="" /></a>
-					<a href="#" class="logo-university pull-right"><img src="/image/nano/logo-university.png" alt="" /></a>
+					<a href="/" class="logo-nano pull-left"><img src="/image/nano/logo-nano.png" alt="" /></a>
+					<a href="/" class="logo-university pull-right"><img src="/image/nano/logo-university.png" alt="" /></a>
 				</div>
 			</header>
 		<section class="section">

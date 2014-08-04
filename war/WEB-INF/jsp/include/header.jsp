@@ -61,9 +61,18 @@
 	>
 
 
-	<map name="Map" id="Map"><area shape="rect" coords="469,28,695,74" href="http://huji.ac.il" alt="huji.ac.il" />
-			<area shape="rect" coords="4,63,277,94" href="http://ard.huji.ac.il/huard/main.jsp?lang=eng" alt="Authority for Research and Development" />
-			<area shape="rect" coords="428,75,693,95" href="http://ard.huji.ac.il/huard/main.jsp?lang=heb" alt="Authority for Research and Development" />
+	<map name="Map" id="Map">
+			<area shape="rect" coords="469,28,695,74" href="http://huji.ac.il" alt="huji.ac.il" />
+			<c:choose>
+			<c:when test="${website=='nano'}">
+				<area shape="rect" coords="4,63,277,94" href="http://new.nano.huji.ac.il" alt="Authority for Research and Development" />
+				<area shape="rect" coords="428,75,693,95" href="http://new.nano.huji.ac.il" alt="Authority for Research and Development" />
+			</c:when>
+			<c:otherwise>
+				<area shape="rect" coords="4,63,277,94" href="http://ard.huji.ac.il/huard/main.jsp?lang=eng" alt="Authority for Research and Development" />
+				<area shape="rect" coords="428,75,693,95" href="http://ard.huji.ac.il/huard/main.jsp?lang=heb" alt="Authority for Research and Development" />
+			</c:otherwise>
+			</c:choose>
 		</map>
  	<c:choose>
     	<c:when test="${printcp}">

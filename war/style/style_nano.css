@@ -972,13 +972,26 @@ border-right:0;
 background:#e5e5e5;
 color: #858584;
 font-size:14px;
-height: 27px;
+height: 28px;
 line-height: 27px;
 padding-left: 5px;
 position: absolute;
 width:193px;
 }
-
+/**** Hadar ****/
+.select .fancyTextAutocomplete {
+border:solid 1px #bdbdbd;
+border-right:0;
+background:#e5e5e5;
+color: #858584;
+font-size:14px;
+height: 25px;
+line-height: 25px;
+padding-left: 5px;
+position: absolute;
+width:193px;
+}
+/*** end Hadar ***/
 .select .fancySelect {
 float:left;
 height: 29px;
@@ -997,7 +1010,9 @@ color:#333333;
 .select-long{width:500px;}
 
 .select-long .fancyText {width:463px;}
-
+/***hadar***/
+.select-long .fancyTextAutocomplete {width:463px;}
+/****end hadar*******/
 .filter-submit{
 margin:15px 15px 0 0;
 width:83px;

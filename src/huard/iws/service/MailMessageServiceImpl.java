@@ -94,7 +94,9 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String body = VelocityEngineUtils.mergeTemplateIntoString(
 		           velocityEngine, "simpleNanoMailMessage.vm", model);
 		System.out.println(body);
-		messageService.sendMail(to, NANO_MAIL_ADDRESS, null, null,subject, body, getCommonResources());
+		List<FileSystemResourceWrapper> resources = new ArrayList<FileSystemResourceWrapper>();
+		resources.add( new FileSystemResourceWrapper (configurationService.getConfigurationString("iws", "imagesPath") + "nano_head_mail.jpg"));
+		messageService.sendMail(to, NANO_MAIL_ADDRESS, null, null,subject, body, resources);
 	}
 
 
@@ -602,8 +604,6 @@ public class MailMessageServiceImpl implements MailMessageService{
 		List<FileSystemResourceWrapper> resources = new ArrayList<FileSystemResourceWrapper>();
 		resources.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPath") + "header_post.jpg"));
-		resources.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPath") + "nano_head_mail.jpg"));
 		return resources;
 	}
 

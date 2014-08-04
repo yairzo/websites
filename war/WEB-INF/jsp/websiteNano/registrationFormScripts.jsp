@@ -24,10 +24,22 @@
 					$(this).children(".radiobutton").prop("checked", true)
 				});
 				
+				$( "#form").submit(function( e ) {
+					if($("#contactEmail").val()==''){
+						alert("Please enter your contact email. You will be sent an email by which to edit your registration form.")
+						e.preventDefault();
+					}
+					else if('${newForm}'=='true'){
+						alert("You will be sent an email with a link, by which you may edit your registration form.")
+					}
+					
+				});
+				
 			});
 			
 			function deleteAbstract(attachmentId){
         		$("#form").append("<input type=\"hidden\" name=\"attachmentId\" value=\""+attachmentId +"\"/>");
 			    $('#form').submit();
 			}
+			
 </script>
