@@ -3,7 +3,7 @@
          <tr>
           <td align="right" bgcolor="#787669" height="20">
           	<c:set var="applicationName" value="מערכת רשימות"/>
-          	<c:set var="pageName" value="שיוך יחידה אירגונית לרשימה"/>
+          	<c:set var="pageName" value="${pageName}"/>
        	    <%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
           </td>
         </tr>

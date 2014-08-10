@@ -62,7 +62,7 @@
           <td valign="top" align="center"><br>
 			  <table width="500" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
-                  <td colspan="2" align="center"><h1>הרשות למחקר ופיתוח - איפוס סיסמה</h1>
+                  <td colspan="2" align="center"><h1><fmt:message key="iw_IL.websiteInterface.websiteName"/> - איפוס סיסמה</h1>
                   </td>
                 </tr>
                 <tr class="changePassword">

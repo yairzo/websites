@@ -28,24 +28,24 @@ public class PersonAttributionListServiceImpl implements PersonAttributionListSe
 		AList list = listService.getList(listId);
 		if (list.isCompound()){
 			for (AList sublist: list.getSublists())
-				personListAttributions.addAll(getPersonAttributionsByListId(sublist.getId()));
+				personListAttributions.addAll(getPersonAttributionsByListId(sublist.getId(),""));
 		}
 		else{
-			personListAttributions.addAll(getPersonAttributionsByListId(listId));
+			personListAttributions.addAll(getPersonAttributionsByListId(listId,""));
 		}
 		return personListAttributions;
 	}
 
 
-	public List<PersonListAttribution> getPersonAttributionsByListId( int listId){
+	public List<PersonListAttribution> getPersonAttributionsByListId( int listId,String filter){
 		AListInstruction listInstruction =  listInstructionService.getMasterListInstruction(listId);
 		String order = listInstruction.getDefaultOrderByColumn() + " "+listInstruction.getDefaultOrderDirection();
 		if (! SQLUtils.isNormalOrderStatement(order))
 			order = "1 ASC";
-		return personAttributionListDao.getPersonAttributionsByListId(listId, order);
+		return personAttributionListDao.getPersonAttributionsByListId(listId, order,filter);
 	}
 
-	public List<PersonListAttribution> getPersonAttributionsByListId(int listId, int orderColumn){
+	public List<PersonListAttribution> getPersonAttributionsByListId(int listId, int orderColumn, String filter){
 		final AListInstruction listInstruction =  listInstructionService.getMasterListInstruction(listId);
 		List <AListColumnInstruction> columnInstructions = listColumnInstructionListService.getListColumnInstructions(listId);
 		String order = "";
@@ -58,7 +58,7 @@ public class PersonAttributionListServiceImpl implements PersonAttributionListSe
 		if (! SQLUtils.isNormalOrderStatement(order))
 			order = "1 ASC";
 		List<PersonListAttribution> personsAttributions =
-			personAttributionListDao.getPersonAttributionsByListId(listId, order);
+			personAttributionListDao.getPersonAttributionsByListId(listId, order,filter);
 
 		// If the order column uses a helper table we have to order the personAttributions by comparing the helper table
 		// values. For that we create a helperTableMap to translate from the ids holded by the personListAttribution
@@ -89,8 +89,8 @@ public class PersonAttributionListServiceImpl implements PersonAttributionListSe
 		return personsAttributions;
 	}
 
-	public List<PersonListAttribution> getPersonAttributionsByListId( int listId, String order){
-		return personAttributionListDao.getPersonAttributionsByListId(listId, order);
+	public List<PersonListAttribution> getPersonAttributionsByListId( int listId, String order, String filter){
+		return personAttributionListDao.getPersonAttributionsByListId(listId, order,filter);
 	}
 
 	public void updateConnectedDetailsPersonAttributions(int personId, PersonListAttribution personAttribution){

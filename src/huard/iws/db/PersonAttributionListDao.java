@@ -8,6 +8,6 @@ public interface PersonAttributionListDao {
 
 	public List<PersonListAttribution> getPersonAttributions(int personId);
 
-	public List<PersonListAttribution> getPersonAttributionsByListId(int listId, String order);
+	public List<PersonListAttribution> getPersonAttributionsByListId(int listId, String order, String filter);
 
 }

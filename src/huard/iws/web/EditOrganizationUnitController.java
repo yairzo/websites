@@ -48,9 +48,7 @@ public class EditOrganizationUnitController extends GeneralFormController {
 			organizationUnitService.deleteOrganizationUnitAttribution(organizationUnitAttributionId);
 		}
 		else{
-			System.out.println("11111111111111111:"+organizationUnitBean.getImageUrl());
 			String imageUrl=uploadImage(request,organizationUnitBean.getId());
-			System.out.println("11111111111111111:"+imageUrl);
 			if(!imageUrl.isEmpty())
 				organizationUnitBean.setImageUrl(imageUrl);
 			organizationUnitService.updateOrganizationUnit(organizationUnitBean.toOrganizationUnit());
@@ -87,6 +85,7 @@ public class EditOrganizationUnitController extends GeneralFormController {
 		model.put("organizationUnitAttributions", organizationUnitAttributionsBeans);
 		
 		model.put("websiteName", configurationService.getConfigurationString("iws", "websiteName"));
+		model.put("pageName", messageService.getMessage("iw_IL.websiteInterface.organizationUnitEdit"));
 
 		return new ModelAndView(getFormView(), model);
 	}

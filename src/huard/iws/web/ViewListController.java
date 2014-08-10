@@ -161,7 +161,7 @@ public class ViewListController extends GeneralFormController {
 		if (! list.isCompound()){
 			orderColumn = request.getIntParameter("oc", -1);
 			if (listBean.getListTypeId() == Constants.getListTypesInv().get("person")){
-				listBean.initPersonAttributionBeans(orderColumn,0);
+				listBean.initPersonAttributionBeans(orderColumn,0,"");
 				model.put("listType", "person");
 			}
 			else if (listBean.getListTypeId() == Constants.getListTypesInv().get("organization unit")){

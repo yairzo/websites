@@ -14,7 +14,7 @@ public class PersonAttributionListServiceTest {
 		factory.setServiceUrl("rmi://localhost:1199/PersonAttributionListService");
 		factory.afterPropertiesSet();
 		PersonAttributionListService personAttributionListService = (PersonAttributionListService) factory.getObject();
-		for (PersonListAttribution personListAttribution: personAttributionListService.getPersonAttributionsByListId(5)){
+		for (PersonListAttribution personListAttribution: personAttributionListService.getPersonAttributionsByListId(5,"")){
 			System.out.println(personListAttribution.getEmail());
 		}
 

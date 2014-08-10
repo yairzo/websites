@@ -46,6 +46,8 @@ public class WelcomeController extends GeneralController{
 			return new ModelAndView (new RedirectView("proposals.html"));
 		}*/
 		else{
+			model.put("websiteName", configurationService.getConfigurationString("iws", "websiteName"));
+
 			return new ModelAndView("welcome",model);
 		}
 	}

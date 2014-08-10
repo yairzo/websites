@@ -154,6 +154,11 @@
 			        });
 
 			  };
+			  $scope.closeDialog=function () {
+				  $scope.selectedIndex=-1; 
+		 		  $scope.selectedAutocomplete="";
+		 		  $scope.selectedAutocompletePictureTitle="";
+		      };
 		});
 
 </script>

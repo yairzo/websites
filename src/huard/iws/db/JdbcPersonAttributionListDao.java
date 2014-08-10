@@ -19,10 +19,15 @@ public class JdbcPersonAttributionListDao extends SimpleJdbcDaoSupport implement
 		return personAttributions;
     }
 
-	public List<PersonListAttribution> getPersonAttributionsByListId(int listId, String order) {
+	public List<PersonListAttribution> getPersonAttributionsByListId(int listId, String order,String filter) {
 		String personSelect = "select * from personAttribution,person "+
-		"where personAttribution.personId = person.id and listId= ? order by "+order+";";
+		"where personAttribution.personId = person.id and listId= ?";
+		if (!filter.isEmpty())
+			personSelect+=" and concat(person.degreeEnglish,' ',person.firstNameEnglish,' ',person.lastNameEnglish) like '%"+filter +"%' ";
+		personSelect+=" order by "+order+";";
+
 		logger.debug(personSelect);
+		System.out.println("111111111111111111:"+personSelect);
 		List<PersonListAttribution> personAttributions =
 			getSimpleJdbcTemplate().query(personSelect,personAttributionDao.getRowMapper(),listId);
 		return personAttributions;

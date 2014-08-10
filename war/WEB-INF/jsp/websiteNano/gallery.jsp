@@ -51,6 +51,7 @@
 					<input type="file" file-model="pictureFile"/>
 					שם לתמונה: <input ng-model="newPoolPictureName"/>
 					<button ng-click="uploadFile()">הוספה</button>
+					 <br><div ng-click="closeDialog()" class="close_picture_dialog">X</div>
 					</div>
 				
 				</div>

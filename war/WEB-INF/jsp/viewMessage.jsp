@@ -27,7 +27,7 @@
           			<tr>
 
           <td align="right">
-          		<p class="white">מערכת משולבת הרשות למו"פ > רישום</p>
+          		<p class="white">מערכת משולבת <fmt:message key="iw_IL.websiteInterface.websiteName"/> > רישום</p>
           </td>
           <td>
           			<c:if test="${fn:length(userPersonBean.firstNameHebrew)>0}">
@@ -55,7 +55,7 @@
 
               <table width="400" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
-                  <td colspan="2" align="center"><h1>מערכת משולבת - הרשות למו"פ</h1>
+                  <td colspan="2" align="center"><h1>מערכת משולבת - <fmt:message key="iw_IL.websiteInterface.websiteName"/></h1>
                   </td>
                 </tr>
 

@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//war/WEB-INF/iws-messages.properties=UTF-8
 encoding//war/WEB-INF/jsp/content/articles/articlesScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/editPerson/editPersonScripts.jsp=UTF-8
 encoding//war/WEB-INF/jsp/content/editPost/editPost.jsp=UTF-8
@@ -30,4 +31,4 @@ encoding//war/WEB-INF/jsp/website_nodesign/searchCallForProposalsContent.jsp=UTF
 encoding//war/WEB-INF/jsp/website_nodesign/sideMenu.jsp=UTF-8
 encoding//war/WEB-INF/jsp/website_nodesign/sitemapContent.jsp=UTF-8
 encoding//war/WEB-INF/jsp/website_nodesign/textualPageContent.jsp=UTF-8
-encoding//war/WEB-INF/messages.properties=UTF-8
+encoding//war/WEB-INF/nano-messages.properties=UTF-8

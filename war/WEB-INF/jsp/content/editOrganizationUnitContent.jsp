@@ -33,7 +33,7 @@ $(document).ready(function() {
 <tr>
 	<td align="right" bgcolor="#787669" height="20">
 		<c:set var="applicationName" value="מערכת רשימות"/>
-        <c:set var="pageName" value="עריכת פרטים של יחידה"/>
+        <c:set var="pageName" value="${pageName}"/>
        	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
 	</td>
 </tr>
@@ -56,6 +56,7 @@ $(document).ready(function() {
 				<table width="600" border="0" align="center" cellpadding="2"
 					cellspacing="0">
 
+	<c:if test="${websiteName!='websiteNano' }">
 					<tr>
 						<td>
 							סוג יחידה
@@ -74,7 +75,7 @@ $(document).ready(function() {
 							&nbsp;
 						</td>
 					</tr>
-
+</c:if>
 
 					<tr>
 						<td>

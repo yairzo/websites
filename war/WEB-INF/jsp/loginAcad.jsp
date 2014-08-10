@@ -20,7 +20,7 @@
 
               <table width="400" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
-                  <td colspan="2" align="center"><h1>הרשות למחקר ופיתוח - אנא הזדהו לכניסה</h1>
+                  <td colspan="2" align="center"><h1><fmt:message key="iw_IL.websiteInterface.websiteName"/> - אנא הזדהו לכניסה</h1>
                   </td>
                 </tr>
 

@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
-	<title>הרשות למחקר ופיתוח - מערכת אינטרנט משולבת</title>
+	<title><fmt:message key="iw_IL.websiteInterface.websiteName"/> - מערכת אינטרנט משולבת</title>
 	
 	<c:if test="${!ajaxView}">
 	<link href="/style/style.css" rel="stylesheet" type="text/css">
@@ -65,8 +65,8 @@
 			<area shape="rect" coords="469,28,695,74" href="http://huji.ac.il" alt="huji.ac.il" />
 			<c:choose>
 			<c:when test="${website=='nano'}">
-				<area shape="rect" coords="4,63,277,94" href="http://new.nano.huji.ac.il" alt="Authority for Research and Development" />
-				<area shape="rect" coords="428,75,693,95" href="http://new.nano.huji.ac.il" alt="Authority for Research and Development" />
+				<area shape="rect" coords="4,63,277,94" href="http://new.nano.huji.ac.il" alt="The Center for Nanoscience and Nanotechnology" />
+				<area shape="rect" coords="428,75,693,95" href="http://new.nano.huji.ac.il" alt="The Center for Nanoscience and Nanotechnology" />
 			</c:when>
 			<c:otherwise>
 				<area shape="rect" coords="4,63,277,94" href="http://ard.huji.ac.il/huard/main.jsp?lang=eng" alt="Authority for Research and Development" />

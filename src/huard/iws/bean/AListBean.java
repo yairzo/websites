@@ -169,7 +169,7 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 
 	public String getEmails(){
 		if (personAttribBeans==null){
-			initPersonAttributionBeans(1, 0);
+			initPersonAttributionBeans(1, 0,"");
 		}
 		StringBuilder emails= new StringBuilder();
 		int counter = 0;
@@ -209,7 +209,7 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 
 	public void init(int parentListId,String filter){
 		if (this.listTypeId == listService.getListTypeInv("person"))
-			initPersonAttributionBeans(-1,parentListId);
+			initPersonAttributionBeans(-1,parentListId,filter);
 		else if (this.listTypeId == listService.getListTypeInv("organization unit"))
 			initOrganizationalUnitBeans(-1,parentListId,filter);
 		initColumnsInstructionBeans(parentListId);
@@ -220,7 +220,7 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 			initPersonAttributionBeans(-1, parentListId);
 		}*/
 
-	public void initPersonAttributionBeans(int orderColumn, int parentListId){
+	public void initPersonAttributionBeans(int orderColumn, int parentListId, String filter){
 		personAttribBeans = new LinkedHashSet<PersonListAttributionBean>();
 		List<PersonListAttribution> personAttribs;
 		if (this.isCompound()){
@@ -228,10 +228,10 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 		}
 		else{
 			if (orderColumn>-1){
-				personAttribs = personAttributionListService.getPersonAttributionsByListId(id, orderColumn);
+				personAttribs = personAttributionListService.getPersonAttributionsByListId(id, orderColumn, filter);
 			}
 			else{
-				personAttribs = personAttributionListService.getPersonAttributionsByListId(id);
+				personAttribs = personAttributionListService.getPersonAttributionsByListId(id, filter);
 			}
 		}
 		for (PersonListAttribution personAttrib :personAttribs){

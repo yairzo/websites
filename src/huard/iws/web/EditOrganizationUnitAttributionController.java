@@ -41,6 +41,8 @@ public class EditOrganizationUnitAttributionController extends GeneralFormContro
 			model.put("aNewAttribution", true);
 			model.put("lists", listListService.getLists(Constants.getListTypesInv().get("organization unit")));
 		}
+		model.put("pageName", messageService.getMessage("iw_IL.websiteInterface.organizationUnitAdd"));
+
 		return new ModelAndView(getFormView(), model);
 	}
 

@@ -1270,7 +1270,16 @@ color:#1a1a19;
 
 .logo-university{margin:5px 10px 0 0;}
 
-
+/***Hadar****/
+.close_picture_dialog{
+	text-align:left;
+	float:left;
+}
+.close_picture_dialog:hover{
+	cursor:pointer;
+	color:#AFAFAF;
+}
+/*** end Hadar****/
 
 /* ==========================================================================
    Media Queries

@@ -80,13 +80,13 @@ $(document).ready(function() {
 
 	<td>
 		<c:if test="${titleCode==2}">
-		<p class="white">הרשות למו"פ > מערכת כנסים</p>
+		<p class="white"><fmt:message key="iw_IL.websiteInterface.websiteName"/> > מערכת כנסים</p>
 		</c:if>
 		<c:if test="${titleCode==1}">
-		<p class="white">הרשות למו"פ > תפריט ראשי</p>		
+		<p class="white"><fmt:message key="iw_IL.websiteInterface.websiteName"/> > תפריט ראשי</p>		
 		</c:if>
 		<c:if test="${titleCode==0}">
-		<p class="white">הרשות למו"פ > תפריט ראשי</p>		
+		<p class="white"><fmt:message key="iw_IL.websiteInterface.websiteName"/> > תפריט ראשי</p>		
 		</c:if>							
 	</td>
 	<td>
@@ -126,11 +126,11 @@ $(document).ready(function() {
 							</td>
 						</c:if>
 						<c:if test="${titleCode==1}">
-							<td colspan="2" align="center"><h1>מערכת דיוור ישיר - הרשות למו"פ</h1>
+							<td colspan="2" align="center"><h1>מערכת דיוור ישיר - <fmt:message key="iw_IL.websiteInterface.websiteName"/></h1>
 							</td>
 						</c:if>
 						<c:if test="${titleCode==0}">
-							<td colspan="2" align="center"><h1>מערכת משולבת - הרשות למו"פ</h1>
+							<td colspan="2" align="center"><h1>מערכת משולבת - <fmt:message key="iw_IL.websiteInterface.websiteName"/></h1>
 							</td>
 						</c:if>							
 						</tr>
@@ -157,7 +157,7 @@ $(document).ready(function() {
 						</tr>
 						<tr>
 							<th  align="right" style="height:35">
-								<a  style="text-decoration: none" href="/organizationUnits.html">טיפול במאגר היחידות</a>
+								<a  style="text-decoration: none" href="/organizationUnits.html"><fmt:message key="iw_IL.websiteInterface.organizationUnitsManage"/></a>
 							</th>
 						</tr>
 						</authz:authorize>
@@ -225,38 +225,42 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN,ROLE_WEBSITE_READ,ROLE_WEBSITE_EDIT">
 						<tr>
 							<th align="right" style="height:35">
-								<h1>אתר הרשות למו"פ</h1>
+								<h1><fmt:message key="iw_IL.websiteInterface.websiteNameLong"/></h1>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_READ,ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="/homePage.html">אתר הרשות למו"פ - דף הבית</a>
+								<a style="text-decoration: none" href="/homePage.html"><fmt:message key="iw_IL.websiteInterface.websiteNameLong"/> - דף הבית</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_EDIT,ROLE_WEBSITE_ADMIN">
+						<c:if test="${websiteName!='websiteNano' }">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="/search.html">אתר הרשות למו"פ - חיפוש כללי</a>
+								<a style="text-decoration: none" href="/search.html"><fmt:message key="iw_IL.websiteInterface.websiteNameLong"/> - חיפוש כללי</a>
 							</th>
 						</tr>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="/searchCallForProposals.html">אתר הרשות למו"פ - חיפוש קולות קוראים</a>
+								<a style="text-decoration: none" href="/searchCallForProposals.html"><fmt:message key="iw_IL.websiteInterface.websiteNameLong"/> - חיפוש קולות קוראים</a>
 							</th>
 						</tr>
+						</c:if>
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="/sitemap.html">אתר הרשות למו"פ - מפת האתר</a>
+								<a style="text-decoration: none" href="/sitemap.html"><fmt:message key="iw_IL.websiteInterface.websiteNameLong"/> - מפת האתר</a>
 							</th>
 						</tr>
+						<c:if test="${websiteName!='websiteNano' }">
 						<tr>
 							<th align="right" style="height:35">
 								<a style="text-decoration: none" href="/callForProposals.html"> עריכת קולות קוראים</a>
 							</th>
 						</tr>
+						</c:if>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN">
 						<tr>

@@ -84,6 +84,7 @@ public class OrganizationUnitListController extends GeneralFormController {
 		//List<OrganizationUnit> allOrganizationUnits = organizationUnitService.getOrganizationUnits();
 
 		//model.put("allOrganizationUnits", allOrganizationUnits);
+		model.put("pageName", messageService.getMessage("iw_IL.websiteInterface.organizationUnitsList"));
 
 		return new ModelAndView ("organizationUnitList", model);
 	}

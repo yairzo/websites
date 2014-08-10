@@ -95,7 +95,7 @@ $(document).ready(function() {
 
           <td align="right" bgcolor="#787669" height="20">
 				<c:set var="applicationName" value="מערכת רשימות"/>
-          	        <c:set var="pageName" value="רשימת היחידות"/>
+          	        <c:set var="pageName" value="${pageName}"/>
           	        <c:set var="aItemsList" value="1"/>
           	        <c:set var="self" value="organizationUnits.html"/>
        	          	<%@ include file="/WEB-INF/jsp/include/locationMenu.jsp" %>
@@ -118,7 +118,7 @@ $(document).ready(function() {
 
               <table width="400" border="0" align="center" cellpadding="3" dir="rtl">
                 <tr>
-                  <td colspan="2" align="center"><h1>רשימת היחידות</h1>
+                  <td colspan="2" align="center"><h1>רשימת <fmt:message key="iw_IL.websiteInterface.organizationUnits"/></h1>
                   </td>
                 </tr>
                 <tr>
