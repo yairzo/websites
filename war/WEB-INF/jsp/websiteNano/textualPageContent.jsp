@@ -66,32 +66,34 @@
 					</c:forEach>
 					</c:if>-->
 					<c:if test="${!aCompoundView}">
+					<div>
+						${listBean.preface}
+					</div>
 					<c:forEach items="${listBean.viewableBeans}" var="viewableBean" varStatus="varStatus">
 					<div class="box">
 						<div class="clearfix">
 							<div class="box-image pull-left">
-							<img src="/imageViewer?urlTitle=${viewableBean.fields[5].text}&attachType=bodyImage" height="100px" width="100px"/>
+							<img src="/imageViewer?urlTitle=${viewableBean.fields[0].text}&attachType=bodyImage" height="100px" width="100px"/>
 							</div>
 							<div class="box-text pull-left">
-							<h4 class="box-text-title"><c:out escapeXml="false" value="${viewableBean.fields[0].text}"/> <span>${viewableBean.fields[1].text}</span></h4>
-							<c:if test="${listBean.listTypeId==1 }">
-							${viewableBean.fields[3].text}<br>
-							</c:if>
-							${viewableBean.fields[2].text}
+							<h4 class="box-text-title"><c:out escapeXml="false" value="${viewableBean.fields[1].text}"/> <span>${viewableBean.fields[2].text}</span></h4>
+							${viewableBean.fields[3].text}
 							</div>
 						</div>
 						<div id="collapse${varStatus.index}" class="box-full">
-							<p>${viewableBean.fields[3].text}</p>
+							<p>${viewableBean.fields[5].text}</p>
 						</div>
 						<div class="box-links">
 							<a href="mailto:${viewableBean.fields[4].text}" class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
-							<c:if test="${listBean.listTypeId==2}">
+							<c:if test="${listBean.viewableColumnsCount>5}">
 							<a href="#collapse${varStatus.index}" class="box-more">read more <img src="/image/nano/arrow-submit.png" alt="" /></a>
 							</c:if>
 						</div>
 					</div>
 					</c:forEach>
-									
+					<div>
+						${listBean.footer}
+					</div>
 					</c:if>
    			</c:when>
     		<c:otherwise>

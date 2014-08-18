@@ -227,21 +227,34 @@
 		</c:if>
 	</c:forEach>
 	
-	<c:set var="field" value="areaOfSpecialization"></c:set>
+	<c:set var="field" value="descriptionSummary"></c:set>
 	<c:forEach items="${columns}" var="column">
 		<c:if test="${column==field}">
 			<c:set var="atLeastOneFieldToFill" value="true"></c:set>
 			<tr>
 				<td width="150">
-					תחום התמחות:
+					תאור מקוצר:
 				</td>
 				<td width="120">
-					<form:input htmlEscape="true" cssClass="green"  path="areaOfSpecialization"/>
+					<form:textarea htmlEscape="true" cssClass="green"  path="descriptionSummary" cols="80" rows="2"/>
 				</td>
 			</tr>
 		</c:if>
 	</c:forEach>
-
+	<c:set var="field" value="description"></c:set>
+	<c:forEach items="${columns}" var="column">
+		<c:if test="${column==field}">
+			<c:set var="atLeastOneFieldToFill" value="true"></c:set>
+			<tr>
+				<td width="150">
+					תאור:
+				</td>
+				<td width="120">
+					<form:textarea htmlEscape="true" cssClass="green"  path="description" cols="80" rows="4"/>
+				</td>
+			</tr>
+		</c:if>
+	</c:forEach>
 </c:if>
 
 	<c:choose>

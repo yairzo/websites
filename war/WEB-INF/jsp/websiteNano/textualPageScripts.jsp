@@ -31,7 +31,7 @@
 				
 			var organizationUnits = [];
 			<c:forEach items="${completeListForFilter.viewableBeans}" var="viewableBean" varStatus="varStatus">					
-				organizationUnits.push("${viewableBean.fields[0].text}");
+				organizationUnits.push("${viewableBean.fields[1].text}");
 			</c:forEach>
 			resetAutocomplete(organizationUnits);
 

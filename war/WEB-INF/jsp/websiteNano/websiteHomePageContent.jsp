@@ -19,10 +19,11 @@
 							</div>
 							<a class="arrow-left" href="#"></a> 
 							<a class="arrow-right" href="#"></a>
+							<div class="pagination"></div>
 						</div>
 					</div>
 				</div>
-<div class="container clearfix">
+			<div class="container clearfix">
 					<nav class="boxes clearfix">
 						<ul>
 							<li>
@@ -82,10 +83,11 @@
 								<c:forEach items="${textualPages}" var="message">
  								<div class="swiper-slide">
 									<div class="news-content pull-left clearfix">
-										<a href="#" class="news-title clearfix"><nobr>${message.title}</nobr></a>
+										<a href="/page/${message.urlTitle}" class="news-title clearfix"><nobr>${message.title}</nobr></a>
 										<p class="news-date clearfix">${message.updateTimeFormatted}</p>
 										<p>${message.htmlShort}</p>
 										<a href="/page/${message.urlTitle}" class="news-more">read more</a>
+									<br><br>
 									</div>
 								</div>
 								</c:forEach>

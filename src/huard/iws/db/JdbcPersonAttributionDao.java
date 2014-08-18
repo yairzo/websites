@@ -52,7 +52,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
         personAttribution.setTitleId(rs.getInt("titleId"));
         personAttribution.setConnectDetails(rs.getBoolean("connectDetails"));
         personAttribution.setImageUrl(rs.getString("imageUrl"));
-        personAttribution.setAreaOfSpecialization(rs.getString("areaOfSpecialization"));
+        personAttribution.setDescriptionSummary(rs.getString("descriptionSummary"));
+        personAttribution.setDescription(rs.getString("description"));
         personAttribution.prepareForView();
         return personAttribution;
     }
@@ -73,7 +74,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 				"titleId = ?,"+
 				"connectDetails = ?,"+
 				"imageUrl = ?,"+
-				"areaOfSpecialization = ?"+
+				"descriptionSummary = ?,"+
+				"description = ?"+
 				" where id = ?";
 		logger.debug(attributionUpdate);
 
@@ -91,7 +93,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 					personAttribution.getTitleId(),
 					personAttribution.isConnectDetails(),
 					personAttribution.getImageUrl(),
-					personAttribution.getAreaOfSpecialization(),
+					personAttribution.getDescriptionSummary(),
+					personAttribution.getDescription(),
 					personAttribution.getId() );
 	}
 
@@ -118,7 +121,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 		"titleId = ?,"+
 		"connectDetails = ?,"+
 		"imageUrl = ?,"+
-		"areaOfSpecialization = ?";
+		"descriptionSummary = ?,"+
+		"description = ?";
 		logger.debug(query);
 		final int personId = personListAttribution.getPersonId();
 		final int listId = personListAttribution.getListId();
@@ -133,7 +137,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 		final int titleId = personListAttribution.getTitleId();
 		final boolean connectDetails = personListAttribution.isConnectDetails();
 		final String imageUrl = personListAttribution.getImageUrl();
-		final String areaOfSpecialization = personListAttribution.getAreaOfSpecialization();
+		final String descriptionSummary = personListAttribution.getDescriptionSummary();
+		final String description = personListAttribution.getDescription();
 		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -154,7 +159,8 @@ public class JdbcPersonAttributionDao extends SimpleJdbcDaoSupport implements Pe
 					ps.setInt (11, titleId);
 					ps.setBoolean(12,connectDetails);
 					ps.setString (13, imageUrl);
-					ps.setString(14, areaOfSpecialization);
+					ps.setString(14, descriptionSummary);
+					ps.setString(15, description);
 		            return ps;
 		        }
 		    },

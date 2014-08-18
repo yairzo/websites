@@ -151,13 +151,13 @@ $(document).ready(function() {
 							</th>
 						</tr>
 						<tr>
-							<th align="right" style="height:35">
-								<a  style="text-decoration: none" href="/lists.html">טיפול במאגר הרשימות</a>
+							<th  align="right" style="height:35">
+								<a  style="text-decoration: none" href="/organizationUnits.html"><fmt:message key="iw_IL.websiteInterface.organizationUnitsManage"/></a>
 							</th>
 						</tr>
 						<tr>
-							<th  align="right" style="height:35">
-								<a  style="text-decoration: none" href="/organizationUnits.html"><fmt:message key="iw_IL.websiteInterface.organizationUnitsManage"/></a>
+							<th align="right" style="height:35">
+								<a  style="text-decoration: none" href="/lists.html">טיפול במאגר הרשימות</a>
 							</th>
 						</tr>
 						</authz:authorize>

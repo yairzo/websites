@@ -24,7 +24,8 @@ public class PersonListAttributionBean extends ListViewableBean{
 	private int titleId;
 	private boolean connectDetails;
 	private String imageUrl;
-	private String areaOfSpecialization;
+	private String descriptionSummary;
+	private String description;
 
 	private AList list  = new AList();
 
@@ -50,7 +51,8 @@ public class PersonListAttributionBean extends ListViewableBean{
 		this.titleId = 0;
 		this.connectDetails = false;
 		this.imageUrl="";
-		this.areaOfSpecialization="";
+		this.descriptionSummary="";
+		this.description="";
 	}
 
 	public PersonListAttributionBean(PersonListAttribution personListAttribution){
@@ -74,7 +76,8 @@ public class PersonListAttributionBean extends ListViewableBean{
 		this.titleId = personListAttribution.getTitleId();
 		this.connectDetails = personListAttribution.isConnectDetails();
 		this.imageUrl = personListAttribution.getImageUrl();
-		this.areaOfSpecialization = personListAttribution.getAreaOfSpecialization();
+		this.descriptionSummary = personListAttribution.getDescriptionSummary();
+		this.description = personListAttribution.getDescription();
 		if (personId > 0 && listId > 0)
 			init(parentListId);
 	}
@@ -95,7 +98,8 @@ public class PersonListAttributionBean extends ListViewableBean{
 		personListAttribution.setTitleId(titleId);
 		personListAttribution.setConnectDetails(connectDetails);
 		personListAttribution.setImageUrl(imageUrl);
-		personListAttribution.setAreaOfSpecialization(areaOfSpecialization);
+		personListAttribution.setDescriptionSummary(descriptionSummary);
+		personListAttribution.setDescription(description);
 		return personListAttribution;
 	}
 
@@ -124,7 +128,8 @@ public class PersonListAttributionBean extends ListViewableBean{
 		fieldValueMap.put("personAttribution.address", this.address);
 		fieldValueMap.put("personAttribution.titleId", ""+this.titleId);
 		fieldValueMap.put("personAttribution.imageUrl", ""+this.imageUrl);
-		fieldValueMap.put("personAttribution.areaOfSpecialization", ""+this.areaOfSpecialization);
+		fieldValueMap.put("personAttribution.descriptionSummary", ""+this.descriptionSummary);
+		fieldValueMap.put("personAttribution.description", ""+this.description);
 	}
 
 
@@ -254,11 +259,18 @@ public class PersonListAttributionBean extends ListViewableBean{
 		this.imageUrl = imageUrl;
 	}
 	
-	public String getAreaOfSpecialization() {
-		return areaOfSpecialization;
+	public String getDescriptionSummary() {
+		return descriptionSummary;
 	}
 	
-	public void setAreaOfSpecialization(String areaOfSpecialization) {
-		this.areaOfSpecialization = areaOfSpecialization;
+	public void setDescriptionSummary(String descriptionSummary) {
+		this.descriptionSummary = descriptionSummary;
+	}
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
