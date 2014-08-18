@@ -490,7 +490,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		List<FileSystemResourceWrapper> resources = getCommonResources();
 
 
-
+			
 		resources.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPath") + "corner_left.jpg"));
 		if (needsBulletImage)
@@ -504,40 +504,42 @@ public class MailMessageServiceImpl implements MailMessageService{
 			resources.add( new FileSystemResourceWrapper (
 					configurationService.getConfigurationString("iws", "imagesPath") + "corner_"+itemTypeId+".jpg"));
 		}
+		
+		List<FileSystemResourceWrapper> resourcesNew = getCommonResources();
 		//for new post design
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_header.jpg"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "logo.jpg"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_title.jpg"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_main.jpg"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "tag.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "arrow_ltr.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "arrow_rtl.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-dollar.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "triangle_rtl.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "triangle_ltr.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-group.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-medal.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-man.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-hat.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention-dollar.gif"));
-		resources.add( new FileSystemResourceWrapper (
+		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "dot.gif"));
 
 		List<Attachment> attachments = new ArrayList<Attachment>();
@@ -549,7 +551,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		if(recipient.isPostNewDesign()){
 			body = VelocityEngineUtils.mergeTemplateIntoString(
 			           velocityEngine, "postsMailMessageNew.vm", model);
-			messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, postsSubject, body, resources);
+			messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, postsSubject, body, resourcesNew);
 		}
 	}
 
