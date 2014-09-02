@@ -205,7 +205,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		final boolean receivePosts = person.isReceivePosts();
 		final String imageUrl = person.getImageUrl();
 		final boolean collectPublications = person.isCollectPublications();
-		final Timestamp lastSync = person.getLastSync();
+		final Timestamp lastSync = new Timestamp(System.currentTimeMillis());
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
