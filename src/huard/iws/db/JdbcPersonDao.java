@@ -3,6 +3,7 @@ package huard.iws.db;
 import huard.iws.db.QueryElementsMap.QueryValidKey;
 import huard.iws.model.Person;
 import huard.iws.util.BaseUtils;
+import huard.iws.util.DateUtils;
 import huard.iws.util.ListView;
 import huard.iws.util.SearchCreteria;
 
@@ -131,7 +132,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 				" academicTitle = ?, websiteUrl = ?, campusId = ?," +
 				" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?,receivePosts=?,"+
-				" imageUrl=?, collectPublications=?, lastSync=? where id = ?";
+				" imageUrl=?, collectPublications=?, lastSync=now() where id = ?";
 		logger.debug (query);
 		getSimpleJdbcTemplate().update(query,
 				person.getFirstNameHebrew() ,
@@ -163,7 +164,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 				person.isReceivePosts(),
 				person.getImageUrl(),
 				person.isCollectPublications(),
-				person.getLastSync(),
+				//person.getLastSync(),
 				person.getId() );
 		updatePersonSubjectIds(person);
 	}
@@ -175,7 +176,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		" homePhone = ?, cellPhone = ?, roomNumber = ?, researchEnabled = ?, preferedLocaleId = ?,"+
 		" academicTitle = ?, websiteUrl = ?, campusId = ?," +
 		" postReceiveDays = ?, postReceiveHour = ?, postReceiveImmediately = ?, readsUTF8Mails = ?,receivePosts=?,"+
-		" imageUrl=?, collectPublications=?, lastSync=? ;";
+		" imageUrl=?, collectPublications=?, lastSync=now() ;";
 		logger.debug(query);
 		final String firstNameHebrew = person.getFirstNameHebrew();
 		final String lastNameHebrew = person.getLastNameHebrew();
@@ -205,7 +206,8 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 		final boolean receivePosts = person.isReceivePosts();
 		final String imageUrl = person.getImageUrl();
 		final boolean collectPublications = person.isCollectPublications();
-		final Timestamp lastSync = new Timestamp(System.currentTimeMillis());
+		//final Timestamp lastSync = DateUtils.getCurrentTime();
+		//logger.info("lastSync: " + lastSync);
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(
@@ -242,7 +244,7 @@ public class JdbcPersonDao extends SimpleJdbcDaoSupport implements PersonDao {
 					ps.setBoolean(26,receivePosts);
 					ps.setString(27,imageUrl);
 					ps.setBoolean(28,collectPublications);
-					ps.setTimestamp(29,lastSync);
+					//ps.setTimestamp(29,lastSync);
 		            return ps;
 		        }
 		    },
