@@ -505,42 +505,48 @@ public class MailMessageServiceImpl implements MailMessageService{
 					configurationService.getConfigurationString("iws", "imagesPath") + "corner_"+itemTypeId+".jpg"));
 		}
 		
-		List<FileSystemResourceWrapper> resourcesNew = getCommonResources();
+		List<FileSystemResourceWrapper> resourcesNew = new ArrayList<FileSystemResourceWrapper>();
 		//for new post design
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_header.jpg"));
 		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "logo.jpg"));
 		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_title.jpg"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_main.jpg"));
-		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "tag.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "arrow_ltr.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "arrow_rtl.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-dollar.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "triangle_rtl.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "triangle_ltr.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-group.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-medal.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-man.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-hat.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention.gif"));
-		resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention-dollar.gif"));
+		if(recipient.getPreferedLocaleId().equals("en_US")){
+			resourcesNew.add( new FileSystemResourceWrapper (
+					configurationService.getConfigurationString("iws", "imagesPathNew") + "arrow_rtl.gif"));
+			resourcesNew.add( new FileSystemResourceWrapper (
+					configurationService.getConfigurationString("iws", "imagesPathNew") + "triangle_rtl.gif"));
+		}
+		else{
+			resourcesNew.add( new FileSystemResourceWrapper (
+					configurationService.getConfigurationString("iws", "imagesPathNew") + "arrow_ltr.gif"));
+			resourcesNew.add( new FileSystemResourceWrapper (
+					configurationService.getConfigurationString("iws", "imagesPathNew") + "triangle_ltr.gif"));
+		}
+
 		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "dot.gif"));
+		if(researchFundingPostsBeans.size()>0)
+			resourcesNew.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-dollar.gif"));
+		if(conferencePostsBeans.size()>0)
+			resourcesNew.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-group.gif"));
+		if(prizePostsBeans.size()>0)
+			resourcesNew.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-medal.gif"));
+		if(researcherExchangePostsBeans.size()>0)
+			resourcesNew.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-man.gif"));
+		if(scholarshipPostsBeans.size()>0)
+			resourcesNew.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-hat.gif"));
+		if(adminMessagePostsBeans.size()>0)
+			resourcesNew.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention.gif"));
+		if(fundingMessagePostsBeans.size()>0)
+			resourcesNew.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention-dollar.gif"));
 
 		List<Attachment> attachments = new ArrayList<Attachment>();
 		for (PostBean postBean: posts){
