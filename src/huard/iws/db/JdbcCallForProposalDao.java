@@ -600,6 +600,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 				+ " as allYearIndicator from callForProposal";
 		query += getCallForProposalsWhereClause(searchCriteria,"callForProposal");
 		logger.debug(query);
+		
 		List<CallForProposal> callForProposals = getSimpleJdbcTemplate().query(query, rowMapper);
 		return callForProposals;
 	}
@@ -674,7 +675,7 @@ public class JdbcCallForProposalDao extends SimpleJdbcDaoSupport implements Call
 			if (searchCriteria.isDefault())
 				whereClause += mainTable +".publicationTime desc";
 			else
-				whereClause += "allYearIndicator desc, " + mainTable +".finalSubmissionTime";
+				whereClause += "allYearIndicator desc, " + mainTable +".finalSubmissionTime desc";
 		}
 		
 		logger.debug(whereClause);

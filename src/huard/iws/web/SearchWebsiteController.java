@@ -15,6 +15,7 @@ import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 			Map<String, Object> model, RequestWrapper request, PersonBean userPersonBean)
 			throws Exception{
 		return new ModelAndView(new RedirectView(getSuccessView()));
-	}
+		}
 
 	protected ModelAndView onShowFormWebsite(RequestWrapper request, HttpServletResponse response,
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
@@ -115,6 +116,9 @@ public class SearchWebsiteController extends GeneralWebsiteFormController {
 	protected Object getFormBackingObject(
 			RequestWrapper request, PersonBean userPersonBean) throws Exception{
 		SearchWebsiteControllerCommand command = new SearchWebsiteControllerCommand();
+		if(request.getParameter("action", "").equals("cleanSearch")){
+			request.getSession().setAttribute("searchWords","");
+		}
 		String viewType = request.getParameter("v", "");
 		//if(request.getSession().getAttribute("callForProposalIds")==null && request.getSession().getAttribute("textualPageIds")==null){
 		Set<Long> sphinxIds=new LinkedHashSet<Long>();

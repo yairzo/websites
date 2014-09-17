@@ -19,8 +19,10 @@
 <table width="100%" border="0" cellpadding="0" cellspacing="0" dir="$direction">
 	<tr><td width="100%" height="1" bgcolor="#ffffff" style="font-size:0px;line-height:0px;background:#ffffff;"></td></tr>
 	<tr>
-		<td width="100%" height="86" align="center" valign="middle" bgcolor="#f1f1f1" style="background-color:#f1f1f1;text-align:center;vertical-align:middle;"><a href="#"><img src="cid:logo" width="431" height="66" border="0" alt="הרשות למחקר ופיתוח - האוניברסיטה העברית בירושלים" /></a></td>
-	</tr>
+		<td width="100%" height="86" align="center" valign="middle" bgcolor="#f1f1f1" style="background-color:#f1f1f1;background-image:cid:bg_header;background-repeat:repeat-x;background-position:center top;text-align:center;vertical-align:middle;" background="cid:bg_header" background-repeat="repeat-x">
+		<a href="#"><img src="cid:logo" width="431" height="66" border="0" alt="הרשות למחקר ופיתוח - האוניברסיטה העברית בירושלים" /></a>
+		</td>
+	</tr>	
 	<tr><td width="100%" height="1" bgcolor="#d9dada" style="font-size:0px;line-height:0px;background:#d9dada;"></td></tr>
 	<tr>
 		<td width="100%" height="68" bgcolor="#f9f9fa" style="background-color:#f9f9fa;">
@@ -61,7 +63,6 @@
 									</tr>
 									</table>
 								</td>
-								</td>
 								<td width="8" height="42" bgcolor="#04bde5" style="background:#04bde5;font-size:0px;line-height:0px;"></td>
 							</tr>
 						</table>
@@ -75,7 +76,7 @@
 								<td width="559" height="9" style="font-size:0px;line-height:0px;"></td>
 								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
 								<td width="3" height="9" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" height="9" valign="top"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
+								<td width="8" height="9" valign="top" style="line-height:9px;"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
 							</tr>
 							#foreach ($post in $researchFundingPosts)
 								#if ($post.localeId=="en_US")
@@ -88,7 +89,7 @@
 							
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
- 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+ 								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
 
 								$post.messageNewFormatted
 
@@ -146,9 +147,9 @@
 										<tr>
 											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
 											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
 											&nbsp;<img src="cid:dot"/>&nbsp;
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
 											</td>
 											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
 											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
@@ -221,7 +222,7 @@
  								#end
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
- 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+ 								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;vertical-align:middle;">
 
 								$post.messageNewFormatted
 
@@ -278,9 +279,9 @@
 										<tr>
 											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
 											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
 											&nbsp;<img src="cid:dot"/>&nbsp;
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
 											</td>
 											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
 											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
@@ -352,7 +353,7 @@
  								#end
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
- 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+ 								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
  							
 								$post.messageNewFormatted
 								
@@ -409,9 +410,9 @@
 										<tr>
 											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
 											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
 											&nbsp;<img src="cid:dot"/>&nbsp;
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
 											</td>
 											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
 											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
@@ -483,7 +484,7 @@
  								#end
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
- 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+ 								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
 
 								$post.messageNewFormatted
 
@@ -540,9 +541,9 @@
 										<tr>
 											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
 											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
 											&nbsp;<img src="cid:dot"/>&nbsp;
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
 											</td>
 											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
 											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
@@ -614,7 +615,7 @@
  								#end
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
- 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+ 								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
 
 								$post.messageNewFormatted
 								
@@ -671,9 +672,9 @@
 										<tr>
 											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
 											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
 											&nbsp;<img src="cid:dot"/>&nbsp;
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
 											</td>
 											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
 											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
@@ -745,7 +746,7 @@
  								#end
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
- 								<td width="559" align="$postAlign" valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+ 								<td width="559" align="$postAlign" valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
 
 								$post.messageNewFormatted
 
@@ -802,9 +803,9 @@
 										<tr>
 											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
 											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
 											&nbsp;<img src="cid:dot"/>&nbsp;
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
 											</td>
 											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
 											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
@@ -876,7 +877,7 @@
  								#end
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
- 								<td width="559" align=$postAlign valign="top" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
+ 								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
 
 								$post.messageNewFormatted
 
@@ -933,9 +934,9 @@
 										<tr>
 											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
 											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
 											&nbsp;<img src="cid:dot"/>&nbsp;
-											<a style="color:#04bde5;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
+											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
 											</td>
 											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
 											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
@@ -961,7 +962,6 @@
 				</tr>
 				#end
 				
-				<tr><td width="586" height="30"></td></tr>
 				<tr>
 					<td width="586" height="30">
 						<table width="586" border="0" cellpadding="0" cellspacing="0" align="center">

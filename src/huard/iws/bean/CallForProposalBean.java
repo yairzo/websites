@@ -770,34 +770,34 @@ public class CallForProposalBean {
 		String dir=localeId.equals("en_US")?"ltr":"rtl";
 		String align=localeId.equals("en_US")?"left":"right";
 		
-		sb.append("<p width=\"559\" align=\""+align+"\" valign=\"top\" style=\"font-family:Arial;direction:"+dir+";text-align:"+align+";text-decoration:none;\">");
-		sb.append("<font style=\"font-weight:bold;font-size:16px;\"><a style=\"color:#04bde5;text-decoration:none;\" href=\"https://" + configurationService.getConfigurationString("website", "webServer") +
-				"/call_for_proposal/" + this.urlTitle + "\">" + title + "</font>");
+		sb.append("<p width=\"559\" align=\""+align+"\" valign=\"middle\" style=\"font-family:Arial;direction:"+dir+";text-align:"+align+";text-decoration:none;vertical-align:middle;\">");
+		sb.append("<font style=\"font-weight:bold;font-size:16px;color:#04bde5;text-decoration:none;\">" + title + "</font>");
 		sb.append("<br><br><font style=\"font-weight:normal;font-size:14px;color:#333333;line-height:18px;\">");
-		sb.append("<strong>"+messageService.getMessage("general.callForProposal.submission", getLocaleId())+":</strong>");
+		sb.append("<strong>"+messageService.getMessage("general.callForProposal.submission", getLocaleId())+":</strong>&nbsp;");
 		if(finalSubmissionTime==0)
 			sb.append(messageService.getMessage("general.callForProposal.submissionAllYear", getLocaleId()));
 		else	
 			sb.append(DateUtils.getLocaleDependentShortDateFormat(finalSubmissionTime, getLocaleId()));
-		sb.append("&nbsp;<img src=\"image/post/dot.gif\" width=\"5\" height=\"5\" style=\"vertical-align:middle\" alt=\"\" />&nbsp; ");
-		sb.append("<strong>"+ messageService.getMessage("general.callForProposal.fundPrefix", getLocaleId()) +"</strong>");
+		sb.append("&nbsp;<img src=\"image/post/dot.gif\" width=\"5\" height=\"5\" valign=\"middle\" style=\"vertical-align:middle;\" alt=\"\" />&nbsp; ");
+		sb.append("<strong>"+ messageService.getMessage("general.callForProposal.fundPrefix", getLocaleId()) +"</strong>&nbsp;");
 		if (fundId != 0){
 		    Fund fund= fundService.getFund(fundId);
-			sb.append(" <a style=\"color:#04bde5;text-decoration:none;\" href=\"" + fund.getWebAddress() + "\">" + fund.getName() + ", " + fund.getShortName() + "</a>");
+			//sb.append(" <a style=\"color:#04bde5;text-decoration:none;\" href=\"" + fund.getWebAddress() + "\">" + fund.getName() + ", " + fund.getShortName() + "</a>");
+			sb.append("<font style=\"color:#04bde5;text-decoration:none;\">"+fund.getName()+"</font>");
 		}
-		sb.append("&nbsp;<img src=\"image/post/dot.gif\" width=\"5\" height=\"5\" style=\"vertical-align:middle\" alt=\"\" />&nbsp; ");
-		sb.append("<strong>"+messageService.getMessage("general.callForProposal.successRate", getLocaleId()) + ":</strong>&nbsp;xxxxx<br />");
-		sb.append("<strong>"+messageService.getMessage("general.callForProposal.amountOfGrant", getLocaleId()) + ":</strong>");
+		sb.append("&nbsp;<img src=\"image/post/dot.gif\" width=\"5\" height=\"5\" valign=\"middle\" style=\"vertical-align:middle\" alt=\"\" />&nbsp; ");
+		sb.append("<strong>"+messageService.getMessage("general.callForProposal.successRate", getLocaleId()) + ":</strong>&nbsp;xxxxx &nbsp; ");
+		sb.append("<strong>"+messageService.getMessage("general.callForProposal.amountOfGrant", getLocaleId()) + ":</strong>&nbsp;");
 		if (! amountOfGrant.isEmpty())
 			sb.append(amountOfGrant.trim()); 
-		sb.append("&nbsp;<img src=\"image/post/dot.gif\" width=\"5\" height=\"5\" style=\"vertical-align:middle\" alt=\"\" />&nbsp;");
-		sb.append("<strong>"+messageService.getMessage("general.callForProposal.deskPrefix", getLocaleId())+"</strong>");
+		sb.append("&nbsp;<img src=\"image/post/dot.gif\" width=\"5\" height=\"5\" valign=\"middle\" style=\"vertical-align:middle\" alt=\"\" />&nbsp;");
+		sb.append("<strong>"+messageService.getMessage("general.callForProposal.deskPrefix", getLocaleId())+"</strong>&nbsp;");
 		PersonBean creator=getCreator();
 		if(localeId.equals("iw_IL"))
-			sb.append(creator.getDegreeFullNameHebrew());
+			sb.append(creator.getDegreeFullNameHebrew()+",&nbsp;");
 		else
-			sb.append(creator.getDegreeFullNameEnglish());
-		sb.append(" <a href=\"mailto:" + creator.getEmail() + "\" style=\"color:#04bde5;text-decoration:none;\">&nbsp; " + creator.getEmail() + "</a>");
+			sb.append(creator.getDegreeFullNameEnglish()+",&nbsp;");
+		sb.append("<a href=\"mailto:" + creator.getEmail() + "\" style=\"color:#00a6ca;text-decoration:none;\">" + creator.getEmail() + "</a>");
 		sb.append("</p>");
 
 		return sb.toString();

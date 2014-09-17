@@ -11,7 +11,7 @@
 					<div class="clearfix mar_20">
 						<c:if test="${!searchBoxBottom}">
 						<div class="advanced">
-							<form action="/search" method="post">
+							<form id="form" action="/search" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>
@@ -106,7 +106,7 @@
 
 						<c:if test="${searchBoxBottom}">
 						<div class="advanced">
-							<form action="/search" method="post">
+							<form id="form" action="/search" method="post">
 								<div class="clearfix">
 									<div class="advanced_subject">
 										<label for="advanced_subject"><fmt:message key="${lang.localeId}.callForProposal.searchWords"/></label>

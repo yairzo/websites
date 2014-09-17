@@ -234,8 +234,8 @@ public class PostBean {
 	
 	public String getMessageNewFormatted() {
 		String newMessage=this.messageNew;
-		//newMessage=newMessage.replaceAll("<p(.*?)>", "");
-		//newMessage=newMessage.replaceAll("</p>", "");
+		newMessage=newMessage.replaceAll("<p(.*?)>", "");
+		newMessage=newMessage.replaceAll("</p>", "");
 		newMessage=newMessage.replaceAll("src=\"image/post/dot.gif\"", "src=\"cid:dot\"");
 		return newMessage;
 	}

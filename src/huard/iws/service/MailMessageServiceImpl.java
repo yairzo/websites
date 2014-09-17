@@ -511,6 +511,8 @@ public class MailMessageServiceImpl implements MailMessageService{
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "logo.jpg"));
 		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "tag.gif"));
+		resourcesNew.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_header.jpg"));
 		if(recipient.getPreferedLocaleId().equals("en_US")){
 			resourcesNew.add( new FileSystemResourceWrapper (
 					configurationService.getConfigurationString("iws", "imagesPathNew") + "arrow_rtl.gif"));

@@ -223,9 +223,10 @@ $(document).ready(function() {
 		});
   		$("#listViewPage").remove();
 		$("#orderBy").remove();
+		$("#action").remove();
 		$("#form").append("<input type=\"hidden\" name=\"action\" id=\"action\" value=\"cleanSearch\"/>");
 		$("#form").ajaxSubmit();
-    	return true;
+    	return false;
     });	
 		
 		

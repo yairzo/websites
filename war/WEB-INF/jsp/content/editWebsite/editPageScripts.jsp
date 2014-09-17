@@ -172,12 +172,13 @@ $(document).ready(function() {
 	});	
 	
 	$('#tempUrlTitle').blur(function(e){
-		
-		var check = $('#tempUrlTitle').val();
-		if (check.search(urlTitleRegexp) == -1){
-	        alert('<fmt:message key="${lang.localeId}.callForProposal.urlTitleFormat"/>');
-	        e.preventDefault();
-	    }
+		if($('#tempUrlTitle').val()!=''){
+			var check = $('#tempUrlTitle').val();
+			if (check.search(urlTitleRegexp) == -1){
+	        	alert('<fmt:message key="${lang.localeId}.callForProposal.urlTitleFormat"/>');
+	        	e.preventDefault();
+	    	}
+		}
 	});
 	
 	$('#tempTitle').change(function(e){
@@ -199,6 +200,8 @@ $(document).ready(function() {
 		                 (arr[i].length > 1 ? arr[i].substr(1).toLowerCase() : "");
 		   		 }
 		    	arr= arr.join("_");
+		    	arr=arr.replace("'","");
+		    	arr=arr.replace("\"","");
 		    	$('#tempUrlTitle').val(arr);
 			}
 		}
