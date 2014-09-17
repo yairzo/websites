@@ -19,7 +19,7 @@
 <table width="100%" border="0" cellpadding="0" cellspacing="0" dir="$direction">
 	<tr><td width="100%" height="1" bgcolor="#ffffff" style="font-size:0px;line-height:0px;background:#ffffff;"></td></tr>
 	<tr>
-		<td width="100%" height="86" align="center" valign="middle" bgcolor="#f1f1f1" style="background-color:#f1f1f1;background-image:cid:bg_header;background-repeat:repeat-x;background-position:center top;text-align:center;vertical-align:middle;" background="cid:bg_header" background-repeat="repeat-x">
+		<td width="100%" height="86" align="center" valign="middle" bgcolor="#faf6f3" style="background-color:#faf6f3;text-align:center;vertical-align:middle;">
 		<a href="#"><img src="cid:logo" width="431" height="66" border="0" alt="הרשות למחקר ופיתוח - האוניברסיטה העברית בירושלים" /></a>
 		</td>
 	</tr>	
