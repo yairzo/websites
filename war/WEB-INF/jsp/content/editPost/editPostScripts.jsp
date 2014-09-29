@@ -236,6 +236,9 @@
       		$.get("objectQuery?type=callForProposalTitle&id="+id, function(data){
     			$("input.messageSubject").val(data);
     		});
+      		$.get("objectQuery?type=callForProposalUrlTitle&id="+id, function(data){
+    			$("input#callForProposalUrlTitle").val(data);
+    		});
          	$.get("objectQuery?type=callForProposalToPostNew&id="+id, function(data){
         			$("div#editable2").html(data);	
         			$("textarea#messageNew").html(data);	

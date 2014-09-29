@@ -771,7 +771,7 @@ public class CallForProposalBean {
 		String align=localeId.equals("en_US")?"left":"right";
 		
 		sb.append("<p width=\"559\" align=\""+align+"\" valign=\"middle\" style=\"font-family:Arial;direction:"+dir+";text-align:"+align+";text-decoration:none;vertical-align:middle;\">");
-		sb.append("<font style=\"font-weight:bold;font-size:16px;color:#04bde5;text-decoration:none;\">" + title + "</font>");
+		sb.append("<font style=\"font-weight:bold;font-size:16px;color:#333333;text-decoration:none;\">" + title + "</font>");
 		sb.append("<br><br><font style=\"font-weight:normal;font-size:14px;color:#333333;line-height:18px;\">");
 		sb.append("<strong>"+messageService.getMessage("general.callForProposal.submission", getLocaleId())+":</strong>&nbsp;");
 		if(finalSubmissionTime==0)
@@ -783,10 +783,11 @@ public class CallForProposalBean {
 		if (fundId != 0){
 		    Fund fund= fundService.getFund(fundId);
 			//sb.append(" <a style=\"color:#04bde5;text-decoration:none;\" href=\"" + fund.getWebAddress() + "\">" + fund.getName() + ", " + fund.getShortName() + "</a>");
-			sb.append("<font style=\"color:#04bde5;text-decoration:none;\">"+fund.getName()+"</font>");
+			sb.append("<font style=\"color:#333333;text-decoration:none;\">"+fund.getName()+"</font>");
 		}
 		sb.append("&nbsp;<img src=\"image/post/dot.gif\" width=\"5\" height=\"5\" valign=\"middle\" style=\"vertical-align:middle\" alt=\"\" />&nbsp; ");
-		sb.append("<strong>"+messageService.getMessage("general.callForProposal.successRate", getLocaleId()) + ":</strong>&nbsp;xxxxx &nbsp; ");
+		sb.append("<strong>"+messageService.getMessage("general.callForProposal.successRate", getLocaleId()) + ":</strong>&nbsp;xxxxx");
+		sb.append("&nbsp;<img src=\"image/post/dot.gif\" width=\"5\" height=\"5\" valign=\"middle\" style=\"vertical-align:middle\" alt=\"\" />&nbsp; ");
 		sb.append("<strong>"+messageService.getMessage("general.callForProposal.amountOfGrant", getLocaleId()) + ":</strong>&nbsp;");
 		if (! amountOfGrant.isEmpty())
 			sb.append(amountOfGrant.trim()); 

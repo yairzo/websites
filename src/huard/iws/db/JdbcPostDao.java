@@ -71,6 +71,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
             post.setLocaleId(rs.getString("localeId"));
             post.setTypeId(rs.getInt("typeId"));
             post.setAttachments(getAttachments(post.getId()));
+            post.setCallForProposalUrlTitle(rs.getString("callForProposalUrlTitle"));
             return post;
         }
 	};
@@ -85,7 +86,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 	public void updatePost(Post post){
 		String query = "update post set creatorId = ?, senderId = ?, additionalAddresses = ?," +
 				"messageSubject = ?, message = ?, messageNew = ?, isVerified = ?, isSent = ?, isSendImmediately = ?,  sendTime = now() " +
-				", isSelfSend = ?, isSelfSent = ?, localeId = ?, typeId = ? where id = ?";
+				", isSelfSend = ?, isSelfSent = ?, localeId = ?, typeId = ?,callForProposalUrlTitle=? where id = ?";
 		logger.debug(query);
 		getSimpleJdbcTemplate().update(query,
 				post.getCreatorId(),
@@ -101,6 +102,7 @@ public class JdbcPostDao extends SimpleJdbcDaoSupport implements PostDao {
 				post.isSelfSent(),
 				post.getLocaleId(),
 				post.getTypeId(),
+				post.getCallForProposalUrlTitle(),
 				post.getId()
 			);
 

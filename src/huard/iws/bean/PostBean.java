@@ -42,6 +42,7 @@ public class PostBean {
 	private String localeId;
 	private int typeId;
 	private List<Attachment> attachments;
+	private String callForProposalUrlTitle;
 
 	private PersonBean creator;
 	private PersonBean sender;
@@ -89,6 +90,7 @@ public class PostBean {
 		this.localeId = "iw_IL";
 		this.typeId = 1;
 		this.attachments = new ArrayList<Attachment>();
+		this.callForProposalUrlTitle ="";
 	}
 
 	public boolean isHasAttachment(){
@@ -166,6 +168,7 @@ public class PostBean {
 		this.localeId = post.getLocaleId();
 		this.typeId = post.getTypeId();
 		this.attachments = post.getAttachments();
+		this.callForProposalUrlTitle = post.getCallForProposalUrlTitle();
 		init();
 		}
 
@@ -189,6 +192,7 @@ public class PostBean {
 		post.setLocaleId(localeId);
 		post.setTypeId(typeId);
 		post.setAttachments(attachments);
+		post.setCallForProposalUrlTitle(callForProposalUrlTitle);
 		return post;
 	}
 
@@ -377,5 +381,13 @@ public class PostBean {
 	public void setSendImmediately(boolean sendImmediately) {
 		this.sendImmediately = sendImmediately;
 	}
+	
+	public String getCallForProposalUrlTitle() {
+		return callForProposalUrlTitle;
+	}
+	public void setCallForProposalUrlTitle(String callForProposalUrlTitle) {
+		this.callForProposalUrlTitle = callForProposalUrlTitle;
+	}
+
 
 }

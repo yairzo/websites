@@ -7,6 +7,7 @@
 
 				<form:hidden path="id" />
 				<form:hidden path="creatorId"/>
+				<form:hidden id="callForProposalUrlTitle" path="callForProposalUrlTitle" />
 	
 	<table width="700" border="1" align="center" cellpadding="0"
 		cellspacing="0" bordercolor="#767468" dir="${lang.dir}">

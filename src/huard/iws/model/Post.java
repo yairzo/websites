@@ -23,6 +23,7 @@ public class Post implements ISubjectRelated{
 	private String localeId;
 	private int typeId;
 	private int countNotSent;
+	private String callForProposalUrlTitle;
 
 	private List<Attachment> attachments;
 
@@ -44,6 +45,7 @@ public class Post implements ISubjectRelated{
 		this.localeId = "iw_IL";
 		this.typeId = 1;
 		this.countNotSent=0;
+		this.callForProposalUrlTitle="";
 	}
 
 	public String getAdditionalAddresses() {
@@ -190,4 +192,12 @@ public class Post implements ISubjectRelated{
 	public void setCountNotSent(int countNotSent) {
 		this.countNotSent = countNotSent;
 	}
+	
+	public String getCallForProposalUrlTitle() {
+		return callForProposalUrlTitle;
+	}
+	public void setCallForProposalUrlTitle(String callForProposalUrlTitle) {
+		this.callForProposalUrlTitle = callForProposalUrlTitle;
+	}
+	
 }
