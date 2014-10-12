@@ -1371,6 +1371,7 @@
 				<prop key="/error500.html">urlFilenameViewController</prop>
 				<prop key="/pageNotFound.html">urlFilenameViewController</prop>
 				<prop key="/websitePageNotFound.html">urlFilenameViewController</prop>
+				<prop key="/websiteNanoPageNotFound.html">urlFilenameViewController</prop>
 				<prop key="/close.html">urlFilenameViewController</prop>
 				<prop key="/editCallForProposal.html">editCallForProposalController</prop>
 				<prop key="/callForProposal.html">callForProposalController</prop>

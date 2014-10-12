@@ -55,10 +55,8 @@ public class SitemapController extends GeneralWebsiteFormController {
 		model.put("updateTime", generalService.getLastUpdate());
 		
 		
-		if(request.getParameter("t", "").equals("0"))
-			return new ModelAndView ("sitemapStatic",model);
-		else
-			return new ModelAndView ("sitemap",model);		
+		String page =configurationService.getConfigurationString("iws", "websiteName").equals("websiteNano")?"sitemapNano":"sitemap";
+		return new ModelAndView (page,model);
 	}
 
 	protected Object getFormBackingObject(

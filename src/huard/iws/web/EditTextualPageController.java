@@ -219,6 +219,8 @@ public class EditTextualPageController extends GeneralFormController {
 			  }
 			  model.put("images", pageBodyImagesBeans);
 			  
+			model.put("websiteName", configurationService.getConfigurationString("iws", "websiteName"));
+			
 			model.put("id",textualPageBean.getId());
 			return new ModelAndView ( this.getFormView(), model);
 		}		

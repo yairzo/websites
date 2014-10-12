@@ -456,7 +456,7 @@ width: 975px;
 position:relative;
 }
 
-.slider .arrow-left {
+.slider .arrow-left { 
 background: url(/image/nano/arrow-left.png) no-repeat left top;
 position: relative;
 float:left;
@@ -465,7 +465,8 @@ width: 16px;
 height: 29px;
 z-index:2;
 }
-.slider .arrow-right {
+
+.slider .arrow-right{
 background: url(/image/nano/arrow-right.png) no-repeat left bottom;
 position: relative;
 float:right;
@@ -474,6 +475,30 @@ width: 16px;
 height: 29px;
 z-index:2;
 }
+/***** hadar - for arrows in news slider ****/
+ .news .arrow-left{
+background: url(/image/nano/arrow-left.png) no-repeat left top;
+position: absolute;
+left:-20px;
+margin:-57px 0 0 20px;
+width: 16px;
+height: 29px;
+z-index:2;
+}
+ .news .arrow-right{
+background: url(/image/nano/arrow-right.png) no-repeat left bottom;
+position: absolute;
+right:5px;
+margin:-57px 20px 0 0;
+width: 16px;
+height: 29px;
+z-index:2;
+}
+
+.news .swiper-slide{
+	padding:5px;
+}
+/*********end hadar ********/
 
 .slider .swiper-container {
 height: 342px;

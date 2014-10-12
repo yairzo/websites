@@ -47,9 +47,10 @@ public class TextualPageController extends GeneralWebsiteFormController {
 			PersonBean userPersonBean, Map<String, Object> model) throws Exception
 	{
 		TextualPageBean textualPageBean = (TextualPageBean) model.get("command");
-		if(textualPageBean.getId()==0)//someone entered non-existing id
-			return new ModelAndView ( "websitePageNotFound", model);
-
+		if(textualPageBean.getId()==0){//someone entered non-existing id
+			String page =configurationService.getConfigurationString("iws", "websiteName").equals("websiteNano")?"websiteNanoPageNotFound":"websitePageNotFound";
+			return new ModelAndView (page, model);
+		}
 		//when coming from old site:
 		int ardNum = (Integer) request.getSession().getAttribute("ardNum");
 		request.getSession().setAttribute("ardNum",0);

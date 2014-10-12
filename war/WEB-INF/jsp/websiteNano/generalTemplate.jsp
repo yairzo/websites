@@ -30,8 +30,8 @@
 				</div>
 				<div class="container clearfix">
 					<h2 class="title-web">THE HEBREW UNIVERSITY CENTER FOR NANOSCIENCE AND NANOTECHNOLOGY</h2>
-					<a href="/" class="logo-nano pull-left"><img src="/image/nano/logo-nano.png" alt="" /></a>
-					<a href="/" class="logo-university pull-right"><img src="/image/nano/logo-university.png" alt="" /></a>
+					<a href="http://new.nano.huji.ac.il" class="logo-nano pull-left"><img src="/image/nano/logo-nano.png" alt="" /></a>
+					<a href="http://new.huji.ac.il/" class="logo-university pull-right"><img src="/image/nano/logo-university.png" alt="" /></a>
 				</div>
 			</header>
 		<section class="section">
@@ -41,7 +41,7 @@
 			<footer class="footer">
 				<div class="container">
 					<div class="footer-gray clearfix">
-						<div class="pull-left"><a href="/sitemap"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="/page/${contactsPageUrlTitle}"><fmt:message key="${lang.localeId}.general.contact"/></a>&nbsp; /  &nbsp;<a href="javascript:bookmarksite();"><fmt:message key="${lang.localeId}.general.addToFavorites"/></a></div>
+						<div class="pull-left"><a href="/sitemap"><fmt:message key="${lang.localeId}.general.siteMap"/></a>&nbsp; /  &nbsp;<a href="/page/${contactsPageUrlTitle}"><fmt:message key="${lang.localeId}.general.contact"/></a></div>
 						<div class="pull-right"><fmt:message key="${lang.localeId}.general.lastUpdate"/> - ${updateTime}</div>
 					</div>
 					<div class="footer-white clearfix">

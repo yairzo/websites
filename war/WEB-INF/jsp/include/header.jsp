@@ -66,7 +66,7 @@
 			<c:choose>
 			<c:when test="${website=='nano'}">
 				<area shape="rect" coords="4,63,277,94" href="http://new.nano.huji.ac.il" alt="The Center for Nanoscience and Nanotechnology" />
-				<area shape="rect" coords="428,75,693,95" href="http://new.nano.huji.ac.il" alt="The Center for Nanoscience and Nanotechnology" />
+				<area shape="rect" coords="428,75,693,95" href="http://new.huji.ac.il/" alt="The Hebrew University" />
 			</c:when>
 			<c:otherwise>
 				<area shape="rect" coords="4,63,277,94" href="http://ard.huji.ac.il/huard/main.jsp?lang=eng" alt="Authority for Research and Development" />

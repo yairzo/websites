@@ -31,6 +31,14 @@
 					autoplay: 10000,
 					speed : 500
 				  })
+				$('#news .arrow-left').on('click', function(e){
+					e.preventDefault()
+					mySwiperNews.swipePrev()
+				})
+				$('#news .arrow-right').on('click', function(e){
+					e.preventDefault()
+					mySwiperNews.swipeNext()
+				})
 				
 				
 			</script>

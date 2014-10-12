@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC '-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN' 'http://java.sun.com/dtd/web-app_2_3.dtd'>
+
+<web-app id="mvcrap" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<context-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>
+    		/WEB-INF/iws-dao.xml,
+    		/WEB-INF/iws-service.xml,
+    		/WEB-INF/security.xml
+    	</param-value>
+  	</context-param>
+  	
+  	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+  	</filter>
+	<filter-mapping>
+  		<filter-name>encodingFilter</filter-name>
+  		<url-pattern>/*</url-pattern>
+  		<dispatcher>REQUEST</dispatcher>
+    	<dispatcher>FORWARD</dispatcher>
+  	</filter-mapping>
+  	
+ <filter>
+    	<filter-name>UrlRewriteFilter</filter-name>
+    	<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+    	<init-param>
+    		<param-name>logLevel</param-name>
+    		<param-value>INFO</param-value>
+    	</init-param>
+	</filter>
+	<filter-mapping>
+    	<filter-name>UrlRewriteFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+    	<dispatcher>REQUEST</dispatcher>
+    	<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+  	<filter>
+  		<filter-name>httpsCookieFilter</filter-name>
+		<filter-class>huard.iws.filter.security.HttpsCookieFilter</filter-class>
+  	</filter>
+  	<filter-mapping>
+		<filter-name>httpsCookieFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+    	<dispatcher>FORWARD</dispatcher>
+  	</filter-mapping>
+	
+  	
+  	<filter>
+  		<filter-name>Acegi Channel Processing Filter</filter-name>
+  		<filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+ 		<init-param>
+   	 		<param-name>targetClass</param-name>
+    		<param-value>org.acegisecurity.securechannel.ChannelProcessingFilter</param-value>
+  		</init-param>
+	</filter>
+	<filter-mapping>
+  		<filter-name>Acegi Channel Processing Filter</filter-name>
+  		<url-pattern>/*</url-pattern>
+  		
+	</filter-mapping>
+	
+	<filter>
+ 	 	<filter-name>Spring Security Filter Chain Proxy</filter-name>
+  		<filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+  		<init-param>
+   		 	<param-name>targetClass</param-name>
+    		<param-value>org.acegisecurity.util.FilterChainProxy</param-value>
+  		</init-param>
+  	</filter>
+   <filter-mapping>
+  		<filter-name>Spring Security Filter Chain Proxy</filter-name>
+  		<url-pattern>/*</url-pattern>
+  		
+  </filter-mapping>
+
+	
+    
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+  <servlet>
+    <servlet-name>iws</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>iws</servlet-name>
+    <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+
+ <servlet>
+	<servlet-name>ImageViewer</servlet-name>
+	<servlet-class>huard.iws.servlet.ImageViewer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ImageViewer</servlet-name>
+	<url-pattern>/imageViewer</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>FileViewer</servlet-name>
+	<servlet-class>huard.iws.servlet.FileViewer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>FileViewer</servlet-name>
+	<url-pattern>/fileViewer</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+	<servlet-name>ConferenceProposalsCsv</servlet-name>
+	<servlet-class>huard.iws.servlet.ConferenceProposalsCsv</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ConferenceProposalsCsv</servlet-name>
+	<url-pattern>/conferenceProposalsCsv</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+	<servlet-name>SelectBoxFiller</servlet-name>
+	<servlet-class>huard.iws.servlet.SelectBoxFiller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>SelectBoxFiller</servlet-name>
+	<url-pattern>/selectBoxFiller</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+	<servlet-name>ObjectQuery</servlet-name>
+	<servlet-class>huard.iws.servlet.ObjectQuery</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ObjectQuery</servlet-name>
+	<url-pattern>/objectQuery</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+	<servlet-name>ProposalCheck</servlet-name>
+	<servlet-class>huard.iws.servlet.ProposalCheck</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>ProposalCheck</servlet-name>
+	<url-pattern>/proposalCheck</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+	<servlet-name>SessionVariablesHandler</servlet-name>
+	<servlet-class>huard.iws.servlet.SessionVariablesHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>SessionVariablesHandler</servlet-name>
+	<url-pattern>/sessionVariablesHandler</url-pattern>
+  </servlet-mapping>
+
+
+
+	<!--<servlet>
+        <servlet-name>JSCSSMergeServet</servlet-name>
+        <servlet-class>com.googlecode.webutilities.servlets.JSCSSMergeServlet</servlet-class>
+        <init-param>
+                <param-name>expiresMinutes</param-name>
+                <param-value>0</param-value>                
+        </init-param>
+        <init-param>
+                <param-name>autoCorrectUrlsInCSS</param-name>
+                <param-value>false</param-value>
+        </init-param>
+     </servlet>
+     <servlet-mapping>
+     <servlet-name>JSCSSMergeServet</servlet-name>
+          <url-pattern>*.js</url-pattern>
+     </servlet-mapping>
+     <servlet-mapping>
+     <servlet-name>JSCSSMergeServet</servlet-name>
+          <url-pattern>*.css</url-pattern> 
+     </servlet-mapping>
+     
+	<filter>
+        <filter-name>compressionFilter</filter-name>
+        <filter-class>com.googlecode.webutilities.filters.CompressionFilter</filter-class>
+        <init-param>
+                <param-name>compressionThreshold</param-name>
+                <param-value>512</param-value>
+        </init-param>
+        <init-param>
+                <param-name>ignoreURLPattern</param-name>
+                <param-value>.*\.(png|gif|jpg|tiff|bmp|mpg|jpeg)</param-value>
+        </init-param>  
+  </filter>
+  <filter-mapping>
+   <filter-name>compressionFilter</filter-name>
+   <url-pattern>/*</url-pattern>
+  </filter-mapping>-->
+
+
+	<!--<filter>
+        <filter-name>CacheControl</filter-name>
+           <filter-class>newsminer.webapp.CacheControlFilter</filter-class>
+    </filter>
+    <filter-mapping>
+       <filter-name>CacheControl</filter-name>
+       <url-pattern>/images/customer_logo/*</url-pattern>
+    </filter-mapping>-->
+
+ <!--<filter>
+        <filter-name>responseCacheFilter</filter-name>
+        <filter-class>com.googlecode.webutilities.filters.ResponseCacheFilter</filter-class>
+ </filter>
+ <filter-mapping>
+   <filter-name>responseCacheFilter</filter-name>
+   <url-pattern>*.js</url-pattern>
+   <url-pattern>*.json</url-pattern>
+   <url-pattern>*.css</url-pattern>
+ </filter-mapping>-->
+
+  <!--<filter>
+        <filter-name>yuiMinFilter</filter-name>
+        <filter-class>com.googlecode.webutilities.filters.YUIMinFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>yuiMinFilter</filter-name>
+      <url-pattern>*.js</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>yuiMinFilter</filter-name>
+      <url-pattern>*.css</url-pattern>
+  </filter-mapping>-->
+
+
+	<session-config>
+   	   <session-timeout>30</session-timeout>    <!-- 30 minutes -->
+    </session-config>
+
+    <welcome-file-list>
+   		 <welcome-file>
+      		index.jsp
+    	 </welcome-file>
+  	</welcome-file-list>
+
+  	<taglib>
+   	 <taglib-uri>/spring</taglib-uri>
+   	 <taglib-location>/WEB-INF/tld/spring.tld</taglib-location>
+  	</taglib>
+
+   <resource-ref>
+    	<description>DB Connection</description>
+        <res-ref-name>jdbc/iws</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Application</res-auth>
+   </resource-ref>
+
+  <error-page>
+        <error-code>500</error-code>
+        <location>/textualPage.html?id=14</location>
+    </error-page>
+   <error-page>
+        <error-code>404</error-code>
+        <location>/textualPage.html?id=15</location>
+    </error-page>
+
+</web-app>

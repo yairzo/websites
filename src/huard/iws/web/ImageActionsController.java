@@ -33,8 +33,8 @@ public class ImageActionsController extends GeneralFormController {
 					continue;
 				int id = new Integer(tkn).intValue();
 				pageBodyImageService.deletePageBodyImage(id);
-				if(id==mainImageId)
-					mainImageId=pageBodyImageService.getMaxImageId();
+				if(id==mainImageId)//if deleting the image that is currently edited
+					mainImageId=0;
 			}
 		}
 		else if (action != null && action.equals("approve")) {

@@ -18,6 +18,9 @@
       <table width="800" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#767468" dir="rtl">
         <tr>
           <td valign="top" align="center"><br>
+          
+        <c:if test="${command.id!=0}">
+          
 		<form:form id="form" name="form" method="POST" action="uploadImage.html" commandName="command" enctype="multipart/form-data">
 
    			<form:hidden path="id"/>
@@ -103,9 +106,6 @@
 				<tr>
 					<td>
 						<input class="green" type="submit" name="Upload" value="שמור"/>
-						<c:if test="${popup!=1}">
-							<input type="button" class="green" value="חדש" onclick="window.location='uploadImage.html?action=new';"/>
-						</c:if>
 						<c:if test="${popup==1}">
 							<input type="button" class="green" value="ביטול" id="cancelUpload"/>
 						</c:if>
@@ -121,11 +121,12 @@
 		</tr>
 	</table>
 	</form:form>
+	</c:if>
 	<form:form id="editImage" name="editImage" method="POST" action="editImage.html" commandName="command" >
 
-   			<form:hidden path="id"/>
-   			<input type="hidden" name="popup" value="${popup}"/>
-   			<input type="hidden" name="pageId" value="${pageId}"/>
+   	<form:hidden path="id"/>
+   	<input type="hidden" name="popup" value="${popup}"/>
+   	<input type="hidden" name="pageId" value="${pageId}"/>
  	<c:if test="${popup!=1}">
     	<table width="700" border="0" align="center" cellpadding="2" cellspacing="0">
 
@@ -184,6 +185,10 @@
 		<td colspan="2">
 			&nbsp;
 		</td>
+	</tr>
+	<tr>
+	<td><input type="button" class="green" value="חדש" onclick="window.location='uploadImage.html?action=new';"/>
+	</td>
 	</tr>
 
 

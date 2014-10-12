@@ -96,6 +96,7 @@
 					    <div id="errorurltitle">				
 					</td>
 				</tr>
+				<c:if test="${websiteName!='websiteNano' }">
 				<tr class="form">
 					<td width="300" style="border:1px #bca2a2 dotted" nowrap>
 						<fmt:message key="${lang.localeId}.callForProposal.creator"/>
@@ -116,6 +117,15 @@
 						<fmt:message key="${lang.localeId}.callForProposal.requireLogin"/>
 					</td>
 				</tr>
+				</c:if>
+				<c:if test="${websiteName=='websiteNano' }">
+				<tr class="form">
+					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
+						<fmt:message key="${lang.localeId}.callForProposal.creator"/>
+						${command.creator.degreeFullNameHebrew }
+ 					</td>
+ 				</tr>
+				</c:if>
 				<tr class="form">
 					<td colspan="3" style="border:1px #bca2a2 dotted" nowrap>
 					${compulsoryFieldSign}<fmt:message key="${lang.localeId}.textualPage.inCategory"/>

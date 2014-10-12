@@ -285,26 +285,30 @@ $(document).ready(function() {
 						<authz:authorize ifAnyGranted="ROLE_IMAGE_ADMIN,ROLE_IMAGE_RESEARCHER">
 						<tr>
 							<th align="right" style="height:35">
-								<a style="text-decoration: none" href="/uploadImage.html?action=new">עריכת תמונות</a>
+								<a style="text-decoration: none" href="/uploadImage.html">עריכת תמונות</a>
 							</th>
 						</tr>
 						</authz:authorize>
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN">
+						<c:if test="${websiteName!='websiteNano' }">
 						<tr>
 							<th align="right" style="height:35">
 								<a style="text-decoration: none" href="/urls.html">צפייה בקישורים </a>
 							</th>
 						</tr>
+						</c:if>
 						<tr>
 							<th align="right" style="height:35">
 								<a style="text-decoration: none" href="/active.html">צפייה במשתמשים הפעילים </a>
 							</th>
 						</tr>
+						<c:if test="${websiteName!='websiteNano' }">
 						<tr>
 							<th align="right" style="height:35">
 								<a style="text-decoration: none" href="/funds.html">צפייה ועריכת מממנים </a>
 							</th>
 						</tr>
+						</c:if>
 						</authz:authorize>
 						
 						</c:if><!-- end > not title code 2 (not conference proposal) -->

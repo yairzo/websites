@@ -1,14 +1,14 @@
 <%@ page  pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jsp/include/include.jsp" %>
-			<div class="container clearfix">
+			<div class="container">
 				<div class="breadcrumbs clearfix">
 					<jsp:include page="location.jsp"/>
 				</div>
-				<jsp:include page="sideLinks.jsp"/>
-				<div class="content">
-					<table dir="rtl">
+				<h1 class="title">Sitemap</h1>
+				<div class="content-box clearfix">
+					<table>
 					<tr>
-					<td style="vertical-align:top" dir="rtl">
+					<!-- <td style="vertical-align:top" dir="rtl">
 				   		<ul class="list_content_rtl">
  						<li>
 						<a href="${rootCategoryHeb.url}">${rootCategoryHeb.name}</a>
@@ -46,14 +46,14 @@
   						</c:choose> 
   						</li>
   						</ul>
- 					</td>
+ 					</td>-->
  					<td style="vertical-align:top" dir="ltr">	
-  				  		<ul class="list_content_ltr">
+  				  		<ul>
  						<li>
 						<a href="${rootCategoryEng.url}">${rootCategoryEng.name}</a>
     					<c:choose>
     					<c:when test="${fn:length(engCategories) > 0}">
-    					<ul  class="list_content_${lang.dir}">
+    					<ul>
 						<c:forEach items="${engCategories}" var="engCategory" varStatus="varStatus">
  							<li>
  							<a href="${engCategory.url}">${engCategory.name}</a>
