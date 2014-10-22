@@ -18,33 +18,14 @@ import huard.iws.model.ImageGalleryItem;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-/*import com.googlecode.ehcache.annotations.Cacheable;
-import com.googlecode.ehcache.annotations.KeyGenerator;
-import com.googlecode.ehcache.annotations.Property;
-import com.googlecode.ehcache.annotations.TriggersRemove;*/
 
 public class JdbcImageGalleryMapDao extends SimpleJdbcDaoSupport implements ImageGalleryMapDao{
 	private static final Logger logger = Logger.getLogger(JdbcImageGalleryMapDao.class);
 	
-	/*@TriggersRemove(cacheName="imageGalleryCache", 
-	        keyGenerator = @KeyGenerator (
-	                name = "HashCodeCacheKeyGenerator",
-	                properties = @Property( name="includeMethod", value="false" )
-	            )
-	        )*/
 	   	
 	public void invalidateImageGalleryMap(PersonBean userBean){
 		return;
 	}
-	
-	/*@Cacheable(cacheName="imageGalleryCache", 
-			keyGenerator = @KeyGenerator (
-					name = "HashCodeCacheKeyGenerator",
-					properties = @Property( 
-							name="includeMethod", value="false" 
-							)
-					)
-			)*/
 	
 	public Map<Integer, ImageGalleryItem> getImageGalleryMap (PersonBean userBean){
 
@@ -87,6 +68,8 @@ public class JdbcImageGalleryMapDao extends SimpleJdbcDaoSupport implements Imag
             imageGalleryItem.setTitle(rs.getString("title"));
             imageGalleryItem.setText(rs.getString("text"));
             imageGalleryItem.setPlace(rs.getInt("place"));
+            imageGalleryItem.setLevel(rs.getInt("level"));
+            imageGalleryItem.setIsLink(rs.getBoolean("isLink"));
              return imageGalleryItem;
         }
 	};

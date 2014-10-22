@@ -11,8 +11,8 @@ public class ImageGalleryItemBean {
 	private String subtitle;
 	private String text;
 	private int place;
-
-
+	private int level;
+	private boolean isLink;
 	
 
 	public ImageGalleryItemBean( ImageGalleryItem imageGalleryItem){
@@ -23,6 +23,9 @@ public class ImageGalleryItemBean {
 		this.subtitle = imageGalleryItem.getSubtitle();
 		this.text = imageGalleryItem.getText();
 		this.place = imageGalleryItem.getPlace();
+		this.level = imageGalleryItem.getLevel();
+		this.isLink = imageGalleryItem.isLink();
+
 	}
 
 	public ImageGalleryItem toGalleryItem(){
@@ -34,6 +37,8 @@ public class ImageGalleryItemBean {
 		imageGalleryItem.setSubtitle(subtitle);
 		imageGalleryItem.setText(text);
 		imageGalleryItem.setPlace(place);
+		imageGalleryItem.setLevel(level);
+		imageGalleryItem.setIsLink(isLink);
 		return imageGalleryItem;
 	}
 	
@@ -74,6 +79,17 @@ public class ImageGalleryItemBean {
 		this.url = url;
 	}
 
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
 
-
+	public boolean isLink() {
+		return isLink;
+	}
+	public void setIsLink(boolean isLink) {
+		this.isLink = isLink;
+	}
 }

@@ -34,6 +34,8 @@ public interface TextualPageDao {
 	public void removeTextualPageOnline(int id);
 	
 	public List<TextualPage> getTextualPages(ListView lv,TextualPageSearchCreteria searchCreteria);
+	
+	public List<TextualPage> getTextualPagesByTitle(String title);
 
 	public int countTextualPages(ListView lv,TextualPageSearchCreteria searchCreteria);
 

@@ -273,6 +273,13 @@ $(document).ready(function() {
 								<a style="text-decoration: none" href="/categories.html">עריכת קטגוריות לאתר </a>
 							</th>
 						</tr>
+						<c:if test="${websiteName=='websiteNano' }">
+						<tr>
+							<th align="right" style="height:35">
+								<a style="text-decoration: none" href="/galleryList.html">עריכת גלריות</a>
+							</th>
+						</tr>
+						</c:if>
 						</authz:authorize>
 
 						<authz:authorize ifAnyGranted="ROLE_WEBSITE_ADMIN,ROLE_IMAGE_ADMIN,ROLE_IMAGE_RESEARCHER">

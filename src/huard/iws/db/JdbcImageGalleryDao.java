@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.context.MessageSource;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -44,13 +46,19 @@ public class JdbcImageGalleryDao extends SimpleJdbcDaoSupport implements ImageGa
 		return imageGalleryItems;
 	}
 	
-	
-	public List<ImageGalleryItem> getWebsiteImages(int website){
+	public  List<ImageGalleryItem> getGalleries(){
+		String query = "select * from imageGallery where parentId=0";
+		logger.info(query);
+		List<ImageGalleryItem> imageGalleryItems =	getSimpleJdbcTemplate().query(query, rowMapper);
+		return imageGalleryItems;
+	}
+
+	/*public List<ImageGalleryItem> getWebsiteImages(int website){
 		String query = "select * from imageGallery where websiteId=? and url<>'' order by parentId, place";
 		List<ImageGalleryItem> imageGalleryItems =
 				getSimpleJdbcTemplate().query(query, rowMapper, website);
 		return imageGalleryItems;
-	}
+	}*/
 	
 	public ImageGalleryItem getImageGalleryItem(int id, PersonBean userBean){
 		return imageGalleryMapDao.getImageGalleryMap(userBean).get(id);
@@ -65,18 +73,22 @@ public class JdbcImageGalleryDao extends SimpleJdbcDaoSupport implements ImageGa
             imageGalleryItem.setTitle(rs.getString("title"));
             imageGalleryItem.setText(rs.getString("text"));
             imageGalleryItem.setPlace(rs.getInt("place"));
-             return imageGalleryItem;
+            imageGalleryItem.setLevel(rs.getInt("level")); 
+            imageGalleryItem.setIsLink(rs.getBoolean("isLink"));
+            return imageGalleryItem;
         }
 	};
 
 	public void updateImageGalleryItem (ImageGalleryItem imageGalleryItem, PersonBean userBean){
-		String query = "update imageGallery set parentId = ?, url = ?, title = ?, text = ?,place = ? where id = ?";
+		String query = "update imageGallery set parentId = ?, url = ?, title = ?, text = ?,place = ?,level=?,isLink=? where id = ?";
 		getSimpleJdbcTemplate().update(query,
 				imageGalleryItem.getParentId(),
 				imageGalleryItem.getUrl(),
 				imageGalleryItem.getTitle(),
 				imageGalleryItem.getText(),
 				imageGalleryItem.getPlace(),
+				imageGalleryItem.getLevel(),
+				imageGalleryItem.isLink(),
 				imageGalleryItem.getId()
 		);
 		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
@@ -118,8 +130,8 @@ public class JdbcImageGalleryDao extends SimpleJdbcDaoSupport implements ImageGa
 		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
 	}
 	public void insertImageGalleryItem (ImageGalleryItem imageGalleryItem, PersonBean userBean){
-		String query = "insert into imageGallery set parentId=?, place=?, text=?, title=?";
-		getSimpleJdbcTemplate().update(query,imageGalleryItem.getParentId(),imageGalleryItem.getPlace(),imageGalleryItem.getText(),imageGalleryItem.getTitle());
+		String query = "insert into imageGallery set parentId=?, place=?, text=?, title=?,level=?,isLink=?, url=?";
+		getSimpleJdbcTemplate().update(query,imageGalleryItem.getParentId(),imageGalleryItem.getPlace(),imageGalleryItem.getText(),imageGalleryItem.getTitle(),imageGalleryItem.getLevel(),imageGalleryItem.isLink(),imageGalleryItem.getUrl());
 		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
 	}
 

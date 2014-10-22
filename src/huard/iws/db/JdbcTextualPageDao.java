@@ -1,6 +1,7 @@
 package huard.iws.db;
 
 import huard.iws.model.Attachment;
+import huard.iws.model.PageBodyImage;
 import huard.iws.model.Template;
 import huard.iws.model.TextualPage;
 import huard.iws.model.TextualPageOld;
@@ -314,6 +315,15 @@ public class JdbcTextualPageDao extends SimpleJdbcDaoSupport implements TextualP
 		List<TextualPage> textualPages = getSimpleJdbcTemplate().query(query, rowMapper);
 		return textualPages;
 	}
+	
+	public List<TextualPage> getTextualPagesByTitle(String term){
+		String query = "select * from textualPage where title like '%"+term+"%' or urlTitle like '%"+term+"%' and isDeleted=0";
+		logger.info(query);
+		System.out.println("111111111111111111:"+query);
+		List<TextualPage> textualPages =getSimpleJdbcTemplate().query(query, rowMapper);
+		return textualPages;
+	}
+	
 	public int countTextualPages(ListView lv,TextualPageSearchCreteria searchCreteria) {
 		String query = "select count(*) from textualPageDraft";
 		query += getWhereClause(searchCreteria);

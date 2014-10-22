@@ -479,13 +479,25 @@
     </bean>
 
 	<bean id="galleryController" class="huard.iws.web.GalleryController" parent="generalWebsiteController">
-   </bean>
+		<property name="imageGalleryService">
+            <ref bean="imageGalleryService"/>
+        </property>
+    </bean>
 	<bean id="galleryHelperController" class="huard.iws.web.GalleryHelperController" parent="generalWebsiteController">
 		<property name="imageGalleryService">
             <ref bean="imageGalleryService"/>
         </property>
 		<property name="pageBodyImageService">
             <ref bean="pageBodyImageService"/>
+        </property>
+		<property name="textualPageService">
+            <ref bean="textualPageService"/>
+        </property>
+    </bean>
+    
+	<bean id="galleryListController" class="huard.iws.web.GalleryListController" parent="generalController">
+		<property name="imageGalleryService">
+            <ref bean="imageGalleryService"/>
         </property>
     </bean>
 
@@ -1395,6 +1407,7 @@
 				<prop key="/messages.html">textualPageMessagesController</prop>
 				<prop key="/gallery.html">galleryController</prop>
 				<prop key="/galleryHelper.html">galleryHelperController</prop>
+				<prop key="/galleryList.html">galleryListController</prop>
 				<prop key="/registrationForm.html">registrationFormController</prop>
              </props>
         </property>

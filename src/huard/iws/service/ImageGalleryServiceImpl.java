@@ -25,6 +25,10 @@ public class ImageGalleryServiceImpl implements ImageGalleryService{
 		return imageGalleryItems;
 	}
 
+	public List<ImageGalleryItem> getGalleries(){
+		return imageGalleryDao.getGalleries();
+	}
+
 	public ImageGalleryItem getImageGalleryItem(int id, PersonBean userBean){
 		return imageGalleryDao.getImageGalleryItem(id, userBean);
 	}

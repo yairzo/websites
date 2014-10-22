@@ -883,10 +883,10 @@ height:314px;
 
 .gallery-details{
 -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-filter: alpha(opacity=0);
--moz-opacity: 0;
--khtml-opacity: 0;
-opacity: 0;
+filter: alpha(opacity=1);
+-moz-opacity: 1;
+-khtml-opacity: 1;
+opacity: 1;
 -webkit-transition:all 250ms ease 0s;
 -moz-transition: all 250ms ease 0s;
 transition: all 250ms ease 0s;

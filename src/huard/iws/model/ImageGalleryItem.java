@@ -12,6 +12,8 @@ public class ImageGalleryItem {
 	private String subtitle;
 	private String text;
 	private int place;
+	private int level;
+	private boolean isLink;
 
 	private List<ImageGalleryItem> subItems;
 	
@@ -23,6 +25,8 @@ public class ImageGalleryItem {
 		this.subtitle = "";
 		this.text = "";
 		this.place = 0;
+		this.level = 0;
+		this.isLink = false;
 		this.subItems = new ArrayList<ImageGalleryItem>();
 	}
 	
@@ -79,4 +83,17 @@ public class ImageGalleryItem {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	public boolean isLink() {
+		return isLink;
+	}
+	public void setIsLink(boolean isLink) {
+		this.isLink = isLink;
+	}
+
 }

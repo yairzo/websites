@@ -13,8 +13,8 @@
        
        app.factory('autoCompleteDataService', [function() {
     	    return {
-    	        getSource: function() {
-     	  		   return "/galleryHelper.html?action=getPoolPictureNames";
+    	        getSource: function(action) {
+     	  		   return "/galleryHelper.html?action="+action;
     	        }
     	    }
     	}]);
@@ -24,7 +24,7 @@
     	        restrict: 'A',
     	        link: function(scope, elem, attr, ctrl) {
     	            elem.autocomplete({
-    	                source: autoCompleteDataService.getSource(), 
+    	                source: autoCompleteDataService.getSource('getPoolPictureNames'), 
     	                minLength: 2,
     	                select: function (event, selectedItem) {
     	                    // Do something with the selected item, e.g. 
@@ -37,6 +37,24 @@
     	        }
     	    };
     	});
+
+       app.directive('autoCompletePage', function(autoCompleteDataService) {
+   	    return {
+   	        restrict: 'A',
+   	        link: function(scope, elem, attr, ctrl) {
+   	            elem.autocomplete({
+   	                source: autoCompleteDataService.getSource('getTextualPageNames'), 
+   	                minLength: 2,
+   	                select: function (event, selectedItem) {
+   	                    // Do something with the selected item, e.g. 
+   	                    scope.selectedAutocompletePage= selectedItem.item.label;
+   	                    scope.$apply();
+   	                    event.preventDefault();
+   	                }
+   	            });
+   	        }
+   	    };
+   	});
         app.directive('fileModel', ['$parse', function ($parse) {
     	    return {
     	        restrict: 'A',
@@ -57,7 +75,7 @@
         app.controller('galleryController', function($scope,$http) {
 
  			 $scope.category=${pictureCategory};
- 			 
+ 			 $scope.level=1;
 			 
 	   	     $http.get("/galleryHelper.html?action=getCategoryPictures&category="+$scope.category).success(function(data){
 				$scope.pictures = data;
@@ -70,13 +88,19 @@
 
 			  $scope.itemClicked = function (picture) {
 				$scope.selectedPictureId =picture.id;
-			    $scope.selectedPictureTitle =picture.title;
-			    $scope.selectedPictureSrc =picture.url;
-				if($scope.category==0){//if top category show subitems 
+			    $scope.selectedPictureTitle =picture.text;
+			    $scope.selectedPictureSrc =picture.title;
+				if($scope.level==1){//if first level  
+					if(${isLink}){//open page 
+						window.open("/page/"+picture.url);
+					}
+					else{// show subitems 
 				     $http.get("/galleryHelper.html?action=getCategoryPictures&category="+picture.id).success(function(data){
 				    	$scope.pictures = data;
-						 $scope.category=picture.id;
+						$scope.category=picture.id;
+						$scope.level=2;
 				     });
+					}
 				}
 			  };
 			  
@@ -90,6 +114,8 @@
 				    fd.append("pictures", JSON.stringify($scope.pictures));
 				    fd.append("deletedPictures", JSON.stringify($scope.deletedPictures));
 				    fd.append("category", $scope.category);
+				    fd.append("level", $scope.level);
+				    //alert("level:"+$scope.level);
 				    $http.post("galleryHelper.html?action=save", fd, {
 				        withCredentials: true,
 				        headers: {'Content-Type': undefined },
@@ -114,9 +140,15 @@
 			   	     });
 			  };
 			  $scope.addPicture = function () {
-				  var picture={title:"new",url:"",id:"0"};
+				  var picture={text:"new",title:"",id:"0",url:""};
 				  $scope.pictures.push(picture);
 			  };
+			  
+			  $scope.addPage = function (selectedAutocompletePage) {
+				  $scope.pictures[$scope.selectedIndex].url=selectedAutocompletePage;
+				  $scope.selectedAutocompletePage="";
+			  };
+				  
 			  $scope.deletePicture = function (id,index) {
 				  $scope.deletedPictures.push(id);
 				  $scope.pictures.splice(index,1);//local 
@@ -131,8 +163,8 @@
 			  $scope.selectedAutocompletePictureTitle="";
 			  
 			  $scope.replacePicture = function (selectedAutocomplete,selectedAutocompletePictureTitle) {
-				  $scope.pictures[$scope.selectedIndex].url=selectedAutocompletePictureTitle;
-				  $scope.pictures[$scope.selectedIndex].title = selectedAutocomplete;
+				  $scope.pictures[$scope.selectedIndex].title=selectedAutocompletePictureTitle;
+				  $scope.pictures[$scope.selectedIndex].text = selectedAutocomplete;
 				  $scope.selectedIndex=-1; 
 		 		  $scope.selectedAutocomplete="";
 		 		  $scope.selectedAutocompletePictureTitle="";

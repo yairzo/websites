@@ -13,6 +13,7 @@
 					<iframe src="https://docs.google.com/gview?url=https%3A%2F%2F${server}%2Fpage%2F${command.attachment.filename}&amp;embedded=true" style="width:686px; height:700px;" frameborder="0"></iframe>
 				</c:when>
 				<c:when test="${command.wrapExternalPage}">
+				   <c:if test="${listBean.sortEnabled}">
 					<div class="filter clearfix">
 					<h3 class="filter-title pull-left">Filter list</h3>
 					<form action="#" method="post">
@@ -31,8 +32,8 @@
 						</div>
 						<button type="submit" class="filter-submit pull-right">Filter &nbsp;<img src="/image/nano/arrow-submit.png" alt="" /></button>
 					</form>
-							
-					</div>									
+					</div>
+				   </c:if>									
 					<!--<c:if test="${aCompoundView}">
 						<div>
 						${list.preface}

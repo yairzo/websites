@@ -9,6 +9,8 @@ import huard.iws.model.ImageGalleryItem;
 
 public interface ImageGalleryDao {
 
+	public List<ImageGalleryItem> getGalleries();
+
 	public List<ImageGalleryItem> getImageGalleryItems(int parentId, PersonBean userBean);
 	
 	public List<ImageGalleryItem> getImageGalleryItems(int parentId, boolean reverseOrder, PersonBean userBean);

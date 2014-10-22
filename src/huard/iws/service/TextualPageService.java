@@ -35,6 +35,8 @@ public interface TextualPageService {
 	
 	public List<TextualPage> getTextualPages(ListView lv,TextualPageSearchCreteria searchCreteria);
 
+	public List<TextualPage> getTextualPagesByTitle(String title);
+
 	public void prepareListView(ListView lv,TextualPageSearchCreteria searchCreteria);
 	
 	public List<TextualPage> getOnlineTextualPages();

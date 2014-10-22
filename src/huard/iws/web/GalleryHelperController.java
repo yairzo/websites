@@ -4,8 +4,10 @@ import huard.iws.bean.PageBodyImageBean;
 import huard.iws.bean.PersonBean;
 import huard.iws.model.ImageGalleryItem;
 import huard.iws.model.PageBodyImage;
+import huard.iws.model.TextualPage;
 import huard.iws.service.PageBodyImageService;
 import huard.iws.service.ImageGalleryService;
+import huard.iws.service.TextualPageService;
 import huard.iws.util.RequestWrapper;
 
 import java.io.IOException;
@@ -33,14 +35,15 @@ public class GalleryHelperController extends GeneralWebsiteController{
 			Map<String, Object> model, PersonBean userPersonBean){
 		String action = request.getParameter("action", "");
 		int categoryId = request.getIntParameter("category", 0);
+		int level = request.getIntParameter("level", 0);
 		if (action.equals("getCategoryPictures")){
 			JSONArray jsonList = new JSONArray();
-			System.out.println("11111111111111 categoryId:"+categoryId);
 			List<ImageGalleryItem> imageGalleryItems = imageGalleryService.getImageGalleryItems(categoryId, userPersonBean);
 			for(ImageGalleryItem imageGalleryItem : imageGalleryItems){
 				JSONObject pictureobj = new JSONObject();
-				pictureobj.put("title", imageGalleryItem.getText());
-				pictureobj.put("url", imageGalleryItem.getTitle());
+				pictureobj.put("text", imageGalleryItem.getText());
+				pictureobj.put("title", imageGalleryItem.getTitle());
+				pictureobj.put("url", imageGalleryItem.getUrl());
 				pictureobj.put("id", ""+imageGalleryItem.getId());
 				jsonList.add(pictureobj);
 			}
@@ -57,7 +60,16 @@ public class GalleryHelperController extends GeneralWebsiteController{
 			}
 			model.put("json",  jsonList.toJSONString());
 		}
-
+		if(action.equals("getTextualPageNames")){
+			List<TextualPage> textualPages =textualPageService.getTextualPagesByTitle(request.getParameter("term", ""));
+			JSONArray jsonList = new JSONArray();
+			for (TextualPage textualPage: textualPages){
+				JSONObject pageobj = new JSONObject();
+				pageobj.put("label", textualPage.getUrlTitle());
+				jsonList.add(pageobj);
+			}
+			model.put("json",  jsonList.toJSONString());
+		}
 		if(action.equals("addPoolPicture")){
 			if (request.getRequest().getContentType().indexOf("multipart")!=-1){
 				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request.getRequest();
@@ -93,16 +105,20 @@ public class GalleryHelperController extends GeneralWebsiteController{
 					if(!pictureId.equals("0")){//update
 						ImageGalleryItem imageGalleryItem= imageGalleryService.getImageGalleryItem(new Integer(pictureId).intValue(), userPersonBean);
 						imageGalleryItem.setParentId(categoryId);
-						imageGalleryItem.setTitle(pictureobj.get("url").toString());
-						imageGalleryItem.setText(pictureobj.get("title").toString());
+						imageGalleryItem.setLevel(level);
+						imageGalleryItem.setTitle(pictureobj.get("title").toString());
+						imageGalleryItem.setText(pictureobj.get("text").toString());
+						imageGalleryItem.setUrl(pictureobj.get("url").toString());
 						imageGalleryItem.setPlace(i+1);
 						imageGalleryService.updateImageGalleryItem(imageGalleryItem, userPersonBean);
 					}
 					else{//new
 						ImageGalleryItem imageGalleryItem= new ImageGalleryItem();
 						imageGalleryItem.setParentId(categoryId);
-						imageGalleryItem.setTitle(pictureobj.get("url").toString());
-						imageGalleryItem.setText(pictureobj.get("title").toString());
+						imageGalleryItem.setLevel(level);
+						imageGalleryItem.setTitle(pictureobj.get("title").toString());
+						imageGalleryItem.setText(pictureobj.get("text").toString());
+						imageGalleryItem.setUrl(pictureobj.get("url").toString());
 						imageGalleryItem.setPlace(i+1);
 						imageGalleryItems.add(imageGalleryItem);
 						imageGalleryService.insertImageGalleryItem(imageGalleryItem, userPersonBean);
@@ -134,5 +150,11 @@ public class GalleryHelperController extends GeneralWebsiteController{
 	public void setPageBodyImageService(
 			PageBodyImageService pageBodyImageService) {
 		this.pageBodyImageService = pageBodyImageService;
+	}
+	private TextualPageService textualPageService;
+
+	public void setTextualPageService(
+			TextualPageService textualPageService) {
+		this.textualPageService = textualPageService;
 	}
 }
