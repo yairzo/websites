@@ -20,6 +20,8 @@ public interface MopDeskService {
 
 	public List<PersonBean> getPersonsListEnglish(int deskId, int titleType);
 
+	public List<PersonBean> getDeskCoordinators(int deskId);
+
 	public List<Title> getTitles();
 
 	public int getPersonDeskId(int personId);

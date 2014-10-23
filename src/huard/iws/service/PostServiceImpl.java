@@ -158,6 +158,8 @@ public class PostServiceImpl implements PostService{
 		newPost.setSelfSent(false);
 		newPost.setVerified(false);
 		newPost.setSent(false);
+		newPost.setCreatorId(userPersonBean.getId());
+		newPost.setSenderId(userPersonBean.getId());
 		postDao.updatePost(newPost);
 		return newPostId;
 	}
