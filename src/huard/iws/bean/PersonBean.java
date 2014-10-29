@@ -278,6 +278,9 @@ public class PersonBean implements Serializable {
 		fieldValueMap.put("person.homePhone", this.homePhone);
 		fieldValueMap.put("person.cellPhone", this.cellPhone);
 		fieldValueMap.put("person.roomNumber", this.roomNumber);
+		fieldValueMap.put("person.academicTitle", this.academicTitle);
+		fieldValueMap.put("person.websiteUrl", this.websiteUrl);
+		
 	}
 
 	public String getTitle() {

@@ -1,3 +1,4 @@
+<script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
 <script language="Javascript">
 
 
@@ -26,5 +27,27 @@ $(document).ready(function() {
     $('#connectDetails').click(function(){
     	$('form#form').submit();
     });
+    
+	CKEDITOR.disableAutoInline = true;
+	if(CKEDITOR.instances['editor1']==null)
+		CKEDITOR.inline('editor1');
+	if(CKEDITOR.instances['editor2']==null)
+		CKEDITOR.inline('editor2');
+
+	CKEDITOR.instances['editor1'].on('blur', function(e) {
+		var text=replaceNbsps(CKEDITOR.instances['editor1'].getData());
+	    CKEDITOR.instances['editor1'].setData(text);
+		$('.editorTextarea', $("#editor1").closest("td")).val(CKEDITOR.instances['editor1'].getData());
+	}); 
+	CKEDITOR.instances['editor2'].on('blur', function(e) {
+		var text=replaceNbsps(CKEDITOR.instances['editor2'].getData());
+	    CKEDITOR.instances['editor2'].setData(text);
+		$('.editorTextarea', $("#editor2").closest("td")).val(CKEDITOR.instances['editor2'].getData());
+	});
 });
+
+function replaceNbsps(text) {
+	text=text.replace(/&nbsp;/g,' ');
+	return text;
+}
 </script>

@@ -236,7 +236,10 @@
 					תאור מקוצר:
 				</td>
 				<td width="120">
-					<form:textarea htmlEscape="true" cssClass="green"  path="descriptionSummary" cols="80" rows="2"/>
+					<div class="editor" id="editor1" contenteditable="true" style="border:black thin dotted">
+ 							${command.descriptionSummary}<c:if test="${fn:length(command.descriptionSummary)<5}">&nbsp;&nbsp;</c:if>
+  					</div>
+           			<textarea class="green editorTextarea" id="descriptionSummary" name="descriptionSummary" cols="80" rows="4" style="display:none">${command.descriptionSummary}</textarea>
 				</td>
 			</tr>
 		</c:if>
@@ -250,7 +253,10 @@
 					תאור:
 				</td>
 				<td width="120">
-					<form:textarea htmlEscape="true" cssClass="green"  path="description" cols="80" rows="4"/>
+					<div class="editor" id="editor2" contenteditable="true" style="border:black thin dotted">
+ 							${command.description}<c:if test="${fn:length(command.description)<5}">&nbsp;&nbsp;</c:if>
+  					</div>
+           			<textarea class="green editorTextarea" id="description" name="description" cols="80" rows="4" style="display:none">${command.description}</textarea>
 				</td>
 			</tr>
 		</c:if>

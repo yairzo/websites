@@ -19,6 +19,7 @@ public class AList{
 	private String preface;
 	private String footer;
 	private long lastUpdate;
+	private int personListType;
 	
 	public static final int PERSONS_LIST_TYPE_ID = 1;
 	public static final int ORGANIZATION_UNIT_LIST_TYPE_ID = 2;
@@ -39,6 +40,7 @@ public class AList{
 		this.preface = "";
 		this.footer = "";
 		this.lastUpdate = 0;
+		this.personListType =0;
 	}
 
 	public AList(AList aList){
@@ -55,6 +57,7 @@ public class AList{
 		this.preface = aList.getPreface();
 		this.footer = aList.getFooter();
 		this.lastUpdate = aList.getLastUpdate();
+		this.personListType = aList.getPersonListType();
 	}
 
 	public boolean isSortEnabled() {
@@ -174,5 +177,13 @@ public class AList{
 
 	public void setPreface(String preface) {
 		this.preface = preface;
+	}
+	
+	public int getPersonListType() {
+		return personListType;
+	}
+
+	public void setPersonListType(int personListType) {
+		this.personListType = personListType;
 	}
 }

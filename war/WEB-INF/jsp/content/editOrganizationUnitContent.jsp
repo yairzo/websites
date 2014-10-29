@@ -1,4 +1,5 @@
 <%@ page  pageEncoding="UTF-8" %>
+<script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
 
 <script type="text/javascript">
 
@@ -24,7 +25,36 @@ $(document).ready(function() {
      	$("form#form").append("<input type=\"hidden\" name=\"action\" value=\"deleteAttribution\"/>");
      	$("form#form").submit();
      });
+     
+	CKEDITOR.disableAutoInline = true;
+	if(CKEDITOR.instances['editor1']==null)
+		CKEDITOR.inline('editor1');
+	if(CKEDITOR.instances['editor2']==null)
+		CKEDITOR.inline('editor2');
+	if(CKEDITOR.instances['editor3']==null)
+		CKEDITOR.inline('editor3');
+
+	CKEDITOR.instances['editor1'].on('blur', function(e) {
+		var text=replaceNbsps(CKEDITOR.instances['editor1'].getData());
+	    CKEDITOR.instances['editor1'].setData(text);
+		$('.editorTextarea', $("#editor1").closest("td")).val(CKEDITOR.instances['editor1'].getData());
+	}); 
+	CKEDITOR.instances['editor2'].on('blur', function(e) {
+		var text=replaceNbsps(CKEDITOR.instances['editor2'].getData());
+	    CKEDITOR.instances['editor2'].setData(text);
+		$('.editorTextarea', $("#editor2").closest("td")).val(CKEDITOR.instances['editor2'].getData());
+	});
+	CKEDITOR.instances['editor3'].on('blur', function(e) {
+		var text=replaceNbsps(CKEDITOR.instances['editor3'].getData());
+	    CKEDITOR.instances['editor3'].setData(text);
+		$('.editorTextarea', $("#editor3").closest("td")).val(CKEDITOR.instances['editor3'].getData());
+	}); 
 });
+	
+function replaceNbsps(text) {
+	text=text.replace(/&nbsp;/g,' ');
+	return text;
+}
 
 </script>
 
@@ -123,7 +153,10 @@ $(document).ready(function() {
 							תקציר תיאור:
 						</td>
 						<td>
-							<form:textarea  cssClass="green" path="descriptionSummary" cols="40" rows="10"/>
+						<div class="editor" id="editor1" contenteditable="true" style="border:black thin dotted">
+ 							${command.descriptionSummary}<c:if test="${fn:length(command.descriptionSummary)<5}">&nbsp;&nbsp;</c:if>
+  						</div>
+           				<textarea class="green editorTextarea" id="descriptionSummary" name="descriptionSummary" cols="100" rows="1" style="display:none">${command.descriptionSummary}</textarea>
 						</td>
 					</tr>
 
@@ -137,7 +170,10 @@ $(document).ready(function() {
 							תיאור:
 						</td>
 						<td>
-							<form:textarea  cssClass="green" path="description" cols="40" rows="10"/>
+						<div class="editor" id="editor2" contenteditable="true" style="border:black thin dotted">
+ 							${command.description}<c:if test="${fn:length(command.description)<5}">&nbsp;&nbsp;</c:if>
+  						</div>
+           				<textarea class="green editorTextarea" id="description" name="description" cols="100" rows="1" style="display:none">${command.description}</textarea>
 						</td>
 					</tr>
 
@@ -223,7 +259,10 @@ $(document).ready(function() {
 							איש קשר:
 						</td>
 						<td>
-							<form:input  cssClass="green" path="contact"/>
+						<div class="editor" id="editor3" contenteditable="true" style="border:black thin dotted">
+ 							${command.contact}<c:if test="${fn:length(command.contact)<5}">&nbsp;&nbsp;</c:if>
+  						</div>
+           				<textarea class="green editorTextarea" id="contact" name="contact" cols="100" rows="1" style="display:none">${command.contact}</textarea>
 						</td>
 					</tr>
 					<tr>

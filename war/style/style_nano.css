@@ -1114,6 +1114,7 @@ padding-right:125px;
 float:right;
 width:108px;
 margin:-70px 0 0 0;
+position:relative;/***hadar***/
 }
 
 .box-more, .box-contact{
@@ -1139,7 +1140,33 @@ margin:0;
 background:#cccccc;
 color:#000000;
 }
-
+/*** hadar ***/
+.contacts{
+		display:block;
+		position:absolute;
+		top:0px;
+		left:-100px;
+		z-index:2;
+		width:300px;
+		font-size:14px;
+		color:#ffffff;
+		direction:ltr;
+		text-align:left;
+		background: 0 0 rgba(80, 80, 80, 0.9);
+		border: 0;
+		height:auto !important;
+		padding: 15px 15px 15px 15px; 
+	}
+	
+.close_contact_dialog{
+	text-align:right;
+	float:right;
+}
+.close_contact_dialog:hover{
+	cursor:pointer;
+	color:#AFAFAF;
+}
+/*** end hadar ***/
 .event-details{
 margin:33px 0 0 0;
 padding:0 20px;

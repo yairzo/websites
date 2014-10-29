@@ -33,7 +33,18 @@ function onColumnDelete()
 }
 
 $(document).ready(function() {
-
+	if($('#listType').val()=='1')
+		$('#personTypeTr').show();
+	else
+		$('#personTypeTr').hide();
+	
+	$('#listType').change(function(){
+		if($('#listType').val()=='1')
+			$('#personTypeTr').show();
+		else
+			$('#personTypeTr').hide();
+	});
+	
 	$('.cancel').click(function(){
 		$('form#form').append('<input type=\"hidden\" name=\"action\" value=\"cancel\"/>');
 		$('form#form').submit();

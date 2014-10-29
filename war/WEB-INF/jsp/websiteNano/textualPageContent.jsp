@@ -68,30 +68,95 @@
 					</c:if>-->
 					<c:if test="${!aCompoundView}">
 					<div>
+						${command.html}
+					</div>
+					<div>
 						${listBean.preface}
 					</div>
+					<c:if test="${listBean.listTypeId==1 && (listBean.personListType==1 || listBean.personListType==0)}">
 					<c:forEach items="${listBean.viewableBeans}" var="viewableBean" varStatus="varStatus">
 					<div class="box">
 						<div class="clearfix">
 							<div class="box-image pull-left">
-							<img src="/imageViewer?urlTitle=${viewableBean.fields[0].text}&attachType=bodyImage" height="100px" width="100px"/>
+							<img src="/imageViewer?urlTitle=${viewableBean.imageUrl}&attachType=bodyImage" height="100px" width="100px"/>
 							</div>
 							<div class="box-text pull-left">
-							<h4 class="box-text-title"><c:out escapeXml="false" value="${viewableBean.fields[1].text}"/> <span>${viewableBean.fields[2].text}</span></h4>
-							${viewableBean.fields[3].text}
+							<h4 class="box-text-title"><c:out escapeXml="false" value="${viewableBean.degreeEnglish}"/> <c:out escapeXml="false" value="${viewableBean.firstNameEnglish}"/> <c:out escapeXml="false" value="${viewableBean.lastNameEnglish}"/> <span>${viewableBean.academicTitle} ${viewableBean.department}</span></h4>
+							${viewableBean.descriptionSummary}
 							</div>
 						</div>
 						<div id="collapse${varStatus.index}" class="box-full">
-							<p>${viewableBean.fields[5].text}</p>
+							<p></p>
 						</div>
 						<div class="box-links">
-							<a href="mailto:${viewableBean.fields[4].text}" class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
-							<c:if test="${listBean.viewableColumnsCount>5}">
-							<a href="#collapse${varStatus.index}" class="box-more">read more <img src="/image/nano/arrow-submit.png" alt="" /></a>
-							</c:if>
+							<a onclick="document.getElementById('contacts${varStatus.index}').style.display ='block';" class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
+							<div class="contacts" id="contacts${varStatus.index}" style="display:none;">
+								Email:${viewableBean.email}<br>
+								Phone:${viewableBean.phone}<br>
+								Room Number:${viewableBean.roomNumber}<br>
+								<br><div onclick="document.getElementById('contacts${varStatus.index}').style.display ='none';" class="close_contact_dialog">X</div>
+							</div>
 						</div>
 					</div>
 					</c:forEach>
+					</c:if>
+					<c:if test="${listBean.listTypeId==1 && listBean.personListType==2}">
+					<c:forEach items="${listBean.viewableBeans}" var="viewableBean" varStatus="varStatus">
+					<div class="box">
+						<div class="clearfix">
+							<div class="box-image pull-left">
+							<img src="/imageViewer?urlTitle=${viewableBean.imageUrl}&attachType=bodyImage" height="100px" width="100px"/>
+							</div>
+							<div class="box-text pull-left">
+							<h4 class="box-text-title"><c:out escapeXml="false" value="${viewableBean.degreeEnglish}"/> <c:out escapeXml="false" value="${viewableBean.firstNameEnglish}"/> <c:out escapeXml="false" value="${viewableBean.lastNameEnglish}"/> <span>${viewableBean.facultyName}</span></h4>
+							${viewableBean.descriptionSummary}
+							</div>
+						</div>
+						<div id="collapse${varStatus.index}" class="box-full">
+							<p>${viewableBean.description}</p>
+						</div>
+						<div class="box-links">
+							<a onclick="document.getElementById('contacts${varStatus.index}').style.display ='block';" class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
+							<div class="contacts" id="contacts${varStatus.index}" style="display:none;">
+								Email:${viewableBean.email}<br>
+								Phone:${viewableBean.phone}<br>
+								Website Url:${viewableBean.websiteUrl}<br>
+								Room Number:${viewableBean.roomNumber}<br>
+								<br><div onclick="document.getElementById('contacts${varStatus.index}').style.display ='none';" class="close_contact_dialog">X</div>
+							</div>
+							<a href="#collapse${varStatus.index}" class="box-more">read more <img src="/image/nano/arrow-submit.png" alt="" /></a>
+						</div>
+					</div>
+					</c:forEach>
+					</c:if>
+
+					<c:if test="${listBean.listTypeId==2}">
+					<c:forEach items="${listBean.viewableBeans}" var="viewableBean" varStatus="varStatus">
+					<div class="box">
+						<div class="clearfix">
+							<div class="box-image pull-left">
+							<img src="/imageViewer?urlTitle=${viewableBean.organizationImageUrl}&attachType=bodyImage" height="100px" width="100px"/>
+							</div>
+							<div class="box-text pull-left">
+							<h4 class="box-text-title"><c:out escapeXml="false" value="${viewableBean.organizationUnitNameEnglish}"/> <span>${viewableBean.organizationUnitShortName}</span></h4>
+							${viewableBean.descriptionSummary}
+							</div>
+						</div>
+						<div id="collapse${varStatus.index}" class="box-full">
+							<p>${viewableBean.description}</p>
+						</div>
+						<div class="box-links">
+							<a onclick="document.getElementById('contacts${varStatus.index}').style.display ='block';" class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
+							<div class="contacts" id="contacts${varStatus.index}" style="display:none;">
+								${viewableBean.organizationUnitContact}
+								<br><div onclick="document.getElementById('contacts${varStatus.index}').style.display ='none';" class="close_contact_dialog">X</div>
+							</div>
+							<a href="#collapse${varStatus.index}" class="box-more">read more <img src="/image/nano/arrow-submit.png" alt="" /></a>
+						</div>
+					</div>
+					</c:forEach>
+					</c:if>
+					
 					<div>
 						${listBean.footer}
 					</div>

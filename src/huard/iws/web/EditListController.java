@@ -144,6 +144,9 @@ public class EditListController extends GeneralFormController {
 		}
 		List<AListBean.ListType> listTypes = listService.getListTypes(request);
 		model.put("listTypes", listTypes);
+		
+		model.put("websiteName", configurationService.getConfigurationString("iws", "websiteName"));
+
 		return new ModelAndView("editList", model);
 	}
 

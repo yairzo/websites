@@ -2,6 +2,8 @@ package huard.iws.bean;
 
 import huard.iws.constant.Constants;
 import huard.iws.model.AListColumnInstruction;
+import huard.iws.model.Faculty;
+import huard.iws.service.FacultyService;
 import huard.iws.service.HelperTableService;
 import huard.iws.util.ApplicationContextProvider;
 
@@ -16,12 +18,14 @@ public abstract class ListViewableBean implements IListViewableBean{
 	protected List<AListColumnInstruction> columnInstructions;
 	protected Map<String,String> fieldValueMap;
 	private HelperTableService helperTableService;
+	private FacultyService facultyService;
 
 
 
 
 	public ListViewableBean(){
 		helperTableService = (HelperTableService) ApplicationContextProvider.getContext().getBean("helperTableService");
+		facultyService = (FacultyService) ApplicationContextProvider.getContext().getBean("facultyService");
 	}
 
 	public int getBeanTypeId(){
@@ -117,5 +121,65 @@ public abstract class ListViewableBean implements IListViewableBean{
 
 	public Map<String, String> getFieldValueMap() {
 		return fieldValueMap;
+	}
+	
+	public String getDegreeEnglish(){
+		return fieldValueMap.get("person.degreeEnglish");
+	}
+	public String getFirstNameEnglish(){
+		return fieldValueMap.get("person.firstNameEnglish");
+	}
+	public String getLastNameEnglish(){
+		return fieldValueMap.get("person.lastNameEnglish");
+	}
+	public String getDepartment(){
+		return fieldValueMap.get("person.department");
+	}	
+	public String getAcademicTitle(){
+		return fieldValueMap.get("person.academicTitle");
+	}
+	public String getRoomNumber(){
+		return fieldValueMap.get("person.roomNumber");
+	}
+	public String getFacultyName(){
+		int facultyId= new Integer(fieldValueMap.get("person.facultyId"));
+		Faculty faculty =  new Faculty();
+		try{
+			 faculty =facultyService.getFaculty(facultyId);
+			 return faculty.getNameEnglish();
+		}
+		catch(Exception e){
+			return "";
+		}
+	}
+	public String getWebsiteUrl(){
+		return fieldValueMap.get("person.websiteUrl");
+	}
+	public String getDescriptionSummary(){
+		return fieldValueMap.get("personAttribution.descriptionSummary");
+	}
+	public String getDescription(){
+		return fieldValueMap.get("personAttribution.description");
+	}
+	public String getEmail(){
+		return fieldValueMap.get("personAttribution.email");
+	}
+	public String getPhone(){
+		return fieldValueMap.get("personAttribution.phone");
+	}
+	public String getImageUrl(){
+		return fieldValueMap.get("personAttribution.imageUrl");
+	}
+	public String getOrganizationImageUrl(){
+		return fieldValueMap.get("organizationUnit.imageUrl");
+	}
+	public String getOrganizationUnitNameEnglish(){
+		return fieldValueMap.get("organizationUnit.nameEnglish");
+	}
+	public String getOrganizationUnitShortName(){
+		return fieldValueMap.get("organizationUnit.shortName");
+	}
+	public String getOrganizationUnitContact(){
+		return fieldValueMap.get("organizationUnit.contact");
 	}
 }

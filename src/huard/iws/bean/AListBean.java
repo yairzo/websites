@@ -40,6 +40,7 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 	private String preface;
 	private String footer;
 	private Timestamp lastUpdate;
+	private int personListType;
 
 	private int [] listEditableAttributionsTypes = new int [] {1};
 
@@ -105,6 +106,7 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 		this.preface = aList.getPreface();
 		this.footer = aList.getFooter();
 		this.lastUpdate = new Timestamp(aList.getLastUpdate());
+		this.personListType=aList.getPersonListType();
 		String filter="";
 		if(request!=null && request.getSession().getAttribute("filterOrganizationUnit")!=null)
 			filter=(String)request.getSession().getAttribute("filterOrganizationUnit");
@@ -128,6 +130,7 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 		aList.setPreface(preface);
 		aList.setFooter(footer);
 		aList.setLastUpdate(lastUpdate.getTime());
+		aList.setPersonListType(personListType);
 		return aList;
 	}
 
@@ -486,5 +489,11 @@ public class AListBean extends BasicBean implements IListControllerCommand{
 		this.lastUpdate = lastUpdate;
 	}
 		
+	public int getPersonListType() {
+		return personListType;
+	}
 
+	public void setPersonListType(int personListType) {
+		this.personListType = personListType;
+	}
 }

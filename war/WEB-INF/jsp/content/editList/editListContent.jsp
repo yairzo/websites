@@ -194,7 +194,7 @@
 						סוג הרשימה:
 					</td>
 					<td>
-						<form:select cssClass="green" path="listTypeId">
+						<form:select cssClass="green" path="listTypeId" id="listType">
 							<form:option value="0">בחר/י סוג רשימה</form:option>
 							<c:forEach items="${listTypes}" var="listType">
 								<form:option value="${listType.id}"> ${listType.display}</form:option>
@@ -205,7 +205,23 @@
 						<form:errors cssClass="errors" path="public"/>
 					</td>
 				</tr>
-
+				<c:if test="${websiteName=='websiteNano' }">
+				<tr class="form" id="personTypeTr" style="display:none;">
+					<td>
+						סוג רשימת אנשים:
+					</td>
+					<td>
+						<form:select cssClass="green" path="personListType">
+							<form:option value="0">בחר/י סוג רשימה</form:option>
+							<form:option value="1">technical staff</form:option>
+							<form:option value="2">faculty</form:option>
+						</form:select>
+					</td>
+					<td>
+						<form:errors cssClass="errors" path="public"/>
+					</td>
+				</tr>
+				</c:if>
 				<tr class="form">
 					<td>
 						עדכון אחרון:
