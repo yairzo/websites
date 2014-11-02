@@ -1,21 +1,15 @@
 package huard.iws.web;
 
-import huard.iws.bean.ImageGalleryItemBean;
 import huard.iws.bean.PersonBean;
-import huard.iws.bean.FundBean;
-import huard.iws.bean.RegistrationFormBean;
-import huard.iws.service.FundService;
 import huard.iws.service.ImageGalleryService;
 import huard.iws.util.ListView;
 import huard.iws.util.RequestWrapper;
 import huard.iws.util.SearchCreteria;
-import huard.iws.model.Fund;
 import huard.iws.model.ImageGalleryItem;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,6 +27,7 @@ public class GalleryListController extends GeneralFormController {
 		if(action.equals("save")){
 			ImageGalleryItem imageGallery = new ImageGalleryItem();
 			imageGallery.setText(request.getParameter("galleryName",""));
+			imageGallery.setUrl(request.getParameter("galleryUrl",""));
 			imageGallery.setParentId(0);
 			imageGallery.setLevel(0);
 			imageGallery.setIsLink(request.getIntParameter("galleryType",0)==0?false:true);
@@ -40,7 +35,8 @@ public class GalleryListController extends GeneralFormController {
 		}
 		if(action.equals("update")){
 			ImageGalleryItem imageGallery = imageGalleryService.getImageGalleryItem(request.getIntParameter("category", 0), userPersonBean);
-			imageGallery.setText(request.getParameter("gallery"+request.getIntParameter("category", 0),""));
+			imageGallery.setText(request.getParameter("name"+request.getIntParameter("category", 0),""));
+			imageGallery.setUrl(request.getParameter("url"+request.getIntParameter("category", 0),""));
 			imageGalleryService.updateImageGalleryItem(imageGallery, userPersonBean);
 		}
 		if(action.equals("delete")){

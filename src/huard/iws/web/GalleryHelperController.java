@@ -43,7 +43,7 @@ public class GalleryHelperController extends GeneralWebsiteController{
 				JSONObject pictureobj = new JSONObject();
 				pictureobj.put("text", imageGalleryItem.getText());
 				pictureobj.put("title", imageGalleryItem.getTitle());
-				pictureobj.put("url", imageGalleryItem.getUrl());
+				pictureobj.put("textualPageUrlTitle", imageGalleryItem.getTextualPageUrlTitle());
 				pictureobj.put("id", ""+imageGalleryItem.getId());
 				jsonList.add(pictureobj);
 			}
@@ -108,7 +108,7 @@ public class GalleryHelperController extends GeneralWebsiteController{
 						imageGalleryItem.setLevel(level);
 						imageGalleryItem.setTitle(pictureobj.get("title").toString());
 						imageGalleryItem.setText(pictureobj.get("text").toString());
-						imageGalleryItem.setUrl(pictureobj.get("url").toString());
+						imageGalleryItem.setTextualPageUrlTitle(pictureobj.get("textualPageUrlTitle").toString());
 						imageGalleryItem.setPlace(i+1);
 						imageGalleryService.updateImageGalleryItem(imageGalleryItem, userPersonBean);
 					}
@@ -118,7 +118,7 @@ public class GalleryHelperController extends GeneralWebsiteController{
 						imageGalleryItem.setLevel(level);
 						imageGalleryItem.setTitle(pictureobj.get("title").toString());
 						imageGalleryItem.setText(pictureobj.get("text").toString());
-						imageGalleryItem.setUrl(pictureobj.get("url").toString());
+						imageGalleryItem.setTextualPageUrlTitle(pictureobj.get("textualPageUrlTitle").toString());
 						imageGalleryItem.setPlace(i+1);
 						imageGalleryItems.add(imageGalleryItem);
 						imageGalleryService.insertImageGalleryItem(imageGalleryItem, userPersonBean);

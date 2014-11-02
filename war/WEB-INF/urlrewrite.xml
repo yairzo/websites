@@ -124,7 +124,11 @@
         <from>^/([a-z]{2}_[A-Z]{2})$</from>
         <to last="true">/homePage.html?locale=$1</to>
     </rule>
-    
+    <rule>
+        <from>^/gallery/([^\s]+)</from>
+        <to last="true">/gallery.html?urlTitle=$1</to>
+    </rule>
+ 
 <!-- <outbound-rule>
         <from>/homePage.html</from>
         <to>/</to>

@@ -14,6 +14,7 @@ public class ImageGalleryItem {
 	private int place;
 	private int level;
 	private boolean isLink;
+	private String textualPageUrlTitle;
 
 	private List<ImageGalleryItem> subItems;
 	
@@ -27,6 +28,8 @@ public class ImageGalleryItem {
 		this.place = 0;
 		this.level = 0;
 		this.isLink = false;
+		this.textualPageUrlTitle="";
+
 		this.subItems = new ArrayList<ImageGalleryItem>();
 	}
 	
@@ -94,6 +97,13 @@ public class ImageGalleryItem {
 	}
 	public void setIsLink(boolean isLink) {
 		this.isLink = isLink;
+	}
+	
+	public String getTextualPageUrlTitle() {
+		return textualPageUrlTitle;
+	}
+	public void setTextualPageUrlTitle(String textualPageUrlTitle) {
+		this.textualPageUrlTitle = textualPageUrlTitle;
 	}
 
 }

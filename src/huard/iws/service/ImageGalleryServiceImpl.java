@@ -33,6 +33,10 @@ public class ImageGalleryServiceImpl implements ImageGalleryService{
 		return imageGalleryDao.getImageGalleryItem(id, userBean);
 	}
 
+	public int getCategory(String urlTitle){
+		return imageGalleryDao.getCategory(urlTitle);
+	}
+
 	public void updateImageGalleryItem (ImageGalleryItem imageGalleryItem, PersonBean userBean){
 		imageGalleryDao.updateImageGalleryItem(imageGalleryItem, userBean);
 	}

@@ -63,7 +63,11 @@ public class JdbcImageGalleryDao extends SimpleJdbcDaoSupport implements ImageGa
 	public ImageGalleryItem getImageGalleryItem(int id, PersonBean userBean){
 		return imageGalleryMapDao.getImageGalleryMap(userBean).get(id);
 	}
-
+	public int getCategory (String urlTitle){
+		String query = "select id from imageGallery where url = ?";
+		return getSimpleJdbcTemplate().queryForInt(query,urlTitle);
+	}
+	
 	ParameterizedRowMapper<ImageGalleryItem> rowMapper = new ParameterizedRowMapper<ImageGalleryItem>(){
 		public ImageGalleryItem mapRow(ResultSet rs, int rowNum) throws SQLException{
             ImageGalleryItem imageGalleryItem = new ImageGalleryItem();
@@ -75,12 +79,13 @@ public class JdbcImageGalleryDao extends SimpleJdbcDaoSupport implements ImageGa
             imageGalleryItem.setPlace(rs.getInt("place"));
             imageGalleryItem.setLevel(rs.getInt("level")); 
             imageGalleryItem.setIsLink(rs.getBoolean("isLink"));
+            imageGalleryItem.setTextualPageUrlTitle(rs.getString("textualPageUrlTitle"));
             return imageGalleryItem;
         }
 	};
 
 	public void updateImageGalleryItem (ImageGalleryItem imageGalleryItem, PersonBean userBean){
-		String query = "update imageGallery set parentId = ?, url = ?, title = ?, text = ?,place = ?,level=?,isLink=? where id = ?";
+		String query = "update imageGallery set parentId = ?, url = ?, title = ?, text = ?,place = ?,level=?,isLink=?,textualPageUrlTitle=? where id = ?";
 		getSimpleJdbcTemplate().update(query,
 				imageGalleryItem.getParentId(),
 				imageGalleryItem.getUrl(),
@@ -89,6 +94,7 @@ public class JdbcImageGalleryDao extends SimpleJdbcDaoSupport implements ImageGa
 				imageGalleryItem.getPlace(),
 				imageGalleryItem.getLevel(),
 				imageGalleryItem.isLink(),
+				imageGalleryItem.getTextualPageUrlTitle(),
 				imageGalleryItem.getId()
 		);
 		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
@@ -130,8 +136,8 @@ public class JdbcImageGalleryDao extends SimpleJdbcDaoSupport implements ImageGa
 		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
 	}
 	public void insertImageGalleryItem (ImageGalleryItem imageGalleryItem, PersonBean userBean){
-		String query = "insert into imageGallery set parentId=?, place=?, text=?, title=?,level=?,isLink=?, url=?";
-		getSimpleJdbcTemplate().update(query,imageGalleryItem.getParentId(),imageGalleryItem.getPlace(),imageGalleryItem.getText(),imageGalleryItem.getTitle(),imageGalleryItem.getLevel(),imageGalleryItem.isLink(),imageGalleryItem.getUrl());
+		String query = "insert into imageGallery set parentId=?, place=?, text=?, title=?,level=?,isLink=?, url=?, textualPageUrlTitle=?";
+		getSimpleJdbcTemplate().update(query,imageGalleryItem.getParentId(),imageGalleryItem.getPlace(),imageGalleryItem.getText(),imageGalleryItem.getTitle(),imageGalleryItem.getLevel(),imageGalleryItem.isLink(),imageGalleryItem.getUrl(),imageGalleryItem.getTextualPageUrlTitle());
 		imageGalleryMapDao.invalidateImageGalleryMap(userBean);
 	}
 

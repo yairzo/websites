@@ -66,5 +66,22 @@
 					});
 				 });
 				 
+				$('.box-contact').click(function(e) {
+					e.preventDefault();
+					e.stopPropagation();
+					//alert($(".contacts", $(this).closest(".box-links")).css('display'));
+					if($(".contacts", $(this).closest(".box-links")).css('display')=='none')
+						$(".contacts", $(this).closest(".box-links")).show();
+				});
+				$(document).click(function(e) {
+					if(!$(e.target).hasClass('contacts')) { 
+						$(".contacts").each(function (){
+							//alert($(this).css('display'));
+							if($(this).css('display')=='block')
+								$(this).hide();
+						});
+					}
+				});
+				
 				});
 				</script>

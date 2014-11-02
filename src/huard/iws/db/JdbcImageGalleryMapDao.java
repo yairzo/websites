@@ -70,6 +70,7 @@ public class JdbcImageGalleryMapDao extends SimpleJdbcDaoSupport implements Imag
             imageGalleryItem.setPlace(rs.getInt("place"));
             imageGalleryItem.setLevel(rs.getInt("level"));
             imageGalleryItem.setIsLink(rs.getBoolean("isLink"));
+            imageGalleryItem.setTextualPageUrlTitle(rs.getString("textualPageUrlTitle"));
              return imageGalleryItem;
         }
 	};

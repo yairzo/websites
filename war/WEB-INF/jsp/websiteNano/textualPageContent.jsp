@@ -81,7 +81,7 @@
 							<img src="/imageViewer?urlTitle=${viewableBean.imageUrl}&attachType=bodyImage" height="100px" width="100px"/>
 							</div>
 							<div class="box-text pull-left">
-							<h4 class="box-text-title"><c:out escapeXml="false" value="${viewableBean.degreeEnglish}"/> <c:out escapeXml="false" value="${viewableBean.firstNameEnglish}"/> <c:out escapeXml="false" value="${viewableBean.lastNameEnglish}"/> <span>${viewableBean.academicTitle} ${viewableBean.department}</span></h4>
+							<h4 class="box-text-title"><c:out escapeXml="false" value="${viewableBean.degreeEnglish}"/> <c:out escapeXml="false" value="${viewableBean.firstNameEnglish}"/> <c:out escapeXml="false" value="${viewableBean.lastNameEnglish}"/> <span>${viewableBean.title} ${viewableBean.department}</span></h4>
 							${viewableBean.descriptionSummary}
 							</div>
 						</div>
@@ -89,12 +89,11 @@
 							<p></p>
 						</div>
 						<div class="box-links">
-							<a onclick="document.getElementById('contacts${varStatus.index}').style.display ='block';" class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
-							<div class="contacts" id="contacts${varStatus.index}" style="display:none;">
+							<a class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
+							<div class="contacts" style="display:none;">
 								Email:${viewableBean.email}<br>
 								Phone:${viewableBean.phone}<br>
 								Room Number:${viewableBean.roomNumber}<br>
-								<br><div onclick="document.getElementById('contacts${varStatus.index}').style.display ='none';" class="close_contact_dialog">X</div>
 							</div>
 						</div>
 					</div>
@@ -116,13 +115,12 @@
 							<p>${viewableBean.description}</p>
 						</div>
 						<div class="box-links">
-							<a onclick="document.getElementById('contacts${varStatus.index}').style.display ='block';" class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
-							<div class="contacts" id="contacts${varStatus.index}" style="display:none;">
+							<a class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
+							<div class="contacts" style="display:none;">
 								Email:${viewableBean.email}<br>
 								Phone:${viewableBean.phone}<br>
 								Website Url:${viewableBean.websiteUrl}<br>
 								Room Number:${viewableBean.roomNumber}<br>
-								<br><div onclick="document.getElementById('contacts${varStatus.index}').style.display ='none';" class="close_contact_dialog">X</div>
 							</div>
 							<a href="#collapse${varStatus.index}" class="box-more">read more <img src="/image/nano/arrow-submit.png" alt="" /></a>
 						</div>
@@ -146,10 +144,9 @@
 							<p>${viewableBean.description}</p>
 						</div>
 						<div class="box-links">
-							<a onclick="document.getElementById('contacts${varStatus.index}').style.display ='block';" class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
-							<div class="contacts" id="contacts${varStatus.index}" style="display:none;">
+							<a class="box-contact"><img src="/image/nano/i-contact.png" alt="" /> contact</a>
+							<div class="contacts" style="display:none;">
 								${viewableBean.organizationUnitContact}
-								<br><div onclick="document.getElementById('contacts${varStatus.index}').style.display ='none';" class="close_contact_dialog">X</div>
 							</div>
 							<a href="#collapse${varStatus.index}" class="box-more">read more <img src="/image/nano/arrow-submit.png" alt="" /></a>
 						</div>

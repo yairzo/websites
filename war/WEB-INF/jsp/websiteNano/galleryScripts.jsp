@@ -1,3 +1,4 @@
+<%@ page  pageEncoding="UTF-8" %>
  
  <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.js"></script>
  <link href="/style/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">	 
@@ -92,7 +93,7 @@
 			    $scope.selectedPictureSrc =picture.title;
 				if($scope.level==1){//if first level  
 					if(${isLink}){//open page 
-						window.open("/page/"+picture.url);
+						window.open("/page/"+picture.textualPageUrlTitle);
 					}
 					else{// show subitems 
 				     $http.get("/galleryHelper.html?action=getCategoryPictures&category="+picture.id).success(function(data){
@@ -116,7 +117,7 @@
 				    fd.append("category", $scope.category);
 				    fd.append("level", $scope.level);
 				    //alert("level:"+$scope.level);
-				    $http.post("galleryHelper.html?action=save", fd, {
+				    $http.post("/galleryHelper.html?action=save", fd, {
 				        withCredentials: true,
 				        headers: {'Content-Type': undefined },
 				        transformRequest: angular.identity
@@ -140,13 +141,14 @@
 			   	     });
 			  };
 			  $scope.addPicture = function () {
-				  var picture={text:"new",title:"",id:"0",url:""};
+				  var picture={text:"new",title:"",id:"0",textualPageUrlTitle:""};
 				  $scope.pictures.push(picture);
 			  };
 			  
 			  $scope.addPage = function (selectedAutocompletePage) {
-				  $scope.pictures[$scope.selectedIndex].url=selectedAutocompletePage;
+				  $scope.pictures[$scope.selectedIndex].textualPageUrlTitle=selectedAutocompletePage;
 				  $scope.selectedAutocompletePage="";
+				  $scope.pageLabel="הקישור לדף נשמר בהצלחה";
 			  };
 				  
 			  $scope.deletePicture = function (id,index) {
@@ -168,13 +170,14 @@
 				  $scope.selectedIndex=-1; 
 		 		  $scope.selectedAutocomplete="";
 		 		  $scope.selectedAutocompletePictureTitle="";
+		 		  $scope.pageLabel="";
 		      };
 			  $scope.uploadFile = function() {
 				    var file = $scope.pictureFile;
 				    var fd = new FormData();
 				    //Take the first selected file
 				    fd.append("file", file);
-				    $http.post("galleryHelper.html?action=addPoolPicture&newPoolPictureName="+$scope.newPoolPictureName, fd, {
+				    $http.post("/galleryHelper.html?action=addPoolPicture&newPoolPictureName="+$scope.newPoolPictureName, fd, {
 				        withCredentials: true,
 				        headers: {'Content-Type': undefined },
 				        transformRequest: angular.identity
@@ -190,6 +193,7 @@
 				  $scope.selectedIndex=-1; 
 		 		  $scope.selectedAutocomplete="";
 		 		  $scope.selectedAutocompletePictureTitle="";
+		 		  $scope.pageLabel="";
 		      };
 		});
 

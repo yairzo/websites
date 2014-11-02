@@ -47,6 +47,7 @@
 					בחירת דף המקושר לתמונה 
 					<input auto-complete-page ui-items="textualPageNames" ng-model="selectedAutocompletePage">
 					<button ng-click="addPage(selectedAutocompletePage)">הוספה</button>
+					{{pageLabel}}
 					</c:if>
 					<br><br>
 					 בחירה מתוך מאגר התמונות לפי שם התמונה (לאחר בחירת התמונה יש ללחוץ על התמונה שתופיע)	 

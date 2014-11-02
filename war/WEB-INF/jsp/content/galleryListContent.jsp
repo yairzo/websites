@@ -3,9 +3,15 @@
 
 $(document).ready(function() {
 	$("button.save").click(function(){
-		$("#form").append("<input type=\"hidden\" name=\"action\" value=\"save\"/>");
-   		$("#form").submit();
-    	return true;
+		if($("#galleryName").val()=='' || $("#galleryUrl").val()==''){
+			alert("יש להזין שם וכותרת לקישור");
+			return false;
+		}
+		else{
+			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"save\"/>");
+   			$("#form").submit();
+    		return true;
+		}
     });
 	$("button.cancelSave").click(function(){
 		$("#addGallery").hide();
@@ -13,15 +19,24 @@ $(document).ready(function() {
 		
     	return false;
     });
-
+	
+	$("button.update").click(function(e){
+		e.preventDefault();
+		var id=$(this).attr("id");
+		if($("#name"+id).val()=='' || $("#url"+id).val()==''){
+			alert("יש להזין שם וכותרת לקישור");
+			return false;
+		}
+		else{
+			$("#form").append("<input type=\"hidden\" name=\"action\" value=\"update\"/>");
+			$("#form").append("<input type=\"hidden\" name=\"category\" value=\""+id+"\"/>");
+			$("#form").submit();
+		}    
+	});
 
 });
-function changeName(category){
-	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"update\"/>");
-	$("#form").append("<input type=\"hidden\" name=\"category\" value=\""+category+"\"/>");
-	$("#form").submit();
-	
-}
+
+
 function deleteGallery(category){
 	$("#form").append("<input type=\"hidden\" name=\"action\" value=\"delete\"/>");
 	$("#form").append("<input type=\"hidden\" name=\"category\" value=\""+category+"\"/>");
@@ -53,7 +68,7 @@ function deleteGallery(category){
             	<input type="hidden" id="listViewOrderBy" name="listView.orderBy" value="${command.listView.orderBy}"/>
 
  
-			<table width="550" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+			<table width="650" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
             <tr>
                   <td colspan="2" align="center"><h1>רשימת גלריות</h1>
                   </td>
@@ -66,8 +81,8 @@ function deleteGallery(category){
 			<c:forEach items="${galleries}" var="gallery" varStatus="varStatus">
              <tbody>
    				<tr class="<c:choose><c:when test="${varStatus.index%2==0}">darker</c:when><c:otherwise>brighter</c:otherwise></c:choose>">
-				<td width="250" align="right">
-				<a href="/gallery.html?category=${gallery.id}"><c:out value="${gallery.text}"></c:out></a>
+				<td width="150" align="right">
+				<a href="/gallery/${gallery.url}"><c:out value="${gallery.text}"></c:out></a>
  				</td>
  				<td align="right">
  				<span id="actions${gallery.id}">
@@ -76,8 +91,9 @@ function deleteGallery(category){
  				<a onclick="deleteGallery(${gallery.id});">מחק</a>
  				</span>
   				<span id="changeGallery${gallery.id}" style="display:none;">
-	    			<input type="text" name="gallery${gallery.id}"/>
-	    			<button class="grey" onclick="changeName(${gallery.id});">שמור</button>
+	    				שם:<input type="text" name="name${gallery.id}" id="name${gallery.id}" value="${gallery.text}"/>
+	    				כותרת לקישור:<input type="text" name="url${gallery.id}" id="url${gallery.id}" value="${gallery.url}"/>
+	    			<button class="grey update" id="${gallery.id}">שמור</button>
 	    			<button class="grey" onclick="document.getElementById('changeGallery${gallery.id}').style.display='none';document.getElementById('actions${gallery.id}').style.display='block';return false;">בטל</button>
 				</span>
   				
@@ -96,19 +112,19 @@ function deleteGallery(category){
   			</c:choose> 
 
       </table>
-      <table width="550" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
+      <table width="650" border=0  cellspacing=0 cellpadding=2 rules="groups" dir="rtl">
       		<tbody>
       		<tr>
 	    	<td style="text-align:right;">
 			<button id="addButton" class="grey" onclick="document.getElementById('addGallery').style.display='block';document.getElementById('addButton').style.display='none';return false;">הוסף</button>
 	    	<span id="addGallery" style="display:none;">
-	    		שם הגלריה:<input type="text" name="galleryName"/>
+	    		שם הגלריה:<input type="text" name="galleryName" id="galleryName"/>
 	    		סוג הגלריה:
 	    		<select name="galleryType" class="green">
  				   	<option value="0">תמונות</option>
  				   	<option value="1">דפי טקסט</option>
  				</select>			  
- 
+	    		שם לקישור:<input type="text" name="galleryUrl" id="galleryUrl"/>
 	    		<button class="grey save">שמור</button>
 	    		<button class="grey cancelSave">בטל</button>
 			</span>

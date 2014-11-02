@@ -13,6 +13,7 @@ public class ImageGalleryItemBean {
 	private int place;
 	private int level;
 	private boolean isLink;
+	private String textualPageUrlTitle;
 	
 
 	public ImageGalleryItemBean( ImageGalleryItem imageGalleryItem){
@@ -25,7 +26,7 @@ public class ImageGalleryItemBean {
 		this.place = imageGalleryItem.getPlace();
 		this.level = imageGalleryItem.getLevel();
 		this.isLink = imageGalleryItem.isLink();
-
+		this.textualPageUrlTitle = imageGalleryItem.getTextualPageUrlTitle();
 	}
 
 	public ImageGalleryItem toGalleryItem(){
@@ -39,6 +40,7 @@ public class ImageGalleryItemBean {
 		imageGalleryItem.setPlace(place);
 		imageGalleryItem.setLevel(level);
 		imageGalleryItem.setIsLink(isLink);
+		imageGalleryItem.setTextualPageUrlTitle(textualPageUrlTitle);
 		return imageGalleryItem;
 	}
 	
@@ -91,5 +93,12 @@ public class ImageGalleryItemBean {
 	}
 	public void setIsLink(boolean isLink) {
 		this.isLink = isLink;
+	}
+	
+	public String getTextualPageUrlTitle() {
+		return textualPageUrlTitle;
+	}
+	public void setTextualPageUrlTitle(String textualPageUrlTitle) {
+		this.textualPageUrlTitle = textualPageUrlTitle;
 	}
 }

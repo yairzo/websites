@@ -15,7 +15,7 @@ CKEDITOR.editorConfig = function( config ) {
     		'theme' : 'textmate' // the theme of the code editor
     	};	*/
 	config.removeButtons = 'NewPage,Templates,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,'
-		+'Flash,Smiley,PageBreak,Iframe,SpecialChar,Blockquote,Underline,Subscript,Superscript,ShowBlocks,Styles';
+		+'Flash,Smiley,PageBreak,SpecialChar,Blockquote,Underline,Subscript,Superscript,ShowBlocks,Styles';
 
 	config.format_tags = 'p;h1;h2;h3;pre';
 	

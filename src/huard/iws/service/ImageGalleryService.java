@@ -16,6 +16,8 @@ public interface ImageGalleryService {
 
 	public ImageGalleryItem getImageGalleryItem(int id, PersonBean userBean);
 
+	public int getCategory(String urlTitle);
+
 	public void moveImageGalleryItemUp (int id, PersonBean userBean);
 
 	public void moveImageGalleryItemDown (int id, PersonBean userBean);

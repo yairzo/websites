@@ -138,6 +138,9 @@ public abstract class ListViewableBean implements IListViewableBean{
 	public String getAcademicTitle(){
 		return fieldValueMap.get("person.academicTitle");
 	}
+	public String getTitle(){
+		return fieldValueMap.get("personAttribution.title");
+	}
 	public String getRoomNumber(){
 		return fieldValueMap.get("person.roomNumber");
 	}

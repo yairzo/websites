@@ -17,6 +17,8 @@ public interface ImageGalleryDao {
 
 	public ImageGalleryItem getImageGalleryItem(int id, PersonBean userBean);
 
+	public int getCategory(String urlTitle);
+
 	public void updateImageGalleryItem(ImageGalleryItem imageGalleryItem, PersonBean userBean);
 
 	public int insertImageGalleryItem(int parentId, Locale locale, PersonBean userBean);
