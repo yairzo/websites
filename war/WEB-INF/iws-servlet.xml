@@ -482,6 +482,9 @@
 		<property name="imageGalleryService">
             <ref bean="imageGalleryService"/>
         </property>
+		<property name="generalService">
+            <ref bean="generalService"/>
+        </property>
     </bean>
 	<bean id="galleryHelperController" class="huard.iws.web.GalleryHelperController" parent="generalWebsiteController">
 		<property name="imageGalleryService">

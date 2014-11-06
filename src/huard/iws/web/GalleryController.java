@@ -3,6 +3,7 @@ package huard.iws.web;
 import huard.iws.bean.PersonBean;
 import huard.iws.bean.TextualPageBean;
 import huard.iws.model.ImageGalleryItem;
+import huard.iws.service.GeneralService;
 import huard.iws.service.ImageGalleryService;
 import huard.iws.util.RequestWrapper;
 
@@ -30,6 +31,7 @@ public class GalleryController extends GeneralWebsiteController{
 		model.put("title", imageGalleryItem.getText());
 		
 		model.put("isLink", imageGalleryItem.isLink());
+		model.put("updateTime", generalService.getLastUpdate());
 		
 		if(userPersonBean.isAuthorized("ROLE_WEBSITE_ADMIN"))
 			model.put("canEditGallery", true);
@@ -43,4 +45,10 @@ public class GalleryController extends GeneralWebsiteController{
 	public void setImageGalleryService(ImageGalleryService imageGalleryService) {
 		this.imageGalleryService = imageGalleryService;
 	}
+	public GeneralService generalService;
+
+	public void setGeneralService(GeneralService generalService) {
+		this.generalService = generalService;
+	}
+
 }
