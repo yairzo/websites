@@ -36,6 +36,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 public class MailMessageServiceImpl implements MailMessageService{
 	private static final Logger logger = Logger.getLogger(MailMessageServiceImpl.class);
 	private final String EQF_MAIL_ADDRESS = "mop@ard.huji.ac.il";
+	private final String SENDER_MAIL_ADDRESS = "funding@research.huji.ac.il";
 	//private final String EQF_MAIL_ADDRESS = "hadar@localhost.localdomain";
 	private final String PROPOSAL_MAIL_MESSAGE_KEY = "iw_IL.eqfSystem.editProposal.mailMessage.";
 	private final String PARTNER_MAIL_MESSAGE_KEY = "iw_IL.eqfSystem.editProposal.mailMessage.";
@@ -411,13 +412,13 @@ public class MailMessageServiceImpl implements MailMessageService{
 		String postsAnnouncement;
 
 		if (posts.size() ==1){
-			postsAnnouncement = messageService.getMessage(recipient.getPreferedLocaleId() + ".post.mailMessage.postAnnouncement");
+			postsAnnouncement = messageService.getMessage(recipient.getPreferedLocaleId() + ".post.mailMessage.postAnnouncementNew");
 			if (isSelfSend){
 				postsAnnouncement = messageService.getMessage(recipient.getPreferedLocaleId() + ".post.mailMessage.postAnnouncementSelfSend");
 			}
 		}
 		else{
-			postsAnnouncement = messageService.getMessage(recipient.getPreferedLocaleId() + ".post.mailMessage.postsAnnouncement");
+			postsAnnouncement = messageService.getMessage(recipient.getPreferedLocaleId() + ".post.mailMessage.postsAnnouncementNew");
 			if (isSelfSend)
 				postsAnnouncement = messageService.getMessage(recipient.getPreferedLocaleId() + ".post.mailMessage.postsAnnouncementSelfSend");
 		}
@@ -431,14 +432,13 @@ public class MailMessageServiceImpl implements MailMessageService{
 		List<PostBean> scholarshipPostsBeans = new ArrayList<PostBean>();
 		List<PostBean> prizePostsBeans = new ArrayList<PostBean>();
 		List<PostBean> researcherExchangePostsBeans = new ArrayList<PostBean>();
-		List<PostBean> fundingMessagePostsBeans = new ArrayList<PostBean>();
-		List<PostBean> adminMessagePostsBeans = new ArrayList<PostBean>();
+		List<PostBean> messagePostsBeans = new ArrayList<PostBean>();
+		
 		for (PostBean postBean: posts){
 			if (postBean.getTypeId()==1) researchFundingPostsBeans.add(postBean);
 			if (postBean.getTypeId()==2) conferencePostsBeans.add(postBean);
 			if (postBean.getTypeId()==3) scholarshipPostsBeans.add(postBean);
-			if (postBean.getTypeId()==4) fundingMessagePostsBeans.add(postBean);
-			if (postBean.getTypeId()==5) adminMessagePostsBeans.add(postBean);
+			if (postBean.getTypeId()==4 || postBean.getTypeId()==5) messagePostsBeans.add(postBean);
 			if (postBean.getTypeId()==8) prizePostsBeans.add(postBean);
 			if (postBean.getTypeId()==9) researcherExchangePostsBeans.add(postBean);
 		}
@@ -448,10 +448,8 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("hasConferencePosts", conferencePostsBeans.size()>0?true:false);
 		model.put("scholarshipPosts", scholarshipPostsBeans);
 		model.put("hasScholarshipPosts", scholarshipPostsBeans.size()>0?true:false);
-		model.put("fundingMessagePosts", fundingMessagePostsBeans);
-		model.put("hasFundingMessagePosts", fundingMessagePostsBeans.size()>0?true:false);
-		model.put("adminMessagePosts", adminMessagePostsBeans);
-		model.put("hasAdminMessagePosts", adminMessagePostsBeans.size()>0?true:false);
+		model.put("messagePosts", messagePostsBeans);
+		model.put("hasMessagePosts", messagePostsBeans.size()>0?true:false);
 		model.put("prizePosts", prizePostsBeans);
 		model.put("hasPrizePosts", prizePostsBeans.size()>0?true:false);
 		model.put("researcherExchangePosts", researcherExchangePostsBeans);
@@ -479,8 +477,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		model.put("prizeKey","post.mailMessage.prize");
 		model.put("scholarshipKey","post.mailMessage.scholarship");
 		model.put("researchersExchangeKey","post.mailMessage.researchersExchange");
-		model.put("administrativeMessageKey","post.mailMessage.administrativeMessage");
-		model.put("fundingMessageKey","post.mailMessage.fundingMessage");
+		model.put("messageKey","post.mailMessage.message");
 
 		
 		if (personMD5 !=null )
@@ -511,8 +508,8 @@ public class MailMessageServiceImpl implements MailMessageService{
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "logo.png"));
 		resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "tag.gif"));
-		//resourcesNew.add( new FileSystemResourceWrapper (
-		//		configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_header.jpg"));
+		resourcesNew.add( new FileSystemResourceWrapper (
+				configurationService.getConfigurationString("iws", "imagesPathNew") + "bg_title.jpg"));
 		if(recipient.getPreferedLocaleId().equals("en_US")){
 			resourcesNew.add( new FileSystemResourceWrapper (
 					configurationService.getConfigurationString("iws", "imagesPathNew") + "arrow_rtl.gif"));
@@ -543,12 +540,12 @@ public class MailMessageServiceImpl implements MailMessageService{
 		if(scholarshipPostsBeans.size()>0)
 			resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-hat.gif"));
-		if(adminMessagePostsBeans.size()>0)
+		if(messagePostsBeans.size()>0)
 			resourcesNew.add( new FileSystemResourceWrapper (
 				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention.gif"));
-		if(fundingMessagePostsBeans.size()>0)
-			resourcesNew.add( new FileSystemResourceWrapper (
-				configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention-dollar.gif"));
+		//if(fundingMessagePostsBeans.size()>0)
+		//	resourcesNew.add( new FileSystemResourceWrapper (
+		//		configurationService.getConfigurationString("iws", "imagesPathNew") + "i-attention-dollar.gif"));
 
 		List<Attachment> attachments = new ArrayList<Attachment>();
 		for (PostBean postBean: posts){
@@ -559,7 +556,7 @@ public class MailMessageServiceImpl implements MailMessageService{
 		if(recipient.isPostNewDesign()){
 			body = VelocityEngineUtils.mergeTemplateIntoString(
 			           velocityEngine, "postsMailMessageNew.vm", model);
-			messageService.sendMail(recipient.getEmail(), EQF_MAIL_ADDRESS, postsSubject, body, resourcesNew);
+			messageService.sendMail(recipient.getEmail(), SENDER_MAIL_ADDRESS, postsSubject, body, resourcesNew);
 		}
 	}
 

@@ -18,6 +18,7 @@ import huard.iws.util.BaseUtils;
 import huard.iws.util.DateUtils;
 import huard.iws.util.LanguageUtils;
 import huard.iws.util.RequestWrapper;
+import huard.iws.web.CallForProposalController.CallForProposalContact;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -153,6 +156,16 @@ public class EditPostController extends GeneralFormController {
 				tmpPost.setLocaleId(callForProposalBean.getLocaleId());
 				tmpPost.setTypeId(postService.getPostTypeFromCP(callForProposalBean.getTypeId()));
 				tmpPost.setCallForProposalUrlTitle(callForProposalBean.getUrlTitle());
+				String budgetDetails = callForProposalBean.getBudgetDetails();
+				String additionalAddresses="";
+				Pattern p = Pattern.compile("mailto:([^\"]*)");
+				Matcher m = p.matcher(budgetDetails);
+				while(m.find()){
+					additionalAddresses=additionalAddresses+","+m.group(1);
+				}
+				if(additionalAddresses.length()>1)
+					additionalAddresses=additionalAddresses.substring(1);
+				tmpPost.setAdditionalAddresses(additionalAddresses);
 				List<Integer> subjectsIds = callForProposalBean.getSubjectsIds();
 				for (int subjectId: subjectsIds){
 					tmpPost.getSubjectsIds().add(subjectId);

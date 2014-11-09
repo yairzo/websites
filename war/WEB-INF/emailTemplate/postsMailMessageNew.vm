@@ -20,7 +20,7 @@
 	<tr><td width="100%" height="1" bgcolor="#ffffff" style="font-size:0px;line-height:0px;background:#ffffff;"></td></tr>
 	<tr>
 		<td width="100%" height="86" align="center" valign="middle" bgcolor="#f9f9fa" style="background-color:#f9f9fa;text-align:center;vertical-align:middle;">
-		<a href="#"><img src="cid:logo" width="431" height="66" border="0" alt="הרשות למחקר ופיתוח - האוניברסיטה העברית בירושלים" /></a>
+		<a href="#"><img src="cid:logo" width="431" height="66" border="0" /></a>
 		</td>
 	</tr>	
 	<tr><td width="100%" height="1" bgcolor="#d9dada" style="font-size:0px;line-height:0px;background:#d9dada;"></td></tr>
@@ -30,8 +30,7 @@
 				<tr><td width="570" height="10" style="font-size:0px;line-height:0px;"></td></tr>
 				<tr>
 					<td width="570" align="center" style="font-family:Arial;font-weight:normal;font-size:13px;color:#333333;direction:$internalDirection;text-align:center;text-decoration:none;line-height: 22px;">
-						<span style="font-size:16px;"><strong>${recipient.preferedLocaleDegreeFullName}</strong>, $messageService.getMessage($postsSubjectDateKey, $language.localeId) ${today}</span><br />
-						${postsAnnouncement}
+						<span style="font-size:16px;">${postsAnnouncement}</span>
 					</td>
 				</tr>
 				<tr><td width="570" height="10" style="font-size:0px;line-height:0px;"></td></tr>
@@ -89,6 +88,21 @@
    									#set ($postAlign ="right")
  								#end
 							
+							#if ($count>0)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td colspan="5"><hr color="#ededed"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
  								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
@@ -165,21 +179,7 @@
 							</tr>
 							#end
 							
-							#if ($count>0)
-							<tr>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="559">
-									<table width="559" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td colspan="5"><hr color="#ededed"></td>
-										</tr>
-									</table>
-								</td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							#end
+
 							#set ($count = $count + 1)
 							
 							
@@ -241,6 +241,22 @@
     								#set ($postDirection ="rtl")
    									#set ($postAlign ="right")
  								#end
+ 								
+							#if ($count>0)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td colspan="5"><hr color="#ededed"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
  								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;vertical-align:middle;">
@@ -316,21 +332,7 @@
 							</tr>
 							#end
 							
-							#if ($count>0)
-							<tr>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="559">
-									<table width="559" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td colspan="5"><hr color="#ededed"></td>
-										</tr>
-									</table>
-								</td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							#end
+
 							#set ($count = $count + 1)
 							
 							<tr>
@@ -391,6 +393,22 @@
     								#set ($postDirection ="rtl")
    									#set ($postAlign ="right")
  								#end
+ 								
+							#if ($count>0)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td colspan="5"><hr color="#ededed"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
  								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
@@ -466,21 +484,7 @@
 							</tr>
 							#end
 							
-							#if ($count>0)
-							<tr>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="559">
-									<table width="559" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td colspan="5"><hr color="#ededed"></td>
-										</tr>
-									</table>
-								</td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							#end
+
 							#set ($count = $count + 1)
 
 							<tr>
@@ -541,6 +545,23 @@
     								#set ($postDirection ="rtl")
    									#set ($postAlign ="right")
  								#end
+ 								
+							#if ($count>0)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td colspan="5"><hr color="#ededed"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
  								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
@@ -616,21 +637,6 @@
 							</tr>
 							#end
 							
-							#if ($count>0)
-							<tr>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="559">
-									<table width="559" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td colspan="5"><hr color="#ededed"></td>
-										</tr>
-									</table>
-								</td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							#end
 							#set ($count = $count + 1)
 
 							<tr>
@@ -691,7 +697,22 @@
     								#set ($postDirection ="rtl")
    									#set ($postAlign ="right")
  								#end
- 							<tr>
+							#if ($count>0)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td colspan="5"><hr color="#ededed"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end
+							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
  								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
 
@@ -766,21 +787,7 @@
 							</tr>
 							#end
 
-							#if ($count>0)
-							<tr>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="559">
-									<table width="559" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td colspan="5"><hr color="#ededed"></td>
-										</tr>
-									</table>
-								</td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							#end
+
 							#set ($count = $count + 1)
 
 							<tr>
@@ -796,7 +803,7 @@
 				</tr>
 				#end
 				
-				#if($hasAdminMessagePosts)
+				#if($hasMessagePosts)
 				<tr>
 					<td width="586">
 						<table width="586" border="0" cellpadding="0" cellspacing="0">
@@ -812,7 +819,7 @@
 											<img src="cid:i-attention" width="25" height="26" alt="" style="vertical-align:middle;" />
 										</td>
 										<td width="150" height="42" valign="middle" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:16px;color:#ffffff;direction:$internalDirection;text-align:$align;text-decoration:none;vertical-align:middle;">
-										 $messageService.getMessage($administrativeMessageKey, $language.localeId)
+										 $messageService.getMessage($messageKey, $language.localeId)
 										</td>
 									</tr>
 									</table>
@@ -833,7 +840,7 @@
 								<td width="8" height="9" valign="top" style="line-height:9px;"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
 							</tr>
 							#set ($count = 0)
-							#foreach ($post in $adminMessagePosts)
+							#foreach ($post in $messagePosts)
 								#if ($post.localeId=="en_US")
     								#set ($postDirection ="ltr")
     								#set ($postAlign ="left")
@@ -841,6 +848,21 @@
     								#set ($postDirection ="rtl")
    									#set ($postAlign ="right")
  								#end
+							#if ($count>0)
+							<tr>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="559">
+									<table width="559" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td colspan="5"><hr color="#ededed"></td>
+										</tr>
+									</table>
+								</td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
+								<td width="8" style="font-size:0px;line-height:0px;"></td>
+							</tr>
+							#end 
  							<tr>
  								<td width="8" style="font-size:0px;line-height:0px;"></td>
  								<td width="559" align="$postAlign" valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
@@ -916,21 +938,7 @@
 							</tr>
 							#end
 
-							#if ($count>0)
-							<tr>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="559">
-									<table width="559" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td colspan="5"><hr color="#ededed"></td>
-										</tr>
-									</table>
-								</td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							#end
+
 							#set ($count = $count + 1)
 
 							<tr>
@@ -946,155 +954,6 @@
 				</tr>
 				#end
 				
-				#if ($hasFundingMessagePosts)
-				<tr>
-					<td width="586">
-						<table width="586" border="0" cellpadding="0" cellspacing="0">
-							<tr>
-								<td width="8" height="42"></td>
-								<td width="334" height="42"></td>
-								<td width="42" height="42" align="center" valign="middle" bgcolor="#565656" style="background:#565656;text-align:center;vertical-align:middle;"><img src="cid:arrow_$direction" alt="" /></td>
-								<td width="1" height="42" style="font-size:0px;line-height:0px;"></td>
-								<td width="193" height="42" valign="middle" align="$align" bgcolor="#04bde5" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:16px;color:#ffffff;direction:$internalDirection;text-align:$align;text-decoration:none;vertical-align:middle;">
-									<table width="192" border="0" cellpadding="0" cellspacing="0">
-									<tr>
-										<td width="30" height="42" valign="middle" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:16px;color:#ffffff;direction:$internalDirection;text-align:$align;text-decoration:none;vertical-align:middle;">
-											<img src="cid:i-attention-dollar" width="25" height="26" alt="" style="vertical-align:middle;" />
-										</td>
-										<td width="150" height="42" valign="middle" style="background:#04bde5;font-family:Arial;font-weight:bold;font-size:16px;color:#ffffff;direction:$internalDirection;text-align:$align;text-decoration:none;vertical-align:middle;">
-										 $messageService.getMessage($fundingMessageKey, $language.localeId)
-										</td>
-									</tr>
-									</table>
-								</td>
-								<td width="8" height="42" bgcolor="#04bde5" style="background:#04bde5;font-size:0px;line-height:0px;"></td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td width="586">
-						<table width="586" border="0" cellpadding="0" cellspacing="0">
-							<tr>
-								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
-								<td width="559" height="9" style="font-size:0px;line-height:0px;"></td>
-								<td width="8" height="9" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" height="9" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" height="9" valign="top" style="line-height:9px;"><img src="cid:triangle_$direction" width="8" height="9" alt="" style="display:block;vertical-align:top;" /></td>
-							</tr>
-							#set ($count = 0)
-							#foreach ($post in $fundingMessagePosts)
-								#if ($post.localeId=="en_US")
-    								#set ($postDirection ="ltr")
-    								#set ($postAlign ="left")
-								#else
-    								#set ($postDirection ="rtl")
-   									#set ($postAlign ="right")
- 								#end
- 							<tr>
- 								<td width="8" style="font-size:0px;line-height:0px;"></td>
- 								<td width="559" align=$postAlign valign="middle" style="font-family:Arial;direction:$postDirection;text-align:$postAlign;text-decoration:none;vertical-align:middle;">
-
-								$post.messageNewFormatted
-
-								</td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							<tr>
-								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
-								<td width="559" height="15" style="font-size:0px;line-height:0px;"></td>
-								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" height="15" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" height="15" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							<tr>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="559">
-									#if ($post.localeId==$recipient.preferedLocaleId)
-									<table width="559" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td width="432" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
-											$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId) ${post.recipientPostCommonSubjectsString}
-											 </td>
-											<td width="6" height="30" style="font-size:0px;line-height:0px;"></td>
-											<td width="18" height="30" valign="middle" style="font-size:0px;line-height:0px;"><img src="cid:tag" width="18" height="18" alt=""style="vertical-align:center;" /></td>
-											<td width="10" height="30" style="font-size:0px;line-height:0px;"></td>
-											<td width="93" bgcolor="#565656" style="text-align:center" ><a href="https://$server/call_for_proposal/$post.callForProposalUrlTitle" style="background:#565656;display:block;width:93px;height:30px;font-family:Arial;font-weight:normal;font-size:13px;color:#ffffff;text-align:center;text-decoration:none;vertical-align:middle;line-height:30px;">$messageService.getMessage($moreDetailsKey, $post.localeId)</a></td>
-										</tr>
-									</table>
-									#else
-									<table width="559" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td width="93" bgcolor="#565656" style="text-align:center"><a href="https://$server/call_for_proposal/$post.callForProposalUrlTitle" style="background:#565656;display:block;width:93px;height:30px;font-family:Arial;font-weight:normal;font-size:13px;color:#ffffff;text-align:center;text-decoration:none;vertical-align:middle;line-height:30px;">$messageService.getMessage($moreDetailsKey, $post.localeId)</a></td>
-											<td width="10" height="30" style="font-size:0px;line-height:0px;"></td>
-											<td width="18" height="30" valign="middle" style="font-size:0px;line-height:0px;"><img src="cid:tag" width="18" height="18" alt=""style="vertical-align:center;" /></td>
-											<td width="6" height="30" style="font-size:0px;line-height:0px;"></td>
-											<td width="432" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$postDirection;text-align:$postAlign;text-decoration:none;">
-											$messageService.getMessage($relevantSubjectsPrefixKey, $post.localeId) ${post.recipientPostCommonSubjectsString}
-											 </td>
-										</tr>
-									</table>
-									#end
-								</td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							#if ($post.selfSent && !$post.verified)
-							<tr>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="559">
-									<table width="559" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td width="8" height="30" style="font-size:0px;line-height:0px;"></td>
-											<td width="559" height="30" style="font-family:Arial;font-weight:normal;font-size:11px;color:#979797;direction:$direction;text-align:$align;text-decoration:none;">
-											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/approvePost.html?id=${post.id}">$messageService.getMessage($postVerificationKey, $recipient.preferedLocaleId)</a>
-											&nbsp;<img src="cid:dot"/>&nbsp;
-											<a style="color:#00a6ca;text-decoration:none;" href="https://${server}/post.html?id=${post.id}">$messageService.getMessage($postEditKey, $recipient.preferedLocaleId)</a>
-											</td>
-											<td width="8" height="30" valign="middle" style="font-size:0px;line-height:0px;"></td>
-											<td width="3" height="30" style="font-size:0px;line-height:0px;"></td>
-											<td width="8"></td>
-										</tr>
-									</table>
-								</td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							#end
-
-							#if ($count>0)
-							<tr>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="559">
-									<table width="559" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td colspan="5"><hr color="#ededed"></td>
-										</tr>
-									</table>
-								</td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							#end
-							#set ($count = $count + 1)
-
-							<tr>
-								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
-								<td width="559" height="22" style="font-size:0px;line-height:0px;"></td>
-								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
-								<td width="3" height="22" bgcolor="#ededed" style="background:#ededed;"></td>
-								<td width="8" height="22" style="font-size:0px;line-height:0px;"></td>
-							</tr>
-							#end
-						</table>
-					</td>
-				</tr>
-				#end
 				
 				<tr>
 					<td width="586" height="30">

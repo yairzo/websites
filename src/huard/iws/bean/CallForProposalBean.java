@@ -772,7 +772,8 @@ public class CallForProposalBean {
 		
 		sb.append("<p width=\"559\" align=\""+align+"\" valign=\"middle\" style=\"font-family:Arial;direction:"+dir+";text-align:"+align+";text-decoration:none;vertical-align:middle;\">");
 		sb.append("<font style=\"font-weight:bold;font-size:16px;color:#333333;text-decoration:none;\">" + title + "</font>");
-		sb.append("<br><font style=\"font-weight:normal;font-size:14px;color:#333333;line-height:18px;\">");
+		sb.append("<br><img src=\"image/post/bg_title.jpg\" height=\"7px;\" /><br>");
+		sb.append("<font style=\"font-weight:normal;font-size:14px;color:#333333;line-height:18px;\">");
 		sb.append("<strong>"+messageService.getMessage("general.callForProposal.submission", getLocaleId())+":</strong>&nbsp;");
 		if(finalSubmissionTime==0)
 			sb.append(messageService.getMessage("general.callForProposal.submissionAllYear", getLocaleId()));
@@ -803,7 +804,10 @@ public class CallForProposalBean {
 		if (deskId != 0){
 			MopDesk mopDesk = mopDeskService.getMopDesk(deskId);
 			sb.append("<strong>"+messageService.getMessage("general.callForProposal.desk", getLocaleId())+"</strong>&nbsp;");
-			sb.append(mopDesk.getDeskId());
+			if(localeId.equals("iw_IL"))
+				sb.append(mopDesk.getHebrewName());
+			else
+				sb.append(mopDesk.getEnglishName());
 			List<PersonBean> deskPersons=mopDeskService.getDeskCoordinators(deskId);
 			if(deskPersons.size()>0 && !deskPersons.get(0).getPhone().isEmpty())
 				sb.append(", "+deskPersons.get(0).getPhone());

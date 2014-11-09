@@ -111,8 +111,8 @@ public class PostBean {
 			SubjectBean subjectBean = new SubjectBean(subject, this.localeId);
 			sb.append(subjectBean.getName()+", ");
 		}
-		if (sb.length() > 120){
-			String s = sb.substring(0, 120);
+		if (sb.length() > 100){
+			String s = sb.substring(0, 100);
 			s = s.substring(0, s.lastIndexOf(","));
 			s += " " + messageService.getMessage("post.moreSubjects", this.localeId);
 			sb = new StringBuilder(s);
@@ -241,6 +241,7 @@ public class PostBean {
 		newMessage=newMessage.replaceAll("<p(.*?)>", "");
 		newMessage=newMessage.replaceAll("</p>", "");
 		newMessage=newMessage.replaceAll("src=\"image/post/dot.gif\"", "src=\"cid:dot\"");
+		newMessage=newMessage.replaceAll("src=\"image/post/bg_title.jpg\"", "src=\"cid:bg_title\"");
 		return newMessage;
 	}
 	
