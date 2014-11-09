@@ -772,7 +772,7 @@ public class CallForProposalBean {
 		
 		sb.append("<p width=\"559\" align=\""+align+"\" valign=\"middle\" style=\"font-family:Arial;direction:"+dir+";text-align:"+align+";text-decoration:none;vertical-align:middle;\">");
 		sb.append("<font style=\"font-weight:bold;font-size:16px;color:#333333;text-decoration:none;\">" + title + "</font>");
-		sb.append("<br><img src=\"image/post/bg_title.jpg\" height=\"7px;\" /><br>");
+		sb.append("<br><img src=\"image/post/square.gif\" height=\"7px;\" /><br>");
 		sb.append("<font style=\"font-weight:normal;font-size:14px;color:#333333;line-height:18px;\">");
 		sb.append("<strong>"+messageService.getMessage("general.callForProposal.submission", getLocaleId())+":</strong>&nbsp;");
 		if(finalSubmissionTime==0)
