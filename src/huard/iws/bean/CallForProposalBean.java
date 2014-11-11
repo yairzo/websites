@@ -772,7 +772,7 @@ public class CallForProposalBean {
 		
 		sb.append("<p width=\"559\" align=\""+align+"\" valign=\"middle\" style=\"font-family:Arial;direction:"+dir+";text-align:"+align+";text-decoration:none;vertical-align:middle;\">");
 		sb.append("<font style=\"font-weight:bold;font-size:16px;color:#333333;text-decoration:none;\">" + title + "</font>");
-		sb.append("<br><img src=\"image/post/square.gif\" height=\"7px;\" /><br>");
+		sb.append("<br>");
 		sb.append("<font style=\"font-weight:normal;font-size:14px;color:#333333;line-height:18px;\">");
 		sb.append("<strong>"+messageService.getMessage("general.callForProposal.submission", getLocaleId())+":</strong>&nbsp;");
 		if(finalSubmissionTime==0)
@@ -793,13 +793,13 @@ public class CallForProposalBean {
 		if (! amountOfGrant.isEmpty())
 			sb.append(amountOfGrant.trim()); 
 		sb.append("&nbsp;<img src=\"image/post/dot.gif\" width=\"5\" height=\"5\" valign=\"middle\" style=\"vertical-align:middle\" alt=\"\" />&nbsp;");
-		sb.append("<strong>"+messageService.getMessage("general.callForProposal.deskPrefix", getLocaleId())+"</strong>&nbsp;");
+		sb.append("<strong><nobr>"+messageService.getMessage("general.callForProposal.deskPrefix", getLocaleId())+"</nobr></strong>&nbsp;");
 		PersonBean creator=getCreator();
 		if(localeId.equals("iw_IL"))
 			sb.append(creator.getDegreeFullNameHebrew()+",&nbsp;");
 		else
 			sb.append(creator.getDegreeFullNameEnglish()+",&nbsp;");
-		sb.append("<a href=\"mailto:" + creator.getEmail() + "\" style=\"color:#00a6ca;text-decoration:none;\">" + creator.getEmail() + "</a>&nbsp;");
+		sb.append("<a href=\"mailto:" + creator.getEmail() + "\" style=\"color:#00a6ca;text-decoration:none;\">" + creator.getEmail() + "</a>");
 		sb.append("&nbsp;<img src=\"image/post/dot.gif\" width=\"5\" height=\"5\" valign=\"middle\" style=\"vertical-align:middle\" alt=\"\" />&nbsp;");
 		if (deskId != 0){
 			MopDesk mopDesk = mopDeskService.getMopDesk(deskId);

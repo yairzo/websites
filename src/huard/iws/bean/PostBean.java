@@ -241,7 +241,6 @@ public class PostBean {
 		newMessage=newMessage.replaceAll("<p(.*?)>", "");
 		newMessage=newMessage.replaceAll("</p>", "");
 		newMessage=newMessage.replaceAll("src=\"image/post/dot.gif\"", "src=\"cid:dot\"");
-		newMessage=newMessage.replaceAll("src=\"image/post/square.gif\"", "src=\"cid:square\"");
 		return newMessage;
 	}
 	
