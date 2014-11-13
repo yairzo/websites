@@ -42,7 +42,7 @@
 						<button ng-click="cancel()">ביטול </button>
 					</div>
 					
-					<div class="galleryActions" ng-show="selectedIndex > -1">
+					<div class="galleryActions" ng-show="selectedIndex > -1" style="display:none;">
 					<c:if test="${isLink}">
 					בחירת דף המקושר לתמונה 
 					<input auto-complete-page ui-items="textualPageNames" ng-model="selectedAutocompletePage">
